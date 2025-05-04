@@ -17,10 +17,13 @@
     <AvaloniaResource Include="Assets\**" />
     <None Remove="Public\Assets\Icon.ico" />
     <AvaloniaResource Include="Public\Assets\Icon.ico" />
+    <None Remove="Public\Assets\MiSans-Regular.otf" />
+    <AvaloniaResource Include="Public\Assets\MiSans-Regular.otf" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" />
     <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="Avalonia.Fonts.Inter" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
@@ -29,9 +32,9 @@
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="FluentAvaloniaUI" />
     <PackageReference Include="Material.Icons.Avalonia" />
-    <PackageReference Include="SukiUI" />
-    <PackageReference Include="SukiUI.Dock" />
+    <PackageReference Include="SkiaSharp" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,5 +54,23 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Public\Classes\Entity\q.cs" />
+    <Compile Update="Views\Main\MainWindow.axaml.cs">
+      <DependentUpon>MainWindow.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SukiUI">
+      <HintPath>..\..\..\AvaloniaApps\SukiUI\SukiUI-main\SukiUI\bin\Debug\netstandard2.0\SukiUI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Api\" />
   </ItemGroup>
 </Project>

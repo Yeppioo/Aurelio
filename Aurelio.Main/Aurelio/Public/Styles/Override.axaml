@@ -6,5 +6,43 @@
     </Design.PreviewWith>
 
     <!--  Add Styles Here  -->
-
+    <Style Selector="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontWeight" Value="{DynamicResource FontWeight}" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Duration="0:0:0.3" Property="Foreground" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="SelectableTextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontWeight" Value="{DynamicResource FontWeight}" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Duration="0:0:0.3" Property="Foreground" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="CheckBox">
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontWeight" Value="{DynamicResource FontWeight}" />
+    </Style>
+    <Style Selector="TextBox">
+        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Duration="0:0:0.3" Property="Foreground" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="PathIcon">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Duration="0:0:0.3" Property="Foreground" />
+            </Transitions>
+        </Setter>
+    </Style>
 </Styles>

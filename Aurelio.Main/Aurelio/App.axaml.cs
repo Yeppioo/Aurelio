@@ -3,17 +3,26 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
+using Aurelio.Public.Module.Services;
 using Avalonia.Markup.Xaml;
 using Aurelio.ViewModels;
 using Aurelio.Views;
+using Avalonia.Media;
+using SukiUI;
+using SukiUI.Enums;
+using SukiUI.Models;
+using MainWindow = Aurelio.Views.Main.MainWindow;
 
 namespace Aurelio;
 
 public partial class App : Application
 {
+    public static MainWindow UiRoot { get; private set; }
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
+        FluentAvalonia.Core.FAUISettings.SetAnimationsEnabledAtAppLevel(false);
+        Theme.ChangeThemeColor(Color.Parse("#0AFF81"), Color.Parse("#7B80FF"));
     }
 
     public override void OnFrameworkInitializationCompleted()
@@ -21,10 +30,9 @@ public partial class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainViewModel()
-            };
+            var win = new MainWindow();
+            UiRoot = win;
+            desktop.MainWindow = win;
         }
 
         base.OnFrameworkInitializationCompleted();
