@@ -2,9 +2,11 @@
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Dark">
             <SolidColorBrush Color="#ffffff" x:Key="TextColor" />
+            <SolidColorBrush Color="#7e7e7e" x:Key="GrayColor" />
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
             <SolidColorBrush Color="#333333" x:Key="TextColor" />
+            <SolidColorBrush Color="#7e7e7e" x:Key="GrayColor" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

@@ -41,7 +41,7 @@ public partial class NavPage : ObservableValidator
     private string _header;
     private StreamGeometry _icon;
     private NavPageType _type;
-    private object _content;
+    private object? _content;
     private bool _isVisible = true;
     public ObservableCollection<NavPage> SubPages { get; set; } = [];
 
@@ -49,7 +49,6 @@ public partial class NavPage : ObservableValidator
         IEnumerable<NavPage>? list = null)
     {
         Id = id;
-        ArgumentNullException.ThrowIfNull(content);
         _content = content;
         _header = header;
         _icon = icon == null ? Icons.Favicon : icon;

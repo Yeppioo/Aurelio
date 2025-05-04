@@ -72,6 +72,7 @@
 
   <ItemGroup>
     <Folder Include="Plugin\Api\" />
+    <Folder Include="Views\Main\Special\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,76 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Views.Main.Pages.Plugin.PluginPage"
+    x:DataType="plugin:PluginPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:base="clr-namespace:Aurelio.Plugin.Base;assembly=Aurelio.Plugin.Base"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:SukiUI.Helpers;assembly=SukiUI"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:plugin="clr-namespace:Aurelio.Views.Main.Pages.Plugin"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <suki:GlassCard HorizontalAlignment="Stretch" Margin="10,0,10,10">
+        <StackPanel Spacing="35">
+            <TextBlock
+                FontSize="17"
+                FontWeight="DemiBold"
+                Text="Loaded Plugins" />
+            <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Plugins}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="base:IPlugin">
+                        <suki:GlassCard
+                            Height="160"
+                            IsInteractive="True"
+                            Margin="5"
+                            Padding="15"
+                            Width="335"
+                            helpers:AnimationExtensions.FadeIn="500">
+                            <DockPanel>
+                                <DockPanel DockPanel.Dock="Top" Height="68">
+                                    <Border
+                                        ClipToBounds="True"
+                                        CornerRadius="10"
+                                        DockPanel.Dock="Left"
+                                        Height="64"
+                                        Width="64">
+                                        <Image Source="{Binding Icon}" />
+                                    </Border>
+                                    <ScrollViewer Margin="10,0,0,0">
+                                        <StackPanel DockPanel.Dock="Right">
+                                            <SelectableTextBlock
+                                                FontSize="15"
+                                                Text="{Binding Name}"
+                                                TextWrapping="Wrap" />
+                                            <SelectableTextBlock
+                                                FontSize="12"
+                                                Foreground="{DynamicResource GrayColor}"
+                                                Text="{Binding Version}" />
+                                            <SelectableTextBlock
+                                                FontSize="12"
+                                                Foreground="{DynamicResource GrayColor}"
+                                                Text="{Binding Author}" />
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </DockPanel>
+                                <ScrollViewer Margin="0,5,0,0">
+                                    <SelectableTextBlock
+                                        DockPanel.Dock="Bottom"
+                                        Text="{Binding Description}"
+                                        TextWrapping="Wrap" />
+                                </ScrollViewer>
+                            </DockPanel>
+                        </suki:GlassCard>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </StackPanel>
+    </suki:GlassCard>
+</UserControl>

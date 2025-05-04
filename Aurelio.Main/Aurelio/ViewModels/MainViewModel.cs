@@ -4,6 +4,7 @@ using Aurelio.Public.Classes.Entity;
 using Aurelio.Public.Content;
 using Aurelio.Public.Enum;
 using Aurelio.Views.Main.Pages.Home;
+using Aurelio.Views.Main.Pages.Plugin;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Material.Icons;
@@ -43,7 +44,7 @@ public partial class MainViewModel : ViewModelBase
     {
         NavPages.Add(new NavPage("home", "主页", new HomePage(), Icons.FromMaterial(MaterialIconKind.Home)));
 
-        FooterNavPages.Add(new NavPage("plugin", "插件", new HomePage(), Icons.FromMaterial(MaterialIconKind.Puzzle)));
+        FooterNavPages.Add(new NavPage("plugin", "插件", new PluginPage(), Icons.FromMaterial(MaterialIconKind.Puzzle)));
         FooterNavPages.Add(new NavPage("settings", "设置", new HomePage(), Icons.FromMaterial(MaterialIconKind.Settings)));
         FooterNavPages.Add(new NavPage("about", "关于", new HomePage(), Icons.FromMaterial(MaterialIconKind.About)));
 

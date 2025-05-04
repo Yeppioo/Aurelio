@@ -11,6 +11,7 @@ public partial class MainWindow : SukiWindow
 {
     public MainViewModel ViewModel => DataContext as MainViewModel;
     public IEnumerable<NavPage> NavPages => ViewModel.NavPages;
+    public IEnumerable<NavPage> FooterNavPages => ViewModel.FooterNavPages;
 
     public MainWindow()
     {

@@ -4,8 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Aurelio.Plugin.Base;
+using Aurelio.Public.Classes.Entity;
 using Aurelio.Public.Const;
 using Aurelio.Public.Module.IO;
+using Aurelio.Views.Main.Pages.Plugin;
 
 namespace Aurelio.Plugin.Services;
 
@@ -50,7 +52,11 @@ public class Loader
                 {
                     try
                     {
-                        plugin.Execute();
+                       var result = plugin.Execute();
+                       if (result == 0)
+                       {
+                           (App.UiRoot.FooterNavPages.FindById("plugin").Content as PluginPage).Plugins.Add(plugin);
+                       }
                     }
                     catch (Exception e)
                     {
