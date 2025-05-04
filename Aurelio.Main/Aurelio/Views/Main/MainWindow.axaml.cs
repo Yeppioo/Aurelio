@@ -10,13 +10,14 @@ namespace Aurelio.Views.Main;
 public partial class MainWindow : SukiWindow
 {
     public MainViewModel ViewModel => DataContext as MainViewModel;
-    public IEnumerable<NavPage> NavPages => ViewModel.NavPages;
-    public IEnumerable<NavPage> FooterNavPages => ViewModel.FooterNavPages;
+    public ObservableCollection<NavPage> NavPages => ViewModel.NavPages;
+    public ObservableCollection<NavPage> FooterNavPages => ViewModel.FooterNavPages;
 
     public MainWindow()
     {
         InitializeComponent();
         DataContext = new MainViewModel();
+        NavMenu.SelectedItem = NavPages[0];
         Loaded += (_, _) => { Public.Module.App.Init.UiLoaded.Main(); };
     }
 }

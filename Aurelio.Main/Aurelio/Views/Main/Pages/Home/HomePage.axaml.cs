@@ -15,4 +15,9 @@ public partial class HomePage : UserControl
     {
         InitializeComponent();
     }
+
+    private void Button_OnClick(object? sender, RoutedEventArgs e)
+    {
+        App.UiRoot.NavPages.FindById("Yep.Aurelio.ConvertTools").SubPages.Add(new NavPage("test", "test", new HomePage()));
+    }
 }

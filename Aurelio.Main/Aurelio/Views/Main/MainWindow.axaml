@@ -119,7 +119,10 @@
                     </ui:NavigationView.Styles>
                     <ui:NavigationView.MenuItemTemplate>
                         <DataTemplate DataType="entity:NavPage">
-                            <ui:NavigationViewItem MenuItemsSource="{Binding SubPages}">
+                            <ui:NavigationViewItem
+                                IsExpanded="{Binding IsExpanded, Mode=TwoWay}"
+                                MenuItemsSource="{Binding SubPages}"
+                                Tag="{Binding Id}">
                                 <DockPanel>
                                     <PathIcon
                                         Data="{Binding Icon}"

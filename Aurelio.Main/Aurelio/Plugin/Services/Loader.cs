@@ -55,7 +55,7 @@ public class Loader
                        var result = plugin.Execute();
                        if (result == 0)
                        {
-                           (App.UiRoot.FooterNavPages.FindById("plugin").Content as PluginPage).Plugins.Add(plugin);
+                           (App.UiRoot.FooterNavPages.FindById("Yep.Aurelio.Plugin").Content as PluginPage).Plugins.Add(plugin);
                        }
                     }
                     catch (Exception e)

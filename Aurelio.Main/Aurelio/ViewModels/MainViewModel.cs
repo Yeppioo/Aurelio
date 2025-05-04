@@ -5,6 +5,7 @@ using Aurelio.Public.Content;
 using Aurelio.Public.Enum;
 using Aurelio.Views.Main.Pages.Home;
 using Aurelio.Views.Main.Pages.Plugin;
+using Aurelio.Views.Main.Special;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Material.Icons;
@@ -42,11 +43,24 @@ public partial class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
-        NavPages.Add(new NavPage("home", "主页", new HomePage(), Icons.FromMaterial(MaterialIconKind.Home)));
+        NavPages.Add(new NavPage("Yep.Aurelio.Home", "主页", new ConstructionPage(), Icons.FromMaterial(MaterialIconKind.Home)));
+        
+        // NavPages.Add(new NavPage("Yep.Aurelio.ConvertTools", "转换工具", new ParentNavPage("Yep.Aurelio.ConvertTools"),
+        //     Icons.FromMaterial(MaterialIconKind.BriefcaseArrowLeftRight),
+        //     null, [
+        //         new NavPage("Yep.Aurelio.ConvertTools.StringTools", "字符转换", new ConstructionPage(),
+        //             Icons.FromMaterial(MaterialIconKind.FormatLetterCase), "字符串转换可实现字符大小写变换、格式调整、编码转换，精准高效。"),
+        //         new NavPage("Yep.Aurelio.ConvertTools.StringTools", "图片转换", new ConstructionPage(),
+        //             Icons.FromMaterial(MaterialIconKind.ImageSync))
+        //     ]));
 
-        FooterNavPages.Add(new NavPage("plugin", "插件", new PluginPage(), Icons.FromMaterial(MaterialIconKind.Puzzle)));
-        FooterNavPages.Add(new NavPage("settings", "设置", new HomePage(), Icons.FromMaterial(MaterialIconKind.Settings)));
-        FooterNavPages.Add(new NavPage("about", "关于", new HomePage(), Icons.FromMaterial(MaterialIconKind.About)));
+        
+        FooterNavPages.Add(new NavPage("Yep.Aurelio.Plugin", "插件", new PluginPage(),
+            Icons.FromMaterial(MaterialIconKind.Puzzle)));
+        FooterNavPages.Add(new NavPage("Yep.Aurelio.Setting", "设置", new ConstructionPage(),
+            Icons.FromMaterial(MaterialIconKind.Settings)));
+        FooterNavPages.Add(new NavPage("Yep.Aurelio.About", "关于", new ConstructionPage(),
+            Icons.FromMaterial(MaterialIconKind.About)));
 
         FilteredNavPages = NavPages;
     }
