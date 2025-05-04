@@ -1,0 +1,4 @@
+* text=auto eol=lf charset=utf-8
+
+*.axaml text charset=utf-8
+*.cs text charset=utf-8

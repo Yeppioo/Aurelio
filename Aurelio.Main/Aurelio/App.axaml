@@ -1,0 +1,13 @@
+<Application
+    RequestedThemeVariant="Default"
+    x:Class="Aurelio.App"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options.  -->
+
+    <Application.Styles>
+        <FluentTheme />
+        <sukiUi:SukiTheme Locale="zh-CN" ThemeColor="Blue" />
+    </Application.Styles>
+</Application>
