@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aurelio.Main", "Aurelio.Main", "{31555888-E700-445F-90CA-9E345A10E420}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aurelio.Plugin", "Aurelio.Plugin", "{61CB3A97-C6D1-41BE-A1A1-03DE648F9595}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aurelio.Plugin.Base", "Aurelio.Plugin\Aurelio.Plugin.Base\Aurelio.Plugin.Base.csproj", "{DEC65C98-2EEE-40CE-880D-CB3F6955E81B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +32,10 @@ Global
 		{ABC31E74-02FF-46EB-B3B2-4E6AE43B456C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABC31E74-02FF-46EB-B3B2-4E6AE43B456C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABC31E74-02FF-46EB-B3B2-4E6AE43B456C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEC65C98-2EEE-40CE-880D-CB3F6955E81B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEC65C98-2EEE-40CE-880D-CB3F6955E81B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEC65C98-2EEE-40CE-880D-CB3F6955E81B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEC65C98-2EEE-40CE-880D-CB3F6955E81B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -38,5 +46,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568} = {31555888-E700-445F-90CA-9E345A10E420}
 		{ABC31E74-02FF-46EB-B3B2-4E6AE43B456C} = {31555888-E700-445F-90CA-9E345A10E420}
+		{DEC65C98-2EEE-40CE-880D-CB3F6955E81B} = {61CB3A97-C6D1-41BE-A1A1-03DE648F9595}
 	EndGlobalSection
 EndGlobal

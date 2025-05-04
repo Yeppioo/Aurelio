@@ -20,6 +20,7 @@ public partial class App : Application
     public static MainWindow UiRoot { get; private set; }
     public override void Initialize()
     {
+        Public.Module.App.Init.Main.Init();
         AvaloniaXamlLoader.Load(this);
         FluentAvalonia.Core.FAUISettings.SetAnimationsEnabledAtAppLevel(false);
         Theme.ChangeThemeColor(Color.Parse("#0AFF81"), Color.Parse("#7B80FF"));

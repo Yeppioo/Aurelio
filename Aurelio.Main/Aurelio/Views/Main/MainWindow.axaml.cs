@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reflection;
 using Aurelio.Public.Classes.Entity;
 using Aurelio.ViewModels;
 using SukiUI.Controls;
@@ -15,5 +16,6 @@ public partial class MainWindow : SukiWindow
     {
         InitializeComponent();
         DataContext = new MainViewModel();
+        Loaded += (_, _) => { Public.Module.App.Init.UiLoaded.Main(); };
     }
 }

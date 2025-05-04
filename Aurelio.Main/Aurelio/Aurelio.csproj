@@ -71,6 +71,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Api\" />
+    <Folder Include="Plugin\Api\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Aurelio.Plugin\Aurelio.Plugin.Base\Aurelio.Plugin.Base.csproj" />
   </ItemGroup>
 </Project>
