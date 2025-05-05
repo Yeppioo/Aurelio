@@ -11,66 +11,71 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:plugin="clr-namespace:Aurelio.Views.Main.Pages.Plugin"
     xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:ui="clr-namespace:Aurelio.Public.Classes.Ui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <suki:GlassCard HorizontalAlignment="Stretch" Margin="10,0,10,10">
-        <StackPanel Spacing="35">
+    <suki:GlassCard HorizontalAlignment="Stretch" Margin="10">
+        <DockPanel>
             <TextBlock
+                DockPanel.Dock="Top"
                 FontSize="17"
                 FontWeight="DemiBold"
+                Margin="0,0,0,35"
                 Text="Loaded Plugins" />
-            <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Plugins}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="base:IPlugin">
-                        <suki:GlassCard
-                            Height="160"
-                            IsInteractive="True"
-                            Margin="5"
-                            Padding="15"
-                            Width="335"
-                            helpers:AnimationExtensions.FadeIn="500">
-                            <DockPanel>
-                                <DockPanel DockPanel.Dock="Top" Height="68">
-                                    <Border
-                                        ClipToBounds="True"
-                                        CornerRadius="10"
-                                        DockPanel.Dock="Left"
-                                        Height="64"
-                                        Width="64">
-                                        <Image Source="{Binding Icon}" />
-                                    </Border>
-                                    <ScrollViewer Margin="10,0,0,0">
-                                        <StackPanel DockPanel.Dock="Right">
-                                            <SelectableTextBlock
-                                                FontSize="15"
-                                                Text="{Binding Name}"
-                                                TextWrapping="Wrap" />
-                                            <SelectableTextBlock
-                                                FontSize="12"
-                                                Foreground="{DynamicResource GrayColor}"
-                                                Text="{Binding Version}" />
-                                            <SelectableTextBlock
-                                                FontSize="12"
-                                                Foreground="{DynamicResource GrayColor}"
-                                                Text="{Binding Author}" />
-                                        </StackPanel>
+            <ScrollViewer>
+                <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Plugins}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="ui:PluginCard">
+                            <suki:GlassCard
+                                Height="160"
+                                IsInteractive="True"
+                                Margin="5"
+                                Padding="15"
+                                Width="335"
+                                helpers:AnimationExtensions.FadeIn="500">
+                                <DockPanel>
+                                    <DockPanel DockPanel.Dock="Top" Height="68">
+                                        <Border
+                                            ClipToBounds="True"
+                                            CornerRadius="10"
+                                            DockPanel.Dock="Left"
+                                            Height="{Binding Size.Height}"
+                                            Width="{Binding Size.Width}">
+                                            <Image Source="{Binding Icon}" />
+                                        </Border>
+                                        <ScrollViewer Margin="10,0,0,0">
+                                            <StackPanel DockPanel.Dock="Right">
+                                                <SelectableTextBlock
+                                                    FontSize="15"
+                                                    Text="{Binding Name}"
+                                                    TextWrapping="Wrap" />
+                                                <SelectableTextBlock
+                                                    FontSize="12"
+                                                    Foreground="{DynamicResource GrayColor}"
+                                                    Text="{Binding Version}" />
+                                                <SelectableTextBlock
+                                                    FontSize="12"
+                                                    Foreground="{DynamicResource GrayColor}"
+                                                    Text="{Binding Author}" />
+                                            </StackPanel>
+                                        </ScrollViewer>
+                                    </DockPanel>
+                                    <ScrollViewer Margin="0,5,0,0">
+                                        <SelectableTextBlock
+                                            DockPanel.Dock="Bottom"
+                                            Text="{Binding Description}"
+                                            TextWrapping="Wrap" />
                                     </ScrollViewer>
                                 </DockPanel>
-                                <ScrollViewer Margin="0,5,0,0">
-                                    <SelectableTextBlock
-                                        DockPanel.Dock="Bottom"
-                                        Text="{Binding Description}"
-                                        TextWrapping="Wrap" />
-                                </ScrollViewer>
-                            </DockPanel>
-                        </suki:GlassCard>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </StackPanel>
+                            </suki:GlassCard>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+        </DockPanel>
     </suki:GlassCard>
 </UserControl>

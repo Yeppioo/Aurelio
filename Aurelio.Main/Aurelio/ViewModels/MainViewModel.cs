@@ -43,7 +43,7 @@ public partial class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
-        NavPages.Add(new NavPage("Yep.Aurelio.Home", "主页", new ConstructionPage(), Icons.FromMaterial(MaterialIconKind.Home)));
+        NavPages.Add(new NavPage("Yep.Aurelio.Home", "主页", new HomePage(), Icons.FromMaterial(MaterialIconKind.Home)));
         
         // NavPages.Add(new NavPage("Yep.Aurelio.ConvertTools", "转换工具", new ParentNavPage("Yep.Aurelio.ConvertTools"),
         //     Icons.FromMaterial(MaterialIconKind.BriefcaseArrowLeftRight),

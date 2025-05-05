@@ -12,11 +12,13 @@
     xmlns:special="clr-namespace:Aurelio.Views.Main.Special"
     xmlns:suki="https://github.com/kikipoulet/SukiUI"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <suki:GlassCard HorizontalAlignment="Stretch" Margin="10,0,10,10">
-        <StackPanel Spacing="35">
+    <suki:GlassCard HorizontalAlignment="Stretch" Margin="10">
+        <DockPanel>
             <TextBlock
+                DockPanel.Dock="Top"
                 FontSize="17"
                 FontWeight="DemiBold"
+                Margin="0,0,0,35"
                 Text="SubPages" />
             <ScrollViewer>
                 <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Pages}">
@@ -66,6 +68,6 @@
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
             </ScrollViewer>
-        </StackPanel>
+        </DockPanel>
     </suki:GlassCard>
 </UserControl>

@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Aurelio.Plugin.Base64Converter</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Aurelio.Main\Aurelio\Aurelio.csproj">
+            <Private>false</Private>
+            <ExcludeAssets>runtime</ExcludeAssets>
+        </ProjectReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="SukiUI">
+        <HintPath>..\..\..\AvaloniaApps\SukiUI\SukiUI-main\SukiUI\bin\Debug\netstandard2.0\SukiUI.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+</Project>

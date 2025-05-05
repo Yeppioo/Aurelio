@@ -1,4 +1,5 @@
-﻿using Avalonia.Media.Imaging;
+﻿using Avalonia.Media;
+using Avalonia.Media.Imaging;
 
 namespace Aurelio.Plugin.Base;
 
@@ -8,7 +9,7 @@ public interface IPlugin
     string Author { get; }
     string Description { get; }
     string Version { get; }
-    Bitmap Icon { get; }
+    IImage Icon { get; }
 
     int Execute();
 }

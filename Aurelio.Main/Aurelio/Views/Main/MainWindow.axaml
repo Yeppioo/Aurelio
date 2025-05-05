@@ -78,7 +78,7 @@
             HorizontalAlignment="Left"
             Margin="10,0,0,10"
             Padding="5"
-            Width="230">
+            Width="218">
             <DockPanel>
                 <TextBox
                     DockPanel.Dock="Top"
@@ -137,6 +137,9 @@
                 </ui:NavigationView>
             </DockPanel>
         </suki:GlassCard>
-        <ContentControl Content="{Binding ((entity:NavPage)SelectedItem).Content, ElementName=NavMenu}" Name="Frame" />
+        <ContentControl
+            Content="{Binding ((entity:NavPage)SelectedItem).Content, ElementName=NavMenu}"
+            Margin="0,-10,0,0"
+            Name="Frame" />
     </DockPanel>
 </suki:SukiWindow>

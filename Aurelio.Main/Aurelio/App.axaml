@@ -26,6 +26,7 @@
         <FluentTheme />
         <styling:FluentAvaloniaTheme />
         <sukiUi:SukiTheme Locale="zh-CN" ThemeColor="Blue" />
+        <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
         <StyleInclude Source="/Public/Styles/Override.axaml" />
     </Application.Styles>
 </Application>
