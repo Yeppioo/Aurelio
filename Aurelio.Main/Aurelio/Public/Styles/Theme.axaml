@@ -2,11 +2,21 @@
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Dark">
             <SolidColorBrush Color="#ffffff" x:Key="TextColor" />
+            <SolidColorBrush Color="#202020" x:Key="WindowBackground" />
+            <SolidColorBrush Color="#242424" x:Key="PageBackground" />
+            <SolidColorBrush Color="#272727" x:Key="TitleBarHoverColor" />
+            <SolidColorBrush Color="#2F2F2F" x:Key="ExpanderHoverColor" />
             <SolidColorBrush Color="#7e7e7e" x:Key="GrayColor" />
+            <SolidColorBrush Color="#383838" x:Key="BorderBrush" />
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
             <SolidColorBrush Color="#333333" x:Key="TextColor" />
+            <SolidColorBrush Color="#F2F4F7" x:Key="WindowBackground" />
+            <SolidColorBrush Color="#FFFFFF" x:Key="PageBackground" />
+            <SolidColorBrush Color="#EAEBEF" x:Key="TitleBarHoverColor" />
+            <SolidColorBrush Color="#F3F3F4" x:Key="ExpanderHoverColor" />
             <SolidColorBrush Color="#7e7e7e" x:Key="GrayColor" />
+            <SolidColorBrush Color="#EAECF0" x:Key="BorderBrush" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

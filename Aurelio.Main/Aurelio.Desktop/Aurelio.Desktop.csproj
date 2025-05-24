@@ -10,19 +10,12 @@
 
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
-    <Title>Aurelio</Title>
-    <Authors>Yep</Authors>
-    <Copyright>Yep | http://yep.vin/</Copyright>
-    <Description>Yep | http://yep.vin/</Description>
-    <PackageProjectUrl>http://yep.vin/</PackageProjectUrl>
-    <PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia.Desktop" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Include="Avalonia.Diagnostics">
+    <PackageReference Include="Avalonia.Diagnostics" >
       <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
@@ -30,20 +23,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Aurelio\Aurelio.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AvaloniaResource Remove="Icon.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Icon.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\Assets\Icon.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
   </ItemGroup>
 </Project>

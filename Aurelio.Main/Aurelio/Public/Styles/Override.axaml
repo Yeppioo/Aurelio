@@ -1,4 +1,7 @@
-﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="20">
             <!--  Add Controls for Previewer Here  -->
@@ -8,7 +11,7 @@
     <!--  Add Styles Here  -->
     <Style Selector="TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
-        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontFamily}" />
         <Setter Property="FontWeight" Value="{DynamicResource FontWeight}" />
         <Setter Property="Transitions">
             <Transitions>
@@ -18,7 +21,7 @@
     </Style>
     <Style Selector="SelectableTextBlock">
         <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
-        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontFamily}" />
         <Setter Property="FontWeight" Value="{DynamicResource FontWeight}" />
         <Setter Property="Transitions">
             <Transitions>
@@ -27,11 +30,11 @@
         </Setter>
     </Style>
     <Style Selector="CheckBox">
-        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontFamily}" />
         <Setter Property="FontWeight" Value="{DynamicResource FontWeight}" />
     </Style>
     <Style Selector="TextBox">
-        <Setter Property="FontFamily" Value="{DynamicResource Font}" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontFamily}" />
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Duration="0:0:0.3" Property="Foreground" />
@@ -42,6 +45,26 @@
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Duration="0:0:0.3" Property="Foreground" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="u|NotificationCard">
+        <Style Selector="^ SelectableTextBlock">
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+    </Style>
+    <Style Selector="Rectangle#HCPaneBorder">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="u|NotificationCard">
+        <Style Selector="^ SelectableTextBlock">
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+    </Style>
+    <Style Selector="Panel#PART_PaneRoot">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Duration="0:0:0.3" Property="Background" />
             </Transitions>
         </Setter>
     </Style>
