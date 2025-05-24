@@ -3,30 +3,39 @@
     x:Class="Aurelio.App"
     xmlns="https://github.com/avaloniaui"
     xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+    xmlns:semi="https://irihi.tech/semi"
     xmlns:styling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
-    xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
-    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:u-semi="https://irihi.tech/ursa/themes/semi"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!--  "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options.  -->
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/Public/Styles/IconPath.axaml" />
+                <ResourceInclude Source="/Public/Styles/Theme.axaml" />
                 <ResourceInclude Source="avares://FluentAvalonia/Styling/ControlThemes/BasicControls/ListBoxStyles.axaml" />
                 <ResourceInclude Source="avares://FluentAvalonia/Styling/ControlThemes/BasicControls/HyperlinkButtonStyles.axaml" />
                 <ResourceInclude Source="avares://FluentAvalonia/Styling/ControlThemes/BasicControls/ExpanderStyles.axaml" />
                 <ResourceInclude Source="avares://FluentAvalonia/Styling/ControlThemes/BasicControls/ToggleSwitchStyles.axaml" />
-                <ResourceInclude Source="/Public/Styles/Theme.axaml" />
             </ResourceDictionary.MergedDictionaries>
-            <FontFamily x:Key="Font">avares://SukiUI/CustomFont#Quicksand, avares://Aurelio/Public/Assets#MiSans</FontFamily>
+            <Color x:Key="SystemAccentColor">#00feff</Color>
+            <Color x:Key="SystemAccentColorLight1">#00feff</Color>
+            <Color x:Key="SystemAccentColorLight2">#00feff</Color>
+            <Color x:Key="SystemAccentColorLight3">#00feff</Color>
+            <Color x:Key="SystemAccentColorDark1">#00feff</Color>
+            <Color x:Key="SystemAccentColorDark2">#00feff</Color>
+            <Color x:Key="SystemAccentColorDark3">#00feff</Color>
+            <FontFamily x:Key="FontFamily">avares://Aurelio/Public/Assets#Quicksand SemiBold,avares://Aurelio/Public/Assets#MiSans</FontFamily>
             <FontWeight x:Key="FontWeight">Bold</FontWeight>
         </ResourceDictionary>
     </Application.Resources>
     <Application.Styles>
-        <avalonia:MaterialIconStyles />
-        <FluentTheme />
+        <suki:SukiTheme Locale="en-US" ThemeColor="Blue" />
         <styling:FluentAvaloniaTheme />
-        <sukiUi:SukiTheme Locale="zh-CN" ThemeColor="Blue" />
-        <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
+        <semi:SemiTheme Locale="zh-CN" />
+        <u-semi:SemiTheme Locale="zh-CN" />
+        <StyleInclude Source="/Public/Styles/Style.axaml" />
         <StyleInclude Source="/Public/Styles/Override.axaml" />
+        <avalonia:MaterialIconStyles />
     </Application.Styles>
 </Application>

@@ -3,27 +3,29 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
-using Aurelio.Public.Module.Services;
+using Aurelio.Public.Module.App.Init;
 using Avalonia.Markup.Xaml;
 using Aurelio.ViewModels;
 using Aurelio.Views;
-using Avalonia.Media;
-using SukiUI;
-using SukiUI.Enums;
-using SukiUI.Models;
-using MainWindow = Aurelio.Views.Main.MainWindow;
+using Aurelio.Views.Main;
+using Avalonia.Controls;
 
 namespace Aurelio;
 
 public partial class App : Application
 {
-    public static MainWindow UiRoot { get; private set; }
+    public delegate void UiLoadedEventHandler(MainWindow ui);
+
+    public MainWindow UiRoot { get; private set; } = null;
+    public static event UiLoadedEventHandler UiLoaded;
+
+    private bool _fl = true;
+
     public override void Initialize()
     {
-        Public.Module.App.Init.Main.Init();
-        AvaloniaXamlLoader.Load(this);
         FluentAvalonia.Core.FAUISettings.SetAnimationsEnabledAtAppLevel(false);
-        Theme.ChangeThemeColor(Color.Parse("#0AFF81"), Color.Parse("#7B80FF"));
+        BeforeLoadXaml.Main();
+        AvaloniaXamlLoader.Load(this);
     }
 
     public override void OnFrameworkInitializationCompleted()
@@ -34,6 +36,13 @@ public partial class App : Application
             var win = new MainWindow();
             UiRoot = win;
             desktop.MainWindow = win;
+            win.Loaded += (_, _) =>
+            {
+                if(!_fl) return;
+                AfterUiLoaded.Main();
+                UiLoaded?.Invoke(win);
+                _fl = false;
+            };
         }
 
         base.OnFrameworkInitializationCompleted();

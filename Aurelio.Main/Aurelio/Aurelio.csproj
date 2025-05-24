@@ -4,27 +4,22 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
-    <Title>Aurelio</Title>
-    <Authors>Yep</Authors>
-    <Description>Yep | http://yep.vin/</Description>
-    <Copyright>Yep | http://yep.vin/</Copyright>
-    <PackageProjectUrl>http://yep.vin/</PackageProjectUrl>
-    <PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
   
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
     <None Remove="Public\Assets\Icon.ico" />
     <AvaloniaResource Include="Public\Assets\Icon.ico" />
+    <None Remove="Public\Assets\Icon.png" />
+    <AvaloniaResource Include="Public\Assets\Icon.png" />
     <None Remove="Public\Assets\MiSans-Regular.otf" />
     <AvaloniaResource Include="Public\Assets\MiSans-Regular.otf" />
-    <None Remove="Views\Main\Special\ConstructionPage.axaml~" />
+    <None Remove="Public\Assets\Quicksand-SemiBold.ttf" />
+    <AvaloniaResource Include="Public\Assets\Quicksand-SemiBold.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia" />
-    <PackageReference Include="Avalonia.AvaloniaEdit" />
     <PackageReference Include="Avalonia.Controls.DataGrid" />
     <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="Avalonia.Fonts.Inter" />
@@ -35,31 +30,36 @@
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" />
     <PackageReference Include="FluentAvaloniaUI" />
+    <PackageReference Include="Irihi.Ursa" />
+    <PackageReference Include="Irihi.Ursa.Themes.Semi" />
     <PackageReference Include="Material.Icons.Avalonia" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="Semi.Avalonia" />
     <PackageReference Include="SkiaSharp" />
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Assets\avalonia-logo.ico" />
+    <EmbeddedResource Update="Public\Langs\MainLang.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainLang.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Public\MainLang\MainLang.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainLang.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaResource Remove="Icon.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Icon.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\Assets\Icon.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Public\Classes\Entity\q.cs" />
+    <Compile Update="Public\Langs\MainLang.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MainLang.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Public\MainLang\MainLang.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MainLang.resx</DependentUpon>
+    </Compile>
     <Compile Update="Views\Main\MainWindow.axaml.cs">
       <DependentUpon>MainWindow.axaml</DependentUpon>
       <SubType>Code</SubType>
@@ -68,11 +68,7 @@
 
   <ItemGroup>
     <Reference Include="SukiUI">
-      <HintPath>..\..\..\AvaloniaApps\SukiUI\SukiUI-main\SukiUI\bin\Debug\netstandard2.0\SukiUI.dll</HintPath>
+      <HintPath>Public\Assets\SukiUI.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Aurelio.Plugin\Aurelio.Plugin.Base\Aurelio.Plugin.Base.csproj" />
   </ItemGroup>
 </Project>
