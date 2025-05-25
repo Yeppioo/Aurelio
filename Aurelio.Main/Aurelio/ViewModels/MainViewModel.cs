@@ -6,6 +6,8 @@ using Aurelio.Views.Main.Pages;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Material.Icons;
+using SukiUI.Controls;
+using SukiUI.Dialogs;
 
 namespace Aurelio.ViewModels;
 
@@ -23,4 +25,6 @@ public partial class MainViewModel : ViewModelBase
     {
         SelectedItem = NavItems[0];
     }
+
+    [ObservableProperty] private ISukiDialogManager _dialogManager = new SukiDialogManager();
 }

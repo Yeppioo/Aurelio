@@ -128,4 +128,22 @@
             <Setter Property="Height" Value="40" />
         </Style>
     </Style>
+    <Style Selector="Button.no-background-button">
+        <Setter Property="Background" Value="#00000000" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="#00000000">
+                    <ContentControl Content="{TemplateBinding Content}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="Button.big-title-bar-icon">
+        <Style Selector="^ Path">
+            <Setter Property="Width" Value="14" />
+            <Setter Property="Height" Value="14" />
+        </Style>
+    </Style>
 </Styles>

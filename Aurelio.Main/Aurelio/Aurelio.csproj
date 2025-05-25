@@ -16,9 +16,12 @@
     <AvaloniaResource Include="Public\Assets\MiSans-Regular.otf" />
     <None Remove="Public\Assets\Quicksand-SemiBold.ttf" />
     <AvaloniaResource Include="Public\Assets\Quicksand-SemiBold.ttf" />
+    <None Remove="Public\Assets\user.png" />
+    <AvaloniaResource Include="Public\Assets\user.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AsyncImageLoader.Avalonia" />
     <PackageReference Include="Avalonia" />
     <PackageReference Include="Avalonia.Controls.DataGrid" />
     <PackageReference Include="Avalonia.Themes.Fluent" />
@@ -34,6 +37,8 @@
     <PackageReference Include="Irihi.Ursa.Themes.Semi" />
     <PackageReference Include="Material.Icons.Avalonia" />
     <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="ReactiveUI" />
+    <PackageReference Include="ReactiveUI.Fody" />
     <PackageReference Include="Semi.Avalonia" />
     <PackageReference Include="SkiaSharp" />
   </ItemGroup>

@@ -33,4 +33,34 @@
   <data name="Project" xml:space="preserve">
     <value>项目</value>
   </data>
+  <data name="NoLogin" xml:space="preserve">
+    <value>未登录</value>
+  </data>
+  <data name="SearchInAurelio" xml:space="preserve">
+    <value>在 Aurelio 中搜索</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="RegisterNewAccount" xml:space="preserve">
+    <value>注册新账号</value>
+  </data>
+  <data name="LoginFail" xml:space="preserve">
+    <value>登录失败</value>
+  </data>
+  <data name="Logining" xml:space="preserve">
+    <value>登录中</value>
+  </data>
 </root>

@@ -14,6 +14,7 @@ public abstract class BeforeLoadXaml
         Sundry.DetectPlatform();
         Create.Main();
         Reader.Main();
+        Update.Main();
         LangHelper.Current.ChangedCulture("");
         Ui.Setter.SetAccentColor(Color.Parse("#9373EE"));
     }

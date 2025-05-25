@@ -31,6 +31,9 @@
     xmlns:viewModels="clr-namespace:Aurelio.ViewModels"
     xmlns:views="clr-namespace:Aurelio.Views"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <suki:SukiWindow.Hosts>
+        <suki:SukiDialogHost Manager="{Binding DialogManager}" />
+    </suki:SukiWindow.Hosts>
     <Window.Styles>
         <Style Selector="Window">
             <Setter Property="Background">
@@ -161,135 +164,7 @@
                                             </DataTemplate>
                                         </u:SelectionList.ItemTemplate>
                                     </u:SelectionList>
-                                    <Button Classes="custom-hover-button" Content="{DynamicResource Plus}">
-                                        <Button.Flyout>
-                                            <Flyout>
-                                                <Panel>
-
-                                                    <Border
-                                                        BoxShadow="{DynamicResource SukiPopupShadow}"
-                                                        CornerRadius="20"
-                                                        Margin="20" />
-
-                                                    <Border
-                                                        Background="{DynamicResource SukiCardBackground}"
-                                                        BorderBrush="{DynamicResource SukiLightBorderBrush}"
-                                                        BorderThickness="1"
-                                                        ClipToBounds="True"
-                                                        CornerRadius="15"
-                                                        Margin="20"
-                                                        MinWidth="350">
-                                                        <Border Background="{DynamicResource PopupGradientBrush}" Padding="15">
-
-                                                            <StackPanel Margin="0,0,0,0" Spacing="20">
-
-                                                                <Grid ColumnDefinitions="*,20,*">
-
-                                                                    <suki:GlassCard CornerRadius="15" Padding="15">
-                                                                        <DockPanel>
-                                                                            <Border
-                                                                                Background="{DynamicResource SukiPrimaryColor}"
-                                                                                CornerRadius="100"
-                                                                                Height="35"
-                                                                                Padding="0"
-                                                                                Width="35">
-                                                                                <avalonia:MaterialIcon
-                                                                                    Foreground="White"
-                                                                                    Height="20"
-                                                                                    HorizontalAlignment="Center"
-                                                                                    Kind="Wifi"
-                                                                                    VerticalAlignment="Center"
-                                                                                    Width="20" />
-                                                                            </Border>
-
-                                                                            <TextBlock
-                                                                                FontSize="15"
-                                                                                FontWeight="DemiBold"
-                                                                                HorizontalAlignment="Center"
-                                                                                Text="Wifi"
-                                                                                VerticalAlignment="Center" />
-                                                                        </DockPanel>
-                                                                    </suki:GlassCard>
-                                                                    <suki:GlassCard
-                                                                        CornerRadius="15"
-                                                                        Grid.Column="2"
-                                                                        Padding="15">
-                                                                        <DockPanel>
-                                                                            <suki:GlassCard
-                                                                                CornerRadius="100"
-                                                                                Height="35"
-                                                                                Padding="0"
-                                                                                Width="35">
-                                                                                <avalonia:MaterialIcon
-                                                                                    Foreground="{DynamicResource SukiText}"
-                                                                                    Height="20"
-                                                                                    HorizontalAlignment="Center"
-                                                                                    Kind="Bluetooth"
-                                                                                    VerticalAlignment="Center"
-                                                                                    Width="20" />
-                                                                            </suki:GlassCard>
-
-                                                                            <TextBlock
-                                                                                FontSize="14"
-                                                                                FontWeight="DemiBold"
-                                                                                HorizontalAlignment="Center"
-                                                                                Text="Bluetooth"
-                                                                                VerticalAlignment="Center" />
-                                                                        </DockPanel>
-                                                                    </suki:GlassCard>
-                                                                </Grid>
-
-                                                                <suki:GlassCard CornerRadius="15" Padding="15">
-
-                                                                    <DockPanel>
-                                                                        <TextBlock
-                                                                            DockPanel.Dock="Top"
-                                                                            FontSize="15"
-                                                                            FontWeight="DemiBold"
-                                                                            Margin="0,0,0,10"
-                                                                            Text="Volume"
-                                                                            VerticalAlignment="Center" />
-                                                                        <avalonia:MaterialIcon
-                                                                            DockPanel.Dock="Left"
-                                                                            Foreground="{DynamicResource SukiLowText}"
-                                                                            Kind="VolumeLow" />
-                                                                        <avalonia:MaterialIcon
-                                                                            DockPanel.Dock="Right"
-                                                                            Foreground="{DynamicResource SukiLowText}"
-                                                                            Kind="VolumeHigh" />
-                                                                        <Slider MinWidth="100" Value="50" />
-                                                                    </DockPanel>
-
-                                                                </suki:GlassCard>
-
-                                                                <suki:GlassCard CornerRadius="15" Padding="15">
-                                                                    <DockPanel>
-                                                                        <ToggleSwitch
-                                                                            DockPanel.Dock="Right"
-                                                                            IsChecked="True"
-                                                                            VerticalAlignment="Center" />
-                                                                        <TextBlock
-                                                                            DockPanel.Dock="Bottom"
-                                                                            Foreground="{DynamicResource SukiLowText}"
-                                                                            Margin="0,8,0,0"
-                                                                            Text="Disable notifications."
-                                                                            VerticalAlignment="Center" />
-                                                                        <TextBlock
-                                                                            FontSize="15"
-                                                                            FontWeight="DemiBold"
-                                                                            Text="Mute"
-                                                                            VerticalAlignment="Center" />
-
-                                                                    </DockPanel>
-                                                                </suki:GlassCard>
-                                                            </StackPanel>
-
-                                                        </Border>
-                                                    </Border>
-                                                </Panel>
-                                            </Flyout>
-                                        </Button.Flyout>
-                                    </Button>
+                                    <Button Classes="custom-hover-button" Content="{DynamicResource Plus}" />
                                 </StackPanel>
                             </ScrollViewer>
                         </Border>
@@ -320,7 +195,7 @@
                                 </Image.Source>
                             </Image>
                             <TextBlock
-                                FontFamily="{DynamicResource FontFamily}"
+                                FontFamily="{DynamicResource Quicksand}"
                                 FontSize="16"
                                 Margin="0,1,0,0"
                                 Text="relio"

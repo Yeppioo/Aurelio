@@ -25,17 +25,18 @@
             <Color x:Key="SystemAccentColorDark1">#00feff</Color>
             <Color x:Key="SystemAccentColorDark2">#00feff</Color>
             <Color x:Key="SystemAccentColorDark3">#00feff</Color>
-            <FontFamily x:Key="FontFamily">avares://Aurelio/Public/Assets#Quicksand SemiBold,avares://Aurelio/Public/Assets#MiSans</FontFamily>
+            <FontFamily x:Key="MiSans">avares://Aurelio/Public/Assets#MiSans</FontFamily>
+            <FontFamily x:Key="Quicksand">avares://Aurelio/Public/Assets#Quicksand SemiBold</FontFamily>
             <FontWeight x:Key="FontWeight">Bold</FontWeight>
         </ResourceDictionary>
     </Application.Resources>
     <Application.Styles>
-        <suki:SukiTheme Locale="en-US" ThemeColor="Blue" />
         <styling:FluentAvaloniaTheme />
         <semi:SemiTheme Locale="zh-CN" />
         <u-semi:SemiTheme Locale="zh-CN" />
         <StyleInclude Source="/Public/Styles/Style.axaml" />
         <StyleInclude Source="/Public/Styles/Override.axaml" />
+        <StyleInclude Source="avares://AsyncImageLoader.Avalonia/AdvancedImage.axaml" />
         <avalonia:MaterialIconStyles />
     </Application.Styles>
 </Application>

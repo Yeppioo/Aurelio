@@ -3,7 +3,9 @@
     d:DesignWidth="800"
     mc:Ignorable="d"
     x:Class="Aurelio.Views.Main.Pages.MainPage"
+    x:DataType="c:Data"
     xmlns="https://github.com/avaloniaui"
+    xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
     xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:c="clr-namespace:Aurelio.Public.Const"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,14 +14,76 @@
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Border
-        Background="{DynamicResource PageBackground}"
-        BorderBrush="{DynamicResource BorderBrush}"
-        BorderThickness="1"
-        ClipToBounds="True"
-        CornerRadius="8"
-        Margin="10,0,10,10"
-        x:DataType="c:Data">
-        <DockPanel />
-    </Border>
+    <DockPanel>
+        <DockPanel
+            Dock="Top"
+            Height="50"
+            VerticalAlignment="Top">
+            <TextBlock
+                DockPanel.Dock="Left"
+                FontFamily="{DynamicResource Quicksand}"
+                FontSize="22"
+                HorizontalAlignment="Left"
+                Margin="25,0,0,0"
+                Text="Aurelio"
+                VerticalAlignment="Center" />
+            <Border
+                CornerRadius="6"
+                Cursor="Hand"
+                DockPanel.Dock="Right"
+                Height="38"
+                HorizontalAlignment="Right"
+                Margin="0,0,20,0"
+                Name="UserBorder"
+                Padding="5,0">
+                <Border.Styles>
+                    <Style Selector="Border#UserBorder:pointerover">
+                        <Setter Property="Background" Value="{DynamicResource TitleBarHoverColor}" />
+                    </Style>
+                    <Style Selector="Border#UserBorder:not(:pointerover)">
+                        <Setter Property="Background" Value="{DynamicResource WindowBackground}" />
+                    </Style>
+                </Border.Styles>
+                <DockPanel>
+                    <Border
+                        ClipToBounds="True"
+                        CornerRadius="999"
+                        Height="26"
+                        Width="26">
+                        <asyncImageLoader:AdvancedImage Source="{Binding AccountEntry.Avatar}" />
+                    </Border>
+                    <TextBlock
+                        FontSize="15"
+                        Margin="10,0,5,0"
+                        Text="{Binding AccountEntry.Username}"
+                        VerticalAlignment="Center" />
+                </DockPanel>
+            </Border>
+            <TextBox
+                Background="{DynamicResource PageBackground}"
+                Height="38"
+                Margin="90,0,80,0"
+                Watermark="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SearchInAurelio}">
+                <TextBox.InnerLeftContent>
+                    <avalonia:MaterialIcon Kind="Search" Margin="2,0,0,0" />
+                </TextBox.InnerLeftContent>
+                <TextBox.Styles>
+                    <Style Selector="TextBox:pointerover /template/ Border#PART_ContentPresenterBorder">
+                        <Setter Property="Background" Value="{DynamicResource PageBackground}" />
+                    </Style>
+                </TextBox.Styles>
+            </TextBox>
+        </DockPanel>
+        <Border
+            Background="{DynamicResource PageBackground}"
+            BorderBrush="{DynamicResource BorderBrush}"
+            BorderThickness="1"
+            ClipToBounds="True"
+            CornerRadius="8"
+            DockPanel.Dock="Bottom"
+            Margin="10,10,10,10"
+            x:DataType="c:Data">
+            <DockPanel />
+        </Border>
+    </DockPanel>
 </UserControl>

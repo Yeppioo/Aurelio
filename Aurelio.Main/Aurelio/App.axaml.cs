@@ -3,12 +3,14 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
+using Aurelio.Public.Const;
 using Aurelio.Public.Module.App.Init;
 using Avalonia.Markup.Xaml;
 using Aurelio.ViewModels;
 using Aurelio.Views;
 using Aurelio.Views.Main;
 using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
 
 namespace Aurelio;
 
@@ -16,7 +18,7 @@ public partial class App : Application
 {
     public delegate void UiLoadedEventHandler(MainWindow ui);
 
-    public MainWindow UiRoot { get; private set; } = null;
+    public static MainWindow UiRoot { get; private set; } = null;
     public static event UiLoadedEventHandler UiLoaded;
 
     private bool _fl = true;
@@ -36,6 +38,8 @@ public partial class App : Application
             var win = new MainWindow();
             UiRoot = win;
             desktop.MainWindow = win;
+            UiProperty.Notification = new Ursa.Controls.WindowNotificationManager(TopLevel.GetTopLevel(win));
+            UiProperty.Toast = new Ursa.Controls.WindowToastManager(TopLevel.GetTopLevel(win));
             win.Loaded += (_, _) =>
             {
                 if(!_fl) return;
@@ -43,8 +47,10 @@ public partial class App : Application
                 UiLoaded?.Invoke(win);
                 _fl = false;
             };
+            UiProperty.Notification.Position = NotificationPosition.BottomRight;
+            UiProperty.Toast.MaxItems = 2;
         }
-
+        
         base.OnFrameworkInitializationCompleted();
     }
 

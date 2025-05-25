@@ -16,7 +16,7 @@
             Name="MoveDragArea">
             <TextBlock />
             <TextBlock
-                FontFamily="{DynamicResource FontFamily}"
+                FontFamily="{DynamicResource MiSans}"
                 FontSize="16"
                 HorizontalAlignment="Left"
                 Name="TitleText"
