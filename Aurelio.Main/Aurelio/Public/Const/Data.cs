@@ -18,10 +18,4 @@ public class Data : ReactiveObject
 
     public static DesktopType DesktopType { get; set; } = DesktopType.Unknown;
     public static SettingEntry? SettingEntry { get; set; }
-
-    [Reactive]
-    public AccountEntry AccountEntry { get; set; } = new()
-    {
-        Avatar = "../../../Public/Assets/user.png", Tag = "no-login", Username = MainLang.NoLogin
-    };
 }

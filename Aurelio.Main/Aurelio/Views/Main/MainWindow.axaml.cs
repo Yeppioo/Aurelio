@@ -2,14 +2,12 @@ using Aurelio.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
-using SukiUI.Dialogs;
 using Ursa.Controls;
 
 namespace Aurelio.Views.Main;
 
 public partial class MainWindow : UrsaWindow
 {
-    public static ISukiDialogManager DialogManager = new SukiDialogManager();
     public MainViewModel ViewModel { get; set; } = new();
 
     public MainWindow()

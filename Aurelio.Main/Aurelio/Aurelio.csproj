@@ -33,6 +33,10 @@
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" />
     <PackageReference Include="FluentAvaloniaUI" />
+    <PackageReference Include="HotAvalonia">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Irihi.Ursa" />
     <PackageReference Include="Irihi.Ursa.Themes.Semi" />
     <PackageReference Include="Material.Icons.Avalonia" />
@@ -69,12 +73,6 @@
       <DependentUpon>MainWindow.axaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="SukiUI">
-      <HintPath>Public\Assets\SukiUI.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

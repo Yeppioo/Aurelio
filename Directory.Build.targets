@@ -1,0 +1,10 @@
+<Project>
+	<ItemGroup>
+		<PackageReference Include="HotAvalonia" PrivateAssets="All" Publish="True" />
+		<PackageReference Include="Avalonia.Markup.Xaml.Loader" PrivateAssets="All" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<HotAvaloniaAutoEnable>false</HotAvaloniaAutoEnable>
+	</PropertyGroup>
+</Project>

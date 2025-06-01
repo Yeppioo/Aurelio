@@ -16,8 +16,10 @@
     <PackageVersion Include="Avalonia.iOS" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Browser" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Android" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Markup.Xaml.Loader" Version="11.3.0" />
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageVersion Include="FluentAvaloniaUI" Version="2.4.0-preview1" />
+    <PackageVersion Include="HotAvalonia" Version="3.0.0" />
     <PackageVersion Include="Irihi.Ursa" Version="1.11.0" />
     <PackageVersion Include="Irihi.Ursa.Themes.Semi" Version="1.11.0" />
     <PackageVersion Include="Material.Icons.Avalonia" Version="3.0.0-preview1.1" />

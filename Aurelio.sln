@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aurelio.Desktop", "Aurelio.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3DA99C4E-89E3-4049-9C22-0A7EC60D83D8}"
 	ProjectSection(SolutionItems) = preProject
+		Directory.Build.targets = Directory.Build.targets
 		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
 EndProject
@@ -32,11 +33,11 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {83CB65B8-011F-4ED7-BCD3-A6CFA935EF7E}
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568} = {4E592F68-BF4A-4B30-A7A0-2DD62E0F84F7}
 		{ABC31E74-02FF-46EB-B3B2-4E6AE43B456C} = {4E592F68-BF4A-4B30-A7A0-2DD62E0F84F7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {83CB65B8-011F-4ED7-BCD3-A6CFA935EF7E}
 	EndGlobalSection
 EndGlobal

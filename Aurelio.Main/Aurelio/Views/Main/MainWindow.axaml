@@ -20,20 +20,14 @@
     x:Class="Aurelio.Views.Main.MainWindow"
     x:DataType="viewModels:MainViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:controls="clr-namespace:Aurelio.Public.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:entries="clr-namespace:Aurelio.Public.Classes.Entries"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:u="https://irihi.tech/ursa"
-    xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
     xmlns:viewModels="clr-namespace:Aurelio.ViewModels"
-    xmlns:views="clr-namespace:Aurelio.Views"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <suki:SukiWindow.Hosts>
-        <suki:SukiDialogHost Manager="{Binding DialogManager}" />
-    </suki:SukiWindow.Hosts>
     <Window.Styles>
         <Style Selector="Window">
             <Setter Property="Background">
@@ -164,7 +158,27 @@
                                             </DataTemplate>
                                         </u:SelectionList.ItemTemplate>
                                     </u:SelectionList>
-                                    <Button Classes="custom-hover-button" Content="{DynamicResource Plus}" />
+                                    <Button
+                                        Classes="custom-hover-button"
+                                        Content="{DynamicResource Plus}"
+                                        Margin="-4,0,0,0">
+                                        <Button.Flyout>
+                                            <Flyout>
+                                                <Border Height="300" Width="560">
+                                                    <DockPanel>
+                                                        <DockPanel Dock="Top" VerticalAlignment="Top">
+                                                            <TextBlock
+                                                                FontSize="16"
+                                                                Margin="10,0,0,0"
+                                                                Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Open}"
+                                                                VerticalAlignment="Center" />
+                                                            <TextBox Margin="70,0,0,0" VerticalAlignment="Center" />
+                                                        </DockPanel>
+                                                    </DockPanel>
+                                                </Border>
+                                            </Flyout>
+                                        </Button.Flyout>
+                                    </Button>
                                 </StackPanel>
                             </ScrollViewer>
                         </Border>
