@@ -86,7 +86,7 @@ public abstract class Shower
     public static void NotificationBubble(string msg, NotificationType type)
     {
         var toast = new Toast(msg, type);
-        UiProperty.Toast.Show(toast, toast.Type, classes: ["Light"]);
+        UiProperty.Toast.Show(toast, toast.Type/*, classes: ["Light"]*/);
     }
 
     public static void NotificationCard(string msg, NotificationType type, string title)

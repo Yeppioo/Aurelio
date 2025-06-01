@@ -1,7 +1,9 @@
+using System.Diagnostics;
 using Aurelio.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
+using HotAvalonia;
 using Ursa.Controls;
 
 namespace Aurelio.Views.Main;
@@ -15,9 +17,12 @@ public partial class MainWindow : UrsaWindow
         InitializeComponent();
         DataContext = ViewModel;
         BindEvents();
+#if RELEASE
         InitTitleBar();
+#endif
     }
 
+    [AvaloniaHotReload]
     private void InitTitleBar()
     {
         var msgHistory = new Button()

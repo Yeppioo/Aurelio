@@ -164,16 +164,73 @@
                                         Margin="-4,0,0,0">
                                         <Button.Flyout>
                                             <Flyout>
-                                                <Border Height="300" Width="560">
+                                                <Border
+                                                    CornerRadius="8"
+                                                    Height="300"
+                                                    Width="564">
                                                     <DockPanel>
-                                                        <DockPanel Dock="Top" VerticalAlignment="Top">
-                                                            <TextBlock
-                                                                FontSize="16"
-                                                                Margin="10,0,0,0"
-                                                                Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Open}"
-                                                                VerticalAlignment="Center" />
-                                                            <TextBox Margin="70,0,0,0" VerticalAlignment="Center" />
-                                                        </DockPanel>
+                                                        <Border
+                                                            BorderBrush="{DynamicResource WindowBackground}"
+                                                            BorderThickness="0,0,0,2"
+                                                            ClipToBounds="True"
+                                                            DockPanel.Dock="Top"
+                                                            Padding="0,0,0,8"
+                                                            VerticalAlignment="Top">
+                                                            <DockPanel>
+                                                                <TextBlock
+                                                                    FontSize="16"
+                                                                    Margin="10,0,0,0"
+                                                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Open}"
+                                                                    VerticalAlignment="Center" />
+                                                                <TextBox
+                                                                    DockPanel.Dock="Right"
+                                                                    HorizontalAlignment="Right"
+                                                                    VerticalAlignment="Center"
+                                                                    Watermark="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Search}"
+                                                                    Width="240" />
+                                                            </DockPanel>
+                                                        </Border>
+                                                        <ItemsControl ItemsSource="{Binding NewPageItems}" Margin="0,10,0,0">
+                                                            <ItemsControl.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <u:ElasticWrapPanel />
+                                                                </ItemsPanelTemplate>
+                                                            </ItemsControl.ItemsPanel>
+                                                            <ItemsControl.ItemTemplate>
+                                                                <DataTemplate DataType="entries:NewPageEntry">
+                                                                    <Border
+                                                                        Height="54"
+                                                                        Padding="2.5"
+                                                                        Width="188">
+                                                                        <Border ClipToBounds="True" CornerRadius="6">
+                                                                            <Border.Styles>
+                                                                                <Style Selector="Border">
+                                                                                    <Setter Property="Background" Value="#00ACFF00" />
+                                                                                </Style>
+                                                                                <Style Selector="Border:pointerover">
+                                                                                    <Setter Property="Background" Value="{DynamicResource TitleBarHoverColor}" />
+                                                                                </Style>
+                                                                            </Border.Styles>
+                                                                            <DockPanel>
+                                                                                <PathIcon
+                                                                                    Data="{Binding Icon}"
+                                                                                    Height="24"
+                                                                                    HorizontalAlignment="Left"
+                                                                                    Margin="12,0,10,0"
+                                                                                    VerticalAlignment="Center"
+                                                                                    Width="24" />
+                                                                                <TextBlock
+                                                                                    MaxLines="2"
+                                                                                    Text="{Binding Title}"
+                                                                                    TextTrimming="CharacterEllipsis"
+                                                                                    TextWrapping="Wrap"
+                                                                                    VerticalAlignment="Center" />
+                                                                            </DockPanel>
+                                                                        </Border>
+                                                                    </Border>
+                                                                </DataTemplate>
+                                                            </ItemsControl.ItemTemplate>
+                                                        </ItemsControl>
                                                     </DockPanel>
                                                 </Border>
                                             </Flyout>

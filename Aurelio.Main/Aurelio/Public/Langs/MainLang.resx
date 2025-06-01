@@ -63,4 +63,10 @@
   <data name="Logining" xml:space="preserve">
     <value>登录中</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="CharacterMapping" xml:space="preserve">
+    <value>字符映射表</value>
+  </data>
 </root>

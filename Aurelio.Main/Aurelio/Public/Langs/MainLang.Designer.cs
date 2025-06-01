@@ -78,6 +78,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 字符映射表.
+        /// </summary>
+        public static string CharacterMapping {
+            get {
+                return ResourceManager.GetString("CharacterMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 关闭.
         /// </summary>
         public static string Close {
@@ -182,6 +191,15 @@ namespace Aurelio.Public.Langs {
         public static string RegisterNewAccount {
             get {
                 return ResourceManager.GetString("RegisterNewAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 搜索.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
             }
         }
         
