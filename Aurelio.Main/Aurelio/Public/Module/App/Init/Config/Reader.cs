@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Aurelio.Public.Classes.Entries;
+﻿using System.IO;
 using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Const;
 using Newtonsoft.Json;

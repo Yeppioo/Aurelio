@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using Aurelio.Public.Enum;
-using Aurelio.Public.Langs;
+﻿using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App.Init.Config;
 using Avalonia.Media;
 

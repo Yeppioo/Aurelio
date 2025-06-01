@@ -1,12 +1,7 @@
 using Aurelio.ViewModels;
-using Aurelio.Views.Main.Pages;
 using Avalonia.Controls;
-using Avalonia.Input;
-using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
-using Splat.ModeDetection;
-using SukiUI.Controls;
 using SukiUI.Dialogs;
 using Ursa.Controls;
 

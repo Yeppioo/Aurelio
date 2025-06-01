@@ -6,7 +6,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform;
-using Avalonia.Styling;
 using Ursa.Controls;
 
 namespace Aurelio.Public.Module.Ui;

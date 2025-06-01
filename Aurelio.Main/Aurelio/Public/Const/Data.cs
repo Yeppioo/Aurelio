@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Aurelio.Public.Classes.Entries;
+﻿using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Enum;
 using Aurelio.Public.Langs;

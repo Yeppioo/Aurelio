@@ -1,13 +1,10 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Aurelio.Public.Const;
 using Aurelio.Public.Module.App.Init;
 using Avalonia.Markup.Xaml;
-using Aurelio.ViewModels;
-using Aurelio.Views;
 using Aurelio.Views.Main;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;

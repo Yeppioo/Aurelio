@@ -3,10 +3,8 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Views.Main.Pages;
-using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Material.Icons;
-using SukiUI.Controls;
 using SukiUI.Dialogs;
 
 namespace Aurelio.ViewModels;

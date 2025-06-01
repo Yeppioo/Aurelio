@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Aurelio.Public.Classes.Entries;
 using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
 using Ursa.Controls;
 
 namespace Aurelio.Public.Const;

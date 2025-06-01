@@ -76,4 +76,8 @@
       <HintPath>Public\Assets\SukiUI.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Public\Module\IO\Http\Api\" />
+  </ItemGroup>
 </Project>

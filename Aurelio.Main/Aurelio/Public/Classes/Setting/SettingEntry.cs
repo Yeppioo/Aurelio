@@ -1,12 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Public.Langs;
-using Aurelio.Public.Module;
 using Aurelio.Public.Module.App;
-using Aurelio.Views.Main;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Threading;
 using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
