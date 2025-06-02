@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
@@ -14,10 +15,8 @@ namespace Aurelio;
 public partial class App : Application
 {
     public delegate void UiLoadedEventHandler(MainWindow ui);
-
     public static MainWindow UiRoot { get; private set; } = null;
     public static event UiLoadedEventHandler UiLoaded;
-
     private bool _fl = true;
 
     public override void Initialize()

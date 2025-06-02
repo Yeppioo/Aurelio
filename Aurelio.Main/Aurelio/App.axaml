@@ -2,14 +2,15 @@
     RequestedThemeVariant="Light"
     x:Class="Aurelio.App"
     xmlns="https://github.com/avaloniaui"
+    xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
     xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:semi="https://irihi.tech/semi"
     xmlns:styling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
-    xmlns:suki="https://github.com/kikipoulet/SukiUI"
     xmlns:u-semi="https://irihi.tech/ursa/themes/semi"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <animations:SukiEaseOutBack BounceIntensity="Soft" x:Key="MenuEasing" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="/Public/Styles/IconPath.axaml" />
                 <ResourceInclude Source="/Public/Styles/Theme.axaml" />
@@ -17,6 +18,7 @@
                 <ResourceInclude Source="avares://FluentAvalonia/Styling/ControlThemes/BasicControls/HyperlinkButtonStyles.axaml" />
                 <ResourceInclude Source="avares://FluentAvalonia/Styling/ControlThemes/BasicControls/ExpanderStyles.axaml" />
                 <ResourceInclude Source="avares://FluentAvalonia/Styling/ControlThemes/BasicControls/ToggleSwitchStyles.axaml" />
+                <ResourceInclude Source="avares://Semi.Avalonia/Controls/TextBox.axaml" />
             </ResourceDictionary.MergedDictionaries>
             <Color x:Key="SystemAccentColor">#00feff</Color>
             <Color x:Key="SystemAccentColorLight1">#00feff</Color>
@@ -31,9 +33,12 @@
         </ResourceDictionary>
     </Application.Resources>
     <Application.Styles>
+        <!-- <SukiTheme Locale="zh-CN" ThemeColor="Blue" /> -->
         <styling:FluentAvaloniaTheme />
         <semi:SemiTheme Locale="zh-CN" />
         <u-semi:SemiTheme Locale="zh-CN" />
+        <StyleInclude Source="/Public/Styles/SukiUi.axaml" />
+        <StyleInclude Source="/Public/Styles/TitleBar.axaml" />
         <StyleInclude Source="/Public/Styles/Style.axaml" />
         <StyleInclude Source="/Public/Styles/Override.axaml" />
         <StyleInclude Source="avares://AsyncImageLoader.Avalonia/AdvancedImage.axaml" />

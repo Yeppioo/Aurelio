@@ -30,6 +30,8 @@
     <PackageVersion Include="ReactiveUI.Fody" Version="19.5.41" />
     <PackageVersion Include="Semi.Avalonia" Version="11.2.1.7" />
     <PackageVersion Include="SkiaSharp" Version="3.119.0" />
+    <PackageVersion Include="SukiUI" Version="6.0.2" />
+    <PackageVersion Include="Typography.OpenFont.NetCore" Version="1.0.0" />
     <PackageVersion Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.15" />
   </ItemGroup>
 </Project>

@@ -96,11 +96,29 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 关闭当前标签页.
+        /// </summary>
+        public static string CloseCurrentTab {
+            get {
+                return ResourceManager.GetString("CloseCurrentTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 示例项目.
         /// </summary>
         public static string ExampleProject {
             get {
                 return ResourceManager.GetString("ExampleProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 字体列表.
+        /// </summary>
+        public static string FontList {
+            get {
+                return ResourceManager.GetString("FontList", resourceCulture);
             }
         }
         
@@ -137,6 +155,15 @@ namespace Aurelio.Public.Langs {
         public static string MainPage {
             get {
                 return ResourceManager.GetString("MainPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 新标签页.
+        /// </summary>
+        public static string NewTab {
+            get {
+                return ResourceManager.GetString("NewTab", resourceCulture);
             }
         }
         
@@ -209,6 +236,24 @@ namespace Aurelio.Public.Langs {
         public static string SearchInAurelio {
             get {
                 return ResourceManager.GetString("SearchInAurelio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 系统字体.
+        /// </summary>
+        public static string SystemFont {
+            get {
+                return ResourceManager.GetString("SystemFont", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 标签页.
+        /// </summary>
+        public static string Tab {
+            get {
+                return ResourceManager.GetString("Tab", resourceCulture);
             }
         }
         

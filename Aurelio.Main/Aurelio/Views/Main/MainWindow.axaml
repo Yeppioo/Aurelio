@@ -9,8 +9,8 @@
     IsMinimizeButtonVisible="False"
     IsRestoreButtonVisible="False"
     IsTitleBarVisible="False"
-    MinHeight="640"
-    MinWidth="960"
+    MinHeight="250"
+    MinWidth="450"
     SystemDecorations="Full"
     Title="Aurelio"
     WindowStartupLocation="CenterScreen"
@@ -20,14 +20,17 @@
     x:Class="Aurelio.Views.Main.MainWindow"
     x:DataType="viewModels:MainViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:aurelio="clr-namespace:Aurelio.Public.Module.Ui"
     xmlns:controls="clr-namespace:Aurelio.Public.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:entries="clr-namespace:Aurelio.Public.Classes.Entries"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:u="https://irihi.tech/ursa"
+    xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
     xmlns:viewModels="clr-namespace:Aurelio.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Window.Resources />
     <Window.Styles>
         <Style Selector="Window">
             <Setter Property="Background">
@@ -65,179 +68,230 @@
                             DockPanel.Dock="Top"
                             Height="40"
                             HorizontalAlignment="Left"
-                            Margin="75,0,90,0"
+                            Margin="75,0,150,0"
                             Name="NavRoot"
                             VerticalAlignment="Top">
-                            <ScrollViewer
-                                Background="{DynamicResource WindowBackground}"
-                                HorizontalScrollBarVisibility="Auto"
-                                Name="NavScrollViewer"
-                                VerticalScrollBarVisibility="Disabled">
-                                <StackPanel Orientation="Horizontal">
-                                    <u:SelectionList
-                                        AutoScrollToSelectedItem="True"
-                                        Background="{DynamicResource WindowBackground}"
-                                        ItemsSource="{Binding NavItems}"
-                                        Name="NavMenu"
-                                        SelectedItem="{Binding SelectedItem}"
-                                        VerticalAlignment="Center">
-                                        <u:SelectionList.Styles>
-                                            <Style Selector="u|SelectionListItem:not(:selected)">
-                                                <Style Selector="^ TextBlock">
-                                                    <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+                            <Grid>
+                                <ScrollViewer
+                                    HorizontalScrollBarVisibility="Auto"
+                                    Name="NavScrollViewer"
+                                    Offset="{Binding TabScrollOffset}"
+                                    VerticalScrollBarVisibility="Disabled">
+                                    <StackPanel Margin="10,0,20,0" Orientation="Horizontal">
+                                        <u:SelectionList
+                                            AutoScrollToSelectedItem="True"
+                                            ItemsSource="{Binding Tabs}"
+                                            Name="NavMenu"
+                                            SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                                            VerticalAlignment="Center">
+                                            <u:SelectionList.Styles>
+                                                <Style Selector="u|SelectionListItem:not(:selected)">
+                                                    <Style Selector="^ TextBlock">
+                                                        <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+                                                    </Style>
+                                                    <Style Selector="^ Grid">
+                                                        <Setter Property="IsVisible" Value="False" />
+                                                    </Style>
                                                 </Style>
-                                                <Style Selector="^ Grid">
-                                                    <Setter Property="IsVisible" Value="False" />
+                                                <Style Selector="u|SelectionListItem:selected">
+                                                    <Style Selector="^ Grid">
+                                                        <Setter Property="IsVisible" Value="True" />
+                                                    </Style>
+                                                    <Style Selector="^ Border#ItemRoot">
+                                                        <Setter Property="Background" Value="{DynamicResource PageBackground}" />
+                                                        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+                                                    </Style>
                                                 </Style>
-                                            </Style>
-                                            <Style Selector="u|SelectionListItem:selected">
-                                                <Style Selector="^ Grid">
-                                                    <Setter Property="IsVisible" Value="True" />
+                                                <Style Selector="u|SelectionListItem:pointerover">
+                                                    <Style Selector="^ Grid">
+                                                        <Setter Property="IsVisible" Value="True" />
+                                                    </Style>
                                                 </Style>
-                                                <Style Selector="^ Border#ItemRoot">
-                                                    <Setter Property="Background" Value="{DynamicResource PageBackground}" />
-                                                    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-                                                    <Setter Property="BorderThickness" Value="1" />
-                                                </Style>
-                                            </Style>
-                                            <Style Selector="u|SelectionListItem:pointerover">
-                                                <Style Selector="^ Grid">
-                                                    <Setter Property="IsVisible" Value="True" />
-                                                </Style>
-                                            </Style>
-                                        </u:SelectionList.Styles>
-                                        <u:SelectionList.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <StackPanel Orientation="Horizontal" />
-                                            </ItemsPanelTemplate>
-                                        </u:SelectionList.ItemsPanel>
-                                        <u:SelectionList.Indicator>
-                                            <Border
-                                                Background="{DynamicResource PageBackground}"
-                                                BorderBrush="{DynamicResource BorderBrush}"
-                                                BorderThickness="1"
-                                                CornerRadius="5"
-                                                HorizontalAlignment="Stretch"
-                                                IsVisible="False"
-                                                Margin="3"
-                                                VerticalAlignment="Stretch" />
-                                        </u:SelectionList.Indicator>
-                                        <u:SelectionList.ItemTemplate>
-                                            <DataTemplate DataType="entries:NavItemEntry">
+                                            </u:SelectionList.Styles>
+                                            <u:SelectionList.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal" />
+                                                </ItemsPanelTemplate>
+                                            </u:SelectionList.ItemsPanel>
+                                            <u:SelectionList.Indicator>
                                                 <Border
-                                                    CornerRadius="6"
-                                                    Height="30"
-                                                    Name="ItemRoot">
-                                                    <StackPanel
-                                                        Margin="10,-1,10,0"
-                                                        Orientation="Horizontal"
-                                                        VerticalAlignment="Center">
-                                                        <PathIcon
-                                                            Data="{Binding Icon}"
-                                                            Height="15"
-                                                            IsVisible="{Binding IconIsVisible}"
-                                                            Margin="0,0,4,0"
-                                                            Width="15" />
-                                                        <TextBlock Foreground="{DynamicResource TextColor}" Text="{Binding Title}" />
-                                                        <Grid>
-                                                            <Button
-                                                                Classes="icon-button"
-                                                                Command="{Binding Close}"
-                                                                Content="{DynamicResource Close}"
-                                                                HorizontalAlignment="Right"
-                                                                IsVisible="{Binding CanClose}"
-                                                                Margin="3,1,0,0"
-                                                                MaxHeight="14"
-                                                                MaxWidth="16"
-                                                                MinHeight="14"
-                                                                Name="CloseButton"
-                                                                VerticalAlignment="Center" />
-                                                        </Grid>
-                                                    </StackPanel>
-                                                </Border>
-                                            </DataTemplate>
-                                        </u:SelectionList.ItemTemplate>
-                                    </u:SelectionList>
-                                    <Button
-                                        Classes="custom-hover-button"
-                                        Content="{DynamicResource Plus}"
-                                        Margin="-4,0,0,0">
-                                        <Button.Flyout>
-                                            <Flyout>
-                                                <Border
-                                                    CornerRadius="8"
-                                                    Height="300"
-                                                    Width="564">
-                                                    <DockPanel>
-                                                        <Border
-                                                            BorderBrush="{DynamicResource WindowBackground}"
-                                                            BorderThickness="0,0,0,2"
-                                                            ClipToBounds="True"
-                                                            DockPanel.Dock="Top"
-                                                            Padding="0,0,0,8"
-                                                            VerticalAlignment="Top">
-                                                            <DockPanel>
-                                                                <TextBlock
-                                                                    FontSize="16"
-                                                                    Margin="10,0,0,0"
-                                                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Open}"
-                                                                    VerticalAlignment="Center" />
-                                                                <TextBox
-                                                                    DockPanel.Dock="Right"
+                                                    Background="{DynamicResource PageBackground}"
+                                                    BorderBrush="{DynamicResource BorderBrush}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="5"
+                                                    HorizontalAlignment="Stretch"
+                                                    IsVisible="False"
+                                                    Margin="3"
+                                                    VerticalAlignment="Stretch" />
+                                            </u:SelectionList.Indicator>
+                                            <u:SelectionList.ItemTemplate>
+                                                <DataTemplate DataType="entries:TabEntry">
+                                                    <Border
+                                                        BorderThickness="1"
+                                                        CornerRadius="6"
+                                                        Height="30"
+                                                        Name="ItemRoot"
+                                                        PointerPressed="TabItem_OnPointerPressed"
+                                                        Tag="{Binding}">
+                                                        <StackPanel
+                                                            Margin="10,-1,10,0"
+                                                            Orientation="Horizontal"
+                                                            VerticalAlignment="Center">
+                                                            <PathIcon
+                                                                Data="{Binding Icon}"
+                                                                Height="15"
+                                                                IsVisible="{Binding IconIsVisible}"
+                                                                Margin="0,0,4,0"
+                                                                Width="15" />
+                                                            <ContentControl Content="{Binding HeaderContent}" />
+                                                            <Grid>
+                                                                <Button
+                                                                    Classes="icon-button"
+                                                                    Command="{Binding Close}"
+                                                                    Content="{DynamicResource Close}"
                                                                     HorizontalAlignment="Right"
-                                                                    VerticalAlignment="Center"
-                                                                    Watermark="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Search}"
-                                                                    Width="240" />
-                                                            </DockPanel>
-                                                        </Border>
-                                                        <ItemsControl ItemsSource="{Binding NewPageItems}" Margin="0,10,0,0">
-                                                            <ItemsControl.ItemsPanel>
-                                                                <ItemsPanelTemplate>
-                                                                    <u:ElasticWrapPanel />
-                                                                </ItemsPanelTemplate>
-                                                            </ItemsControl.ItemsPanel>
-                                                            <ItemsControl.ItemTemplate>
-                                                                <DataTemplate DataType="entries:NewPageEntry">
-                                                                    <Border
-                                                                        Height="54"
-                                                                        Padding="2.5"
-                                                                        Width="188">
-                                                                        <Border ClipToBounds="True" CornerRadius="6">
-                                                                            <Border.Styles>
-                                                                                <Style Selector="Border">
-                                                                                    <Setter Property="Background" Value="#00ACFF00" />
-                                                                                </Style>
-                                                                                <Style Selector="Border:pointerover">
-                                                                                    <Setter Property="Background" Value="{DynamicResource TitleBarHoverColor}" />
-                                                                                </Style>
-                                                                            </Border.Styles>
-                                                                            <DockPanel>
-                                                                                <PathIcon
-                                                                                    Data="{Binding Icon}"
-                                                                                    Height="24"
-                                                                                    HorizontalAlignment="Left"
-                                                                                    Margin="12,0,10,0"
-                                                                                    VerticalAlignment="Center"
-                                                                                    Width="24" />
-                                                                                <TextBlock
-                                                                                    MaxLines="2"
-                                                                                    Text="{Binding Title}"
-                                                                                    TextTrimming="CharacterEllipsis"
-                                                                                    TextWrapping="Wrap"
-                                                                                    VerticalAlignment="Center" />
-                                                                            </DockPanel>
+                                                                    IsVisible="{Binding CanClose}"
+                                                                    Margin="3,1,0,0"
+                                                                    MaxHeight="14"
+                                                                    MaxWidth="16"
+                                                                    MinHeight="14"
+                                                                    Name="CloseButton"
+                                                                    VerticalAlignment="Center" />
+                                                            </Grid>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </u:SelectionList.ItemTemplate>
+                                        </u:SelectionList>
+                                        <Button
+                                            Classes="custom-hover-button"
+                                            Content="{DynamicResource Plus}"
+                                            Margin="4,0,0,0"
+                                            Name="NewTabButton">
+                                            <Button.Flyout>
+                                                <Flyout>
+                                                    <Border
+                                                        Background="{DynamicResource PageBackground}"
+                                                        CornerRadius="8"
+                                                        Height="300"
+                                                        Padding="5"
+                                                        Width="564">
+                                                        <Border.Effect>
+                                                            <DropShadowEffect
+                                                                BlurRadius="5"
+                                                                Color="Black"
+                                                                OffsetX="0"
+                                                                OffsetY="0"
+                                                                Opacity="0.3" />
+                                                        </Border.Effect>
+                                                        <DockPanel>
+                                                            <Border
+                                                                BorderBrush="{DynamicResource WindowBackground}"
+                                                                BorderThickness="0,0,0,2"
+                                                                ClipToBounds="True"
+                                                                DockPanel.Dock="Top"
+                                                                Padding="0,5,0,8"
+                                                                VerticalAlignment="Top">
+                                                                <DockPanel>
+                                                                    <TextBlock
+                                                                        FontSize="16"
+                                                                        Margin="15,0,0,0"
+                                                                        Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Open}"
+                                                                        VerticalAlignment="Center" />
+                                                                    <TextBox
+                                                                        DockPanel.Dock="Right"
+                                                                        HorizontalAlignment="Right"
+                                                                        Margin="0,0,3,0"
+                                                                        Text="{Binding SearchFunctionText}"
+                                                                        VerticalAlignment="Center"
+                                                                        Watermark="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Search}"
+                                                                        Width="240">
+                                                                        <TextBox.InnerRightContent>
+                                                                            <PathIcon
+                                                                                Data="{StaticResource SemiIconSearchStroked}"
+                                                                                Foreground="{DynamicResource TextColor}"
+                                                                                Height="16"
+                                                                                Width="16" />
+                                                                        </TextBox.InnerRightContent>
+                                                                    </TextBox>
+                                                                </DockPanel>
+                                                            </Border>
+                                                            <ItemsControl ItemsSource="{Binding NewPageItems}" Margin="0,5,0,0">
+                                                                <ItemsControl.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <u:ElasticWrapPanel />
+                                                                    </ItemsPanelTemplate>
+                                                                </ItemsControl.ItemsPanel>
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="entries:NewPageEntry">
+                                                                        <Border
+                                                                            Height="54"
+                                                                            Padding="2.5"
+                                                                            Width="188">
+                                                                            <Border
+                                                                                ClipToBounds="True"
+                                                                                CornerRadius="6"
+                                                                                PointerPressed="FunctionItem_OnPointerPressed"
+                                                                                Tag="{Binding FunctionType}">
+                                                                                <Border.Styles>
+                                                                                    <Style Selector="Border">
+                                                                                        <Setter Property="Background" Value="#00ACFF00" />
+                                                                                    </Style>
+                                                                                    <Style Selector="Border:pointerover">
+                                                                                        <Setter Property="Background" Value="{DynamicResource TitleBarHoverColor}" />
+                                                                                    </Style>
+                                                                                </Border.Styles>
+                                                                                <DockPanel>
+                                                                                    <PathIcon
+                                                                                        Data="{Binding Icon}"
+                                                                                        Height="24"
+                                                                                        HorizontalAlignment="Left"
+                                                                                        Margin="12,0,10,0"
+                                                                                        VerticalAlignment="Center"
+                                                                                        Width="24" />
+                                                                                    <TextBlock
+                                                                                        MaxLines="2"
+                                                                                        Text="{Binding Title}"
+                                                                                        TextTrimming="CharacterEllipsis"
+                                                                                        TextWrapping="Wrap"
+                                                                                        VerticalAlignment="Center" />
+                                                                                </DockPanel>
+                                                                            </Border>
                                                                         </Border>
-                                                                    </Border>
-                                                                </DataTemplate>
-                                                            </ItemsControl.ItemTemplate>
-                                                        </ItemsControl>
-                                                    </DockPanel>
-                                                </Border>
-                                            </Flyout>
-                                        </Button.Flyout>
-                                    </Button>
-                                </StackPanel>
-                            </ScrollViewer>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+                                                        </DockPanel>
+                                                    </Border>
+                                                </Flyout>
+                                            </Button.Flyout>
+                                        </Button>
+                                    </StackPanel>
+                                </ScrollViewer>
+                                <Border
+                                    HorizontalAlignment="Left"
+                                    IsHitTestVisible="False"
+                                    IsVisible="{Binding IsTabMaskVisible}"
+                                    Width="32">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="100%,50%" StartPoint="0%,50%">
+                                            <GradientStop Color="{DynamicResource WindowBackground}" Offset="0.0" />
+                                            <GradientStop Color="#00FFFFFF" Offset="1.0" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                                <Border
+                                    HorizontalAlignment="Right"
+                                    IsHitTestVisible="False"
+                                    Width="32">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="100%,50%" StartPoint="0%,50%">
+                                            <GradientStop Color="#00FFFFFF" Offset="0.0" />
+                                            <GradientStop Color="{DynamicResource WindowBackground}" Offset="1.0" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                            </Grid>
                         </Border>
                         <DockPanel
                             Height="40"
@@ -277,6 +331,17 @@
                 </Border>
                 <ContentControl Content="{Binding SelectedItem.Content}" Name="Frame" />
             </DockPanel>
+            <Border
+                Background="{DynamicResource WindowBackground}"
+                DockPanel.Dock="Bottom"
+                Height="1"
+                HorizontalAlignment="Center"
+                IsHitTestVisible="False"
+                Margin="0,50,0,0"
+                Name="FlyoutPoint"
+                Opacity="0"
+                VerticalAlignment="Top"
+                Width="1" />
         </Grid>
     </Border>
 </u:UrsaWindow>

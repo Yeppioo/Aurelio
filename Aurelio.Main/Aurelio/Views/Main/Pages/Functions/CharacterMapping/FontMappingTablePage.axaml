@@ -1,0 +1,71 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Views.Main.Pages.Functions.CharacterMapping.FontMappingTablePage"
+    x:DataType="characterMapping:FontMappingTablePage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+    xmlns:characterMapping="clr-namespace:Aurelio.Views.Main.Pages.Functions.CharacterMapping"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:functions="clr-namespace:Aurelio.Public.Classes.Entries.Functions"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:properties="clr-namespace:Aurelio.Public.Langs"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <suki:GlassCard Classes="HeaderCard" Margin="30,20,30,30">
+        <suki:GroupBox Name="GroupBox">
+            <suki:GroupBox.Header>
+                <DockPanel>
+                    <SelectableTextBlock
+                        DockPanel.Dock="Left"
+                        FontFamily="{Binding Entry.FontFamily}"
+                        FontSize="18"
+                        Foreground="{DynamicResource GrayColor}"
+                        HorizontalAlignment="Left"
+                        Margin="5,0,0,0"
+                        Text="{Binding Entry.DisplayName}"
+                        VerticalAlignment="Center" />
+                    <StackPanel
+                        DockPanel.Dock="Right"
+                        HorizontalAlignment="Right"
+                        Margin="0,0,15,0"
+                        Orientation="Horizontal"
+                        Spacing="20">
+                        <ComboBox ItemsSource="{Binding Entry.Typefaces}" SelectedItem="{Binding SelectedTypeface}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate DataType="functions:RecordTypefaceEntry">
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Button Classes="no-background-button">
+                            <avalonia:MaterialIcon
+                                Height="18"
+                                Kind="InfoOutline"
+                                Width="18" />
+                        </Button>
+                        <Button Classes="no-background-button">
+                            <avalonia:MaterialIcon
+                                Height="18"
+                                Kind="SwapHorizontal"
+                                Width="18" />
+                        </Button>
+                        <Button Classes="no-background-button">
+                            <avalonia:MaterialIcon
+                                Height="18"
+                                Kind="FilterCheckOutline"
+                                Width="18" />
+                        </Button>
+                        <Button Classes="no-background-button">
+                            <avalonia:MaterialIcon
+                                Height="18"
+                                Kind="DotsHorizontal"
+                                Width="18" />
+                        </Button>
+                    </StackPanel>
+                </DockPanel>
+            </suki:GroupBox.Header>
+        </suki:GroupBox>
+    </suki:GlassCard>
+</UserControl>

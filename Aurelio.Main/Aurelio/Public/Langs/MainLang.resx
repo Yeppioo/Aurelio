@@ -69,4 +69,19 @@
   <data name="CharacterMapping" xml:space="preserve">
     <value>字符映射表</value>
   </data>
+  <data name="FontList" xml:space="preserve">
+    <value>字体列表</value>
+  </data>
+  <data name="NewTab" xml:space="preserve">
+    <value>新标签页</value>
+  </data>
+  <data name="CloseCurrentTab" xml:space="preserve">
+    <value>关闭当前标签页</value>
+  </data>
+  <data name="Tab" xml:space="preserve">
+    <value>标签页</value>
+  </data>
+  <data name="SystemFont" xml:space="preserve">
+    <value>系统字体</value>
+  </data>
 </root>

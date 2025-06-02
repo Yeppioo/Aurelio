@@ -40,6 +40,7 @@
                 <BrushTransition Duration="0:0:0.3" Property="Foreground" />
             </Transitions>
         </Setter>
+        <Setter Property="Margin" Value="0" />
     </Style>
     <Style Selector="Button">
         <Setter Property="FontFamily" Value="{DynamicResource MiSans}" />
@@ -76,4 +77,13 @@
             </Transitions>
         </Setter>
     </Style>
+    <Style Selector="u|SelectionListItem">
+        <Setter Property="Padding" Value="0" />
+    </Style>
+    <Style Selector="ListBoxItem">
+        <Setter Property="Margin" Value="5,3" />
+    </Style>
+    <!-- <Style Selector="MenuItem"> -->
+    <!--     <Setter Property="InputGesture" Value="{Binding $self.HotKey}" /> -->
+    <!-- </Style> -->
 </Styles>

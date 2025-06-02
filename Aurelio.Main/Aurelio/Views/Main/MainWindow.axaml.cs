@@ -1,21 +1,31 @@
 using System.Diagnostics;
+using System.Threading.Tasks;
+using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Enum;
+using Aurelio.Public.Module.IO.Local;
 using Aurelio.ViewModels;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Layout;
+using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using CommunityToolkit.Mvvm.Input;
 using HotAvalonia;
+using Material.Icons;
 using Ursa.Controls;
 
 namespace Aurelio.Views.Main;
 
 public partial class MainWindow : UrsaWindow
 {
+    public Button MenuButton;
     public MainViewModel ViewModel { get; set; } = new();
 
     public MainWindow()
     {
         InitializeComponent();
         DataContext = ViewModel;
+        NewTabButton.DataContext = ViewModel;
         BindEvents();
 #if RELEASE
         InitTitleBar();
@@ -25,18 +35,42 @@ public partial class MainWindow : UrsaWindow
     [AvaloniaHotReload]
     private void InitTitleBar()
     {
-        var msgHistory = new Button()
+        var setting = new Button()
         {
             Classes = { "title-bar-button", "big-title-bar-icon" },
-            HorizontalAlignment = HorizontalAlignment.Right,
+            HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
-            Content = PathGeometry.Parse(
-                "M20.1 13.5l-1.9.2a5.8 5.8 0 0 1-.6 1.5l1.2 1.5c.4.4.3 1 0 1.4l-.7.7a1 1 0 0 1-1.4 0l-1.5-1.2a6.2 6.2 0 0 1-1.5.6l-.2 1.9c0 .5-.5.9-1 .9h-1a1 1 0 0 1-1-.9l-.2-1.9a5.8 5.8 0 0 1-1.5-.6l-1.5 1.2a1 1 0 0 1-1.4 0l-.7-.7a1 1 0 0 1 0-1.4l1.2-1.5a6.2 6.2 0 0 1-.6-1.5l-1.9-.2a1 1 0 0 1-.9-1v-1c0-.5.4-1 .9-1l1.9-.2a5.8 5.8 0 0 1 .6-1.5L5.2 7.3a1 1 0 0 1 0-1.4l.7-.7a1 1 0 0 1 1.4 0l1.5 1.2a6.2 6.2 0 0 1 1.5-.6l.2-1.9c0-.5.5-.9 1-.9h1c.5 0 1 .4 1 .9l.2 1.9a5.8 5.8 0 0 1 1.5.6l1.5-1.2a1 1 0 0 1 1.4 0l.7.7c.3.4.4 1 0 1.4l-1.2 1.5a6.2 6.2 0 0 1 .6 1.5l1.9.2c.5 0 .9.5.9 1v1c0 .5-.4 1-.9 1zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"),
+            Content = Public.Module.Ui.Icon.FromMaterial(MaterialIconKind.Settings)
         };
-        TitleBar.AddButton(msgHistory);
+        TitleBar.AddButton(setting);
+        MenuButton = new Button()
+        {
+            Classes = { "title-bar-button-more" },
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            Content = Public.Module.Ui.Icon.FromMaterial(MaterialIconKind.MoreVert)
+        };
+        TitleBar.AddButton(MenuButton);
+        var c = new MoreButtonMenu();
+        var menu = (MenuFlyout)c.MainControl!.Flyout;
+        MenuButton.Flyout = menu;
+        MenuButton.DataContext = new MoreButtonMenuCommands();
     }
 
     private void BindEvents()
     {
+        NavScrollViewer.ScrollChanged += (_, _) => { ViewModel.IsTabMaskVisible = NavScrollViewer.Offset.X > 0; };
+    }
+
+    private void FunctionItem_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        FunctionConfig.CreateNewTab((FunctionType)((Border)sender).Tag!);
+    }
+
+    private void TabItem_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if(!e.GetCurrentPoint(this).Properties.IsMiddleButtonPressed) return;
+        var c = (TabEntry)((Border)sender).Tag;
+        c.Close();
     }
 }
