@@ -13,7 +13,7 @@
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:suki="https://github.com/kikipoulet/SukiUI"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <suki:GlassCard Classes="HeaderCard" Margin="30,20,30,30">
+    <suki:GlassCard Classes="HeaderCard" Margin="20,10,20,20">
         <suki:GroupBox Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SystemFont}" Name="GroupBox">
             <DockPanel>
                 <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top">
@@ -60,7 +60,7 @@
                                         FontSize="13"
                                         Foreground="{DynamicResource GrayColor}"
                                         HorizontalAlignment="Right"
-                                        Text="{Binding Styles}"
+                                        Text="{Binding StringStyles}"
                                         VerticalAlignment="Center" />
                                 </DockPanel>
                             </DataTemplate>

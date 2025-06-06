@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Classes.Types;
 using Aurelio.Public.Enum;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App.Init.Config;
@@ -23,18 +23,15 @@ public abstract class FunctionConfig
     public static void CreateNewTab(FunctionType type)
     {
         var w = App.UiRoot;
-        IFunctionPage page = type switch
+        using IFunctionPage page = type switch
         {
             FunctionType.CharacterMapping => new FontSelectionPage(),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
-        page.HostContent = page as UserControl;
-        page.HostTab = new TabEntry(page.GetPageInfo().title, page.HostContent!, page.GetPageInfo().icon)
-        {
-            OnClose = page.GetPageInfo().OnClose
-        };
-        w.ViewModel.Tabs.Add(page.HostTab);
-        w.ViewModel.SelectedItem = page.HostTab;
+        var tab = new TabEntry(page.GetPageInfo().title, page, page.GetPageInfo().icon);
+        page.HostTab = tab;
+        w.ViewModel.Tabs.Add(tab);
+        w.ViewModel.SelectedItem = tab;
         App.UiRoot.NewTabButton.Flyout.Hide();
     }
 }

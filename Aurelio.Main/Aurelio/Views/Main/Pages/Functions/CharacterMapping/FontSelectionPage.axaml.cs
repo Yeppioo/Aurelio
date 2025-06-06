@@ -1,34 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Entries.Functions;
-using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Const;
 using Aurelio.Public.Enum;
 using Aurelio.Public.Langs;
-using Aurelio.Public.Module;
 using Aurelio.Public.Module.Ui;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Documents;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using DynamicData;
 using SkiaSharp;
 using System.Threading.Tasks;
 using Avalonia.Threading;
 using System.Threading;
+using Aurelio.Public.Classes.Types;
 
 namespace Aurelio.Views.Main.Pages.Functions.CharacterMapping;
 
-public partial class FontSelectionPage : UserControl, IFunctionPage, INotifyPropertyChanged, IDisposable
+public partial class FontSelectionPage : UserControl, IFunctionPage
 {
     private bool _fl = true;
     private CancellationTokenSource _fontLoadCts;
@@ -40,16 +35,11 @@ public partial class FontSelectionPage : UserControl, IFunctionPage, INotifyProp
         ListBox.SelectionChanged += (_, _) =>
         {
             if (ListBox.SelectedItem is not RecordFontFamilyEntry item) return;
-            IFunctionPage page = new FontMappingTablePage(item);
+            var page = new FontMappingTablePage(item);
             var text = new TextBlock();
             text.Inlines.Add(new Run($"{MainLang.CharacterMapping}: ") { FontFamily = item.FontFamily });
             text.Inlines.Add(new Run(item.DisplayName) { FontFamily = item.FontFamily });
-            page.HostContent = (FontMappingTablePage)page;
-            page.HostTab = HostTab;
-            page.HostTab.Icon = page.GetPageInfo().icon;
-            page.HostTab.Title = page.GetPageInfo().title;
-            page.HostTab.HeaderContent = text;
-            page.HostTab.Content = page.HostContent;
+            HostTab.ReplacePage(page);
             Dispose();
         };
         Loaded += (_, _) =>
@@ -61,18 +51,13 @@ public partial class FontSelectionPage : UserControl, IFunctionPage, INotifyProp
         };
     }
 
-    public (string title, StreamGeometry icon, Action OnClose) GetPageInfo()
+    public new (string title, StreamGeometry icon) GetPageInfo()
     {
-        return ($"{MainLang.CharacterMapping}: {MainLang.FontList}", Icons.CharacterAppearance, OnClose);
+        return ($"{MainLang.CharacterMapping}: {MainLang.FontList}", Icons.CharacterAppearance);
     }
 
     public TabEntry HostTab { get; set; }
     public UserControl HostContent { get; set; }
-
-    public void OnClose()
-    {
-        Dispose();
-    }
 
     private string _searchFunctionText = string.Empty;
 
@@ -104,18 +89,21 @@ public partial class FontSelectionPage : UserControl, IFunctionPage, INotifyProp
             {
                 case DesktopType.Windows:
                     fontDirs.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "Fonts"));
-                    fontDirs.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Microsoft\\Windows\\Fonts"));
+                    fontDirs.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                        @"Microsoft\\Windows\\Fonts"));
                     break;
                 case DesktopType.MacOs:
                     fontDirs.Add("/System/Library/Fonts");
                     fontDirs.Add("/Library/Fonts");
-                    fontDirs.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Library/Fonts"));
+                    fontDirs.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                        "Library/Fonts"));
                     break;
                 case DesktopType.Linux:
                 case DesktopType.FreeBSD:
                     fontDirs.Add("/usr/share/fonts");
                     fontDirs.Add("/usr/local/share/fonts");
-                    fontDirs.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".fonts"));
+                    fontDirs.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                        ".fonts"));
                     break;
                 case DesktopType.Unknown:
                 default:
@@ -140,72 +128,69 @@ public partial class FontSelectionPage : UserControl, IFunctionPage, INotifyProp
                 }
             }
 
-            // 第一遍：收集所有家族名
-            var familyNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            foreach (var file in fontFiles.Distinct())
+            var fontFamilyDict = new Dictionary<string, RecordFontFamilyEntry>(StringComparer.OrdinalIgnoreCase);
+            var fontFilesDistinct = fontFiles.Distinct().ToList();
+            var lockObj = new object();
+
+            Parallel.ForEach(fontFilesDistinct, file =>
             {
                 try
                 {
                     using var skTypeface = SKTypeface.FromFile(file);
-                    if (skTypeface == null) continue;
+                    if (skTypeface == null) return;
                     var familyName = skTypeface.FamilyName;
-                    if (!string.IsNullOrWhiteSpace(familyName))
-                        familyNames.Add(familyName);
+                    if (string.IsNullOrWhiteSpace(familyName)) return;
+
+                    var weight = skTypeface.FontWeight;
+                    // 将数值weight转换为单词
+                    var weightWord = weight switch
+                    {
+                        <= 250 => "Thin",
+                        <= 350 => "Light",
+                        <= 450 => "Regular",
+                        <= 550 => "Medium",
+                        <= 650 => "SemiBold",
+                        <= 750 => "Bold",
+                        <= 850 => "ExtraBold",
+                        _ => "Black"
+                    };
+                    var name = RecordFontFamilyEntry.FontStyleToString(skTypeface.FontStyle);
+
+                    lock (lockObj)
+                    {
+                        if (!fontFamilyDict.TryGetValue(familyName, out var entry))
+                        {
+                            entry = new RecordFontFamilyEntry
+                            {
+                                FontFamily = new FontFamily(familyName),
+                                DisplayName =
+                                    FontFamilyChineseNameTable.FontNameMap.TryGetValue(familyName, out var cn) &&
+                                    !string.IsNullOrWhiteSpace(cn)
+                                        ? $"{familyName} ({cn})"
+                                        : familyName,
+                                FontFamilyName = familyName,
+                                Typefaces = []
+                            };
+                            fontFamilyDict[familyName] = entry;
+                        }
+
+                        // 避免重复
+                        if (entry.Typefaces.Any(x => x.Name == name && x.Path == file)) return;
+
+                        entry.Typefaces.Add(new RecordTypefaceEntry
+                        {
+                            Name = name,
+                            Path = file,
+                            Style = skTypeface.FontStyle
+                        });
+                        entry.Styles.Add(skTypeface.FontStyle);
+                    }
                 }
                 catch
                 {
                     // ignored
                 }
-            }
-
-            // 第二遍：为每个家族收集所有文件及其style/weight
-            var fontFamilyDict = new Dictionary<string, RecordFontFamilyEntry>(StringComparer.OrdinalIgnoreCase);
-            foreach (var familyName in familyNames)
-            {
-                var entry = new RecordFontFamilyEntry
-                {
-                    FontFamily = new FontFamily(familyName),
-                    DisplayName = FontFamilyChineseNameTable.FontNameMap.TryGetValue(familyName, out var cn) && !string.IsNullOrWhiteSpace(cn)
-                        ? $"{familyName} ({cn})"
-                        : familyName,
-                    FontFamilyName = familyName,
-                    Styles = "",
-                    Typefaces = new List<RecordTypefaceEntry>()
-                };
-
-                foreach (var file in fontFiles.Distinct())
-                {
-                    try
-                    {
-                        using var skTypeface = SKTypeface.FromFile(file);
-                        if (skTypeface == null) continue;
-                        if (!string.Equals(skTypeface.FamilyName, familyName, StringComparison.OrdinalIgnoreCase)) continue;
-
-                        var weight = skTypeface.FontWeight;
-                        var isItalic = skTypeface.IsItalic;
-                        string styleName = isItalic ? "Italic" : "Normal";
-                        string weightName = weight == 400 ? "" : weight.ToString();
-                        string name = string.IsNullOrEmpty(weightName) ? styleName : $"{weightName} {styleName}";
-
-                        // 避免重复
-                        if (entry.Typefaces.Any(x => x.Name == name && x.Path == file)) continue;
-
-                        entry.Typefaces.Add(new RecordTypefaceEntry
-                        {
-                            Name = name,
-                            Typeface = null,
-                            Path = file
-                        });
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
-                }
-
-                entry.Styles = string.Join(",", entry.Typefaces.Select(x => x.Name).Distinct());
-                fontFamilyDict[familyName] = entry;
-            }
+            });
 
             var fontFamilies = fontFamilyDict.Values.ToList();
 
@@ -234,7 +219,7 @@ public partial class FontSelectionPage : UserControl, IFunctionPage, INotifyProp
 
     public new event PropertyChangedEventHandler? PropertyChanged;
 
-    private new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
@@ -249,16 +234,8 @@ public partial class FontSelectionPage : UserControl, IFunctionPage, INotifyProp
 
     public void Dispose()
     {
-        try
-        {
-            FoundFonts.Clear();
-            _fontLoadCts?.Cancel();
-            _fontLoadCts?.Dispose();
-            GC.Collect(2, GCCollectionMode.Aggressive, true);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-        }
+        FoundFonts?.Clear();
+        _fontLoadCts?.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

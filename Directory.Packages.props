@@ -9,6 +9,7 @@
     <PackageVersion Include="AsyncImageLoader.Avalonia" Version="3.3.0" />
     <PackageVersion Include="Avalonia" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Controls.DataGrid" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Svg" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Diagnostics" Version="11.3.0" />
@@ -32,6 +33,7 @@
     <PackageVersion Include="SkiaSharp" Version="3.119.0" />
     <PackageVersion Include="SukiUI" Version="6.0.2" />
     <PackageVersion Include="Typography.OpenFont.NetCore" Version="1.0.0" />
+    <PackageVersion Include="UnicodeInformation" Version="2.7.1" />
     <PackageVersion Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.15" />
   </ItemGroup>
 </Project>

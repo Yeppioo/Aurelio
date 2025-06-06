@@ -24,6 +24,7 @@
     <PackageReference Include="AsyncImageLoader.Avalonia" />
     <PackageReference Include="Avalonia" />
     <PackageReference Include="Avalonia.Controls.DataGrid" />
+    <PackageReference Include="Avalonia.Svg" />
     <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="Avalonia.Fonts.Inter" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
@@ -47,6 +48,7 @@
     <PackageReference Include="SkiaSharp" />
     <PackageReference Include="SukiUI" />
     <PackageReference Include="Typography.OpenFont.NetCore" />
+    <PackageReference Include="UnicodeInformation" />
   </ItemGroup>
 
   <ItemGroup>
@@ -82,7 +84,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Public\Classes\Types\" />
     <Folder Include="Public\Module\IO\Http\Api\" />
-    <Folder Include="ViewModels\Converter\" />
   </ItemGroup>
 </Project>

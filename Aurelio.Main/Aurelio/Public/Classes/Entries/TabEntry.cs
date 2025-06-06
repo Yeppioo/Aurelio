@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Aurelio.Public.Classes.Types;
 using Aurelio.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Media;
@@ -7,9 +8,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Aurelio.Public.Classes.Entries;
 
-public partial class TabEntry : ViewModelBase
+public partial class TabEntry : ViewModelBase , IDisposable
 {
-    public TabEntry(string title, object content, StreamGeometry? icon = null, bool canClose = true,
+    public TabEntry(string title, IFunctionPage content, StreamGeometry? icon = null, bool canClose = true,
         object? headerContent = null)
     {
         CanClose = canClose;
@@ -19,14 +20,14 @@ public partial class TabEntry : ViewModelBase
         HeaderContent = headerContent ?? CreateHeaderTextBlock();
     }
 
-    private object _content;
+    private IFunctionPage _content;
     private object _headerContent;
     private string _title;
     private StreamGeometry? _icon;
     private bool _canClose;
     public bool IconIsVisible => Icon != null;
 
-    public object Content
+    public IFunctionPage Content
     {
         get => _content;
         set => SetField(ref _content, value);
@@ -43,9 +44,7 @@ public partial class TabEntry : ViewModelBase
         get => _title;
         set => SetField(ref _title, value);
     }
-
-    public Action OnClose;
-
+    
     public bool CanClose
     {
         get => _canClose;
@@ -80,6 +79,22 @@ public partial class TabEntry : ViewModelBase
         {
             App.UiRoot.ViewModel.Tabs.Remove(this);
         }
-        OnClose();
+        Content.Dispose();
+    }
+    
+    public void ReplacePage(IFunctionPage page)
+    {
+        Content.Dispose();
+        Content = page;
+        page.HostTab = this;
+        Icon = page.GetPageInfo().icon;
+        Title = page.GetPageInfo().title;
+        Content = page;
+    }
+
+    public void Dispose()
+    {
+        Content.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

@@ -78,6 +78,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {num} 个字符.
+        /// </summary>
+        public static string CharacterCount {
+            get {
+                return ResourceManager.GetString("CharacterCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 字符映射表.
         /// </summary>
         public static string CharacterMapping {

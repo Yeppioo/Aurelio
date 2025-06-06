@@ -84,4 +84,7 @@
   <data name="SystemFont" xml:space="preserve">
     <value>系统字体</value>
   </data>
+  <data name="CharacterCount" xml:space="preserve">
+    <value>{num} 个字符</value>
+  </data>
 </root>

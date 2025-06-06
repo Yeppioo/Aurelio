@@ -1,14 +1,13 @@
 ﻿using System;
+using System.ComponentModel;
 using Aurelio.Public.Classes.Entries;
 using Avalonia.Controls;
 using Avalonia.Media;
 
-namespace Aurelio.Public.Classes.Interfaces;
+namespace Aurelio.Public.Classes.Types;
 
-public interface IFunctionPage
+public interface IFunctionPage : IDisposable , INotifyPropertyChanged
 {
-    public (string title, StreamGeometry icon, Action OnClose) GetPageInfo();
+    public (string title, StreamGeometry icon) GetPageInfo();
     public TabEntry HostTab { get; set; }
-    public UserControl HostContent { get; set; }
-    public void OnClose();
 }
