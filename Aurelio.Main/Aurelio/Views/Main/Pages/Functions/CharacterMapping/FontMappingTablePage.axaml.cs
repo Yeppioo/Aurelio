@@ -172,7 +172,7 @@ public partial class FontMappingTablePage : UserControl, IFunctionPage
     public void Dispose()
     {
         DataContext = null;
-        skTypeface.Dispose();
+        skTypeface?.Dispose();
         skTypeface = null;
         if (CharacterBlocks != null)
         {

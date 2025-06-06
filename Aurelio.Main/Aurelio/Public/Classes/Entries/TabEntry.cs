@@ -80,6 +80,7 @@ public partial class TabEntry : ViewModelBase , IDisposable
             App.UiRoot.ViewModel.Tabs.Remove(this);
         }
         Content.Dispose();
+        Dispose();
     }
     
     public void ReplacePage(IFunctionPage page)
@@ -95,6 +96,8 @@ public partial class TabEntry : ViewModelBase , IDisposable
     public void Dispose()
     {
         Content.Dispose();
+        Content = null;
         GC.SuppressFinalize(this);
+        GC.Collect(2);
     }
 }
