@@ -87,4 +87,7 @@
   <data name="CharacterCount" xml:space="preserve">
     <value>{num} 个字符</value>
   </data>
+  <data name="OpenRecentContent" xml:space="preserve">
+    <value>打开最近的内容</value>
+  </data>
 </root>

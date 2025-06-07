@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
@@ -12,6 +13,7 @@ public abstract class AfterUiLoaded
 {
     public static void Main()
     {
+        File.WriteAllText(ConfigPath.AppPathDataPath, System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
         BindKeys.Main();
     }
 }

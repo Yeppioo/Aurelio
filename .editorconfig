@@ -11,6 +11,7 @@ dotnet_diagnostic.CA1416.severity = none
 dotnet_diagnostic.CS8602.severity = none
 dotnet_diagnostic.CS8851.severity = none
 dotnet_diagnostic.CA1822.severity = none
+dotnet_diagnostic.CS0659.severity = none
 dotnet_diagnostic.CA1839.severity = none
 dotnet_diagnostic.IDE0090.severity = none
 dotnet_diagnostic.IDE0220.severity = none
@@ -42,3 +43,5 @@ dotnet_diagnostic.CS0642.severity = none
 
 # IDE0063: 使用简单的 "using" 语句
 dotnet_diagnostic.IDE0063.severity = none
+
+

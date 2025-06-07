@@ -20,10 +20,11 @@ using System.Threading.Tasks;
 using Avalonia.Threading;
 using System.Threading;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.ViewModels;
 
 namespace Aurelio.Views.Main.Pages.Functions.CharacterMapping;
 
-public partial class FontSelectionPage : UserControl, IFunctionPage
+public partial class FontSelectionPage : PageMixModelBase, IFunctionPage
 {
     private bool _fl = true;
     private CancellationTokenSource _fontLoadCts;
@@ -54,39 +55,38 @@ public partial class FontSelectionPage : UserControl, IFunctionPage
         FilterFont();
     }
 
-    public new (string title, StreamGeometry icon) GetPageInfo()
-    {
-        return ($"{MainLang.CharacterMapping}: {MainLang.FontList}", Icons.CharacterAppearance);
-    }
-
     public TabEntry HostTab { get; set; }
+
     public void OnClose()
     {
-        // 1. 解绑事件
         if (ListBox != null)
             ListBox.SelectionChanged -= ListBox_SelectionChanged;
         Loaded -= LoadedHandler;
 
-        // 2. 释放集合
+        Card.Content = null;
+
         FoundFonts?.Clear();
         FilteredFonts?.Clear();
         FoundFonts = null;
         FilteredFonts = null;
 
-        // 3. 释放其它资源
         _fontLoadCts?.Dispose();
         _fontLoadCts = null;
-
-        // 4. 断开DataContext
         DataContext = null;
-
-        // 5. 断开Tab和Content引用
         HostContent = null;
         HostTab = null;
+        
+        // FontManager.Current.RemoveFontCollection(new Uri("fonts:SystemFonts", UriKind.Absolute));
 
         GC.SuppressFinalize(this);
         GC.Collect(2);
     }
+
+    public PageInfoEntry PageInfo => new()
+    {
+        Title = $"{MainLang.CharacterMapping}: {MainLang.FontList}",
+        Icon = Icons.CharacterAppearance
+    };
 
     public UserControl HostContent { get; set; }
 
@@ -94,7 +94,6 @@ public partial class FontSelectionPage : UserControl, IFunctionPage
 
     public ObservableCollection<RecordFontFamilyEntry> FoundFonts { get; set; } = [];
     public ObservableCollection<RecordFontFamilyEntry> FilteredFonts { get; set; } = [];
-
 
     public string SearchFunctionText
     {
@@ -160,10 +159,9 @@ public partial class FontSelectionPage : UserControl, IFunctionPage
             }
 
             var fontFamilyDict = new Dictionary<string, RecordFontFamilyEntry>(StringComparer.OrdinalIgnoreCase);
-            var fontFilesDistinct = fontFiles.Distinct().ToList();
             var lockObj = new object();
 
-            Parallel.ForEach(fontFilesDistinct, file =>
+            foreach (var file in fontFiles.Distinct())
             {
                 try
                 {
@@ -172,19 +170,6 @@ public partial class FontSelectionPage : UserControl, IFunctionPage
                     var familyName = skTypeface.FamilyName;
                     if (string.IsNullOrWhiteSpace(familyName)) return;
 
-                    var weight = skTypeface.FontWeight;
-                    // 将数值weight转换为单词
-                    var weightWord = weight switch
-                    {
-                        <= 250 => "Thin",
-                        <= 350 => "Light",
-                        <= 450 => "Regular",
-                        <= 550 => "Medium",
-                        <= 650 => "SemiBold",
-                        <= 750 => "Bold",
-                        <= 850 => "ExtraBold",
-                        _ => "Black"
-                    };
                     var name = RecordFontFamilyEntry.FontStyleToString(skTypeface.FontStyle);
 
                     lock (lockObj)
@@ -194,6 +179,7 @@ public partial class FontSelectionPage : UserControl, IFunctionPage
                             entry = new RecordFontFamilyEntry
                             {
                                 FontFamily = new FontFamily(familyName),
+                                // FontFamily = null,
                                 DisplayName =
                                     FontFamilyChineseNameTable.FontNameMap.TryGetValue(familyName, out var cn) &&
                                     !string.IsNullOrWhiteSpace(cn)
@@ -205,9 +191,7 @@ public partial class FontSelectionPage : UserControl, IFunctionPage
                             fontFamilyDict[familyName] = entry;
                         }
 
-                        // 避免重复
                         if (entry.Typefaces.Any(x => x.Name == name && x.Path == file)) return;
-
                         entry.Typefaces.Add(new RecordTypefaceEntry
                         {
                             Name = name,
@@ -221,21 +205,17 @@ public partial class FontSelectionPage : UserControl, IFunctionPage
                 {
                     // ignored
                 }
-            });
+            }
 
             var fontFamilies = fontFamilyDict.Values.ToList();
-
-            if (!token.IsCancellationRequested)
+            Dispatcher.UIThread.Post(() =>
             {
-                Dispatcher.UIThread.Post(() =>
-                {
-                    FoundFonts.Clear();
-                    FoundFonts.AddRange(fontFamilies);
-                    FilterFont();
-                    TextBox.IsEnabled = true;
-                    ProgressRing.IsVisible = false;
-                });
-            }
+                FoundFonts.Clear();
+                FoundFonts.AddRange(fontFamilies);
+                FilterFont();
+                TextBox.IsEnabled = true;
+                ProgressRing.IsVisible = false;
+            });
         }, token);
     }
 
@@ -246,20 +226,5 @@ public partial class FontSelectionPage : UserControl, IFunctionPage
                 item.DisplayName.Replace(" ", "").ToLower().Contains(SearchFunctionText.ToLower().Replace(" ", ""),
                     StringComparison.OrdinalIgnoreCase))
             .ToList().OrderBy(x => x.FontFamilyName).ToList());
-    }
-
-    public new event PropertyChangedEventHandler? PropertyChanged;
-
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
-    {
-        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-        field = value;
-        OnPropertyChanged(propertyName);
-        return true;
     }
 }

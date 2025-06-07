@@ -4,7 +4,7 @@ namespace Aurelio.Public.Module;
 
 public static class Extensions
 {
-    public static string ToJson(this object obj, Formatting formatting = Formatting.Indented)
+    public static string AsJson(this object obj, Formatting formatting = Formatting.Indented)
     {
         return JsonConvert.SerializeObject(obj, formatting);
     }

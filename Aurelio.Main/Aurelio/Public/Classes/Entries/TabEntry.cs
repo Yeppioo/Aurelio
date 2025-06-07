@@ -8,7 +8,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Aurelio.Public.Classes.Entries;
 
-public partial class TabEntry : ViewModelBase , IDisposable
+public partial class TabEntry : ViewModelBase
 {
     public TabEntry(string title, IFunctionPage content, StreamGeometry? icon = null, bool canClose = true,
         object? headerContent = null)
@@ -80,7 +80,7 @@ public partial class TabEntry : ViewModelBase , IDisposable
             App.UiRoot.ViewModel.Tabs.Remove(this);
         }
         DisposeContent();
-        Dispose();
+        Removing();
     }
     
     public void ReplacePage(IFunctionPage page)
@@ -88,12 +88,12 @@ public partial class TabEntry : ViewModelBase , IDisposable
         DisposeContent();
         Content = page;
         page.HostTab = this;
-        Icon = page.GetPageInfo().icon;
-        Title = page.GetPageInfo().title;
+        Icon = page.PageInfo.Icon;
+        Title = page.PageInfo.Title;
         Content = page;
     }
 
-    public void Dispose()
+    public void Removing()
     {
         DisposeContent();
         Content = null;

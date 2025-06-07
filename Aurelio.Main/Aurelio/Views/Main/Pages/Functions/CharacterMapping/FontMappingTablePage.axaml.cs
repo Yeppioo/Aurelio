@@ -8,8 +8,10 @@ using System.Unicode;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Entries.Functions;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Enum;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui;
+using Aurelio.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
@@ -18,7 +20,7 @@ using SkiaSharp;
 
 namespace Aurelio.Views.Main.Pages.Functions.CharacterMapping;
 
-public partial class FontMappingTablePage : UserControl, IFunctionPage
+public partial class FontMappingTablePage : PageMixModelBase, IFunctionPage
 {
     private SKTypeface skTypeface;
     private bool _fl = true;
@@ -31,6 +33,13 @@ public partial class FontMappingTablePage : UserControl, IFunctionPage
         DataContext = this;
         SelectedTypeface = (RecordTypefaceEntry)Entry.Typefaces.FirstOrDefault();
         Loaded += OnLoaded;
+        FunctionConfig.AddRecentOpen(new RecentOpenEntry()
+        {
+            Title = PageInfo.Title,
+            Summary = entry.Typefaces.FirstOrDefault()?.Path,
+            FilePath = entry.Typefaces.FirstOrDefault()?.Path,
+            FunctionType = FunctionType.CharacterMapping
+        });
     }
 
     private void OnLoaded(object? sender, RoutedEventArgs e)
@@ -88,12 +97,6 @@ public partial class FontMappingTablePage : UserControl, IFunctionPage
         return supportCharacter;
     }
 
-
-    public (string title, StreamGeometry icon) GetPageInfo()
-    {
-        return ($"{MainLang.CharacterMapping}: {Entry.DisplayName}", Icons.CharacterAppearance);
-    }
-
     public TabEntry HostTab { get; set; }
     public void OnClose()
     {
@@ -110,6 +113,12 @@ public partial class FontMappingTablePage : UserControl, IFunctionPage
         GC.SuppressFinalize(this);
     }
 
+    public PageInfoEntry PageInfo => new()
+    {
+        Title = $"{MainLang.CharacterMapping}: {Entry.DisplayName}",
+        Icon = Icons.CharacterAppearance
+    };
+
     public UserControl HostContent { get; set; }
 
     public RecordTypefaceEntry SelectedTypeface
@@ -123,21 +132,6 @@ public partial class FontMappingTablePage : UserControl, IFunctionPage
     }
 
     private RecordTypefaceEntry _selectedTypeface;
-
-    public new event PropertyChangedEventHandler? PropertyChanged;
-
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
-    {
-        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-        field = value;
-        OnPropertyChanged(propertyName);
-        return true;
-    }
 
     [Obsolete("Obsolete")]
     private void Button_OnClick(object? sender, RoutedEventArgs e)
