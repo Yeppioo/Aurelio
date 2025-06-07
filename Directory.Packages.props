@@ -9,6 +9,7 @@
     <PackageVersion Include="AsyncImageLoader.Avalonia" Version="3.3.0" />
     <PackageVersion Include="Avalonia" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Controls.DataGrid" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Controls.ItemsRepeater" Version="11.1.5" />
     <PackageVersion Include="Avalonia.Svg" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.3.0" />

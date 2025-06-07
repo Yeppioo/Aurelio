@@ -6,6 +6,7 @@
     xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:semi="https://irihi.tech/semi"
     xmlns:styling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
+	xmlns:converters="using:Aurelio.Public.Media.Converter"
     xmlns:u-semi="https://irihi.tech/ursa/themes/semi"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
@@ -31,7 +32,10 @@
             <FontFamily x:Key="Quicksand">avares://Aurelio/Public/Assets#Quicksand SemiBold</FontFamily>
             <FontWeight x:Key="FontWeight">Bold</FontWeight>
         </ResourceDictionary>
-    </Application.Resources>
+
+		<converters:FamilyTypefacesConverter x:Key="FamilyTypefacesConverter"/>
+		<converters:FamilyTypefacesListConverter x:Key="FamilyTypefacesListConverter"/>
+	</Application.Resources>
     <Application.Styles>
         <!-- <SukiTheme Locale="zh-CN" ThemeColor="Blue" /> -->
         <styling:FluentAvaloniaTheme />
@@ -42,6 +46,6 @@
         <StyleInclude Source="/Public/Styles/Style.axaml" />
         <StyleInclude Source="/Public/Styles/Override.axaml" />
         <StyleInclude Source="avares://AsyncImageLoader.Avalonia/AdvancedImage.axaml" />
-        <avalonia:MaterialIconStyles />
+		<avalonia:MaterialIconStyles />
     </Application.Styles>
 </Application>
