@@ -1,7 +1,7 @@
 ﻿using Aurelio.Public.Enum;
 using Avalonia.Media;
 
-namespace Aurelio.Public.Classes.Entries;
+namespace Aurelio.Public.Classes.Entries.Page;
 
 public class NewPageEntry(FunctionType FunctionType, string Title, StreamGeometry Icon)
 {

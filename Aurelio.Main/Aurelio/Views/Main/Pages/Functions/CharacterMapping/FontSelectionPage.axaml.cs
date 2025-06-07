@@ -1,5 +1,4 @@
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Public.Classes.Entries.Functions;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui;
@@ -15,10 +14,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using Aurelio.Public.Classes.Entries.Page;
 
 namespace Aurelio.Views.Main.Pages.Functions.CharacterMapping;
 
-public partial class FontSelectionPage : UserControl, IFunctionPage {
+public partial class FontSelectionPage : UserControl, IFunctionPage
+{
     private CancellationTokenSource _fontLoadCts;
     private string _searchFunctionText = string.Empty;
 
@@ -27,7 +28,7 @@ public partial class FontSelectionPage : UserControl, IFunctionPage {
     public void OnClose()
     {
         //if (ListBox != null)
-            //ListBox.SelectionChanged -= ListBox_SelectionChanged;
+        //ListBox.SelectionChanged -= ListBox_SelectionChanged;
         //Loaded -= LoadedHandler;
 
         //Card.Content = null;
@@ -42,7 +43,7 @@ public partial class FontSelectionPage : UserControl, IFunctionPage {
         //DataContext = null;
         //HostContent = null;
         //HostTab = null;
-        
+
         // FontManager.Current.RemoveFontCollection(new Uri("fonts:SystemFonts", UriKind.Absolute));
 
         GC.SuppressFinalize(this);
@@ -55,47 +56,54 @@ public partial class FontSelectionPage : UserControl, IFunctionPage {
         Icon = Icons.CharacterAppearance
     };
 
-    public UserControl HostContent { get; set; }
     public ObservableCollection<FontFamily> FoundFonts { get; set; } = [];
     public ObservableCollection<FontFamily> FilteredFonts { get; set; } = [];
 
     public new event PropertyChangedEventHandler? PropertyChanged;
 
-    public string SearchFunctionText {
+    public string SearchFunctionText
+    {
         get => _searchFunctionText;
-        set {
+        set
+        {
             SetField(ref _searchFunctionText, value);
             FilterFont();
         }
     }
 
-    public FontSelectionPage() {
+    public FontSelectionPage()
+    {
         InitializeComponent();
         DataContext = this;
         ListBox.SelectionChanged += OnSelectionChanged;
     }
 
-    public void Dispose() {
+    public void Dispose()
+    {
         FoundFonts?.Clear();
         _fontLoadCts?.Dispose();
         GC.SuppressFinalize(this);
     }
 
-    public (string title, StreamGeometry icon) GetPageInfo() {
+    public (string title, StreamGeometry icon) GetPageInfo()
+    {
         return ($"{MainLang.CharacterMapping}: {MainLang.FontList}", Icons.CharacterAppearance);
     }
 
-    private void GetFonts() {
+    private void GetFonts()
+    {
         FoundFonts.Clear();
         FoundFonts = [.. FontManager.Current.SystemFonts.Select(x => x)];
 
-        if (FoundFonts.Count > 0) {
+        if (FoundFonts.Count > 0)
+        {
             TextBox.IsEnabled = true;
             ProgressRing.IsVisible = false;
         }
     }
 
-    private void FilterFont() {
+    private void FilterFont()
+    {
         FilteredFonts.Clear();
         string searchText = SearchFunctionText.Trim();
         var filteredList = FoundFonts
@@ -104,7 +112,8 @@ public partial class FontSelectionPage : UserControl, IFunctionPage {
         FilteredFonts.AddRange(filteredList);
     }
 
-    private void OnSelectionChanged(object? sender, SelectionChangedEventArgs e) {
+    private void OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
         if (ListBox.SelectedItem is not FontFamily fontFamily)
             return;
 
@@ -116,18 +125,21 @@ public partial class FontSelectionPage : UserControl, IFunctionPage {
         Dispose();
     }
 
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null) {
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null) {
+    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+    {
         if (EqualityComparer<T>.Default.Equals(field, value)) return false;
         field = value;
         OnPropertyChanged(propertyName);
         return true;
     }
 
-    protected override void OnLoaded(RoutedEventArgs e) {
+    protected override void OnLoaded(RoutedEventArgs e)
+    {
         base.OnLoaded(e);
 
         GetFonts();

@@ -1,23 +1,25 @@
 <UserControl
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:suki="https://github.com/kikipoulet/SukiUI"
-    xmlns="https://github.com/avaloniaui"
     Name="Root"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d"
     x:Class="Aurelio.Views.Main.Pages.Functions.CharacterMapping.FontMappingTablePage"
     x:DataType="characterMapping:FontMappingTablePage"
+    xmlns="https://github.com/avaloniaui"
     xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:characterMapping="clr-namespace:Aurelio.Views.Main.Pages.Functions.CharacterMapping"
     xmlns:converter="clr-namespace:Aurelio.ViewModels.Converter"
-    xmlns:functions="clr-namespace:Aurelio.Public.Classes.Entries.Functions">
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fontMapping="clr-namespace:Aurelio.Public.Classes.Entries.Functions.FontMapping"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Resources>
-        <converter:SkFontStyleToFontStyleConverter x:Key="SkFontStyleToFontStyleConverter" />
+        <converter:FamilyTypefacesConverter x:Key="FamilyTypefacesConverter" />
+        <converter:FamilyTypefacesToWeightListConverter x:Key="FamilyTypefacesToWeightListConverter" />
+        <converter:FamilyTypefacesToStyleListConverter x:Key="FamilyTypefacesToStyleListConverter" />
     </UserControl.Resources>
-	
+
     <suki:GlassCard Classes="HeaderCard" Margin="20,10,20,20">
         <suki:GroupBox Name="GroupBox">
             <suki:GroupBox.Header>
@@ -27,8 +29,13 @@
                             DockPanel.Dock="Left"
                             HorizontalAlignment="Left"
                             Margin="5,0,0,0"
-                            Orientation="Horizontal"
                             VerticalAlignment="Center">
+                            <SelectableTextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource GrayColor}"
+                                Margin="0,-2,-15,0"
+                                Name="CharacterCountTextBlock"
+                                VerticalAlignment="Bottom" />
                             <SelectableTextBlock
                                 FontFamily="{Binding Current}"
                                 FontSize="20"
@@ -36,44 +43,31 @@
                                 Name="SelectableTextBlock"
                                 Text="{Binding Current.Name}" />
                         </StackPanel>
-						
                         <StackPanel
-                            Spacing="20"
-                            Margin="0 0 16 0"
-                            Orientation="Horizontal"
+                            DockPanel.Dock="Right"
                             HorizontalAlignment="Right"
-                            DockPanel.Dock="Right">
-                            <SelectableTextBlock
-                                FontSize="12"
-                                Foreground="{DynamicResource GrayColor}"
-                                Margin="0,-2,-15,0"
-                                Name="CharacterCountTextBlock"
-                                VerticalAlignment="Bottom" />
-                            <ComboBox SelectedItem="{Binding SelectedFontWeight}"
-									  ItemsSource="{Binding Current, Converter={StaticResource FamilyTypefacesListConverter}}">
-							</ComboBox>
-							
+                            Margin="0,0,16,0"
+                            Orientation="Horizontal"
+                            Spacing="20"
+                            VerticalAlignment="Center">
                             <Button Classes="no-background-button">
                                 <avalonia:MaterialIcon
                                     Height="18"
                                     Kind="InfoOutline"
                                     Width="18" />
                             </Button>
-							
                             <Button Classes="no-background-button">
                                 <avalonia:MaterialIcon
                                     Height="18"
                                     Kind="SwapHorizontal"
                                     Width="18" />
                             </Button>
-							
                             <Button Classes="no-background-button">
                                 <avalonia:MaterialIcon
                                     Height="18"
                                     Kind="FilterCheckOutline"
                                     Width="18" />
                             </Button>
-							
                             <Button Classes="no-background-button">
                                 <avalonia:MaterialIcon
                                     Height="18"
@@ -81,74 +75,87 @@
                                     Width="18" />
                             </Button>
                         </StackPanel>
+                        <StackPanel
+                            DockPanel.Dock="Right"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,20,0"
+                            Orientation="Horizontal"
+                            Spacing="10"
+                            VerticalAlignment="Center">
+                            <ComboBox ItemsSource="{Binding Current, Converter={StaticResource FamilyTypefacesToStyleListConverter}}" SelectedItem="{Binding SelectedFontStyle}" />
+                            <ComboBox ItemsSource="{Binding Current, Converter={StaticResource FamilyTypefacesToWeightListConverter}}" SelectedItem="{Binding SelectedFontWeight}" />
+                        </StackPanel>
                     </DockPanel>
                 </Grid>
             </suki:GroupBox.Header>
-			
+
             <Grid ColumnDefinitions="*, 2, 290">
                 <ScrollViewer Grid.Column="0" Margin="0,0,5,0">
-					<ItemsRepeater ItemsSource="{Binding CharacterBlocks}">
-						<ItemsRepeater.ItemTemplate>
-							<DataTemplate DataType="functions:CharacterBlock">
-								<StackPanel>
-									<TextBlock
+                    <ItemsRepeater ItemsSource="{Binding CharacterBlocks}">
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate DataType="fontMapping:CharacterBlock">
+                                <StackPanel>
+                                    <TextBlock
                                         Foreground="{DynamicResource GrayColor}"
                                         Margin="0,10,0,40"
                                         Text="{Binding Name}" />
-									<ItemsRepeater HorizontalAlignment="Center"
-												   ItemsSource="{Binding Characters}"
-												   Margin="0,0,10,0">
-										<ItemsRepeater.Layout>
-											<UniformGridLayout MinItemWidth="80"
-															   MinItemHeight="80"
-															   ItemsStretch="Fill"
-															   ItemsJustification="Start"/>
-										</ItemsRepeater.Layout>
+                                    <ItemsRepeater
+                                        HorizontalAlignment="Center"
+                                        ItemsSource="{Binding Characters}"
+                                        Margin="0,0,10,0">
+                                        <ItemsRepeater.Layout>
+                                            <UniformGridLayout
+                                                ItemsJustification="Start"
+                                                ItemsStretch="Fill"
+                                                MinItemHeight="80"
+                                                MinItemWidth="80" />
+                                        </ItemsRepeater.Layout>
 
-										<ItemsRepeater.ItemTemplate>
-											<DataTemplate x:DataType="functions:CharacterEntry">
-												<TextBlock
-													FontSize="32"
+                                        <ItemsRepeater.ItemTemplate>
+                                            <DataTemplate x:DataType="fontMapping:CharacterEntry">
+                                                <TextBlock
                                                     Background="Transparent"
                                                     FontFamily="{Binding Current, ElementName=Root}"
+                                                    FontSize="32"
+                                                    FontStyle="{Binding SelectedFontStyle, ElementName=Root}"
                                                     FontWeight="{Binding SelectedFontWeight, ElementName=Root}"
                                                     Height="80"
+                                                    PointerPressed="Button_OnClick"
                                                     Tag="{Binding}"
                                                     Text="{Binding Char}"
-													PointerPressed="Button_OnClick"
                                                     TextAlignment="Center"
                                                     Width="80">
-													<TextBlock.Transitions>
-														<Transitions>
-															<DoubleTransition Duration="0:0:0.05" Property="FontSize" />
-														</Transitions>
-													</TextBlock.Transitions>
-													
-													<TextBlock.Styles>
-														<Style Selector="TextBlock">
-															<Setter Property="FontSize" Value="32" />
-														</Style>
-														
-														<Style Selector="TextBlock:pointerover">
-															<Setter Property="FontSize" Value="40" />
-														</Style>
-													</TextBlock.Styles>
-												</TextBlock>
-											</DataTemplate>
-										</ItemsRepeater.ItemTemplate>
-									</ItemsRepeater>
-								</StackPanel>
-							</DataTemplate>
-						</ItemsRepeater.ItemTemplate>
-					</ItemsRepeater>
+                                                    <TextBlock.Transitions>
+                                                        <Transitions>
+                                                            <DoubleTransition Duration="0:0:0.05" Property="FontSize" />
+                                                        </Transitions>
+                                                    </TextBlock.Transitions>
+
+                                                    <TextBlock.Styles>
+                                                        <Style Selector="TextBlock">
+                                                            <Setter Property="FontSize" Value="32" />
+                                                        </Style>
+
+                                                        <Style Selector="TextBlock:pointerover">
+                                                            <Setter Property="FontSize" Value="40" />
+                                                        </Style>
+                                                    </TextBlock.Styles>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </ItemsRepeater.ItemTemplate>
+                                    </ItemsRepeater>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
                 </ScrollViewer>
-				
+
                 <GridSplitter
                     Background="{DynamicResource GrayColor}"
                     Grid.Column="1"
                     MinWidth="5"
                     ResizeDirection="Columns" />
-				
+
                 <DockPanel Grid.Column="2">
                     <DockPanel Dock="Bottom" VerticalAlignment="Bottom">
                         <DockPanel Dock="Top">
@@ -164,7 +171,7 @@
                                     Name="SCInfo"
                                     TextWrapping="Wrap" />
                             </StackPanel>
-							
+
                             <Button Classes="no-background-button">
                                 <avalonia:MaterialIcon
                                     DockPanel.Dock="Right"
@@ -174,44 +181,49 @@
                                     Width="18" />
                             </Button>
                         </DockPanel>
-						
+
                         <Border
                             Background="{DynamicResource GrayColor}"
                             DockPanel.Dock="Top"
                             Height="1"
                             Margin="10,2,0,2" />
-						
+
                         <StackPanel Margin="10,0,0,0" Spacing="3">
                             <TextBlock
                                 FontSize="12"
                                 Foreground="{DynamicResource GrayColor}"
                                 Text="Xaml"
                                 TextWrapping="Wrap" />
-							
+
                             <SelectableTextBlock
                                 FontSize="13"
                                 Name="SCXaml"
                                 TextWrapping="Wrap" />
-							
+
                             <TextBlock
                                 FontSize="12"
                                 Foreground="{DynamicResource GrayColor}"
                                 Text="FontIcon"
                                 TextWrapping="Wrap" />
-							
+
                             <SelectableTextBlock
                                 FontSize="13"
                                 Name="SCFontIcon"
                                 TextWrapping="Wrap" />
                         </StackPanel>
                     </DockPanel>
-					
-					<Label Name="Label"
-						   FontSize="68"
-						   Margin="20 0 10 0"
-						   VerticalAlignment="Center"
-						   HorizontalAlignment="Center"
-						   FontFamily="{Binding Current}"/>
+
+                    <!--  <Label  -->
+                    <!--  FontFamily="{Binding Current}"  -->
+                    <!--  FontSize="68"  -->
+                    <!--  HorizontalAlignment="Center"  -->
+                    <!--  Margin="20,0,10,0"  -->
+                    <!--  Name="Label"  -->
+                    <!--  VerticalAlignment="Center" />  -->
+                    <Svg
+                        DockPanel.Dock="Top"
+                        Margin="20,0,10,0"
+                        Name="Svg" />
                 </DockPanel>
             </Grid>
         </suki:GroupBox>

@@ -6,11 +6,11 @@ namespace Aurelio.Public.Module;
 public class Debouncer
 {
     private readonly Timer _timer;
-    private readonly Action _action;
+    public Action Action;
 
     public Debouncer(Action action, double interval = 1000)
     {
-        _action = action;
+        Action = action;
         _timer = new Timer(interval);
         _timer.Elapsed += OnTimerElapsed!;
         _timer.AutoReset = false;
@@ -25,7 +25,7 @@ public class Debouncer
     private void OnTimerElapsed(object source, ElapsedEventArgs e)
     {
         _timer.Stop();
-        _action?.Invoke();
+        Action?.Invoke();
     }
 
     public void Dispose()

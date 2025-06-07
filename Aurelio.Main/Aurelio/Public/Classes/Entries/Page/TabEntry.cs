@@ -4,9 +4,8 @@ using Aurelio.Public.Classes.Interfaces;
 using Aurelio.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Media;
-using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Aurelio.Public.Classes.Entries;
+namespace Aurelio.Public.Classes.Entries.Page;
 
 public partial class TabEntry : ViewModelBase
 {
@@ -101,5 +100,5 @@ public partial class TabEntry : ViewModelBase
         GC.Collect(2);
     }
 
-    public void DisposeContent() => Content.OnClose();
+    public void DisposeContent() => Content?.OnClose();
 }

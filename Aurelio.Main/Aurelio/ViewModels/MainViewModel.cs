@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Classes.Entries.Page;
 using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui;

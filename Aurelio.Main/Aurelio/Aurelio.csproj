@@ -85,7 +85,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Public\Classes\Types\" />
+    <Folder Include="Public\Classes\Entries\Functions\BatchI18n\" />
     <Folder Include="Public\Module\IO\Http\Api\" />
   </ItemGroup>
 </Project>

@@ -90,4 +90,10 @@
   <data name="OpenRecentContent" xml:space="preserve">
     <value>打开最近的内容</value>
   </data>
+  <data name="BatchI18n" xml:space="preserve">
+    <value>批处理 I18n</value>
+  </data>
+  <data name="OpenLangSourceFile" xml:space="preserve">
+    <value>打开语言源文件</value>
+  </data>
 </root>

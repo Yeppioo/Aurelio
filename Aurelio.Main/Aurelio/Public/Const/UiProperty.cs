@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Classes.Entries.Page;
 using Aurelio.Public.Module;
 using ReactiveUI;
 using Ursa.Controls;
@@ -19,7 +20,7 @@ public class UiProperty : ReactiveObject
     public static ObservableCollection<NotificationEntry> NotificationCards { get; } = [];
     public static WindowNotificationManager Notification { get; set; }
     public static WindowToastManager Toast { get; set; }
-    public static ObservableCollection<RecentOpenEntry> RecentOpens { get; } = [];
+    public static ObservableCollection<RecentPageEntry> RecentOpens { get; } = [];
 
     public UiProperty()
     {

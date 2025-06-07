@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Classes.Entries.Page;
 using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Const;
 using Newtonsoft.Json;
@@ -20,7 +21,7 @@ public abstract class Create
         if (!File.Exists(ConfigPath.SettingDataPath))
             File.WriteAllText(ConfigPath.SettingDataPath, new SettingEntry().AsJson());
         if (!File.Exists(ConfigPath.RecentOpenDataPath))
-            File.WriteAllText(ConfigPath.RecentOpenDataPath, new List<RecentOpenEntry>().AsJson());
+            File.WriteAllText(ConfigPath.RecentOpenDataPath, new List<RecentPageEntry>().AsJson());
     }
 
     public static void Folder()

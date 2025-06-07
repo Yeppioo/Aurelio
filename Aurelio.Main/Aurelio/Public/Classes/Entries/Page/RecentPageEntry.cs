@@ -5,11 +5,10 @@ using Aurelio.Public.Const;
 using Aurelio.Public.Enum;
 using Aurelio.Public.Module;
 using Aurelio.Views.Main.Pages;
-using DynamicData;
 
-namespace Aurelio.Public.Classes.Entries;
+namespace Aurelio.Public.Classes.Entries.Page;
 
-public class RecentOpenEntry
+public class RecentPageEntry
 {
     public FunctionType FunctionType { get; set; }
     public string Title { get; set; } = string.Empty;
@@ -20,14 +19,14 @@ public class RecentOpenEntry
     
     public override bool Equals(object? obj)
     {
-        if (obj is not RecentOpenEntry entry) return false;
+        if (obj is not RecentPageEntry entry) return false;
         return entry.FunctionType == FunctionType && entry.FilePath == FilePath && entry.Title == Title && entry.Summary == Summary;
     }
 
     public void Remove()
     {
         UiProperty.RecentOpens.Remove(this);
-        (App.UiRoot.ViewModel.Tabs.First().Content as HomePage)?.FilterRecentOpens();
+        (App.UiRoot.ViewModel.Tabs.First().Content as HomePage)?.FilterRecentPages();
         File.WriteAllText(ConfigPath.RecentOpenDataPath, UiProperty.RecentOpens.AsJson());
     }
 }

@@ -1,0 +1,24 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Views.Main.Pages.Functions.BatchI18n.BatchI18nPage"
+    x:DataType="batchI18N:BatchI18nPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:batchI18N="clr-namespace:Aurelio.Views.Main.Pages.Functions.BatchI18n"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DockPanel>
+        <DockPanel>
+            <TextBox
+                DockPanel.Dock="Top"
+                IsReadOnly="True"
+                Margin="20,10,20,0"
+                Name="SourcePathTextBox"
+                Text="{Binding SourceFile}"
+                VerticalAlignment="Top" />
+            <ComboBox />
+        </DockPanel>
+    </DockPanel>
+</UserControl>

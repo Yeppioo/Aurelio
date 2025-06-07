@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Classes.Entries.Page;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Const;
 using Aurelio.Public.Enum;
@@ -41,12 +42,27 @@ public abstract class FunctionConfig
         w.ViewModel.SelectedItem = tab;
         App.UiRoot.NewTabButton.Flyout.Hide();
     }
+    
+    public static void OpenRecentPage(RecentPageEntry entry)
+    {
+        var page = entry.FunctionType switch
+        {
+            FunctionType.CharacterMapping => FontMappingTablePage.RecentOpenHandle(entry),
+            _ => throw new ArgumentOutOfRangeException(nameof(entry), entry, null)
+        };
+        if (page == null) return;
+        var w = App.UiRoot;
+        var tab = new TabEntry(null,null);
+        tab.ReplacePage(page);
+        w.ViewModel.Tabs.Add(tab);
+        w.ViewModel.SelectedItem = tab;
+    }
 
-    public static void AddRecentOpen(RecentOpenEntry entry)
+    public static void AddRecentOpen(RecentPageEntry entry)
     {
         UiProperty.RecentOpens.RemoveMany(UiProperty.RecentOpens.Where(x => Equals(x, entry)));
         UiProperty.RecentOpens.Add(entry);
-        (App.UiRoot.ViewModel.Tabs.First().Content as HomePage)?.FilterRecentOpens();
+        (App.UiRoot.ViewModel.Tabs.First().Content as HomePage)?.FilterRecentPages();
         File.WriteAllText(ConfigPath.RecentOpenDataPath, UiProperty.RecentOpens.AsJson());
     }
 }

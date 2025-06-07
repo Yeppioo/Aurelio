@@ -13,6 +13,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pages="clr-namespace:Aurelio.Views.Main.Pages"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
+    xmlns:psge="clr-namespace:Aurelio.Public.Classes.Entries.Page"
     xmlns:suki="https://github.com/kikipoulet/SukiUI"
     xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -57,7 +58,7 @@
                         </suki:GroupBox.Header>
                         <ListBox ItemsSource="{Binding FilteredRecentOpens}" Name="ListBox">
                             <ListBox.ItemTemplate>
-                                <DataTemplate DataType="entries:RecentOpenEntry">
+                                <DataTemplate DataType="psge:RecentPageEntry">
                                     <DockPanel Margin="0,5">
                                         <StackPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
                                             <TextBlock Text="{Binding Title}" VerticalAlignment="Center" />

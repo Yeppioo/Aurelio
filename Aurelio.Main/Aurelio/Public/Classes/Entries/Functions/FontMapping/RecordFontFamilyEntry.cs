@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Avalonia.Media;
 using SkiaSharp;
 
-namespace Aurelio.Public.Classes.Entries.Functions;
+namespace Aurelio.Public.Classes.Entries.Functions.FontMapping;
 
 public record RecordFontFamilyEntry
 {

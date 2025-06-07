@@ -1,6 +1,6 @@
 ﻿using Avalonia.Media;
 
-namespace Aurelio.Public.Classes.Entries.Functions;
+namespace Aurelio.Public.Classes.Entries.Page;
 
 public class PageInfoEntry
 {

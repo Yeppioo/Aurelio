@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Unicode;
 
-namespace Aurelio.Public.Classes.Entries.Functions;
+namespace Aurelio.Public.Classes.Entries.Functions.FontMapping;
 
 public class SupportCharacter
 {

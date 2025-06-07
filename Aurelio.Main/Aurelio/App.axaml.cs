@@ -15,7 +15,10 @@ namespace Aurelio;
 public partial class App : Application
 {
     public delegate void UiLoadedEventHandler(MainWindow ui);
-    public static MainWindow UiRoot { get; private set; } = null;
+
+    public static MainWindow UiRoot => (Current!.ApplicationLifetime 
+        as IClassicDesktopStyleApplicationLifetime).MainWindow as MainWindow;
+    public static TopLevel TopLevel => TopLevel.GetTopLevel(UiRoot);
     public static event UiLoadedEventHandler UiLoaded;
     private bool _fl = true;
 
@@ -32,7 +35,6 @@ public partial class App : Application
         {
             DisableAvaloniaDataAnnotationValidation();
             var win = new MainWindow();
-            UiRoot = win;
             desktop.MainWindow = win;
             UiProperty.Notification = new Ursa.Controls.WindowNotificationManager(TopLevel.GetTopLevel(win));
             UiProperty.Toast = new Ursa.Controls.WindowToastManager(TopLevel.GetTopLevel(win));

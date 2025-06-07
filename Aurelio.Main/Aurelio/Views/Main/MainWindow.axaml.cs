@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Classes.Entries.Page;
 using Aurelio.Public.Enum;
 using Aurelio.Public.Module.IO.Local;
 using Aurelio.ViewModels;

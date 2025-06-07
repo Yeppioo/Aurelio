@@ -69,6 +69,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 批处理 I18n.
+        /// </summary>
+        public static string BatchI18n {
+            get {
+                return ResourceManager.GetString("BatchI18n", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 取消.
         /// </summary>
         public static string Cancel {
@@ -200,6 +209,15 @@ namespace Aurelio.Public.Langs {
         public static string Open {
             get {
                 return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 打开语言源文件.
+        /// </summary>
+        public static string OpenLangSourceFile {
+            get {
+                return ResourceManager.GetString("OpenLangSourceFile", resourceCulture);
             }
         }
         
