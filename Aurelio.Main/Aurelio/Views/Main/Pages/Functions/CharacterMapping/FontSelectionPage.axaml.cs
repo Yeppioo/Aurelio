@@ -1,241 +1,104 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Entries.Functions;
-using Aurelio.Public.Const;
-using Aurelio.Public.Enum;
+using Aurelio.Public.Classes.Types;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui;
 using Avalonia.Controls;
 using Avalonia.Controls.Documents;
+using Avalonia.Interactivity;
 using Avalonia.Media;
 using DynamicData;
-using SkiaSharp;
-using System.Threading.Tasks;
-using Avalonia.Threading;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
-using Aurelio.Public.Classes.Types;
 
 namespace Aurelio.Views.Main.Pages.Functions.CharacterMapping;
 
-public partial class FontSelectionPage : UserControl, IFunctionPage
-{
-    private bool _fl = true;
+public partial class FontSelectionPage : UserControl, IFunctionPage {
     private CancellationTokenSource _fontLoadCts;
-
-    public FontSelectionPage()
-    {
-        InitializeComponent();
-        DataContext = this;
-        ListBox.SelectionChanged += (_, _) =>
-        {
-            if (ListBox.SelectedItem is not RecordFontFamilyEntry item) return;
-            var page = new FontMappingTablePage(item);
-            var text = new TextBlock();
-            text.Inlines.Add(new Run($"{MainLang.CharacterMapping}: ") { FontFamily = item.FontFamily });
-            text.Inlines.Add(new Run(item.DisplayName) { FontFamily = item.FontFamily });
-            HostTab.ReplacePage(page);
-            Dispose();
-        };
-        Loaded += (_, _) =>
-        {
-            if (!_fl) return;
-            _fl = false;
-            GetFonts();
-            FilterFont();
-        };
-    }
-
-    public new (string title, StreamGeometry icon) GetPageInfo()
-    {
-        return ($"{MainLang.CharacterMapping}: {MainLang.FontList}", Icons.CharacterAppearance);
-    }
+    private string _searchFunctionText = string.Empty;
 
     public TabEntry HostTab { get; set; }
     public UserControl HostContent { get; set; }
+    public ObservableCollection<FontFamily> FoundFonts { get; set; } = [];
+    public ObservableCollection<FontFamily> FilteredFonts { get; set; } = [];
 
-    private string _searchFunctionText = string.Empty;
+    public new event PropertyChangedEventHandler? PropertyChanged;
 
-    public ObservableCollection<RecordFontFamilyEntry> FoundFonts { get; set; } = [];
-    public ObservableCollection<RecordFontFamilyEntry> FilteredFonts { get; set; } = [];
-
-
-    public string SearchFunctionText
-    {
+    public string SearchFunctionText {
         get => _searchFunctionText;
-        set
-        {
+        set {
             SetField(ref _searchFunctionText, value);
             FilterFont();
         }
     }
 
-    private void GetFonts()
-    {
-        _fontLoadCts?.Cancel();
-        _fontLoadCts = new CancellationTokenSource();
-        var token = _fontLoadCts.Token;
+    public FontSelectionPage() {
+        InitializeComponent();
+        DataContext = this;
+        ListBox.SelectionChanged += OnSelectionChanged;
+    }
 
+    public void Dispose() {
+        FoundFonts?.Clear();
+        _fontLoadCts?.Dispose();
+        GC.SuppressFinalize(this);
+    }
+
+    public (string title, StreamGeometry icon) GetPageInfo() {
+        return ($"{MainLang.CharacterMapping}: {MainLang.FontList}", Icons.CharacterAppearance);
+    }
+
+    private void GetFonts() {
         FoundFonts.Clear();
-        Task.Run(() =>
-        {
-            var fontDirs = new List<string>();
-            switch (Data.DesktopType)
-            {
-                case DesktopType.Windows:
-                    fontDirs.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "Fonts"));
-                    fontDirs.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                        @"Microsoft\\Windows\\Fonts"));
-                    break;
-                case DesktopType.MacOs:
-                    fontDirs.Add("/System/Library/Fonts");
-                    fontDirs.Add("/Library/Fonts");
-                    fontDirs.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                        "Library/Fonts"));
-                    break;
-                case DesktopType.Linux:
-                case DesktopType.FreeBSD:
-                    fontDirs.Add("/usr/share/fonts");
-                    fontDirs.Add("/usr/local/share/fonts");
-                    fontDirs.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                        ".fonts"));
-                    break;
-                case DesktopType.Unknown:
-                default:
-                    break;
-            }
+        FoundFonts = [.. FontManager.Current.SystemFonts.Select(x => x)];
 
-            string[] fontExtensions = { "*.ttf", "*.otf", "*.ttc", "*.woff", "*.woff2" };
-            var fontFiles = new List<string>();
-            foreach (var dir in fontDirs)
-            {
-                if (!Directory.Exists(dir)) continue;
-                foreach (var ext in fontExtensions)
-                {
-                    try
-                    {
-                        fontFiles.AddRange(Directory.GetFiles(dir, ext, SearchOption.AllDirectories));
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
-                }
-            }
-
-            var fontFamilyDict = new Dictionary<string, RecordFontFamilyEntry>(StringComparer.OrdinalIgnoreCase);
-            var fontFilesDistinct = fontFiles.Distinct().ToList();
-            var lockObj = new object();
-
-            Parallel.ForEach(fontFilesDistinct, file =>
-            {
-                try
-                {
-                    using var skTypeface = SKTypeface.FromFile(file);
-                    if (skTypeface == null) return;
-                    var familyName = skTypeface.FamilyName;
-                    if (string.IsNullOrWhiteSpace(familyName)) return;
-
-                    var weight = skTypeface.FontWeight;
-                    // 将数值weight转换为单词
-                    var weightWord = weight switch
-                    {
-                        <= 250 => "Thin",
-                        <= 350 => "Light",
-                        <= 450 => "Regular",
-                        <= 550 => "Medium",
-                        <= 650 => "SemiBold",
-                        <= 750 => "Bold",
-                        <= 850 => "ExtraBold",
-                        _ => "Black"
-                    };
-                    var name = RecordFontFamilyEntry.FontStyleToString(skTypeface.FontStyle);
-
-                    lock (lockObj)
-                    {
-                        if (!fontFamilyDict.TryGetValue(familyName, out var entry))
-                        {
-                            entry = new RecordFontFamilyEntry
-                            {
-                                FontFamily = new FontFamily(familyName),
-                                DisplayName =
-                                    FontFamilyChineseNameTable.FontNameMap.TryGetValue(familyName, out var cn) &&
-                                    !string.IsNullOrWhiteSpace(cn)
-                                        ? $"{familyName} ({cn})"
-                                        : familyName,
-                                FontFamilyName = familyName,
-                                Typefaces = []
-                            };
-                            fontFamilyDict[familyName] = entry;
-                        }
-
-                        // 避免重复
-                        if (entry.Typefaces.Any(x => x.Name == name && x.Path == file)) return;
-
-                        entry.Typefaces.Add(new RecordTypefaceEntry
-                        {
-                            Name = name,
-                            Path = file,
-                            Style = skTypeface.FontStyle
-                        });
-                        entry.Styles.Add(skTypeface.FontStyle);
-                    }
-                }
-                catch
-                {
-                    // ignored
-                }
-            });
-
-            var fontFamilies = fontFamilyDict.Values.ToList();
-
-            if (!token.IsCancellationRequested)
-            {
-                Dispatcher.UIThread.Post(() =>
-                {
-                    FoundFonts.Clear();
-                    FoundFonts.AddRange(fontFamilies);
-                    FilterFont();
-                    TextBox.IsEnabled = true;
-                    ProgressRing.IsVisible = false;
-                });
-            }
-        }, token);
+        if (FoundFonts.Count > 0) {
+            TextBox.IsEnabled = true;
+            ProgressRing.IsVisible = false;
+        }
     }
 
-    private void FilterFont()
-    {
+    private void FilterFont() {
         FilteredFonts.Clear();
-        FilteredFonts.AddRange(FoundFonts.Where(item =>
-                item.DisplayName.Replace(" ", "").ToLower().Contains(SearchFunctionText.ToLower().Replace(" ", ""),
-                    StringComparison.OrdinalIgnoreCase))
-            .ToList().OrderBy(x => x.FontFamilyName).ToList());
+        string searchText = SearchFunctionText.Trim();
+        var filteredList = FoundFonts
+            .Where(item => item.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase));
+
+        FilteredFonts.AddRange(filteredList);
     }
 
-    public new event PropertyChangedEventHandler? PropertyChanged;
+    private void OnSelectionChanged(object? sender, SelectionChangedEventArgs e) {
+        if (ListBox.SelectedItem is not FontFamily fontFamily)
+            return;
 
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
+        var page = new FontMappingTablePage(new());
+        var text = new TextBlock();
+        text.Inlines.Add(new Run($"{MainLang.CharacterMapping}: ") { FontFamily = fontFamily });
+        text.Inlines.Add(new Run(fontFamily.Name) { FontFamily = fontFamily });
+        HostTab.ReplacePage(page);
+        Dispose();
+    }
+
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null) {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
-    {
+    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null) {
         if (EqualityComparer<T>.Default.Equals(field, value)) return false;
         field = value;
         OnPropertyChanged(propertyName);
         return true;
     }
 
-    public void Dispose()
-    {
-        FoundFonts?.Clear();
-        _fontLoadCts?.Dispose();
-        GC.SuppressFinalize(this);
+    protected override void OnLoaded(RoutedEventArgs e) {
+        base.OnLoaded(e);
+
+        GetFonts();
+        FilteredFonts.AddRange(FoundFonts);
     }
 }
