@@ -48,6 +48,7 @@
             <system:TimeSpan x:Key="ShortAnimationDuration">0.2</system:TimeSpan>
 
             <animations:SukiEaseOutBack BounceIntensity="Soft" x:Key="MenuEasing" />
+            <animations:SukiEaseInBackOutBack BounceIntensity="Soft" x:Key="SukiEaseInBackOutBack" />
 
 
             <ResourceDictionary.MergedDictionaries>

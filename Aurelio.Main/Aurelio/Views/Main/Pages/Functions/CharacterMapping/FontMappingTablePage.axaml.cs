@@ -1,4 +1,4 @@
-using Aurelio.Public.Classes.Entries;
+﻿using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Enum;
 using Aurelio.Public.Langs;
@@ -19,6 +19,11 @@ using System.Unicode;
 using Aurelio.Public.Classes.Entries.Functions.FontMapping;
 using Aurelio.Public.Classes.Entries.Page;
 using FluentAvalonia.UI.Controls;
+using System.Collections.Specialized;
+using System.Threading.Tasks;
+using Aurelio.Public.Module;
+using Avalonia;
+using Avalonia.Threading;
 
 namespace Aurelio.Views.Main.Pages.Functions.CharacterMapping;
 
@@ -28,6 +33,8 @@ public partial class FontMappingTablePage : PageMixModelBase, IFunctionPage
     private FontWeight _selectedFontWeight;
     private bool _fl = true;
     private FontStyle _selectedFontStyle;
+    private Debouncer _borderAnimation;
+    private string _showText = "你好 Hello 1234567890 ?!";
 
     public TabEntry HostTab { get; set; }
     public FontFamily Current { get; set; }
@@ -38,6 +45,16 @@ public partial class FontMappingTablePage : PageMixModelBase, IFunctionPage
         set
         {
             SetField(ref _selectedFontWeight, value);
+            LoadCharacters();
+        }
+    }
+
+    public string ShowText
+    {
+        get => _showText;
+        set
+        {
+            SetField(ref _showText, value);
             LoadCharacters();
         }
     }
@@ -69,6 +86,8 @@ public partial class FontMappingTablePage : PageMixModelBase, IFunctionPage
         InitializeComponent();
         DataContext = this;
         Loaded += OnLoaded;
+        BlockFilters.CollectionChanged += BlockFilters_CollectionChanged;
+        _borderAnimation = new Debouncer(BorderAnimationAction, 250);
     }
 
     private void OnLoaded(object? sender, RoutedEventArgs e)
@@ -89,14 +108,60 @@ public partial class FontMappingTablePage : PageMixModelBase, IFunctionPage
 
     public ObservableCollection<CharacterBlock>? CharacterBlocks { get; set; } = [];
 
+    public ObservableCollection<BlockFilterItem> BlockFilters { get; set; } = new();
+
+    private void BlockFilters_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.NewItems != null)
+        {
+            foreach (BlockFilterItem item in e.NewItems)
+            {
+                item.PropertyChanged += BlockFilterItem_PropertyChanged;
+            }
+        }
+
+        if (e.OldItems != null)
+        {
+            foreach (BlockFilterItem item in e.OldItems)
+            {
+                item.PropertyChanged -= BlockFilterItem_PropertyChanged;
+            }
+        }
+    }
+
+    private void BlockFilterItem_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(BlockFilterItem.IsChecked))
+            ApplyBlockFilter();
+    }
+
     public void LoadCharacters()
     {
         var style = new SKFontStyle((SKFontStyleWeight)SelectedFontWeight,
             SKFontStyleWidth.Normal, (SKFontStyleSlant)SelectedFontStyle);
         skTypeface = SKTypeface.FromFamilyName(Current.Name, style);
-        CharacterBlocks.Clear();
         var supportCharacters = GetSupportCharacter();
-        CharacterBlocks.AddRange(supportCharacters.CharacterBlocks);
+        if (BlockFilters.Count == 0)
+        {
+            foreach (var block in supportCharacters.CharacterBlocks.Select(b => b.Name).Distinct())
+            {
+                var filter = new BlockFilterItem { Name = block, IsChecked = true };
+                filter.PropertyChanged += BlockFilterItem_PropertyChanged;
+                BlockFilters.Add(filter);
+            }
+        }
+
+        ApplyBlockFilter();
+    }
+
+    public void ApplyBlockFilter()
+    {
+        if (CharacterBlocks == null) return;
+        CharacterBlocks.Clear();
+        var selectedBlocks = BlockFilters.Where(b => b.IsChecked).Select(b => b.Name).ToHashSet();
+        var allBlocks = GetSupportCharacter().CharacterBlocks;
+        var filtered = allBlocks.Where(b => selectedBlocks.Contains(b.Name)).ToList();
+        CharacterBlocks.AddRange(filtered);
     }
 
     public SupportCharacter GetSupportCharacter()
@@ -230,5 +295,49 @@ public partial class FontMappingTablePage : PageMixModelBase, IFunctionPage
         //     Content = new SelectableTextBlock() { TextWrapping = TextWrapping.Wrap, Text = svg }
         // };
         // c.ShowAsync();
+    }
+
+    public class BlockFilterItem : INotifyPropertyChanged
+    {
+        public string Name { get; set; }
+        private bool _isChecked = true;
+
+        public bool IsChecked
+        {
+            get => _isChecked;
+            set
+            {
+                if (_isChecked != value)
+                {
+                    _isChecked = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsChecked)));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+    }
+
+    private void BorderAnimationAction()
+    {
+        Dispatcher.UIThread.Post(async () =>
+        {
+            if (Border.IsVisible)
+            {
+                Border.Margin = new Thickness(0, Bounds.Height, 0, 0);
+                await Task.Delay(250);
+                Border.IsVisible = false;
+            }
+            else
+            {
+                Border.IsVisible = true;
+                Border.Margin = new Thickness(0);
+            }
+        });
+    }
+
+    private void ToggleButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        _borderAnimation.Trigger();
     }
 }
