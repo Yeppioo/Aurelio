@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Unicode;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Entries.Functions;
-using Aurelio.Public.Classes.Types;
+using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui;
 using Avalonia.Controls;
@@ -95,6 +95,21 @@ public partial class FontMappingTablePage : UserControl, IFunctionPage
     }
 
     public TabEntry HostTab { get; set; }
+    public void OnClose()
+    {
+        DataContext = null;
+        skTypeface?.Dispose();
+        skTypeface = null;
+        if (CharacterBlocks != null)
+        {
+            CharacterBlocks.Clear();
+            CharacterBlocks = null;
+        }
+        Entry = null;
+        Loaded -= OnLoaded;
+        GC.SuppressFinalize(this);
+    }
+
     public UserControl HostContent { get; set; }
 
     public RecordTypefaceEntry SelectedTypeface
@@ -167,20 +182,5 @@ public partial class FontMappingTablePage : UserControl, IFunctionPage
         SCFontIcon.Text = $"<FontIcon FontFamily=\"{Entry.FontFamilyName}\" Glyph=\"&#x{character.Code:X4};\" />";
 
         Svg.Source = svg;
-    }
-
-    public void Dispose()
-    {
-        DataContext = null;
-        skTypeface?.Dispose();
-        skTypeface = null;
-        if (CharacterBlocks != null)
-        {
-            CharacterBlocks.Clear();
-            CharacterBlocks = null;
-        }
-        Entry = null;
-        Loaded -= OnLoaded;
-        GC.SuppressFinalize(this);
     }
 }

@@ -19,7 +19,7 @@ using SkiaSharp;
 using System.Threading.Tasks;
 using Avalonia.Threading;
 using System.Threading;
-using Aurelio.Public.Classes.Types;
+using Aurelio.Public.Classes.Interfaces;
 
 namespace Aurelio.Views.Main.Pages.Functions.CharacterMapping;
 
@@ -32,23 +32,26 @@ public partial class FontSelectionPage : UserControl, IFunctionPage
     {
         InitializeComponent();
         DataContext = this;
-        ListBox.SelectionChanged += (_, _) =>
-        {
-            if (ListBox.SelectedItem is not RecordFontFamilyEntry item) return;
-            var page = new FontMappingTablePage(item);
-            var text = new TextBlock();
-            text.Inlines.Add(new Run($"{MainLang.CharacterMapping}: ") { FontFamily = item.FontFamily });
-            text.Inlines.Add(new Run(item.DisplayName) { FontFamily = item.FontFamily });
-            HostTab.ReplacePage(page);
-            Dispose();
-        };
-        Loaded += (_, _) =>
-        {
-            if (!_fl) return;
-            _fl = false;
-            GetFonts();
-            FilterFont();
-        };
+        ListBox.SelectionChanged += ListBox_SelectionChanged;
+        Loaded += LoadedHandler;
+    }
+
+    private void ListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (ListBox.SelectedItem is not RecordFontFamilyEntry item) return;
+        var page = new FontMappingTablePage(item);
+        var text = new TextBlock();
+        text.Inlines.Add(new Run($"{MainLang.CharacterMapping}: ") { FontFamily = item.FontFamily });
+        text.Inlines.Add(new Run(item.DisplayName) { FontFamily = item.FontFamily });
+        HostTab?.ReplacePage(page);
+    }
+
+    private void LoadedHandler(object? sender, EventArgs e)
+    {
+        if (!_fl) return;
+        _fl = false;
+        GetFonts();
+        FilterFont();
     }
 
     public new (string title, StreamGeometry icon) GetPageInfo()
@@ -57,6 +60,34 @@ public partial class FontSelectionPage : UserControl, IFunctionPage
     }
 
     public TabEntry HostTab { get; set; }
+    public void OnClose()
+    {
+        // 1. 解绑事件
+        if (ListBox != null)
+            ListBox.SelectionChanged -= ListBox_SelectionChanged;
+        Loaded -= LoadedHandler;
+
+        // 2. 释放集合
+        FoundFonts?.Clear();
+        FilteredFonts?.Clear();
+        FoundFonts = null;
+        FilteredFonts = null;
+
+        // 3. 释放其它资源
+        _fontLoadCts?.Dispose();
+        _fontLoadCts = null;
+
+        // 4. 断开DataContext
+        DataContext = null;
+
+        // 5. 断开Tab和Content引用
+        HostContent = null;
+        HostTab = null;
+
+        GC.SuppressFinalize(this);
+        GC.Collect(2);
+    }
+
     public UserControl HostContent { get; set; }
 
     private string _searchFunctionText = string.Empty;
@@ -110,7 +141,7 @@ public partial class FontSelectionPage : UserControl, IFunctionPage
                     break;
             }
 
-            string[] fontExtensions = { "*.ttf", "*.otf", "*.ttc", "*.woff", "*.woff2" };
+            string[] fontExtensions = ["*.ttf", "*.otf", "*.ttc", "*.woff", "*.woff2"];
             var fontFiles = new List<string>();
             foreach (var dir in fontDirs)
             {
@@ -230,12 +261,5 @@ public partial class FontSelectionPage : UserControl, IFunctionPage
         field = value;
         OnPropertyChanged(propertyName);
         return true;
-    }
-
-    public void Dispose()
-    {
-        FoundFonts?.Clear();
-        _fontLoadCts?.Dispose();
-        GC.SuppressFinalize(this);
     }
 }

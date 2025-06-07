@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Public.Classes.Types;
+using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Enum;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App.Init.Config;
@@ -22,8 +22,8 @@ public abstract class FunctionConfig
 
     public static void CreateNewTab(FunctionType type)
     {
-        var w = App.UiRoot;
-        using IFunctionPage page = type switch
+        var w = App.UiRoot; 
+        IFunctionPage page = type switch
         {
             FunctionType.CharacterMapping => new FontSelectionPage(),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
