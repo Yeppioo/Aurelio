@@ -76,7 +76,7 @@ public partial class FontSelectionPage : UserControl, IFunctionPage {
         if (ListBox.SelectedItem is not FontFamily fontFamily)
             return;
 
-        var page = new FontMappingTablePage(new());
+        var page = new FontMappingTablePage(fontFamily);
         var text = new TextBlock();
         text.Inlines.Add(new Run($"{MainLang.CharacterMapping}: ") { FontFamily = fontFamily });
         text.Inlines.Add(new Run(fontFamily.Name) { FontFamily = fontFamily });

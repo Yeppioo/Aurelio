@@ -18,3 +18,16 @@ public sealed class FamilyTypefacesConverter : IValueConverter {
         throw new NotImplementedException();
     }
 }
+
+public sealed class FamilyTypefacesListConverter : IValueConverter {
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) {
+        if (value is FontFamily fontFamily)
+            return fontFamily.FamilyTypefaces.Select(x => x.Weight).Distinct();
+
+        return null;
+    }
+
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
+        throw new NotImplementedException();
+    }
+}

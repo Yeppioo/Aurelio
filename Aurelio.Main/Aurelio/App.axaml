@@ -34,6 +34,7 @@
         </ResourceDictionary>
 
 		<converters:FamilyTypefacesConverter x:Key="FamilyTypefacesConverter"/>
+		<converters:FamilyTypefacesListConverter x:Key="FamilyTypefacesListConverter"/>
 	</Application.Resources>
     <Application.Styles>
         <!-- <SukiTheme Locale="zh-CN" ThemeColor="Blue" /> -->
