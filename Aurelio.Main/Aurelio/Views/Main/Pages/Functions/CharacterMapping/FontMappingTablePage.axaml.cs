@@ -1,8 +1,10 @@
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Entries.Functions;
-using Aurelio.Public.Classes.Types;
+using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Enum;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui;
+using Aurelio.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
@@ -18,7 +20,8 @@ using System.Unicode;
 
 namespace Aurelio.Views.Main.Pages.Functions.CharacterMapping;
 
-public partial class FontMappingTablePage : UserControl, IFunctionPage {
+public partial class FontMappingTablePage : PageMixModelBase, IFunctionPage
+{
     private SKTypeface skTypeface;
     private FontWeight _selectedFontWeight;
 
@@ -42,6 +45,13 @@ public partial class FontMappingTablePage : UserControl, IFunctionPage {
         InitializeComponent();
         DataContext = this;
         Loaded += OnLoaded;
+        FunctionConfig.AddRecentOpen(new RecentOpenEntry()
+        {
+            Title = PageInfo.Title,
+            Summary = fontFamily.ToString(),
+            FilePath = fontFamily.ToString(),
+            FunctionType = FunctionType.CharacterMapping
+        });
     }
 
     private void OnLoaded(object? sender, RoutedEventArgs e) {
@@ -123,7 +133,42 @@ public partial class FontMappingTablePage : UserControl, IFunctionPage {
         return true;
     }
 
-    private void Button_OnClick(object? sender, RoutedEventArgs e) {
+    public void OnClose()
+    {
+        DataContext = null;
+        skTypeface?.Dispose();
+        skTypeface = null;
+        if (CharacterBlocks != null)
+        {
+            CharacterBlocks.Clear();
+            CharacterBlocks = null;
+        }
+        Current = null;
+        Loaded -= OnLoaded;
+        GC.SuppressFinalize(this);
+    }
+
+    public PageInfoEntry PageInfo => new()
+    {
+        Title = $"{MainLang.CharacterMapping}: {Current.Name}",
+        Icon = Icons.CharacterAppearance
+    };
+
+    public RecordTypefaceEntry SelectedTypeface
+    {
+        get => _selectedTypeface;
+        set
+        {
+            SetField(ref _selectedTypeface, value);
+            LoadCharacters();
+        }
+    }
+
+    private RecordTypefaceEntry _selectedTypeface;
+
+    [Obsolete("Obsolete")]
+    private void Button_OnClick(object? sender, RoutedEventArgs e)
+    {
         var character = (CharacterEntry)((TextBlock)sender).Tag!;
 
         var charInfo = UnicodeInfo.GetCharInfo(character.Code);

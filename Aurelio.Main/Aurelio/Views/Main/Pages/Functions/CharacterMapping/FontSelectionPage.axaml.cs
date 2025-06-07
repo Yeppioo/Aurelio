@@ -1,6 +1,6 @@
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Entries.Functions;
-using Aurelio.Public.Classes.Types;
+using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui;
 using Avalonia.Controls;
@@ -23,6 +23,38 @@ public partial class FontSelectionPage : UserControl, IFunctionPage {
     private string _searchFunctionText = string.Empty;
 
     public TabEntry HostTab { get; set; }
+
+    public void OnClose()
+    {
+        //if (ListBox != null)
+            //ListBox.SelectionChanged -= ListBox_SelectionChanged;
+        //Loaded -= LoadedHandler;
+
+        //Card.Content = null;
+
+        //FoundFonts?.Clear();
+        //FilteredFonts?.Clear();
+        //FoundFonts = null;
+        //FilteredFonts = null;
+
+        //_fontLoadCts?.Dispose();
+        //_fontLoadCts = null;
+        //DataContext = null;
+        //HostContent = null;
+        //HostTab = null;
+        
+        // FontManager.Current.RemoveFontCollection(new Uri("fonts:SystemFonts", UriKind.Absolute));
+
+        GC.SuppressFinalize(this);
+        GC.Collect(2);
+    }
+
+    public PageInfoEntry PageInfo => new()
+    {
+        Title = $"{MainLang.CharacterMapping}: {MainLang.FontList}",
+        Icon = Icons.CharacterAppearance
+    };
+
     public UserControl HostContent { get; set; }
     public ObservableCollection<FontFamily> FoundFonts { get; set; } = [];
     public ObservableCollection<FontFamily> FilteredFonts { get; set; } = [];

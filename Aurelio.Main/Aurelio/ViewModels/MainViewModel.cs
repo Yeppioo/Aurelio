@@ -18,7 +18,7 @@ public partial class MainViewModel : ViewModelBase
     public ObservableCollection<TabEntry> Tabs { get; set; } =
     [
         new(canClose: false, title: MainLang.MainPage, icon: Icon.FromMaterial(MaterialIconKind.Home),
-            content: new MainPage()),
+            content: new HomePage()),
     ];
 
     public ObservableCollection<NewPageEntry> NewPageItems { get; set; } = [];

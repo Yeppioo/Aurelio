@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Aurelio.Public.Classes.Types;
+using Aurelio.Public.Classes.Interfaces;
 using Aurelio.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Media;
@@ -8,7 +8,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Aurelio.Public.Classes.Entries;
 
-public partial class TabEntry : ViewModelBase , IDisposable
+public partial class TabEntry : ViewModelBase
 {
     public TabEntry(string title, IFunctionPage content, StreamGeometry? icon = null, bool canClose = true,
         object? headerContent = null)
@@ -32,7 +32,7 @@ public partial class TabEntry : ViewModelBase , IDisposable
         get => _content;
         set => SetField(ref _content, value);
     }
-
+    
     public StreamGeometry? Icon
     {
         get => _icon;
@@ -79,25 +79,27 @@ public partial class TabEntry : ViewModelBase , IDisposable
         {
             App.UiRoot.ViewModel.Tabs.Remove(this);
         }
-        Content.Dispose();
-        Dispose();
+        DisposeContent();
+        Removing();
     }
     
     public void ReplacePage(IFunctionPage page)
     {
-        Content.Dispose();
+        DisposeContent();
         Content = page;
         page.HostTab = this;
-        Icon = page.GetPageInfo().icon;
-        Title = page.GetPageInfo().title;
+        Icon = page.PageInfo.Icon;
+        Title = page.PageInfo.Title;
         Content = page;
     }
 
-    public void Dispose()
+    public void Removing()
     {
-        Content.Dispose();
+        DisposeContent();
         Content = null;
         GC.SuppressFinalize(this);
         GC.Collect(2);
     }
+
+    public void DisposeContent() => Content.OnClose();
 }

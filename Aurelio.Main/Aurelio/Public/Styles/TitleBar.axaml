@@ -146,4 +146,29 @@
             </Style>
         </Style>
     </Style>
+
+    <Style Selector="Button.list-item-button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Height" Value="15" />
+        <Setter Property="Width" Value="15" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Background="{TemplateBinding Background}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{DynamicResource MainCornerRadius}"
+                    Name="bd">
+                    <Path
+                        Data="{TemplateBinding Content}"
+                        Fill="{DynamicResource TextColor}"
+                        Height="{TemplateBinding Height}"
+                        Name="ico"
+                        Stretch="Uniform"
+                        Width="{TemplateBinding Width}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
 </Styles>
