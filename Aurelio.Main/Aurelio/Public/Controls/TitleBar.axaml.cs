@@ -15,6 +15,9 @@ public partial class TitleBar : UserControl
     public static readonly StyledProperty<bool> IsCloseBtnExitAppProperty =
         AvaloniaProperty.Register<TitleBar, bool>(nameof(IsCloseBtnExitApp));
 
+    public static readonly StyledProperty<bool> IsCloseBtnHideWindowProperty =
+        AvaloniaProperty.Register<TitleBar, bool>(nameof(IsCloseBtnHideWindow));
+
     public static readonly StyledProperty<bool> IsCloseBtnShowProperty =
         AvaloniaProperty.Register<TitleBar, bool>(nameof(IsCloseBtnShow), true);
 
@@ -60,6 +63,12 @@ public partial class TitleBar : UserControl
         set => SetValue(IsCloseBtnShowProperty, value);
     }
 
+    public bool IsCloseBtnHideWindow
+    {
+        get => GetValue(IsCloseBtnHideWindowProperty);
+        set => SetValue(IsCloseBtnHideWindowProperty, value);
+    }
+
     public bool IsMaxBtnShow
     {
         get => GetValue(IsMaxBtnShowProperty);
@@ -75,8 +84,7 @@ public partial class TitleBar : UserControl
     {
         if (e.Pointer.Type == PointerType.Mouse)
         {
-            var control = sender as Grid;
-            if (control != null)
+            if (sender is Grid control)
             {
                 var window = control.GetVisualRoot() as Window;
                 window.BeginMoveDrag(e);
@@ -85,8 +93,7 @@ public partial class TitleBar : UserControl
             if (IsMaxBtnShow && lastClickTime.HasValue && (DateTime.Now - lastClickTime.Value).TotalMilliseconds < 300)
             {
                 lastClickTime = null;
-                var window = this.GetVisualRoot() as Window;
-                if (window != null)
+                if (this.GetVisualRoot() is Window window)
                     window.WindowState = window.WindowState == WindowState.Maximized
                         ? WindowState.Normal
                         : WindowState.Maximized;
@@ -102,47 +109,45 @@ public partial class TitleBar : UserControl
 
     private void MinimizeButton_Click(object? sender, RoutedEventArgs e)
     {
-        var button = sender as Button;
-        if (button != null)
-        {
-            var window = button.GetVisualRoot() as Window;
-            if (window != null) window.WindowState = WindowState.Minimized;
-        }
+        if (sender is not Button button) return;
+        if (button.GetVisualRoot() is Window window) window.WindowState = WindowState.Minimized;
     }
 
     private void MaximizeButton_Click(object? sender, RoutedEventArgs e)
     {
-        var button = sender as Button;
-        if (button != null)
-        {
-            var window = button.GetVisualRoot() as Window;
-            if (window != null)
-            {
-                if (window.WindowState == WindowState.Maximized)
-                    window.WindowState = WindowState.Normal;
-                else
-                    window.WindowState = WindowState.Maximized;
-            }
-        }
+        if (sender is not Button button) return;
+        if (button.GetVisualRoot() is not Window window) return;
+        window.WindowState = window.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
     }
 
     private void CloseButton_Click(object? sender, RoutedEventArgs e)
     {
-        var button = sender as Button;
-        if (button != null)
+        if (sender is not Button button) return;
+        if (IsCloseBtnExitApp)
         {
-            if (IsCloseBtnExitApp)
+            Environment.Exit(0);
+        }
+        else
+        {
+            if (button.GetVisualRoot() is not Window window) return;
+            if (IsCloseBtnHideWindow)
             {
-                Environment.Exit(0);
+                window.Hide();
             }
             else
             {
-                var window = button.GetVisualRoot() as Window;
-                if (window != null) window.Hide();
+                CloseButton.Click -= CloseButton_Click;
+                MaximizeButton.Click -= MaximizeButton_Click;
+                MinimizeButton.Click -= MinimizeButton_Click;
+                MoveDragArea.PointerPressed -= MoveDragArea_PointerPressed;
+                window.Close();
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
             }
         }
     }
-
+    
     public void AddButton(Button btn)
     {
         Panel.Children.Add(btn);

@@ -61,9 +61,9 @@ public abstract class Shower
         var result = await dialog.ShowAsync(p_host ?? TopLevel.GetTopLevel(Aurelio.App.UiRoot));
         return result;
     }
-    
+
     public static void Notice(string msg, NotificationType type = NotificationType.Information,
-        bool time = true, string title = "Aurelio")
+        Action? onClick = null, bool time = true, string title = "Aurelio")
     {
         var showTitle = "Aurelio";
         if (!string.IsNullOrWhiteSpace(title)) showTitle = title;
@@ -75,23 +75,23 @@ public abstract class Shower
         switch (Data.SettingEntry.NoticeWay)
         {
             case Setting.NoticeWay.Bubble:
-                NotificationBubble(msg, type);
+                NotificationBubble(msg, type, onClick);
                 break;
             case Setting.NoticeWay.Card:
-                NotificationCard(msg, type, showTitle);
+                NotificationCard(msg, type, showTitle, onClick);
                 break;
         }
     }
 
-    public static void NotificationBubble(string msg, NotificationType type)
+    public static void NotificationBubble(string msg, NotificationType type, Action? onClick)
     {
         var toast = new Toast(msg, type);
-        UiProperty.Toast.Show(toast, toast.Type/*, classes: ["Light"]*/);
+        UiProperty.Toast.Show(toast, toast.Type /*, classes: ["Light"]*/, onClick: onClick);
     }
 
-    public static void NotificationCard(string msg, NotificationType type, string title)
+    public static void NotificationCard(string msg, NotificationType type, string title, Action? onClick)
     {
         var notification = new Notification(title, msg, type);
-        UiProperty.Notification.Show(notification, notification.Type, classes: ["Light"]);
+        UiProperty.Notification.Show(notification, notification.Type, classes: ["Light"], onClick: onClick);
     }
 }

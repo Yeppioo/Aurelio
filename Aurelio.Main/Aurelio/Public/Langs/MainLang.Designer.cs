@@ -123,11 +123,47 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 全不选.
+        /// </summary>
+        public static string DeselectAll {
+            get {
+                return ResourceManager.GetString("DeselectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 示例项目.
         /// </summary>
         public static string ExampleProject {
             get {
                 return ResourceManager.GetString("ExampleProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 导出.
+        /// </summary>
+        public static string Export {
+            get {
+                return ResourceManager.GetString("Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 导出失败.
+        /// </summary>
+        public static string ExportFail {
+            get {
+                return ResourceManager.GetString("ExportFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 导出完成.
+        /// </summary>
+        public static string ExportFinish {
+            get {
+                return ResourceManager.GetString("ExportFinish", resourceCulture);
             }
         }
         
@@ -177,6 +213,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 名称匹配的字符.
+        /// </summary>
+        public static string NameMatchedCharacters {
+            get {
+                return ResourceManager.GetString("NameMatchedCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 新标签页.
         /// </summary>
         public static string NewTab {
@@ -213,6 +258,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 在新窗口中打开.
+        /// </summary>
+        public static string OpenInNewWindow {
+            get {
+                return ResourceManager.GetString("OpenInNewWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 打开语言源文件.
         /// </summary>
         public static string OpenLangSourceFile {
@@ -236,6 +290,15 @@ namespace Aurelio.Public.Langs {
         public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 完全匹配的字符.
+        /// </summary>
+        public static string PerfectlyMatchedCharacters {
+            get {
+                return ResourceManager.GetString("PerfectlyMatchedCharacters", resourceCulture);
             }
         }
         
@@ -272,6 +335,15 @@ namespace Aurelio.Public.Langs {
         public static string SearchInAurelio {
             get {
                 return ResourceManager.GetString("SearchInAurelio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 全选.
+        /// </summary>
+        public static string SelectAll {
+            get {
+                return ResourceManager.GetString("SelectAll", resourceCulture);
             }
         }
         

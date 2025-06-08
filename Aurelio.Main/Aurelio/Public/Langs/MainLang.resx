@@ -96,4 +96,28 @@
   <data name="OpenLangSourceFile" xml:space="preserve">
     <value>打开语言源文件</value>
   </data>
+  <data name="PerfectlyMatchedCharacters" xml:space="preserve">
+    <value>完全匹配的字符</value>
+  </data>
+  <data name="NameMatchedCharacters" xml:space="preserve">
+    <value>名称匹配的字符</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>全不选</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="ExportFinish" xml:space="preserve">
+    <value>导出完成</value>
+  </data>
+  <data name="ExportFail" xml:space="preserve">
+    <value>导出失败</value>
+  </data>
+  <data name="OpenInNewWindow" xml:space="preserve">
+    <value>在新窗口中打开</value>
+  </data>
 </root>

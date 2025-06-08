@@ -12,6 +12,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fontMapping="clr-namespace:Aurelio.Public.Classes.Entries.Functions.FontMapping"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:suki="https://github.com/kikipoulet/SukiUI"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Resources>
@@ -89,20 +90,29 @@
                                                         Opacity="0.3" />
                                                 </Border.Effect>
                                                 <ScrollViewer>
-                                                    <ItemsRepeater ItemsSource="{Binding BlockFilters}">
-                                                        <ItemsRepeater.Layout>
-                                                            <UniformGridLayout MaximumRowsOrColumns="2" />
-                                                        </ItemsRepeater.Layout>
-                                                        <ItemsRepeater.ItemTemplate>
-                                                            <DataTemplate>
-                                                                <CheckBox
-                                                                    Content="{Binding Name}"
-                                                                    IsChecked="{Binding IsChecked, Mode=TwoWay}"
-                                                                    Margin="5"
-                                                                    Width="200" />
-                                                            </DataTemplate>
-                                                        </ItemsRepeater.ItemTemplate>
-                                                    </ItemsRepeater>
+                                                    <StackPanel>
+                                                        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                                                            <Button
+                                                                Command="{Binding SelectAllFilters}"
+                                                                Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SelectAll}"
+                                                                Margin="0,0,10,0" />
+                                                            <Button Command="{Binding DeselectAllFilters}" Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.DeselectAll}" />
+                                                        </StackPanel>
+                                                        <ItemsRepeater ItemsSource="{Binding BlockFilters}">
+                                                            <ItemsRepeater.Layout>
+                                                                <UniformGridLayout MaximumRowsOrColumns="2" />
+                                                            </ItemsRepeater.Layout>
+                                                            <ItemsRepeater.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <CheckBox
+                                                                        Content="{Binding Name}"
+                                                                        IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                                                                        Margin="5"
+                                                                        Width="200" />
+                                                                </DataTemplate>
+                                                            </ItemsRepeater.ItemTemplate>
+                                                        </ItemsRepeater>
+                                                    </StackPanel>
                                                 </ScrollViewer>
                                             </Border>
                                         </Flyout>
@@ -113,6 +123,15 @@
                                         Height="18"
                                         Kind="DotsHorizontal"
                                         Width="18" />
+                                    <Button.Flyout>
+                                        <MenuFlyout>
+                                            <MenuItem Command="{Binding OpenInNewWindow}" Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.OpenInNewWindow}">
+                                                <MenuItem.Icon>
+                                                    <avalonia:MaterialIcon Kind="Window" />
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                        </MenuFlyout>
+                                    </Button.Flyout>
                                 </Button>
                             </StackPanel>
                             <StackPanel
@@ -122,6 +141,23 @@
                                 Orientation="Horizontal"
                                 Spacing="10"
                                 VerticalAlignment="Center">
+                                <TextBox
+                                    DockPanel.Dock="Right"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,0,3,0"
+                                    Name="TextBox"
+                                    Text="{Binding SearchText}"
+                                    VerticalAlignment="Center"
+                                    Watermark="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Search}"
+                                    Width="240">
+                                    <TextBox.InnerRightContent>
+                                        <PathIcon
+                                            Data="{StaticResource SemiIconSearchStroked}"
+                                            Foreground="{DynamicResource TextColor}"
+                                            Height="16"
+                                            Width="16" />
+                                    </TextBox.InnerRightContent>
+                                </TextBox>
                                 <ComboBox ItemsSource="{Binding Current, Converter={StaticResource FamilyTypefacesToStyleListConverter}}" SelectedItem="{Binding SelectedFontStyle}" />
                                 <ComboBox ItemsSource="{Binding Current, Converter={StaticResource FamilyTypefacesToWeightListConverter}}" SelectedItem="{Binding SelectedFontWeight}" />
                             </StackPanel>
@@ -131,7 +167,10 @@
 
                 <Grid>
                     <Grid ColumnDefinitions="*, 2, 290">
-                        <ScrollViewer Grid.Column="0" Margin="0,0,5,0">
+                        <ScrollViewer
+                            Grid.Column="0"
+                            Margin="0,0,5,0"
+                            Name="ScrollViewer">
                             <ItemsRepeater ItemsSource="{Binding CharacterBlocks}">
                                 <ItemsRepeater.ItemTemplate>
                                     <DataTemplate DataType="fontMapping:CharacterBlock">
@@ -200,6 +239,40 @@
                         <DockPanel Grid.Column="2">
                             <DockPanel Dock="Bottom" VerticalAlignment="Bottom">
                                 <DockPanel Dock="Top">
+                                    <Button
+                                        Classes="no-background-button"
+                                        DockPanel.Dock="Right"
+                                        HorizontalAlignment="Right"
+                                        Margin="0,0,5,0">
+                                        <avalonia:MaterialIcon
+                                            Height="18"
+                                            Kind="DotsHorizontal"
+                                            Width="18" />
+                                        <Button.Flyout>
+                                            <MenuFlyout>
+                                                <MenuItem Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Export}">
+                                                    <MenuItem.Icon>
+                                                        <avalonia:MaterialIcon Kind="Export" />
+                                                    </MenuItem.Icon>
+                                                    <MenuItem Command="{Binding ExportSvg}" Header="Svg (*.svg)">
+                                                        <MenuItem.Icon>
+                                                            <avalonia:MaterialIcon Kind="Svg" />
+                                                        </MenuItem.Icon>
+                                                    </MenuItem>
+                                                    <MenuItem Command="{Binding ExportPng}" Header="Png (*.png)">
+                                                        <MenuItem.Icon>
+                                                            <avalonia:MaterialIcon Kind="FilePngBox" />
+                                                        </MenuItem.Icon>
+                                                    </MenuItem>
+                                                    <MenuItem Command="{Binding ExportXamlImageSource}" Header="Xaml.Image.Source (*.xaml)">
+                                                        <MenuItem.Icon>
+                                                            <avalonia:MaterialIcon Kind="Xml" />
+                                                        </MenuItem.Icon>
+                                                    </MenuItem>
+                                                </MenuItem>
+                                            </MenuFlyout>
+                                        </Button.Flyout>
+                                    </Button>
                                     <StackPanel
                                         DockPanel.Dock="Left"
                                         HorizontalAlignment="Left"
@@ -212,15 +285,6 @@
                                             Name="SCInfo"
                                             TextWrapping="Wrap" />
                                     </StackPanel>
-
-                                    <Button Classes="no-background-button">
-                                        <avalonia:MaterialIcon
-                                            DockPanel.Dock="Right"
-                                            Height="18"
-                                            HorizontalAlignment="Right"
-                                            Kind="DotsHorizontal"
-                                            Width="18" />
-                                    </Button>
                                 </DockPanel>
 
                                 <Border
@@ -229,28 +293,93 @@
                                     Height="1"
                                     Margin="10,2,0,2" />
 
-                                <StackPanel Margin="10,0,0,0" Spacing="3">
+                                <StackPanel Margin="10,10,0,0" Spacing="3">
                                     <TextBlock
-                                        FontSize="12"
+                                        FontSize="13"
                                         Foreground="{DynamicResource GrayColor}"
                                         Text="Xaml"
                                         TextWrapping="Wrap" />
 
-                                    <SelectableTextBlock
-                                        FontSize="13"
-                                        Name="SCXaml"
-                                        TextWrapping="Wrap" />
+                                    <DockPanel>
+                                        <Button
+                                            Classes="no-background-button"
+                                            Click="Copy_OnClick"
+                                            DockPanel.Dock="Right"
+                                            HorizontalAlignment="Right"
+                                            Margin="5,0,0,0"
+                                            Tag="SCXaml">
+                                            <avalonia:MaterialIcon
+                                                Height="18"
+                                                Kind="ContentCopy"
+                                                Width="18" />
+                                        </Button>
+                                        <TextBox
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            DockPanel.Dock="Left"
+                                            FontSize="15"
+                                            IsReadOnly="True"
+                                            Name="SCXaml"
+                                            TextWrapping="NoWrap" />
+                                    </DockPanel>
 
                                     <TextBlock
-                                        FontSize="12"
+                                        FontSize="13"
                                         Foreground="{DynamicResource GrayColor}"
                                         Text="FontIcon"
                                         TextWrapping="Wrap" />
 
-                                    <SelectableTextBlock
+                                    <DockPanel>
+                                        <Button
+                                            Classes="no-background-button"
+                                            Click="Copy_OnClick"
+                                            DockPanel.Dock="Right"
+                                            HorizontalAlignment="Right"
+                                            Margin="5,0,0,0"
+                                            Tag="SCFontIcon">
+                                            <avalonia:MaterialIcon
+                                                Height="18"
+                                                Kind="ContentCopy"
+                                                Width="18" />
+                                        </Button>
+                                        <TextBox
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            DockPanel.Dock="Left"
+                                            FontSize="14"
+                                            IsReadOnly="True"
+                                            Name="SCFontIcon"
+                                            TextWrapping="NoWrap" />
+                                    </DockPanel>
+
+                                    <TextBlock
                                         FontSize="13"
-                                        Name="SCFontIcon"
+                                        Foreground="{DynamicResource GrayColor}"
+                                        Text="PathIcon"
                                         TextWrapping="Wrap" />
+
+                                    <DockPanel>
+                                        <Button
+                                            Classes="no-background-button"
+                                            Click="Copy_OnClick"
+                                            DockPanel.Dock="Right"
+                                            HorizontalAlignment="Right"
+                                            Margin="5,0,0,0"
+                                            Tag="SCPathIcon">
+                                            <avalonia:MaterialIcon
+                                                Height="18"
+                                                Kind="ContentCopy"
+                                                Width="18" />
+                                        </Button>
+                                        <TextBox
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            DockPanel.Dock="Left"
+                                            FontSize="14"
+                                            IsReadOnly="True"
+                                            Name="SCPathIcon"
+                                            TextWrapping="NoWrap" />
+                                    </DockPanel>
                                 </StackPanel>
                             </DockPanel>
 
