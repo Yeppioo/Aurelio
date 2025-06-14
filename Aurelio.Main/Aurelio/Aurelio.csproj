@@ -48,7 +48,6 @@
     <PackageReference Include="Semi.Avalonia" />
     <PackageReference Include="SkiaSharp" />
     <PackageReference Include="SukiUI" />
-    <PackageReference Include="Typography.OpenFont.NetCore" />
     <PackageReference Include="UnicodeInformation" />
   </ItemGroup>
 
