@@ -42,7 +42,7 @@
         </Style>
     </Window.Styles>
     <Border
-        Background="{DynamicResource WindowBackground}"
+        Background="{DynamicResource WindowBackgroundColor}"
         BorderBrush="{DynamicResource BorderBrush}"
         BorderThickness="1"
         ClipToBounds="True"
@@ -64,19 +64,23 @@
                             Name="TitleBar"
                             Title="" />
                         <Border
-                            Background="{DynamicResource WindowBackground}"
+                            Background="{DynamicResource WindowBackgroundColor}"
                             ClipToBounds="True"
                             DockPanel.Dock="Top"
                             Height="40"
                             HorizontalAlignment="Left"
-                            Margin="75,0,150,0"
+                            Margin="80,0,150,0"
                             Name="NavRoot"
                             VerticalAlignment="Top">
                             <Grid>
                                 <ScrollViewer
+                                    AllowAutoHide="True"
                                     HorizontalScrollBarVisibility="Auto"
                                     Name="NavScrollViewer"
                                     Offset="{Binding TabScrollOffset}"
+                                    PointerEntered="NavScrollViewer_PointerEntered"
+                                    PointerExited="NavScrollViewer_PointerExited"
+                                    PointerWheelChanged="NavScrollViewer_PointerWheelChanged"
                                     VerticalScrollBarVisibility="Disabled">
                                     <StackPanel Margin="0,0,20,0" Orientation="Horizontal">
                                         <u:SelectionList
@@ -90,33 +94,41 @@
                                                     <Style Selector="^ TextBlock">
                                                         <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
                                                     </Style>
-                                                    <Style Selector="^ Grid">
-                                                        <Setter Property="IsVisible" Value="False" />
-                                                    </Style>
-                                                </Style>
-                                                <Style Selector="u|SelectionListItem:selected">
-                                                    <Style Selector="^ Grid">
-                                                        <Setter Property="IsVisible" Value="True" />
+                                                    <Style Selector="^ Button">
+                                                        <Setter Property="Opacity" Value="0" />
                                                     </Style>
                                                     <Style Selector="^ Border#ItemRoot">
-                                                        <Setter Property="Background" Value="{DynamicResource PageBackground}" />
-                                                        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+                                                        <Setter Property="Background" Value="{DynamicResource TabBackgroundColor}" />
+                                                        <Setter Property="BorderBrush" Value="{DynamicResource LinearGradientTransparentColor}" />
                                                     </Style>
                                                 </Style>
                                                 <Style Selector="u|SelectionListItem:pointerover">
-                                                    <Style Selector="^ Grid">
-                                                        <Setter Property="IsVisible" Value="True" />
+                                                    <Style Selector="^ Button">
+                                                        <Setter Property="Opacity" Value="1" />
+                                                    </Style>
+                                                    <Style Selector="^ Border#ItemRoot">
+                                                        <Setter Property="Background" Value="{DynamicResource SelectedTabBackgroundColor}" />
+                                                        <Setter Property="BorderBrush" Value="{DynamicResource LinearGradientTransparentColor}" />
+                                                    </Style>
+                                                </Style>
+                                                <Style Selector="u|SelectionListItem:selected">
+                                                    <Style Selector="^ Button">
+                                                        <Setter Property="Opacity" Value="1" />
+                                                    </Style>
+                                                    <Style Selector="^ Border#ItemRoot">
+                                                        <Setter Property="Background" Value="{DynamicResource SelectedTabBackgroundColor}" />
+                                                        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
                                                     </Style>
                                                 </Style>
                                             </u:SelectionList.Styles>
                                             <u:SelectionList.ItemsPanel>
                                                 <ItemsPanelTemplate>
-                                                    <StackPanel Orientation="Horizontal" />
+                                                    <StackPanel Orientation="Horizontal" Spacing="5" />
                                                 </ItemsPanelTemplate>
                                             </u:SelectionList.ItemsPanel>
                                             <u:SelectionList.Indicator>
                                                 <Border
-                                                    Background="{DynamicResource PageBackground}"
+                                                    Background="{DynamicResource PageBackgroundColor}"
                                                     BorderBrush="{DynamicResource BorderBrush}"
                                                     BorderThickness="1"
                                                     CornerRadius="5"
@@ -131,13 +143,17 @@
                                                         BorderThickness="1"
                                                         CornerRadius="6"
                                                         Height="30"
+                                                        MinWidth="140"
                                                         Name="ItemRoot"
                                                         PointerPressed="TabItem_OnPointerPressed"
                                                         Tag="{Binding}">
-                                                        <StackPanel
-                                                            Margin="10,-1,10,0"
-                                                            Orientation="Horizontal"
-                                                            VerticalAlignment="Center">
+                                                        <Border.Transitions>
+                                                            <Transitions>
+                                                                <BrushTransition Duration="0:0:0.2" Property="BorderBrush" />
+                                                                <BrushTransition Duration="0:0:0.2" Property="Background" />
+                                                            </Transitions>
+                                                        </Border.Transitions>
+                                                        <DockPanel Margin="8,-1,10,0" VerticalAlignment="Center">
                                                             <PathIcon
                                                                 Data="{Binding Icon}"
                                                                 Height="15"
@@ -145,21 +161,29 @@
                                                                 Margin="0,0,4,0"
                                                                 Width="15" />
                                                             <ContentControl Content="{Binding HeaderContent}" />
-                                                            <Grid>
+                                                            <Grid
+                                                                HorizontalAlignment="Right"
+                                                                IsVisible="{Binding CanClose}"
+                                                                Margin="0,0,-4,0">
                                                                 <Button
                                                                     Classes="icon-button"
                                                                     Command="{Binding Close}"
                                                                     Content="{DynamicResource Close}"
                                                                     HorizontalAlignment="Right"
-                                                                    IsVisible="{Binding CanClose}"
                                                                     Margin="3,1,0,0"
                                                                     MaxHeight="14"
                                                                     MaxWidth="16"
                                                                     MinHeight="14"
                                                                     Name="CloseButton"
-                                                                    VerticalAlignment="Center" />
+                                                                    VerticalAlignment="Center">
+                                                                    <Button.Transitions>
+                                                                        <Transitions>
+                                                                            <DoubleTransition Duration="0:0:0.07" Property="Opacity" />
+                                                                        </Transitions>
+                                                                    </Button.Transitions>
+                                                                </Button>
                                                             </Grid>
-                                                        </StackPanel>
+                                                        </DockPanel>
                                                     </Border>
                                                 </DataTemplate>
                                             </u:SelectionList.ItemTemplate>
@@ -178,8 +202,8 @@
                                     Width="32">
                                     <Border.Background>
                                         <LinearGradientBrush EndPoint="100%,50%" StartPoint="0%,50%">
-                                            <GradientStop Color="{DynamicResource WindowBackground}" Offset="0.0" />
-                                            <GradientStop Color="#00FFFFFF" Offset="1.0" />
+                                            <GradientStop Color="{DynamicResource WindowBackgroundColor}" Offset="0.0" />
+                                            <GradientStop Color="{DynamicResource LinearGradientTransparentColor}" Offset="1.0" />
                                         </LinearGradientBrush>
                                     </Border.Background>
                                 </Border>
@@ -188,9 +212,9 @@
                                     IsHitTestVisible="False"
                                     Width="32">
                                     <Border.Background>
-                                        <LinearGradientBrush EndPoint="100%,50%" StartPoint="0%,50%">
-                                            <GradientStop Color="#00FFFFFF" Offset="0.0" />
-                                            <GradientStop Color="{DynamicResource WindowBackground}" Offset="1.0" />
+                                        <LinearGradientBrush EndPoint="100%,50%" StartPoint="0%,0%">
+                                            <GradientStop Color="{DynamicResource LinearGradientTransparentColor}" Offset="0.0" />
+                                            <GradientStop Color="{DynamicResource WindowBackgroundColor}" Offset="1.0" />
                                         </LinearGradientBrush>
                                     </Border.Background>
                                 </Border>
@@ -235,7 +259,7 @@
                 <ContentControl Content="{Binding SelectedTab.Content}" Name="Frame" />
             </DockPanel>
             <Border
-                Background="{DynamicResource WindowBackground}"
+                Background="{DynamicResource WindowBackgroundColor}"
                 DockPanel.Dock="Bottom"
                 Height="1"
                 HorizontalAlignment="Center"

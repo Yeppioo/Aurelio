@@ -2,21 +2,33 @@
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Dark">
             <Color x:Key="TextColor">#ffffff</Color>
-            <Color x:Key="WindowBackground">#202020</Color>
-            <Color x:Key="PageBackground">#242424</Color>
+            <Color x:Key="WindowBackgroundColor">#191919</Color>
+            <Color x:Key="PageBackgroundColor">#242424</Color>
             <Color x:Key="TitleBarHoverColor">#272727</Color>
             <Color x:Key="ExpanderHoverColor">#2F2F2F</Color>
+            <Color x:Key="CardBackgroundColor">#272727</Color>
+            <Color x:Key="2xCardBackgroundColor">#404040</Color>
             <Color x:Key="GrayColor">#7e7e7e</Color>
             <Color x:Key="BorderBrush">#383838</Color>
+            <Color x:Key="LinearGradientTransparentColor">#00191919</Color>
+            <Color x:Key="SelectedTabBackgroundColor">#121212</Color>
+            <Color x:Key="TabBackgroundColor">#272727</Color>
+            <CornerRadius x:Key="CardCornerRadius">8</CornerRadius>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
             <Color x:Key="TextColor">#333333</Color>
-            <Color x:Key="WindowBackground">#F2F4F7</Color>
-            <Color x:Key="PageBackground">#FFFFFF</Color>
+            <Color x:Key="WindowBackgroundColor">#F2F4F7</Color>
+            <Color x:Key="PageBackgroundColor">#FFFFFF</Color>
             <Color x:Key="TitleBarHoverColor">#EAEBEF</Color>
             <Color x:Key="ExpanderHoverColor">#F3F3F4</Color>
+            <Color x:Key="CardBackgroundColor">#EAEBEF</Color>
+            <Color x:Key="2xCardBackgroundColor">#404040</Color>
             <Color x:Key="GrayColor">#7e7e7e</Color>
             <Color x:Key="BorderBrush">#EAECF0</Color>
+            <Color x:Key="LinearGradientTransparentColor">#00FFFFFF</Color>
+            <Color x:Key="SelectedTabBackgroundColor">#121212</Color>
+            <Color x:Key="TabBackgroundColor">#272727</Color>
+            <CornerRadius x:Key="CardCornerRadius">8</CornerRadius>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

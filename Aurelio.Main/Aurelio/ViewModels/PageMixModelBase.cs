@@ -9,7 +9,7 @@ public class PageMixModelBase : UserControl , INotifyPropertyChanged
 {
     public new event PropertyChangedEventHandler? PropertyChanged;
 
-    private new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

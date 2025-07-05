@@ -34,6 +34,11 @@
                             <avalonia:MaterialIcon Kind="TabRemove" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Command="{Binding ToggleTheme}" Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ToggleTheme}">
+                        <MenuItem.Icon>
+                            <avalonia:MaterialIcon Kind="Theme" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
             </MenuFlyout>
         </Button.Flyout>

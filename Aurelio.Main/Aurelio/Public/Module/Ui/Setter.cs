@@ -6,6 +6,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform;
+using Avalonia.Styling;
 using Ursa.Controls;
 
 namespace Aurelio.Public.Module.Ui;
@@ -63,19 +64,19 @@ public class Setter
         action?.Invoke();
     }
 
-    // public static void ToggleTheme(Setting.Theme theme)
-    // {
-    //     if (theme == Setting.Theme.Light)
-    //     {
-    //         Application.Current.RequestedThemeVariant = ThemeVariant.Light;
-    //     }
-    //     else if (theme == Setting.Theme.Dark)
-    //     {
-    //         Application.Current.RequestedThemeVariant = ThemeVariant.Dark;
-    //     }
-    //     else if (theme == Setting.Theme.System)
-    //     {
-    //         Application.Current.RequestedThemeVariant = ThemeVariant.Default;
-    //     }
-    // }
+    public static void ToggleTheme(Setting.Theme theme)
+    {
+        if (theme == Setting.Theme.Light)
+        {
+            Application.Current.RequestedThemeVariant = ThemeVariant.Light;
+        }
+        else if (theme == Setting.Theme.Dark)
+        {
+            Application.Current.RequestedThemeVariant = ThemeVariant.Dark;
+        }
+        else if (theme == Setting.Theme.System)
+        {
+            Application.Current.RequestedThemeVariant = ThemeVariant.Default;
+        }
+    }
 }

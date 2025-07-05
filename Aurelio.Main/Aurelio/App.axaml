@@ -21,13 +21,13 @@
                 <ResourceInclude Source="avares://FluentAvalonia/Styling/ControlThemes/BasicControls/ToggleSwitchStyles.axaml" />
                 <ResourceInclude Source="avares://Semi.Avalonia/Controls/TextBox.axaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Color x:Key="SystemAccentColor">#00feff</Color>
-            <Color x:Key="SystemAccentColorLight1">#00feff</Color>
-            <Color x:Key="SystemAccentColorLight2">#00feff</Color>
-            <Color x:Key="SystemAccentColorLight3">#00feff</Color>
-            <Color x:Key="SystemAccentColorDark1">#00feff</Color>
-            <Color x:Key="SystemAccentColorDark2">#00feff</Color>
-            <Color x:Key="SystemAccentColorDark3">#00feff</Color>
+            <Color x:Key="SystemAccentColor">#00AF5C</Color>
+            <Color x:Key="SystemAccentColorLight1">#00AF5C</Color>
+            <Color x:Key="SystemAccentColorLight2">#00AF5C</Color>
+            <Color x:Key="SystemAccentColorLight3">#00AF5C</Color>
+            <Color x:Key="SystemAccentColorDark1">#00AF5C</Color>
+            <Color x:Key="SystemAccentColorDark2">#00AF5C</Color>
+            <Color x:Key="SystemAccentColorDark3">#00AF5C</Color>
             <FontFamily x:Key="MiSans">avares://Aurelio/Public/Assets#MiSans</FontFamily>
             <FontFamily x:Key="Quicksand">avares://Aurelio/Public/Assets#Quicksand SemiBold</FontFamily>
             <FontWeight x:Key="FontWeight">Bold</FontWeight>

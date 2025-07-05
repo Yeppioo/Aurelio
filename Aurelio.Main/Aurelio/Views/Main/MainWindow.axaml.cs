@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Entries.Page;
@@ -9,11 +12,17 @@ using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO.Local;
 using Aurelio.ViewModels;
 using Aurelio.Views.Main.Pages;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Layout;
+using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Avalonia.Threading;
+using Avalonia.VisualTree;
 using CommunityToolkit.Mvvm.Input;
 using HotAvalonia;
 using Material.Icons;
@@ -27,7 +36,6 @@ public partial class MainWindow : UrsaWindow
     public MainViewModel ViewModel { get; set; } = new();
     public ObservableCollection<TabEntry> Tabs => ViewModel.Tabs;
     public TabEntry? SelectedTab => ViewModel.SelectedTab;
-
     public MainWindow()
     {
         InitializeComponent();
@@ -38,7 +46,7 @@ public partial class MainWindow : UrsaWindow
         InitTitleBar();
 #endif
     }
-
+    
     [AvaloniaHotReload]
     private void InitTitleBar()
     {
@@ -64,7 +72,7 @@ public partial class MainWindow : UrsaWindow
         MenuButton.DataContext = new MoreButtonMenuCommands();
         settingButton.Click += (_, _) =>
         {
-            var tab = Tabs.FirstOrDefault(x => x.Tag == "settsing");
+            var tab = Tabs.FirstOrDefault(x => x.Tag == "setting");
             if (tab is null)
             {
                 var newTab = new TabEntry(MainLang.Setting, PageInstance.SettingPage,
@@ -93,5 +101,27 @@ public partial class MainWindow : UrsaWindow
         if (!e.GetCurrentPoint(this).Properties.IsMiddleButtonPressed) return;
         var c = (TabEntry)((Border)sender).Tag;
         c.Close();
+    }
+
+    private void NavScrollViewer_PointerWheelChanged(object? sender, PointerWheelEventArgs e)
+    {
+        if (sender is ScrollViewer scrollViewer)
+        {
+            scrollViewer.Offset = new Vector(
+                scrollViewer.Offset.X + e.Delta.Y * 20, // 调整乘数以控制滚动速度
+                scrollViewer.Offset.Y
+            );
+            e.Handled = true;
+        }
+    }
+    
+    private void NavScrollViewer_PointerEntered(object? sender, PointerEventArgs e)
+    {
+        NavScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
+    }
+    
+    private void NavScrollViewer_PointerExited(object? sender, PointerEventArgs e)
+    {
+        NavScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
     }
 }

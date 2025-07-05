@@ -25,6 +25,5 @@ public abstract class Create
     public static void Folder()
     {
         IO.Local.Setter.TryCreateFolder(ConfigPath.UserDataRootPath);
-        IO.Local.Setter.TryCreateFolder(ConfigPath.ProjectFolderPath);
     }
 }

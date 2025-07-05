@@ -11,6 +11,10 @@
     <!--  Add Styles Here  -->
     <Style Selector="Expander.over-expander">
         <Setter Property="Padding" Value="3,-3,0,0" />
+        <Style Selector="^:not(:expanded)">
+            <Setter Property="Height" Value="40" />
+            <Setter Property="MinHeight" Value="40" />
+        </Style>
         <Style Selector="^ /template/ Border#ExpanderContent">
             <Setter Property="Background" Value="{x:Null}" />
             <Setter Property="BorderBrush" Value="{x:Null}" />
@@ -21,7 +25,7 @@
             <Setter Property="CornerRadius" Value="6" />
         </Style>
         <Style Selector="^ /template/ ToggleButton#ExpanderHeader /template/ Border#Root:pointerover">
-            <Setter Property="Background" Value="{DynamicResource ExpanderHoverColor}" />
+            <!-- <Setter Property="Background" Value="{DynamicResource ExpanderHoverColor}" /> -->
         </Style>
         <Style Selector="^ /template/ ToggleButton#ExpanderHeader /template/ Border#ExpandCollapseChevronBorder">
             <Setter Property="Background" Value="{x:Null}" />

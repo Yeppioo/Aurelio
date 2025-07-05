@@ -24,40 +24,5 @@
             Margin="40,15,0,0"
             Name="TitleTextBlock"
             Text="Aurelio 1.0.0" />
-        <DockPanel>
-            <DockPanel>
-                <suki:GlassCard Classes="HeaderCard" Margin="20,10,20,20">
-                    <suki:GroupBox Name="GroupBox">
-                        <suki:GroupBox.Header>
-                            <DockPanel>
-                                <TextBlock
-                                    DockPanel.Dock="Left"
-                                    FontSize="16"
-                                    HorizontalAlignment="Left"
-                                    Margin="10,0,0,0"
-                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.OpenRecentContent}"
-                                    VerticalAlignment="Center" />
-                                <TextBox
-                                    DockPanel.Dock="Right"
-                                    HorizontalAlignment="Right"
-                                    Margin="0,0,3,0"
-                                    Name="TextBox"
-                                    VerticalAlignment="Center"
-                                    Watermark="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Search}"
-                                    Width="240">
-                                    <TextBox.InnerRightContent>
-                                        <PathIcon
-                                            Data="{StaticResource SemiIconSearchStroked}"
-                                            Foreground="{DynamicResource TextColor}"
-                                            Height="16"
-                                            Width="16" />
-                                    </TextBox.InnerRightContent>
-                                </TextBox>
-                            </DockPanel>
-                        </suki:GroupBox.Header>
-                    </suki:GroupBox>
-                </suki:GlassCard>
-            </DockPanel>
-        </DockPanel>
     </DockPanel>
 </UserControl>

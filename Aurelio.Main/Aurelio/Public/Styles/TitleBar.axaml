@@ -93,10 +93,10 @@
                     <Path
                         Data="{TemplateBinding Content}"
                         Fill="{DynamicResource TextColor}"
-                        Height="10"
+                        Height="9"
                         Name="ico"
                         Stretch="Uniform"
-                        Width="10" />
+                        Width="9" />
                 </Border>
             </ControlTemplate>
         </Setter>
