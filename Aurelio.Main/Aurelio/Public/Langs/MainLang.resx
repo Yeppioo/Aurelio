@@ -120,4 +120,7 @@
   <data name="OpenInNewWindow" xml:space="preserve">
     <value>在新窗口中打开</value>
   </data>
+  <data name="Setting" xml:space="preserve">
+    <value>设置</value>
+  </data>
 </root>

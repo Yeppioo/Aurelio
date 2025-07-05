@@ -1,5 +1,5 @@
 <Application
-    RequestedThemeVariant="Light"
+    RequestedThemeVariant="Dark"
     x:Class="Aurelio.App"
     xmlns="https://github.com/avaloniaui"
     xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"

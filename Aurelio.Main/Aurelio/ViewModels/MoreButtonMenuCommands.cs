@@ -7,11 +7,11 @@ public partial class MoreButtonMenuCommands
 {
     public void NewTab()
     {
-        App.UiRoot.NewTabButton.Flyout.ShowAt(App.UiRoot.FlyoutPoint);
+        // App.UiRoot.NewTabButton.Flyout.ShowAt(App.UiRoot.FlyoutPoint);
     }
 
     public void CloseCurrentTab()
     {
-        App.UiRoot.ViewModel.SelectedItem?.Close();
+        App.UiRoot.ViewModel.SelectedTab?.Close();
     }
 }

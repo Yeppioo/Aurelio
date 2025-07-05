@@ -9,7 +9,7 @@ namespace Aurelio.Public.Classes.Entries.Page;
 
 public partial class TabEntry : ViewModelBase
 {
-    public TabEntry(string title, IFunctionPage content, StreamGeometry? icon = null, bool canClose = true,
+    public TabEntry(string title, IAurelioPage content, StreamGeometry? icon = null, bool canClose = true,
         object? headerContent = null)
     {
         CanClose = canClose;
@@ -19,14 +19,15 @@ public partial class TabEntry : ViewModelBase
         HeaderContent = headerContent ?? CreateHeaderTextBlock();
     }
 
-    private IFunctionPage _content;
+    private string _tag;
+    private IAurelioPage _content;
     private object _headerContent;
     private string _title;
     private StreamGeometry? _icon;
     private bool _canClose;
     public bool IconIsVisible => Icon != null;
 
-    public IFunctionPage Content
+    public IAurelioPage Content
     {
         get => _content;
         set => SetField(ref _content, value);
@@ -42,6 +43,11 @@ public partial class TabEntry : ViewModelBase
     {
         get => _title;
         set => SetField(ref _title, value);
+    }
+    public string Tag
+    {
+        get => _tag;
+        set => SetField(ref _tag, value);
     }
     
     public bool CanClose
@@ -69,10 +75,10 @@ public partial class TabEntry : ViewModelBase
     public void Close()
     {
         if (!CanClose) return;
-        if (App.UiRoot.ViewModel.SelectedItem == this)
+        if (App.UiRoot.ViewModel.SelectedTab == this)
         {
             App.UiRoot.ViewModel.Tabs.Remove(this);
-            App.UiRoot.ViewModel.SelectedItem = App.UiRoot.ViewModel.Tabs.LastOrDefault();
+            App.UiRoot.ViewModel.SelectedTab = App.UiRoot.ViewModel.Tabs.LastOrDefault();
         }
         else
         {
@@ -82,7 +88,7 @@ public partial class TabEntry : ViewModelBase
         Removing();
     }
     
-    public void ReplacePage(IFunctionPage page)
+    public void ReplacePage(IAurelioPage page)
     {
         DisposeContent();
         Content = page;

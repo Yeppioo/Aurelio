@@ -20,7 +20,6 @@ public class UiProperty : ReactiveObject
     public static ObservableCollection<NotificationEntry> NotificationCards { get; } = [];
     public static WindowNotificationManager Notification { get; set; }
     public static WindowToastManager Toast { get; set; }
-    public static ObservableCollection<RecentPageEntry> RecentOpens { get; } = [];
 
     public UiProperty()
     {

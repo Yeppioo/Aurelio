@@ -16,7 +16,5 @@ public abstract class Reader
     {
         Data.SettingEntry =
             JsonConvert.DeserializeObject<SettingEntry>(File.ReadAllText(ConfigPath.SettingDataPath));
-        UiProperty.RecentOpens.AddRange(JsonConvert.DeserializeObject<ObservableCollection<RecentPageEntry>>
-            (File.ReadAllText(ConfigPath.RecentOpenDataPath)) ?? []);
     }
 }

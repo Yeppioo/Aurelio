@@ -2,5 +2,4 @@
 
 public abstract class Config
 {
-    public static string AurelioApi => "http://localhost:3000";
 }

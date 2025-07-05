@@ -18,66 +18,22 @@ using Material.Icons;
 
 namespace Aurelio.Views.Main.Pages;
 
-public partial class HomePage : PageMixModelBase, IFunctionPage
+public partial class HomePage : PageMixModelBase, IAurelioPage
 {
-    private object _lockObj = new object();
-
     public HomePage()
     {
         InitializeComponent();
         DataContext = this;
         BindingEvent();
-        FilterRecentPages();
     }
 
     private void BindingEvent()
     {
-        ListBox.SelectionChanged += (_, _) =>
-        {
-            if (ListBox.SelectedItem is not RecentPageEntry entry) return;
-            ListBox.SelectedItem = null;
-            FunctionConfig.OpenRecentPage(entry);
-        };
-        _filterRecentPages = new Debouncer(FilterRecentPagesAction, 10);
     }
 
     public TabEntry HostTab { get; set; }
-    private string _searchText = string.Empty;
-    public ObservableCollection<RecentPageEntry> FilteredRecentOpens { get; set; } = [];
 
-    public PageInfoEntry PageInfo => new()
-    {
-        Title = $"{MainLang.MainPage}",
-        Icon = Icon.FromMaterial(MaterialIconKind.Home)
-    };
-
-    public string SearchText
-    {
-        get => _searchText;
-        set
-        {
-            SetField(ref _searchText, value);
-            FilterRecentPages();
-        }
-    }
-
-    private Debouncer _filterRecentPages;
-    public void FilterRecentPages()
-    {
-        _filterRecentPages.Trigger();
-    }
-    public void FilterRecentPagesAction()
-    {
-        FilteredRecentOpens.Clear();
-        FilteredRecentOpens.AddRange(UiProperty.RecentOpens.Where(item =>
-                item.Title.Replace(" ", "").ToLower().Contains(SearchText.ToLower().Replace(" ", ""),
-                    StringComparison.OrdinalIgnoreCase) ||
-                item.Summary.Replace(" ", "").ToLower().Contains(SearchText.ToLower().Replace(" ", ""),
-                    StringComparison.OrdinalIgnoreCase))
-            .OrderByDescending(x => x.LastTime));
-    }
-    
-    
+    public PageInfoEntry PageInfo { get; } = new();
 
     public void OnClose()
     {

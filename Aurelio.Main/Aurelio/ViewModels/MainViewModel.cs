@@ -18,26 +18,13 @@ public partial class MainViewModel : ViewModelBase
 {
     public ObservableCollection<TabEntry> Tabs { get; set; } =
     [
-        new(canClose: false, title: MainLang.MainPage, icon: Icon.FromMaterial(MaterialIconKind.Home),
-            content: new HomePage()),
+        new(canClose: false, title: MainLang.MainPage, icon: Icons.Home,
+            content: PageInstance.HomePage),
     ];
-
-    public ObservableCollection<NewPageEntry> NewPageItems { get; set; } = [];
-
-    private TabEntry? _selectedItem;
+    
+    private TabEntry? _selectedTab;
     private Vector _tabScrollOffset;
     private bool _isTabMaskVisible;
-    private string _searchFunctionText = string.Empty;
-
-    public string SearchFunctionText
-    {
-        get => _searchFunctionText;
-        set
-        {
-            SetField(ref _searchFunctionText, value);
-            FilterFunction();
-        }
-    }
     
     public Vector TabScrollOffset
     {
@@ -51,24 +38,14 @@ public partial class MainViewModel : ViewModelBase
         set => SetField(ref _isTabMaskVisible, value);
     }
 
-    public TabEntry? SelectedItem
+    public TabEntry? SelectedTab
     {
-        get => _selectedItem;
-        set => SetField(ref _selectedItem, value);
+        get => _selectedTab;
+        set => SetField(ref _selectedTab, value);
     }
 
     public MainViewModel()
     {
-        SelectedItem = Tabs[0];
-        FunctionConfig.FunctionItems = FunctionConfig.FunctionItems.OrderBy(x => x.Title).ToList();
-        FilterFunction();
-    }
-
-    private void FilterFunction()
-    {
-        NewPageItems.Clear();
-        NewPageItems.AddRange(FunctionConfig.FunctionItems.Where(item =>
-                item.Title.ToLower().Contains(SearchFunctionText.ToLower(), StringComparison.OrdinalIgnoreCase))
-            .ToList().OrderBy(x => x.Title).ToList());
+        SelectedTab = Tabs[0];
     }
 }

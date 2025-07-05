@@ -6,7 +6,7 @@ public abstract class HttpClient
 {
     public static System.Net.Http.HttpClient AurelioApiClient { get; set; } = new()
     {
-        BaseAddress = new Uri(Config.AurelioApi),
+        // BaseAddress = new Uri(Config.AurelioApi),
         Timeout = TimeSpan.FromSeconds(30)
     };
 

@@ -83,7 +83,7 @@
                                             AutoScrollToSelectedItem="True"
                                             ItemsSource="{Binding Tabs}"
                                             Name="NavMenu"
-                                            SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                                            SelectedItem="{Binding SelectedTab, Mode=TwoWay}"
                                             VerticalAlignment="Center">
                                             <u:SelectionList.Styles>
                                                 <Style Selector="u|SelectionListItem:not(:selected)">
@@ -168,105 +168,7 @@
                                             Classes="custom-hover-button"
                                             Content="{DynamicResource Plus}"
                                             Margin="4,0,0,0"
-                                            Name="NewTabButton">
-                                            <Button.Flyout>
-                                                <Flyout>
-                                                    <Border
-                                                        Background="{DynamicResource PageBackground}"
-                                                        CornerRadius="8"
-                                                        Height="300"
-                                                        Padding="5"
-                                                        Width="564">
-                                                        <Border.Effect>
-                                                            <DropShadowEffect
-                                                                BlurRadius="5"
-                                                                Color="Black"
-                                                                OffsetX="0"
-                                                                OffsetY="0"
-                                                                Opacity="0.3" />
-                                                        </Border.Effect>
-                                                        <DockPanel>
-                                                            <Border
-                                                                BorderBrush="{DynamicResource WindowBackground}"
-                                                                BorderThickness="0,0,0,2"
-                                                                ClipToBounds="True"
-                                                                DockPanel.Dock="Top"
-                                                                Padding="0,5,0,8"
-                                                                VerticalAlignment="Top">
-                                                                <DockPanel>
-                                                                    <TextBlock
-                                                                        FontSize="16"
-                                                                        Margin="15,0,0,0"
-                                                                        Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Open}"
-                                                                        VerticalAlignment="Center" />
-                                                                    <TextBox
-                                                                        DockPanel.Dock="Right"
-                                                                        HorizontalAlignment="Right"
-                                                                        Margin="0,0,3,0"
-                                                                        Text="{Binding SearchFunctionText}"
-                                                                        VerticalAlignment="Center"
-                                                                        Watermark="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Search}"
-                                                                        Width="240">
-                                                                        <TextBox.InnerRightContent>
-                                                                            <PathIcon
-                                                                                Data="{StaticResource SemiIconSearchStroked}"
-                                                                                Foreground="{DynamicResource TextColor}"
-                                                                                Height="16"
-                                                                                Width="16" />
-                                                                        </TextBox.InnerRightContent>
-                                                                    </TextBox>
-                                                                </DockPanel>
-                                                            </Border>
-                                                            <ItemsControl ItemsSource="{Binding NewPageItems}" Margin="0,5,0,0">
-                                                                <ItemsControl.ItemsPanel>
-                                                                    <ItemsPanelTemplate>
-                                                                        <u:ElasticWrapPanel />
-                                                                    </ItemsPanelTemplate>
-                                                                </ItemsControl.ItemsPanel>
-                                                                <ItemsControl.ItemTemplate>
-                                                                    <DataTemplate DataType="page:NewPageEntry">
-                                                                        <Border
-                                                                            Height="54"
-                                                                            Padding="2.5"
-                                                                            Width="188">
-                                                                            <Border
-                                                                                ClipToBounds="True"
-                                                                                CornerRadius="6"
-                                                                                PointerPressed="FunctionItem_OnPointerPressed"
-                                                                                Tag="{Binding FunctionType}">
-                                                                                <Border.Styles>
-                                                                                    <Style Selector="Border">
-                                                                                        <Setter Property="Background" Value="#00ACFF00" />
-                                                                                    </Style>
-                                                                                    <Style Selector="Border:pointerover">
-                                                                                        <Setter Property="Background" Value="{DynamicResource TitleBarHoverColor}" />
-                                                                                    </Style>
-                                                                                </Border.Styles>
-                                                                                <DockPanel>
-                                                                                    <PathIcon
-                                                                                        Data="{Binding Icon}"
-                                                                                        Height="24"
-                                                                                        HorizontalAlignment="Left"
-                                                                                        Margin="12,0,10,0"
-                                                                                        VerticalAlignment="Center"
-                                                                                        Width="24" />
-                                                                                    <TextBlock
-                                                                                        MaxLines="2"
-                                                                                        Text="{Binding Title}"
-                                                                                        TextTrimming="CharacterEllipsis"
-                                                                                        TextWrapping="Wrap"
-                                                                                        VerticalAlignment="Center" />
-                                                                                </DockPanel>
-                                                                            </Border>
-                                                                        </Border>
-                                                                    </DataTemplate>
-                                                                </ItemsControl.ItemTemplate>
-                                                            </ItemsControl>
-                                                        </DockPanel>
-                                                    </Border>
-                                                </Flyout>
-                                            </Button.Flyout>
-                                        </Button>
+                                            Name="NewTabButton" />
                                     </StackPanel>
                                 </ScrollViewer>
                                 <Border
@@ -330,7 +232,7 @@
                         </DockPanel>
                     </Grid>
                 </Border>
-                <ContentControl Content="{Binding SelectedItem.Content}" Name="Frame" />
+                <ContentControl Content="{Binding SelectedTab.Content}" Name="Frame" />
             </DockPanel>
             <Border
                 Background="{DynamicResource WindowBackground}"

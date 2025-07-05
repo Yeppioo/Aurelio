@@ -20,8 +20,6 @@ public abstract class Create
     {
         if (!File.Exists(ConfigPath.SettingDataPath))
             File.WriteAllText(ConfigPath.SettingDataPath, new SettingEntry().AsJson());
-        if (!File.Exists(ConfigPath.RecentOpenDataPath))
-            File.WriteAllText(ConfigPath.RecentOpenDataPath, new List<RecentPageEntry>().AsJson());
     }
 
     public static void Folder()
