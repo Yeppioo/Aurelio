@@ -39,7 +39,7 @@
   <data name="SearchInAurelio" xml:space="preserve">
     <value>在 Aurelio 中搜索</value>
   </data>
-  <data name="OK" xml:space="preserve">
+  <data name="Ok" xml:space="preserve">
     <value>确定</value>
   </data>
   <data name="Cancel" xml:space="preserve">

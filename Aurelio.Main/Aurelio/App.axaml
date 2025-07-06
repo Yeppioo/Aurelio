@@ -12,6 +12,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <animations:SukiEaseOutBack BounceIntensity="Soft" x:Key="MenuEasing" />
+            <animations:SukiEaseOutBack BounceIntensity="Soft" x:Key="SukiEaseOutBack" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="/Public/Styles/IconPath.axaml" />
                 <ResourceInclude Source="/Public/Styles/Theme.axaml" />
@@ -20,6 +21,7 @@
                 <ResourceInclude Source="avares://FluentAvalonia/Styling/ControlThemes/BasicControls/ExpanderStyles.axaml" />
                 <ResourceInclude Source="avares://FluentAvalonia/Styling/ControlThemes/BasicControls/ToggleSwitchStyles.axaml" />
                 <ResourceInclude Source="avares://Semi.Avalonia/Controls/TextBox.axaml" />
+                <ResourceInclude Source="/Public/Styles/AnimationExpander.axaml" />
             </ResourceDictionary.MergedDictionaries>
             <Color x:Key="SystemAccentColor">#00AF5C</Color>
             <Color x:Key="SystemAccentColorLight1">#00AF5C</Color>

@@ -13,7 +13,7 @@
     xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <DockPanel>
-        <StackPanel DockPanel.Dock="Top" Margin="15,5,15,15">
+        <StackPanel DockPanel.Dock="Top" Margin="15,5,15,10">
             <Border
                 Background="{DynamicResource CardBackgroundColor}"
                 CornerRadius="{DynamicResource CardCornerRadius}"

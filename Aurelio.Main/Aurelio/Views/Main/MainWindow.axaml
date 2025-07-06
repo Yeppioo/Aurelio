@@ -141,7 +141,7 @@
                                                 <DataTemplate DataType="page:TabEntry">
                                                     <Border
                                                         BorderThickness="1"
-                                                        CornerRadius="6"
+                                                        CornerRadius="{DynamicResource CardCornerRadius}"
                                                         Height="30"
                                                         MinWidth="140"
                                                         Name="ItemRoot"

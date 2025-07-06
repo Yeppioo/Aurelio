@@ -17,5 +17,5 @@ public class Data : ReactiveObject
     }
 
     public static DesktopType DesktopType { get; set; } = DesktopType.Unknown;
-    public static SettingEntry? SettingEntry { get; set; }
+    public static SettingEntry SettingEntry { get; set; }
 }

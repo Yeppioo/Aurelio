@@ -13,7 +13,7 @@
             <Color x:Key="LinearGradientTransparentColor">#00191919</Color>
             <Color x:Key="SelectedTabBackgroundColor">#121212</Color>
             <Color x:Key="TabBackgroundColor">#272727</Color>
-            <CornerRadius x:Key="CardCornerRadius">8</CornerRadius>
+            <CornerRadius x:Key="CardCornerRadius">10</CornerRadius>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
             <Color x:Key="TextColor">#333333</Color>
@@ -28,7 +28,7 @@
             <Color x:Key="LinearGradientTransparentColor">#00FFFFFF</Color>
             <Color x:Key="SelectedTabBackgroundColor">#121212</Color>
             <Color x:Key="TabBackgroundColor">#272727</Color>
-            <CornerRadius x:Key="CardCornerRadius">8</CornerRadius>
+            <CornerRadius x:Key="CardCornerRadius">10</CornerRadius>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>
