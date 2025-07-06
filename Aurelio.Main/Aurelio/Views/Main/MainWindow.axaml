@@ -20,6 +20,7 @@
     x:Class="Aurelio.Views.Main.MainWindow"
     x:DataType="viewModels:MainViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:animatedPageSwitcher="clr-namespace:Aurelio.Public.Controls.AnimatedPageSwitcher"
     xmlns:aurelio="clr-namespace:Aurelio.Public.Module.Ui"
     xmlns:controls="clr-namespace:Aurelio.Public.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -256,7 +257,7 @@
                         </DockPanel>
                     </Grid>
                 </Border>
-                <ContentControl Content="{Binding SelectedTab.Content}" Name="Frame" />
+                <animatedPageSwitcher:UpwardsInAnimatedPageSwitcher Name="Frame" Page="{Binding SelectedTab.Content}" />
             </DockPanel>
             <Border
                 Background="{DynamicResource WindowBackgroundColor}"
