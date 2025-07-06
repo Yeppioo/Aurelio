@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Entries.Page;
+using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui;
@@ -19,7 +21,7 @@ public partial class MainViewModel : ViewModelBase
     public ObservableCollection<TabEntry> Tabs { get; set; } =
     [
         new(canClose: false, title: MainLang.MainPage, icon: Icons.Home,
-            content: PageInstance.HomePage),
+            content: PageInstance.HomeTabPage),
     ];
     
     private TabEntry? _selectedTab;

@@ -15,7 +15,10 @@
         <Setter Property="FontWeight" Value="{DynamicResource FontWeight}" />
         <Setter Property="Transitions">
             <Transitions>
-                <BrushTransition Duration="0:0:0.3" Property="Foreground" />
+                <BrushTransition
+                    Duration="0:0:0.3"
+                    Easing="CircularEaseOut"
+                    Property="Foreground" />
             </Transitions>
         </Setter>
     </Style>
@@ -25,7 +28,10 @@
         <Setter Property="FontWeight" Value="{DynamicResource FontWeight}" />
         <Setter Property="Transitions">
             <Transitions>
-                <BrushTransition Duration="0:0:0.3" Property="Foreground" />
+                <BrushTransition
+                    Duration="0:0:0.3"
+                    Easing="CircularEaseOut"
+                    Property="Foreground" />
             </Transitions>
         </Setter>
     </Style>
@@ -39,7 +45,10 @@
         <Setter Property="Padding" Value="10,0,8,0" />
         <Setter Property="Transitions">
             <Transitions>
-                <BrushTransition Duration="0:0:0.3" Property="Foreground" />
+                <BrushTransition
+                    Duration="0:0:0.3"
+                    Easing="CircularEaseOut"
+                    Property="Foreground" />
             </Transitions>
         </Setter>
         <Setter Property="Margin" Value="0" />
@@ -50,7 +59,14 @@
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
         <Setter Property="Transitions">
             <Transitions>
-                <BrushTransition Duration="0:0:0.3" Property="Foreground" />
+                <BrushTransition
+                    Duration="0:0:0.3"
+                    Easing="CircularEaseOut"
+                    Property="Foreground" />
+                <BrushTransition
+                    Duration="0:0:0.3"
+                    Easing="CircularEaseOut"
+                    Property="Background" />
             </Transitions>
         </Setter>
     </Style>
@@ -60,7 +76,10 @@
     <Style Selector="PathIcon">
         <Setter Property="Transitions">
             <Transitions>
-                <BrushTransition Duration="0:0:0.3" Property="Foreground" />
+                <BrushTransition
+                    Duration="0:0:0.3"
+                    Easing="CircularEaseOut"
+                    Property="Foreground" />
             </Transitions>
         </Setter>
     </Style>
@@ -80,7 +99,10 @@
     <Style Selector="Panel#PART_PaneRoot">
         <Setter Property="Transitions">
             <Transitions>
-                <BrushTransition Duration="0:0:0.3" Property="Background" />
+                <BrushTransition
+                    Duration="0:0:0.3"
+                    Easing="CircularEaseOut"
+                    Property="Background" />
             </Transitions>
         </Setter>
     </Style>
@@ -89,6 +111,7 @@
     </Style>
     <Style Selector="ListBoxItem">
         <Setter Property="Margin" Value="5,3" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
     </Style>
     <!-- <Style Selector="MenuItem"> -->
     <!--     <Setter Property="InputGesture" Value="{Binding $self.HotKey}" /> -->

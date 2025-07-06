@@ -75,7 +75,7 @@ public partial class MainWindow : UrsaWindow
             var tab = Tabs.FirstOrDefault(x => x.Tag == "setting");
             if (tab is null)
             {
-                var newTab = new TabEntry(MainLang.Setting, PageInstance.SettingPage,
+                var newTab = new TabEntry(MainLang.Setting, PageInstance.SettingTabPage,
                     Public.Module.Ui.Icon.FromMaterial(MaterialIconKind.Settings))
                 {
                     Tag = "setting"

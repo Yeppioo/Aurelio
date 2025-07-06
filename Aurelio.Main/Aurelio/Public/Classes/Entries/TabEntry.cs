@@ -9,7 +9,7 @@ namespace Aurelio.Public.Classes.Entries.Page;
 
 public partial class TabEntry : ViewModelBase
 {
-    public TabEntry(string title, IAurelioPage content, StreamGeometry? icon = null, bool canClose = true,
+    public TabEntry(string title, IAurelioTabPage content, StreamGeometry? icon = null, bool canClose = true,
         object? headerContent = null)
     {
         CanClose = canClose;
@@ -20,14 +20,14 @@ public partial class TabEntry : ViewModelBase
     }
 
     private string _tag;
-    private IAurelioPage _content;
+    private IAurelioTabPage _content;
     private object _headerContent;
     private string _title;
     private StreamGeometry? _icon;
     private bool _canClose;
     public bool IconIsVisible => Icon != null;
 
-    public IAurelioPage Content
+    public IAurelioTabPage Content
     {
         get => _content;
         set => SetField(ref _content, value);
@@ -88,14 +88,14 @@ public partial class TabEntry : ViewModelBase
         Removing();
     }
     
-    public void ReplacePage(IAurelioPage page)
+    public void ReplacePage(IAurelioTabPage tabPage)
     {
         DisposeContent();
-        Content = page;
-        page.HostTab = this;
-        Icon = page.PageInfo.Icon;
-        Title = page.PageInfo.Title;
-        Content = page;
+        Content = tabPage;
+        tabPage.HostTab = this;
+        Icon = tabPage.PageInfo.Icon;
+        Title = tabPage.PageInfo.Title;
+        Content = tabPage;
     }
 
     public void Removing()

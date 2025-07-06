@@ -9,7 +9,9 @@ using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module;
 using Aurelio.Public.Module.Ui;
+using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -18,12 +20,13 @@ using Material.Icons;
 
 namespace Aurelio.Views.Main.Pages;
 
-public partial class HomePage : PageMixModelBase, IAurelioPage
+public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
 {
-    public HomePage()
+    public HomeTabPage()
     {
         InitializeComponent();
         DataContext = this;
+        RootElement = Root;
         BindingEvent();
     }
 
@@ -38,4 +41,6 @@ public partial class HomePage : PageMixModelBase, IAurelioPage
     public void OnClose()
     {
     }
+
+    public Border RootElement { get; set; }
 }

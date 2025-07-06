@@ -2,6 +2,6 @@
 
 public static class PageInstance
 {
-    public static HomePage HomePage => new();
-    public static SettingPage SettingPage => new();
+    public static HomeTabPage HomeTabPage => new();
+    public static SettingTabPage SettingTabPage => new();
 }

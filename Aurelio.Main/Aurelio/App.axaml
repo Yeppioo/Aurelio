@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <animations:SukiEaseOutBack BounceIntensity="Soft" x:Key="MenuEasing" />
             <animations:SukiEaseOutBack BounceIntensity="Soft" x:Key="SukiEaseOutBack" />
+            <animations:SukiEaseInOutBack BounceIntensity="Strong" x:Key="SukiEaseInOutBack" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="/Public/Styles/IconPath.axaml" />
                 <ResourceInclude Source="/Public/Styles/Theme.axaml" />
