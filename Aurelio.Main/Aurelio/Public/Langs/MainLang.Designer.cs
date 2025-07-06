@@ -2958,6 +2958,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 打开3D视图.
+        /// </summary>
+        public static string Open3DView {
+            get {
+                return ResourceManager.GetString("Open3DView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 打开浏览器.
         /// </summary>
         public static string OpenBrowser {

@@ -1581,4 +1581,7 @@ MacOs 不支持自动更新
   <data name="Appearance" xml:space="preserve">
     <value>外观</value>
   </data>
+  <data name="Open3DView" xml:space="preserve">
+    <value>打开3D视图</value>
+  </data>
 </root>
