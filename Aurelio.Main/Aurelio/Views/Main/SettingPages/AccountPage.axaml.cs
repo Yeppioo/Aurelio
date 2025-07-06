@@ -34,7 +34,7 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
     private void BindingEvent()
     {
 
-        var border = RBorder;
+        
         
         using var window =  Silk.NET.Windowing.Window.Create(WindowOptions.Default with
         {
