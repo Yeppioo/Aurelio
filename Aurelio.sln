@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aurelio.Reference", "Aureli
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MinecraftSkinRender", "MinecraftSkinRender", "{8C8AC087-97C6-423D-9A22-2AA1AE03376C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSkinRender.OpenGL", "Aurelio.Reference\MinecraftSkinRender\MinecraftSkinRender.OpenGL\MinecraftSkinRender.OpenGL.csproj", "{99CB363E-5200-45F5-B196-79503014C84F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSkinRender", "Aurelio.Reference\MinecraftSkinRender\MinecraftSkinRender\MinecraftSkinRender.csproj", "{510E342F-8658-4772-8D50-88ED2F2817BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{ABC31E74-02FF-46EB-B3B2-4E6AE43B456C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABC31E74-02FF-46EB-B3B2-4E6AE43B456C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABC31E74-02FF-46EB-B3B2-4E6AE43B456C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99CB363E-5200-45F5-B196-79503014C84F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99CB363E-5200-45F5-B196-79503014C84F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99CB363E-5200-45F5-B196-79503014C84F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99CB363E-5200-45F5-B196-79503014C84F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{510E342F-8658-4772-8D50-88ED2F2817BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{510E342F-8658-4772-8D50-88ED2F2817BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{510E342F-8658-4772-8D50-88ED2F2817BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{510E342F-8658-4772-8D50-88ED2F2817BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +53,8 @@ Global
 		{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568} = {4E592F68-BF4A-4B30-A7A0-2DD62E0F84F7}
 		{ABC31E74-02FF-46EB-B3B2-4E6AE43B456C} = {4E592F68-BF4A-4B30-A7A0-2DD62E0F84F7}
 		{8C8AC087-97C6-423D-9A22-2AA1AE03376C} = {96F8C385-2AE2-43FC-A160-FB8E58F6AD40}
+		{99CB363E-5200-45F5-B196-79503014C84F} = {8C8AC087-97C6-423D-9A22-2AA1AE03376C}
+		{510E342F-8658-4772-8D50-88ED2F2817BF} = {8C8AC087-97C6-423D-9A22-2AA1AE03376C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83CB65B8-011F-4ED7-BCD3-A6CFA935EF7E}

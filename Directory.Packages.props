@@ -33,6 +33,8 @@
     <PackageVersion Include="ReactiveUI" Version="20.3.1" />
     <PackageVersion Include="ReactiveUI.Fody" Version="19.5.41" />
     <PackageVersion Include="Semi.Avalonia" Version="11.2.1.8" />
+    <PackageVersion Include="Silk.NET.OpenGL" Version="2.22.0" />
+    <PackageVersion Include="Silk.NET.Windowing" Version="2.22.0" />
     <PackageVersion Include="SkiaSharp" Version="3.119.0" />
     <PackageVersion Include="SukiUI" Version="6.0.2" />
     <PackageVersion Include="UnicodeInformation" Version="2.7.1" />
