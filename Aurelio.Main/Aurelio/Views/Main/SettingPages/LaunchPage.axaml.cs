@@ -16,30 +16,44 @@ using SukiUI.Helpers;
 
 namespace Aurelio.Views.Main.SettingPages;
 
-public partial class LaunchPage : PageMixModelBase , IAurelioPage
+public partial class LaunchPage : PageMixModelBase, IAurelioPage
 {
+    public static Data Data => Data.Instance;
     public PageLoadingAnimator InAnimator { get; set; }
+    public PageLoadingAnimator OutAnimator { get; set; }
 
     public LaunchPage()
     {
         InitializeComponent();
-        ListBox.DataContext = Data.Instance;
         DataContext = this;
         RootElement = Root;
-        InAnimator = new PageLoadingAnimator(Root, new Thickness(0,40,0,0), (0,1));
+        InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
         BindingEvent();
     }
-    
+
     private void BindingEvent()
     {
         AddMinecraftFolder.Click += async (_, _) => { await Public.Module.Op.MinecraftFolder.AddByUi(this); };
         RemoveSelectedMinecraftFolder.Click += (_, _) =>
         {
-            var item = ListBox.SelectedItem;
+            var item = MinecraftFolderListBox.SelectedItem;
             if (item is MinecraftFolderEntry folder)
             {
                 Data.SettingEntry.MinecraftFolderEntries.Remove(folder);
-                ListBox.SelectedItem = ListBox.Items.FirstOrDefault();
+                MinecraftFolderListBox.SelectedItem = MinecraftFolderListBox.Items.FirstOrDefault();
+            }
+
+            AppMethod.SaveSetting();
+        };
+        AutoScanJavaRuntime.Click += (_, _) => { Public.Module.Op.JavaRuntime.AddByAutoScan(); };
+        AddJavaRuntime.Click += (_, _) => { _ = Public.Module.Op.JavaRuntime.AddByUi(this); };
+        RemoveSelectedJavaRuntime.Click += (_, _) =>
+        {
+            var item = JavaRuntimeListBox.SelectedItem;
+            if (item is RecordJavaRuntime runtime)
+            {
+                Data.SettingEntry.JavaRuntimes.Remove(runtime);
+                JavaRuntimeListBox.SelectedItem = JavaRuntimeListBox.Items.FirstOrDefault();
             }
 
             AppMethod.SaveSetting();

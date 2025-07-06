@@ -900,9 +900,6 @@ win 10以下のシステム（10を除く）は自動更新をサポートして
   <data name="NoSupportNow" xml:space="preserve">
     <value>現在サポートされていません</value>
   </data>
-  <data name="AggregateSearchTip" xml:space="preserve">
-    <value>キーワードを入力してYMCLで検索</value>
-  </data>
   <data name="CannotRecognitionTheVersion" xml:space="preserve">
     <value>選択したバージョンを認識できません</value>
   </data>

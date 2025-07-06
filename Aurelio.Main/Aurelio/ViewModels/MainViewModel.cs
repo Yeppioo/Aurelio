@@ -2,8 +2,8 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Public.Classes.Entries.Page;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
@@ -24,6 +24,7 @@ public partial class MainViewModel : ViewModelBase
             content: PageInstance.HomeTabPage),
     ];
     
+
     private TabEntry? _selectedTab;
     private Vector _tabScrollOffset;
     private bool _isTabMaskVisible;
@@ -49,5 +50,11 @@ public partial class MainViewModel : ViewModelBase
     public MainViewModel()
     {
         SelectedTab = Tabs[0];
+        PropertyChanged += (s, e) =>
+        {
+            if (e.PropertyName != nameof(SelectedTab) || SelectedTab == null) return;
+            SelectedTab.Content.RootElement.IsVisible = false;
+            SelectedTab.Content.InAnimator.Animate();
+        };
     }
 }

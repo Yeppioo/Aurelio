@@ -13,7 +13,7 @@ public class AppMethod
         if (Data.SettingEntry is null) return;
         File.WriteAllText(ConfigPath.SettingDataPath,
             JsonConvert.SerializeObject(Data.SettingEntry, Formatting.Indented));
-    }, 100);
+    }, 300);
 
     public static void SaveSetting()
     {

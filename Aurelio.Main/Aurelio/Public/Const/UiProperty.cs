@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Public.Classes.Entries.Page;
 using Aurelio.Public.Module;
 using ReactiveUI;
 using Ursa.Controls;

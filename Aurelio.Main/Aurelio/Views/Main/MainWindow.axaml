@@ -20,13 +20,11 @@
     x:Class="Aurelio.Views.Main.MainWindow"
     x:DataType="viewModels:MainViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:animatedPageSwitcher="clr-namespace:Aurelio.Public.Controls.AnimatedPageSwitcher"
     xmlns:aurelio="clr-namespace:Aurelio.Public.Module.Ui"
     xmlns:controls="clr-namespace:Aurelio.Public.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:entries="clr-namespace:Aurelio.Public.Classes.Entries"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:page="clr-namespace:Aurelio.Public.Classes.Entries.Page"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
@@ -139,7 +137,7 @@
                                                     VerticalAlignment="Stretch" />
                                             </u:SelectionList.Indicator>
                                             <u:SelectionList.ItemTemplate>
-                                                <DataTemplate DataType="page:TabEntry">
+                                                <DataTemplate DataType="entries:TabEntry">
                                                     <Border
                                                         BorderThickness="1"
                                                         CornerRadius="{DynamicResource CardCornerRadius}"
@@ -257,7 +255,7 @@
                         </DockPanel>
                     </Grid>
                 </Border>
-                <animatedPageSwitcher:UpwardsInAnimatedPageSwitcher Name="Frame" Page="{Binding SelectedTab.Content}" />
+                <ContentControl Content="{Binding SelectedTab.Content}" Name="Frame" />
             </DockPanel>
             <Border
                 Background="{DynamicResource WindowBackgroundColor}"

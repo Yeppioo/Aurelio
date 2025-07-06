@@ -900,9 +900,6 @@ sudo apt install vlc</value>
   <data name="NoSupportNow" xml:space="preserve">
     <value>Сейчас не поддерживается</value>
   </data>
-  <data name="AggregateSearchTip" xml:space="preserve">
-    <value>Введите ключевые слова для поиска в YMCL</value>
-  </data>
   <data name="CannotRecognitionTheVersion" xml:space="preserve">
     <value>Выбранная версия не распознана</value>
   </data>

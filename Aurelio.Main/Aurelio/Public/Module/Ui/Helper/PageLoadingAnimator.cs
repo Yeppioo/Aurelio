@@ -1,6 +1,9 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Animation;
+using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using SukiUI;
@@ -10,18 +13,35 @@ namespace Aurelio.Public.Module.Ui.Helper;
 
 public class PageLoadingAnimator(Control root, Thickness margin, (double o1, double o2) opacity)
 {
-    public readonly Control Root = root;
     private CancellationTokenSource _opacity;
     private CancellationTokenSource _margin;
 
-    public async Task Animate()
+    public void Animate()
     {
-        await Task.Delay(10);
-        if (Root.IsAnimating(Visual.OpacityProperty)) await _opacity.CancelAsync();
-        if (Root.IsAnimating(Layoutable.MarginProperty)) await _margin.CancelAsync();
-        _opacity = Root.Animate<double>(Visual.OpacityProperty, opacity.o1, opacity.o2);
-        _margin = Root.Animate(Layoutable.MarginProperty,
+        if (root.IsAnimating(Visual.OpacityProperty))  _opacity.Cancel();
+        if (root.IsAnimating(Layoutable.MarginProperty))  _margin.Cancel();
+        _opacity = root.Animate<double>(Visual.OpacityProperty, opacity.o1, opacity.o2);
+        _margin = root.Animate(Layoutable.MarginProperty,
             margin, new Thickness(0));
-        Root.IsVisible = true;
+        
+        // root.Transitions = [];
+        // root.Margin = margin;
+        // root.Opacity = opacity.o1;
+        // root.Transitions.Add(new DoubleTransition()
+        // {
+        //     Duration = TimeSpan.FromSeconds(0.25),
+        //     Property = Visual.OpacityProperty,
+        //     Easing = new QuarticEaseOut()
+        // });
+        // root.Transitions.Add(new ThicknessTransition()
+        // {
+        //     Duration = TimeSpan.FromSeconds(0.25),
+        //     Property = Layoutable.MarginProperty,
+        //     Easing = new QuarticEaseOut()
+        // });
+        // root.Margin = new Thickness(0);
+        // root.Opacity = opacity.o2;
+        
+        root.IsVisible = true;
     }
 }

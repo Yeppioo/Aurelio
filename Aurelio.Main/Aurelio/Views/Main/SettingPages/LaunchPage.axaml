@@ -15,7 +15,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border Name="Root">
         <ScrollViewer>
-            <StackPanel Margin="15,0,15,15">
+            <StackPanel Margin="15,0,15,15" Spacing="10">
                 <Border
                     Background="{DynamicResource CardBackgroundColor}"
                     CornerRadius="{DynamicResource CardCornerRadius}"
@@ -52,10 +52,9 @@
                                     Classes="over-expander"
                                     Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ExistingNow}">
                                     <ListBox
-                                        ItemsSource="{Binding SettingEntry.MinecraftFolderEntries}"
+                                        ItemsSource="{Binding Data.SettingEntry.MinecraftFolderEntries}"
                                         Margin="5"
-                                        Name="ListBox"
-                                        x:DataType="const:Data">
+                                        Name="MinecraftFolderListBox">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate DataType="minecraft:MinecraftFolderEntry">
                                                 <TextBlock Height="18">
@@ -69,6 +68,90 @@
                                     </ListBox>
                                 </Expander>
                             </Border>
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+                <Border
+                    Background="{DynamicResource CardBackgroundColor}"
+                    CornerRadius="{DynamicResource CardCornerRadius}"
+                    DockPanel.Dock="Top"
+                    Opacity="{DynamicResource MainOpacity}"
+                    VerticalAlignment="Top">
+                    <StackPanel>
+                        <DockPanel>
+                            <DockPanel
+                                DockPanel.Dock="Top"
+                                Height="50"
+                                Margin="17.5,0,10,0">
+                                <TextBlock
+                                    Margin="0,-1,0,0"
+                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.JavaRuntime}"
+                                    VerticalAlignment="Center" />
+                                <StackPanel
+                                    DockPanel.Dock="Right"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,0,0,0"
+                                    Orientation="Horizontal"
+                                    Spacing="10"
+                                    VerticalAlignment="Center">
+                                    <Button Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AutoScan}" Name="AutoScanJavaRuntime" />
+                                    <Button Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ManualAdd}" Name="AddJavaRuntime" />
+                                    <Button Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.DelSelectedItem}" Name="RemoveSelectedJavaRuntime" />
+                                </StackPanel>
+                            </DockPanel>
+                            <Border
+                                Background="{DynamicResource 2xCardBackgroundColor}"
+                                CornerRadius="{DynamicResource CardCornerRadius}"
+                                Margin="10,0,10,10">
+                                <Expander
+                                    Background="{DynamicResource 2xCardBackgroundColor}"
+                                    Classes="over-expander"
+                                    Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ExistingNow}">
+                                    <ListBox
+                                        ItemsSource="{Binding Data.SettingEntry.JavaRuntimes}"
+                                        Margin="5"
+                                        Name="JavaRuntimeListBox">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate DataType="minecraft:RecordJavaRuntime">
+                                                <TextBlock Height="18">
+                                                    <Run Text="[" />
+                                                    <Run Text="{Binding JavaType}" />
+                                                    <Run Text="{Binding JavaVersion}" />
+                                                    <Run Text="]" />
+                                                    <Run Text="{Binding JavaPath}" />
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </Expander>
+                            </Border>
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+                <Border
+                    Background="{DynamicResource CardBackgroundColor}"
+                    CornerRadius="{DynamicResource CardCornerRadius}"
+                    DockPanel.Dock="Top"
+                    Opacity="{DynamicResource MainOpacity}"
+                    VerticalAlignment="Top">
+                    <StackPanel>
+                        <DockPanel>
+                            <DockPanel
+                                DockPanel.Dock="Top"
+                                Height="40"
+                                Margin="17.5,0,10,0">
+                                <TextBlock
+                                    Margin="0,-1,0,0"
+                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.IsolateMinecraftInstances}"
+                                    VerticalAlignment="Center" />
+
+                                <ToggleSwitch
+                                    DockPanel.Dock="Right"
+                                    HorizontalAlignment="Right"
+                                    IsChecked="{Binding Data.SettingEntry.EnableIndependentMinecraft}"
+                                    Margin="0,-7,15,0"
+                                    VerticalAlignment="Center" />
+                            </DockPanel>
                         </DockPanel>
                     </StackPanel>
                 </Border>

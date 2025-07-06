@@ -94,4 +94,13 @@ public abstract class Shower
         var notification = new Notification(title, msg, type);
         UiProperty.Notification.Show(notification, notification.Type, classes: ["Light"], onClick: onClick);
     }
+    
+    public static void ShowShortException(string msg, Exception ex)
+    {
+        Notice($"{msg}\n{ex.Message}", NotificationType.Error);
+        // if (Data.SettingEntry.EnableIndependencyWindowNotification)
+        // {
+        //     NoticeWindow(msg, ex.Message);
+        // }
+    }
 }

@@ -5,7 +5,7 @@ using Aurelio.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Media;
 
-namespace Aurelio.Public.Classes.Entries.Page;
+namespace Aurelio.Public.Classes.Entries;
 
 public partial class TabEntry : ViewModelBase
 {

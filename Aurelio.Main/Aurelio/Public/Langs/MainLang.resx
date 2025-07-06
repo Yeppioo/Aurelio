@@ -886,8 +886,8 @@ win10 以下系统(不包括10)不支持自动更新
   <data name="NoSupportNow" xml:space="preserve">
     <value>现不支持</value>
   </data>
-  <data name="AggregateSearchTip" xml:space="preserve">
-    <value>输入关键词以在YMCL中搜索</value>
+  <data name="EnterSearchTip" xml:space="preserve">
+    <value>按下 Enter 开始搜索...</value>
   </data>
   <data name="CannotRecognitionTheVersion" xml:space="preserve">
     <value>无法识别选中版本</value>
@@ -1568,5 +1568,17 @@ MacOs 不支持自动更新
   </data>
   <data name="LoginSucess" xml:space="preserve">
     <value>登录成功</value>
+  </data>
+  <data name="AllInstance" xml:space="preserve">
+    <value>所有实例</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>搜索结果</value>
+  </data>
+  <data name="IsolateMinecraftInstances" xml:space="preserve">
+    <value>隔离Minecraft实例</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>外观</value>
   </data>
 </root>

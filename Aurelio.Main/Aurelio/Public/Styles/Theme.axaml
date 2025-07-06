@@ -16,18 +16,18 @@
             <CornerRadius x:Key="CardCornerRadius">10</CornerRadius>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
-            <Color x:Key="TextColor">#333333</Color>
+            <Color x:Key="TextColor">#4C4948</Color>
             <Color x:Key="WindowBackgroundColor">#F2F4F7</Color>
             <Color x:Key="PageBackgroundColor">#FFFFFF</Color>
             <Color x:Key="TitleBarHoverColor">#EAEBEF</Color>
             <Color x:Key="ExpanderHoverColor">#F3F3F4</Color>
             <Color x:Key="CardBackgroundColor">#EAEBEF</Color>
-            <Color x:Key="2xCardBackgroundColor">#404040</Color>
+            <Color x:Key="2xCardBackgroundColor">#FFFFFF</Color>
             <Color x:Key="GrayColor">#7e7e7e</Color>
             <Color x:Key="BorderBrush">#EAECF0</Color>
             <Color x:Key="LinearGradientTransparentColor">#00FFFFFF</Color>
-            <Color x:Key="SelectedTabBackgroundColor">#121212</Color>
-            <Color x:Key="TabBackgroundColor">#272727</Color>
+            <Color x:Key="SelectedTabBackgroundColor">#FFFFFF</Color>
+            <Color x:Key="TabBackgroundColor">#E7E9EC</Color>
             <CornerRadius x:Key="CardCornerRadius">10</CornerRadius>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>

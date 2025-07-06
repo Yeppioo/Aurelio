@@ -900,9 +900,6 @@ Go to Settings-Download-Auto Update can disable auto check update</value>
   <data name="NoSupportNow" xml:space="preserve">
     <value>Not supported</value>
   </data>
-  <data name="AggregateSearchTip" xml:space="preserve">
-    <value>Enter keyword to search in Ymcl</value>
-  </data>
   <data name="CannotRecognitionTheVersion" xml:space="preserve">
     <value>Can't Recognition The Version</value>
   </data>

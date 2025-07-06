@@ -77,4 +77,12 @@
             </ControlTemplate>
         </Setter>
     </Style>
+    <Style Selector="Border.card">
+        <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+    </Style>
+    <Style Selector="Border.card2x">
+        <Setter Property="Background" Value="{DynamicResource 2xCardBackgroundColor}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+    </Style>
 </Styles>

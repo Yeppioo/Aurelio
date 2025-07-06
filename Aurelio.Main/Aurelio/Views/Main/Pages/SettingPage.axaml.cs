@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Public.Classes.Entries.Page;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
@@ -15,6 +14,7 @@ namespace Aurelio.Views.Main.Pages;
 public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
 {
     public PageLoadingAnimator InAnimator { get; set; }
+    public PageLoadingAnimator OutAnimator { get; set; }
     private SelectionListItem _selectedItem;
     private bool _fl = true;
 
@@ -23,7 +23,7 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
         InitializeComponent();
         DataContext = this;
         RootElement = Root;
-        InAnimator = new PageLoadingAnimator(Root, new Thickness(0,40,0,0), (0,1));
+        InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
         BindingEvent();
     }
 
@@ -35,6 +35,14 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
             SelectedItem = Nav.Items[0] as SelectionListItem;
             _fl = false;
         };
+        PropertyChanged += (s, e) =>
+        {
+            if (SelectedItem == null || e.PropertyName != nameof(SelectedItem)) return;
+            if (SelectedItem.Tag is not IAurelioPage page) return;
+            page.RootElement.IsVisible = false;
+            page.InAnimator.Animate();
+        };
+        
     }
 
     public TabEntry HostTab { get; set; }
@@ -47,6 +55,7 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
     }
 
     public LaunchPage LaunchPage { get; } = new();
+    public AccountPage AccountPage { get; } = new();
 
     public void OnClose()
     {

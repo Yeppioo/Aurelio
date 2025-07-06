@@ -900,9 +900,6 @@ win10 以下系統(不包括10)不支援自動更新
   <data name="NoSupportNow" xml:space="preserve">
     <value>現不支援</value>
   </data>
-  <data name="AggregateSearchTip" xml:space="preserve">
-    <value>輸入關鍵字以在YMCL中搜尋</value>
-  </data>
   <data name="CannotRecognitionTheVersion" xml:space="preserve">
     <value>無法辨識選取版本</value>
   </data>

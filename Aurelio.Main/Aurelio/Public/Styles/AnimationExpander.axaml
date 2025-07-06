@@ -84,8 +84,8 @@
             <Setter Property="Transitions">
                 <Transitions>
                     <DoubleTransition
-                        Duration="0.25"
-                        Easing="{DynamicResource SukiEaseInOutBack}"
+                        Duration="0.5"
+                        Easing="ExponentialEaseOut"
                         Property="Multiplier" />
                 </Transitions>
             </Setter>

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Const;
@@ -15,5 +16,6 @@ public abstract class AfterUiLoaded
     {
         File.WriteAllText(ConfigPath.AppPathDataPath, System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
         BindKeys.Main();
+        Service.MinecraftInstances.Load(Data.SettingEntry.MinecraftFolderEntries.Select(x=>x.Path).ToArray());
     }
 }

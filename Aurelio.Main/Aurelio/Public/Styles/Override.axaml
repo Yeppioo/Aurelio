@@ -1,5 +1,6 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
+    xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
@@ -82,6 +83,7 @@
                     Property="Foreground" />
             </Transitions>
         </Setter>
+        <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
     </Style>
     <Style Selector="u|NotificationCard">
         <Style Selector="^ SelectableTextBlock">
@@ -106,6 +108,10 @@
             </Transitions>
         </Setter>
     </Style>
+    <Style Selector="ToggleSwitch">
+        <Setter Property="OffContent" Value="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Off}" />
+        <Setter Property="OnContent" Value="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.On}" />
+    </Style>
     <Style Selector="u|SelectionListItem">
         <Setter Property="Padding" Value="0" />
     </Style>
@@ -113,7 +119,4 @@
         <Setter Property="Margin" Value="5,3" />
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
     </Style>
-    <!-- <Style Selector="MenuItem"> -->
-    <!--     <Setter Property="InputGesture" Value="{Binding $self.HotKey}" /> -->
-    <!-- </Style> -->
 </Styles>

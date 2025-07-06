@@ -251,15 +251,6 @@ namespace Aurelio.Public.Langs {
         /// <summary>
         ///   Looks up a localized string similar to 输入关键词以在YMCL中搜索.
         /// </summary>
-        public static string AggregateSearchTip {
-            get {
-                return ResourceManager.GetString("AggregateSearchTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 输入关键词以在YMCL中搜索.
-        /// </summary>
         public static string AggregateSearchWatermark {
             get {
                 return ResourceManager.GetString("AggregateSearchWatermark", resourceCulture);
@@ -308,6 +299,15 @@ namespace Aurelio.Public.Langs {
         public static string AllImport {
             get {
                 return ResourceManager.GetString("AllImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 所有实例.
+        /// </summary>
+        public static string AllInstance {
+            get {
+                return ResourceManager.GetString("AllInstance", resourceCulture);
             }
         }
         
@@ -380,6 +380,15 @@ namespace Aurelio.Public.Langs {
         public static string ApiError {
             get {
                 return ResourceManager.GetString("ApiError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 外观.
+        /// </summary>
+        public static string Appearance {
+            get {
+                return ResourceManager.GetString("Appearance", resourceCulture);
             }
         }
         
@@ -1313,6 +1322,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 按下 Enter 开始搜索....
+        /// </summary>
+        public static string EnterSearchTip {
+            get {
+                return ResourceManager.GetString("EnterSearchTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 错误.
         /// </summary>
         public static string Error {
@@ -1979,6 +1997,15 @@ namespace Aurelio.Public.Langs {
         public static string InstallVlcTip {
             get {
                 return ResourceManager.GetString("InstallVlcTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 隔离Minecraft实例.
+        /// </summary>
+        public static string IsolateMinecraftInstances {
+            get {
+                return ResourceManager.GetString("IsolateMinecraftInstances", resourceCulture);
             }
         }
         
@@ -3485,6 +3512,15 @@ namespace Aurelio.Public.Langs {
         public static string SearchNoResult {
             get {
                 return ResourceManager.GetString("SearchNoResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 搜索结果.
+        /// </summary>
+        public static string SearchResult {
+            get {
+                return ResourceManager.GetString("SearchResult", resourceCulture);
             }
         }
         

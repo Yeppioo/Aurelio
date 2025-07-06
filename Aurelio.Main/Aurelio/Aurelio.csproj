@@ -18,6 +18,26 @@
     <AvaloniaResource Include="Public\Assets\Quicksand-SemiBold.ttf" />
     <None Remove="Public\Assets\user.png" />
     <AvaloniaResource Include="Public\Assets\user.png" />
+    <None Remove="Public\Assets\McIcons\crafting_table_front.png" />
+    <EmbeddedResource Include="Public\Assets\McIcons\crafting_table_front.png" />
+    <None Remove="Public\Assets\McIcons\QuiltIcon.png" />
+    <EmbeddedResource Include="Public\Assets\McIcons\QuiltIcon.png" />
+    <None Remove="Public\Assets\McIcons\OptiFineIcon.png" />
+    <EmbeddedResource Include="Public\Assets\McIcons\OptiFineIcon.png" />
+    <None Remove="Public\Assets\McIcons\OptiFabricIcon.png" />
+    <EmbeddedResource Include="Public\Assets\McIcons\OptiFabricIcon.png" />
+    <None Remove="Public\Assets\McIcons\NeoForgeIcon.png" />
+    <EmbeddedResource Include="Public\Assets\McIcons\NeoForgeIcon.png" />
+    <None Remove="Public\Assets\McIcons\grass_block_side.png" />
+    <EmbeddedResource Include="Public\Assets\McIcons\grass_block_side.png" />
+    <None Remove="Public\Assets\McIcons\furnace_front.png" />
+    <EmbeddedResource Include="Public\Assets\McIcons\furnace_front.png" />
+    <None Remove="Public\Assets\McIcons\ForgeIcon.png" />
+    <EmbeddedResource Include="Public\Assets\McIcons\ForgeIcon.png" />
+    <None Remove="Public\Assets\McIcons\dirt_path_side.png" />
+    <EmbeddedResource Include="Public\Assets\McIcons\dirt_path_side.png" />
+    <None Remove="Public\Assets\McIcons\FabricIcon.png" />
+    <EmbeddedResource Include="Public\Assets\McIcons\FabricIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +63,7 @@
     <PackageReference Include="Irihi.Ursa.Themes.Semi" />
     <PackageReference Include="Material.Icons.Avalonia" />
     <PackageReference Include="MinecraftLaunch" />
+    <PackageReference Include="MinecraftLaunch.Skin" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="ReactiveUI" />
     <PackageReference Include="ReactiveUI.Fody" />
