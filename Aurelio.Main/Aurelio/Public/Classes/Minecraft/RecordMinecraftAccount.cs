@@ -148,7 +148,7 @@ public sealed record RecordMinecraftAccount : INotifyPropertyChanged
                 return;
             }
             skin.Rot(0, 1f);
-            // skin.Tick(delta);
+            skin.Tick(delta);
             skin.OpenGlRender(0);
             //gl.Clear(ClearBufferMask.ColorBufferBit);
             //gl.ClearColor(0, 0, 1, 0);

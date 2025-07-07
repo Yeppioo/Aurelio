@@ -54,7 +54,8 @@
             <Border
                 ClipToBounds="True"
                 CornerRadius="{DynamicResource CardCornerRadius}"
-                Margin="15,10,15,15">
+                Margin="15,10,15,15"
+                Name="MinecraftCardsContainerRoot">
                 <ScrollViewer>
                     <ItemsControl ItemsSource="{Binding Data.MinecraftInstances}">
                         <ItemsControl.ItemsPanel>
@@ -80,75 +81,72 @@
                                                     VerticalAlignment="Center" />
                                             </DockPanel>
                                         </Expander.Header>
-                                        <Border HorizontalAlignment="Center" Margin="10">
-                                            <WrapPanel>
-                                                <ItemsControl ItemsSource="{Binding Minecrafts}">
-                                                    <ItemsControl.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <WrapPanel />
-                                                        </ItemsPanelTemplate>
-                                                    </ItemsControl.ItemsPanel>
-                                                    <ItemsControl.ItemTemplate>
-                                                        <DataTemplate DataType="minecraft:RecordMinecraftEntry">
-                                                            <Border
-                                                                Classes="card2x"
-                                                                Height="68"
-                                                                Margin="5"
-                                                                Name="MinecraftCardBorder"
-                                                                Width="280">
-                                                                <Border.Styles>
-                                                                    <Style Selector="Border#MinecraftCardBorder:pointerover">
-                                                                        <Style Selector="^ Border#IconBorder">
-                                                                            <Setter Property="CornerRadius" Value="60" />
-                                                                            <Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
-                                                                        </Style>
-                                                                        <Style Selector="^ Image">
-                                                                            <Setter Property="IsVisible" Value="False" />
-                                                                        </Style>
+                                        <Border HorizontalAlignment="Stretch" Margin="10">
+                                            <ItemsControl ItemsSource="{Binding Minecrafts}" HorizontalAlignment="Stretch">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <UniformGrid Name="MinecraftCardsGrid" Columns="{Binding Path=ContainerWidth, RelativeSource={RelativeSource AncestorType=pages:HomeTabPage}, Converter={x:Static c:UiProperty.ContainerToColumnsConverter}}"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate DataType="minecraft:RecordMinecraftEntry">
+                                                        <Border
+                                                            Classes="card2x"
+                                                            Height="68"
+                                                            Margin="5"
+                                                            Name="MinecraftCardBorder">
+                                                            <Border.Styles>
+                                                                <Style Selector="Border#MinecraftCardBorder:pointerover">
+                                                                    <Style Selector="^ Border#IconBorder">
+                                                                        <Setter Property="CornerRadius" Value="60" />
+                                                                        <Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
                                                                     </Style>
-                                                                </Border.Styles>
-                                                                <DockPanel>
-                                                                    <Border
-                                                                        Background="{DynamicResource CardBackgroundColor}"
-                                                                        ClipToBounds="True"
-                                                                        CornerRadius="{DynamicResource CardCornerRadius}"
-                                                                        Cursor="Hand"
-                                                                        Height="48"
-                                                                        Margin="10,0"
-                                                                        Name="IconBorder"
-                                                                        Width="48">
-                                                                        <Border.Transitions>
-                                                                            <Transitions>
-                                                                                <CornerRadiusTransition Duration="0.15" Property="CornerRadius" />
-                                                                                <!-- <BrushTransition Duration="0:0:0.15" Property="Background" /> -->
-                                                                            </Transitions>
-                                                                        </Border.Transitions>
-                                                                        <Grid>
-                                                                            <PathIcon
-                                                                                Cursor="Hand"
-                                                                                Data="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"
-                                                                                HorizontalAlignment="Center"
-                                                                                Margin="0,0,-5,0"
-                                                                                VerticalAlignment="Center" />
-                                                                            <Image Source="{Binding Icon}" />
-                                                                        </Grid>
-                                                                    </Border>
-                                                                    <DockPanel VerticalAlignment="Center">
-                                                                        <TextBlock
-                                                                            DockPanel.Dock="Top"
-                                                                            Text="{Binding Id}"
-                                                                            TextTrimming="CharacterEllipsis" />
-                                                                        <TextBlock
-                                                                            DockPanel.Dock="Bottom"
-                                                                            Text="{Binding ShortDescription}"
-                                                                            TextTrimming="CharacterEllipsis" />
-                                                                    </DockPanel>
+                                                                    <Style Selector="^ Image">
+                                                                        <Setter Property="IsVisible" Value="False" />
+                                                                    </Style>
+                                                                </Style>
+                                                            </Border.Styles>
+                                                            <DockPanel>
+                                                                <Border
+                                                                    Background="{DynamicResource CardBackgroundColor}"
+                                                                    ClipToBounds="True"
+                                                                    CornerRadius="{DynamicResource CardCornerRadius}"
+                                                                    Cursor="Hand"
+                                                                    Height="48"
+                                                                    Margin="10,0"
+                                                                    Name="IconBorder"
+                                                                    Width="48">
+                                                                    <Border.Transitions>
+                                                                        <Transitions>
+                                                                            <CornerRadiusTransition Duration="0.15" Property="CornerRadius" />
+                                                                            <!-- <BrushTransition Duration="0:0:0.15" Property="Background" /> -->
+                                                                        </Transitions>
+                                                                    </Border.Transitions>
+                                                                    <Grid>
+                                                                        <PathIcon
+                                                                            Cursor="Hand"
+                                                                            Data="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"
+                                                                            HorizontalAlignment="Center"
+                                                                            Margin="0,0,-5,0"
+                                                                            VerticalAlignment="Center" />
+                                                                        <Image Source="{Binding Icon}" />
+                                                                    </Grid>
+                                                                </Border>
+                                                                <DockPanel VerticalAlignment="Center">
+                                                                    <TextBlock
+                                                                        DockPanel.Dock="Top"
+                                                                        Text="{Binding Id}"
+                                                                        TextTrimming="CharacterEllipsis" />
+                                                                    <TextBlock
+                                                                        DockPanel.Dock="Bottom"
+                                                                        Text="{Binding ShortDescription}"
+                                                                        TextTrimming="CharacterEllipsis" />
                                                                 </DockPanel>
-                                                            </Border>
-                                                        </DataTemplate>
-                                                    </ItemsControl.ItemTemplate>
-                                                </ItemsControl>
-                                            </WrapPanel>
+                                                            </DockPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
                                         </Border>
                                     </Expander>
                                 </Border>

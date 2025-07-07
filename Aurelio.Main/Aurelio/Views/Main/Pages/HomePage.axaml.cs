@@ -40,6 +40,10 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
             if (e.Key == Key.Enter) Search();
         };
         SearchButton.Click += (_, _) => { Search(); };
+        MinecraftCardsContainerRoot.SizeChanged += (_, _) =>
+        {
+            ContainerWidth = MinecraftCardsContainerRoot.Bounds.Width;
+        };
     }
 
 
@@ -87,5 +91,12 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
 
     public Border RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
-    public PageLoadingAnimator OutAnimator { get; set; }
+
+    public double ContainerWidth
+    {
+        get => _containerWidth;
+        set => SetField(ref _containerWidth, value);
+    }
+
+    private double _containerWidth;
 }
