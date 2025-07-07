@@ -23,6 +23,7 @@
                 <ResourceInclude Source="avares://Semi.Avalonia/Controls/TextBox.axaml" />
                 <ResourceInclude Source="/Public/Styles/AnimationExpander.axaml" />
                 <ResourceInclude Source="/Public/Styles/IconButton.axaml" />
+                <ResourceInclude Source="/Public/Styles/ContentDialog.axaml" />
             </ResourceDictionary.MergedDictionaries>
             <Color x:Key="SystemAccentColor">#1BD76A</Color>
             <Color x:Key="SystemAccentColorLight1">#1BD76A</Color>
@@ -32,8 +33,7 @@
             <Color x:Key="SystemAccentColorDark2">#1BD76A</Color>
             <Color x:Key="SystemAccentColorDark3">#1BD76A</Color>
             <FontFamily x:Key="MiSans">avares://Aurelio/Public/Assets#MiSans</FontFamily>
-            <FontFamily x:Key="Quicksand">avares://Aurelio/Public/Assets#Quicksand SemiBold</FontFamily>
-            <FontWeight x:Key="FontWeight">Bold</FontWeight>
+            <FontWeight x:Key="FontWeight">650</FontWeight>
         </ResourceDictionary>
     </Application.Resources>
     <Application.Styles>

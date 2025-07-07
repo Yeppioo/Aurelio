@@ -16,9 +16,7 @@
     <None Remove="Public\Assets\MiSans-Regular.otf" />
     <AvaloniaResource Include="Public\Assets\MiSans-Regular.otf" />
     <None Remove="Public\Assets\Quicksand-SemiBold.ttf" />
-    <AvaloniaResource Include="Public\Assets\Quicksand-SemiBold.ttf" />
     <None Remove="Public\Assets\user.png" />
-    <AvaloniaResource Include="Public\Assets\user.png" />
     <None Remove="Public\Assets\McIcons\crafting_table_front.png" />
     <EmbeddedResource Include="Public\Assets\McIcons\crafting_table_front.png" />
     <None Remove="Public\Assets\McIcons\QuiltIcon.png" />

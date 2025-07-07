@@ -246,7 +246,7 @@
                                 </Image.Source>
                             </Image>
                             <TextBlock
-                                FontFamily="{DynamicResource Quicksand}"
+                                FontFamily="{DynamicResource MiSans}"
                                 FontSize="16"
                                 Margin="0,1,0,0"
                                 Text="relio"

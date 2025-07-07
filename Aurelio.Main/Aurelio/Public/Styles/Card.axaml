@@ -8,7 +8,7 @@
         </Border>
     </Design.PreviewWith>
 
-    <Style Selector="Expander.card:down">
+    <Style Selector="Expander:down">
         <Style Selector="^ /template/ ToggleButton#PART_ToggleButton.Basic:checked">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderBrush" Value="Transparent" />
@@ -58,12 +58,12 @@
         <Setter Property="Background" Value="{DynamicResource 2xCardBackgroundColor}" />
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
     </Style>
-    <Style Selector="TextBox.card">
+    <Style Selector="TextBox">
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
         <Setter Property="Padding" Value="10,0,8,0" />
     </Style>
-    <Style Selector="ComboBox.card">
+    <Style Selector="ComboBox">
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
     </Style>

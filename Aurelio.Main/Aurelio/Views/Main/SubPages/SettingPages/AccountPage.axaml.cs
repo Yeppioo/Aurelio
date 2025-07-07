@@ -18,7 +18,7 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
     private void BindingEvent()
     {
         AddAccount.Click += (_, _) => { _ = Public.Module.Op.Account.AddByUi(this); };
-        // Open3DView.Click += (_, _) => { Data.SettingEntry.UsingMinecraftAccount.Render3D();};
+        Open3DView.Click += (_, _) => { Data.SettingEntry.UsingMinecraftAccount.Render3D();};
         DelSelectedAccount.Click += (_, _) => { Public.Module.Op.Account.RemoveSelected(); };
     }
 

@@ -24,7 +24,7 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
         PageInfo = new PageInfoEntry
         {
             Title = Entry.Id,
-            Icon = Icons.GamePad
+            Icon = Icons.Seedling
         };
     }
 
