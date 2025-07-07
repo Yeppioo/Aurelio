@@ -23,13 +23,13 @@
                 <ResourceInclude Source="avares://Semi.Avalonia/Controls/TextBox.axaml" />
                 <ResourceInclude Source="/Public/Styles/AnimationExpander.axaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Color x:Key="SystemAccentColor">#00AF5C</Color>
-            <Color x:Key="SystemAccentColorLight1">#00AF5C</Color>
-            <Color x:Key="SystemAccentColorLight2">#00AF5C</Color>
-            <Color x:Key="SystemAccentColorLight3">#00AF5C</Color>
-            <Color x:Key="SystemAccentColorDark1">#00AF5C</Color>
-            <Color x:Key="SystemAccentColorDark2">#00AF5C</Color>
-            <Color x:Key="SystemAccentColorDark3">#00AF5C</Color>
+            <Color x:Key="SystemAccentColor">#1BD76A</Color>
+            <Color x:Key="SystemAccentColorLight1">#1BD76A</Color>
+            <Color x:Key="SystemAccentColorLight2">#1BD76A</Color>
+            <Color x:Key="SystemAccentColorLight3">#1BD76A</Color>
+            <Color x:Key="SystemAccentColorDark1">#1BD76A</Color>
+            <Color x:Key="SystemAccentColorDark2">#1BD76A</Color>
+            <Color x:Key="SystemAccentColorDark3">#1BD76A</Color>
             <FontFamily x:Key="MiSans">avares://Aurelio/Public/Assets#MiSans</FontFamily>
             <FontFamily x:Key="Quicksand">avares://Aurelio/Public/Assets#Quicksand SemiBold</FontFamily>
             <FontWeight x:Key="FontWeight">Bold</FontWeight>
@@ -43,6 +43,7 @@
         <StyleInclude Source="/Public/Styles/SukiUi.axaml" />
         <StyleInclude Source="/Public/Styles/TitleBar.axaml" />
         <StyleInclude Source="/Public/Styles/Style.axaml" />
+        <StyleInclude Source="/Public/Styles/Card.axaml" />
         <StyleInclude Source="/Public/Styles/Override.axaml" />
         <StyleInclude Source="avares://AsyncImageLoader.Avalonia/AdvancedImage.axaml" />
         <avalonia:MaterialIconStyles />

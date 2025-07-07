@@ -24,21 +24,38 @@
                 Margin="15,5,15,0"
                 VerticalAlignment="Top">
                 <DockPanel>
+                    <ComboBox
+                        Background="{DynamicResource CardBackgroundColor}"
+                        Classes="card"
+                        DockPanel.Dock="Right"
+                        Margin="10,0,0,0"
+                        Width="190" />
+                    <ComboBox
+                        Background="{DynamicResource CardBackgroundColor}"
+                        Classes="card"
+                        DockPanel.Dock="Right"
+                        Margin="10,0,0,0"
+                        SelectedIndex="{Binding Data.SettingEntry.MinecraftInstanceCategoryMethod}"
+                        Width="190">
+                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Unclassified}" />
+                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Version}" />
+                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Loader}" />
+                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Tag}" />
+                    </ComboBox>
                     <Button
                         Background="{DynamicResource CardBackgroundColor}"
                         Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Search}"
                         DockPanel.Dock="Right"
+                        IsVisible="False"
                         Margin="10,0,0,0"
                         Name="SearchButton" />
                     <TextBox
                         Background="{DynamicResource CardBackgroundColor}"
-                        BorderThickness="0"
-                        CornerRadius="{DynamicResource CardCornerRadius}"
+                        Classes="card"
                         DockPanel.Dock="Left"
                         Name="SearchBox"
-                        Padding="10,0,8,0"
                         Text="{Binding SearchText}"
-                        Watermark="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.EnterSearchTip}">
+                        Watermark="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Search}">
                         <TextBox.InnerRightContent>
                             <PathIcon
                                 Data="{StaticResource SemiIconSearchStroked}"
@@ -54,10 +71,10 @@
             <Border
                 ClipToBounds="True"
                 CornerRadius="{DynamicResource CardCornerRadius}"
-                Margin="15,10,15,15"
+                Margin="15,15,15,0"
                 Name="MinecraftCardsContainerRoot">
                 <ScrollViewer>
-                    <ItemsControl ItemsSource="{Binding Data.MinecraftInstances}">
+                    <ItemsControl ItemsSource="{Binding Data.SortedMinecraftCategories}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel />
@@ -68,8 +85,8 @@
                                 <Border
                                     Classes="card"
                                     IsVisible="{Binding Visible}"
-                                    Margin="0,0,0,10">
-                                    <Expander Classes="over-expander" IsExpanded="{Binding Expanded, Mode=TwoWay}">
+                                    Margin="0,0,0,15">
+                                    <Expander Classes="card" IsExpanded="{Binding Expanded, Mode=TwoWay}">
                                         <Expander.Header>
                                             <DockPanel>
                                                 <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />

@@ -9,18 +9,25 @@ namespace Aurelio.Public.Classes.Minecraft;
 public class RecordMinecraftEntry
 {
     public string Id { get; init; }
+    public MinecraftVersionType Type => MlEntry.Version.Type;
     public MinecraftEntry MlEntry { get; }
-    public string ShortDescription => $"{Loaders} {MlEntry.Version.VersionId}";
-    public string Loaders { get; }
+    public string ShortDescription => $"{Loader} {MlEntry.Version.VersionId}";
+    public string Loader { get; }
+    public string[] Tags { get; } = [];
+    public string[] Loaders { get; } = [];
     public Bitmap Icon  { get; }
- 
+    
     public RecordMinecraftEntry(MinecraftEntry mlEntry)
     {
         Id = mlEntry.Id;
         MlEntry = mlEntry;
-        Loaders = mlEntry.IsVanilla
+        Loader = mlEntry.IsVanilla
             ? "Vanilla" : string.Join(", ", (mlEntry as ModifiedMinecraftEntry)?
                 .ModLoaders.Select(x => $"{x.Type}")!);
+        Loaders = mlEntry.IsVanilla
+            ? ["Vanilla"]
+            : (mlEntry as ModifiedMinecraftEntry)?
+            .ModLoaders.Select(x => $"{x.Type}")!.ToArray();
         Icon = GetMinecraftIcon(this);
     }
     

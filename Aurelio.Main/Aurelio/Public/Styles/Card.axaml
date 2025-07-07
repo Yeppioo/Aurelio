@@ -1,0 +1,70 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!--  Add Controls for Previewer Here  -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="Expander.card:down">
+        <Style Selector="^ /template/ ToggleButton#PART_ToggleButton.Basic:checked">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+        <Style Selector="^ /template/ ToggleButton#PART_ToggleButton.Basic /template/ ContentPresenter#PART_ContentPresenter:pointerover">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+        <Style Selector="^ /template/ Border#PART_RootBorder">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="^ /template/ suki|ContentExpandControl#PART_ContentExpand /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Opacity" Value="0.15" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition
+                        Duration="0.2"
+                        Easing="CircularEaseOut"
+                        Property="Opacity" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="^:expanded /template/ suki|ContentExpandControl#PART_ContentExpand /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^:not(:expanded) /template/ Border#PART_BottomBorder">
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="IsVisible" Value="False" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition
+                        Duration="0.2"
+                        Easing="CircularEaseOut"
+                        Property="Height" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="^ /template/ suki|ContentExpandControl#PART_ContentExpand">
+            <Setter Property="Margin" Value="0,32,0,0" />
+        </Style>
+    </Style>
+    <Style Selector="Border.card">
+        <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+    </Style>
+    <Style Selector="Border.card2x">
+        <Setter Property="Background" Value="{DynamicResource 2xCardBackgroundColor}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+    </Style>
+    <Style Selector="TextBox.card">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+        <Setter Property="Padding" Value="10,0,8,0" />
+    </Style>
+    <Style Selector="ComboBox.card">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+    </Style>
+</Styles>

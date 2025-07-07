@@ -1584,4 +1584,13 @@ MacOs 不支持自动更新
   <data name="Open3DView" xml:space="preserve">
     <value>打开3D视图</value>
   </data>
+  <data name="Unclassified" xml:space="preserve">
+    <value>无分类的</value>
+  </data>
+  <data name="Tag" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="Loader" xml:space="preserve">
+    <value>加载器</value>
+  </data>
 </root>

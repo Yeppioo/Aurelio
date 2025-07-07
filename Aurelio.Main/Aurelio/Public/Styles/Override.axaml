@@ -70,6 +70,9 @@
                     Property="Background" />
             </Transitions>
         </Setter>
+        <Style Selector="^ AccessText">
+            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
+        </Style>
     </Style>
     <Style Selector="ListBoxItem /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />

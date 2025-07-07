@@ -22,7 +22,7 @@
             <Color x:Key="TitleBarHoverColor">#EAEBEF</Color>
             <Color x:Key="ExpanderHoverColor">#F3F3F4</Color>
             <Color x:Key="CardBackgroundColor">#EAEBEF</Color>
-            <Color x:Key="2xCardBackgroundColor">#FFFFFF</Color>
+            <Color x:Key="2xCardBackgroundColor">#FFF9F9F9</Color>
             <Color x:Key="GrayColor">#7e7e7e</Color>
             <Color x:Key="BorderBrush">#EAECF0</Color>
             <Color x:Key="LinearGradientTransparentColor">#00FFFFFF</Color>

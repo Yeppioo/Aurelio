@@ -49,7 +49,7 @@
                                 Margin="10,0,10,10">
                                 <Expander
                                     Background="{DynamicResource 2xCardBackgroundColor}"
-                                    Classes="over-expander"
+                                    Classes="card"
                                     Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ExistingNow}">
                                     <ListBox
                                         ItemsSource="{Binding Data.SettingEntry.MinecraftFolderEntries}"
@@ -105,7 +105,7 @@
                                 Margin="10,0,10,10">
                                 <Expander
                                     Background="{DynamicResource 2xCardBackgroundColor}"
-                                    Classes="over-expander"
+                                    Classes="card"
                                     Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ExistingNow}">
                                     <ListBox
                                         ItemsSource="{Binding Data.SettingEntry.JavaRuntimes}"

@@ -1,7 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Enum;
+using Aurelio.Public.Langs;
 using ReactiveUI;
 
 namespace Aurelio.Public.Const;
@@ -17,5 +19,6 @@ public class Data : ReactiveObject
 
     public static DesktopType DesktopType { get; set; } = DesktopType.Unknown;
     public static SettingEntry SettingEntry { get; set; }
-    public static ObservableCollection<MinecraftCategoryEntry> MinecraftInstances { get; set; } = [];
+    public static List<RecordMinecraftEntry> AllMinecraftInstances { get; } = [];
+    public static ObservableCollection<MinecraftCategoryEntry> SortedMinecraftCategories { get; } = [];
 }

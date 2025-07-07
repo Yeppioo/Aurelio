@@ -39,9 +39,9 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
     {
         SearchBox.KeyDown += (_, e) =>
         {
-            if (e.Key == Key.Enter) Search();
+            if (e.Key == Key.Enter) Public.Module.Service.MinecraftInstances.Search(SearchText);
         };
-        SearchButton.Click += (_, _) => { Search(); };
+        SearchButton.Click += (_, _) => { Public.Module.Service.MinecraftInstances.Search(SearchText); };
         MinecraftCardsContainerRoot.SizeChanged += (_, _) =>
         {
             ContainerWidth = MinecraftCardsContainerRoot.Bounds.Width;
@@ -54,34 +54,14 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
     public string SearchText
     {
         get => _searchText;
-        set => SetField(ref _searchText, value);
+        set
+        {
+            SetField(ref _searchText, value);
+            Public.Module.Service.MinecraftInstances.Search(SearchText);
+        }
     }
 
-    public void Search(bool ui = true)
-    {
-        var filtered = Data.MinecraftInstances.First(x => x.Tag == "filtered");
-        if (ui && SearchText.IsNullOrWhiteSpace())
-        {
-            filtered.Visible = false;
-            Data.MinecraftInstances[1].Expanded = true;
-            return;
-        }
-
-        filtered.Minecrafts.Clear();
-        var all = Data.MinecraftInstances.First(x => x.Tag == "all").Minecrafts;
-        var filteredItems = all.Where(item =>
-            item.Id.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-            item.ShortDescription.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
-        filtered.Minecrafts.AddRange(filteredItems);
-        if (!ui) return;
-        filtered.Visible = true;
-        foreach (var minecraftCategoryEntry in Data.MinecraftInstances)
-        {
-            minecraftCategoryEntry.Expanded = false;
-        }
-
-        filtered.Expanded = true;
-    }
+    
 
     public TabEntry HostTab { get; set; }
 

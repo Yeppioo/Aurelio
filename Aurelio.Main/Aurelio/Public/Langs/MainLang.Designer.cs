@@ -2244,6 +2244,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 加载器.
+        /// </summary>
+        public static string Loader {
+            get {
+                return ResourceManager.GetString("Loader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 加载失败.
         /// </summary>
         public static string LoadFail {
@@ -3841,6 +3850,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 标签.
+        /// </summary>
+        public static string Tag {
+            get {
+                return ResourceManager.GetString("Tag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 任务.
         /// </summary>
         public static string Task {
@@ -4026,6 +4044,15 @@ namespace Aurelio.Public.Langs {
         public static string UnableToAddModsForBedrockEdition {
             get {
                 return ResourceManager.GetString("UnableToAddModsForBedrockEdition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 无分类的.
+        /// </summary>
+        public static string Unclassified {
+            get {
+                return ResourceManager.GetString("Unclassified", resourceCulture);
             }
         }
         
