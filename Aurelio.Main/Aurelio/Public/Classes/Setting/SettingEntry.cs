@@ -7,6 +7,7 @@ using Aurelio.Public.Module.App;
 using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using SukiUI;
 
 namespace Aurelio.Public.Classes.Setting;
 
@@ -19,7 +20,7 @@ public class SettingEntry : ReactiveObject
     [JsonProperty]
     public Enum.Minecraft.MinecraftInstanceCategoryMethod
         MinecraftInstanceCategoryMethod { get; set; } = Enum.Minecraft.MinecraftInstanceCategoryMethod.MinecraftVersion;
-    
+
     [Reactive]
     [JsonProperty]
     public Enum.Minecraft.MinecraftInstanceSortMethod
@@ -47,10 +48,13 @@ public class SettingEntry : ReactiveObject
     {
         if (e.PropertyName == nameof(MinecraftInstanceCategoryMethod))
         {
+            if (App.UiRoot != null) App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
             Module.Service.MinecraftInstances.Categorize(MinecraftInstanceCategoryMethod);
         }
+
         if (e.PropertyName == nameof(MinecraftInstanceSortMethod))
         {
+            if (App.UiRoot != null) App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
             Module.Service.MinecraftInstances.Sort(MinecraftInstanceSortMethod);
         }
 

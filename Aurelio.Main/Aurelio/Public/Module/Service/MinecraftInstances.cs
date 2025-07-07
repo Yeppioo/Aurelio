@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Const;
 using Aurelio.Public.Enum.Minecraft;
@@ -17,16 +18,23 @@ namespace Aurelio.Public.Module.Service;
 
 public partial class MinecraftInstances
 {
-    public static void Load(string[] path)
-    {
-        foreach (var p in path)
-        {
-            var parser = new MinecraftParser(p);
-            Data.AllMinecraftInstances.AddRange(parser.GetMinecrafts()
-                .Select(x => new RecordMinecraftEntry(x)));
-        }
+    private static CancellationTokenSource? _cts;
 
-        Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
+    public static async Task Load(string[] path)
+    {
+        Aurelio.App.UiRoot.ViewModel.HomeTabPage.ProgressRing.IsVisible = true;
+        await Task.Run(() =>
+        {
+            foreach (var p in path)
+            {
+                var parser = new MinecraftParser(p);
+                Data.AllMinecraftInstances.AddRange(parser.GetMinecrafts()
+                    .Select(x => new RecordMinecraftEntry(x)));
+            }
+
+            Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
+        });
+        Aurelio.App.UiRoot.ViewModel.HomeTabPage.ProgressRing.IsVisible = false;
     }
 
     public static void Sort(MinecraftInstanceSortMethod method)
@@ -56,25 +64,25 @@ public partial class MinecraftInstances
                 case MinecraftInstanceSortMethod.MinecraftVersion:
                     // 按游戏版本排序，高版本在前面
                     sortedList = category.Minecrafts
-                        .OrderBy(x => 
+                        .OrderBy(x =>
                         {
                             try
                             {
                                 // 提取版本号
                                 var versionId = x.MlEntry.Version.VersionId ?? "";
                                 var match = MyRegex().Match(versionId);
-                                
+
                                 if (match.Success)
                                 {
                                     // 解析版本号组件
                                     var major = int.Parse(match.Groups[1].Value);
                                     var minor = int.Parse(match.Groups[2].Value);
                                     var patch = match.Groups[3].Success ? int.Parse(match.Groups[3].Value) : 0;
-                                    
+
                                     // 使用元组而非匿名类型（元组可比较）
                                     return (-major, -minor, -patch);
                                 }
-                                
+
                                 // 无法解析的版本排在后面
                                 return (int.MaxValue, int.MaxValue, int.MaxValue);
                             }
@@ -99,10 +107,14 @@ public partial class MinecraftInstances
                 category.Minecrafts.Add(item);
             }
         }
-        
+
         if (Aurelio.App.UiRoot != null)
-            Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
-                .Animate<double>(Visual.OpacityProperty, 0, 1);
+            Dispatcher.UIThread.InvokeAsync(async () =>
+            {
+                if (_cts is { IsCancellationRequested: false }) await _cts.CancelAsync();
+                _cts = Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
+                    .Animate<double>(Visual.OpacityProperty, 0, 1);
+            });
     }
 
     public static void Search(string key, bool ui = true)
@@ -129,8 +141,6 @@ public partial class MinecraftInstances
 
     public static void Categorize(MinecraftInstanceCategoryMethod method)
     {
-        if (Aurelio.App.UiRoot != null)
-            Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
         var filtered = Data.SortedMinecraftCategories
             .FirstOrDefault(x => x.Tag == "filtered")?.Minecrafts;
         Data.SortedMinecraftCategories.Clear();

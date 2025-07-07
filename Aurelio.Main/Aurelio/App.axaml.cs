@@ -16,7 +16,7 @@ public partial class App : Application
 {
     public delegate void UiLoadedEventHandler(MainWindow ui);
 
-    public static MainWindow UiRoot => (Current!.ApplicationLifetime 
+    public static MainWindow? UiRoot => (Current!.ApplicationLifetime 
         as IClassicDesktopStyleApplicationLifetime).MainWindow as MainWindow;
     public static TopLevel TopLevel => TopLevel.GetTopLevel(UiRoot);
     public static event UiLoadedEventHandler UiLoaded;
@@ -33,6 +33,9 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+#if DEBUG
+            this.AttachDevTools();
+#endif
             DisableAvaloniaDataAnnotationValidation();
             var win = new MainWindow();
             desktop.MainWindow = win;
