@@ -110,6 +110,7 @@
 
   <ItemGroup>
     <Folder Include="Public\Module\IO\Http\Api\" />
+    <Folder Include="Views\Main\SubPages\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -123,5 +124,10 @@
     <Reference Include="MinecraftSkinRender.Image">
       <HintPath>..\..\Assets\MinecraftSkinRender.Image.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Views\Main\SubPages\SettingPages\AccountPage.axaml" />
+    <AdditionalFiles Include="Views\Main\SubPages\SettingPages\LaunchPage.axaml" />
   </ItemGroup>
 </Project>

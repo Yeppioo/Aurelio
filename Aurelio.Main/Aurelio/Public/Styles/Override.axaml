@@ -74,6 +74,28 @@
             <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
         </Style>
     </Style>
+    <Style Selector="u|IconButton">
+        <Setter Property="FontFamily" Value="{DynamicResource MiSans}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition
+                    Duration="0:0:0.3"
+                    Easing="CircularEaseOut"
+                    Property="Foreground" />
+                <BrushTransition
+                    Duration="0:0:0.3"
+                    Easing="CircularEaseOut"
+                    Property="Background" />
+            </Transitions>
+        </Setter>
+        <Style Selector="^ TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
+        </Style>
+        <Style Selector="^ PathIcon">
+            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
+        </Style>
+    </Style>
     <Style Selector="ListBoxItem /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
     </Style>
@@ -121,5 +143,33 @@
     <Style Selector="ListBoxItem">
         <Setter Property="Margin" Value="5,3" />
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+    </Style>
+    <Style Selector="u|IconButton">
+        <Style Selector="^ PathIcon">
+            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
+        </Style>
+        <Style Selector="^ /template/ ReversibleStackPanel#PART_RootPanel">
+            <Setter Property="Spacing" Value="0" />
+        </Style>
+        <Style Selector="^ /template/ Panel#PART_IconRoot">
+            <Setter Property="Margin" Value="-21,0,8,0" />
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition
+                        Duration="0:0:0.2"
+                        Easing="CircularEaseOut"
+                        Property="Opacity" />
+                    <ThicknessTransition
+                        Duration="0:0:0.2"
+                        Easing="CircularEaseOut"
+                        Property="Margin" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="^:pointerover /template/ Panel#PART_IconRoot">
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="Opacity" Value="1" />
+        </Style>
     </Style>
 </Styles>

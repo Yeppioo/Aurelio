@@ -8,7 +8,7 @@ using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui;
-using Aurelio.Views.Main.Pages;
+using Aurelio.Views.Main.TabPages;
 using Avalonia;
 using CommunityToolkit.Mvvm.ComponentModel;
 using DynamicData;
@@ -18,11 +18,10 @@ namespace Aurelio.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    public ObservableCollection<TabEntry> Tabs { get; set; } =
-    [
-        new(PageInstance.HomeTabPage),
-    ];
+    public ObservableCollection<TabEntry> Tabs { get; set; } = [];
     
+    public HomeTabPage HomeTabPage { get; set; } = new();
+    public SettingTabPage SettingTabPage { get; set; } = new();
 
     private TabEntry? _selectedTab;
     private Vector _tabScrollOffset;
@@ -48,6 +47,7 @@ public partial class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
+        Tabs.Add(new TabEntry(HomeTabPage));
         SelectedTab = Tabs[0];
         PropertyChanged += (s, e) =>
         {

@@ -1,20 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
+﻿using System.Linq;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
-using Aurelio.Public.Const;
-using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using SukiUI;
-using SukiUI.Helpers;
 
-namespace Aurelio.Views.Main.SettingPages;
+namespace Aurelio.Views.Main.SubPages.SettingPages;
 
 public partial class LaunchPage : PageMixModelBase, IAurelioPage
 {

@@ -1,10 +1,8 @@
-using System;
 using System.Timers;
-using Avalonia.Controls;
 using Avalonia.OpenGL.Controls;
 using Timer = System.Timers.Timer;
 
-namespace ColorMC.Gui.UI;
+namespace Aurelio.Public.Controls.SkinRender.Reference;
 
 /// <summary>
 /// Fps限制器

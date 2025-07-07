@@ -10,7 +10,6 @@ using Aurelio.Public.Enum;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO.Local;
 using Aurelio.ViewModels;
-using Aurelio.Views.Main.Pages;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -75,7 +74,7 @@ public partial class MainWindow : UrsaWindow
             var tab = Tabs.FirstOrDefault(x => x.Tag == "setting");
             if (tab is null)
             {
-                var newTab = new TabEntry(PageInstance.SettingTabPage)
+                var newTab = new TabEntry(ViewModel.SettingTabPage)
                 {
                     Tag = "setting"
                 };

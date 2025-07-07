@@ -1,23 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Aurelio.Public.Classes.Interfaces;
+﻿using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Avalonia.OpenGL;
-using Avalonia.OpenGL.Controls;
-using Avalonia.Threading;
-using MinecraftSkinRender;
-using MinecraftSkinRender.OpenGL;
-using Silk.NET.OpenGL;
-using Silk.NET.Windowing;
-using SkiaSharp;
-using Window = Avalonia.Controls.Window;
 
-namespace Aurelio.Views.Main.SettingPages;
+namespace Aurelio.Views.Main.SubPages.SettingPages;
 
 public partial class AccountPage : PageMixModelBase, IAurelioPage
 {

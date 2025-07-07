@@ -1,17 +1,13 @@
-﻿using System.ComponentModel;
-using Aurelio.Public.Classes.Entries;
+﻿using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
-using Aurelio.Views.Main.SettingPages;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+using Aurelio.Views.Main.SubPages.SettingPages;
 using Material.Icons;
 using Ursa.Controls;
 
-namespace Aurelio.Views.Main.Pages;
+namespace Aurelio.Views.Main.TabPages;
 
 public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
 {

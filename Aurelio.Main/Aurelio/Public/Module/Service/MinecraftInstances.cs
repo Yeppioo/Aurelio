@@ -6,12 +6,12 @@ using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Const;
 using Aurelio.Public.Enum.Minecraft;
 using Aurelio.Public.Langs;
-using Aurelio.Views.Main.Pages;
 using Avalonia.Threading;
 using DynamicData;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Components.Parser;
+using SukiUI;
 
 namespace Aurelio.Public.Module.Service;
 
@@ -53,6 +53,8 @@ public class MinecraftInstances
 
     public static void Categorize(MinecraftInstanceCategoryMethod method)
     {
+        if (Aurelio.App.UiRoot != null)
+            Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
         var filtered = Data.SortedMinecraftCategories
             .FirstOrDefault(x => x.Tag == "filtered")?.Minecrafts;
         Data.SortedMinecraftCategories.Clear();
@@ -223,5 +225,9 @@ public class MinecraftInstances
 
                 break;
         }
+
+        if (Aurelio.App.UiRoot != null)
+            Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
+                .Animate<double>(Visual.OpacityProperty, 0, 1);
     }
 }
