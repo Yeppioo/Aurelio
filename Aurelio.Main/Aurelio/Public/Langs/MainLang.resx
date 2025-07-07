@@ -1585,12 +1585,24 @@ MacOs 不支持自动更新
     <value>打开3D视图</value>
   </data>
   <data name="Unclassified" xml:space="preserve">
-    <value>无分类的</value>
+    <value>无分类</value>
   </data>
   <data name="Tag" xml:space="preserve">
     <value>标签</value>
   </data>
   <data name="Loader" xml:space="preserve">
     <value>加载器</value>
+  </data>
+  <data name="CategoryMethod" xml:space="preserve">
+    <value>分类方式</value>
+  </data>
+  <data name="SortMethod" xml:space="preserve">
+    <value>排序方式</value>
+  </data>
+  <data name="LastPlayed" xml:space="preserve">
+    <value>最后游玩时间</value>
+  </data>
+  <data name="InstanceName" xml:space="preserve">
+    <value>实例名称</value>
   </data>
 </root>

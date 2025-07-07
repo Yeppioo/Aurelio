@@ -41,6 +41,7 @@
         <styling:FluentAvaloniaTheme />
         <semi:SemiTheme Locale="zh-CN" />
         <u-semi:SemiTheme Locale="zh-CN" />
+        <!-- <semi:SemiPopupAnimations /> -->
         <StyleInclude Source="/Public/Styles/SukiUi.axaml" />
         <StyleInclude Source="/Public/Styles/TitleBar.axaml" />
         <StyleInclude Source="/Public/Styles/Style.axaml" />

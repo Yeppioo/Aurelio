@@ -19,6 +19,11 @@ public class SettingEntry : ReactiveObject
     [JsonProperty]
     public Enum.Minecraft.MinecraftInstanceCategoryMethod
         MinecraftInstanceCategoryMethod { get; set; } = Enum.Minecraft.MinecraftInstanceCategoryMethod.MinecraftVersion;
+    
+    [Reactive]
+    [JsonProperty]
+    public Enum.Minecraft.MinecraftInstanceSortMethod
+        MinecraftInstanceSortMethod { get; set; } = Enum.Minecraft.MinecraftInstanceSortMethod.Name;
 
     [Reactive] [JsonProperty] public string Language { get; set; } = "zh-cn";
     [Reactive] [JsonProperty] public bool EnableIndependentMinecraft { get; set; } = true;

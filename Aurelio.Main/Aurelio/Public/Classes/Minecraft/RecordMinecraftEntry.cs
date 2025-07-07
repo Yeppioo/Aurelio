@@ -14,8 +14,8 @@ public class RecordMinecraftEntry
     public string ShortDescription => $"{Loader} {MlEntry.Version.VersionId}";
     public string Loader { get; }
     public string[] Tags { get; } = [];
-    public string[] Loaders { get; } = [];
-    public Bitmap Icon  { get; }
+    public string[] Loaders { get; }
+    public MinecraftInstanceSettingEntry SettingEntry { get; } = new();
     
     public RecordMinecraftEntry(MinecraftEntry mlEntry)
     {
@@ -28,7 +28,7 @@ public class RecordMinecraftEntry
             ? ["Vanilla"]
             : (mlEntry as ModifiedMinecraftEntry)?
             .ModLoaders.Select(x => $"{x.Type}")!.ToArray();
-        Icon = GetMinecraftIcon(this);
+        SettingEntry.Icon = GetMinecraftIcon(this);
     }
     
     public static Bitmap GetMinecraftIcon(RecordMinecraftEntry entry)

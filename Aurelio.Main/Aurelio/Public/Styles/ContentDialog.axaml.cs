@@ -10,9 +10,12 @@ public partial class ContentDialog : ResourceDictionary
         if (e.Pointer.Type != PointerType.Mouse) return;
         if (sender is Control control)
         {
-            var window = control.GetVisualRoot() as Window;
-            window.BeginMoveDrag(e);
+            if (e.Source == sender)
+            {
+                var window = control.GetVisualRoot() as Window;
+                window?.BeginMoveDrag(e);
+                e.Handled = true;
+            }
         }
-        e.Handled = true;
     }
 }

@@ -173,4 +173,16 @@
             <Setter Property="Opacity" Value="1" />
         </Style>
     </Style>
+    <Style Selector="ComboBox.card /template/ Border#PopupBorder">
+        <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+        <Setter Property="BoxShadow" Value="none" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Margin" Value="4,7,4,4" />
+        <Setter Property="Padding" Value="5" />
+    </Style>
+    <Style Selector="ComboBoxItem">
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+    </Style>
 </Styles>

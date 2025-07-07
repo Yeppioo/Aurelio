@@ -663,6 +663,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 分类方式.
+        /// </summary>
+        public static string CategoryMethod {
+            get {
+                return ResourceManager.GetString("CategoryMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {num} 个字符.
         /// </summary>
         public static string CharacterCount {
@@ -2001,6 +2010,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 实例名称.
+        /// </summary>
+        public static string InstanceName {
+            get {
+                return ResourceManager.GetString("InstanceName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 隔离Minecraft实例.
         /// </summary>
         public static string IsolateMinecraftInstances {
@@ -2087,6 +2105,15 @@ namespace Aurelio.Public.Langs {
         public static string LastModifiedTime {
             get {
                 return ResourceManager.GetString("LastModifiedTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 最后游玩时间.
+        /// </summary>
+        public static string LastPlayed {
+            get {
+                return ResourceManager.GetString("LastPlayed", resourceCulture);
             }
         }
         
@@ -3751,6 +3778,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 排序方式.
+        /// </summary>
+        public static string SortMethod {
+            get {
+                return ResourceManager.GetString("SortMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 赞助.
         /// </summary>
         public static string Sponsor {
@@ -4048,7 +4084,7 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 无分类的.
+        ///   Looks up a localized string similar to 无分类.
         /// </summary>
         public static string Unclassified {
             get {
