@@ -49,6 +49,10 @@ public class SettingEntry : ReactiveObject
         {
             Module.Service.MinecraftInstances.Categorize(MinecraftInstanceCategoryMethod);
         }
+        if (e.PropertyName == nameof(MinecraftInstanceSortMethod))
+        {
+            Module.Service.MinecraftInstances.Sort(MinecraftInstanceSortMethod);
+        }
 
         AppMethod.SaveSetting();
     }

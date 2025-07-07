@@ -31,7 +31,7 @@
                         DockPanel.Dock="Right"
                         Margin="10,0,0,0"
                         SelectedIndex="{Binding Data.SettingEntry.MinecraftInstanceSortMethod}"
-                        Width="190">
+                        Width="230">
                         <ComboBox.Styles>
                             <semi:SemiPopupAnimations />
                         </ComboBox.Styles>
@@ -59,7 +59,7 @@
                         DockPanel.Dock="Right"
                         Margin="10,0,0,0"
                         SelectedIndex="{Binding Data.SettingEntry.MinecraftInstanceCategoryMethod}"
-                        Width="190">
+                        Width="230">
                         <ComboBox.Styles>
                             <semi:SemiPopupAnimations />
                         </ComboBox.Styles>
@@ -111,7 +111,7 @@
             <Border
                 ClipToBounds="True"
                 CornerRadius="{DynamicResource CardCornerRadius}"
-                Margin="15,15,15,0"
+                Margin="15"
                 Name="MinecraftCardsContainerRoot">
                 <ScrollViewer>
                     <ItemsControl ItemsSource="{Binding Data.SortedMinecraftCategories}">

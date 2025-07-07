@@ -173,7 +173,7 @@
             <Setter Property="Opacity" Value="1" />
         </Style>
     </Style>
-    <Style Selector="ComboBox.card /template/ Border#PopupBorder">
+    <Style Selector="ComboBox:dropdownopen /template/ Border#PopupBorder">
         <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />

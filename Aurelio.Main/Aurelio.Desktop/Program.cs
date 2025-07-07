@@ -1,5 +1,6 @@
 ﻿using System;
 using Avalonia;
+using Avalonia.Dialogs;
 using HotAvalonia;
 
 namespace Aurelio.Desktop;
@@ -16,6 +17,7 @@ sealed class Program
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
+            .UseManagedSystemDialogs()
             .UseHotReload()
             .UsePlatformDetect()
             .WithInterFont()

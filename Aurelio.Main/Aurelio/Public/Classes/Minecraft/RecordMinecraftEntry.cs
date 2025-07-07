@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Models.Game;
@@ -27,7 +26,7 @@ public class RecordMinecraftEntry
         Loaders = mlEntry.IsVanilla
             ? ["Vanilla"]
             : (mlEntry as ModifiedMinecraftEntry)?
-            .ModLoaders.Select(x => $"{x.Type}")!.ToArray();
+            .ModLoaders.Select(x => $"{x.Type}").ToArray();
         SettingEntry.Icon = GetMinecraftIcon(this);
     }
     

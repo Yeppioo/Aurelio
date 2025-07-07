@@ -24,6 +24,7 @@
                 <ResourceInclude Source="/Public/Styles/AnimationExpander.axaml" />
                 <ResourceInclude Source="/Public/Styles/IconButton.axaml" />
                 <ResourceInclude Source="/Public/Styles/ContentDialog.axaml" />
+                <ResourceInclude Source="/Public/Styles/ManagedFileChooser.axaml" />
             </ResourceDictionary.MergedDictionaries>
             <Color x:Key="SystemAccentColor">#1BD76A</Color>
             <Color x:Key="SystemAccentColorLight1">#1BD76A</Color>

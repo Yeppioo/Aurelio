@@ -15,7 +15,7 @@ using SukiUI;
 
 namespace Aurelio.Public.Module.Service;
 
-public class MinecraftInstances
+public partial class MinecraftInstances
 {
     public static void Load(string[] path)
     {
@@ -27,6 +27,82 @@ public class MinecraftInstances
         }
 
         Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
+    }
+
+    public static void Sort(MinecraftInstanceSortMethod method)
+    {
+        foreach (var category in Data.SortedMinecraftCategories)
+        {
+            if (category.Minecrafts is not { Count: > 1 })
+                continue;
+
+            List<RecordMinecraftEntry> sortedList;
+
+            switch (method)
+            {
+                case MinecraftInstanceSortMethod.Name:
+                    // 按名称字母顺序排序
+                    sortedList = category.Minecrafts.OrderBy(x => x.Id).ToList();
+                    break;
+
+                case MinecraftInstanceSortMethod.LastPlayed:
+                    // 按最后游玩时间排序，最近的在前面，如果时间一样则按名称排序
+                    sortedList = category.Minecrafts
+                        .OrderByDescending(x => x.SettingEntry?.LastPlayed ?? DateTime.MinValue)
+                        .ThenBy(x => x.Id)
+                        .ToList();
+                    break;
+
+                case MinecraftInstanceSortMethod.MinecraftVersion:
+                    // 按游戏版本排序，高版本在前面
+                    sortedList = category.Minecrafts
+                        .OrderBy(x => 
+                        {
+                            try
+                            {
+                                // 提取版本号
+                                var versionId = x.MlEntry.Version.VersionId ?? "";
+                                var match = MyRegex().Match(versionId);
+                                
+                                if (match.Success)
+                                {
+                                    // 解析版本号组件
+                                    var major = int.Parse(match.Groups[1].Value);
+                                    var minor = int.Parse(match.Groups[2].Value);
+                                    var patch = match.Groups[3].Success ? int.Parse(match.Groups[3].Value) : 0;
+                                    
+                                    // 使用元组而非匿名类型（元组可比较）
+                                    return (-major, -minor, -patch);
+                                }
+                                
+                                // 无法解析的版本排在后面
+                                return (int.MaxValue, int.MaxValue, int.MaxValue);
+                            }
+                            catch
+                            {
+                                // 错误处理，确保即使有异常也能返回有效值
+                                return (int.MaxValue, int.MaxValue, int.MaxValue);
+                            }
+                        })
+                        .ThenBy(x => x.Id)
+                        .ToList();
+                    break;
+
+                default:
+                    continue;
+            }
+
+            // 更新分类中的实例列表
+            category.Minecrafts.Clear();
+            foreach (var item in sortedList)
+            {
+                category.Minecrafts.Add(item);
+            }
+        }
+        
+        if (Aurelio.App.UiRoot != null)
+            Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
+                .Animate<double>(Visual.OpacityProperty, 0, 1);
     }
 
     public static void Search(string key, bool ui = true)
@@ -226,8 +302,10 @@ public class MinecraftInstances
                 break;
         }
 
-        if (Aurelio.App.UiRoot != null)
-            Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
-                .Animate<double>(Visual.OpacityProperty, 0, 1);
+        if (Data.SettingEntry != null)
+            Sort(Data.SettingEntry.MinecraftInstanceSortMethod);
     }
+
+    [GeneratedRegex(@"^(\d+)\.(\d+)(?:\.(\d+))?")]
+    private static partial Regex MyRegex();
 }
