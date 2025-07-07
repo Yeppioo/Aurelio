@@ -35,6 +35,7 @@ public partial class MainWindow : UrsaWindow
     public MainViewModel ViewModel { get; set; } = new();
     public ObservableCollection<TabEntry> Tabs => ViewModel.Tabs;
     public TabEntry? SelectedTab => ViewModel.SelectedTab;
+
     public MainWindow()
     {
         InitializeComponent();
@@ -45,7 +46,7 @@ public partial class MainWindow : UrsaWindow
         InitTitleBar();
 #endif
     }
-    
+
     [AvaloniaHotReload]
     private void InitTitleBar()
     {
@@ -74,8 +75,7 @@ public partial class MainWindow : UrsaWindow
             var tab = Tabs.FirstOrDefault(x => x.Tag == "setting");
             if (tab is null)
             {
-                var newTab = new TabEntry(MainLang.Setting, PageInstance.SettingTabPage,
-                    Public.Module.Ui.Icon.FromMaterial(MaterialIconKind.Settings))
+                var newTab = new TabEntry(PageInstance.SettingTabPage)
                 {
                     Tag = "setting"
                 };
@@ -113,14 +113,16 @@ public partial class MainWindow : UrsaWindow
             e.Handled = true;
         }
     }
-    
+
     private void NavScrollViewer_PointerEntered(object? sender, PointerEventArgs e)
     {
         NavScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
     }
-    
+
     private void NavScrollViewer_PointerExited(object? sender, PointerEventArgs e)
     {
         NavScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
     }
+
+    public void CreateTab(TabEntry tab) => ViewModel.CreateTab(tab);
 }

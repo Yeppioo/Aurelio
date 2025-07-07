@@ -1,12 +1,14 @@
 ﻿using System.ComponentModel;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
 using Aurelio.Views.Main.SettingPages;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Material.Icons;
 using Ursa.Controls;
 
 namespace Aurelio.Views.Main.Pages;
@@ -46,7 +48,12 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
     }
 
     public TabEntry HostTab { get; set; }
-    public PageInfoEntry PageInfo { get; }
+
+    public PageInfoEntry PageInfo { get; } = new()
+    {
+       Icon = Public.Module.Ui.Icon.FromMaterial(MaterialIconKind.Settings),
+       Title = MainLang.Setting
+    };
 
     public SelectionListItem? SelectedItem
     {

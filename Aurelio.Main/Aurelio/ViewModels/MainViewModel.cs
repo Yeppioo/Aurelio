@@ -20,8 +20,7 @@ public partial class MainViewModel : ViewModelBase
 {
     public ObservableCollection<TabEntry> Tabs { get; set; } =
     [
-        new(canClose: false, title: MainLang.MainPage, icon: Icons.Home,
-            content: PageInstance.HomeTabPage),
+        new(PageInstance.HomeTabPage),
     ];
     
 
@@ -56,5 +55,11 @@ public partial class MainViewModel : ViewModelBase
             SelectedTab.Content.RootElement.IsVisible = false;
             SelectedTab.Content.InAnimator.Animate();
         };
+    }
+    
+    public void CreateTab(TabEntry tab)
+    { 
+        Tabs.Add(tab);
+        SelectedTab = tab;
     }
 }

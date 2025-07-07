@@ -82,19 +82,22 @@
                                             </DockPanel>
                                         </Expander.Header>
                                         <Border HorizontalAlignment="Stretch" Margin="10">
-                                            <ItemsControl ItemsSource="{Binding Minecrafts}" HorizontalAlignment="Stretch">
+                                            <ItemsControl HorizontalAlignment="Stretch" ItemsSource="{Binding Minecrafts}">
                                                 <ItemsControl.ItemsPanel>
                                                     <ItemsPanelTemplate>
-                                                        <UniformGrid Name="MinecraftCardsGrid" Columns="{Binding Path=ContainerWidth, RelativeSource={RelativeSource AncestorType=pages:HomeTabPage}, Converter={x:Static c:UiProperty.ContainerToColumnsConverter}}"/>
+                                                        <UniformGrid Columns="{Binding Path=ContainerWidth, RelativeSource={RelativeSource AncestorType=pages:HomeTabPage}, Converter={x:Static c:UiProperty.ContainerToColumnsConverter}}" Name="MinecraftCardsGrid" />
                                                     </ItemsPanelTemplate>
                                                 </ItemsControl.ItemsPanel>
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate DataType="minecraft:RecordMinecraftEntry">
                                                         <Border
                                                             Classes="card2x"
+                                                            Cursor="Hand"
                                                             Height="68"
                                                             Margin="5"
-                                                            Name="MinecraftCardBorder">
+                                                            Name="MinecraftCardBorder"
+                                                            PointerReleased="IconBorder_OnPointerReleased"
+                                                            Tag="{Binding}">
                                                             <Border.Styles>
                                                                 <Style Selector="Border#MinecraftCardBorder:pointerover">
                                                                     <Style Selector="^ Border#IconBorder">
@@ -111,7 +114,6 @@
                                                                     Background="{DynamicResource CardBackgroundColor}"
                                                                     ClipToBounds="True"
                                                                     CornerRadius="{DynamicResource CardCornerRadius}"
-                                                                    Cursor="Hand"
                                                                     Height="48"
                                                                     Margin="10,0"
                                                                     Name="IconBorder"
@@ -119,12 +121,10 @@
                                                                     <Border.Transitions>
                                                                         <Transitions>
                                                                             <CornerRadiusTransition Duration="0.15" Property="CornerRadius" />
-                                                                            <!-- <BrushTransition Duration="0:0:0.15" Property="Background" /> -->
                                                                         </Transitions>
                                                                     </Border.Transitions>
                                                                     <Grid>
                                                                         <PathIcon
-                                                                            Cursor="Hand"
                                                                             Data="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"
                                                                             HorizontalAlignment="Center"
                                                                             Margin="0,0,-5,0"

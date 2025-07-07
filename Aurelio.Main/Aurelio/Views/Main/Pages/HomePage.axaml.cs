@@ -4,12 +4,14 @@ using System.ComponentModel;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
+using Aurelio.Views.Main.Template;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -83,7 +85,12 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
 
     public TabEntry HostTab { get; set; }
 
-    public PageInfoEntry PageInfo { get; } = new();
+    public PageInfoEntry PageInfo { get; } = new()
+    {
+        CanClose = false,
+        Title = MainLang.Launch,
+        Icon = Icons.Home
+    };
 
     public void OnClose()
     {
@@ -99,4 +106,11 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
     }
 
     private double _containerWidth;
+
+    private void IconBorder_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+    {
+        if (((Border)sender).Tag is not RecordMinecraftEntry entry) return;
+        var tab = new TabEntry(new MinecraftInstancePage(entry));
+        App.UiRoot.CreateTab(tab);
+    }
 }

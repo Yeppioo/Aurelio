@@ -1,7 +1,8 @@
-﻿using Silk.NET.Core.Native;
+﻿using MinecraftSkinRender.OpenGL;
+using Silk.NET.Core.Native;
 using Silk.NET.OpenGL;
 
-namespace MinecraftSkinRender.OpenGL.Silk;
+namespace Aurelio.Public.Module.Ui.Helper;
 
 public class SlikOpenglApi(GL gl) : OpenGLApi
 {

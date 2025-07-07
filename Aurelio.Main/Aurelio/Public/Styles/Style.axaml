@@ -65,6 +65,19 @@
             <Setter Property="Margin" Value="0,32,0,0" />
         </Style>
     </Style>
+    <Style Selector="Expander.no-opacity-transition:down">
+        <Style Selector="^ /template/ suki|ContentExpandControl#PART_ContentExpand /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Opacity" Value="0.15" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition
+                        Duration="0.0"
+                        Easing="CircularEaseOut"
+                        Property="Opacity" />
+                </Transitions>
+            </Setter>
+        </Style>
+    </Style>
     <Style Selector="Button.no-background-button">
         <Setter Property="Background" Value="#00000000" />
         <Setter Property="Cursor" Value="Hand" />

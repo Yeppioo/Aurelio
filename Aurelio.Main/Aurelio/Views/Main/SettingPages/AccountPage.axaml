@@ -9,6 +9,7 @@
     xmlns:data="clr-namespace:Aurelio.Public.Const"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:minecraft="clr-namespace:Aurelio.Public.Classes.Minecraft"
+    xmlns:minecraftSkinRender="clr-namespace:MinecraftSkinRender;assembly=MinecraftSkinRender"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border Name="Root">

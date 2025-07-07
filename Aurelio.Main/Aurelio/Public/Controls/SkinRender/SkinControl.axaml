@@ -1,0 +1,290 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Public.Controls.SkinRender.SkinControl"
+    x:DataType="reference:SkinModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:openGl="clr-namespace:Aurelio.Public.Controls.SkinRender.Reference.OpenGL"
+    xmlns:reference="clr-namespace:Aurelio.Public.Controls.SkinRender.Reference"
+    xmlns:skinRender="clr-namespace:Aurelio.Public.Controls.SkinRender"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Panel>
+        <DockPanel Margin="10,0,10,10">
+            <Border
+                Classes="t2"
+                DockPanel.Dock="Right"
+                IsVisible="False"
+                Margin="0,10,10,10"
+                Name="Decorator1" />
+            <Panel Margin="10,10,10,10">
+                <openGl:SkinRender IsVisible="{Binding HaveSkin}" Name="Skin" />
+                <Grid
+                    ColumnDefinitions="*,*,*"
+                    HorizontalAlignment="Left"
+                    IsVisible="{Binding HaveSkin}"
+                    RowDefinitions="*,*,*"
+                    VerticalAlignment="Top">
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Move}"
+                        CommandParameter="{x:Static reference:MoveType.LeftUp}"
+                        Delay="100"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="↖" />
+                    </RepeatButton>
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Move}"
+                        CommandParameter="{x:Static reference:MoveType.Up}"
+                        Delay="100"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="↑" />
+                    </RepeatButton>
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Move}"
+                        CommandParameter="{x:Static reference:MoveType.RightUp}"
+                        Delay="100"
+                        Grid.Column="2"
+                        Grid.Row="0"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="↗" />
+                    </RepeatButton>
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Move}"
+                        CommandParameter="{x:Static reference:MoveType.Left}"
+                        Delay="100"
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="←" />
+                    </RepeatButton>
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Move}"
+                        CommandParameter="{x:Static reference:MoveType.Right}"
+                        Delay="100"
+                        Grid.Column="2"
+                        Grid.Row="1"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="→" />
+                    </RepeatButton>
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Move}"
+                        CommandParameter="{x:Static reference:MoveType.LeftDown}"
+                        Delay="100"
+                        Grid.Column="0"
+                        Grid.Row="3"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="↙" />
+                    </RepeatButton>
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Move}"
+                        CommandParameter="{x:Static reference:MoveType.Down}"
+                        Delay="100"
+                        Grid.Column="1"
+                        Grid.Row="3"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="↓" />
+                    </RepeatButton>
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Move}"
+                        CommandParameter="{x:Static reference:MoveType.RightDown}"
+                        Delay="100"
+                        Grid.Column="2"
+                        Grid.Row="3"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="↘" />
+                    </RepeatButton>
+                </Grid>
+                <Grid
+                    ColumnDefinitions="*,*,*"
+                    HorizontalAlignment="Right"
+                    IsVisible="{Binding HaveSkin}"
+                    RowDefinitions="*,*,*"
+                    VerticalAlignment="Top">
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Rot}"
+                        CommandParameter="{x:Static reference:MoveType.LeftUp}"
+                        Delay="100"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="↖" />
+                    </RepeatButton>
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Rot}"
+                        CommandParameter="{x:Static reference:MoveType.Up}"
+                        Delay="100"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="↑" />
+                    </RepeatButton>
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Rot}"
+                        CommandParameter="{x:Static reference:MoveType.RightUp}"
+                        Delay="100"
+                        Grid.Column="2"
+                        Grid.Row="0"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="↗" />
+                    </RepeatButton>
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Rot}"
+                        CommandParameter="{x:Static reference:MoveType.Left}"
+                        Delay="100"
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="←" />
+                    </RepeatButton>
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Rot}"
+                        CommandParameter="{x:Static reference:MoveType.Right}"
+                        Delay="100"
+                        Grid.Column="2"
+                        Grid.Row="1"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="→" />
+                    </RepeatButton>
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Rot}"
+                        CommandParameter="{x:Static reference:MoveType.LeftDown}"
+                        Delay="100"
+                        Grid.Column="0"
+                        Grid.Row="3"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="↙" />
+                    </RepeatButton>
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Rot}"
+                        CommandParameter="{x:Static reference:MoveType.Down}"
+                        Delay="100"
+                        Grid.Column="1"
+                        Grid.Row="3"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="↓" />
+                    </RepeatButton>
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Rot}"
+                        CommandParameter="{x:Static reference:MoveType.RightDown}"
+                        Delay="100"
+                        Grid.Column="2"
+                        Grid.Row="3"
+                        Height="40"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="↘" />
+                    </RepeatButton>
+                </Grid>
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    IsVisible="{Binding HaveSkin}"
+                    VerticalAlignment="Center">
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Scoll}"
+                        CommandParameter="{x:Static reference:MoveType.Up}"
+                        Delay="100"
+                        Height="40"
+                        HorizontalAlignment="Center"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="↑" />
+                    </RepeatButton>
+                    <RepeatButton
+                        Background="Transparent"
+                        Command="{Binding Scoll}"
+                        CommandParameter="{x:Static reference:MoveType.Down}"
+                        Delay="100"
+                        Height="40"
+                        HorizontalAlignment="Center"
+                        Interval="20"
+                        Width="40">
+                        <TextBlock Text="↓" />
+                    </RepeatButton>
+                </StackPanel>
+                <StackPanel IsVisible="{Binding HaveSkin}" VerticalAlignment="Bottom">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Margin="2"
+                        Text="{Binding NowFps}" />
+                    <TextBlock
+                        Margin="2"
+                        Text="{Binding Info}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+
+                <Border Classes="t2" IsVisible="{Binding !HaveSkin, FallbackValue=true}">
+                    <TextBlock
+                        FontSize="20"
+                        Foreground="{DynamicResource TextColor}"
+                        HorizontalAlignment="Center"
+                        Text="Text"
+                        VerticalAlignment="Center" />
+                </Border>
+            </Panel>
+        </DockPanel>
+        <Border
+            Background="#00FFFFFF"
+            IsVisible="False"
+            Name="SidePanel3">
+            <Border
+                Background="{DynamicResource CardBackgroundColor}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Stretch">
+                <Decorator Name="Decorator2" />
+            </Border>
+        </Border>
+    </Panel>
+</UserControl>
