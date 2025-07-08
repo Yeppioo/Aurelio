@@ -81,12 +81,12 @@ public partial class MainWindow : UrsaWindow
     private void BindEvents()
     {
         NavScrollViewer.ScrollChanged += (_, _) => { ViewModel.IsTabMaskVisible = NavScrollViewer.Offset.X > 0; };
-        Loaded += (_, _) =>
-        {
-            RenderOptions.SetTextRenderingMode(this, TextRenderingMode.SubpixelAntialias); // 字体渲染模式
-            RenderOptions.SetBitmapInterpolationMode(this, BitmapInterpolationMode.MediumQuality); // 图片渲染模式
-            RenderOptions.SetEdgeMode(this, EdgeMode.Antialias); // 形状渲染模式
-        };
+        // Loaded += (_, _) =>
+        // {
+        //     RenderOptions.SetTextRenderingMode(this, TextRenderingMode.SubpixelAntialias); // 字体渲染模式
+        //     RenderOptions.SetBitmapInterpolationMode(this, BitmapInterpolationMode.MediumQuality); // 图片渲染模式
+        //     RenderOptions.SetEdgeMode(this, EdgeMode.Antialias); // 形状渲染模式
+        // };
         TitleBarContainer.SizeChanged += (_, _) =>
         {
             NavRoot.Margin = new Thickness(80, 0, TitleBarContainer.Bounds.Width + 85, 0);

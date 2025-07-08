@@ -1,5 +1,6 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:Aurelio.Public.Controls"
     xmlns:suki="https://github.com/kikipoulet/SukiUI"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
@@ -20,7 +21,7 @@
         <Style Selector="^ /template/ Border#PART_RootBorder">
             <Setter Property="Background" Value="Transparent" />
         </Style>
-        <Style Selector="^ /template/ suki|ContentExpandControl#PART_ContentExpand /template/ ContentPresenter#PART_ContentPresenter">
+        <Style Selector="^ /template/ controls|ContentExpandControl#PART_ContentExpand /template/ ContentPresenter#PART_ContentPresenter">
             <Setter Property="Opacity" Value="0.15" />
             <Setter Property="Transitions">
                 <Transitions>
@@ -31,7 +32,7 @@
                 </Transitions>
             </Setter>
         </Style>
-        <Style Selector="^:expanded /template/ suki|ContentExpandControl#PART_ContentExpand /template/ ContentPresenter#PART_ContentPresenter">
+        <Style Selector="^:expanded /template/ controls|ContentExpandControl#PART_ContentExpand /template/ ContentPresenter#PART_ContentPresenter">
             <Setter Property="Opacity" Value="1" />
         </Style>
         <Style Selector="^:not(:expanded) /template/ Border#PART_BottomBorder">
@@ -46,7 +47,7 @@
                 </Transitions>
             </Setter>
         </Style>
-        <Style Selector="^ /template/ suki|ContentExpandControl#PART_ContentExpand">
+        <Style Selector="^ /template/ controls|ContentExpandControl#PART_ContentExpand">
             <Setter Property="Margin" Value="0,32,0,0" />
         </Style>
     </Style>

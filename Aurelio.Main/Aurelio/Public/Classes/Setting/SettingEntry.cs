@@ -7,7 +7,6 @@ using Aurelio.Public.Module.App;
 using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using SukiUI;
 
 namespace Aurelio.Public.Classes.Setting;
 

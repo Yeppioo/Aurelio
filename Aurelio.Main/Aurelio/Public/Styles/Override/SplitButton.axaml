@@ -1,0 +1,383 @@
+<ResourceDictionary
+    x:CompileBindings="True"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <StackPanel
+            Height="500"
+            Margin="20"
+            Spacing="8"
+            Width="500">
+            <SplitButton Content="Hello" Theme="{DynamicResource SolidSplitButton}" />
+            <ToggleSplitButton
+                Content="Hello"
+                HorizontalAlignment="Stretch"
+                IsChecked="True" />
+            <SplitButton Theme="{DynamicResource SolidSplitButton}" />
+            <ToggleSplitButton HorizontalAlignment="Stretch" IsChecked="True" />
+        </StackPanel>
+    </Design.PreviewWith>
+
+    <ControlTheme TargetType="Button" x:Key="SemiSplitButtonElement">
+        <Setter Property="Padding" Value="{DynamicResource ButtonDefaultPadding}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource ButtonBorderThickness}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource ButtonCornerRadius}" />
+        <Setter Property="RenderTransform" Value="none" />
+        <Setter Property="FontSize" Value="{DynamicResource ButtonDefaultFontSize}" />
+        <Setter Property="FontWeight" Value="{DynamicResource ButtonDefaultFontWeight}" />
+        <Setter Property="BackgroundSizing" Value="OuterBorderEdge" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="Button">
+                <ContentPresenter
+                    Background="{TemplateBinding Background}"
+                    BackgroundSizing="{TemplateBinding BackgroundSizing}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Content="{TemplateBinding Content}"
+                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    Name="PART_ContentPresenter"
+                    Padding="{TemplateBinding Padding}"
+                    RecognizesAccessKey="True"
+                    TextElement.FontSize="{TemplateBinding FontSize}"
+                    TextElement.FontWeight="{TemplateBinding FontWeight}"
+                    UseLayoutRounding="False"
+                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <ControlTheme TargetType="SplitButton" x:Key="{x:Type SplitButton}">
+        <Setter Property="Padding" Value="{DynamicResource ButtonDefaultPadding}" />
+        <Setter Property="MinHeight" Value="{DynamicResource ButtonDefaultHeight}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+        <Setter Property="Background" Value="{DynamicResource ButtonDefaultBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ButtonDefaultBorderBrush}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource ButtonBorderThickness}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource ButtonCornerRadius}" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{DynamicResource ButtonDefaultFontSize}" />
+        <Setter Property="FontWeight" Value="{DynamicResource ButtonDefaultFontWeight}" />
+        <Setter Property="RenderTransform" Value="none" />
+        <Setter Property="BackgroundSizing" Value="OuterBorderEdge" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="SplitButton">
+                <Border
+                    BackgroundSizing="OuterBorderEdge"
+                    ClipToBounds="True"
+                    CornerRadius="{DynamicResource cor}">
+                    <DockPanel>
+                        <Button
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="0"
+                            DockPanel.Dock="Right"
+                            Name="PART_SecondaryButton"
+                            Padding="4,0"
+                            Theme="{DynamicResource SemiSplitButtonElement}">
+                            <PathIcon
+                                Data="{DynamicResource SplitButtonIconGlyph}"
+                                Foreground="{Binding $parent[Button].Foreground}"
+                                Theme="{DynamicResource InnerPathIcon}" />
+                        </Button>
+                        <Rectangle
+                            DockPanel.Dock="Right"
+                            Fill="Transparent"
+                            Name="SeparatorBorder"
+                            StrokeThickness="0"
+                            VerticalAlignment="Stretch"
+                            Width="{DynamicResource SplitButtonSeparatorWidth}" />
+                        <u:IconButton
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Command="{TemplateBinding Command}"
+                            CommandParameter="{TemplateBinding CommandParameter}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            CornerRadius="0"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Name="PART_PrimaryButton"
+                            Padding="{TemplateBinding Padding}"
+                            Theme="{DynamicResource SemiSplitButtonElement}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <u:IconButton.Icon>
+                                <PathIcon Data="{TemplateBinding Tag}" />
+                            </u:IconButton.Icon>
+                        </u:IconButton>
+                    </DockPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^ /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+            <Setter Property="Background" Value="{DynamicResource ButtonDefaultBackground}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ButtonDefaultBorderBrush}" />
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="{DynamicResource ButtonDefaultPointeroverBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ButtonDefaultPointeroverBorderBrush}" />
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="Background" Value="{DynamicResource ButtonDefaultPressedBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ButtonDefaultPressedBorderBrush}" />
+            </Style>
+        </Style>
+
+
+        <Style Selector="^.Primary /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+        </Style>
+        <Style Selector="^.Secondary /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource ButtonDefaultSecondaryForeground}" />
+        </Style>
+        <Style Selector="^.Tertiary /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+        </Style>
+        <Style Selector="^.Success /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource ButtonDefaultSuccessForeground}" />
+        </Style>
+        <Style Selector="^.Warning /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource ButtonDefaultWarningForeground}" />
+        </Style>
+        <Style Selector="^.Danger /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource ButtonDefaultDangerForeground}" />
+        </Style>
+        <Style Selector="^:checked">
+            <Style Selector="^ /template/ Button">
+                <Setter Property="FocusAdorner">
+                    <FocusAdornerTemplate>
+                        <Border Classes="Solid" Theme="{DynamicResource AdornerLayerBorder}" />
+                    </FocusAdornerTemplate>
+                </Setter>
+                <Setter Property="Foreground" Value="{DynamicResource ButtonSolidForeground}" />
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidPrimaryBackground}" />
+                <Style Selector="^:pointerover">
+                    <Setter Property="Background" Value="{DynamicResource ButtonSolidPrimaryPointeroverBackground}" />
+                </Style>
+                <Style Selector="^:pressed">
+                    <Setter Property="Background" Value="{DynamicResource ButtonSolidPrimaryPressedBackground}" />
+                </Style>
+            </Style>
+
+            <Style Selector="^.Primary /template/ Button">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidPrimaryBackground}" />
+                <Style Selector="^:pointerover">
+                    <Setter Property="Background" Value="{DynamicResource ButtonSolidPrimaryPointeroverBackground}" />
+                </Style>
+                <Style Selector="^:pressed">
+                    <Setter Property="Background" Value="{DynamicResource ButtonSolidPrimaryPressedBackground}" />
+                </Style>
+            </Style>
+            <Style Selector="^.Secondary /template/ Button">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidSecondaryBackground}" />
+                <Style Selector="^:pointerover">
+                    <Setter Property="Background" Value="{DynamicResource ButtonSolidSecondaryPointeroverBackground}" />
+                </Style>
+                <Style Selector="^:pressed">
+                    <Setter Property="Background" Value="{DynamicResource ButtonSolidSecondaryPressedBackground}" />
+                </Style>
+            </Style>
+            <Style Selector="^.Tertiary /template/ Button">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidTertiaryBackground}" />
+                <Style Selector="^:pointerover">
+                    <Setter Property="Background" Value="{DynamicResource ButtonSolidTertiaryPointeroverBackground}" />
+                </Style>
+                <Style Selector="^:pressed">
+                    <Setter Property="Background" Value="{DynamicResource ButtonSolidTertiaryPressedBackground}" />
+                </Style>
+            </Style>
+            <Style Selector="^.Success /template/ Button">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidSuccessBackground}" />
+                <Style Selector="^:pointerover">
+                    <Setter Property="Background" Value="{DynamicResource ButtonSolidSuccessPointeroverBackground}" />
+                </Style>
+                <Style Selector="^:pressed">
+                    <Setter Property="Background" Value="{DynamicResource ButtonSolidSuccessPressedBackground}" />
+                </Style>
+            </Style>
+            <Style Selector="^.Warning /template/ Button">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidWarningBackground}" />
+                <Style Selector="^:pointerover">
+                    <Setter Property="Background" Value="{DynamicResource ButtonSolidWarningPointeroverBackground}" />
+                </Style>
+                <Style Selector="^:pressed">
+                    <Setter Property="Background" Value="{DynamicResource ButtonSolidWarningPressedBackground}" />
+                </Style>
+            </Style>
+            <Style Selector="^.Danger /template/ Button">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidDangerBackground}" />
+                <Style Selector="^:pointerover">
+                    <Setter Property="Background" Value="{DynamicResource ButtonSolidDangerPointeroverBackground}" />
+                </Style>
+                <Style Selector="^:pressed">
+                    <Setter Property="Background" Value="{DynamicResource ButtonSolidDangerPressedBackground}" />
+                </Style>
+            </Style>
+        </Style>
+        <Style Selector="^.Large /template/ Button#PART_PrimaryButton">
+            <Setter Property="Padding" Value="{DynamicResource ButtonLargePadding}" />
+        </Style>
+        <Style Selector="^.Large">
+            <Setter Property="MinHeight" Value="{DynamicResource ButtonLargeHeight}" />
+        </Style>
+        <Style Selector="^.Small /template/ Button#PART_PrimaryButton">
+            <Setter Property="Padding" Value="{DynamicResource ButtonSmallPadding}" />
+        </Style>
+        <Style Selector="^.Small">
+            <Setter Property="MinHeight" Value="{DynamicResource ButtonSmallHeight}" />
+        </Style>
+        <Style Selector="^:disabled /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource ButtonDefaultDisabledForeground}" />
+            <Setter Property="Background" Value="{DynamicResource ButtonDefaultBackground}" />
+        </Style>
+        <!--  only for ToggleSplitButton  -->
+        <Style Selector="^:checked:disabled /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource ButtonSolidDisabledForeground}" />
+            <Setter Property="Background" Value="{DynamicResource ButtonSolidDisabledBackground}" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme
+        BasedOn="{StaticResource {x:Type SplitButton}}"
+        TargetType="SplitButton"
+        x:Key="SolidSplitButton">
+        <Style Selector="^ /template/ Button">
+            <Setter Property="FocusAdorner">
+                <FocusAdornerTemplate>
+                    <Border Classes="Solid" Theme="{DynamicResource AdornerLayerBorder}" />
+                </FocusAdornerTemplate>
+            </Setter>
+            <Setter Property="Foreground" Value="{DynamicResource ButtonSolidForeground}" />
+            <Setter Property="Background" Value="{DynamicResource ButtonSolidPrimaryBackground}" />
+
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidPrimaryPointeroverBackground}" />
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidPrimaryPressedBackground}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^.Primary /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource ButtonSolidForeground}" />
+            <Setter Property="Background" Value="{DynamicResource ButtonSolidPrimaryBackground}" />
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidPrimaryPointeroverBackground}" />
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidPrimaryPressedBackground}" />
+            </Style>
+        </Style>
+        <Style Selector="^.Secondary /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource ButtonSolidForeground}" />
+            <Setter Property="Background" Value="{DynamicResource ButtonSolidSecondaryBackground}" />
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidSecondaryPointeroverBackground}" />
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidSecondaryPressedBackground}" />
+            </Style>
+        </Style>
+        <Style Selector="^.Tertiary /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource ButtonSolidForeground}" />
+            <Setter Property="Background" Value="{DynamicResource ButtonSolidTertiaryBackground}" />
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidTertiaryPointeroverBackground}" />
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidTertiaryPressedBackground}" />
+            </Style>
+        </Style>
+        <Style Selector="^.Success /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource ButtonSolidForeground}" />
+            <Setter Property="Background" Value="{DynamicResource ButtonSolidSuccessBackground}" />
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidSuccessPointeroverBackground}" />
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidSuccessPressedBackground}" />
+            </Style>
+        </Style>
+        <Style Selector="^.Warning /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource ButtonSolidForeground}" />
+            <Setter Property="Background" Value="{DynamicResource ButtonSolidWarningBackground}" />
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidWarningPointeroverBackground}" />
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidWarningPressedBackground}" />
+            </Style>
+        </Style>
+        <Style Selector="^.Danger /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource ButtonSolidForeground}" />
+            <Setter Property="Background" Value="{DynamicResource ButtonSolidDangerBackground}" />
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidDangerPointeroverBackground}" />
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="Background" Value="{DynamicResource ButtonSolidDangerPressedBackground}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^:disabled /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource ButtonSolidDisabledForeground}" />
+            <Setter Property="Background" Value="{DynamicResource ButtonSolidDisabledBackground}" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme
+        BasedOn="{StaticResource {x:Type SplitButton}}"
+        TargetType="SplitButton"
+        x:Key="OutlineSplitButton">
+        <Style Selector="^ /template/ Button">
+            <Setter Property="Background" Value="{DynamicResource ButtonOutlineBackground}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ButtonOutlineBorderBrush}" />
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="{DynamicResource ButtonOutlinePointeroverBackground}" />
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="Background" Value="{DynamicResource ButtonOutlinePressedBackground}" />
+            </Style>
+        </Style>
+        <Style Selector="^.Success /template/ Button">
+            <Setter Property="BorderBrush" Value="{DynamicResource ButtonOutlineSuccessBorderBrush}" />
+        </Style>
+        <Style Selector="^.Warning /template/ Button">
+            <Setter Property="BorderBrush" Value="{DynamicResource ButtonOutlineWarningBorderBrush}" />
+        </Style>
+        <Style Selector="^.Danger /template/ Button">
+            <Setter Property="BorderBrush" Value="{DynamicResource ButtonOutlineDangerBorderBrush}" />
+        </Style>
+        <Style Selector="^:disabled /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource ButtonDefaultDisabledForeground}" />
+            <Setter Property="Background" Value="{DynamicResource ButtonOutlineBackground}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ButtonOutlineBorderBrush}" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme
+        BasedOn="{StaticResource {x:Type SplitButton}}"
+        TargetType="SplitButton"
+        x:Key="BorderlessSplitButton">
+        <Style Selector="^ /template/ Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+        <Style Selector="^:disabled /template/ Button">
+            <Setter Property="Foreground" Value="{DynamicResource ButtonDefaultDisabledForeground}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

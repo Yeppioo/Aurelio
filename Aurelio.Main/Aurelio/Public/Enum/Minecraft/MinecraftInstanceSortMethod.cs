@@ -4,5 +4,5 @@ public enum MinecraftInstanceSortMethod
 {
     Name,
     MinecraftVersion,
-    LastPlayed,
+    LastPlayed
 }

@@ -71,9 +71,9 @@
                     Property="Background" />
             </Transitions>
         </Setter>
-        <Style Selector="^ AccessText">
-            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
-        </Style>
+        <!-- <Style Selector="^ AccessText"> -->
+        <!--     <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" /> -->
+        <!-- </Style> -->
     </Style>
     <Style Selector="u|IconButton">
         <Setter Property="FontFamily" Value="{DynamicResource MiSans}" />

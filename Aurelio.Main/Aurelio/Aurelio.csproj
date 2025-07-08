@@ -41,14 +41,14 @@
 
   <ItemGroup>
     <PackageReference Include="AsyncImageLoader.Avalonia" />
-    <PackageReference Include="Avalonia" />
-    <PackageReference Include="Avalonia.Controls.DataGrid" />
+    <PackageReference Include="Avalonia" Version="11.3.2" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.3.2" />
     <PackageReference Include="Avalonia.Controls.ItemsRepeater" />
     <PackageReference Include="Avalonia.Svg" />
-    <PackageReference Include="Avalonia.Themes.Fluent" />
-    <PackageReference Include="Avalonia.Fonts.Inter" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.2" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.2" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Include="Avalonia.Diagnostics">
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.3.2">
       <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
@@ -61,17 +61,14 @@
     <PackageReference Include="Irihi.Ursa" />
     <PackageReference Include="Irihi.Ursa.Themes.Semi" />
     <PackageReference Include="Material.Icons.Avalonia" />
-    <PackageReference Include="MinecraftLaunch" />
+    <PackageReference Include="MinecraftLaunch" Version="4.0.2-preview11" />
     <PackageReference Include="MinecraftLaunch.Skin" />
     <PackageReference Include="Newtonsoft.Json" />
-    <PackageReference Include="ReactiveUI" />
+    <PackageReference Include="ReactiveUI" Version="20.4.1" />
     <PackageReference Include="ReactiveUI.Fody" />
     <PackageReference Include="Semi.Avalonia" />
-    <PackageReference Include="Silk.NET.OpenGL" />
-    <PackageReference Include="Silk.NET.Windowing" />
-    <PackageReference Include="SkiaSharp" />
-    <PackageReference Include="SukiUI" />
-    <PackageReference Include="UnicodeInformation" />
+    <PackageReference Include="SkiaSharp" Version="2.88.9" />
+    <PackageReference Update="Avalonia.Markup.Xaml.Loader" Version="11.3.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -104,6 +101,10 @@
       <DependentUpon>MoreButtonMenu.axaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Public\Styles\Override\ContentDialog.axaml.cs">
+      <DependentUpon>ContentDialog.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -112,6 +113,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Aurelio.Reference\LiteSkinViewer3D\LiteSkinViewer3D\LiteSkinViewer3D.csproj" />
     <ProjectReference Include="..\..\Aurelio.Reference\MinecraftSkinRender\MinecraftSkinRender.Image\MinecraftSkinRender.Image.csproj" />
     <ProjectReference Include="..\..\Aurelio.Reference\MinecraftSkinRender\MinecraftSkinRender.OpenGL\MinecraftSkinRender.OpenGL.csproj" />
   </ItemGroup>

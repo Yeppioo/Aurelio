@@ -24,7 +24,6 @@ public class Account
     {
         var comboBox = new ComboBox
         {
-            FontFamily = (FontFamily)Application.Current.Resources["Font"],
             HorizontalAlignment = HorizontalAlignment.Stretch
         };
         comboBox.Items.Add(MainLang.OfflineLogin);
@@ -33,7 +32,6 @@ public class Account
         comboBox.SelectedIndex = 0;
         ContentDialog dialog = new()
         {
-            FontFamily = (FontFamily)Application.Current.Resources["Font"],
             Title = MainLang.SelectAccountType,
             PrimaryButtonText = MainLang.Ok,
             CloseButtonText = MainLang.Cancel,
@@ -47,17 +45,14 @@ public class Account
                 case 0:
                     var textBox = new TextBox
                     {
-                        FontFamily = (FontFamily)Application.Current.Resources["Font"],
                         TextWrapping = TextWrapping.Wrap, Watermark = MainLang.AccountName
                     };
                     var uuidTextBox = new TextBox
                     {
-                        FontFamily = (FontFamily)Application.Current.Resources["Font"],
                         TextWrapping = TextWrapping.Wrap, Watermark = MainLang.AddNewAccountUuid
                     };
                     ContentDialog offlineDialog = new()
                     {
-                        FontFamily = (FontFamily)Application.Current.Resources["Font"],
                         Title = MainLang.AddNewAccount,
                         PrimaryButtonText = MainLang.Ok,
                         CloseButtonText = MainLang.Cancel,
@@ -114,13 +109,11 @@ public class Account
                     MicrosoftAccount userProfile;
                     var textBlock = new TextBlock
                     {
-                        FontFamily = (FontFamily)Application.Current.Resources["Font"],
                         TextWrapping = TextWrapping.Wrap, Text = MainLang.Loading,
                         HorizontalAlignment = HorizontalAlignment.Center, FontSize = 16
                     };
                     ContentDialog microsoftDialog = new()
                     {
-                        FontFamily = (FontFamily)Application.Current.Resources["Font"],
                         Title = MainLang.VerificationCode,
                         PrimaryButtonText = MainLang.CopyCodeAndOPenBrowser,
                         SecondaryButtonText = MainLang.ManualOpen,
@@ -143,22 +136,20 @@ public class Account
                     {
                         var urlBox = new TextBox
                         {
-                            FontFamily = (FontFamily)Application.Current.Resources["Font"],
                             TextWrapping = TextWrapping.Wrap, IsReadOnly = true
                         };
                         var tip = new TextBlock
                         {
-                            FontFamily = (FontFamily)Application.Current.Resources["Font"], FontSize = 14,
+                            FontSize = 14,
                             Text = MainLang.CopyUrlAndManualOpen
                         };
                         var codeBox = new TextBox
                         {
-                            FontFamily = (FontFamily)Application.Current.Resources["Font"],
                             TextWrapping = TextWrapping.Wrap, IsReadOnly = true, Text = verificationCode
                         };
                         var codeTip = new TextBlock
                         {
-                            FontFamily = (FontFamily)Application.Current.Resources["Font"], FontSize = 14,
+                            FontSize = 14,
                             Text = MainLang.VerificationCode
                         };
                         var stackPanel = new StackPanel { Spacing = 10 };
@@ -168,7 +159,6 @@ public class Account
                         stackPanel.Children.Add(codeBox);
                         ContentDialog urlDialog = new()
                         {
-                            FontFamily = (FontFamily)Application.Current.Resources["Font"],
                             Title = MainLang.ManualOpen,
                             PrimaryButtonText = MainLang.Ok,
                             DefaultButton = ContentDialogButton.Primary,
@@ -237,19 +227,19 @@ public class Account
         var stackPanel = new StackPanel { Spacing = 10, Width = 580 };
         var verificationSeverUrlTextBox = new TextBox
         {
-            FontFamily = (FontFamily)Application.Current.Resources["Font"], TextWrapping = TextWrapping.Wrap,
+            TextWrapping = TextWrapping.Wrap,
             Watermark = MainLang.VerificationServer, Text = server1, HorizontalAlignment = HorizontalAlignment.Stretch,
             Width = 500
         };
         var emailTextBox = new TextBox
         {
-            FontFamily = (FontFamily)Application.Current.Resources["Font"], TextWrapping = TextWrapping.Wrap,
+            TextWrapping = TextWrapping.Wrap,
             Watermark = MainLang.EmailAddress, Text = email1, HorizontalAlignment = HorizontalAlignment.Stretch,
             Width = 500
         };
         var passwordTextBox = new TextBox
         {
-            FontFamily = (FontFamily)Application.Current.Resources["Font"], TextWrapping = TextWrapping.Wrap,
+            TextWrapping = TextWrapping.Wrap,
             Watermark = MainLang.AccountPassword, Text = password1, HorizontalAlignment = HorizontalAlignment.Stretch,
             Width = 500
         };
@@ -258,7 +248,6 @@ public class Account
         stackPanel.Children.Add(passwordTextBox);
         ContentDialog thirdPartyDialog = new()
         {
-            FontFamily = (FontFamily)Application.Current.Resources["Font"],
             Title = MainLang.ThirdPartyLogin,
             PrimaryButtonText = MainLang.Ok,
             CloseButtonText = MainLang.Cancel,

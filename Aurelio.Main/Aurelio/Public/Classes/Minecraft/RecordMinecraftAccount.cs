@@ -10,8 +10,6 @@ using MinecraftSkinRender;
 using MinecraftSkinRender.Image;
 using MinecraftSkinRender.OpenGL;
 using Newtonsoft.Json;
-using Silk.NET.OpenGL;
-using Silk.NET.Windowing;
 using SkiaSharp;
 
 namespace Aurelio.Public.Classes.Minecraft;
@@ -38,8 +36,7 @@ public sealed record RecordMinecraftAccount : INotifyPropertyChanged
 
     public string Name { get; set; } = "Unnamed";
     public string UUID { get; set; }
-    [JsonIgnore]
-    public string FormatLastUsedTime => Calculator.FormatUsedTime(LastUsedTime);
+    [JsonIgnore] public string FormatLastUsedTime => Calculator.FormatUsedTime(LastUsedTime);
     public DateTime LastUsedTime { get; set; } = DateTime.MinValue;
     public DateTime AddTime { get; set; } = DateTime.MinValue;
     public string? Data { get; set; }
@@ -61,7 +58,7 @@ public sealed record RecordMinecraftAccount : INotifyPropertyChanged
 
         using var stream = new MemoryStream(Convert.FromBase64String(Skin));
         using var skin = SKBitmap.Decode(stream);
-        var image =Skin2DHeadTypeB.MakeHeadImage(skin);
+        var image = Skin2DHeadTypeB.MakeHeadImage(skin);
         using var imageData = image.Encode(SKEncodedImageFormat.Png, 100);
         using var imageStream = new MemoryStream(imageData.ToArray());
         return Bitmap.DecodeToWidth(imageStream, 220);
@@ -96,90 +93,5 @@ public sealed record RecordMinecraftAccount : INotifyPropertyChanged
         field = value;
         OnPropertyChanged(propertyName);
         return true;
-    }
-
-    public void Render3D()
-    {
-        using var window = Silk.NET.Windowing.Window.Create(WindowOptions.Default with
-        {
-            API = GraphicsAPI.Default with
-            {
-                // API = ContextAPI.OpenGL,
-                // Version = new(3, 0)
-            },
-            Size = new(400, 400),
-            VSync = true
-        });
-
-        // Declare some variables
-        GL gl = null;
-        SkinRenderOpenGL? skin = null;
-
-        // Our loading function
-        window.Load += () =>
-        {
-            gl = window.CreateOpenGL();
-            skin = new(new SlikOpenglApi(gl))
-            {
-                IsGLES = true
-            };
-            byte[] imageBytes = Convert.FromBase64String(Skin);
-
-            using var stream = new MemoryStream(imageBytes);
-            var img = SKBitmap.Decode(stream);
-            skin.SetSkinTex(img);
-            skin.SkinType = SkinType.NewSlim;
-            skin.EnableTop = true;
-            skin.RenderType = SkinRenderType.Normal;
-            skin.Animation = true;
-            skin.EnableCape = true;
-            skin.FpsUpdate += (a, b) => { Console.WriteLine("Fps: " + b); };
-            skin.BackColor = new(1, 1, 1, 1);
-            skin.Width = window.FramebufferSize.X;
-            skin.Height = window.FramebufferSize.Y;
-            skin.OpenGlInit();
-        };
-
-        window.FramebufferResize += s =>
-        {
-            if (skin == null)
-            {
-                return;
-            }
-
-            skin.Width = s.X;
-            skin.Height = s.Y;
-        };
-
-        // The render function
-        window.Render += delta =>
-        {
-            if (skin == null)
-            {
-                return;
-            }
-
-            skin.Rot(0, 1f);
-            skin.Tick(delta);
-            skin.OpenGlRender(0);
-            //gl.Clear(ClearBufferMask.ColorBufferBit);
-            //gl.ClearColor(0, 0, 1, 0);
-            //window.SwapBuffers();
-        };
-
-        // The closing function
-        window.Closing += () =>
-        {
-            if (skin == null)
-            {
-                return;
-            }
-
-            skin.OpenGlDeinit();
-            // Unload OpenGL
-            gl?.Dispose();
-        };
-
-        window.Run();
     }
 }

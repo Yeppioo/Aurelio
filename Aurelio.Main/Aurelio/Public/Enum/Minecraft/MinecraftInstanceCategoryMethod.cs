@@ -5,5 +5,6 @@ public enum MinecraftInstanceCategoryMethod
     None,
     MinecraftVersion,
     Loaders,
-    Tag
+    Tag,
+    FolderName
 }

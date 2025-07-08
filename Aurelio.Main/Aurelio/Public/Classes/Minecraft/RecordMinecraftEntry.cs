@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Aurelio.Public.Enum.Minecraft;
 using Aurelio.Public.Module.Value;
 using Avalonia.Media.Imaging;
 using MinecraftLaunch.Base.Enums;
@@ -18,6 +19,7 @@ public class RecordMinecraftEntry
     public Bitmap Icon { get; }
     public MinecraftInstanceSettingEntry SettingEntry { get; } = new();
     public RecordMinecraftFolderEntry? ParentMinecraftFolder => Module.Value.Minecraft.Calculator.GetMinecraftFolderByEntry(MlEntry);
+    public string InstancePath => Module.Value.Minecraft.Calculator.GetMinecraftSpecialFolder(MlEntry, MinecraftSpecialFolder.InstanceFolder);
     public RecordMinecraftEntry(MinecraftEntry mlEntry)
     {
         Id = mlEntry.Id;

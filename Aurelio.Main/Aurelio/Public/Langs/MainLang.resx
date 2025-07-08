@@ -1614,4 +1614,7 @@ MacOs 不支持自动更新
   <data name="DaysAgo" xml:space="preserve">
     <value>{day} 天前</value>
   </data>
+  <data name="Folder" xml:space="preserve">
+    <value>文件夹</value>
+  </data>
 </root>

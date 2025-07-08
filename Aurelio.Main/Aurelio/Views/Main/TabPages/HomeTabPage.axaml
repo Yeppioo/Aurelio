@@ -22,8 +22,9 @@
     <UserControl.Resources>
         <converter:ContainerToColumnsConverter x:Key="ContainerToColumnsConverter" />
     </UserControl.Resources>
-    <Border Name="Root">
-        <Grid>
+    <Grid>
+        <Border Name="Root">
+
             <DockPanel>
                 <DockPanel
                     DockPanel.Dock="Top"
@@ -86,6 +87,7 @@
                             <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Version}" />
                             <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Loader}" />
                             <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Tag}" />
+                            <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Folder}" />
                         </ComboBox>
                         <Button
                             Background="{DynamicResource CardBackgroundColor}"
@@ -230,13 +232,13 @@
                     </ScrollViewer>
                 </Border>
             </DockPanel>
-            <ui:ProgressRing
-                Height="100"
-                HorizontalAlignment="Center"
-                IsVisible="False"
-                Name="ProgressRing"
-                VerticalAlignment="Center"
-                Width="100" />
-        </Grid>
-    </Border>
+        </Border>
+        <ui:ProgressRing
+            Height="100"
+            HorizontalAlignment="Center"
+            IsVisible="False"
+            Name="ProgressRing"
+            VerticalAlignment="Center"
+            Width="100" />
+    </Grid>
 </UserControl>

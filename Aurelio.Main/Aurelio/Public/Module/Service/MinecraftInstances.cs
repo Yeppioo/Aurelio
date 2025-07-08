@@ -7,12 +7,12 @@ using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Const;
 using Aurelio.Public.Enum.Minecraft;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.Ui.Helper;
 using Avalonia.Threading;
 using DynamicData;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Components.Parser;
-using SukiUI;
 
 namespace Aurelio.Public.Module.Service;
 
@@ -140,6 +140,8 @@ public partial class MinecraftInstances
 
     public static void Categorize(MinecraftInstanceCategoryMethod method)
     {
+        if (Aurelio.App.UiRoot != null)
+            Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
         var filtered = Data.SortedMinecraftCategories
             .FirstOrDefault(x => x.Tag == "filtered")?.Minecrafts;
         Data.SortedMinecraftCategories.Clear();
@@ -158,7 +160,7 @@ public partial class MinecraftInstances
                 {
                     Tag = "all",
                     Name = MainLang.AllInstance,
-                    Minecrafts = new ObservableCollection<RecordMinecraftEntry>(Data.AllMinecraftInstances.ToList()),
+                    Minecrafts = new ObservableCollection<RecordMinecraftEntry>(Data.AllMinecraftInstances.OrderBy(x => x.Id).ToList()),
                     Expanded = true
                 });
                 break;
@@ -173,6 +175,7 @@ public partial class MinecraftInstances
                 {
                     var minecraftsWithTag = Data.AllMinecraftInstances
                         .Where(minecraft => minecraft.Tags.Contains(tag))
+                        .OrderBy(x => x.Id)
                         .ToList();
 
                     if (minecraftsWithTag.Any())
@@ -187,8 +190,11 @@ public partial class MinecraftInstances
                     }
                 }
 
-                var minecraftsWithoutTag = new ObservableCollection<RecordMinecraftEntry>
-                    (Data.AllMinecraftInstances.Where(x => x.Tags.Length == 0));
+                var minecraftsWithoutTag = new ObservableCollection<RecordMinecraftEntry>(
+                    Data.AllMinecraftInstances
+                        .Where(x => x.Tags.Length == 0)
+                        .OrderBy(x => x.Id)
+                        .ToList());
                 Data.SortedMinecraftCategories.Add(new MinecraftCategoryEntry()
                 {
                     Name = MainLang.Unclassified,
@@ -208,6 +214,7 @@ public partial class MinecraftInstances
                 {
                     var minecraftsWithLoader = Data.AllMinecraftInstances
                         .Where(minecraft => minecraft.Loaders.Contains(loader))
+                        .OrderBy(x => x.Id)
                         .ToList();
 
                     if (minecraftsWithLoader.Any())
@@ -222,6 +229,35 @@ public partial class MinecraftInstances
                     }
                 }
 
+                break;
+                
+            case MinecraftInstanceCategoryMethod.FolderName:
+                // 按文件夹名称分类
+                var folderGroups = Data.AllMinecraftInstances
+                    .GroupBy(minecraft => {
+                        var folder = Module.Value.Minecraft.Calculator.GetMinecraftFolderByEntry(minecraft.MlEntry);
+                        return folder?.Name ?? MainLang.Unclassified;
+                    })
+                    .OrderBy(group => group.Key);
+                
+                foreach (var folderGroup in folderGroups)
+                {
+                    // 按名称排序文件夹内的实例
+                    var minecraftsInFolder = folderGroup
+                        .OrderBy(x => x.Id)
+                        .ToList();
+                    
+                    if (minecraftsInFolder.Any())
+                    {
+                        Data.SortedMinecraftCategories.Add(new MinecraftCategoryEntry()
+                        {
+                            Tag = $"folder-{folderGroup.Key}",
+                            Name = folderGroup.Key,
+                            Minecrafts = new ObservableCollection<RecordMinecraftEntry>(minecraftsInFolder),
+                            Expanded = true
+                        });
+                    }
+                }
                 break;
 
             case MinecraftInstanceCategoryMethod.MinecraftVersion:
@@ -285,24 +321,32 @@ public partial class MinecraftInstances
 
                         foreach (var majorVersion in sortedVersions)
                         {
+                            // 按名称排序版本内的实例
+                            var sortedInstances = majorVersions[majorVersion]
+                                .OrderBy(x => x.Id)
+                                .ToList();
+                                
                             Data.SortedMinecraftCategories.Add(new MinecraftCategoryEntry()
                             {
                                 Tag = $"release-{majorVersion}",
                                 Name = $"Minecraft {majorVersion}",
-                                Minecrafts =
-                                    new ObservableCollection<RecordMinecraftEntry>(majorVersions[majorVersion]),
+                                Minecrafts = new ObservableCollection<RecordMinecraftEntry>(sortedInstances),
                                 Expanded = true
                             });
                         }
                     }
                     else
                     {
-                        // 对于非Release版本，直接添加
+                        // 对于非Release版本，直接添加，并按名称排序
+                        var sortedInstances = minecraftsInGroup
+                            .OrderBy(x => x.Id)
+                            .ToList();
+                            
                         Data.SortedMinecraftCategories.Add(new MinecraftCategoryEntry()
                         {
                             Tag = versionTypeName.ToLower(),
                             Name = versionTypeName,
-                            Minecrafts = new ObservableCollection<RecordMinecraftEntry>(minecraftsInGroup),
+                            Minecrafts = new ObservableCollection<RecordMinecraftEntry>(sortedInstances),
                             Expanded = true
                         });
                     }
@@ -311,8 +355,13 @@ public partial class MinecraftInstances
                 break;
         }
 
-        if (Data.SettingEntry != null)
+        // 如果用户设置了其他排序方法，则应用该排序方法
+        if (Data.SettingEntry != null && Data.SettingEntry.MinecraftInstanceSortMethod != MinecraftInstanceSortMethod.Name)
             Sort(Data.SettingEntry.MinecraftInstanceSortMethod);
+
+        if (Aurelio.App.UiRoot != null)
+            Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
+                .Animate<double>(Visual.OpacityProperty, 0, 1);
     }
 
     [GeneratedRegex(@"^(\d+)\.(\d+)(?:\.(\d+))?")]

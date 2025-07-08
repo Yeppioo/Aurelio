@@ -1,41 +1,26 @@
-﻿using Aurelio.Public.Classes.Interfaces;
-using Aurelio.Public.Module.Ui.Helper;
-using Aurelio.ViewModels;
+using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Interactivity;
+using LiteSkinViewer3D.Shared.Enums;
 using PointerType = LiteSkinViewer3D.Shared.Enums.PointerType;
 
-namespace Aurelio.Views.Main.SubPages.SettingPages;
+namespace Aurelio.Views.Main;
 
-public partial class AccountPage : PageMixModelBase, IAurelioPage
+public partial class TestWindow : Window
 {
-    public AccountPage()
+    public TestWindow()
     {
         InitializeComponent();
-        DataContext = Data.Instance;
-        RootElement = Root;
-        InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
-        BindingEvent();
     }
+    
+    protected override void OnLoaded(RoutedEventArgs e) {
+        base.OnLoaded(e);
 
-    private void BindingEvent()
-    {
-        AddAccount.Click += (_, _) => { _ = Public.Module.Op.Account.AddByUi(this); };
-        DelSelectedAccount.Click += (_, _) => { Public.Module.Op.Account.RemoveSelected(); };
-        
         skinViewer.PointerMoved += SkinViewer_PointerMoved;
         skinViewer.PointerPressed += SkinViewer_PointerPressed;
         skinViewer.PointerReleased += SkinViewer_PointerReleased;
-        
-        Data.SettingEntry.PropertyChanged+=(_,e)=>{
-            if (e.PropertyName == nameof(Data.SettingEntry.UsingMinecraftAccount)) {
-                skinViewer.ChangeSkin();
-            }
-        };
     }
 
-    public Border RootElement { get; set; }
-    public PageLoadingAnimator InAnimator { get; set; }
-    
     private void SkinViewer_PointerReleased(object? sender, PointerReleasedEventArgs e) {
         var po = e.GetCurrentPoint(this);
         var pos = e.GetPosition(this);

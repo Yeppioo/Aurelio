@@ -20,6 +20,6 @@ sealed class Program
             .UseManagedSystemDialogs()
             .UseHotReload()
             .UsePlatformDetect()
-            // .WithInterFont()
+            .WithInterFont()
             .LogToTrace();
 }

@@ -13,10 +13,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>embedded</DebugType>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="SkiaSharp" Version="2.88.9" />
-    <PackageReference Remove="HotAvalonia" />
-    <PackageReference Remove="Avalonia.Markup.Xaml.Loader" />
   </ItemGroup>
 
 </Project>

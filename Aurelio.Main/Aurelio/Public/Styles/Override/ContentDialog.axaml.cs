@@ -1,7 +1,7 @@
 using Avalonia.Input;
 using Avalonia.VisualTree;
 
-namespace Aurelio.Public.Styles;
+namespace Aurelio.Public.Styles.Override;
 
 public partial class ContentDialog : ResourceDictionary
 {

@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:content="clr-namespace:SukiUI.Content"
     xmlns:controls="https://github.com/kikipoulet/SukiUI"
+    xmlns:controls1="clr-namespace:Aurelio.Public.Controls"
+    xmlns:ui="clr-namespace:Aurelio.Public.Module.Ui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="20">
@@ -26,7 +27,7 @@
                     Name="PART_RootBorder">
                     <Border CornerRadius="{TemplateBinding CornerRadius}" Name="PART_InnerBorder">
                         <Panel>
-                            <controls:ContentExpandControl
+                            <controls1:ContentExpandControl
                                 Content="{TemplateBinding Content}"
                                 ContentTemplate="{TemplateBinding ContentTemplate}"
                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -64,7 +65,7 @@
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center" />
                                             <PathIcon
-                                                Data="{x:Static controls:Icons.Plus}"
+                                                Data="{x:Static ui:Icons.Plus}"
                                                 Grid.Column="2"
                                                 Height="10"
                                                 Margin="10,0,0,0"
@@ -80,7 +81,7 @@
             </ControlTemplate>
         </Setter>
 
-        <Style Selector="^:not(.no-transitions) /template/ controls|ContentExpandControl#PART_ContentExpand">
+        <Style Selector="^:not(.no-transitions) /template/ controls1|ContentExpandControl#PART_ContentExpand">
             <Setter Property="Transitions">
                 <Transitions>
                     <DoubleTransition
@@ -99,20 +100,20 @@
             <Setter Property="ClipToBounds" Value="False" />
         </Style>
 
-        <Style Selector="^ /template/ controls|ContentExpandControl#PART_ContentExpand">
+        <Style Selector="^ /template/ controls1|ContentExpandControl#PART_ContentExpand">
             <Setter Property="Multiplier" Value="0" />
         </Style>
 
-        <Style Selector="^:expanded /template/ controls|ContentExpandControl#PART_ContentExpand">
+        <Style Selector="^:expanded /template/ controls1|ContentExpandControl#PART_ContentExpand">
             <Setter Property="Multiplier" Value="1" />
         </Style>
 
         <Style Selector="^:expanded /template/ PathIcon#PART_Icon">
-            <Setter Property="Data" Value="{x:Static controls:Icons.Minus}" />
+            <Setter Property="Data" Value="{x:Static ui:Icons.Minus}" />
         </Style>
 
         <Style Selector="^:up">
-            <Style Selector="^ /template/ controls|ContentExpandControl#PART_ContentExpand">
+            <Style Selector="^ /template/ controls1|ContentExpandControl#PART_ContentExpand">
                 <Setter Property="Orientation" Value="Vertical" />
                 <Setter Property="VerticalAlignment" Value="Bottom" />
                 <Setter Property="Margin" Value="0,0,0,48" />
@@ -128,7 +129,7 @@
         </Style>
 
         <Style Selector="^:down">
-            <Style Selector="^ /template/ controls|ContentExpandControl#PART_ContentExpand">
+            <Style Selector="^ /template/ controls1|ContentExpandControl#PART_ContentExpand">
                 <Setter Property="Orientation" Value="Vertical" />
                 <Setter Property="VerticalAlignment" Value="Top" />
                 <Setter Property="Margin" Value="0,48,0,0" />
@@ -140,7 +141,7 @@
         </Style>
 
         <Style Selector="^:left">
-            <Style Selector="^ /template/ controls|ContentExpandControl#PART_ContentExpand">
+            <Style Selector="^ /template/ controls1|ContentExpandControl#PART_ContentExpand">
                 <Setter Property="Orientation" Value="Horizontal" />
                 <Setter Property="HorizontalAlignment" Value="Right" />
                 <Setter Property="Margin" Value="0,0,48,0" />
@@ -153,7 +154,7 @@
         </Style>
 
         <Style Selector="^:right">
-            <Style Selector="^ /template/ controls|ContentExpandControl#PART_ContentExpand">
+            <Style Selector="^ /template/ controls1|ContentExpandControl#PART_ContentExpand">
                 <Setter Property="Orientation" Value="Horizontal" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="Margin" Value="48,0,0,0" />

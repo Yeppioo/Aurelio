@@ -1,5 +1,5 @@
 ﻿<ResourceDictionary
-    x:Class="Aurelio.Public.Styles.ContentDialog"
+    x:Class="Aurelio.Public.Styles.Override.ContentDialog"
     x:CompileBindings="True"
     xmlns="https://github.com/avaloniaui"
     xmlns:core="using:FluentAvalonia.Core"
@@ -39,7 +39,7 @@
                             HorizontalAlignment="Center"
                             Margin="100"
                             MaxHeight="{DynamicResource ContentDialogMaxHeight}"
-                            MaxWidth="{DynamicResource ContentDialogMaxWidth}"
+                            MaxWidth="670"
                             MinHeight="{DynamicResource ContentDialogMinHeight}"
                             MinWidth="440"
                             Name="BackgroundElement"

@@ -6,6 +6,7 @@
     x:DataType="data:Data"
     xmlns="https://github.com/avaloniaui"
     xmlns:controls="clr-namespace:Aurelio.Public.Controls"
+    xmlns:controls1="clr-namespace:LiteSkinViewer3D.Avalonia.Controls;assembly=LiteSkinViewer3D"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:data="clr-namespace:Aurelio.Public.Const"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -21,12 +22,13 @@
                     Classes="card"
                     DockPanel.Dock="Right"
                     Margin="10,0,0,0"
-                    Width="300">
-                    <Border
-                        ClipToBounds="True"
-                        CornerRadius="10"
-                        Margin="40">
-                        <Image Source="{Binding SettingEntry.UsingMinecraftAccount.Body}" />
+                    Width="330">
+                    <Border ClipToBounds="True" CornerRadius="10">
+                        <controls1:SkinRender3D
+                            CapeVisibility="True"
+                            EnableAnimation="True"
+                            Focusable="True"
+                            Name="skinViewer" />
                     </Border>
                 </Border>
                 <Border Classes="card" DockPanel.Dock="Left">

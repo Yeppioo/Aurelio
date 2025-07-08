@@ -20,16 +20,40 @@
                     <Border
                         Background="{DynamicResource CardBackgroundColor}"
                         ClipToBounds="True"
-                        CornerRadius="{DynamicResource CardCornerRadius}"
+                        CornerRadius="6"
+                        DockPanel.Dock="Left"
                         Height="48"
                         HorizontalAlignment="Left"
                         Margin="10"
                         Width="48">
                         <Image Source="{Binding Entry.Icon}" />
                     </Border>
-                    <StackPanel DockPanel.Dock="Right">
-                        <TextBlock>
-                            <Run Text="{Binding Entry.ParentMinecraftFolder.Name}" />
+                    <SplitButton
+                        Classes="Tertiary"
+                        Content="Primary"
+                        DockPanel.Dock="Right"
+                        Margin="0,0,15,0"
+                        Tag="M448 480L64 480c-35.3 0-64-28.7-64-64L0 96C0 60.7 28.7 32 64 32l128 0c20.1 0 39.1 9.5 51.2 25.6l19.2 25.6c6 8.1 15.5 12.8 25.6 12.8l160 0c35.3 0 64 28.7 64 64l0 256c0 35.3-28.7 64-64 64zM184 272c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z" />
+                    <StackPanel
+                        DockPanel.Dock="Right"
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="16">
+                                <Run Text="{Binding Entry.ParentMinecraftFolder.Name}" />
+                                <Run Text="/" />
+                                <Run Text="{Binding Entry.Id}" />
+                            </TextBlock>
+                            <TextBlock Margin="10,0,0,0" VerticalAlignment="Bottom">
+                                <Run Text="(" />
+                                <Run Text="{Binding Entry.Loader}" />
+                                <Run Text="," />
+                                <Run Text="{Binding Entry.MlEntry.Version.VersionId}" />
+                                <Run Text=")" />
+                            </TextBlock>
+                        </StackPanel>
+                        <TextBlock FontSize="13" Foreground="{DynamicResource GrayColor}">
+                            <Run Text="{Binding Entry.InstancePath}" />
                         </TextBlock>
                     </StackPanel>
                 </DockPanel>
