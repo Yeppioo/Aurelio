@@ -7,6 +7,7 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Module;
 using Avalonia.Data.Converters;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Ursa.Controls;
 
 namespace Aurelio.Public.Const;
@@ -22,9 +23,5 @@ public class UiProperty : ReactiveObject
     public static ObservableCollection<NotificationEntry> NotificationCards { get; } = [];
     public static WindowNotificationManager Notification { get; set; }
     public static WindowToastManager Toast { get; set; }
-
-    public UiProperty()
-    {
-    }
+    [Reactive] public bool IsEnable3DSkinRender { get; set; }
 }
-

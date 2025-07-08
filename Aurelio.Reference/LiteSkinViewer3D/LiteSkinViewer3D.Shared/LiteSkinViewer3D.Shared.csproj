@@ -12,6 +12,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Animations\" />
+	  <AvaloniaXaml Remove="Animations\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Animations\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Remove="Animations\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AdditionalFiles Remove="Animations\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Animations\**" />
 	</ItemGroup>
 </Project>

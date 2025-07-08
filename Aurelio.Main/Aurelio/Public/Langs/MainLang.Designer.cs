@@ -4346,6 +4346,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 3D视图.
+        /// </summary>
+        public static string View3D {
+            get {
+                return ResourceManager.GetString("View3D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 查看更新内容.
         /// </summary>
         public static string ViewUpdatedContent {

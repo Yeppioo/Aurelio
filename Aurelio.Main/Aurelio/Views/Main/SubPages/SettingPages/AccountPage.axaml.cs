@@ -8,6 +8,7 @@ namespace Aurelio.Views.Main.SubPages.SettingPages;
 
 public partial class AccountPage : PageMixModelBase, IAurelioPage
 {
+    private bool _loadedSkin = false;
     public AccountPage()
     {
         InitializeComponent();
@@ -26,10 +27,15 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
         skinViewer.PointerPressed += SkinViewer_PointerPressed;
         skinViewer.PointerReleased += SkinViewer_PointerReleased;
         
-        Data.SettingEntry.PropertyChanged+=(_,e)=>{
+        Data.UiProperty.PropertyChanged+=(_,e)=>{
             if (e.PropertyName == nameof(Data.SettingEntry.UsingMinecraftAccount)) {
-                skinViewer.ChangeSkin();
+                skinViewer.ChangeSkin(Data.SettingEntry.UsingMinecraftAccount.Skin);
             }
+
+            if (e.PropertyName != nameof(Data.UiProperty.IsEnable3DSkinRender)
+                || !Data.UiProperty.IsEnable3DSkinRender || _loadedSkin) return;
+            _loadedSkin = true;
+            skinViewer.ChangeSkin(Data.SettingEntry.UsingMinecraftAccount.Skin);
         };
     }
 

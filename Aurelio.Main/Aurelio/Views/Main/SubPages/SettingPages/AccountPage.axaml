@@ -7,6 +7,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:controls="clr-namespace:Aurelio.Public.Controls"
     xmlns:controls1="clr-namespace:LiteSkinViewer3D.Avalonia.Controls;assembly=LiteSkinViewer3D"
+    xmlns:converter="clr-namespace:Aurelio.ViewModels.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:data="clr-namespace:Aurelio.Public.Const"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,23 +16,16 @@
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <converter:ReverseBoolConverter x:Key="ReverseBoolConverter" />
+    </UserControl.Resources>
     <Border Name="Root">
         <Border Margin="15,0,15,15">
-            <DockPanel>
+            <Grid ColumnDefinitions="*, Auto, 330">
                 <Border
                     Classes="card"
-                    DockPanel.Dock="Right"
-                    Margin="10,0,0,0"
-                    Width="330">
-                    <Border ClipToBounds="True" CornerRadius="10">
-                        <controls1:SkinRender3D
-                            CapeVisibility="True"
-                            EnableAnimation="True"
-                            Focusable="True"
-                            Name="skinViewer" />
-                    </Border>
-                </Border>
-                <Border Classes="card" DockPanel.Dock="Left">
+                    Grid.Column="0"
+                    Margin="0,0,5,0">
                     <DockPanel>
                         <DockPanel
                             Dock="Top"
@@ -122,7 +116,37 @@
                         </ListBox>
                     </DockPanel>
                 </Border>
-            </DockPanel>
+                <GridSplitter Grid.Column="1" ShowsPreview="True" />
+                <Border
+                    Classes="card"
+                    Grid.Column="2"
+                    Margin="5,0,0,0">
+                    <Border
+                        ClipToBounds="True"
+                        CornerRadius="10"
+                        Margin="10">
+                        <Grid>
+                            <Image
+                                IsVisible="{Binding UiProperty.IsEnable3DSkinRender, Converter={StaticResource ReverseBoolConverter}}"
+                                Margin="30,30,30,50"
+                                Source="{Binding SettingEntry.UsingMinecraftAccount.Body}" />
+                            <controls1:SkinRender3D
+                                CapeVisibility="False"
+                                EnableAnimation="True" 
+                                Focusable="True"
+                                IsVisible="{Binding UiProperty.IsEnable3DSkinRender}"
+                                Margin="0,0,0,40"
+                                Name="skinViewer" />
+                            <ToggleSwitch
+                                HorizontalAlignment="Center"
+                                IsChecked="{Binding UiProperty.IsEnable3DSkinRender, Mode=TwoWay}"
+                                OffContent="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.View3D}"
+                                OnContent="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.View3D}"
+                                VerticalAlignment="Bottom" />
+                        </Grid>
+                    </Border>
+                </Border>
+            </Grid>
         </Border>
     </Border>
 </UserControl>

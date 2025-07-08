@@ -23,6 +23,7 @@ public sealed class SkinRender3D : OpenGlControlBase, ICustomHitTest {
     private OpenGLSkinViewerBase? _skin;
 
     private DateTime _time;
+    private string _base64;
 
     public static readonly StyledProperty<bool> EnableAnimationProperty =
         AvaloniaProperty.Register<SkinRender3D, bool>("EnableAnimation", defaultValue: true);
@@ -158,13 +159,13 @@ public sealed class SkinRender3D : OpenGlControlBase, ICustomHitTest {
         _skin?.AddDis(x);
     }
 
-    public void ChangeSkin()
+    public void ChangeSkin(string? base64)
     {
-        var s = Convert.FromBase64String(
-            "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAGyUlEQVR4Xu1aTY/jRBTc386BAzckOHHhxAVOHBBCWmA1gmVHEMFGgDQsiNFKw4jRiLAwmt0wIrjaLqdS/dp2EieZ2aWkktuvn9v9yv3x7OTevR5cHB8twN8ePkj88+xsMZ/NFs+ffLG4+vrT1n762efJD0SZdm9vXVxMvlqAbsf9Wb6cfpPVR7aNkIKqOoAGGTwFAPchQCkYFWFnYCAMDiJcXV62QiBYUgUgvb1tgfu7badIwTfDkKQIIIMu0dsbC7i323YCCoBhODv5NhFl2HRkLM5/X+GuBdgbfAqQOvdT0C+uV1nZdjEF9o4UsE2Blo0QJQHGWAT70HWPrrrBwHwHz47ut08dZbWXBECdt7cp/P5ep+clWwgf0jrkGWSXAKBezx2CeQKIMmzw1fZ1dHm/HH5/r3foFhltl+192YnUqeqY9vfpgzoArvSVHTdlp1O5smk9r+cOgTZaAVBu/NSX9/Z9/p+nq4JQIPqrzaHbJO+v9QQX8tQoTloBqs6+ePRROupT0qe2EoBcz0Y9V0A5jZQm2NZXAiIYvIqg/dPrl1fl8G1ShQGwm7UCIODrow/rwGUEqADzn05WqAKgsfZJN+lxsjUjhEMf18DOehXg5vvlsGbw2n7x+uN6q42EIzx4oBUAjSH4vz95Px1RgSFOpcH3Xns9kcHznPXwhWC4Fke/HmVOG28fnWHwKkI7QhoBYOP1bQAyAnldBF4T2tAJHQHaWQb68J13MwFoA+HLoFjGkQKoTdtnHfqhwQO8pmvBYz3bcMDOe3od+1pnesd1/s4LmNd//ObbiTezP6qhPWm3OJRhY33p+laAjvqocwDqBwvQTAMH2i61D6Q6dtJfZmDjDbr2ebB0vbJU750itC4SQW1d7QCRCJEt4eK7SbuK4/jv/HlLX1kj8C2wRO4GEaPFyqEPAP7ML9xvY+xDAN0d/Nzbc6gACJ5CuN/GGFMALpo7FaAqD7luMMYUgK/GLgDm3xgCwH/rKYCAnSpARNbB14d4nwDrMlt8RYCQTb3HWUTWQMVnJz8uZj9M0zEi6xhcyhyny10Dq7KLprsK/RkkbDjqLkFbFvjoAnjDcgNPf0m9kQbU7suT+kWJH05RZgIU+jNPEAGYB7CNjE0bGZt6j7OILHDy2V9Z4K0AVV2fAAiAdpwzBS75p6A1UZrUmWAW+K4EwFOaY1Fp5jhsN6e/hlShNFAmN8zj2Zm06P38OOssfOHH0cHMjWVtw4Pnq66TInicRWRPXunzy+aZC8AhzDctvJmB6BBtYOTPoFnmyw7bUKI9D7wVoKqL3giLyILeRoAmQDztqNN8wi4A/DkSWObR2yE9cJL1HmcRWdAjCaAjANTAb70A3O6ywCMBZEiT6DyC0Q5HCxcF43BXAXwaOb0tcm0BfI8HmfV5gkSq78qcloDQCXxkAVH+4K03ss7Snwse1wCWU9u+AMpCGLKp9ziL8OCUTx99GXLFb1K/xYErc7zqBD6w6Gc2T44ogArBwElmnp46e1te53EWobm+kzd2qo93AEQQzNFBLUd0ITR4Xj+0va3fDZDmuo3Bun0TsHMerNbdOowpwJ3EKyXArqcAgDXCbcBBpoAGjHIkQAnr+N4pXJ/+kgLDkWU/V7sDLzlYjXmOcteXW+T+Q2wvPZgaq80zQGZ5WWIkCdBameAukLY2e0eIfp4iuA1qWW17w/zqagG6fV0wtdWnghzf/QguiswE1XanwCEcPW39HhDV4ch3AbXdKTBAfdo6H/UJK+iPOpa7Rsyth38PgC0KnOgSwBdAbTNCX/0g8FXX7SXwRYTn/B6gPoS+uNCmU4CB0+aB9wXYV5/BvwVo4P56HH0PgB8D4hRg5/GfA5DtqW+U9ekacFAwULf3oTTH+6ALI6+PFsu9oS/31/rSk3Qbof46Ejh6dKeI2t4rmOv3CaJAp/W3Q/+A4v4O/eaINrb+wDEGhnYeGFsAnOt7xUEwtPPA6AJUx4MJ8MpPAWxzfd8L0DmnChBRfbLfHOx3h5CVj/ZhK2zyvq8+nkNQNByzwBr2+njAzjEF2Bb+07n/f6DI8/r/B9kPG/LjRpHT5ceVrE6+CUTkNbx+a3jw/v+BIpv/H2TBrynAweH/HfD/D3QRvv7jJtgpwrT+b4D342DI5u+Q4U9Wvh58EuBJ/Rt/RNS99AJ40M7/BegRwP2d7p/BX4u7kAV/Xm9zaYvzgJ2Vb7YATpe/8ZfYtwi6v3PF2ZMUfQ32/d3p15HM/tzfCV8PvnMB3Ncu4EJ0wf87kP1/oIPw9SxSs0SW/RxH78eo6MvbtZ4dVGru30UNTOn/BfDzMQX4D4HDSUBYSgn4AAAAAElFTkSuQmCC");
-        var skin = SKBitmap.Decode(new MemoryStream(s));
-        // var cape = SKBitmap.Decode(@"C:\Users\wxysd\Desktop\cape.png");
+        if(base64==null) return;
+        _base64 = base64;
+        var skin = SKBitmap.Decode(new MemoryStream( Convert.FromBase64String(base64)));
         _skin.SetSkinTex(skin);
+        // var cape = SKBitmap.Decode(@"C:\Users\wxysd\Desktop\cape.png");
         // _skin.SetCapeTex(cape);
 
         RequestNextFrameRendering();
@@ -220,7 +221,7 @@ public sealed class SkinRender3D : OpenGlControlBase, ICustomHitTest {
             Debug.WriteLine(type.ToString());
         };
 
-        ChangeSkin();
+        ChangeSkin(_base64);
         _skin.OpenGlInit();
 
     }

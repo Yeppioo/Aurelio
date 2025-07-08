@@ -1617,4 +1617,7 @@ MacOs 不支持自动更新
   <data name="Folder" xml:space="preserve">
     <value>文件夹</value>
   </data>
+  <data name="View3D" xml:space="preserve">
+    <value>3D视图</value>
+  </data>
 </root>
