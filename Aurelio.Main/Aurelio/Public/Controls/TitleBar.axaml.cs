@@ -1,4 +1,5 @@
 using System;
+using Aurelio.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -7,78 +8,79 @@ using Avalonia.VisualTree;
 
 namespace Aurelio.Public.Controls;
 
-public partial class TitleBar : UserControl
+public partial class TitleBar : PageMixModelBase
 {
-    public static readonly StyledProperty<string> TitleProperty =
-        AvaloniaProperty.Register<TitleBar, string>(nameof(Title), "");
-
-    public static readonly StyledProperty<bool> IsCloseBtnExitAppProperty =
-        AvaloniaProperty.Register<TitleBar, bool>(nameof(IsCloseBtnExitApp));
-
-    public static readonly StyledProperty<bool> IsCloseBtnHideWindowProperty =
-        AvaloniaProperty.Register<TitleBar, bool>(nameof(IsCloseBtnHideWindow));
-
-    public static readonly StyledProperty<bool> IsCloseBtnShowProperty =
-        AvaloniaProperty.Register<TitleBar, bool>(nameof(IsCloseBtnShow), true);
-
-    public static readonly StyledProperty<bool> IsMaxBtnShowProperty =
-        AvaloniaProperty.Register<TitleBar, bool>(nameof(IsMaxBtnShow), true);
+    // public static readonly StyledProperty<string> DataSourceProperty =
+    //     AvaloniaProperty.Register<TitleBar, string>(nameof(DataSource));
     
-    public static readonly StyledProperty<bool> IsMinBtnShowProperty =
-        AvaloniaProperty.Register<TitleBar, bool>(nameof(IsMinBtnShow), true);
+    // public string DataSource
+    // {
+    //     get => GetValue(DataSourceProperty);
+    //     set => SetValue(DataSourceProperty, value);
+    // }
 
-    private DateTime? lastClickTime;
+    private string _title;
+    private object _leftContent;
+    private bool _isCloseBtnExitApp;
+    private bool _isCloseBtnHideWindow;
+    private bool _isCloseBtnShow = true;
+    private bool _isMaxBtnShow = true;
+    private bool _isMinBtnShow = true;
 
+    public Data Data => Data.Instance;
+    
     public TitleBar()
     {
         InitializeComponent();
+        DataContext = this;
         CloseButton.Click += CloseButton_Click;
         MaximizeButton.Click += MaximizeButton_Click;
         MinimizeButton.Click += MinimizeButton_Click;
         MoveDragArea.PointerPressed += MoveDragArea_PointerPressed;
-        Loaded += (_, _) =>
-        {
-            TitleText.Text = Title;
-            CloseButton.IsVisible = IsCloseBtnShow;
-            MaximizeButton.IsVisible = IsMaxBtnShow;
-            MinimizeButton.IsVisible = IsMinBtnShow;
-        };
     }
 
     public string Title
     {
-        get => GetValue(TitleProperty);
-        set => SetValue(TitleProperty, value);
+        get => _title;
+        set => SetField(ref _title, value);
+    }
+
+    public object LeftContent
+    {
+        get => _leftContent;
+        set => SetField(ref _leftContent, value);
     }
 
     public bool IsCloseBtnExitApp
     {
-        get => GetValue(IsCloseBtnExitAppProperty);
-        set => SetValue(IsCloseBtnExitAppProperty, value);
-    }
-
-    public bool IsCloseBtnShow
-    {
-        get => GetValue(IsCloseBtnShowProperty);
-        set => SetValue(IsCloseBtnShowProperty, value);
+        get => _isCloseBtnExitApp;
+        set => SetField(ref _isCloseBtnExitApp, value);
     }
 
     public bool IsCloseBtnHideWindow
     {
-        get => GetValue(IsCloseBtnHideWindowProperty);
-        set => SetValue(IsCloseBtnHideWindowProperty, value);
+        get => _isCloseBtnHideWindow;
+        set => SetField(ref _isCloseBtnHideWindow, value);
+    }
+
+    public bool IsCloseBtnShow
+    {
+        get => _isCloseBtnShow;
+        set => SetField(ref _isCloseBtnShow, value);
     }
 
     public bool IsMaxBtnShow
     {
-        get => GetValue(IsMaxBtnShowProperty);
-        set => SetValue(IsMaxBtnShowProperty, value);
+        get => _isMaxBtnShow;
+        set => SetField(ref _isMaxBtnShow, value);
     }
+
     public bool IsMinBtnShow
     {
-        get => GetValue(IsMinBtnShowProperty);
-        set => SetValue(IsMinBtnShowProperty, value);
+        get => _isMinBtnShow;
+        set => SetField(ref _isMinBtnShow, value);
     }
+
 
     private void MoveDragArea_PointerPressed(object? sender, PointerPressedEventArgs e)
     {
@@ -106,6 +108,8 @@ public partial class TitleBar : UserControl
             e.Handled = true;
         }
     }
+
+    public DateTime? lastClickTime { get; set; }
 
     private void MinimizeButton_Click(object? sender, RoutedEventArgs e)
     {
@@ -146,11 +150,5 @@ public partial class TitleBar : UserControl
                 GC.Collect();
             }
         }
-    }
-    
-    public void AddButton(Button btn)
-    {
-        Panel.Children.Add(btn);
-        Separator.IsVisible = true;
     }
 }

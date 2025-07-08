@@ -22,6 +22,7 @@ public partial class MinecraftInstances
 
     public static async Task Load(string[] path)
     {
+        Aurelio.App.UiRoot.ViewModel.HomeTabPage.Root.IsVisible = false;
         Aurelio.App.UiRoot.ViewModel.HomeTabPage.ProgressRing.IsVisible = true;
         await Task.Run(() =>
         {
@@ -31,9 +32,9 @@ public partial class MinecraftInstances
                 Data.AllMinecraftInstances.AddRange(parser.GetMinecrafts()
                     .Select(x => new RecordMinecraftEntry(x)));
             }
-
-            Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
         });
+        Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
+        Aurelio.App.UiRoot.ViewModel.HomeTabPage.Root.IsVisible = true;
         Aurelio.App.UiRoot.ViewModel.HomeTabPage.ProgressRing.IsVisible = false;
     }
 
@@ -109,12 +110,10 @@ public partial class MinecraftInstances
         }
 
         if (Aurelio.App.UiRoot != null)
-            Dispatcher.UIThread.InvokeAsync(async () =>
-            {
-                if (_cts is { IsCancellationRequested: false }) await _cts.CancelAsync();
-                _cts = Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
-                    .Animate<double>(Visual.OpacityProperty, 0, 1);
-            });
+            if (_cts is { IsCancellationRequested: false })
+                _cts.Cancel();
+        _cts = Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
+            .Animate<double>(Visual.OpacityProperty, 0, 1);
     }
 
     public static void Search(string key, bool ui = true)

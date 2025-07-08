@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Aurelio.Public.Module.Value;
 using Avalonia.Media.Imaging;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Models.Game;
@@ -14,8 +15,9 @@ public class RecordMinecraftEntry
     public string Loader { get; }
     public string[] Tags { get; } = [];
     public string[] Loaders { get; }
+    public Bitmap Icon { get; }
     public MinecraftInstanceSettingEntry SettingEntry { get; } = new();
-    
+    public RecordMinecraftFolderEntry? ParentMinecraftFolder => Module.Value.Minecraft.Calculator.GetMinecraftFolderByEntry(MlEntry);
     public RecordMinecraftEntry(MinecraftEntry mlEntry)
     {
         Id = mlEntry.Id;
@@ -27,54 +29,6 @@ public class RecordMinecraftEntry
             ? ["Vanilla"]
             : (mlEntry as ModifiedMinecraftEntry)?
             .ModLoaders.Select(x => $"{x.Type}").ToArray();
-        SettingEntry.Icon = GetMinecraftIcon(this);
-    }
-    
-    public static Bitmap GetMinecraftIcon(RecordMinecraftEntry entry)
-    {
-        if (entry.MlEntry.IsVanilla)
-        {
-            return entry.MlEntry.Version.Type switch
-            {
-                MinecraftVersionType.Release => Module.IO.Local.Getter.LoadBitmapFromAppFile(
-                    "Aurelio.Public.Assets.McIcons.grass_block_side.png"),
-                MinecraftVersionType.Snapshot => Module.IO.Local.Getter.LoadBitmapFromAppFile(
-                    "Aurelio.Public.Assets.McIcons.crafting_table_front.png"),
-                _ => Module.IO.Local.Getter.LoadBitmapFromAppFile(
-                    "Aurelio.Public.Assets.McIcons.grass_block_side.png")
-            };
-        }
-
-        if (entry.MlEntry is not ModifiedMinecraftEntry e)
-            return Module.IO.Local.Getter.LoadBitmapFromAppFile(
-                "Aurelio.Public.Assets.McIcons.grass_block_side.png");
-        if (e.ModLoaders.Any(a => a.Type == ModLoaderType.Forge))
-        {
-            return Module.IO.Local.Getter.LoadBitmapFromAppFile(
-                "Aurelio.Public.Assets.McIcons.furnace_front.png");
-        }
-
-        if (e.ModLoaders.Any(a => a.Type == ModLoaderType.NeoForge))
-        {
-            return Module.IO.Local.Getter.LoadBitmapFromAppFile(
-                "Aurelio.Public.Assets.McIcons.NeoForgeIcon.png");
-        }
-
-        if (e.ModLoaders.Any(a => a.Type == ModLoaderType.Fabric))
-        {
-            return Module.IO.Local.Getter.LoadBitmapFromAppFile(
-                "Aurelio.Public.Assets.McIcons.FabricIcon.png");
-        }
-
-        if (e.ModLoaders.Any(a => a.Type == ModLoaderType.Quilt))
-        {
-            return Module.IO.Local.Getter.LoadBitmapFromAppFile(
-                "Aurelio.Public.Assets.McIcons.QuiltIcon.png");
-        }
-
-        return Module.IO.Local.Getter.LoadBitmapFromAppFile(
-            e.ModLoaders.Any(a => a.Type == ModLoaderType.OptiFine)
-                ? "Aurelio.Public.Assets.McIcons.OptiFineIcon.png"
-                : "Aurelio.Public.Assets.McIcons.grass_block_side.png");
+        Icon = Module.Value.Minecraft.Calculator.GetMinecraftInstanceIcon(this);
     }
 }

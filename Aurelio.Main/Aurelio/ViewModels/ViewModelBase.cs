@@ -7,6 +7,7 @@ namespace Aurelio.ViewModels;
 
 public abstract class ViewModelBase : ObservableObject , INotifyPropertyChanged , INotifyPropertyChanging
 {
+    public Data Data => Data.Instance;
     public new event PropertyChangedEventHandler? PropertyChanged;
 
     private new void OnPropertyChanged([CallerMemberName] string? propertyName = null)

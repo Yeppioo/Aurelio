@@ -74,7 +74,7 @@ public class MinecraftFolder
             };
             var result = await dialog.ShowAsync();
             if (result != ContentDialogResult.Primary) return;
-            var entry = new MinecraftFolderEntry
+            var entry = new RecordMinecraftFolderEntry
                 { Name = textbox.Text, Path = textbox1.Text };
             Data.SettingEntry.MinecraftFolderEntries.Add(entry);
         }

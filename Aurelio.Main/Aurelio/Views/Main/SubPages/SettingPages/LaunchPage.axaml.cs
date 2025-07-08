@@ -28,7 +28,7 @@ public partial class LaunchPage : PageMixModelBase, IAurelioPage
         RemoveSelectedMinecraftFolder.Click += (_, _) =>
         {
             var item = MinecraftFolderListBox.SelectedItem;
-            if (item is MinecraftFolderEntry folder)
+            if (item is RecordMinecraftFolderEntry folder)
             {
                 Data.SettingEntry.MinecraftFolderEntries.Remove(folder);
                 MinecraftFolderListBox.SelectedItem = MinecraftFolderListBox.Items.FirstOrDefault();

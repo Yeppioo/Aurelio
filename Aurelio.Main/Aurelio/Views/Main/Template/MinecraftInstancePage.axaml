@@ -10,6 +10,30 @@
     xmlns:template="clr-namespace:Aurelio.Views.Main.Template"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border Name="Root">
-        <TextBlock Text="{Binding Entry.Id}" />
+        <DockPanel>
+            <Border
+                Background="{DynamicResource CardBackgroundColor}"
+                CornerRadius="{DynamicResource CardCornerRadius}"
+                Margin="15,5,15,15"
+                VerticalAlignment="Top">
+                <DockPanel>
+                    <Border
+                        Background="{DynamicResource CardBackgroundColor}"
+                        ClipToBounds="True"
+                        CornerRadius="{DynamicResource CardCornerRadius}"
+                        Height="48"
+                        HorizontalAlignment="Left"
+                        Margin="10"
+                        Width="48">
+                        <Image Source="{Binding Entry.Icon}" />
+                    </Border>
+                    <StackPanel DockPanel.Dock="Right">
+                        <TextBlock>
+                            <Run Text="{Binding Entry.ParentMinecraftFolder.Name}" />
+                        </TextBlock>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+        </DockPanel>
     </Border>
 </UserControl>

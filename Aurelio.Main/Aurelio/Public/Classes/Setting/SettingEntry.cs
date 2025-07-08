@@ -31,7 +31,7 @@ public class SettingEntry : ReactiveObject
 
     [Reactive]
     [JsonProperty]
-    public ObservableCollection<MinecraftFolderEntry> MinecraftFolderEntries { get; set; } = [];
+    public ObservableCollection<RecordMinecraftFolderEntry> MinecraftFolderEntries { get; set; } = [];
 
     [Reactive] [JsonProperty] public ObservableCollection<RecordJavaRuntime> JavaRuntimes { get; set; } = [];
     [Reactive] [JsonProperty] public ObservableCollection<RecordMinecraftAccount> MinecraftAccounts { get; set; } = [];
@@ -48,15 +48,19 @@ public class SettingEntry : ReactiveObject
     {
         if (e.PropertyName == nameof(MinecraftInstanceCategoryMethod))
         {
-            if (App.UiRoot != null) App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
+            if (App.UiRoot == null) return;
+            App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
             Module.Service.MinecraftInstances.Categorize(MinecraftInstanceCategoryMethod);
         }
 
         if (e.PropertyName == nameof(MinecraftInstanceSortMethod))
         {
-            if (App.UiRoot != null) App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
+            if (App.UiRoot == null) return;
+            App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
             Module.Service.MinecraftInstances.Sort(MinecraftInstanceSortMethod);
         }
+        
+        
 
         AppMethod.SaveSetting();
     }

@@ -91,10 +91,10 @@
             </Transitions>
         </Setter>
         <Style Selector="^ TextBlock">
-            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
         </Style>
         <Style Selector="^ PathIcon">
-            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
         </Style>
     </Style>
     <Style Selector="ListBoxItem /template/ ContentPresenter#PART_ContentPresenter">
@@ -144,10 +144,13 @@
     <Style Selector="ListBoxItem">
         <Setter Property="Margin" Value="5,3" />
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+        <!-- <Style Selector="^ TextBlock"> -->
+        <!--     <Setter Property="FontSize" Value="15" /> -->
+        <!-- </Style> -->
     </Style>
     <Style Selector="u|IconButton">
         <Style Selector="^ PathIcon">
-            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
         </Style>
         <Style Selector="^ /template/ ReversibleStackPanel#PART_RootPanel">
             <Setter Property="Spacing" Value="0" />
@@ -184,5 +187,8 @@
     </Style>
     <Style Selector="ComboBoxItem">
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+    </Style>
+    <Style Selector="Expander.card:down:expanded /template/ Border#PART_BottomBorder">
+        <Setter Property="Background" Value="{DynamicResource ExpanderSeparatorColor}" />
     </Style>
 </Styles>

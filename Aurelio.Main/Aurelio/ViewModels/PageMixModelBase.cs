@@ -7,6 +7,7 @@ namespace Aurelio.ViewModels;
 
 public class PageMixModelBase : UserControl , INotifyPropertyChanged , INotifyPropertyChanging
 {
+    public Data Data => Data.Instance;
     public new event PropertyChangedEventHandler? PropertyChanged;
 
     private void OnPropertyChanged([CallerMemberName] string? propertyName = null)

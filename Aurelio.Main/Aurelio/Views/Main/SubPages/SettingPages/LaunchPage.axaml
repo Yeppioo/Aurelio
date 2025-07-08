@@ -71,7 +71,7 @@
                                         Margin="5"
                                         Name="MinecraftFolderListBox">
                                         <ListBox.ItemTemplate>
-                                            <DataTemplate DataType="minecraft:MinecraftFolderEntry">
+                                            <DataTemplate DataType="minecraft:RecordMinecraftFolderEntry">
                                                 <TextBlock Height="18">
                                                     <Run Text="[" />
                                                     <Run Text="{Binding Name}" />

@@ -17,9 +17,8 @@ using Material.Icons;
 namespace Aurelio.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
-{
+{   
     public ObservableCollection<TabEntry> Tabs { get; set; } = [];
-    
     public HomeTabPage HomeTabPage { get; set; } = new();
     public SettingTabPage SettingTabPage { get; set; } = new();
 

@@ -83,8 +83,13 @@ public class Account
                                     AddTime = now,
                                     Data = JsonConvert.SerializeObject(
                                         authenticator3.Authenticate(textBox.Text,
-                                            uuidTextBox.Text == null ? Calculator.NameToMcOfflineUUID(textBox.Text) : Guid.Parse(uuidTextBox.Text))),
-                                    Name = textBox.Text
+                                            uuidTextBox.Text == null
+                                                ? Calculator.NameToMcOfflineUUID(textBox.Text)
+                                                : Guid.Parse(uuidTextBox.Text))),
+                                    Name = textBox.Text,
+                                    UUID = uuidTextBox.Text == null
+                                        ? Calculator.NameToMcOfflineUUID(textBox.Text).ToString()
+                                        : Guid.Parse(uuidTextBox.Text).ToString()
                                 });
                             }
                             catch (Exception e)
@@ -365,7 +370,8 @@ public class Account
             {
                 Name = "Steve", AccountType = Setting.AccountType.Offline,
                 AddTime = DateTime.Now, UUID = Calculator.NameToMcOfflineUUID("Steve").ToString(),
-                Data = JsonConvert.SerializeObject(new OfflineAuthenticator().Authenticate("Steve", Calculator.NameToMcOfflineUUID("Steve")))
+                Data = JsonConvert.SerializeObject(
+                    new OfflineAuthenticator().Authenticate("Steve", Calculator.NameToMcOfflineUUID("Steve")))
             };
             Data.SettingEntry.MinecraftAccounts.Add(account);
             Data.SettingEntry.UsingMinecraftAccount = account;

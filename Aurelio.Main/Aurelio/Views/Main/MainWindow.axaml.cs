@@ -19,6 +19,7 @@ using Avalonia.Layout;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using CommunityToolkit.Mvvm.Input;
@@ -30,7 +31,6 @@ namespace Aurelio.Views.Main;
 
 public partial class MainWindow : UrsaWindow
 {
-    public Button MenuButton;
     public MainViewModel ViewModel { get; set; } = new();
     public ObservableCollection<TabEntry> Tabs => ViewModel.Tabs;
     public TabEntry? SelectedTab => ViewModel.SelectedTab;
@@ -49,27 +49,11 @@ public partial class MainWindow : UrsaWindow
     [AvaloniaHotReload]
     private void InitTitleBar()
     {
-        var settingButton = new Button()
-        {
-            Classes = { "title-bar-button", "big-title-bar-icon" },
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center,
-            Content = Public.Module.Ui.Icon.FromMaterial(MaterialIconKind.Settings)
-        };
-        TitleBar.AddButton(settingButton);
-        MenuButton = new Button()
-        {
-            Classes = { "title-bar-button-more" },
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center,
-            Content = Public.Module.Ui.Icon.FromMaterial(MaterialIconKind.MoreVert)
-        };
-        TitleBar.AddButton(MenuButton);
         var c = new MoreButtonMenu();
         var menu = (MenuFlyout)c.MainControl!.Flyout;
-        MenuButton.Flyout = menu;
-        MenuButton.DataContext = new MoreButtonMenuCommands();
-        settingButton.Click += (_, _) =>
+        MoreButton.Flyout = menu;
+        MoreButton.DataContext = new MoreButtonMenuCommands();
+        SettingButton.Click += (_, _) =>
         {
             var tab = Tabs.FirstOrDefault(x => x.Tag == "setting");
             if (tab is null)
@@ -88,6 +72,7 @@ public partial class MainWindow : UrsaWindow
                     _ = ViewModel.SettingTabPage.Animate();
                     return;
                 }
+
                 ViewModel.SelectedTab = tab;
             }
         };
@@ -96,6 +81,16 @@ public partial class MainWindow : UrsaWindow
     private void BindEvents()
     {
         NavScrollViewer.ScrollChanged += (_, _) => { ViewModel.IsTabMaskVisible = NavScrollViewer.Offset.X > 0; };
+        Loaded += (_, _) =>
+        {
+            RenderOptions.SetTextRenderingMode(this, TextRenderingMode.SubpixelAntialias); // 字体渲染模式
+            RenderOptions.SetBitmapInterpolationMode(this, BitmapInterpolationMode.MediumQuality); // 图片渲染模式
+            RenderOptions.SetEdgeMode(this, EdgeMode.Antialias); // 形状渲染模式
+        };
+        TitleBarContainer.SizeChanged += (_, _) =>
+        {
+            NavRoot.Margin = new Thickness(80, 0, TitleBarContainer.Bounds.Width + 85, 0);
+        };
     }
 
     private void TabItem_OnPointerPressed(object? sender, PointerPressedEventArgs e)

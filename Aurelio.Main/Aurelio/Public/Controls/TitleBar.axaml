@@ -1,7 +1,9 @@
 <UserControl
     mc:Ignorable="d"
     x:Class="Aurelio.Public.Controls.TitleBar"
+    x:DataType="controls:TitleBar"
     xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:Aurelio.Public.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -20,22 +22,10 @@
                 FontSize="16"
                 HorizontalAlignment="Left"
                 Name="TitleText"
-                Text=""
+                Text="{Binding Title}"
                 VerticalAlignment="Center" />
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <StackPanel
-                    HorizontalAlignment="Right"
-                    Name="Panel"
-                    Orientation="Horizontal" />
-                <Separator
-                    Background="{DynamicResource TextColor}"
-                    Foreground="{DynamicResource TextColor}"
-                    Height="16"
-                    IsVisible="False"
-                    Margin="5,0,5,0"
-                    Name="Separator"
-                    VerticalAlignment="Center"
-                    Width="1" />
+                <ContentControl Content="{Binding LeftContent}" />
                 <StackPanel
                     HorizontalAlignment="Right"
                     Name="FunctionRoot"
@@ -44,6 +34,7 @@
                         Classes="title-bar-button"
                         Content="{DynamicResource Minimize}"
                         HorizontalAlignment="Right"
+                        IsVisible="{Binding IsMinBtnShow}"
                         Name="MinimizeButton"
                         Padding="0,9,0,0"
                         VerticalAlignment="Center" />
@@ -51,12 +42,14 @@
                         Classes="title-bar-button"
                         Content="{DynamicResource Maximize}"
                         HorizontalAlignment="Right"
+                        IsVisible="{Binding IsMaxBtnShow}"
                         Name="MaximizeButton"
                         VerticalAlignment="Center" />
                     <Button
                         Classes="title-bar-button close-button"
                         Content="{DynamicResource Close}"
                         HorizontalAlignment="Right"
+                        IsVisible="{Binding IsCloseBtnShow}"
                         Name="CloseButton"
                         VerticalAlignment="Center" />
                 </StackPanel>
