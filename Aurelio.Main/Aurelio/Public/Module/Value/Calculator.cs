@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
+using Aurelio.Public.Langs;
 using Avalonia.Media;
 
 namespace Aurelio.Public.Module.Value;
@@ -23,5 +26,27 @@ public class Calculator
 
         // 创建一个新的颜色（保持Alpha通道不变）  
         return Color.FromArgb(color.A, (byte)r, (byte)g, (byte)b);
+    }
+
+    public static Guid NameToMcOfflineUUID(string name)
+    {
+        var inputBytes = Encoding.UTF8.GetBytes("OfflinePlayer:" + name);
+        var hash = MD5.HashData(inputBytes);
+
+        hash[6] = (byte)((hash[6] & 0x0F) | 0x30);
+        hash[8] = (byte)((hash[8] & 0x3F) | 0x80);
+
+        return new Guid(hash);
+    }
+
+    public static string FormatUsedTime(DateTime input, string longFormat = "yyyy-MM-dd")
+    {
+        if (input == DateTime.MinValue) return MainLang.NerverUsed;
+
+        var timeDifference = DateTime.Now - input;
+
+        if (!(timeDifference.TotalDays < 30)) return input.ToString(longFormat);
+        var days = (int)Math.Floor(timeDifference.TotalDays);
+        return MainLang.DaysAgo.Replace("{day}", days.ToString());
     }
 }

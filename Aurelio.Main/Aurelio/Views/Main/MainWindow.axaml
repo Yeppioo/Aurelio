@@ -247,8 +247,7 @@
                             </Image>
                             <TextBlock
                                 FontFamily="{DynamicResource MiSans}"
-                                FontSize="16"
-                                Margin="0,1,0,0"
+                                FontSize="13"
                                 Text="relio"
                                 VerticalAlignment="Center"
                                 x:Name="TitleText" />

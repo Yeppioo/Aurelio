@@ -80,10 +80,10 @@ public class Account
                                 Data.SettingEntry.MinecraftAccounts.Add(new RecordMinecraftAccount
                                 {
                                     AccountType = Setting.AccountType.Offline,
-                                    AddTime = now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                                    AddTime = now,
                                     Data = JsonConvert.SerializeObject(
                                         authenticator3.Authenticate(textBox.Text,
-                                            uuidTextBox.Text == null ? Guid.NewGuid() : Guid.Parse(uuidTextBox.Text))),
+                                            uuidTextBox.Text == null ? Calculator.NameToMcOfflineUUID(textBox.Text) : Guid.Parse(uuidTextBox.Text))),
                                     Name = textBox.Text
                                 });
                             }
@@ -200,7 +200,7 @@ public class Account
                         Data.SettingEntry.MinecraftAccounts.Add(new RecordMinecraftAccount
                         {
                             AccountType = Setting.AccountType.Microsoft,
-                            AddTime = now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                            AddTime = now, UUID = userProfile.Uuid.ToString(),
                             Data = JsonConvert.SerializeObject(userProfile, Formatting.Indented),
                             Name = userProfile.Name,
                             Skin = Converter.BytesToBase64(bytes)
@@ -318,7 +318,7 @@ public class Account
                                 Data.SettingEntry.MinecraftAccounts.Add(new RecordMinecraftAccount
                                 {
                                     AccountType = Setting.AccountType.ThirdParty,
-                                    AddTime = now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                                    AddTime = now, UUID = account.Uuid.ToString(),
                                     Data = JsonConvert.SerializeObject(account, Formatting.Indented),
                                     Name = account.Name,
                                     Skin = Converter.BytesToBase64(bytes)
@@ -332,7 +332,7 @@ public class Account
                                 Data.SettingEntry.MinecraftAccounts.Add(new RecordMinecraftAccount
                                 {
                                     AccountType = Setting.AccountType.ThirdParty,
-                                    AddTime = now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                                    AddTime = now, UUID = account.Uuid.ToString(),
                                     Data = JsonConvert.SerializeObject(account, Formatting.Indented),
                                     Name = account.Name
                                 });
@@ -364,8 +364,8 @@ public class Account
             var account = new RecordMinecraftAccount
             {
                 Name = "Steve", AccountType = Setting.AccountType.Offline,
-                AddTime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
-                Data = JsonConvert.SerializeObject(new OfflineAuthenticator().Authenticate("Steve"))
+                AddTime = DateTime.Now, UUID = Calculator.NameToMcOfflineUUID("Steve").ToString(),
+                Data = JsonConvert.SerializeObject(new OfflineAuthenticator().Authenticate("Steve", Calculator.NameToMcOfflineUUID("Steve")))
             };
             Data.SettingEntry.MinecraftAccounts.Add(account);
             Data.SettingEntry.UsingMinecraftAccount = account;

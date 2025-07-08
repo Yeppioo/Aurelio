@@ -1007,6 +1007,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {day} 天前.
+        /// </summary>
+        public static string DaysAgo {
+            get {
+                return ResourceManager.GetString("DaysAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 默认.
         /// </summary>
         public static string Default {
@@ -2127,6 +2136,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 最后使用时间.
+        /// </summary>
+        public static string LastUsedTime {
+            get {
+                return ResourceManager.GetString("LastUsedTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 最新版本.
         /// </summary>
         public static string LatestVersion {
@@ -2738,6 +2756,15 @@ namespace Aurelio.Public.Langs {
         public static string NeedToSelectMinecraftFolder {
             get {
                 return ResourceManager.GetString("NeedToSelectMinecraftFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 从未使用.
+        /// </summary>
+        public static string NerverUsed {
+            get {
+                return ResourceManager.GetString("NerverUsed", resourceCulture);
             }
         }
         

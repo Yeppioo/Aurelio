@@ -10,10 +10,19 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3DA99C4E-89E3-4049-9C22-0A7EC60D83D8}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.targets = Directory.Build.targets
-		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aurelio.Main", "Aurelio.Main", "{4E592F68-BF4A-4B30-A7A0-2DD62E0F84F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aurelio.Reference", "Aurelio.Reference", "{C7F6B4DF-3DB3-47D3-9EEE-C72C507B516A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MinecraftSkinRender", "MinecraftSkinRender", "{93E4B07D-BD5F-4CF9-8658-3A30169071C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSkinRender.OpenGL", "Aurelio.Reference\MinecraftSkinRender\MinecraftSkinRender.OpenGL\MinecraftSkinRender.OpenGL.csproj", "{DDB17D5D-D5DC-4561-A843-28CA72775563}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSkinRender.Image", "Aurelio.Reference\MinecraftSkinRender\MinecraftSkinRender.Image\MinecraftSkinRender.Image.csproj", "{14C078E2-17E5-42CC-BD98-F3F0CC933B8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSkinRender", "Aurelio.Reference\MinecraftSkinRender\MinecraftSkinRender\MinecraftSkinRender.csproj", "{9A4B1935-A83F-43EC-9D82-0841EBDE708E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +38,18 @@ Global
 		{ABC31E74-02FF-46EB-B3B2-4E6AE43B456C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABC31E74-02FF-46EB-B3B2-4E6AE43B456C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABC31E74-02FF-46EB-B3B2-4E6AE43B456C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDB17D5D-D5DC-4561-A843-28CA72775563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDB17D5D-D5DC-4561-A843-28CA72775563}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDB17D5D-D5DC-4561-A843-28CA72775563}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDB17D5D-D5DC-4561-A843-28CA72775563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14C078E2-17E5-42CC-BD98-F3F0CC933B8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14C078E2-17E5-42CC-BD98-F3F0CC933B8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14C078E2-17E5-42CC-BD98-F3F0CC933B8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14C078E2-17E5-42CC-BD98-F3F0CC933B8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A4B1935-A83F-43EC-9D82-0841EBDE708E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A4B1935-A83F-43EC-9D82-0841EBDE708E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A4B1935-A83F-43EC-9D82-0841EBDE708E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A4B1935-A83F-43EC-9D82-0841EBDE708E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +57,10 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568} = {4E592F68-BF4A-4B30-A7A0-2DD62E0F84F7}
 		{ABC31E74-02FF-46EB-B3B2-4E6AE43B456C} = {4E592F68-BF4A-4B30-A7A0-2DD62E0F84F7}
+		{93E4B07D-BD5F-4CF9-8658-3A30169071C3} = {C7F6B4DF-3DB3-47D3-9EEE-C72C507B516A}
+		{DDB17D5D-D5DC-4561-A843-28CA72775563} = {93E4B07D-BD5F-4CF9-8658-3A30169071C3}
+		{14C078E2-17E5-42CC-BD98-F3F0CC933B8E} = {93E4B07D-BD5F-4CF9-8658-3A30169071C3}
+		{9A4B1935-A83F-43EC-9D82-0841EBDE708E} = {93E4B07D-BD5F-4CF9-8658-3A30169071C3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83CB65B8-011F-4ED7-BCD3-A6CFA935EF7E}

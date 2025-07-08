@@ -64,5 +64,15 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
     {
     }
 
+    private bool _isAnimating = false;
+    public async Task Animate()
+    {
+        if(_isAnimating) return;
+        _isAnimating = true;
+        InAnimator.Animate();
+        await Task.Delay(500);
+        _isAnimating = false;
+    }
+
     public Border RootElement { get; set; }
 }

@@ -112,16 +112,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Aurelio.Reference\MinecraftSkinRender\MinecraftSkinRender.Image\MinecraftSkinRender.Image.csproj" />
     <ProjectReference Include="..\..\Aurelio.Reference\MinecraftSkinRender\MinecraftSkinRender.OpenGL\MinecraftSkinRender.OpenGL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="MinecraftSkinRender">
-      <HintPath>..\..\Assets\MinecraftSkinRender.dll</HintPath>
-    </Reference>
-    <Reference Include="MinecraftSkinRender.Image">
-      <HintPath>..\..\Assets\MinecraftSkinRender.Image.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

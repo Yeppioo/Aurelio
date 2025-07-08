@@ -37,7 +37,7 @@ public partial class MainWindow : UrsaWindow
 
     public MainWindow()
     {
-        InitializeComponent();
+        InitializeComponent(attachDevTools: false);
         DataContext = ViewModel;
         NewTabButton.DataContext = ViewModel;
         BindEvents();
@@ -83,7 +83,11 @@ public partial class MainWindow : UrsaWindow
             }
             else
             {
-                if (SelectedTab == tab) return;
+                if (SelectedTab == tab)
+                {
+                    _ = ViewModel.SettingTabPage.Animate();
+                    return;
+                }
                 ViewModel.SelectedTab = tab;
             }
         };

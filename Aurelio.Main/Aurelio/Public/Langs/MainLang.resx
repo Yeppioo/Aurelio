@@ -1605,4 +1605,13 @@ MacOs 不支持自动更新
   <data name="InstanceName" xml:space="preserve">
     <value>实例名称</value>
   </data>
+  <data name="LastUsedTime" xml:space="preserve">
+    <value>最后使用时间</value>
+  </data>
+  <data name="NerverUsed" xml:space="preserve">
+    <value>从未使用</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>{day} 天前</value>
+  </data>
 </root>

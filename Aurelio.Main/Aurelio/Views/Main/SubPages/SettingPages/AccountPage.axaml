@@ -82,26 +82,37 @@
                                             <Border
                                                 ClipToBounds="True"
                                                 CornerRadius="3,3,3,3"
-                                                Height="28"
+                                                Height="35"
                                                 Margin="2,0,6.5,0"
-                                                Width="28">
+                                                Width="35">
                                                 <Image Source="{Binding Head}" />
                                             </Border>
-                                            <Grid>
-                                                <TextBlock FontSize="14" Text="{Binding Name}" />
-                                                <StackPanel Margin="0,17,0,0" Orientation="Horizontal">
+                                            <StackPanel>
+                                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                                    <TextBlock
+                                                        FontSize="14"
+                                                        Text="{Binding Name}"
+                                                        VerticalAlignment="Bottom" />
                                                     <TextBlock
                                                         FontSize="11"
                                                         Foreground="{DynamicResource GrayColor}"
-                                                        Margin="0,0,0,0"
+                                                        VerticalAlignment="Bottom">
+                                                        <Run Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.LastUsedTime}" />
+                                                        <Run Text=": " />
+                                                        <Run Text="{Binding FormatLastUsedTime}" />
+                                                    </TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                                    <TextBlock
+                                                        FontSize="11"
+                                                        Foreground="{DynamicResource GrayColor}"
                                                         Text="{Binding AccountType}" />
                                                     <TextBlock
                                                         FontSize="11"
                                                         Foreground="{DynamicResource GrayColor}"
-                                                        Margin="5,0,0,0"
-                                                        Text="{Binding AddTime}" />
+                                                        Text="{Binding UUID}" />
                                                 </StackPanel>
-                                            </Grid>
+                                            </StackPanel>
                                         </DockPanel>
                                     </Border>
                                 </DataTemplate>
