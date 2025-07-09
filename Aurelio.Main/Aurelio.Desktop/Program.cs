@@ -18,7 +18,9 @@ sealed class Program
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
             .UseManagedSystemDialogs()
+#if DEBUG
             .UseHotReload()
+#endif
             .UsePlatformDetect()
             .WithInterFont()
             .LogToTrace();

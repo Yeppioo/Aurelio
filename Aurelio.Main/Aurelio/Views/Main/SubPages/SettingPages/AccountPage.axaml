@@ -128,11 +128,11 @@
                         <Grid>
                             <Image
                                 IsVisible="{Binding UiProperty.IsEnable3DSkinRender, Converter={StaticResource ReverseBoolConverter}}"
-                                Margin="30,30,30,50"
+                                Margin="60,60,60,70"
                                 Source="{Binding SettingEntry.UsingMinecraftAccount.Body}" />
                             <controls1:SkinRender3D
                                 CapeVisibility="False"
-                                EnableAnimation="True" 
+                                EnableAnimation="True"
                                 Focusable="True"
                                 IsVisible="{Binding UiProperty.IsEnable3DSkinRender}"
                                 Margin="0,0,0,40"

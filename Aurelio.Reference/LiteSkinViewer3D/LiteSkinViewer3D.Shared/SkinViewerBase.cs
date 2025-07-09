@@ -205,8 +205,8 @@ public abstract class SkinViewerBase {
         if (type == PointerType.PointerLeft) {
             _rotXY.Y = point.X - _diffXY.X;
             _rotXY.X = point.Y + _diffXY.Y;
-            _rotXY.Y *= 2;
-            _rotXY.X *= 2;
+            _rotXY.Y *= 8;
+            _rotXY.X *= 8;
             _diffXY.X = point.X;
             _diffXY.Y = -point.Y;
         } else if (type == PointerType.PointerRight) {

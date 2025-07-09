@@ -20,6 +20,7 @@ using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using CommunityToolkit.Mvvm.Input;
@@ -37,7 +38,11 @@ public partial class MainWindow : UrsaWindow
 
     public MainWindow()
     {
+#if DEBUG
         InitializeComponent(attachDevTools: false);
+#else
+        InitializeComponent();
+#endif
         DataContext = ViewModel;
         NewTabButton.DataContext = ViewModel;
         BindEvents();
@@ -46,7 +51,27 @@ public partial class MainWindow : UrsaWindow
 #endif
     }
 
-    [AvaloniaHotReload]
+    protected override void OnLoaded(RoutedEventArgs e)
+    {
+        base.OnLoaded(e);
+        
+        if (Data.DesktopType == DesktopType.Linux ||
+            Data.DesktopType == DesktopType.FreeBSD ||
+            (Data.DesktopType == DesktopType.Windows &&
+             Environment.OSVersion.Version.Major < 10))
+        {
+            IsManagedResizerVisible = true;
+            SystemDecorations = SystemDecorations.None;
+            Root.CornerRadius = new CornerRadius(0);
+        }
+        
+        ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
+        ExtendClientAreaToDecorationsHint = true;
+    }
+
+#if DEBUG
+[AvaloniaHotReload]
+#endif
     private void InitTitleBar()
     {
         var c = new MoreButtonMenu();

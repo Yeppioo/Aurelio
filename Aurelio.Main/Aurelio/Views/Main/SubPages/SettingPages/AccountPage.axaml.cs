@@ -9,6 +9,7 @@ namespace Aurelio.Views.Main.SubPages.SettingPages;
 public partial class AccountPage : PageMixModelBase, IAurelioPage
 {
     private bool _loadedSkin = false;
+
     public AccountPage()
     {
         InitializeComponent();
@@ -22,16 +23,18 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
     {
         AddAccount.Click += (_, _) => { _ = Public.Module.Op.Account.AddByUi(this); };
         DelSelectedAccount.Click += (_, _) => { Public.Module.Op.Account.RemoveSelected(); };
-        
+
         skinViewer.PointerMoved += SkinViewer_PointerMoved;
         skinViewer.PointerPressed += SkinViewer_PointerPressed;
         skinViewer.PointerReleased += SkinViewer_PointerReleased;
-        
-        Data.UiProperty.PropertyChanged+=(_,e)=>{
-            if (e.PropertyName == nameof(Data.SettingEntry.UsingMinecraftAccount)) {
-                skinViewer.ChangeSkin(Data.SettingEntry.UsingMinecraftAccount.Skin);
-            }
 
+        Data.SettingEntry.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName != nameof(Data.SettingEntry.UsingMinecraftAccount)) return;
+            skinViewer.ChangeSkin(Data.SettingEntry.UsingMinecraftAccount.Skin);
+        };
+        Data.UiProperty.PropertyChanged += (_, e) =>
+        {
             if (e.PropertyName != nameof(Data.UiProperty.IsEnable3DSkinRender)
                 || !Data.UiProperty.IsEnable3DSkinRender || _loadedSkin) return;
             _loadedSkin = true;
@@ -41,44 +44,55 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
 
     public Border RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
-    
-    private void SkinViewer_PointerReleased(object? sender, PointerReleasedEventArgs e) {
+
+    private void SkinViewer_PointerReleased(object? sender, PointerReleasedEventArgs e)
+    {
         var po = e.GetCurrentPoint(this);
         var pos = e.GetPosition(this);
 
         PointerType type = PointerType.None;
-        if (po.Properties.IsLeftButtonPressed) {
+        if (po.Properties.IsLeftButtonPressed)
+        {
             type = PointerType.PointerLeft;
-        } else if (po.Properties.IsRightButtonPressed) {
+        }
+        else if (po.Properties.IsRightButtonPressed)
+        {
             type = PointerType.PointerRight;
         }
 
         skinViewer.UpdatePointerReleased(type, new((float)pos.X, (float)pos.Y));
-
     }
 
-    private void SkinViewer_PointerPressed(object? sender, PointerPressedEventArgs e) {
+    private void SkinViewer_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
         var po = e.GetCurrentPoint(this);
         var pos = e.GetPosition(this);
 
         PointerType type = PointerType.None;
-        if (po.Properties.IsLeftButtonPressed) {
+        if (po.Properties.IsLeftButtonPressed)
+        {
             type = PointerType.PointerLeft;
-        } else if (po.Properties.IsRightButtonPressed) {
+        }
+        else if (po.Properties.IsRightButtonPressed)
+        {
             type = PointerType.PointerRight;
         }
 
         skinViewer.UpdatePointerPressed(type, new((float)pos.X, (float)pos.Y));
     }
 
-    private void SkinViewer_PointerMoved(object? sender, PointerEventArgs e) {
+    private void SkinViewer_PointerMoved(object? sender, PointerEventArgs e)
+    {
         var po = e.GetCurrentPoint(this);
         var pos = e.GetPosition(this);
 
         PointerType type = PointerType.None;
-        if (po.Properties.IsLeftButtonPressed) {
+        if (po.Properties.IsLeftButtonPressed)
+        {
             type = PointerType.PointerLeft;
-        } else if (po.Properties.IsRightButtonPressed) {
+        }
+        else if (po.Properties.IsRightButtonPressed)
+        {
             type = PointerType.PointerRight;
         }
 

@@ -1,4 +1,5 @@
 <u:UrsaWindow
+    CanResize="True"
     DragDrop.AllowDrop="True"
     FontFamily="{DynamicResource Font}"
     FontWeight="{DynamicResource FontWeight}"
@@ -39,7 +40,7 @@
         <Style Selector="Window">
             <Setter Property="Background">
                 <Setter.Value>
-                    <SolidColorBrush Color="#00ACFF00" Opacity="0" />
+                    <SolidColorBrush Color="Transparent" Opacity="0" />
                 </Setter.Value>
             </Setter>
         </Style>
