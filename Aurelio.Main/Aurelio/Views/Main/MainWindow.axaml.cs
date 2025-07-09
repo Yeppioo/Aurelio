@@ -91,8 +91,8 @@ public partial class MainWindow : UrsaWindow
             var hasSettingsInOtherWindow = otherWindow != null && otherSettingsTab != null;
             if (hasSettingsInOtherWindow)
             {
-                TabDragDropService.RemoveSettingsTabFromOtherWindows();
-                await Task.Delay(20);
+                await TabDragDropService.RemoveSettingsTabFromOtherWindowsAsync();
+                await Task.Delay(50); // Increased delay to ensure UI operations complete
             }
             var existingTab = Tabs.FirstOrDefault(x => x.Tag == "setting");
 

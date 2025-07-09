@@ -413,26 +413,52 @@ public static class TabDragDropService
         return (null, null);
     }
 
-    public static void RemoveSettingsTabFromOtherWindows()
+    public static async Task RemoveSettingsTabFromOtherWindowsAsync()
     {
         var (window, settingsTab) = FindSettingsTabInOtherWindows();
-        if (window != null && settingsTab != null)
+        if (window != null && settingsTab != null && window is TabWindow tabWindow)
         {
-            Dispatcher.UIThread.Post(() =>
+            // Use synchronous UI thread operation to avoid layout manager conflicts
+            if (Dispatcher.UIThread.CheckAccess())
             {
-                settingsTab.DisposeContent();
-                settingsTab.Removing();
-
-                // Remove from the window
-                if (window is not TabWindow tabWindow) return;
-                tabWindow.ViewModel.RemoveTab(settingsTab);
-
-                // Close the window if it becomes empty
-                if (!tabWindow.ViewModel.HasTabs)
+                // We're already on the UI thread, execute directly
+                await RemoveSettingsTabSafely(tabWindow, settingsTab);
+            }
+            else
+            {
+                // We're not on the UI thread, invoke on UI thread
+                await Dispatcher.UIThread.InvokeAsync(async () =>
                 {
-                    tabWindow.Close();
-                }
-            });
+                    await RemoveSettingsTabSafely(tabWindow, settingsTab);
+                });
+            }
+        }
+    }
+
+    private static async Task RemoveSettingsTabSafely(TabWindow tabWindow, TabEntry settingsTab)
+    {
+        try
+        {
+            // First, remove from the collection to avoid UI conflicts
+            tabWindow.ViewModel.RemoveTab(settingsTab);
+
+            // Small delay to allow UI to update
+            await Task.Delay(10);
+
+            // Then dispose content safely
+            settingsTab.DisposeContent();
+            settingsTab.Removing();
+
+            // Close the window if it becomes empty
+            if (!tabWindow.ViewModel.HasTabs)
+            {
+                tabWindow.Close();
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log error but don't crash the application
+            System.Diagnostics.Debug.WriteLine($"Error removing settings tab: {ex.Message}");
         }
     }
 }
