@@ -177,9 +177,44 @@
                                 Margin="17.5,0,10,0">
                                 <TextBlock
                                     Margin="0,-1,0,0"
+                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.MemoryLimit}"
+                                    VerticalAlignment="Center" />
+                                <TextBlock
+                                    DockPanel.Dock="Right"
+                                    TextAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Width="110">
+                                    <Run Text="{Binding Data.SettingEntry.MemoryLimit}" />
+                                    <Run Text="Mib" />
+                                </TextBlock>
+                                <Slider
+                                    IsSnapToTickEnabled="True"
+                                    Margin="15,0,10,0"
+                                    Maximum="32768"
+                                    Name="MaxMemSlider"
+                                    TickFrequency="1"
+                                    Value="{Binding Data.SettingEntry.MemoryLimit}"
+                                    VerticalAlignment="Center" />
+                            </DockPanel>
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+                <Border
+                    Background="{DynamicResource CardBackgroundColor}"
+                    CornerRadius="{DynamicResource CardCornerRadius}"
+                    DockPanel.Dock="Top"
+                    Opacity="{DynamicResource MainOpacity}"
+                    VerticalAlignment="Top">
+                    <StackPanel>
+                        <DockPanel>
+                            <DockPanel
+                                DockPanel.Dock="Top"
+                                Height="40"
+                                Margin="17.5,0,10,0">
+                                <TextBlock
+                                    Margin="0,-1,0,0"
                                     Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.IsolateMinecraftInstances}"
                                     VerticalAlignment="Center" />
-
                                 <ToggleSwitch
                                     DockPanel.Dock="Right"
                                     HorizontalAlignment="Right"

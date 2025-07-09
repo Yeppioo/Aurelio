@@ -15,6 +15,7 @@ public class SettingEntry : ReactiveObject
 {
     [Reactive] [JsonProperty] public Enum.Setting.NoticeWay NoticeWay { get; set; } = Enum.Setting.NoticeWay.Bubble;
     [Reactive] [JsonProperty] public Enum.Setting.Theme Theme { get; set; } = Enum.Setting.Theme.Dark;
+    [Reactive] [JsonProperty] public double MemoryLimit { get; set; } = 2048;
 
     [Reactive]
     [JsonProperty]

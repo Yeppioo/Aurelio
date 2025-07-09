@@ -2589,6 +2589,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 内存限制.
+        /// </summary>
+        public static string MemoryLimit {
+            get {
+                return ResourceManager.GetString("MemoryLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 云母.
         /// </summary>
         public static string Mica {

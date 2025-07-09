@@ -1641,4 +1641,7 @@ MacOs 不支持自动更新
   <data name="DisabledSystemFilePicker" xml:space="preserve">
     <value>禁用系统文件选择器</value>
   </data>
+  <data name="MemoryLimit" xml:space="preserve">
+    <value>内存限制</value>
+  </data>
 </root>
