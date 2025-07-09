@@ -2,7 +2,9 @@
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Const;
+using Aurelio.Public.Module.Op;
 using Aurelio.Public.Module.Value;
+using DynamicData;
 using MinecraftLaunch.Components.Authenticator;
 using Newtonsoft.Json;
 
@@ -30,6 +32,9 @@ public class Update
             Data.SettingEntry.UsingMinecraftAccount = Data.SettingEntry.MinecraftAccounts[0];
         }
 
+        Data.SettingEntry.JavaRuntimes.RemoveMany(Data.SettingEntry.JavaRuntimes
+            .Where(x => x.JavaVersion == "auto"));
+        JavaRuntime.VerifyList();
         AppMethod.SaveSetting();
     }
 }

@@ -31,6 +31,12 @@ public class SettingEntry : ReactiveObject
     [Reactive] [JsonProperty] public bool DisabledSystemFilePicker { get; set; }
     [Reactive] [JsonProperty] public bool EnableIndependentMinecraft { get; set; } = true;
 
+
+    [Reactive]
+    [JsonProperty]
+    public RecordJavaRuntime PreferredJavaRuntime { get; set; } = new() { JavaVersion = "auto" };
+
+
     [Reactive]
     [JsonProperty]
     public ObservableCollection<RecordMinecraftFolderEntry> MinecraftFolderEntries { get; set; } = [];
@@ -61,8 +67,7 @@ public class SettingEntry : ReactiveObject
             App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
             MinecraftInstances.Sort(MinecraftInstanceSortMethod);
         }
-        
-        
+
 
         AppMethod.SaveSetting();
     }

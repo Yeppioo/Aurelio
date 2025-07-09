@@ -46,6 +46,7 @@ public class JavaRuntime
             Notice(
                 $"{MainLang.ScanJavaSuccess}\n{MainLang.SuccessAdd}: {successAddCount}\n{MainLang.RepeatItem}: {repeatJavaCount}",
                 NotificationType.Success);
+            VerifyList();
             AppMethod.SaveSetting();
         }
         catch (Exception e)
@@ -98,6 +99,15 @@ public class JavaRuntime
                 Data.SettingEntry.JavaRuntimes.Add(RecordJavaRuntime.MlToAurelio(javaInfo!));
         }
 
+        VerifyList();
         AppMethod.SaveSetting();
+    }
+
+    public static void VerifyList()
+    {
+        if (!Data.SettingEntry.JavaRuntimes.Contains(new RecordJavaRuntime()
+                { JavaVersion = "auto", JavaPath = MainLang.AutoChooseRightJavaRuntime }))
+            Data.SettingEntry.JavaRuntimes.Insert(0, new RecordJavaRuntime()
+                { JavaVersion = "auto", JavaPath = MainLang.AutoChooseRightJavaRuntime });
     }
 }

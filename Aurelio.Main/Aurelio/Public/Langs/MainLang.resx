@@ -1644,4 +1644,10 @@ MacOs 不支持自动更新
   <data name="MemoryLimit" xml:space="preserve">
     <value>内存限制</value>
   </data>
+  <data name="Preferred" xml:space="preserve">
+    <value>首选项</value>
+  </data>
+  <data name="AutoChooseRightJavaRuntime" xml:space="preserve">
+    <value>自动选择适合的Java运行时</value>
+  </data>
 </root>

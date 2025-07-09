@@ -40,11 +40,11 @@ public partial class LaunchPage : PageMixModelBase, IAurelioPage
         AddJavaRuntime.Click += (_, _) => { _ = Public.Module.Op.JavaRuntime.AddByUi(this); };
         RemoveSelectedJavaRuntime.Click += (_, _) =>
         {
-            var item = JavaRuntimeListBox.SelectedItem;
+            var item = JavaRuntimeComboBox.SelectedItem;
             if (item is RecordJavaRuntime runtime)
             {
                 Data.SettingEntry.JavaRuntimes.Remove(runtime);
-                JavaRuntimeListBox.SelectedItem = JavaRuntimeListBox.Items.FirstOrDefault();
+                JavaRuntimeComboBox.SelectedItem = JavaRuntimeComboBox.Items.FirstOrDefault();
             }
 
             AppMethod.SaveSetting();

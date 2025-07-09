@@ -6,6 +6,7 @@
     x:DataType="settingPages:LaunchPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:const="clr-namespace:Aurelio.Public.Const"
+    xmlns:converter="clr-namespace:Aurelio.ViewModels.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:minecraft="clr-namespace:Aurelio.Public.Classes.Minecraft"
@@ -98,6 +99,7 @@
                                 Height="50"
                                 Margin="17.5,0,10,0">
                                 <TextBlock
+                                    DockPanel.Dock="Left"
                                     Margin="0,-1,0,0"
                                     Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.JavaRuntime}"
                                     VerticalAlignment="Center" />
@@ -133,33 +135,55 @@
                                         </u:IconButton.Icon>
                                     </u:IconButton>
                                 </StackPanel>
+                                <ComboBox
+                                    HorizontalAlignment="Stretch"
+                                    ItemsSource="{Binding Data.SettingEntry.JavaRuntimes}"
+                                    Margin="15,0,10,0"
+                                    Name="JavaRuntimeComboBox"
+                                    SelectedItem="{Binding Data.SettingEntry.PreferredJavaRuntime}"
+                                    VerticalAlignment="Center">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate DataType="minecraft:RecordJavaRuntime">
+                                            <TextBlock Height="18">
+                                                <Run Text="[" />
+                                                <Run Text="{Binding JavaType}" />
+                                                <Run Text="{Binding JavaVersion}" />
+                                                <Run Text="]" />
+                                                <Run Text="{Binding JavaPath}" />
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
                             </DockPanel>
-                            <Border
-                                Background="{DynamicResource 2xCardBackgroundColor}"
-                                CornerRadius="{DynamicResource CardCornerRadius}"
-                                Margin="10,0,10,10">
-                                <Expander
-                                    Background="{DynamicResource 2xCardBackgroundColor}"
-                                    Classes="card"
-                                    Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ExistingNow}">
-                                    <ListBox
-                                        ItemsSource="{Binding Data.SettingEntry.JavaRuntimes}"
-                                        Margin="5"
-                                        Name="JavaRuntimeListBox">
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate DataType="minecraft:RecordJavaRuntime">
-                                                <TextBlock Height="18">
-                                                    <Run Text="[" />
-                                                    <Run Text="{Binding JavaType}" />
-                                                    <Run Text="{Binding JavaVersion}" />
-                                                    <Run Text="]" />
-                                                    <Run Text="{Binding JavaPath}" />
-                                                </TextBlock>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
-                                </Expander>
-                            </Border>
+                            <!--  <Border  -->
+                            <!--  Background="{DynamicResource 2xCardBackgroundColor}"  -->
+                            <!--  CornerRadius="{DynamicResource CardCornerRadius}"  -->
+                            <!--  IsVisible="False"  -->
+                            <!--  Margin="10,0,10,0">  -->
+                            <!--  <Expander  -->
+                            <!--  Background="{DynamicResource 2xCardBackgroundColor}"  -->
+                            <!--  Classes="card"  -->
+                            <!--  Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ExistingNow}">  -->
+                            <!--  <ListBox  -->
+                            <!--  ItemsSource="{Binding Data.SettingEntry.JavaRuntimes}"  -->
+                            <!--  Margin="5"  -->
+                            <!--  Name="JavaRuntimeListBox"  -->
+                            <!--  SelectedItem="{Binding Data.SettingEntry.PreferredJavaRuntime, Converter={StaticResource SelectedPreferredJavaRuntimeConverter}}"  -->
+                            <!--  SelectionMode="Toggle">  -->
+                            <!--             <ListBox.ItemTemplate> -->
+                            <!--                 <DataTemplate DataType="minecraft:RecordJavaRuntime"> -->
+                            <!--                     <TextBlock Height="18"> -->
+                            <!--                         <Run Text="[" /> -->
+                            <!--                         <Run Text="{Binding JavaType}" /> -->
+                            <!--                         <Run Text="{Binding JavaVersion}" /> -->
+                            <!--                         <Run Text="]" /> -->
+                            <!--                         <Run Text="{Binding JavaPath}" /> -->
+                            <!--                     </TextBlock> -->
+                            <!--                 </DataTemplate> -->
+                            <!--             </ListBox.ItemTemplate> -->
+                            <!--         </ListBox> -->
+                            <!--     </Expander> -->
+                            <!-- </Border> -->
                         </DockPanel>
                     </StackPanel>
                 </Border>

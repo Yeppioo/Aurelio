@@ -438,6 +438,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 自动选择适合的Java运行时.
+        /// </summary>
+        public static string AutoChooseRightJavaRuntime {
+            get {
+                return ResourceManager.GetString("AutoChooseRightJavaRuntime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 自动安装.
         /// </summary>
         public static string AutoInstall {
@@ -3278,6 +3287,15 @@ namespace Aurelio.Public.Langs {
         public static string Plugin {
             get {
                 return ResourceManager.GetString("Plugin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 首选项.
+        /// </summary>
+        public static string Preferred {
+            get {
+                return ResourceManager.GetString("Preferred", resourceCulture);
             }
         }
         
