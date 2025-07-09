@@ -8,12 +8,17 @@ namespace LiteSkinViewer3D.Shared;
 /// 角色动画的当前状态，支持左右身体部件的独立控制
 /// </summary>
 public sealed class SkinAnimationState {
+    public Vector3 Head = Vector3.Zero;
     public Vector3 Body = Vector3.Zero;
     public Vector3 ArmLeft = Vector3.Zero;
     public Vector3 ArmRight = Vector3.Zero;
     public Vector3 LegLeft = Vector3.Zero;
     public Vector3 LegRight = Vector3.Zero;
-    public Vector3 Head = Vector3.Zero;
+
+    public Vector3 HeadTranslation = Vector3.Zero;
+    public Vector3 BodyTranslation = Vector3.Zero;
+    public Vector3 ArmLeftTranslation = Vector3.Zero;
+    public Vector3 ArmRightTranslation = Vector3.Zero;
 
     public float Cape = 0f;
     public float Time = 0f;
@@ -35,7 +40,7 @@ public class SkinAnimationController {
     public SkinAnimationState State { get; } = new();
     public SkinType SkinType { get; set; }
     public bool IsEnable { get; set; } = true;
-    public float IdleIntervalSeconds { get; set; } = 5f;
+    public float IdleIntervalSeconds { get; set; } = 20f;
 
     public SkinAnimationController(IModelAnimation? controller = null) {
         Controller = controller ?? new DefaultAnimation();
@@ -86,9 +91,9 @@ public class SkinAnimationController {
 public sealed class DefaultAnimation : IModelAnimation {
     public bool EnableIdle => true;
 
-    public IReadOnlyList<IModelIdleAnimation> IdleAnimations => [
-        new CuddleAnimation(),
-        new LookAroundAnimation(),
+    public IReadOnlyList<IModelIdleAnimation> IdleAnimations { get; set; } = [
+        //new CuddleAnimation(),
+        //new LookAroundAnimation(),
     ];
 
     public void OnIdleStart(SkinAnimationState state) {
@@ -96,18 +101,27 @@ public sealed class DefaultAnimation : IModelAnimation {
     }
 
     public void Tick(SkinAnimationState state, int frame, double deltaTime, SkinType type) {
-        state.Time += (float)deltaTime * 1f; // 节奏调慢
+        state.Time += (float)deltaTime * 4f;
+        float t = state.Time;
 
-        float t = state.Time * MathF.PI;
-        float armZ = MathF.Sin(t * 0.9f) * 7.0f;
-        float armY = MathF.Sin(t * 0.4f) * 13.0f;
+        float sinT = MathF.Sin(t);
+        float sinHalfT = MathF.Sin(t * 0.5f);
+        float armSwing = (sinHalfT + 1f) * 20f;
 
-        state.ArmLeft.Z = armZ;
-        state.ArmRight.Z = armZ;
-        state.ArmLeft.Y = armY;
-        state.ArmRight.Y = armY;
-        state.Head.Y = MathF.Sin(t * 0.8f + 0.5f) * 5.0f;
-        state.Cape = 0.25f + MathF.Sin(t * 0.85f + 0.5f) * 0.5f;
+        state.ArmLeft.Z = armSwing;
+        state.ArmRight.Z = armSwing;
+
+        state.ArmLeft.Y = sinT * 10f;
+        state.ArmRight.Y = -sinT * 10f;
+
+        state.Head.X = sinHalfT * 20f;
+        state.HeadTranslation.Y = sinT * 0.01f;
+
+        state.BodyTranslation.Y = sinT * 0.01f;
+        state.ArmRightTranslation.Y = state.BodyTranslation.Y;
+        state.ArmLeftTranslation.Y = state.BodyTranslation.Y;
+
+        state.Cape = 0.5f + sinT * 0.5f;
     }
 }
 

@@ -2,9 +2,7 @@
 using LiteSkinViewer3D.Shared.Helpers;
 using LiteSkinViewer3D.Shared.Models;
 using SkiaSharp;
-using System.Diagnostics;
 using System.Numerics;
-using System.Text.RegularExpressions;
 
 namespace LiteSkinViewer3D.Shared;
 
@@ -342,44 +340,46 @@ public abstract class SkinViewerBase {
 
         return component switch {
             ModelComponent.Head =>
-                Matrix4x4.CreateTranslation(0, Cube.Value, 0) *
-                Matrix4x4.CreateRotationZ(GetRot(_skina.State.Head, HeadRotate).X / 360f) *
-                Matrix4x4.CreateRotationX(GetRot(_skina.State.Head, HeadRotate).Y / 360f) *
-                Matrix4x4.CreateRotationY(GetRot(_skina.State.Head, HeadRotate).Z / 360f) *
-                Matrix4x4.CreateTranslation(0, Cube.Value * 1.5f, 0),
+                Matrix4x4.CreateTranslation(0, Cube.Value * 2.5f, 0) *
+                Matrix4x4.CreateRotationZ(GetRot(_skina.State.Head, HeadRotate).Z / 360f) *
+                Matrix4x4.CreateRotationX(GetRot(_skina.State.Head, HeadRotate).X / 360f) *
+                Matrix4x4.CreateRotationY(GetRot(_skina.State.Head, HeadRotate).Y / 360f) *
+                Matrix4x4.CreateTranslation(_skina.State.BodyTranslation),
 
             ModelComponent.Body =>
-                Matrix4x4.CreateTranslation(0, 0, 0) *
-                Matrix4x4.CreateRotationZ(GetRot(_skina.State.Body, Vector3.Zero).X / 360f) *
-                Matrix4x4.CreateRotationX(GetRot(_skina.State.Body, Vector3.Zero).Y / 360f) *
-                Matrix4x4.CreateRotationY(GetRot(_skina.State.Body, Vector3.Zero).Z / 360f),
+                Matrix4x4.CreateTranslation(_skina.State.BodyTranslation) *
+                Matrix4x4.CreateRotationZ(GetRot(_skina.State.Body, Vector3.Zero).Z / 360f) *
+                Matrix4x4.CreateRotationX(GetRot(_skina.State.Body, Vector3.Zero).X / 360f) *
+                Matrix4x4.CreateRotationY(GetRot(_skina.State.Body, Vector3.Zero).Y / 360f),
 
             ModelComponent.ArmLeft =>
                 Matrix4x4.CreateTranslation(+Cube.Value / 2f, -armWidth * Cube.Value, 0) *
                 Matrix4x4.CreateRotationZ(GetRot(_skina.State.ArmLeft, ArmRotate).Z / 360f) *
-                Matrix4x4.CreateRotationY(GetRot(_skina.State.ArmLeft, ArmRotate).X / 360f) *
-                Matrix4x4.CreateRotationX(GetRot(_skina.State.ArmLeft, ArmRotate).Y / 360f) *
-                Matrix4x4.CreateTranslation(armWidth * Cube.Value - Cube.Value / 2f, armWidth * Cube.Value, 0),
+                Matrix4x4.CreateRotationY(GetRot(_skina.State.ArmLeft, ArmRotate).Y / 360f) *
+                Matrix4x4.CreateRotationX(GetRot(_skina.State.ArmLeft, ArmRotate).X / 360f) *
+                Matrix4x4.CreateTranslation(armWidth * Cube.Value - Cube.Value / 2f, armWidth * Cube.Value, 0) *
+                Matrix4x4.CreateTranslation(_skina.State.ArmLeftTranslation),
 
             ModelComponent.ArmRight =>
                 Matrix4x4.CreateTranslation(-Cube.Value / 2f, -armWidth * Cube.Value, 0) *
                 Matrix4x4.CreateRotationZ(GetRot(_skina.State.ArmRight, ArmRotate, mirror: true).Z / 360f) *
-                Matrix4x4.CreateRotationY(GetRot(_skina.State.ArmRight, ArmRotate, mirror: true).X / 360f) *
-                Matrix4x4.CreateRotationX(GetRot(_skina.State.ArmRight, ArmRotate, mirror: true).Y / 360f) *
-                Matrix4x4.CreateTranslation(-armWidth * Cube.Value + Cube.Value / 2f, armWidth * Cube.Value, 0),
+                Matrix4x4.CreateRotationY(GetRot(_skina.State.ArmRight, ArmRotate, mirror: true).Y / 360f) *
+                Matrix4x4.CreateRotationX(GetRot(_skina.State.ArmRight, ArmRotate, mirror: true).X / 360f) *
+                Matrix4x4.CreateTranslation(-armWidth * Cube.Value + Cube.Value / 2f, armWidth * Cube.Value, 0) *
+                Matrix4x4.CreateTranslation(_skina.State.ArmRightTranslation),
 
             ModelComponent.LegLeft =>
                 Matrix4x4.CreateTranslation(0, -1.5f * Cube.Value, 0) *
                 Matrix4x4.CreateRotationZ(GetRot(_skina.State.LegLeft, LegRotate).Z / 360f) *
-                Matrix4x4.CreateRotationY(GetRot(_skina.State.LegLeft, LegRotate).X / 360f) *
-                Matrix4x4.CreateRotationX(GetRot(_skina.State.LegLeft, LegRotate).Y / 360f) *
+                Matrix4x4.CreateRotationY(GetRot(_skina.State.LegLeft, LegRotate).Y / 360f) *
+                Matrix4x4.CreateRotationX(GetRot(_skina.State.LegLeft, LegRotate).X / 360f) *
                 Matrix4x4.CreateTranslation(Cube.Value * 0.5f, -Cube.Value * 1.5f, 0),
 
             ModelComponent.LegRight =>
                 Matrix4x4.CreateTranslation(0, -1.5f * Cube.Value, 0) *
                 Matrix4x4.CreateRotationZ(GetRot(_skina.State.LegRight, LegRotate, mirror: true).Z / 360f) *
-                Matrix4x4.CreateRotationY(GetRot(_skina.State.LegRight, LegRotate, mirror: true).X / 360f) *
-                Matrix4x4.CreateRotationX(GetRot(_skina.State.LegRight, LegRotate, mirror: true).Y / 360f) *
+                Matrix4x4.CreateRotationY(GetRot(_skina.State.LegRight, LegRotate, mirror: true).Y / 360f) *
+                Matrix4x4.CreateRotationX(GetRot(_skina.State.LegRight, LegRotate, mirror: true).X / 360f) *
                 Matrix4x4.CreateTranslation(-Cube.Value * 0.5f, -Cube.Value * 1.5f, 0),
 
             ModelComponent.Cape =>

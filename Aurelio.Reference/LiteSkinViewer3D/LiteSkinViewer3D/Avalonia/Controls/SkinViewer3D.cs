@@ -15,9 +15,6 @@ namespace LiteSkinViewer3D.Avalonia.Controls;
 public sealed class SkinRender3D : OpenGlControlBase, ICustomHitTest {
     private static readonly Vector2 DefaultModelPosition = new(0f, 0.5f);
 
-    //public static readonly RoutedEvent<RenderFailedEventArgs> RenderFailedEvent =
-    //  RoutedEvent.Register<SkinRender3D, RenderFailedEventArgs>("RenderFailed", RoutingStrategies.Bubble);
-
     private float _modelDistance;
 
     private OpenGLSkinViewerBase? _skin;
@@ -54,7 +51,6 @@ public sealed class SkinRender3D : OpenGlControlBase, ICustomHitTest {
 
     public static readonly StyledProperty<ISolidColorBrush> BackgroundProperty =
         AvaloniaProperty.Register<SkinRender3D, ISolidColorBrush>("Background");
-
 
     public bool EnableAnimation {
         get {
@@ -148,7 +144,6 @@ public sealed class SkinRender3D : OpenGlControlBase, ICustomHitTest {
 
     public SkinRender3D() {
         _modelDistance = ModelDistance;
-
     }
 
     public bool HitTest(Point point) {
@@ -223,16 +218,15 @@ public sealed class SkinRender3D : OpenGlControlBase, ICustomHitTest {
 
         ChangeSkin(_base64);
         _skin.OpenGlInit();
-
     }
 
     protected override void OnOpenGlRender(GlInterface gl, int fb) {
-        int width = (int)Bounds.Width;
-        int height = (int)Bounds.Height;
+        int width = (int)base.Bounds.Width;
+        int height = (int)base.Bounds.Height;
         if (_skin != null) {
-            if (VisualRoot is TopLevel { RenderScaling: var renderScaling }) {
-                width = (int)(Bounds.Width * renderScaling);
-                height = (int)(Bounds.Height * renderScaling);
+            if (base.VisualRoot is TopLevel { RenderScaling: var renderScaling }) {
+                width = (int)(base.Bounds.Width * renderScaling);
+                height = (int)(base.Bounds.Height * renderScaling);
             }
             _skin.Width = width;
             _skin.Height = height;
@@ -247,7 +241,6 @@ public sealed class SkinRender3D : OpenGlControlBase, ICustomHitTest {
             CheckError(gl);
         }
 
-        //_skin.ArmRotate = new(0, Random.Shared.Next(0, 720), 0);
         if (EnableAnimation) {
             RequestNextFrameRendering();
         }
@@ -305,6 +298,8 @@ public sealed class SkinRender3D : OpenGlControlBase, ICustomHitTest {
     }
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change) {
+        base.OnPropertyChanged(change);
+
         if (change.Property == EnableAnimationProperty) {
             OnEnableAnimationChanged();
         }
@@ -329,6 +324,5 @@ public sealed class SkinRender3D : OpenGlControlBase, ICustomHitTest {
         }
         _ = change.Property == ModelRotationProperty;
         _ = change.Property == BackgroundProperty;
-        base.OnPropertyChanged(change);
     }
 }

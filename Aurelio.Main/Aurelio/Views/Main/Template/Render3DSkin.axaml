@@ -1,0 +1,19 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Views.Main.Template.Render3DSkin"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:LiteSkinViewer3D.Avalonia.Controls;assembly=LiteSkinViewer3D"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Name="Root">
+        <controls:SkinRender3D
+            CapeVisibility="False"
+            EnableAnimation="True"
+            Focusable="True"
+            IsVisible="True"
+            Name="skinViewer" />
+    </Border>
+</UserControl>

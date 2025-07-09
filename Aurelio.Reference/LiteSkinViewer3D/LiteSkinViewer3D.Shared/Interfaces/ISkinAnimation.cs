@@ -6,7 +6,6 @@ namespace LiteSkinViewer3D.Shared.Interfaces;
 /// 模型动画统一接口
 /// </summary>
 public interface IModelAnimation {
-
     /// <summary>
     /// 是否启用待机系统
     /// </summary>

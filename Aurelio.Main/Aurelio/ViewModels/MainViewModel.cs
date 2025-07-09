@@ -52,7 +52,7 @@ public partial class MainViewModel : ViewModelBase
         {
             if (e.PropertyName != nameof(SelectedTab) || SelectedTab == null) return;
             SelectedTab.Content.RootElement.IsVisible = false;
-            SelectedTab.Content.InAnimator.Animate();
+            SelectedTab.Content.InAnimator?.Animate();
         };
     }
     
