@@ -75,9 +75,6 @@ public partial class MainWindow : UrsaWindow
 
         ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
         ExtendClientAreaToDecorationsHint = true;
-
-        var a = new TabDragPreview(new TabEntry(ViewModel.HomeTabPage));
-        a.Show();
     }
 
 #if DEBUG

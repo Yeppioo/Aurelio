@@ -89,6 +89,7 @@
             </ControlTemplate>
         </Setter>
 
+
         <Style Selector="^.Primary">
             <Setter Property="Foreground" Value="{DynamicResource ButtonDefaultPrimaryForeground}" />
         </Style>
@@ -121,6 +122,22 @@
         <Style Selector="^:disabled">
             <Setter Property="BorderBrush" Value="{DynamicResource ButtonDefaultDisabledBorderBrush}" />
             <Setter Property="Foreground" Value="{DynamicResource ButtonDefaultDisabledForeground}" />
+        </Style>
+
+        <Style Selector="^.accent:pointerover">
+            <Setter Property="Background" Value="{DynamicResource SystemAccentColorLight1}" />
+        </Style>
+        <Style Selector="^.accent:pressed">
+            <Setter Property="Background" Value="{DynamicResource SystemAccentColorLight1}" />
+        </Style>
+        <Style Selector="^.accent">
+            <Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
+            <Style Selector="^ PathIcon">
+                <Setter Property="Foreground" Value="White" />
+            </Style>
+            <Style Selector="^ TextBlock">
+                <Setter Property="Foreground" Value="White" />
+            </Style>
         </Style>
 
         <Style Selector="^:right /template/ ReversibleStackPanel#PART_RootPanel">

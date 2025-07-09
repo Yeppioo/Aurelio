@@ -1,9 +1,12 @@
-﻿using Aurelio.Public.Classes.Entries;
+﻿using System.IO;
+using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
+using Avalonia.Platform.Storage;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
@@ -13,7 +16,7 @@ namespace Aurelio.Views.Main.Template;
 public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
 {
     public RecordMinecraftEntry Entry { get; }
-
+    
     public MinecraftInstancePage(RecordMinecraftEntry entry)
     {
         Entry = entry;
@@ -26,6 +29,12 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
             Title = Entry.Id,
             Icon = Icons.Seedling
         };
+    }
+
+    public void OpenFolder(MinecraftSpecialFolder folder)
+    {
+        var launcher = App.TopLevel.Launcher.LaunchDirectoryInfoAsync(new DirectoryInfo(
+            Public.Module.Value.Minecraft.Calculator.GetMinecraftSpecialFolder(Entry.MlEntry, folder)));
     }
 
     public MinecraftInstancePage()

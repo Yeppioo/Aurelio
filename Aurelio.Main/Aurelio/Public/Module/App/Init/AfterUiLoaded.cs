@@ -20,5 +20,6 @@ public abstract class AfterUiLoaded
         File.WriteAllText(ConfigPath.AppPathDataPath, System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
         BindKeys.Main();
         _ = MinecraftInstances.Load(Data.SettingEntry.MinecraftFolderEntries.Select(x=>x.Path).ToArray());
+        Ui.Setter.SetAccentColor(Color.Parse("#1BD76A"));
     }
 }

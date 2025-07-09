@@ -111,6 +111,9 @@
         </Setter>
         <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
     </Style>
+    <Style Selector="AccessText">
+        <Setter Property="FontFamily" Value="{DynamicResource MiSans}" />
+    </Style>
     <Style Selector="u|NotificationCard">
         <Style Selector="^ SelectableTextBlock">
             <Setter Property="TextWrapping" Value="Wrap" />
@@ -189,6 +192,9 @@
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
     </Style>
     <Style Selector="Expander.card:down:expanded /template/ Border#PART_BottomBorder">
+        <Setter Property="Background" Value="{DynamicResource ExpanderSeparatorColor}" />
+    </Style>
+    <Style Selector="Expander.card:down:expanded /template/ Border#PART_TopBorder">
         <Setter Property="Background" Value="{DynamicResource ExpanderSeparatorColor}" />
     </Style>
 </Styles>

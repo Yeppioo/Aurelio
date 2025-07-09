@@ -4,14 +4,17 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:converter="clr-namespace:Aurelio.ViewModels.Converter"
+    xmlns:helper="clr-namespace:Aurelio.Public.Module.Ui.Helper"
     xmlns:semi="https://irihi.tech/semi"
     xmlns:styling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
     xmlns:u-semi="https://irihi.tech/ursa/themes/semi"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <helper:SukiEaseOutBack BounceIntensity="Soft" x:Key="MenuEasing" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="/Public/Styles/Override/IconPath.axaml" />
+                <ResourceInclude Source="/Public/Styles/Suki/SukiTheme.axaml" />
                 <ResourceInclude Source="/Public/Styles/Theme.axaml" />
                 <ResourceInclude Source="avares://FluentAvalonia/Styling/ControlThemes/BasicControls/ListBoxStyles.axaml" />
                 <ResourceInclude Source="avares://FluentAvalonia/Styling/ControlThemes/BasicControls/HyperlinkButtonStyles.axaml" />
@@ -22,6 +25,9 @@
                 <ResourceInclude Source="/Public/Styles/Override/IconButton.axaml" />
                 <ResourceInclude Source="/Public/Styles/Override/ContentDialog.axaml" />
                 <ResourceInclude Source="/Public/Styles/Override/ManagedFileChooser.axaml" />
+                <ResourceInclude Source="/Public/Styles/Suki/Menu.axaml" />
+                <ResourceInclude Source="/Public/Styles/Suki/MenuFlyoutPresenter.axaml" />
+                <ResourceInclude Source="/Public/Styles/Suki/MenuItem.axaml" />
                 <ResourceInclude Source="/Public/Styles/Override/SplitButton.axaml" />
             </ResourceDictionary.MergedDictionaries>
             <Color x:Key="SystemAccentColor">#1BD76A</Color>

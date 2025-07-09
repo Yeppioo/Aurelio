@@ -5,9 +5,13 @@
     x:Class="Aurelio.Views.Main.Template.MinecraftInstancePage"
     x:DataType="template:MinecraftInstancePage"
     xmlns="https://github.com/avaloniaui"
+    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:minecraft="clr-namespace:Aurelio.Public.Classes.Enum.Minecraft"
+    xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:template="clr-namespace:Aurelio.Views.Main.Template"
+    xmlns:u="https://irihi.tech/ursa"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border Name="Root">
         <DockPanel>
@@ -28,12 +32,93 @@
                         Width="48">
                         <Image Source="{Binding Entry.Icon}" />
                     </Border>
-                    <SplitButton
-                        Classes="Tertiary"
-                        Content="Primary"
+                    <StackPanel
                         DockPanel.Dock="Right"
                         Margin="0,0,15,0"
-                        Tag="M448 480L64 480c-35.3 0-64-28.7-64-64L0 96C0 60.7 28.7 32 64 32l128 0c20.1 0 39.1 9.5 51.2 25.6l19.2 25.6c6 8.1 15.5 12.8 25.6 12.8l160 0c35.3 0 64 28.7 64 64l0 256c0 35.3-28.7 64-64 64zM184 272c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z" />
+                        Orientation="Horizontal"
+                        Spacing="15">
+                        <SplitButton
+                            Classes="Tertiary"
+                            Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.OpenFolder}"
+                            CornerRadius="{DynamicResource CardCornerRadius}"
+                            Foreground="{DynamicResource TextColor}"
+                            Tag="M448 480L64 480c-35.3 0-64-28.7-64-64L0 96C0 60.7 28.7 32 64 32l128 0c20.1 0 39.1 9.5 51.2 25.6l19.2 25.6c6 8.1 15.5 12.8 25.6 12.8l160 0c35.3 0 64 28.7 64 64l0 256c0 35.3-28.7 64-64 64zM184 272c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z">
+                            <SplitButton.Flyout>
+                                <MenuFlyout>
+                                    <MenuItem
+                                        Command="{Binding OpenFolder}"
+                                        CommandParameter="0"
+                                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.VersionFolder}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="M32 32C32 14.3 46.3 0 64 0L320 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-29.5 0 11.4 148.2c36.7 19.9 65.7 53.2 79.5 94.7l1 3c3.3 9.8 1.6 20.5-4.4 28.8s-15.7 13.3-26 13.3L32 352c-10.3 0-19.9-4.9-26-13.3s-7.7-19.1-4.4-28.8l1-3c13.8-41.5 42.8-74.8 79.5-94.7L93.5 64 64 64C46.3 64 32 49.7 32 32zM160 384l64 0 0 96c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-96z" Height="16" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{Binding OpenFolder}"
+                                        CommandParameter="1"
+                                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ModsFolder}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="M368 32c41.7 0 75.9 31.8 79.7 72.5l85.6 26.3c25.4 7.8 42.8 31.3 42.8 57.9c0 21.8-11.7 41.9-30.7 52.7L400.8 323.5 493.3 416l50.7 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-8.5 0-16.6-3.4-22.6-9.4L346.9 360.2c11.7-36 3.2-77.1-25.4-105.7c-40.6-40.6-106.3-40.6-146.9-.1L101 324.4c-6.4 6.1-6.7 16.2-.6 22.6s16.2 6.6 22.6 .6l73.8-70.2 .1-.1 .1-.1c3.5-3.5 7.3-6.6 11.3-9.2c27.9-18.5 65.9-15.4 90.5 9.2c24.7 24.7 27.7 62.9 9 90.9c-2.6 3.8-5.6 7.5-9 10.9L261.8 416l90.2 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L64 480c-35.3 0-64-28.7-64-64C0 249.6 127 112.9 289.3 97.5C296.2 60.2 328.8 32 368 32zm0 104a24 24 0 1 0 0-48 24 24 0 1 0 0 48z" Width="16" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{Binding OpenFolder}"
+                                        CommandParameter="2"
+                                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SavesFolder}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="M320 0L141.3 0C124.3 0 108 6.7 96 18.7L18.7 96C6.7 108 0 124.3 0 141.3L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64zM160 88l0 48c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-48c0-13.3 10.7-24 24-24s24 10.7 24 24zm80 0l0 48c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-48c0-13.3 10.7-24 24-24s24 10.7 24 24zm80 0l0 48c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-48c0-13.3 10.7-24 24-24s24 10.7 24 24z" Height="16" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{Binding OpenFolder}"
+                                        CommandParameter="3"
+                                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ResourcePacksFolder}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="M64 32C64 14.3 49.7 0 32 0S0 14.3 0 32L0 64 0 368 0 480c0 17.7 14.3 32 32 32s32-14.3 32-32l0-128 64.3-16.1c41.1-10.3 84.6-5.5 122.5 13.4c44.2 22.1 95.5 24.8 141.7 7.4l34.7-13c12.5-4.7 20.8-16.6 20.8-30l0-247.7c0-23-24.2-38-44.8-27.7l-9.6 4.8c-46.3 23.2-100.8 23.2-147.1 0c-35.1-17.6-75.4-22-113.5-12.5L64 48l0-16z" Height="15" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{Binding OpenFolder}"
+                                        CommandParameter="4"
+                                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SavesFolder}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="" Height="16" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{Binding OpenFolder}"
+                                        CommandParameter="5"
+                                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SavesFolder}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="" Height="16" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{Binding OpenFolder}"
+                                        CommandParameter="2"
+                                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SavesFolder}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="" Height="16" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </MenuFlyout>
+                            </SplitButton.Flyout>
+                        </SplitButton>
+                        <u:IconButton
+                            Classes="accent"
+                            Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Launch}"
+                            VerticalAlignment="Center">
+                            <u:IconButton.Icon>
+                                <PathIcon
+                                    Data="F1 M 19.730377 2.548828 C 19.686432 2.338867 19.45694 2.109375 19.246979 2.06543 C 17.992172 1.796875 17.010765 1.796875 16.029396 1.796875 C 12.001305 1.796875 9.579582 3.955078 7.777901 6.796875 L 3.705864 6.796875 C 3.071136 6.796875 2.314339 7.260742 2.031136 7.832031 L 0.102539 11.689453 C 0.039062 11.821289 0.009766 11.962891 0 12.109375 C 0.004883 12.626953 0.419884 13.046875 0.942345 13.046875 L 4.999733 13.046875 C 7.069931 13.046875 8.749542 14.726562 8.749542 16.796875 L 8.749542 20.859375 C 8.749542 21.376953 9.169426 21.796875 9.687004 21.796875 C 9.83345 21.791992 9.975052 21.757812 10.106888 21.699219 L 13.964119 19.770508 C 14.530487 19.482422 14.999161 18.730469 14.999161 18.095703 L 14.999161 14.013672 C 17.831039 12.207031 19.998894 9.780273 19.998894 5.771484 C 20.003777 4.785156 20.003777 3.803711 19.730377 2.548828 Z M 14.999161 8.359375 C 14.139862 8.359375 13.436775 7.661133 13.436775 6.796875 C 13.441658 5.932617 14.139862 5.234375 15.004044 5.234375 C 15.86338 5.234375 16.561584 5.932617 16.561584 6.796875 C 16.561584 7.661133 15.86338 8.359375 14.999161 8.359375 Z M 1.391525 15.551758 C 0.385704 16.557617 -0.117188 19.086914 0.024414 21.772461 C 2.724457 21.914062 5.243874 21.40625 6.249657 20.400391 C 7.821846 18.828125 7.924385 16.733398 6.493797 15.302734 C 5.06321 13.876953 2.968597 13.974609 1.391525 15.551758 Z M 4.584732 18.833008 C 4.247818 19.165039 3.408012 19.335938 2.509651 19.287109 C 2.460823 18.393555 2.626801 17.548828 2.963715 17.216797 C 3.49102 16.689453 4.189224 16.655273 4.662857 17.133789 C 5.141335 17.607422 5.107155 18.305664 4.584732 18.833008 Z "
+                                    Height="13"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,-1,1,0"
+                                    VerticalAlignment="Center"
+                                    Width="14" />
+                            </u:IconButton.Icon>
+                        </u:IconButton>
+                    </StackPanel>
                     <StackPanel
                         DockPanel.Dock="Right"
                         Margin="5,0,0,0"

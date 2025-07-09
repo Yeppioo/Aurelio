@@ -18,6 +18,10 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderBrush" Value="Transparent" />
         </Style>
+        <Style Selector="^ /template/ ToggleButton#PART_ToggleButton.Basic:pressed /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
         <Style Selector="^ /template/ Border#PART_RootBorder">
             <Setter Property="Background" Value="Transparent" />
         </Style>

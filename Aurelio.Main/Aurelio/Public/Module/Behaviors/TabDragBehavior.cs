@@ -139,9 +139,6 @@ public class TabDragBehavior
             var screenPoint = window.PointToScreen(e.GetPosition(window)).ToPoint(1.0);
             var targetWindow = TabDragDropService.FindWindowAtPoint(screenPoint);
 
-            // Update drag preview position
-            TabDragDropService.UpdateDragPreview(screenPoint);
-
             // Minimal visual feedback - only opacity changes
             if (TabDragDropService.IsPointOutsideAllWindows(screenPoint))
             {

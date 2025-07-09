@@ -1,7 +1,6 @@
 <ResourceDictionary
     x:CompileBindings="True"
     xmlns="https://github.com/avaloniaui"
-    xmlns:u="https://irihi.tech/ursa"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <StackPanel
@@ -21,7 +20,7 @@
 
     <ControlTheme TargetType="Button" x:Key="SemiSplitButtonElement">
         <Setter Property="Padding" Value="{DynamicResource ButtonDefaultPadding}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource ButtonDefaultPrimaryForeground}" />
         <Setter Property="BorderThickness" Value="{DynamicResource ButtonBorderThickness}" />
         <Setter Property="CornerRadius" Value="{DynamicResource ButtonCornerRadius}" />
         <Setter Property="RenderTransform" Value="none" />
@@ -56,7 +55,7 @@
     <ControlTheme TargetType="SplitButton" x:Key="{x:Type SplitButton}">
         <Setter Property="Padding" Value="{DynamicResource ButtonDefaultPadding}" />
         <Setter Property="MinHeight" Value="{DynamicResource ButtonDefaultHeight}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource ButtonDefaultPrimaryForeground}" />
         <Setter Property="Background" Value="{DynamicResource ButtonDefaultBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ButtonDefaultBorderBrush}" />
         <Setter Property="BorderThickness" Value="{DynamicResource ButtonBorderThickness}" />
@@ -75,7 +74,7 @@
                 <Border
                     BackgroundSizing="OuterBorderEdge"
                     ClipToBounds="True"
-                    CornerRadius="{DynamicResource cor}">
+                    CornerRadius="{TemplateBinding CornerRadius}">
                     <DockPanel>
                         <Button
                             BorderThickness="{TemplateBinding BorderThickness}"
@@ -96,7 +95,7 @@
                             StrokeThickness="0"
                             VerticalAlignment="Stretch"
                             Width="{DynamicResource SplitButtonSeparatorWidth}" />
-                        <u:IconButton
+                        <Button
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Command="{TemplateBinding Command}"
                             CommandParameter="{TemplateBinding CommandParameter}"
@@ -110,18 +109,14 @@
                             Name="PART_PrimaryButton"
                             Padding="{TemplateBinding Padding}"
                             Theme="{DynamicResource SemiSplitButtonElement}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
-                            <u:IconButton.Icon>
-                                <PathIcon Data="{TemplateBinding Tag}" />
-                            </u:IconButton.Icon>
-                        </u:IconButton>
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                     </DockPanel>
                 </Border>
             </ControlTemplate>
         </Setter>
 
         <Style Selector="^ /template/ Button">
-            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource ButtonDefaultPrimaryForeground}" />
             <Setter Property="Background" Value="{DynamicResource ButtonDefaultBackground}" />
             <Setter Property="BorderBrush" Value="{DynamicResource ButtonDefaultBorderBrush}" />
             <Style Selector="^:pointerover">
@@ -136,7 +131,7 @@
 
 
         <Style Selector="^.Primary /template/ Button">
-            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource ButtonDefaultPrimaryForeground}" />
         </Style>
         <Style Selector="^.Secondary /template/ Button">
             <Setter Property="Foreground" Value="{DynamicResource ButtonDefaultSecondaryForeground}" />
@@ -290,7 +285,7 @@
             </Style>
         </Style>
         <Style Selector="^.Tertiary /template/ Button">
-            <Setter Property="Foreground" Value="{DynamicResource ButtonSolidForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
             <Setter Property="Background" Value="{DynamicResource ButtonSolidTertiaryBackground}" />
             <Style Selector="^:pointerover">
                 <Setter Property="Background" Value="{DynamicResource ButtonSolidTertiaryPointeroverBackground}" />
