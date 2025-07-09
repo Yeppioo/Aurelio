@@ -4,6 +4,8 @@ using Aurelio.Public.Classes.Interfaces;
 using Aurelio.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Media;
+using CommunityToolkit.Mvvm.Input;
+using Aurelio.Views.Main;
 
 namespace Aurelio.Public.Classes.Entries;
 
@@ -73,17 +75,27 @@ public partial class TabEntry : ViewModelBase
         return textBlock;
     }
 
+    public void RefreshContent()
+    {
+        // Force refresh of content to avoid layout manager conflicts
+        if (Content?.RootElement != null)
+        {
+            Content.RootElement.InvalidateVisual();
+            Content.RootElement.InvalidateMeasure();
+        }
+    }
+
     public void Close()
     {
         if (!CanClose) return;
-        if (App.UiRoot.ViewModel.SelectedTab == this)
+
+        var wasSelected = App.UiRoot.ViewModel.SelectedTab == this;
+        App.UiRoot.ViewModel.Tabs.Remove(this);
+
+        // If the removed tab was selected, select the last remaining tab (or null if no tabs left)
+        if (wasSelected)
         {
-            App.UiRoot.ViewModel.Tabs.Remove(this);
             App.UiRoot.ViewModel.SelectedTab = App.UiRoot.ViewModel.Tabs.LastOrDefault();
-        }
-        else
-        {
-            App.UiRoot.ViewModel.Tabs.Remove(this);
         }
 
         DisposeContent();
@@ -109,4 +121,29 @@ public partial class TabEntry : ViewModelBase
     }
 
     public void DisposeContent() => Content?.OnClose();
+
+    [RelayCommand]
+    public void CloseInWindow(Window window)
+    {
+        if (!CanClose) return;
+
+        if (window is MainWindow mainWindow)
+        {
+            Close(); // Use existing Close method for MainWindow
+        }
+        else if (window is TabWindow tabWindow)
+        {
+            // Remove from TabWindow - RemoveTab method already handles selection logic
+            tabWindow.ViewModel.RemoveTab(this);
+
+            // If TabWindow has no more tabs, close it
+            if (!tabWindow.ViewModel.HasTabs)
+            {
+                tabWindow.Close();
+            }
+
+            DisposeContent();
+            Removing();
+        }
+    }
 }

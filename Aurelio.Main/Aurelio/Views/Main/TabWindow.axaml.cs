@@ -31,13 +31,13 @@ using Ursa.Controls;
 
 namespace Aurelio.Views.Main;
 
-public partial class MainWindow : UrsaWindow
+public partial class TabWindow : UrsaWindow
 {
-    public MainViewModel ViewModel { get; set; } = new();
+    public TabWindowViewModel ViewModel { get; set; } = new();
     public ObservableCollection<TabEntry> Tabs => ViewModel.Tabs;
     public TabEntry? SelectedTab => ViewModel.SelectedTab;
 
-    public MainWindow()
+    public TabWindow()
     {
 #if DEBUG
         InitializeComponent(attachDevTools: false);
@@ -46,16 +46,17 @@ public partial class MainWindow : UrsaWindow
 #endif
         DataContext = ViewModel;
         NewTabButton.DataContext = ViewModel;
+        NewTabButton.Click += NewTabButton_Click;
         BindEvents();
 
         // Register with drag service
         TabDragDropService.RegisterWindow(this);
 
         // Handle window closing
-        Closing += OnMainWindowClosing;
-#if RELEASE
-        InitTitleBar();
-#endif
+        Closing += OnClosing;
+
+        // Handle automatic closing when no tabs remain
+        ViewModel.TabsEmptied += OnTabsEmptied;
     }
 
     protected override void OnLoaded(RoutedEventArgs e)
@@ -76,49 +77,36 @@ public partial class MainWindow : UrsaWindow
         ExtendClientAreaToDecorationsHint = true;
     }
 
-#if DEBUG
-    [AvaloniaHotReload]
-#endif
-    private void InitTitleBar()
+    private void OnClosing(object? sender, WindowClosingEventArgs e)
     {
-        var c = new MoreButtonMenu();
-        var menu = (MenuFlyout)c.MainControl!.Flyout;
-        MoreButton.Flyout = menu;
-        MoreButton.DataContext = new MoreButtonMenuCommands();
-        SettingButton.Click += (_, _) =>
+        // Transfer remaining tabs back to main window if any exist
+        if (ViewModel.HasTabs && App.UiRoot != null)
         {
-            var tab = Tabs.FirstOrDefault(x => x.Tag == "setting");
-            if (tab is null)
-            {
-                var newTab = new TabEntry(ViewModel.SettingTabPage)
-                {
-                    Tag = "setting"
-                };
-                Tabs.Add(newTab);
-                ViewModel.SelectedTab = newTab;
-            }
-            else
-            {
-                if (SelectedTab == tab)
-                {
-                    _ = ViewModel.SettingTabPage.Animate();
-                    return;
-                }
+            var tabsToTransfer = Tabs.ToList();
 
-                ViewModel.SelectedTab = tab;
-            }
-        };
+            // Use dispatcher to ensure proper UI thread handling
+            Avalonia.Threading.Dispatcher.UIThread.Post(async () =>
+            {
+                foreach (var tab in tabsToTransfer)
+                {
+                    ViewModel.RemoveTab(tab);
+
+                    // Small delay and refresh to avoid layout conflicts
+                    await System.Threading.Tasks.Task.Delay(25);
+                    tab.RefreshContent();
+
+                    App.UiRoot.ViewModel.CreateTab(tab);
+                }
+            });
+        }
+
+        // Unregister from drag service
+        TabDragDropService.UnregisterWindow(this);
     }
 
     private void BindEvents()
     {
         NavScrollViewer.ScrollChanged += (_, _) => { ViewModel.IsTabMaskVisible = NavScrollViewer.Offset.X > 0; };
-        // Loaded += (_, _) =>
-        // {
-        //     RenderOptions.SetTextRenderingMode(this, TextRenderingMode.SubpixelAntialias); // 字体渲染模式
-        //     RenderOptions.SetBitmapInterpolationMode(this, BitmapInterpolationMode.MediumQuality); // 图片渲染模式
-        //     RenderOptions.SetEdgeMode(this, EdgeMode.Antialias); // 形状渲染模式
-        // };
         TitleBarContainer.SizeChanged += (_, _) =>
         {
             NavRoot.Margin = new Thickness(80, 0, TitleBarContainer.Bounds.Width + 85, 0);
@@ -129,7 +117,7 @@ public partial class MainWindow : UrsaWindow
     {
         if (!e.GetCurrentPoint(this).Properties.IsMiddleButtonPressed) return;
         var c = (TabEntry)((Border)sender).Tag;
-        c.Close();
+        c.CloseInWindow(this);
     }
 
     private void NavScrollViewer_PointerWheelChanged(object? sender, PointerWheelEventArgs e)
@@ -156,10 +144,30 @@ public partial class MainWindow : UrsaWindow
 
     public void CreateTab(TabEntry tab) => ViewModel.CreateTab(tab);
 
-    private void OnMainWindowClosing(object? sender, WindowClosingEventArgs e)
+    public void AddTab(TabEntry tab) => ViewModel.AddTab(tab);
+
+    public void RemoveTab(TabEntry tab) => ViewModel.RemoveTab(tab);
+
+    private void OnTabsEmptied()
     {
-        // If this is the main window closing and there are other TabWindows open,
-        // we should handle the scenario appropriately
-        TabDragDropService.UnregisterWindow(this);
+        // Close the window when no tabs remain
+        Close();
+    }
+
+    private void NewTabButton_Click(object? sender, RoutedEventArgs e)
+    {
+        // Check if this window already has a settings tab
+        var hasSettingsTab = ViewModel.Tabs.Any(t => t.Tag == "setting");
+
+        if (!hasSettingsTab)
+        {
+            // Create a new settings tab for this window
+            // You may need to adjust this based on how settings tabs are created in your app
+            // For now, I'll add a placeholder - you should replace this with your actual settings tab creation logic
+
+            // Example: Create settings tab (replace with your actual implementation)
+            // var settingsTab = new TabEntry("设置", "setting", new SettingsTabPage());
+            // ViewModel.CreateTab(settingsTab);
+        }
     }
 }
