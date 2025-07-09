@@ -23,8 +23,6 @@
     <EmbeddedResource Include="Public\Assets\McIcons\QuiltIcon.png" />
     <None Remove="Public\Assets\McIcons\OptiFineIcon.png" />
     <EmbeddedResource Include="Public\Assets\McIcons\OptiFineIcon.png" />
-    <None Remove="Public\Assets\McIcons\OptiFabricIcon.png" />
-    <EmbeddedResource Include="Public\Assets\McIcons\OptiFabricIcon.png" />
     <None Remove="Public\Assets\McIcons\NeoForgeIcon.png" />
     <EmbeddedResource Include="Public\Assets\McIcons\NeoForgeIcon.png" />
     <None Remove="Public\Assets\McIcons\grass_block_side.png" />

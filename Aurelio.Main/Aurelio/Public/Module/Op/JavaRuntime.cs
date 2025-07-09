@@ -8,6 +8,7 @@ using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
+using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Ui;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
@@ -56,9 +57,9 @@ public class JavaRuntime
 
     public static async Task AddByUi(Control sender)
     {
-        var list = await TopLevel.GetTopLevel(sender).StorageProvider.OpenFilePickerAsync(
-            new FilePickerOpenOptions { AllowMultiple = true, Title = MainLang.SelectJava });
-        if (list.Count == 0 || string.IsNullOrWhiteSpace(list[0].Path.LocalPath)) return;
+        var list = await TopLevel.GetTopLevel(sender).StorageProvider.PickFileAsync(
+            new FilePickerOpenOptions { AllowMultiple = false, Title = MainLang.SelectJava });
+        if (list.Count == 0 || string.IsNullOrWhiteSpace(list[0])) return;
         JavaEntry javaInfo = null;
         try
         {
@@ -69,7 +70,7 @@ public class JavaRuntime
                 {
                     var process = new Process();
                     process.StartInfo.FileName = "chmod";
-                    process.StartInfo.Arguments = "+777 " + list[0].Path.LocalPath;
+                    process.StartInfo.Arguments = "+777 " + list[0];
                     process.StartInfo.UseShellExecute = false;
                     process.StartInfo.CreateNoWindow = true;
                     process.Start();
@@ -77,7 +78,7 @@ public class JavaRuntime
                 });
             }
 
-            javaInfo = await JavaUtil.GetJavaInfoAsync(list[0].Path.LocalPath);
+            javaInfo = await JavaUtil.GetJavaInfoAsync(list[0]);
         }
         catch (Exception e)
         {

@@ -3,7 +3,15 @@ namespace Aurelio.Public.Classes.Enum.Minecraft;
 public enum MinecraftInstanceIconType
 {
     Auto,
-    Embedded,
-    Path,
     Base64,
+    CraftingTable,
+    GrassBlock,
+    Furnace,
+    DirtPath,
+    GlassBlock,
+    Fabric,
+    Forge,
+    NoeForge,
+    Quilt,
+    OptiFine
 }

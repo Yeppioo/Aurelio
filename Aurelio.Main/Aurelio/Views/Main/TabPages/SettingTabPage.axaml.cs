@@ -12,7 +12,6 @@ namespace Aurelio.Views.Main.TabPages;
 public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
 {
     public PageLoadingAnimator InAnimator { get; set; }
-    public PageLoadingAnimator OutAnimator { get; set; }
     private SelectionListItem _selectedItem;
     private bool _fl = true;
 
@@ -40,7 +39,6 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
             page.RootElement.IsVisible = false;
             page.InAnimator.Animate();
         };
-        
     }
 
     public TabEntry HostTab { get; set; }
@@ -59,6 +57,7 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
 
     public LaunchPage LaunchPage { get; } = new();
     public AccountPage AccountPage { get; } = new();
+    public PersonalizationPage PersonalizationPage { get; } = new();
 
     public void OnClose()
     {

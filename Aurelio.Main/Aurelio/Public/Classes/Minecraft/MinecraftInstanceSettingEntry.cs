@@ -1,12 +1,20 @@
 using Aurelio.Public.Classes.Enum.Minecraft;
 using Avalonia.Media.Imaging;
+using Newtonsoft.Json;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace Aurelio.Public.Classes.Minecraft;
 
-public class MinecraftInstanceSettingEntry
+public class MinecraftInstanceSettingEntry : ReactiveObject
 {
-    public DateTime LastPlayed { get; set; } = DateTime.MinValue;
-    public MinecraftInstanceIconType IconType { get; set; } = MinecraftInstanceIconType.Auto;
-    public string IconData { get; set; }
-    
+    [Reactive] [JsonProperty] public DateTime LastPlayed { get; set; } = DateTime.MinValue;
+    [Reactive] [JsonProperty] public MinecraftInstanceIconType IconType { get; set; } = MinecraftInstanceIconType.Auto;
+    [Reactive] [JsonProperty] public string IconData { get; set; }
+    [Reactive] [JsonProperty] public double MemoryLimit { get; set; } = -1;
+
+    [Reactive] [JsonProperty] public RecordJavaRuntime JavaRuntime { get; set; } = new()
+    {
+        JavaVersion = "global"
+    };
 }

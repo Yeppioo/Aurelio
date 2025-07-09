@@ -4,6 +4,7 @@ using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
+using Aurelio.Public.Module.IO.Local;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
@@ -16,12 +17,12 @@ public class MinecraftFolder
 {
     public static async Task AddByUi(Control sender)
     {
-        var list = await TopLevel.GetTopLevel(sender).StorageProvider.OpenFolderPickerAsync(
+        var list = await TopLevel.GetTopLevel(sender).StorageProvider.PickFolderAsync(
             new FolderPickerOpenOptions { Title = MainLang.SelectMinecraftFolder, AllowMultiple = true });
         if (list.Count < 1) return;
-        foreach (var storageFolder in list)
+        foreach (var p in list)
         {
-            var path = storageFolder.Path.LocalPath;
+            var path = p;
             path = path.Trim().TrimEnd(Path.DirectorySeparatorChar);
             var folder = Path.GetFileName(path);
             var parentDirectoryPath = Path.GetDirectoryName(path);

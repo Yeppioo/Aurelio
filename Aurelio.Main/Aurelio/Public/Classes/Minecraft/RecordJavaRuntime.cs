@@ -14,8 +14,8 @@ public record RecordJavaRuntime
     public bool Equals(JavaEntry? other)
     {
         if (other == null) return false;
-        if (other.JavaVersion == "Auto" && JavaVersion == "Auto") return true;
-        if (other.JavaVersion == "Global" && JavaVersion == "Global") return true;
+        if (other.JavaVersion == "auto" && JavaVersion == "auto") return true;
+        if (other.JavaVersion == "global" && JavaVersion == "global") return true;
         return Is64bit == other.Is64bit && JavaPath == other.JavaPath && JavaType == other.JavaType;
     }
 

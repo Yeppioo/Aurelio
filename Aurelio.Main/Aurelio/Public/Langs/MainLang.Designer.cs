@@ -420,6 +420,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 自动.
+        /// </summary>
+        public static string Auto {
+            get {
+                return ResourceManager.GetString("Auto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 自动分配.
         /// </summary>
         public static string AutoAllocate {
@@ -834,6 +843,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 工作台.
+        /// </summary>
+        public static string CraftingTable {
+            get {
+                return ResourceManager.GetString("CraftingTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 崩溃啦！ヾ(•ω•`)o.
         /// </summary>
         public static string CrashLa {
@@ -1124,11 +1142,29 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 草径.
+        /// </summary>
+        public static string DirtPath {
+            get {
+                return ResourceManager.GetString("DirtPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 禁用所有.
         /// </summary>
         public static string DisableAll {
             get {
                 return ResourceManager.GetString("DisableAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 禁用系统文件选择器.
+        /// </summary>
+        public static string DisabledSystemFilePicker {
+            get {
+                return ResourceManager.GetString("DisabledSystemFilePicker", resourceCulture);
             }
         }
         
@@ -1664,6 +1700,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 熔炉.
+        /// </summary>
+        public static string Furnace {
+            get {
+                return ResourceManager.GetString("Furnace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 游戏已退出.
         /// </summary>
         public static string GameExited {
@@ -1764,11 +1809,29 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 草方块.
+        /// </summary>
+        public static string GlassBlock {
+            get {
+                return ResourceManager.GetString("GlassBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to YMCL 以 GPL 3.0 License 协议开放源代码，可以修改且分发，但软件必须包含原始代码的版权声明和许可声明，以及一个包含许可信息的通知文件。.
         /// </summary>
         public static string GPL3Text {
             get {
                 return ResourceManager.GetString("GPL3Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 玻璃.
+        /// </summary>
+        public static string GrassBlock {
+            get {
+                return ResourceManager.GetString("GrassBlock", resourceCulture);
             }
         }
         

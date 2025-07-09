@@ -1,0 +1,46 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Views.Main.SubPages.SettingPages.PersonalizationPage"
+    x:DataType="settingPages:PersonalizationPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:properties="clr-namespace:Aurelio.Public.Langs"
+    xmlns:settingPages="clr-namespace:Aurelio.Views.Main.SubPages.SettingPages"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Name="Root">
+        <ScrollViewer>
+            <StackPanel Margin="15,0,15,15" Spacing="10">
+                <Border
+                    Background="{DynamicResource CardBackgroundColor}"
+                    CornerRadius="{DynamicResource CardCornerRadius}"
+                    DockPanel.Dock="Top"
+                    Opacity="{DynamicResource MainOpacity}"
+                    VerticalAlignment="Top">
+                    <StackPanel>
+                        <DockPanel>
+                            <DockPanel
+                                DockPanel.Dock="Top"
+                                Height="40"
+                                Margin="17.5,0,10,0">
+                                <TextBlock
+                                    Margin="0,-1,0,0"
+                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.DisabledSystemFilePicker}"
+                                    VerticalAlignment="Center" />
+                                <ToggleSwitch
+                                    DockPanel.Dock="Right"
+                                    HorizontalAlignment="Right"
+                                    IsChecked="{Binding Data.SettingEntry.DisabledSystemFilePicker}"
+                                    Margin="0,-7,15,0"
+                                    VerticalAlignment="Center" />
+                            </DockPanel>
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

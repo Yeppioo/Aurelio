@@ -37,11 +37,69 @@ public class Calculator
         {
             return Converter.Base64ToBitmap(entry.SettingEntry.IconData);
         }
-
-        return type == MinecraftInstanceIconType.Path
-            ? Bitmap.DecodeToWidth(File.OpenRead(entry.SettingEntry.IconData), 48)
-            : GetEmbeddedIcon(entry);
-
+        
+        if (type == MinecraftInstanceIconType.CraftingTable)
+        {
+            return IO.Local.Getter.LoadBitmapFromAppFile(
+                "Aurelio.Public.Assets.McIcons.crafting_table_front.png");
+        }
+        
+        if (type == MinecraftInstanceIconType.Furnace)
+        {
+            return IO.Local.Getter.LoadBitmapFromAppFile(
+                "Aurelio.Public.Assets.McIcons.furnace_front.png");
+        }
+        
+        if (type == MinecraftInstanceIconType.DirtPath)
+        {
+            return IO.Local.Getter.LoadBitmapFromAppFile(
+                "Aurelio.Public.Assets.McIcons.dirt_path_side.png");
+        }
+        
+        if (type == MinecraftInstanceIconType.GrassBlock)
+        {
+            return IO.Local.Getter.LoadBitmapFromAppFile(
+                "Aurelio.Public.Assets.McIcons.grass_block_side.png");
+        }
+           
+        if (type == MinecraftInstanceIconType.GlassBlock)
+        {
+            return IO.Local.Getter.LoadBitmapFromAppFile(
+                "Aurelio.Public.Assets.McIcons.OptiFineIcon.png");
+        }
+        
+        if (type == MinecraftInstanceIconType.Quilt)
+        {
+            return IO.Local.Getter.LoadBitmapFromAppFile(
+                "Aurelio.Public.Assets.McIcons.QuiltIcon.png");
+        }
+        
+        if (type == MinecraftInstanceIconType.Forge)
+        {
+            return IO.Local.Getter.LoadBitmapFromAppFile(
+                "Aurelio.Public.Assets.McIcons.ForgeIcon.png");
+        }
+        
+        if (type == MinecraftInstanceIconType.Fabric)
+        {
+            return IO.Local.Getter.LoadBitmapFromAppFile(
+                "Aurelio.Public.Assets.McIcons.FabricIcon.png");
+        }
+        
+        if (type == MinecraftInstanceIconType.NoeForge)
+        {
+            return IO.Local.Getter.LoadBitmapFromAppFile(
+                "Aurelio.Public.Assets.McIcons.NeoForgeIcon.png");
+        }
+        
+        if (type == MinecraftInstanceIconType.OptiFine)
+        {
+            return IO.Local.Getter.LoadBitmapFromAppFile(
+                "Aurelio.Public.Assets.McIcons.OptiFineIcon.png");
+        }
+        
+        return IO.Local.Getter.LoadBitmapFromAppFile(
+            "Aurelio.Public.Assets.McIcons.grass_block_side.png");
 
         static Bitmap GetEmbeddedIcon(RecordMinecraftEntry entry)
         {

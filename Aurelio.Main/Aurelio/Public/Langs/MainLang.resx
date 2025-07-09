@@ -1620,4 +1620,25 @@ MacOs 不支持自动更新
   <data name="View3D" xml:space="preserve">
     <value>3D视图</value>
   </data>
+  <data name="Auto" xml:space="preserve">
+    <value>自动</value>
+  </data>
+  <data name="CraftingTable" xml:space="preserve">
+    <value>工作台</value>
+  </data>
+  <data name="Furnace" xml:space="preserve">
+    <value>熔炉</value>
+  </data>
+  <data name="DirtPath" xml:space="preserve">
+    <value>草径</value>
+  </data>
+  <data name="GrassBlock" xml:space="preserve">
+    <value>玻璃</value>
+  </data>
+  <data name="GlassBlock" xml:space="preserve">
+    <value>草方块</value>
+  </data>
+  <data name="DisabledSystemFilePicker" xml:space="preserve">
+    <value>禁用系统文件选择器</value>
+  </data>
 </root>
