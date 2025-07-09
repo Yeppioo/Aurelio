@@ -6,10 +6,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Public.Enum;
+using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Controls;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO.Local;
-using Aurelio.Public.Services;
+using Aurelio.Public.Module.Services;
 using Aurelio.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
@@ -74,6 +75,9 @@ public partial class MainWindow : UrsaWindow
 
         ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
         ExtendClientAreaToDecorationsHint = true;
+
+        var a = new TabDragPreview(new TabEntry(ViewModel.HomeTabPage));
+        a.Show();
     }
 
 #if DEBUG
@@ -94,6 +98,7 @@ public partial class MainWindow : UrsaWindow
                 await TabDragDropService.RemoveSettingsTabFromOtherWindowsAsync();
                 await Task.Delay(50); // Increased delay to ensure UI operations complete
             }
+
             var existingTab = Tabs.FirstOrDefault(x => x.Tag == "setting");
 
             if (existingTab == null)

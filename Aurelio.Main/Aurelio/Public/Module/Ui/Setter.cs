@@ -1,6 +1,6 @@
 ﻿using System;
+using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Const;
-using Aurelio.Public.Enum;
 using Aurelio.Public.Module.Value;
 using Avalonia;
 using Avalonia.Controls;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Minecraft;
-using Aurelio.Public.Enum;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.Value;

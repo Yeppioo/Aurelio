@@ -4,7 +4,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Aurelio.Public.Classes.Minecraft;
-using Aurelio.Public.Enum.Minecraft;
 using Aurelio.Public.Langs;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;

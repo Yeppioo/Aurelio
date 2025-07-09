@@ -1,4 +1,4 @@
-using Aurelio.Public.Enum.Minecraft;
+using Aurelio.Public.Classes.Enum.Minecraft;
 using Avalonia.Media.Imaging;
 
 namespace Aurelio.Public.Classes.Minecraft;

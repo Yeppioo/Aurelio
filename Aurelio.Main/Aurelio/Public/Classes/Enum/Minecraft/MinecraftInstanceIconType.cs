@@ -1,4 +1,4 @@
-namespace Aurelio.Public.Enum.Minecraft;
+namespace Aurelio.Public.Classes.Enum.Minecraft;
 
 public enum MinecraftInstanceIconType
 {

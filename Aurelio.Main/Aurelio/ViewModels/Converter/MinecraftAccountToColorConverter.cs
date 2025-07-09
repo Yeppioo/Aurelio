@@ -1,6 +1,6 @@
 using System.Globalization;
+using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Minecraft;
-using Aurelio.Public.Enum;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 

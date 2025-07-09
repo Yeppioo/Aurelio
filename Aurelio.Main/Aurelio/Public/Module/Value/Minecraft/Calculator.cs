@@ -1,7 +1,7 @@
 using System.IO;
 using System.Linq;
+using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Minecraft;
-using Aurelio.Public.Enum.Minecraft;
 using Avalonia.Media.Imaging;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Models.Game;

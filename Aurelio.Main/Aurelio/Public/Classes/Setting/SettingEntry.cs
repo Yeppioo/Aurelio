@@ -4,6 +4,7 @@ using System.ComponentModel;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Module.App;
+using Aurelio.Public.Module.Services;
 using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -49,14 +50,14 @@ public class SettingEntry : ReactiveObject
         {
             if (App.UiRoot == null) return;
             App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
-            Module.Service.MinecraftInstances.Categorize(MinecraftInstanceCategoryMethod);
+            MinecraftInstances.Categorize(MinecraftInstanceCategoryMethod);
         }
 
         if (e.PropertyName == nameof(MinecraftInstanceSortMethod))
         {
             if (App.UiRoot == null) return;
             App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
-            Module.Service.MinecraftInstances.Sort(MinecraftInstanceSortMethod);
+            MinecraftInstances.Sort(MinecraftInstanceSortMethod);
         }
         
         

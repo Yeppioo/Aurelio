@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Const;
 using Aurelio.Public.Module.Value;
@@ -15,7 +16,7 @@ public class Update
         {
             Data.SettingEntry.MinecraftAccounts.Add(new RecordMinecraftAccount
             {
-                Name = "Steve", AccountType = Enum.Setting.AccountType.Offline,
+                Name = "Steve", AccountType = Setting.AccountType.Offline,
                 AddTime = DateTime.Now, UUID = Calculator.NameToMcOfflineUUID("Steve").ToString(),
                 Data = JsonConvert.SerializeObject(
                     new OfflineAuthenticator().Authenticate("Steve", Calculator.NameToMcOfflineUUID("Steve")))

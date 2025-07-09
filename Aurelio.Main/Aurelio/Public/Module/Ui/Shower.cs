@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Const;
-using Aurelio.Public.Enum;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;

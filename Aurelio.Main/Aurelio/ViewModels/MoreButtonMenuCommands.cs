@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using Aurelio.Public.Enum;
+using Aurelio.Public.Classes.Enum;
 using Avalonia;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.Input;

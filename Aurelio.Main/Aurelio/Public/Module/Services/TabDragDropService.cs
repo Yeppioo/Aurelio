@@ -1,19 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
-using Aurelio.ViewModels;
+using Aurelio.Public.Controls;
 using Aurelio.Views.Main;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Input;
-using Avalonia.Media;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Ursa.Controls;
 
-namespace Aurelio.Public.Services;
+namespace Aurelio.Public.Module.Services;
 
 public static class TabDragDropService
 {
@@ -21,6 +15,7 @@ public static class TabDragDropService
     private static Window? _sourceWindow;
     private static Point _dragStartPoint;
     private static bool _isDragging;
+    private static TabDragPreview? _dragPreview;
     private static readonly List<Window> _registeredWindows = new();
 
     public static void RegisterWindow(Window window)
@@ -63,6 +58,11 @@ public static class TabDragDropService
         _sourceWindow = sourceWindow;
         _dragStartPoint = startPoint;
         _isDragging = true;
+
+        // Create and show drag preview
+        _dragPreview = new TabDragPreview(tab);
+        var screenPoint = sourceWindow.PointToScreen(startPoint).ToPoint(1.0);
+        _dragPreview.Show(screenPoint);
     }
 
     public static void EndDrag()
@@ -70,10 +70,25 @@ public static class TabDragDropService
         _draggedTab = null;
         _sourceWindow = null;
         _isDragging = false;
+
+        // Hide and dispose drag preview
+        if (_dragPreview != null)
+        {
+            _dragPreview.Close();
+            _dragPreview = null;
+        }
     }
 
     public static bool IsDragging => _isDragging;
     public static TabEntry? DraggedTab => _draggedTab;
+
+    public static void UpdateDragPreview(Point screenPoint)
+    {
+        if (_dragPreview != null && _isDragging)
+        {
+            _dragPreview.UpdatePosition(screenPoint);
+        }
+    }
 
     public static void HandleDrop(Point dropPoint, Window targetWindow)
     {

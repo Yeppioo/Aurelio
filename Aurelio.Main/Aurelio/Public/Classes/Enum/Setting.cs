@@ -1,4 +1,4 @@
-﻿namespace Aurelio.Public.Enum;
+﻿namespace Aurelio.Public.Classes.Enum;
 
 public class Setting
 {

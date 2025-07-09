@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Classes.Setting;
-using Aurelio.Public.Enum;
 using Aurelio.Public.Langs;
 using ReactiveUI;
 

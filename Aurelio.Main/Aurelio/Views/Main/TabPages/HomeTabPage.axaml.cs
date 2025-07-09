@@ -2,6 +2,7 @@
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.Services;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
@@ -28,9 +29,9 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
     {
         SearchBox.KeyDown += (_, e) =>
         {
-            if (e.Key == Key.Enter) Public.Module.Service.MinecraftInstances.Search(SearchText);
+            if (e.Key == Key.Enter) MinecraftInstances.Search(SearchText);
         };
-        SearchButton.Click += (_, _) => { Public.Module.Service.MinecraftInstances.Search(SearchText); };
+        SearchButton.Click += (_, _) => { MinecraftInstances.Search(SearchText); };
         MinecraftCardsContainerRoot.SizeChanged += (_, _) =>
         {
             ContainerWidth = MinecraftCardsContainerRoot.Bounds.Width;
@@ -46,7 +47,7 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
         set
         {
             SetField(ref _searchText, value);
-            Public.Module.Service.MinecraftInstances.Search(SearchText);
+            MinecraftInstances.Search(SearchText);
         }
     }
 

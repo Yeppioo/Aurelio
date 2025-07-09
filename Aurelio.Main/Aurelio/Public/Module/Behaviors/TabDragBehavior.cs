@@ -1,14 +1,9 @@
-using System;
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Public.Services;
-using Avalonia;
-using Avalonia.Controls;
+using Aurelio.Public.Module.Services;
 using Avalonia.Input;
-using Avalonia.Interactivity;
-using Avalonia.Media;
 using Avalonia.VisualTree;
 
-namespace Aurelio.Public.Behaviors;
+namespace Aurelio.Public.Module.Behaviors;
 
 public class TabDragBehavior
 {
@@ -106,7 +101,7 @@ public class TabDragBehavior
                         TabDragDropService.StartDrag(_tabEntry, window, _startPoint);
 
                         // Add minimal visual feedback - only opacity change
-                        _control.Opacity = 0.8;
+                        _control.Opacity = 0.6;
                     }
                 }
 
@@ -144,21 +139,24 @@ public class TabDragBehavior
             var screenPoint = window.PointToScreen(e.GetPosition(window)).ToPoint(1.0);
             var targetWindow = TabDragDropService.FindWindowAtPoint(screenPoint);
 
+            // Update drag preview position
+            TabDragDropService.UpdateDragPreview(screenPoint);
+
             // Minimal visual feedback - only opacity changes
             if (TabDragDropService.IsPointOutsideAllWindows(screenPoint))
             {
                 // Visual feedback for detachment (creating new window)
-                _control.Opacity = 0.5;
+                _control.Opacity = 0.4;
             }
             else if (targetWindow != null && targetWindow != window)
             {
                 // Visual feedback for transfer to another window
-                _control.Opacity = 0.6;
+                _control.Opacity = 0.5;
             }
             else
             {
                 // Visual feedback for reordering within same window
-                _control.Opacity = 0.8;
+                _control.Opacity = 0.6;
             }
         }
 

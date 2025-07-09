@@ -1,7 +1,7 @@
 <u:UrsaWindow
     CanResize="True"
     DragDrop.AllowDrop="True"
-    FontFamily="{DynamicResource Font}"
+    FontFamily="{DynamicResource MiSans}"
     FontWeight="{DynamicResource FontWeight}"
     Icon="../../Public/Assets/Icon.ico"
     IsCloseButtonVisible="False"
@@ -23,7 +23,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:aurelio="clr-namespace:Aurelio.Public.Module.Ui"
     xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-    xmlns:behaviors="clr-namespace:Aurelio.Public.Behaviors"
+    xmlns:behaviors="clr-namespace:Aurelio.Public.Module.Behaviors"
     xmlns:controls="clr-namespace:Aurelio.Public.Controls"
     xmlns:converter="clr-namespace:Aurelio.ViewModels.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"

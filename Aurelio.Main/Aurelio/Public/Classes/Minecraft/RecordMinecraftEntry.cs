@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Aurelio.Public.Enum.Minecraft;
+using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Module.Value;
 using Avalonia.Media.Imaging;
 using MinecraftLaunch.Base.Enums;

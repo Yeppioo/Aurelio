@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using Aurelio.Public.Enum;
+using Aurelio.Public.Classes.Enum;
 
 namespace Aurelio.Public.Module.App.Init;
 

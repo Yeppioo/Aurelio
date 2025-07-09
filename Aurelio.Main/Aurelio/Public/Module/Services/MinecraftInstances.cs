@@ -3,18 +3,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Minecraft;
-using Aurelio.Public.Const;
-using Aurelio.Public.Enum.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui.Helper;
-using Avalonia.Threading;
 using DynamicData;
 using MinecraftLaunch.Base.Enums;
-using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Components.Parser;
 
-namespace Aurelio.Public.Module.Service;
+namespace Aurelio.Public.Module.Services;
 
 public partial class MinecraftInstances
 {

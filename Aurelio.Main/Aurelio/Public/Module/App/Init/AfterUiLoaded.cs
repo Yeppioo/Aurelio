@@ -5,6 +5,7 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App.Init.Services;
+using Aurelio.Public.Module.Services;
 using Aurelio.Public.Module.Ui;
 using Avalonia.Controls.Notifications;
 using Avalonia.Media;
@@ -18,6 +19,6 @@ public abstract class AfterUiLoaded
     {
         File.WriteAllText(ConfigPath.AppPathDataPath, System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
         BindKeys.Main();
-        _ = Service.MinecraftInstances.Load(Data.SettingEntry.MinecraftFolderEntries.Select(x=>x.Path).ToArray());
+        _ = MinecraftInstances.Load(Data.SettingEntry.MinecraftFolderEntries.Select(x=>x.Path).ToArray());
     }
 }
