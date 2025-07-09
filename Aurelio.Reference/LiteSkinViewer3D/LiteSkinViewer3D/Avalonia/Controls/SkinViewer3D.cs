@@ -227,12 +227,12 @@ public sealed class SkinRender3D : OpenGlControlBase, ICustomHitTest {
     }
 
     protected override void OnOpenGlRender(GlInterface gl, int fb) {
-        int width = (int)base.Bounds.Width;
-        int height = (int)base.Bounds.Height;
+        int width = (int)Bounds.Width;
+        int height = (int)Bounds.Height;
         if (_skin != null) {
-            if (base.VisualRoot is TopLevel { RenderScaling: var renderScaling }) {
-                width = (int)(base.Bounds.Width * renderScaling);
-                height = (int)(base.Bounds.Height * renderScaling);
+            if (VisualRoot is TopLevel { RenderScaling: var renderScaling }) {
+                width = (int)(Bounds.Width * renderScaling);
+                height = (int)(Bounds.Height * renderScaling);
             }
             _skin.Width = width;
             _skin.Height = height;

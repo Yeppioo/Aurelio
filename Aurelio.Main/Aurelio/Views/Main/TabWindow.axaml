@@ -14,7 +14,7 @@
     MinWidth="450"
     SystemDecorations="Full"
     Title="Aurelio"
-    WindowStartupLocation="CenterScreen"
+    WindowStartupLocation="Manual"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d"

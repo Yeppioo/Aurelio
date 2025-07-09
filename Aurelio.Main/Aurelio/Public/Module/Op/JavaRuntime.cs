@@ -59,7 +59,7 @@ public class JavaRuntime
         var list = await TopLevel.GetTopLevel(sender).StorageProvider.OpenFilePickerAsync(
             new FilePickerOpenOptions { AllowMultiple = true, Title = MainLang.SelectJava });
         if (list.Count == 0 || string.IsNullOrWhiteSpace(list[0].Path.LocalPath)) return;
-        MinecraftLaunch.Base.Models.Game.JavaEntry javaInfo = null;
+        JavaEntry javaInfo = null;
         try
         {
             if (Data.DesktopType is DesktopType.Linux or DesktopType.MacOs)

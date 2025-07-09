@@ -85,10 +85,18 @@ public partial class MainWindow : UrsaWindow
         var menu = (MenuFlyout)c.MainControl!.Flyout;
         MoreButton.Flyout = menu;
         MoreButton.DataContext = new MoreButtonMenuCommands();
-        SettingButton.Click += (_, _) =>
+        SettingButton.Click += async (_, _) =>
         {
-            var tab = Tabs.FirstOrDefault(x => x.Tag == "setting");
-            if (tab is null)
+            var (otherWindow, otherSettingsTab) = TabDragDropService.FindSettingsTabInOtherWindows();
+            var hasSettingsInOtherWindow = otherWindow != null && otherSettingsTab != null;
+            if (hasSettingsInOtherWindow)
+            {
+                TabDragDropService.RemoveSettingsTabFromOtherWindows();
+                await Task.Delay(20);
+            }
+            var existingTab = Tabs.FirstOrDefault(x => x.Tag == "setting");
+
+            if (existingTab == null)
             {
                 var newTab = new TabEntry(ViewModel.SettingTabPage)
                 {
@@ -99,13 +107,14 @@ public partial class MainWindow : UrsaWindow
             }
             else
             {
-                if (SelectedTab == tab)
+                // Use existing tab in main window
+                if (SelectedTab == existingTab)
                 {
                     _ = ViewModel.SettingTabPage.Animate();
                     return;
                 }
 
-                ViewModel.SelectedTab = tab;
+                ViewModel.SelectedTab = existingTab;
             }
         };
     }

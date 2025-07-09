@@ -127,7 +127,7 @@ public static class TabDragDropService
             }
 
             // Use dispatcher for thread safety
-            Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+            Dispatcher.UIThread.Post(() =>
             {
                 tabs.Move(currentIndex, newIndex);
 
@@ -166,13 +166,13 @@ public static class TabDragDropService
         }
 
         // Use async operation to avoid layout manager conflicts
-        Avalonia.Threading.Dispatcher.UIThread.Post(async () =>
+        Dispatcher.UIThread.Post(async () =>
         {
             // Remove from source window
             RemoveTabFromWindow(tabToTransfer, sourceWindow);
 
             // Reduced delay for better responsiveness
-            await System.Threading.Tasks.Task.Delay(25);
+            await Task.Delay(25);
 
             // Refresh content to avoid layout conflicts
             tabToTransfer.RefreshContent();
@@ -187,7 +187,7 @@ public static class TabDragDropService
             // Close source window if it's a TabWindow with no tabs
             if (sourceWindow is TabWindow sourceTabWindow && !sourceTabWindow.ViewModel.HasTabs)
             {
-                await System.Threading.Tasks.Task.Delay(100);
+                await Task.Delay(100);
                 sourceTabWindow.Close();
             }
         });
@@ -204,7 +204,7 @@ public static class TabDragDropService
         // Each window can have its own settings tab
 
         // Use async operation to avoid layout manager conflicts
-        Avalonia.Threading.Dispatcher.UIThread.Post(async () =>
+        Dispatcher.UIThread.Post(async () =>
         {
             try
             {
@@ -212,7 +212,7 @@ public static class TabDragDropService
                 RemoveTabFromWindow(tabToDetach, sourceWindow);
 
                 // Reduced delay for better responsiveness
-                await System.Threading.Tasks.Task.Delay(25);
+                await Task.Delay(25);
 
                 // Refresh content to avoid layout conflicts
                 tabToDetach.RefreshContent();
@@ -242,13 +242,13 @@ public static class TabDragDropService
                 newWindow.Show();
 
                 // Reduced delay for better responsiveness
-                await System.Threading.Tasks.Task.Delay(50);
+                await Task.Delay(50);
                 newWindow.AddTab(tabToDetach);
 
                 // Close source window if it's a TabWindow with no tabs
                 if (sourceWindow is TabWindow sourceTabWindow && !sourceTabWindow.ViewModel.HasTabs)
                 {
-                    await System.Threading.Tasks.Task.Delay(100);
+                    await Task.Delay(100);
                     sourceTabWindow.Close();
                 }
             }
@@ -303,7 +303,7 @@ public static class TabDragDropService
     private static void RemoveTabFromWindow(TabEntry tab, Window window)
     {
         // Use dispatcher to ensure UI operations happen on the correct thread
-        Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+        Dispatcher.UIThread.Post(() =>
         {
             if (window is MainWindow mainWindow)
             {
@@ -333,7 +333,7 @@ public static class TabDragDropService
     private static void AddTabToWindow(TabEntry tab, Window window)
     {
         // Use dispatcher to ensure UI operations happen on the correct thread
-        Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+        Dispatcher.UIThread.Post(() =>
         {
             if (window is MainWindow mainWindow)
             {
@@ -390,5 +390,49 @@ public static class TabDragDropService
         }
 
         return false;
+    }
+
+    public static (Window? window, TabEntry? tab) FindSettingsTabInOtherWindows()
+    {
+        foreach (var window in _registeredWindows.Where(w => w.IsVisible))
+        {
+            // Skip the main window
+            if (window is MainWindow) continue;
+
+            var tabs = GetTabsCollection(window);
+            if (tabs != null)
+            {
+                var settingsTab = tabs.FirstOrDefault(t => t.Tag == "setting");
+                if (settingsTab != null)
+                {
+                    return (window, settingsTab);
+                }
+            }
+        }
+
+        return (null, null);
+    }
+
+    public static void RemoveSettingsTabFromOtherWindows()
+    {
+        var (window, settingsTab) = FindSettingsTabInOtherWindows();
+        if (window != null && settingsTab != null)
+        {
+            Dispatcher.UIThread.Post(() =>
+            {
+                settingsTab.DisposeContent();
+                settingsTab.Removing();
+
+                // Remove from the window
+                if (window is not TabWindow tabWindow) return;
+                tabWindow.ViewModel.RemoveTab(settingsTab);
+
+                // Close the window if it becomes empty
+                if (!tabWindow.ViewModel.HasTabs)
+                {
+                    tabWindow.Close();
+                }
+            });
+        }
     }
 }

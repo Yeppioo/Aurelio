@@ -11,7 +11,7 @@ public static class ControlAnimationHelper
     {
         var currentMargin = control.Margin;
 
-        new Avalonia.Animation.Animation
+        new Animation
         {
             Duration = TimeSpan.FromMilliseconds(800),
             FillMode = FillMode.Forward,
@@ -66,7 +66,7 @@ public static class ControlAnimationHelper
     public static void Vibrate(this Animatable control, TimeSpan duration)
     {
         var count = duration.TotalMilliseconds / 75;
-        new Avalonia.Animation.Animation
+        new Animation
         {
             Duration = TimeSpan.FromMilliseconds(75),
             FillMode = FillMode.Forward,
@@ -103,7 +103,7 @@ public static class ControlAnimationHelper
     {
         var tokensource = new CancellationTokenSource();
         
-        new Avalonia.Animation.Animation
+        new Animation
         {
             Duration = duration,
             FillMode = FillMode.Forward,
@@ -132,7 +132,7 @@ public static class ControlAnimationHelper
     {
         var tokensource = new CancellationTokenSource();
         
-        new Avalonia.Animation.Animation
+        new Animation
         {
             Duration = TimeSpan.FromMilliseconds(500),
             FillMode = FillMode.Forward,
@@ -206,7 +206,7 @@ public static class ControlAnimationHelper
              .WithDuration(duration).WithEasing(new SukiEaseInOutBack() { BounceIntensity = EasingIntensity.Strong })
              .Start(); 
         
-        var scaleAnimation = new Avalonia.Animation.Animation
+        var scaleAnimation = new Animation
         {
             Duration = duration,
             FillMode = FillMode.Forward,

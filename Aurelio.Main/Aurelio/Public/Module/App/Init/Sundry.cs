@@ -11,27 +11,27 @@ public static class Sundry
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
             Console.WriteLine("Running on Windows");
-            Const.Data.DesktopType = DesktopType.Windows;
+            Data.DesktopType = DesktopType.Windows;
         }
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             Console.WriteLine("Running on Linux");
-            Const.Data.DesktopType = DesktopType.Linux;
+            Data.DesktopType = DesktopType.Linux;
         }
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
             Console.WriteLine("Running on macOS");
-            Const.Data.DesktopType = DesktopType.MacOs;
+            Data.DesktopType = DesktopType.MacOs;
         }
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD))
         {
             Console.WriteLine("Running on FreeBSD");
-            Const.Data.DesktopType = DesktopType.FreeBSD;
+            Data.DesktopType = DesktopType.FreeBSD;
         }
         else
         {
             Console.WriteLine("Running on an unknown platform");
-            Const.Data.DesktopType = DesktopType.Unknown;
+            Data.DesktopType = DesktopType.Unknown;
         }
     }
 }

@@ -85,14 +85,14 @@ public partial class TabWindow : UrsaWindow
             var tabsToTransfer = Tabs.ToList();
 
             // Use dispatcher to ensure proper UI thread handling
-            Avalonia.Threading.Dispatcher.UIThread.Post(async () =>
+            Dispatcher.UIThread.Post(async () =>
             {
                 foreach (var tab in tabsToTransfer)
                 {
                     ViewModel.RemoveTab(tab);
 
                     // Small delay and refresh to avoid layout conflicts
-                    await System.Threading.Tasks.Task.Delay(25);
+                    await Task.Delay(25);
                     tab.RefreshContent();
 
                     App.UiRoot.ViewModel.CreateTab(tab);

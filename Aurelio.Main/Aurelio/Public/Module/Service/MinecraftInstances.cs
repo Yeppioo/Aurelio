@@ -235,7 +235,7 @@ public partial class MinecraftInstances
                 // 按文件夹名称分类
                 var folderGroups = Data.AllMinecraftInstances
                     .GroupBy(minecraft => {
-                        var folder = Module.Value.Minecraft.Calculator.GetMinecraftFolderByEntry(minecraft.MlEntry);
+                        var folder = Value.Minecraft.Calculator.GetMinecraftFolderByEntry(minecraft.MlEntry);
                         return folder?.Name ?? MainLang.Unclassified;
                     })
                     .OrderBy(group => group.Key);

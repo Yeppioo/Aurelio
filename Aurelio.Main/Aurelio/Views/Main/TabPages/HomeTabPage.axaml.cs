@@ -7,6 +7,7 @@ using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
 using Aurelio.Views.Main.Template;
 using Avalonia.Input;
+using Avalonia.VisualTree;
 
 namespace Aurelio.Views.Main.TabPages;
 
@@ -79,6 +80,13 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
     {
         if (((Border)sender).Tag is not RecordMinecraftEntry entry) return;
         var tab = new TabEntry(new MinecraftInstancePage(entry));
-        App.UiRoot.CreateTab(tab);
+        if (this.GetVisualRoot() is TabWindow window)
+        {
+            window.CreateTab(tab);
+        }
+        else
+        {
+            App.UiRoot.CreateTab(tab);
+        }
     }
 }
