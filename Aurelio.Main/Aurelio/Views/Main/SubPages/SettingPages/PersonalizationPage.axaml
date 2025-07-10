@@ -18,7 +18,6 @@
                     Background="{DynamicResource CardBackgroundColor}"
                     CornerRadius="{DynamicResource CardCornerRadius}"
                     DockPanel.Dock="Top"
-                    Opacity="{DynamicResource MainOpacity}"
                     VerticalAlignment="Top">
                     <StackPanel>
                         <DockPanel>
@@ -28,12 +27,12 @@
                                 Margin="17.5,0,10,0">
                                 <TextBlock
                                     Margin="0,-1,0,0"
-                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.DisabledSystemFilePicker}"
+                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.EnabledFilePicker}"
                                     VerticalAlignment="Center" />
                                 <ToggleSwitch
                                     DockPanel.Dock="Right"
                                     HorizontalAlignment="Right"
-                                    IsChecked="{Binding Data.SettingEntry.DisabledSystemFilePicker}"
+                                    IsChecked="{Binding Data.SettingEntry.UseFilePicker}"
                                     Margin="0,-7,15,0"
                                     VerticalAlignment="Center" />
                             </DockPanel>

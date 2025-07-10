@@ -1650,4 +1650,7 @@ MacOs 不支持自动更新
   <data name="AutoChooseRightJavaRuntime" xml:space="preserve">
     <value>自动选择适合的Java运行时</value>
   </data>
+  <data name="EnabledFilePicker" xml:space="preserve">
+    <value>启用文件选择器</value>
+  </data>
 </root>

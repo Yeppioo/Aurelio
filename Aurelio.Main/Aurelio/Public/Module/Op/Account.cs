@@ -198,7 +198,7 @@ public class Account
                             AddTime = now, UUID = userProfile.Uuid.ToString(),
                             Data = JsonConvert.SerializeObject(userProfile, Formatting.Indented),
                             Name = userProfile.Name,
-                            Skin = Converter.BytesToBase64(bytes)
+                            Skin = Value.Converter.BytesToBase64(bytes)
                         });
                         AppMethod.SaveSetting();
                         if (TopLevel.GetTopLevel(sender) is Window window)
@@ -315,7 +315,7 @@ public class Account
                                     AddTime = now, UUID = account.Uuid.ToString(),
                                     Data = JsonConvert.SerializeObject(account, Formatting.Indented),
                                     Name = account.Name,
-                                    Skin = Converter.BytesToBase64(bytes)
+                                    Skin = Value.Converter.BytesToBase64(bytes)
                                 });
                             });
                         }

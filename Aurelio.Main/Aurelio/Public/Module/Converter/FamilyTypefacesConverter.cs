@@ -1,10 +1,9 @@
-using System;
 using System.Globalization;
 using System.Linq;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 
-namespace Aurelio.ViewModels.Converter;
+namespace Aurelio.Public.Module.Converter;
 
 public sealed class FamilyTypefacesConverter : IValueConverter
 {

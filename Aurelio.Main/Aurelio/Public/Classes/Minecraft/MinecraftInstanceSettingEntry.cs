@@ -10,11 +10,12 @@ public class MinecraftInstanceSettingEntry : ReactiveObject
 {
     [Reactive] [JsonProperty] public DateTime LastPlayed { get; set; } = DateTime.MinValue;
     [Reactive] [JsonProperty] public MinecraftInstanceIconType IconType { get; set; } = MinecraftInstanceIconType.Auto;
-    [Reactive] [JsonProperty] public string IconData { get; set; }
     [Reactive] [JsonProperty] public double MemoryLimit { get; set; } = -1;
-
+    [Reactive] [JsonProperty] public int EnableIndependentMinecraft { get; set; }
     [Reactive] [JsonProperty] public RecordJavaRuntime JavaRuntime { get; set; } = new()
     {
         JavaVersion = "global"
     };
+    [Reactive] [JsonProperty] public string IconData { get; set; }
 }
+

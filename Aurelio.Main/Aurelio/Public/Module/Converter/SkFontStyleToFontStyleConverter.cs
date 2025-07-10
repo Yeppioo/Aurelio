@@ -1,10 +1,9 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using SkiaSharp;
 
-namespace Aurelio.ViewModels.Converter;
+namespace Aurelio.Public.Module.Converter;
 
 public class SkFontStyleToFontStyleConverter : IValueConverter
 {

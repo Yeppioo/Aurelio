@@ -1,18 +1,11 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Input;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Presenters;
+using Aurelio.Public.Module.Ui.Helper;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
-using Avalonia.Interactivity;
-using Avalonia.LogicalTree;
 using Avalonia.Rendering.Composition;
-using Avalonia.Rendering.Composition.Animations;
-using SukiUI.Helpers;
 
-namespace SukiUI.Controls;
+namespace Aurelio.Public.Controls;
 
 public class GlassCard : ContentControl
 {

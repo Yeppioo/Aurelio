@@ -4,7 +4,7 @@ using Aurelio.Public.Classes.Minecraft;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 
-namespace Aurelio.ViewModels.Converter;
+namespace Aurelio.Public.Module.Converter;
 
 public class MinecraftAccountToColorConverter : IValueConverter
 {

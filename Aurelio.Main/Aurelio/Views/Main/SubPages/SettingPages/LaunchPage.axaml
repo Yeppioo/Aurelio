@@ -6,7 +6,6 @@
     x:DataType="settingPages:LaunchPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:const="clr-namespace:Aurelio.Public.Const"
-    xmlns:converter="clr-namespace:Aurelio.ViewModels.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:minecraft="clr-namespace:Aurelio.Public.Classes.Minecraft"
@@ -21,7 +20,6 @@
                     Background="{DynamicResource CardBackgroundColor}"
                     CornerRadius="{DynamicResource CardCornerRadius}"
                     DockPanel.Dock="Top"
-                    Opacity="{DynamicResource MainOpacity}"
                     VerticalAlignment="Top">
                     <StackPanel>
                         <DockPanel>
@@ -90,7 +88,6 @@
                     Background="{DynamicResource CardBackgroundColor}"
                     CornerRadius="{DynamicResource CardCornerRadius}"
                     DockPanel.Dock="Top"
-                    Opacity="{DynamicResource MainOpacity}"
                     VerticalAlignment="Top">
                     <StackPanel>
                         <DockPanel>
@@ -191,7 +188,6 @@
                     Background="{DynamicResource CardBackgroundColor}"
                     CornerRadius="{DynamicResource CardCornerRadius}"
                     DockPanel.Dock="Top"
-                    Opacity="{DynamicResource MainOpacity}"
                     VerticalAlignment="Top">
                     <StackPanel>
                         <DockPanel>
@@ -215,6 +211,7 @@
                                     IsSnapToTickEnabled="True"
                                     Margin="15,0,10,0"
                                     Maximum="32768"
+                                    Minimum="128"
                                     Name="MaxMemSlider"
                                     TickFrequency="1"
                                     Value="{Binding Data.SettingEntry.MemoryLimit}"
@@ -227,7 +224,6 @@
                     Background="{DynamicResource CardBackgroundColor}"
                     CornerRadius="{DynamicResource CardCornerRadius}"
                     DockPanel.Dock="Top"
-                    Opacity="{DynamicResource MainOpacity}"
                     VerticalAlignment="Top">
                     <StackPanel>
                         <DockPanel>

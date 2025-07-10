@@ -1,14 +1,11 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Media;
+﻿using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.Rendering.SceneGraph;
 using Avalonia.Skia;
 using Avalonia.Styling;
 using SkiaSharp;
-using System;
 
-namespace SukiUI.Controls.GlassMorphism;
+namespace Aurelio.Public.Controls;
 
 public class BlurBackground : Control
 {

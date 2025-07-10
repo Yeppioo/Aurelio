@@ -5,6 +5,7 @@
     x:Class="Aurelio.Views.Main.Template.MinecraftInstancePages.OverViewPage"
     x:DataType="minecraftInstancePages:OverViewPage"
     xmlns="https://github.com/avaloniaui"
+    xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:minecraft="clr-namespace:Aurelio.Public.Classes.Minecraft"
@@ -12,6 +13,9 @@
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <converter:MinecraftInstanceSettingMemoryLimitConverter x:Key="MinecraftInstanceSettingMemoryLimitConverter" />
+    </UserControl.Resources>
     <Border Name="Root">
         <ScrollViewer>
             <StackPanel Margin="15,0,15,15" Spacing="10">
@@ -19,7 +23,6 @@
                     Background="{DynamicResource CardBackgroundColor}"
                     CornerRadius="{DynamicResource CardCornerRadius}"
                     DockPanel.Dock="Top"
-                    Opacity="{DynamicResource MainOpacity}"
                     Padding="10"
                     VerticalAlignment="Top">
                     <StackPanel Spacing="10">
@@ -72,6 +75,75 @@
                                 <ComboBoxItem Content="Quilt" />
                             </ComboBox>
                         </Grid>
+                    </StackPanel>
+                </Border>
+                <Border
+                    Background="{DynamicResource CardBackgroundColor}"
+                    CornerRadius="{DynamicResource CardCornerRadius}"
+                    DockPanel.Dock="Top"
+                    Padding="10"
+                    VerticalAlignment="Top">
+                    <StackPanel Spacing="10">
+                        <DockPanel DockPanel.Dock="Top" Margin="10,0,0,0">
+                            <TextBlock
+                                DockPanel.Dock="Left"
+                                Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.JavaRuntime}"
+                                VerticalAlignment="Center" />
+                            <ComboBox
+                                HorizontalAlignment="Stretch"
+                                ItemsSource="{Binding JavaRuntimes}"
+                                Margin="15,0,0,0"
+                                Name="JavaRuntimeComboBox"
+                                SelectedItem="{Binding Entry.SettingEntry.JavaRuntime}"
+                                VerticalAlignment="Center">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate DataType="minecraft:RecordJavaRuntime">
+                                        <TextBlock Height="18">
+                                            <Run Text="[" />
+                                            <Run Text="{Binding JavaType}" />
+                                            <Run Text="{Binding JavaVersion}" />
+                                            <Run Text="]" />
+                                            <Run Text="{Binding JavaPath}" />
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </DockPanel>
+                        <DockPanel Margin="10,0,0,0">
+                            <TextBlock
+                                DockPanel.Dock="Left"
+                                Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.IsolateMinecraftInstances}"
+                                VerticalAlignment="Center" />
+                            <ComboBox
+                                HorizontalAlignment="Stretch"
+                                Margin="15,0,0,0"
+                                SelectedIndex="{Binding Entry.SettingEntry.EnableIndependentMinecraft}"
+                                VerticalAlignment="Center">
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.UseGlobalSetting}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.On}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Off}" />
+                            </ComboBox>
+                        </DockPanel>
+                        <DockPanel Margin="10,3,0,0">
+                            <TextBlock Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.MemoryLimit}" VerticalAlignment="Center" />
+                            <TextBlock
+                                DockPanel.Dock="Right"
+                                Text="{Binding Entry.SettingEntry.MemoryLimit, Converter={StaticResource MinecraftInstanceSettingMemoryLimitConverter}}"
+                                TextAlignment="Center"
+                                VerticalAlignment="Center"
+                                Width="110">
+                                />
+                            </TextBlock>
+                            <Slider
+                                IsSnapToTickEnabled="True"
+                                Margin="15,0,10,0"
+                                Maximum="32768"
+                                Minimum="-1"
+                                Name="MaxMemSlider"
+                                TickFrequency="1"
+                                Value="{Binding Entry.SettingEntry.MemoryLimit}"
+                                VerticalAlignment="Center" />
+                        </DockPanel>
                     </StackPanel>
                 </Border>
             </StackPanel>

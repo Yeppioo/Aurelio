@@ -20,7 +20,6 @@
                     CornerRadius="{DynamicResource CardCornerRadius}"
                     DockPanel.Dock="Top"
                     Height="40"
-                    Opacity="{DynamicResource MainOpacity}"
                     VerticalAlignment="Top">
                     <u:SelectionList
                         Margin="0,-3,0,0"

@@ -18,16 +18,16 @@ namespace Aurelio.Public.Classes.Minecraft;
 
 public class RecordMinecraftEntry : ReactiveObject
 {
-    [Reactive] [JsonProperty] public string Id { get; set; }
-    [JsonProperty] public MinecraftVersionType Type => MlEntry.Version.Type;
-    [JsonProperty] public MinecraftEntry MlEntry { get; }
-    [JsonProperty] public string ShortDescription => $"{Loader} {MlEntry.Version.VersionId}";
-    [JsonProperty] public string Loader { get; }
-    [JsonProperty] public string[] Tags { get; } = [];
-    [JsonProperty] public string[] Loaders { get; }
-    [Reactive] [JsonProperty] public Bitmap Icon { get; set; }
-    [Reactive] [JsonIgnore] public object Tag { get; set; }
-    [JsonProperty] public MinecraftInstanceSettingEntry SettingEntry { get; }
+    [Reactive] public string Id { get; set; }
+    public MinecraftVersionType Type => MlEntry.Version.Type;
+    public MinecraftEntry MlEntry { get; }
+    public string ShortDescription => $"{Loader} {MlEntry.Version.VersionId}";
+    public string Loader { get; }
+    public string[] Tags { get; } = [];
+    public string[] Loaders { get; }
+    [Reactive] public Bitmap Icon { get; set; }
+    [Reactive] public object Tag { get; set; }
+    public MinecraftInstanceSettingEntry SettingEntry { get; }
 
     private MinecraftInstanceSettingEntry GetMinecraftSetting()
     {
@@ -45,6 +45,8 @@ public class RecordMinecraftEntry : ReactiveObject
     public string InstancePath =>
         Module.Value.Minecraft.Calculator.GetMinecraftSpecialFolder(MlEntry, MinecraftSpecialFolder.InstanceFolder);
 
+    private Debouncer _debouncer;
+
     public RecordMinecraftEntry(MinecraftEntry mlEntry)
     {
         MlEntry = mlEntry;
@@ -59,14 +61,23 @@ public class RecordMinecraftEntry : ReactiveObject
             .ModLoaders.Select(x => $"{x.Type}").ToArray();
         SettingEntry = GetMinecraftSetting();
         Icon = Module.Value.Minecraft.Calculator.GetMinecraftInstanceIcon(this);
+        _debouncer = new Debouncer(() =>
+        {
+            var path = Path.Combine(Module.Value.Minecraft.Calculator.GetMinecraftSpecialFolder
+                (MlEntry, MinecraftSpecialFolder.InstanceFolder), "Aurelio.MinecraftInstance.Setting.Yeppioo");
+            File.WriteAllText(path, SettingEntry.AsJson());
+        },250);
         SettingEntry.PropertyChanged += (_, e) =>
         {
             if (e.PropertyName is nameof(SettingEntry.IconType) or nameof(SettingEntry.IconData))
+            {
                 Icon = Module.Value.Minecraft.Calculator.GetMinecraftInstanceIcon(this);
-            SetIcon(e);
+                SetIcon(e);
+            }
+            _debouncer.Trigger();
         };
     }
-    
+
     private async void SetIcon(PropertyChangedEventArgs e)
     {
         if (e.PropertyName != nameof(MinecraftInstanceSettingEntry.IconType) ||

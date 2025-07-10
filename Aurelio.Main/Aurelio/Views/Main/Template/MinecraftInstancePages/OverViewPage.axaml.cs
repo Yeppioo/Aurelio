@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.IO;
 using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Interfaces;
@@ -17,6 +18,7 @@ namespace Aurelio.Views.Main.Template.MinecraftInstancePages;
 public partial class OverViewPage : PageMixModelBase, IAurelioPage
 {
     public RecordMinecraftEntry Entry { get; }
+    public ObservableCollection<RecordJavaRuntime> JavaRuntimes { get; } = [];
 
     public OverViewPage(RecordMinecraftEntry entry)
     {
@@ -36,6 +38,20 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
             var d = await ShowDialogAsync(MainLang.Rename, p_content: text, b_primary: MainLang.Ok,
                 b_cancel: MainLang.Cancel);
             if (d != ContentDialogResult.Primary) return;
+        };
+        Loaded += (_, _) =>
+        {
+            JavaRuntimes.Clear();
+            JavaRuntimes.Add(new RecordJavaRuntime()
+            {
+                JavaVersion = "global",
+                JavaPath = MainLang.UseGlobalSetting,
+            });
+            foreach (var item in Data.SettingEntry.JavaRuntimes)
+            {
+                JavaRuntimes.Add(item);
+            }
+            DataContext = this;
         };
     }
 

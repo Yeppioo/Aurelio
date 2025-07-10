@@ -8,7 +8,7 @@
     xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
     xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:c="clr-namespace:Aurelio.Public.Const"
-    xmlns:converter="clr-namespace:Aurelio.ViewModels.Converter"
+    xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:entries="clr-namespace:Aurelio.Public.Classes.Entries"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"

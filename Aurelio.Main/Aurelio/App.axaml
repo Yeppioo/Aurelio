@@ -3,7 +3,6 @@
     x:Class="Aurelio.App"
     xmlns="https://github.com/avaloniaui"
     xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-    xmlns:converter="clr-namespace:Aurelio.ViewModels.Converter"
     xmlns:helper="clr-namespace:Aurelio.Public.Module.Ui.Helper"
     xmlns:semi="https://irihi.tech/semi"
     xmlns:styling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"

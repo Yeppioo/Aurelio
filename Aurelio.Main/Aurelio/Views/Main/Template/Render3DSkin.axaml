@@ -14,6 +14,8 @@
             EnableAnimation="True"
             Focusable="True"
             IsVisible="True"
+            MinHeight="400"
+            MinWidth="400"
             Name="skinViewer" />
     </Border>
-</UserControl>
+</UserControl> 

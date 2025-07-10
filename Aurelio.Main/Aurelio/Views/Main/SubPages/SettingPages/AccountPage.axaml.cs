@@ -25,9 +25,9 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
     {
         AddAccount.Click += (_, _) => { _ = Public.Module.Op.Account.AddByUi(this); };
         DelSelectedAccount.Click += (_, _) => { Public.Module.Op.Account.RemoveSelected(); };
-        Open3DView.Click += (_, _) =>
-            App.UiRoot.CreateTab(new TabEntry(new Render3DSkin(Data.SettingEntry.UsingMinecraftAccount.Name,
-                Data.SettingEntry.UsingMinecraftAccount.Skin)));
+        // Open3DView.Click += (_, _) =>
+        //     App.UiRoot.CreateTab(new TabEntry(new Render3DSkin(Data.SettingEntry.UsingMinecraftAccount.Name,
+        //         Data.SettingEntry.UsingMinecraftAccount.Skin)));
 
         skinViewer.PointerMoved += SkinViewer_PointerMoved;
         skinViewer.PointerPressed += SkinViewer_PointerPressed;

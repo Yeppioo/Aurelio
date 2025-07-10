@@ -1,7 +1,7 @@
 using System.Globalization;
 using Avalonia.Data.Converters;
 
-namespace Aurelio.ViewModels.Converter;
+namespace Aurelio.Public.Module.Converter;
 
 /// <summary>
 /// 根据容器宽度自动计算表格列数的转换器

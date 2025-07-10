@@ -1,7 +1,7 @@
 using System.Globalization;
 using Avalonia.Data.Converters;
 
-namespace Aurelio.ViewModels.Converter;
+namespace Aurelio.Public.Module.Converter;
 
 public class ReverseBoolConverter : IValueConverter
 {

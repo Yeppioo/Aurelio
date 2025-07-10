@@ -1,8 +1,7 @@
-using System;
 using Avalonia.Rendering.Composition;
 using Avalonia.Rendering.Composition.Animations;
 
-namespace SukiUI.Helpers
+namespace Aurelio.Public.Module.Ui.Helper
 {
     public class CompositionAnimationHelper
     {

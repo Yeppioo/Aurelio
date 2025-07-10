@@ -1349,6 +1349,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 启用文件选择器.
+        /// </summary>
+        public static string EnabledFilePicker {
+            get {
+                return ResourceManager.GetString("EnabledFilePicker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 启用独立核心.
         /// </summary>
         public static string EnableIndependencyCore {

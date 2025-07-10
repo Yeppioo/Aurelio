@@ -28,7 +28,7 @@ public class SettingEntry : ReactiveObject
         MinecraftInstanceSortMethod { get; set; } = Enum.Minecraft.MinecraftInstanceSortMethod.Name;
 
     [Reactive] [JsonProperty] public string Language { get; set; } = "zh-cn";
-    [Reactive] [JsonProperty] public bool DisabledSystemFilePicker { get; set; }
+    [Reactive] [JsonProperty] public bool UseFilePicker { get; set; } = true;
     [Reactive] [JsonProperty] public bool EnableIndependentMinecraft { get; set; } = true;
 
 
