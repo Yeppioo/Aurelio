@@ -20,6 +20,7 @@ public class Data : ReactiveObject
     public static DesktopType DesktopType { get; set; } = DesktopType.Unknown;
     public static SettingEntry SettingEntry { get; set; }
     public static UiProperty UiProperty { get; set; } = UiProperty.Instance;
+    public static string TranslateToken { get; set; }
     public static List<RecordMinecraftEntry> AllMinecraftInstances { get; } = [];
     public static ObservableCollection<MinecraftCategoryEntry> SortedMinecraftCategories { get; } = [];
 }

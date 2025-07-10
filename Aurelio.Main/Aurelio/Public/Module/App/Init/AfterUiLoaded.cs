@@ -10,6 +10,7 @@ using Aurelio.Public.Module.Ui;
 using Avalonia.Controls.Notifications;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using CommunityToolkit.Mvvm.ComponentModel.__Internals;
 
 namespace Aurelio.Public.Module.App.Init;
 
@@ -17,9 +18,11 @@ public abstract class AfterUiLoaded
 {
     public static void Main()
     {
-        File.WriteAllText(ConfigPath.AppPathDataPath, System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+        File.WriteAllText(ConfigPath.AppPathDataPath,
+            System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
         BindKeys.Main();
-        _ = MinecraftInstances.Load(Data.SettingEntry.MinecraftFolderEntries.Select(x=>x.Path).ToArray());
-        Ui.Setter.SetAccentColor(Color.Parse("#1BD76A"));
+        _ = MinecraftInstances.Load(Data.SettingEntry.MinecraftFolderEntries.Select(x => x.Path).ToArray());
+        Setter.SetAccentColor(Color.Parse("#1BD76A"));
+        _ = TranslateToken.RefreshToken();
     }
 }

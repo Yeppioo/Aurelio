@@ -124,6 +124,18 @@
                                 <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Off}" />
                             </ComboBox>
                         </DockPanel>
+                        <DockPanel Margin="10,0,0,0">
+                            <TextBlock
+                                DockPanel.Dock="Left"
+                                Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AutoJoinServer}"
+                                VerticalAlignment="Center" />
+                            <TextBox
+                                HorizontalAlignment="Stretch"
+                                Margin="15,0,0,0"
+                                Text="{Binding Entry.SettingEntry.AutoJoinServerAddress}"
+                                VerticalAlignment="Center"
+                                Watermark="example.com:25565" />
+                        </DockPanel>
                         <DockPanel Margin="10,3,0,0">
                             <TextBlock Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.MemoryLimit}" VerticalAlignment="Center" />
                             <TextBlock

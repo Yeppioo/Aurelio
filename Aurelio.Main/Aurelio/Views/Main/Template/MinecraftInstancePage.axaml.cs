@@ -28,11 +28,13 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
 
     private bool _fl = true;
     public OverViewPage OverViewPage { get; } 
+    public ModPage ModPage { get; } 
 
     public MinecraftInstancePage(RecordMinecraftEntry entry)
     {
         Entry = entry;
         OverViewPage = new OverViewPage(Entry);
+        ModPage = new ModPage(Entry.MlEntry);
         InitializeComponent();
         DataContext = this;
         RootElement = Root;

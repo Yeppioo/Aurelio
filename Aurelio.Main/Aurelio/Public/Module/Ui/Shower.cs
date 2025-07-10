@@ -22,7 +22,6 @@ public abstract class Shower
         var content = p_content ?? new SelectableTextBlock()
         {
             TextWrapping = TextWrapping.Wrap,
-            FontFamily = (FontFamily)Application.Current.Resources["Font"],
             Text = msg
         };
         if (!string.IsNullOrWhiteSpace(msg) && p_content != null)
@@ -35,7 +34,6 @@ public abstract class Shower
                     new SelectableTextBlock()
                     {
                         TextWrapping = TextWrapping.Wrap,
-                        FontFamily = (FontFamily)Application.Current.Resources["Font"],
                         Text = msg
                     },
                     content
@@ -55,7 +53,6 @@ public abstract class Shower
             DefaultButton = ContentDialogButton.Primary,
             CloseButtonText = b_cancel,
             SecondaryButtonText = b_secondary,
-            FontFamily = (FontFamily)Application.Current.Resources["Font"],
             Title = title
         };
         var result = await dialog.ShowAsync(p_host ?? TopLevel.GetTopLevel(Aurelio.App.UiRoot));

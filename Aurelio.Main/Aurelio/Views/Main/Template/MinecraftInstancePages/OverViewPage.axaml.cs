@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
@@ -51,7 +52,13 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
             {
                 JavaRuntimes.Add(item);
             }
-            DataContext = this;
+
+            var matchingRuntime = JavaRuntimes.FirstOrDefault(j => j == Entry.SettingEntry.JavaRuntime);
+            JavaRuntimeComboBox.SelectedItem = matchingRuntime ?? JavaRuntimes[0]; 
+        };
+        JavaRuntimeComboBox.SelectionChanged += (_, _) =>
+        { 
+            Entry.SettingEntry.JavaRuntime = JavaRuntimeComboBox.SelectedItem as RecordJavaRuntime;
         };
     }
 
