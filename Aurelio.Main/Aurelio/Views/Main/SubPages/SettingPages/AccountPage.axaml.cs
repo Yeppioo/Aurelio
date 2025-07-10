@@ -47,7 +47,7 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
         };
     }
 
-    public Border RootElement { get; set; }
+    public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
 
     private void SkinViewer_PointerReleased(object? sender, PointerReleasedEventArgs e)

@@ -51,5 +51,5 @@ public partial class LaunchPage : PageMixModelBase, IAurelioPage
         };
     }
 
-    public Border RootElement { get; set; }
+    public Control RootElement { get; set; }
 }

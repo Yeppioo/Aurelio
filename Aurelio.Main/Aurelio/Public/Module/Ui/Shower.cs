@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
@@ -7,6 +9,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Media;
+using Avalonia.Platform.Storage;
 using FluentAvalonia.UI.Controls;
 using Ursa.Controls;
 using Notification = Avalonia.Controls.Notifications.Notification;
@@ -99,5 +102,23 @@ public abstract class Shower
         // {
         //     NoticeWindow(msg, ex.Message);
         // }
+    }
+    
+    public static async Task OpenFolder(string path)
+    {
+        if (Data.DesktopType == DesktopType.MacOs)
+        {
+            var process = new Process();
+            process.StartInfo.FileName = "open";
+            process.StartInfo.Arguments = $"\"{path}\"";
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+            process.Start();
+        }
+        else
+        {
+            var launcher = Aurelio.App.TopLevel.Launcher;
+            await launcher.LaunchDirectoryInfoAsync(new DirectoryInfo(path));
+        }
     }
 }

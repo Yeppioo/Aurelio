@@ -73,5 +73,5 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
         _isAnimating = false;
     }
 
-    public Border RootElement { get; set; }
+    public Control RootElement { get; set; }
 }

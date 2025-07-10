@@ -1,11 +1,8 @@
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Aurelio.Public.Classes.Enum;
@@ -15,18 +12,14 @@ using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using FluentAvalonia.UI.Controls;
 using Microsoft.VisualBasic.FileIO;
 using MinecraftLaunch.Base.Models.Game;
 using Newtonsoft.Json.Linq;
 using Tomlyn;
 using Tomlyn.Model;
-using SearchOption = Microsoft.VisualBasic.FileIO.SearchOption;
 
-namespace Aurelio.Views.Main.Template.MinecraftInstancePages;
+namespace Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages;
 
 public partial class ModPage : PageMixModelBase , IAurelioPage
 {
@@ -423,6 +416,6 @@ public partial class ModPage : PageMixModelBase , IAurelioPage
         });
     }
 
-    public Border RootElement { get; set; }
+    public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
 }

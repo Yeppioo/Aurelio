@@ -11,7 +11,7 @@ public partial class PersonalizationPage : PageMixModelBase, IAurelioPage
 {
     public static Data Data => Data.Instance;
     public PageLoadingAnimator InAnimator { get; set; }
-    public Border RootElement { get; set; }
+    public Control RootElement { get; set; }
     public PersonalizationPage()
     {
         InitializeComponent();

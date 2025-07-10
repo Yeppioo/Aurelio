@@ -66,7 +66,7 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
     {
     }
 
-    public Border RootElement { get; set; }
+    public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
 
     public double ContainerWidth

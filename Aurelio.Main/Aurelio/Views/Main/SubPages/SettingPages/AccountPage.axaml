@@ -44,6 +44,7 @@
                             </u:IconButton>
                             <u:IconButton
                                 Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Open3DView}"
+                                IsVisible="False"
                                 Margin="10,0,0,0"
                                 x:Name="Open3DView">
                                 <u:IconButton.Icon>

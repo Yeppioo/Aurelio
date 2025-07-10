@@ -24,7 +24,6 @@
     </UserControl.Resources>
     <Grid>
         <Border Name="Root">
-
             <DockPanel>
                 <DockPanel
                     DockPanel.Dock="Top"

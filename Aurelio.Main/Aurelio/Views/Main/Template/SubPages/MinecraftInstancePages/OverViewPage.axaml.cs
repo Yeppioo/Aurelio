@@ -1,20 +1,13 @@
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
-using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Avalonia.Platform.Storage;
 using FluentAvalonia.UI.Controls;
 
-namespace Aurelio.Views.Main.Template.MinecraftInstancePages;
+namespace Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages;
 
 public partial class OverViewPage : PageMixModelBase, IAurelioPage
 {
@@ -62,6 +55,6 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
         };
     }
 
-    public Border RootElement { get; set; }
+    public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
 }

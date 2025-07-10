@@ -6,7 +6,7 @@ using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
-using Aurelio.Views.Main.Template.MinecraftInstancePages;
+using Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages;
 using Avalonia.Platform.Storage;
 using Avalonia;
 using Avalonia.Controls;
@@ -29,12 +29,20 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
     private bool _fl = true;
     public OverViewPage OverViewPage { get; } 
     public ModPage ModPage { get; } 
+    public SavePage SavePage { get; } 
+    public ShaderPackPage ShaderPackPage { get; } 
+    public ScreenshotPage ScreenshotPage { get; } 
+    public ResourcePackPage ResourcePackPage { get; } 
 
     public MinecraftInstancePage(RecordMinecraftEntry entry)
     {
         Entry = entry;
         OverViewPage = new OverViewPage(Entry);
         ModPage = new ModPage(Entry.MlEntry);
+        ResourcePackPage = new ResourcePackPage(Entry.MlEntry);
+        SavePage = new SavePage(Entry.MlEntry);
+        ShaderPackPage = new ShaderPackPage(Entry.MlEntry);
+        ScreenshotPage = new ScreenshotPage(Entry.MlEntry);
         InitializeComponent();
         DataContext = this;
         RootElement = Root;
@@ -65,7 +73,7 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
             Public.Module.Value.Minecraft.Calculator.GetMinecraftSpecialFolder(Entry.MlEntry, folder)));
     }
 
-    public Border RootElement { get; set; }
+    public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
     public TabEntry HostTab { get; set; }
     public PageInfoEntry PageInfo { get; }
