@@ -5,10 +5,10 @@
     x:Class="Aurelio.Views.Main.SubPages.SettingPages.AccountPage"
     x:DataType="data:Data"
     xmlns="https://github.com/avaloniaui"
-    xmlns:controls1="clr-namespace:LiteSkinViewer3D.Avalonia.Controls;assembly=LiteSkinViewer3D"
     xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:data="clr-namespace:Aurelio.Public.Const"
+    xmlns:lsv="using:LiteSkinViewer3D.Avalonia.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:minecraft="clr-namespace:Aurelio.Public.Classes.Minecraft"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
@@ -42,7 +42,6 @@
                             </u:IconButton>
                             <u:IconButton
                                 Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Open3DView}"
-                                IsVisible="False"
                                 Margin="10,0,0,0"
                                 x:Name="Open3DView">
                                 <u:IconButton.Icon>
@@ -129,10 +128,8 @@
                                 IsVisible="{Binding UiProperty.IsEnable3DSkinRender, Converter={StaticResource ReverseBoolConverter}}"
                                 Margin="60,60,60,70"
                                 Source="{Binding SettingEntry.UsingMinecraftAccount.Body}" />
-                            <controls1:SkinRender3D
-                                CapeVisibility="False"
-                                EnableAnimation="True"
-                                Focusable="True"
+                            <lsv:SkinViewer3D
+                                IsEnableAnimation="True"
                                 IsVisible="{Binding UiProperty.IsEnable3DSkinRender}"
                                 Margin="0,0,0,40"
                                 Name="skinViewer" />

@@ -9,13 +9,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border Name="Root">
-        <controls:SkinRender3D
-            CapeVisibility="False"
-            EnableAnimation="True"
-            Focusable="True"
-            IsVisible="True"
-            MinHeight="400"
-            MinWidth="400"
+        <controls:SkinViewer3D
+            IsEnableAnimation="True"
+            Margin="0,0,0,40"
             Name="skinViewer" />
     </Border>
 </UserControl>

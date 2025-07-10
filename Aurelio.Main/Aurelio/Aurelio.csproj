@@ -119,7 +119,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Aurelio.Reference\LiteSkinViewer3D\LiteSkinViewer3D\LiteSkinViewer3D.csproj"/>
+        <ProjectReference Include="..\..\Aurelio.Reference\LiteSkinViewer3D\LiteSkinViewer3D\LiteSkinViewer3D.csproj" />
         <ProjectReference Include="..\..\Aurelio.Reference\MinecraftSkinRender\MinecraftSkinRender.Image\MinecraftSkinRender.Image.csproj"/>
         <ProjectReference Include="..\..\Aurelio.Reference\MinecraftSkinRender\MinecraftSkinRender.OpenGL\MinecraftSkinRender.OpenGL.csproj"/>
     </ItemGroup>

@@ -1,9 +1,14 @@
 ﻿using System.Numerics;
+using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.Op;
 using Aurelio.Public.Module.Ui.Helper;
+using Aurelio.Public.Module.Value;
 using Aurelio.ViewModels;
+using Aurelio.Views.Main.Template;
 using Avalonia.Input;
+using Avalonia.VisualTree;
+using LiteSkinViewer3D.Shared.Enums;
 using PointerType = LiteSkinViewer3D.Shared.Enums.PointerType;
 
 namespace Aurelio.Views.Main.SubPages.SettingPages;
@@ -28,10 +33,18 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
     {
         AddAccount.Click += (_, _) => { _ = Account.AddByUi(this); };
         DelSelectedAccount.Click += (_, _) => { Account.RemoveSelected(); };
-        // Open3DView.Click += (_, _) =>
-        //     App.UiRoot.CreateTab(new TabEntry(new Render3DSkin(Data.SettingEntry.UsingMinecraftAccount.Name,
-        //         Data.SettingEntry.UsingMinecraftAccount.Skin)));
-
+        Open3DView.Click += (_, _) =>
+        {
+            var tab = new TabEntry(new Render3DSkin(Data.SettingEntry.UsingMinecraftAccount.Name,
+                Data.SettingEntry.UsingMinecraftAccount.Skin));
+            if (this.GetVisualRoot() is TabWindow window)
+            {
+                window.CreateTab(tab);
+                return;
+            }
+            App.UiRoot.CreateTab(tab);
+        };
+       
         skinViewer.PointerMoved += SkinViewer_PointerMoved;
         skinViewer.PointerPressed += SkinViewer_PointerPressed;
         skinViewer.PointerReleased += SkinViewer_PointerReleased;
@@ -39,14 +52,16 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
         Data.SettingEntry.PropertyChanged += (_, e) =>
         {
             if (e.PropertyName != nameof(Data.SettingEntry.UsingMinecraftAccount)) return;
-            skinViewer.ChangeSkin(Data.SettingEntry.UsingMinecraftAccount.Skin);
+            skinViewer.Skin = (Converter.Base64ToBitmap(Data.SettingEntry.UsingMinecraftAccount.Skin));
+            skinViewer.RenderMode = SkinRenderMode.None;
         };
         Data.UiProperty.PropertyChanged += (_, e) =>
         {
             if (e.PropertyName != nameof(Data.UiProperty.IsEnable3DSkinRender)
                 || !Data.UiProperty.IsEnable3DSkinRender || _loadedSkin) return;
             _loadedSkin = true;
-            skinViewer.ChangeSkin(Data.SettingEntry.UsingMinecraftAccount.Skin);
+            skinViewer.Skin = (Converter.Base64ToBitmap(Data.SettingEntry.UsingMinecraftAccount.Skin));
+            skinViewer.RenderMode = SkinRenderMode.None;
         };
     }
 
