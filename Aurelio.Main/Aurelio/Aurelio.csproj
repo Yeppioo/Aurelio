@@ -106,6 +106,10 @@
       <DependentUpon>ContentDialog.axaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\CrashWindow.axaml.cs">
+      <DependentUpon>CrashWindow.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

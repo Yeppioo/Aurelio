@@ -150,8 +150,8 @@
   <data name="AutoScan" xml:space="preserve">
     <value>自動スキャン</value>
   </data>
-  <data name="LetYMCLChooseJava" xml:space="preserve">
-    <value>YMCLでのカスタム値 Java を利用する</value>
+  <data name="LetAurelioChooseJava" xml:space="preserve">
+    <value>Aurelioでのカスタム値 Java を利用する</value>
   </data>
   <data name="ScanJavaSuccess" xml:space="preserve">
     <value>Javaのスキャンが完了しました</value>
@@ -515,7 +515,7 @@
     <value>オープンソースプロジェクト用テーブル</value>
   </data>
   <data name="GPL3Text" xml:space="preserve">
-    <value>YMCLは GPL 3.0 License プロトコルのソースコードとしてオープンソース化できますが、ライセンスキーの登録およびライセンス規約を含める必要があります。また、ライセンス情報含む通知ファイルが必要です。</value>
+    <value>Aurelioは GPL 3.0 License プロトコルのソースコードとしてオープンソース化できますが、ライセンスキーの登録およびライセンス規約を含める必要があります。また、ライセンス情報含む通知ファイルが必要です。</value>
   </data>
   <data name="ShowGameOutput" xml:space="preserve">
     <value>ゲームエクスポートを表示</value>
@@ -649,8 +649,8 @@ sudo apt install vlc</value>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>言語/Choose Language を選択してください</value>
   </data>
-  <data name="ReleaseTheMouseAndLetYmclProcessThisFile" xml:space="preserve">
-    <value>YMCLを使用してこのファイルを処理するマウス</value>
+  <data name="ReleaseTheMouseAndLetAurelioProcessThisFile" xml:space="preserve">
+    <value>Aurelioを使用してこのファイルを処理するマウス</value>
   </data>
   <data name="UnableToAddModsForBedrockEdition" xml:space="preserve">
     <value>Modを作成できませんでした</value>
@@ -722,7 +722,7 @@ sudo apt install vlc</value>
     <value>説明</value>
   </data>
   <data name="NeedRestartApp" xml:space="preserve">
-    <value>YMCL の再起動が必要です</value>
+    <value>Aurelio の再起動が必要です</value>
   </data>
   <data name="OnlySupportsWindows10AndAboveSystems" xml:space="preserve">
     <value>Windows 10以降でのみ対応</value>
@@ -913,7 +913,7 @@ win 10以下のシステム（10を除く）は自動更新をサポートして
     <value>ジャンプ検索</value>
   </data>
   <data name="AggregateSearchWatermark" xml:space="preserve">
-    <value>キーワードを入力してYMCLで検索</value>
+    <value>キーワードを入力してAurelioで検索</value>
   </data>
   <data name="SwitchedTo" xml:space="preserve">
     <value>切り替え済み</value>
@@ -975,7 +975,7 @@ MacOsは自動更新をサポートしていません
   <data name="CrashLa" xml:space="preserve">
     <value>おっと！解釈のための特殊ファイル  (• ω • `) o</value>
   </data>
-  <data name="YMCLHappenError" xml:space="preserve">
+  <data name="AurelioHappenError" xml:space="preserve">
     <value>YuMinecraft ランチャーが例外を処理していません</value>
   </data>
   <data name="DetailedInfo" xml:space="preserve">
@@ -1233,7 +1233,7 @@ MacOsは自動更新をサポートしていません
     <comment>#TODO#_</comment>
   </data>
   <data name="FixLoadDataFailTip" xml:space="preserve">
-    <value>データの読み込み中に例外が発生しました。データが破損している可能性があります。これを修正するためにYMCLデータをリセットしますか？</value>
+    <value>データの読み込み中に例外が発生しました。データが破損している可能性があります。これを修正するためにAurelioデータをリセットしますか？</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="Export" xml:space="preserve">

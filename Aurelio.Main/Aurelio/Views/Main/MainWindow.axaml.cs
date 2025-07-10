@@ -75,6 +75,8 @@ public partial class MainWindow : UrsaWindow
 
         ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
         ExtendClientAreaToDecorationsHint = true;
+        
+        // new CrashWindow("Message").Show();
     }
 
 #if DEBUG

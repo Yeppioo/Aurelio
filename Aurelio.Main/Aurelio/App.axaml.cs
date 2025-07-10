@@ -1,14 +1,17 @@
 using System;
+using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Aurelio.Public.Const;
 using Aurelio.Public.Module.App.Init;
+using Aurelio.Views;
 using Avalonia.Markup.Xaml;
 using Aurelio.Views.Main;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
+using Avalonia.Threading;
 
 namespace Aurelio;
 
@@ -37,6 +40,13 @@ public partial class App : Application
             this.AttachDevTools();
 #endif
             DisableAvaloniaDataAnnotationValidation();
+            
+            if (!Debugger.IsAttached)
+            {
+                AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+                Dispatcher.UIThread.UnhandledException += UIThread_UnhandledException;
+            }
+            
             var win = new MainWindow();
             desktop.MainWindow = win;
             UiProperty.Notification = new Ursa.Controls.WindowNotificationManager(TopLevel.GetTopLevel(win));
@@ -54,6 +64,39 @@ public partial class App : Application
         
         base.OnFrameworkInitializationCompleted();
     }
+
+    private void UIThread_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    {
+        Console.WriteLine(e.Exception);
+        try
+        {
+            var win = new CrashWindow(e.Exception.ToString());
+            win.Show();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+        finally
+        {
+            e.Handled = true;
+        }
+    }
+
+    private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        Console.WriteLine(e);
+        try
+        {
+            var win = new CrashWindow(e.ToString() ?? "Unhandled Exception");
+            win.Show();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+
 
     private void DisableAvaloniaDataAnnotationValidation()
     {

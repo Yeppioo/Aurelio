@@ -249,7 +249,7 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 输入关键词以在YMCL中搜索.
+        ///   Looks up a localized string similar to 输入关键词以在Aurelio中搜索.
         /// </summary>
         public static string AggregateSearchWatermark {
             get {
@@ -407,6 +407,15 @@ namespace Aurelio.Public.Langs {
         public static string AsShaderPackImport {
             get {
                 return ResourceManager.GetString("AsShaderPackImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aurelio 发生未处理异常.
+        /// </summary>
+        public static string AurelioHappenError {
+            get {
+                return ResourceManager.GetString("AurelioHappenError", resourceCulture);
             }
         }
         
@@ -1655,7 +1664,7 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 在加载数据时遇到异常，这可能是由于数据发生损坏导致的。是否重置YMCL数据以解决此问题？.
+        ///   Looks up a localized string similar to 在加载数据时遇到异常，这可能是由于数据发生损坏导致的。是否重置Aurelio数据以解决此问题？.
         /// </summary>
         public static string FixLoadDataFailTip {
             get {
@@ -1836,7 +1845,7 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to YMCL 以 GPL 3.0 License 协议开放源代码，可以修改且分发，但软件必须包含原始代码的版权声明和许可声明，以及一个包含许可信息的通知文件。.
+        ///   Looks up a localized string similar to Aurelio 以 GPL 3.0 License 协议开放源代码，可以修改且分发，但软件必须包含原始代码的版权声明和许可声明，以及一个包含许可信息的通知文件。.
         /// </summary>
         public static string GPL3Text {
             get {
@@ -2190,7 +2199,7 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 在开始设置 Yu Minecraft Launcher 前，需要选择语言。.
+        ///   Looks up a localized string similar to 在开始设置 Aurelio 前，需要选择语言。.
         /// </summary>
         public static string LanguageTip {
             get {
@@ -2343,11 +2352,11 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 让YMCL选择合适的Java.
+        ///   Looks up a localized string similar to 让Aurelio选择合适的Java.
         /// </summary>
-        public static string LetYMCLChooseJava {
+        public static string LetAurelioChooseJava {
             get {
-                return ResourceManager.GetString("LetYMCLChooseJava", resourceCulture);
+                return ResourceManager.GetString("LetAurelioChooseJava", resourceCulture);
             }
         }
         
@@ -2832,7 +2841,7 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 需要重启YMCL.
+        ///   Looks up a localized string similar to 需要重启Aurelio.
         /// </summary>
         public static string NeedRestartApp {
             get {
@@ -3399,11 +3408,11 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 释放鼠标让YMCL处理此文件.
+        ///   Looks up a localized string similar to 释放鼠标让Aurelio处理此文件.
         /// </summary>
-        public static string ReleaseTheMouseAndLetYmclProcessThisFile {
+        public static string ReleaseTheMouseAndLetAurelioProcessThisFile {
             get {
-                return ResourceManager.GetString("ReleaseTheMouseAndLetYmclProcessThisFile", resourceCulture);
+                return ResourceManager.GetString("ReleaseTheMouseAndLetAurelioProcessThisFile", resourceCulture);
             }
         }
         
@@ -3940,7 +3949,7 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 以下是发电的赞助者，感谢对 Yu Minecraft Launcher 的支持 ！.
+        ///   Looks up a localized string similar to 以下是发电的赞助者，感谢对 Aurelio 的支持 ！.
         /// </summary>
         public static string SponsorsTip {
             get {
@@ -4228,7 +4237,7 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Yu Minecraft Launcher 遇到了没有处理的异常 , 可能无法继续运行 , 下方为异常的详细信息.
+        ///   Looks up a localized string similar to Aurelio 遇到了没有处理的异常 , 可能无法继续运行 , 下方为异常的详细信息.
         /// </summary>
         public static string UnhandledErrorTip {
             get {
@@ -4562,15 +4571,6 @@ namespace Aurelio.Public.Langs {
         public static string YggdrasilServerUrlIsEmpty {
             get {
                 return ResourceManager.GetString("YggdrasilServerUrlIsEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yu Minecraft Launcher 发生未处理异常.
-        /// </summary>
-        public static string YMCLHappenError {
-            get {
-                return ResourceManager.GetString("YMCLHappenError", resourceCulture);
             }
         }
     }

@@ -107,10 +107,6 @@ public partial class TabWindow : UrsaWindow
     private void BindEvents()
     {
         NavScrollViewer.ScrollChanged += (_, _) => { ViewModel.IsTabMaskVisible = NavScrollViewer.Offset.X > 0; };
-        TitleBarContainer.SizeChanged += (_, _) =>
-        {
-            NavRoot.Margin = new Thickness(80, 0, TitleBarContainer.Bounds.Width + 85, 0);
-        };
     }
 
     private void TabItem_OnPointerPressed(object? sender, PointerPressedEventArgs e)

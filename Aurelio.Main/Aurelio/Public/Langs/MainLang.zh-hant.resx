@@ -150,8 +150,8 @@
   <data name="AutoScan" xml:space="preserve">
     <value>自動掃描</value>
   </data>
-  <data name="LetYMCLChooseJava" xml:space="preserve">
-    <value>讓YMCL選擇合適的Java</value>
+  <data name="LetAurelioChooseJava" xml:space="preserve">
+    <value>讓Aurelio選擇合適的Java</value>
   </data>
   <data name="ScanJavaSuccess" xml:space="preserve">
     <value>掃描Java成功</value>
@@ -515,7 +515,7 @@
     <value>開源項目使用表</value>
   </data>
   <data name="GPL3Text" xml:space="preserve">
-    <value>YMCL 以GPL-3.0 協議開放原始碼，可以修改且分發，但不得刪除原作品的標記，修改後的作品必須也採用GPL 協定進行開源。</value>
+    <value>Aurelio 以GPL-3.0 協議開放原始碼，可以修改且分發，但不得刪除原作品的標記，修改後的作品必須也採用GPL 協定進行開源。</value>
   </data>
   <data name="ShowGameOutput" xml:space="preserve">
     <value>顯示遊戲輸出</value>
@@ -649,8 +649,8 @@ sudo apt install vlc</value>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>选择语言/Choose Language</value>
   </data>
-  <data name="ReleaseTheMouseAndLetYmclProcessThisFile" xml:space="preserve">
-    <value>釋放滑鼠讓YMCL處理此檔案</value>
+  <data name="ReleaseTheMouseAndLetAurelioProcessThisFile" xml:space="preserve">
+    <value>釋放滑鼠讓Aurelio處理此檔案</value>
   </data>
   <data name="UnableToAddModsForBedrockEdition" xml:space="preserve">
     <value>無法為基岩版添加模組</value>
@@ -722,7 +722,7 @@ sudo apt install vlc</value>
     <value>課程描述</value>
   </data>
   <data name="NeedRestartApp" xml:space="preserve">
-    <value>需要重啟YMCL</value>
+    <value>需要重啟Aurelio</value>
   </data>
   <data name="OnlySupportsWindows10AndAboveSystems" xml:space="preserve">
     <value>僅支援Windows 10 以上系統</value>
@@ -816,7 +816,7 @@ sudo apt install vlc</value>
 重定向至https://ymcl.daiyu.fun/ 下載官方版本。</value>
   </data>
   <data name="LanguageTip" xml:space="preserve">
-    <value>在開始設定Yu Minecraft Launcher 前，需要選擇語言。</value>
+    <value>在開始設定Aurelio 前，需要選擇語言。</value>
   </data>
   <data name="Account" xml:space="preserve">
     <value>帳戶</value>
@@ -913,7 +913,7 @@ win10 以下系統(不包括10)不支援自動更新
     <value>跳轉搜尋</value>
   </data>
   <data name="AggregateSearchWatermark" xml:space="preserve">
-    <value>輸入關鍵字以在YMCL中搜尋</value>
+    <value>輸入關鍵字以在Aurelio中搜尋</value>
   </data>
   <data name="SwitchedTo" xml:space="preserve">
     <value>已切換到</value>
@@ -940,7 +940,7 @@ win10 以下系統(不包括10)不支援自動更新
     <value>贊助者</value>
   </data>
   <data name="SponsorsTip" xml:space="preserve">
-    <value>以下是發電的贊助者，感謝對Yu Minecraft Launcher 的支持！</value>
+    <value>以下是發電的贊助者，感謝對Aurelio 的支持！</value>
   </data>
   <data name="MacOsUpdateTip" xml:space="preserve">
     <value>發現新版本: {version}&amp;#10; MacOs 不支援自動更新前往以下連結下載新版本: “{url}”&amp;#10;前往設定-下載-自動更新可關閉自動檢查更新</value>
@@ -972,14 +972,14 @@ win10 以下系統(不包括10)不支援自動更新
   <data name="CrashLa" xml:space="preserve">
     <value>崩潰啦！ヾ(•ω•`)o</value>
   </data>
-  <data name="YMCLHappenError" xml:space="preserve">
-    <value>Yu Minecraft Launcher 發生未處理異常</value>
+  <data name="AurelioHappenError" xml:space="preserve">
+    <value>Aurelio 發生未處理異常</value>
   </data>
   <data name="DetailedInfo" xml:space="preserve">
     <value>詳細資料</value>
   </data>
   <data name="UnhandledErrorTip" xml:space="preserve">
-    <value>Yu Minecraft Launcher 遇到了沒有處理的異常, 可能無法繼續運行, 下方為異常的詳細信息</value>
+    <value>Aurelio 遇到了沒有處理的異常, 可能無法繼續運行, 下方為異常的詳細信息</value>
   </data>
   <data name="Copy" xml:space="preserve">
     <value>複製</value>
@@ -1230,7 +1230,7 @@ win10 以下系統(不包括10)不支援自動更新
     <comment>#TODO#_</comment>
   </data>
   <data name="FixLoadDataFailTip" xml:space="preserve">
-    <value>在載入資料時遇到異常，這可能是由於資料發生損壞導致的。是否重置YMCL數據以解決此問題？</value>
+    <value>在載入資料時遇到異常，這可能是由於資料發生損壞導致的。是否重置Aurelio數據以解決此問題？</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="Export" xml:space="preserve">

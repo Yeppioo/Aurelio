@@ -66,42 +66,14 @@
                             IsCloseBtnShow="True"
                             IsMaxBtnShow="True"
                             IsVisible="True"
-                            Name="TitleBar">
-                            <controls:TitleBar.LeftContent>
-                                <StackPanel Name="TitleBarContainer" Orientation="Horizontal">
-                                    <Border
-                                        Background="{Binding Data.SettingEntry.UsingMinecraftAccount, Converter={StaticResource MinecraftAccountToColorConverter}}"
-                                        CornerRadius="90"
-                                        Height="7"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Center"
-                                        Width="7"
-                                        x:DataType="controls:TitleBar" />
-                                    <TextBlock
-                                        HorizontalAlignment="Right"
-                                        Margin="7,0,5,0"
-                                        Name="UsingMinecraftAccountTextBlock"
-                                        Text="{Binding Data.SettingEntry.UsingMinecraftAccount.Name}"
-                                        VerticalAlignment="Center"
-                                        x:DataType="controls:TitleBar" />
-                                    <Separator
-                                        Background="{DynamicResource TextColor}"
-                                        Foreground="{DynamicResource TextColor}"
-                                        Height="16"
-                                        Margin="5,0,5,0"
-                                        Name="Separator"
-                                        VerticalAlignment="Center"
-                                        Width="1" />
-                                </StackPanel>
-                            </controls:TitleBar.LeftContent>
-                        </controls:TitleBar>
+                            Name="TitleBar" />
                         <Border
                             Background="{DynamicResource WindowBackgroundColor}"
                             ClipToBounds="True"
                             DockPanel.Dock="Top"
                             Height="40"
                             HorizontalAlignment="Left"
-                            Margin="80,0,150,0"
+                            Margin="80,0,90,0"
                             Name="NavRoot"
                             VerticalAlignment="Top">
                             <Grid>
@@ -287,7 +259,6 @@
                                 VerticalAlignment="Center"
                                 x:Name="TitleText" />
                         </DockPanel>
-
                     </Grid>
                 </Border>
                 <ContentControl Content="{Binding SelectedTab.Content}" Name="Frame" />

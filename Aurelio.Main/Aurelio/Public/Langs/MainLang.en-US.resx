@@ -150,8 +150,8 @@
   <data name="AutoScan" xml:space="preserve">
     <value>Automatic Scan</value>
   </data>
-  <data name="LetYMCLChooseJava" xml:space="preserve">
-    <value>Let YMCL choose the right Java</value>
+  <data name="LetAurelioChooseJava" xml:space="preserve">
+    <value>Let Aurelio choose the right Java</value>
   </data>
   <data name="ScanJavaSuccess" xml:space="preserve">
     <value>Scanning Java succeeded</value>
@@ -515,7 +515,7 @@ Jump to the browser to complete verification</value>
     <value>Open Source Project Usage Sheet</value>
   </data>
   <data name="GPL3Text" xml:space="preserve">
-    <value>The YMCL is open source under the GPL 3.0 License and may be modified and distributed, but the software must contain the copyright and license notices for the original code, as well as a notification file containing the license information.</value>
+    <value>The Aurelio is open source under the GPL 3.0 License and may be modified and distributed, but the software must contain the copyright and license notices for the original code, as well as a notification file containing the license information.</value>
   </data>
   <data name="ShowGameOutput" xml:space="preserve">
     <value>Show Game Output</value>
@@ -649,8 +649,8 @@ sudo apt install vlc</value>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>Choose language/language</value>
   </data>
-  <data name="ReleaseTheMouseAndLetYmclProcessThisFile" xml:space="preserve">
-    <value>Release the mouse to let YMCL process this file</value>
+  <data name="ReleaseTheMouseAndLetAurelioProcessThisFile" xml:space="preserve">
+    <value>Release the mouse to let Aurelio process this file</value>
   </data>
   <data name="UnableToAddModsForBedrockEdition" xml:space="preserve">
     <value>Modules cannot be added to the Bedrock Edition</value>
@@ -722,7 +722,7 @@ sudo apt install vlc</value>
     <value>Description</value>
   </data>
   <data name="NeedRestartApp" xml:space="preserve">
-    <value>YMCL needs to be restarted</value>
+    <value>Aurelio needs to be restarted</value>
   </data>
   <data name="OnlySupportsWindows10AndAboveSystems" xml:space="preserve">
     <value>Only supports Windows 10 and above</value>
@@ -816,7 +816,7 @@ sudo apt install vlc</value>
 Redirect to https://ymcl.daiyu.fun/ to download the official version.</value>
   </data>
   <data name="LanguageTip" xml:space="preserve">
-    <value>You need to select a language before you can start setting up Yu Minecraft Launcher.</value>
+    <value>You need to select a language before you can start setting up Aurelio.</value>
   </data>
   <data name="Account" xml:space="preserve">
     <value>Account</value>
@@ -913,7 +913,7 @@ Go to Settings-Download-Auto Update can disable auto check update</value>
     <value>Jump Search</value>
   </data>
   <data name="AggregateSearchWatermark" xml:space="preserve">
-    <value>Enter keyword to search in Ymcl</value>
+    <value>Enter keyword to search in Aurelio</value>
   </data>
   <data name="SwitchedTo" xml:space="preserve">
     <value>Switched to</value>
@@ -940,7 +940,7 @@ Go to Settings-Download-Auto Update can disable auto check update</value>
     <value>Sponsors</value>
   </data>
   <data name="SponsorsTip" xml:space="preserve">
-    <value>Below are sponsors. Thank you for your support to Yu Minecraft Launcher!</value>
+    <value>Below are sponsors. Thank you for your support to Aurelio!</value>
   </data>
   <data name="MacOsUpdateTip" xml:space="preserve">
     <value>New version:{version}
@@ -975,14 +975,14 @@ You can manually download the latest version and replace the program file</value
   <data name="CrashLa" xml:space="preserve">
     <value>Crash! Springtime `)o</value>
   </data>
-  <data name="YMCLHappenError" xml:space="preserve">
-    <value>Unhandled exception by Yu Minecraft Launcher</value>
+  <data name="AurelioHappenError" xml:space="preserve">
+    <value>Unhandled exception by Aurelio</value>
   </data>
   <data name="DetailedInfo" xml:space="preserve">
     <value>Details</value>
   </data>
   <data name="UnhandledErrorTip" xml:space="preserve">
-    <value>Yu Minecraft Launcher encountered unhandled exceptions, may not continue to work, below for unusual details</value>
+    <value>Aurelio encountered unhandled exceptions, may not continue to work, below for unusual details</value>
   </data>
   <data name="Copy" xml:space="preserve">
     <value>Copy</value>
@@ -1233,7 +1233,7 @@ You can manually download the latest version and replace the program file</value
     <comment>#TODO#_</comment>
   </data>
   <data name="FixLoadDataFailTip" xml:space="preserve">
-    <value>An exception was encountered while loading data, which may be due to data corruption. Do you want to reset YMCL data to fix this?</value>
+    <value>An exception was encountered while loading data, which may be due to data corruption. Do you want to reset Aurelio data to fix this?</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="Export" xml:space="preserve">

@@ -150,8 +150,8 @@
   <data name="AutoScan" xml:space="preserve">
     <value>Автоматическое сканирование</value>
   </data>
-  <data name="LetYMCLChooseJava" xml:space="preserve">
-    <value>Пусть YMCL выберет правильную Java</value>
+  <data name="LetAurelioChooseJava" xml:space="preserve">
+    <value>Пусть Aurelio выберет правильную Java</value>
   </data>
   <data name="ScanJavaSuccess" xml:space="preserve">
     <value>Сканирование Java выполнено успешно</value>
@@ -515,7 +515,7 @@
     <value>Лист использования проекта с открытым исходным кодом</value>
   </data>
   <data name="GPL3Text" xml:space="preserve">
-    <value>Лицензия YMCL является открытым исходным кодом по лицензии GPL 3.0 и может быть изменена и распространена, но программное обеспечение должно содержать уведомления об авторских правах и лицензиях для исходного кода, а также файл уведомлений, содержащий информацию о лицензии.</value>
+    <value>Лицензия Aurelio является открытым исходным кодом по лицензии GPL 3.0 и может быть изменена и распространена, но программное обеспечение должно содержать уведомления об авторских правах и лицензиях для исходного кода, а также файл уведомлений, содержащий информацию о лицензии.</value>
   </data>
   <data name="ShowGameOutput" xml:space="preserve">
     <value>Показать результат игры</value>
@@ -649,8 +649,8 @@ sudo apt install vlc</value>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>选择语言/Choose Language</value>
   </data>
-  <data name="ReleaseTheMouseAndLetYmclProcessThisFile" xml:space="preserve">
-    <value>Отпустите мышь, чтобы YMCL обработал этот файл</value>
+  <data name="ReleaseTheMouseAndLetAurelioProcessThisFile" xml:space="preserve">
+    <value>Отпустите мышь, чтобы Aurelio обработал этот файл</value>
   </data>
   <data name="UnableToAddModsForBedrockEdition" xml:space="preserve">
     <value>Модули не могут быть добавлены в Bedrock Edition</value>
@@ -722,7 +722,7 @@ sudo apt install vlc</value>
     <value>Описание</value>
   </data>
   <data name="NeedRestartApp" xml:space="preserve">
-    <value>Необходимо перезапустить YMCL</value>
+    <value>Необходимо перезапустить Aurelio</value>
   </data>
   <data name="OnlySupportsWindows10AndAboveSystems" xml:space="preserve">
     <value>Поддерживает только Windows 10 и выше</value>
@@ -816,7 +816,7 @@ sudo apt install vlc</value>
 Перенаправьте на https://ymcl.daiyu.fun/, чтобы загрузить официальную версию.</value>
   </data>
   <data name="LanguageTip" xml:space="preserve">
-    <value>Вам нужно выбрать язык, прежде чем вы сможете начать настройку Yu Minecraft Launcher.</value>
+    <value>Вам нужно выбрать язык, прежде чем вы сможете начать настройку Aurelio.</value>
   </data>
   <data name="Account" xml:space="preserve">
     <value>Аккаунт</value>
@@ -913,7 +913,7 @@ sudo apt install vlc</value>
     <value>Перейти к поиску</value>
   </data>
   <data name="AggregateSearchWatermark" xml:space="preserve">
-    <value>Введите ключевые слова для поиска в YMCL</value>
+    <value>Введите ключевые слова для поиска в Aurelio</value>
   </data>
   <data name="SwitchedTo" xml:space="preserve">
     <value>Переключено на</value>
@@ -940,7 +940,7 @@ sudo apt install vlc</value>
     <value>Спонсор</value>
   </data>
   <data name="SponsorsTip" xml:space="preserve">
-    <value>Ниже перечислены спонсоры производства электроэнергии, спасибо за поддержку Yu Minecraft Launcher!</value>
+    <value>Ниже перечислены спонсоры производства электроэнергии, спасибо за поддержку Aurelio!</value>
   </data>
   <data name="MacOsUpdateTip" xml:space="preserve">
     <value>Найдена новая версия: {version}
@@ -975,14 +975,14 @@ MacO не поддерживают автоматические обновлен
   <data name="CrashLa" xml:space="preserve">
     <value>Crash! (• ω • `) o</value>
   </data>
-  <data name="YMCLHappenError" xml:space="preserve">
-    <value>Необработанное исключение в Yu Minecraft Launcher</value>
+  <data name="AurelioHappenError" xml:space="preserve">
+    <value>Необработанное исключение в Aurelio</value>
   </data>
   <data name="DetailedInfo" xml:space="preserve">
     <value>Предоставляемая</value>
   </data>
   <data name="UnhandledErrorTip" xml:space="preserve">
-    <value>Запуск Yu Minecraft Launcher столкнулся с необработанным исключением и может не продолжаться. Ниже приведены подробности исключения</value>
+    <value>Запуск Aurelio столкнулся с необработанным исключением и может не продолжаться. Ниже приведены подробности исключения</value>
   </data>
   <data name="Copy" xml:space="preserve">
     <value>Копирование</value>
@@ -1233,7 +1233,7 @@ MacO не поддерживают автоматические обновлен
     <comment>#TODO#_</comment>
   </data>
   <data name="FixLoadDataFailTip" xml:space="preserve">
-    <value>При загрузке данных возникло исключение, которое может быть связано с повреждением данных. Вы хотите сбросить данные YMCL, чтобы исправить это?</value>
+    <value>При загрузке данных возникло исключение, которое может быть связано с повреждением данных. Вы хотите сбросить данные Aurelio, чтобы исправить это?</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="Export" xml:space="preserve">
