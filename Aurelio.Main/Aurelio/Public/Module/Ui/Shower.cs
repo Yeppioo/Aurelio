@@ -1,12 +1,8 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
-using Aurelio.Public.Const;
-using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
@@ -22,19 +18,18 @@ public abstract class Shower
         Control? p_content = null, string b_primary = null, string b_cancel = null, string b_secondary = null,
         TopLevel? p_host = null)
     {
-        var content = p_content ?? new SelectableTextBlock()
+        var content = p_content ?? new SelectableTextBlock
         {
             TextWrapping = TextWrapping.Wrap,
             Text = msg
         };
         if (!string.IsNullOrWhiteSpace(msg) && p_content != null)
-        {
-            content = new StackPanel()
+            content = new StackPanel
             {
                 Spacing = 15,
                 Children =
                 {
-                    new SelectableTextBlock()
+                    new SelectableTextBlock
                     {
                         TextWrapping = TextWrapping.Wrap,
                         Text = msg
@@ -42,12 +37,8 @@ public abstract class Shower
                     content
                 }
             };
-        }
 
-        if (string.IsNullOrWhiteSpace(msg) && p_content == null)
-        {
-            content = null;
-        }
+        if (string.IsNullOrWhiteSpace(msg) && p_content == null) content = null;
 
         var dialog = new ContentDialog
         {
@@ -94,7 +85,7 @@ public abstract class Shower
         var notification = new Notification(title, msg, type);
         UiProperty.Notification.Show(notification, notification.Type, classes: ["Light"], onClick: onClick);
     }
-    
+
     public static void ShowShortException(string msg, Exception ex)
     {
         Notice($"{msg}\n{ex.Message}", NotificationType.Error);
@@ -103,7 +94,7 @@ public abstract class Shower
         //     NoticeWindow(msg, ex.Message);
         // }
     }
-    
+
     public static async Task OpenFolder(string path)
     {
         if (Data.DesktopType == DesktopType.MacOs)

@@ -9,10 +9,7 @@ public class BoolReversalConverter : IMultiValueConverter
 {
     public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (values.FirstOrDefault() is bool b)
-        {
-            return !b;
-        }
+        if (values.FirstOrDefault() is bool b) return !b;
 
         return false;
     }

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Public.Controls;
 using Aurelio.Views.Main;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -11,11 +12,13 @@ namespace Aurelio.Public.Module.Services;
 
 public static class TabDragDropService
 {
-    private static TabEntry? _draggedTab;
     private static Window? _sourceWindow;
     private static Point _dragStartPoint;
-    private static bool _isDragging;
     private static readonly List<Window> _registeredWindows = new();
+
+    public static bool IsDragging { get; private set; }
+
+    public static TabEntry? DraggedTab { get; private set; }
 
     public static void RegisterWindow(Window window)
     {
@@ -36,54 +39,43 @@ public static class TabDragDropService
         try
         {
             if (Dispatcher.UIThread.CheckAccess())
-            {
                 await operation();
-            }
             else
-            {
                 await Dispatcher.UIThread.InvokeAsync(operation);
-            }
         }
         catch (Exception ex)
         {
             // Log error but don't crash the application
-            System.Diagnostics.Debug.WriteLine($"UI Operation Error: {ex.Message}");
+            Debug.WriteLine($"UI Operation Error: {ex.Message}");
         }
     }
 
     public static void StartDrag(TabEntry tab, Window sourceWindow, Point startPoint)
     {
-        _draggedTab = tab;
+        DraggedTab = tab;
         _sourceWindow = sourceWindow;
         _dragStartPoint = startPoint;
-        _isDragging = true;
+        IsDragging = true;
     }
 
     public static void EndDrag()
     {
-        _draggedTab = null;
+        DraggedTab = null;
         _sourceWindow = null;
-        _isDragging = false;
+        IsDragging = false;
     }
-
-    public static bool IsDragging => _isDragging;
-    public static TabEntry? DraggedTab => _draggedTab;
 
     public static void HandleDrop(Point dropPoint, Window targetWindow)
     {
-        if (_draggedTab == null || _sourceWindow == null) return;
+        if (DraggedTab == null || _sourceWindow == null) return;
 
         try
         {
             // Check if dropping on the same window
             if (_sourceWindow == targetWindow)
-            {
                 HandleReorderInSameWindow(dropPoint, targetWindow);
-            }
             else
-            {
                 HandleTransferBetweenWindows(targetWindow);
-            }
         }
         finally
         {
@@ -93,12 +85,12 @@ public static class TabDragDropService
 
     private static void HandleReorderInSameWindow(Point dropPoint, Window window)
     {
-        if (_draggedTab == null) return;
+        if (DraggedTab == null) return;
 
         var tabs = GetTabsCollection(window);
         if (tabs == null) return;
 
-        var currentIndex = tabs.IndexOf(_draggedTab);
+        var currentIndex = tabs.IndexOf(DraggedTab);
         if (currentIndex < 0) return;
 
         var tabsList = GetTabsList(window);
@@ -112,13 +104,8 @@ public static class TabDragDropService
             // Store the currently selected tab to preserve selection
             TabEntry? currentlySelectedTab = null;
             if (window is MainWindow mainWindow)
-            {
                 currentlySelectedTab = mainWindow.ViewModel.SelectedTab;
-            }
-            else if (window is TabWindow tabWindow)
-            {
-                currentlySelectedTab = tabWindow.ViewModel.SelectedTab;
-            }
+            else if (window is TabWindow tabWindow) currentlySelectedTab = tabWindow.ViewModel.SelectedTab;
 
             // Use dispatcher for thread safety
             Dispatcher.UIThread.Post(() =>
@@ -129,13 +116,8 @@ public static class TabDragDropService
                 if (currentlySelectedTab != null)
                 {
                     if (window is MainWindow mainWindow)
-                    {
                         mainWindow.ViewModel.SelectedTab = currentlySelectedTab;
-                    }
-                    else if (window is TabWindow tabWindow)
-                    {
-                        tabWindow.ViewModel.SelectedTab = currentlySelectedTab;
-                    }
+                    else if (window is TabWindow tabWindow) tabWindow.ViewModel.SelectedTab = currentlySelectedTab;
                 }
             });
         }
@@ -143,21 +125,19 @@ public static class TabDragDropService
 
     private static void HandleTransferBetweenWindows(Window targetWindow)
     {
-        if (_draggedTab == null || _sourceWindow == null) return;
+        if (DraggedTab == null || _sourceWindow == null) return;
 
         // Ensure we're not transferring to the same window
         if (_sourceWindow == targetWindow) return;
 
-        var tabToTransfer = _draggedTab;
+        var tabToTransfer = DraggedTab;
         var sourceWindow = _sourceWindow;
 
         // Check if target window already has a settings tab and we're trying to transfer one
         var targetTabs = GetTabsCollection(targetWindow);
         if (targetTabs != null && tabToTransfer.Tag == "setting" &&
             targetTabs.Any(t => t.Tag == "setting"))
-        {
             return; // Don't allow duplicate settings tabs in the same window
-        }
 
         // Use async operation to avoid layout manager conflicts
         Dispatcher.UIThread.Post(async () =>
@@ -189,9 +169,9 @@ public static class TabDragDropService
 
     public static void HandleDetachToNewWindow(Point screenPoint)
     {
-        if (_draggedTab == null || _sourceWindow == null) return;
+        if (DraggedTab == null || _sourceWindow == null) return;
 
-        var tabToDetach = _draggedTab;
+        var tabToDetach = DraggedTab;
         var sourceWindow = _sourceWindow;
 
         // Allow settings tab to be detached to new window
@@ -272,7 +252,7 @@ public static class TabDragDropService
         if (dropPoint.X < 0) return 0;
 
         // Find the tab item at the drop position
-        for (int i = 0; i < itemsPanel.Children.Count && i < tabCount; i++)
+        for (var i = 0; i < itemsPanel.Children.Count && i < tabCount; i++)
         {
             var child = itemsPanel.Children[i];
             if (child is Control control)
@@ -281,17 +261,13 @@ public static class TabDragDropService
                 var centerX = bounds.X + bounds.Width / 2;
 
                 // If drop point is before the center of this item, insert here
-                if (dropPoint.X < centerX)
-                {
-                    return i;
-                }
+                if (dropPoint.X < centerX) return i;
             }
         }
 
         // If we get here, drop at the end
         return Math.Max(0, tabCount - 1);
     }
-
 
 
     private static void RemoveTabFromWindow(TabEntry tab, Window window)
@@ -305,10 +281,7 @@ public static class TabDragDropService
                 mainWindow.ViewModel.Tabs.Remove(tab);
 
                 // If the removed tab was selected, select the last remaining tab
-                if (wasSelected)
-                {
-                    mainWindow.ViewModel.SelectedTab = mainWindow.ViewModel.Tabs.LastOrDefault();
-                }
+                if (wasSelected) mainWindow.ViewModel.SelectedTab = mainWindow.ViewModel.Tabs.LastOrDefault();
             }
             else if (window is TabWindow tabWindow)
             {
@@ -316,10 +289,7 @@ public static class TabDragDropService
                 tabWindow.ViewModel.RemoveTab(tab);
 
                 // If the removed tab was selected, select the last remaining tab
-                if (wasSelected)
-                {
-                    tabWindow.ViewModel.SelectedTab = tabWindow.ViewModel.Tabs.LastOrDefault();
-                }
+                if (wasSelected) tabWindow.ViewModel.SelectedTab = tabWindow.ViewModel.Tabs.LastOrDefault();
             }
         });
     }
@@ -330,17 +300,12 @@ public static class TabDragDropService
         Dispatcher.UIThread.Post(() =>
         {
             if (window is MainWindow mainWindow)
-            {
                 mainWindow.ViewModel.CreateTab(tab);
-            }
-            else if (window is TabWindow tabWindow)
-            {
-                tabWindow.AddTab(tab);
-            }
+            else if (window is TabWindow tabWindow) tabWindow.AddTab(tab);
         });
     }
 
-    private static System.Collections.ObjectModel.ObservableCollection<TabEntry>? GetTabsCollection(Window window)
+    private static ObservableCollection<TabEntry>? GetTabsCollection(Window window)
     {
         return window switch
         {
@@ -355,11 +320,9 @@ public static class TabDragDropService
         foreach (var window in _registeredWindows.Where(w => w.IsVisible))
         {
             var windowBounds = new Rect(window.Position.ToPoint(1.0), window.Bounds.Size);
-            if (windowBounds.Contains(screenPoint))
-            {
-                return window;
-            }
+            if (windowBounds.Contains(screenPoint)) return window;
         }
+
         return null;
     }
 
@@ -397,10 +360,7 @@ public static class TabDragDropService
             if (tabs != null)
             {
                 var settingsTab = tabs.FirstOrDefault(t => t.Tag == "setting");
-                if (settingsTab != null)
-                {
-                    return (window, settingsTab);
-                }
+                if (settingsTab != null) return (window, settingsTab);
             }
         }
 
@@ -414,18 +374,14 @@ public static class TabDragDropService
         {
             // Use synchronous UI thread operation to avoid layout manager conflicts
             if (Dispatcher.UIThread.CheckAccess())
-            {
                 // We're already on the UI thread, execute directly
                 await RemoveSettingsTabSafely(tabWindow, settingsTab);
-            }
             else
-            {
                 // We're not on the UI thread, invoke on UI thread
                 await Dispatcher.UIThread.InvokeAsync(async () =>
                 {
                     await RemoveSettingsTabSafely(tabWindow, settingsTab);
                 });
-            }
         }
     }
 
@@ -444,15 +400,12 @@ public static class TabDragDropService
             settingsTab.Removing();
 
             // Close the window if it becomes empty
-            if (!tabWindow.ViewModel.HasTabs)
-            {
-                tabWindow.Close();
-            }
+            if (!tabWindow.ViewModel.HasTabs) tabWindow.Close();
         }
         catch (Exception ex)
         {
             // Log error but don't crash the application
-            System.Diagnostics.Debug.WriteLine($"Error removing settings tab: {ex.Message}");
+            Debug.WriteLine($"Error removing settings tab: {ex.Message}");
         }
     }
 }

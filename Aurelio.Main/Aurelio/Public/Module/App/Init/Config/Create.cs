@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Aurelio.Public.Classes.Entries;
+﻿using System.IO;
 using Aurelio.Public.Classes.Setting;
-using Aurelio.Public.Const;
-using Newtonsoft.Json;
+using Aurelio.Public.Module.IO.Local;
 
 namespace Aurelio.Public.Module.App.Init.Config;
 
@@ -23,6 +20,6 @@ public abstract class Create
 
     public static void Folder()
     {
-        IO.Local.Setter.TryCreateFolder(ConfigPath.UserDataRootPath);
+        Setter.TryCreateFolder(ConfigPath.UserDataRootPath);
     }
 }

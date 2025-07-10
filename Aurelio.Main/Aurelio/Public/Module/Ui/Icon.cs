@@ -1,8 +1,5 @@
-﻿using Aurelio.Public.Module.Value;
-using Avalonia.Media;
-using FluentAvalonia.UI.Controls;
+﻿using Avalonia.Media;
 using Material.Icons;
-using Avalonia.Visuals;
 
 namespace Aurelio.Public.Module.Ui;
 

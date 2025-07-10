@@ -48,13 +48,9 @@ public class MinecraftLocalModEntry : ReactiveObject
         if (dialog != ContentDialogResult.Primary) return;
 
         if (Data.DesktopType == DesktopType.Windows)
-        {
             FileSystem.DeleteFile(Path, UIOption.AllDialogs, RecycleOption.SendToRecycleBin);
-        }
         else
-        {
             File.Delete(Path);
-        }
 
         Callback?.Invoke();
     }

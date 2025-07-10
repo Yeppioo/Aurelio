@@ -5,18 +5,13 @@
     x:Class="Aurelio.Views.Main.TabPages.HomeTabPage"
     x:DataType="pages:HomeTabPage"
     xmlns="https://github.com/avaloniaui"
-    xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
-    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-    xmlns:c="clr-namespace:Aurelio.Public.Const"
     xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:entries="clr-namespace:Aurelio.Public.Classes.Entries"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:minecraft="clr-namespace:Aurelio.Public.Classes.Minecraft"
     xmlns:pages="clr-namespace:Aurelio.Views.Main.TabPages"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:semi="https://irihi.tech/semi"
-    xmlns:suki="https://github.com/kikipoulet/SukiUI"
     xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Resources>

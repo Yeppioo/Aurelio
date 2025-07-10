@@ -13,14 +13,8 @@ public class BlurBackground : Control
         AvaloniaProperty.Register<BlurBackground, ExperimentalAcrylicMaterial>(
             "Material");
 
-    public ExperimentalAcrylicMaterial Material
-    {
-        get => GetValue(MaterialProperty);
-        set => SetValue(MaterialProperty, value);
-    }
-
     private static readonly ImmutableExperimentalAcrylicMaterial DefaultAcrylicMaterialDark =
-        (ImmutableExperimentalAcrylicMaterial)new ExperimentalAcrylicMaterial()
+        (ImmutableExperimentalAcrylicMaterial)new ExperimentalAcrylicMaterial
         {
             MaterialOpacity = 0.25,
             TintColor = Colors.Black,
@@ -29,7 +23,7 @@ public class BlurBackground : Control
         }.ToImmutable();
 
     private static readonly ImmutableExperimentalAcrylicMaterial DefaultAcrylicMaterialLight =
-        (ImmutableExperimentalAcrylicMaterial)new ExperimentalAcrylicMaterial()
+        (ImmutableExperimentalAcrylicMaterial)new ExperimentalAcrylicMaterial
         {
             MaterialOpacity = 0.0,
             TintColor = Colors.White,
@@ -37,19 +31,35 @@ public class BlurBackground : Control
             PlatformTransparencyCompensationLevel = 0
         }.ToImmutable();
 
+    public static SKBlendMode blendmodedark = SKBlendMode.Clear;
+
+    private static SKShader s_acrylicNoiseShader;
+
     static BlurBackground()
     {
         AffectsRender<BlurBackground>(MaterialProperty);
     }
 
-    public static SKBlendMode blendmodedark = SKBlendMode.Clear;
+    public ExperimentalAcrylicMaterial Material
+    {
+        get => GetValue(MaterialProperty);
+        set => SetValue(MaterialProperty, value);
+    }
 
-    private static SKShader s_acrylicNoiseShader;
+    public override void Render(DrawingContext context)
+    {
+        var mat = Material != null
+            ? (ImmutableExperimentalAcrylicMaterial)Material.ToImmutable()
+            : Application.Current.ActualThemeVariant == ThemeVariant.Dark
+                ? DefaultAcrylicMaterialDark
+                : DefaultAcrylicMaterialLight;
+        context.Custom(new BlurBehindRenderOperation(mat, new Rect(default, Bounds.Size)));
+    }
 
     private class BlurBehindRenderOperation : ICustomDrawOperation
     {
-        private readonly ImmutableExperimentalAcrylicMaterial _material;
         private readonly Rect _bounds;
+        private readonly ImmutableExperimentalAcrylicMaterial _material;
 
         public BlurBehindRenderOperation(ImmutableExperimentalAcrylicMaterial material, Rect bounds)
         {
@@ -61,21 +71,9 @@ public class BlurBackground : Control
         {
         }
 
-        public bool HitTest(Point p) => _bounds.Contains(p);
-
-        static SKColorFilter CreateAlphaColorFilter(double opacity)
+        public bool HitTest(Point p)
         {
-            if (opacity > 1)
-                opacity = 1;
-            var c = new byte[256];
-            var a = new byte[256];
-            for (var i = 0; i < 256; i++)
-            {
-                c[i] = (byte)i;
-                a[i] = (byte)(i * opacity);
-            }
-
-            return SKColorFilter.CreateTable(a, c, c, c);
+            return _bounds.Contains(p);
         }
 
         public void Render(ImmediateDrawingContext context)
@@ -97,11 +95,13 @@ public class BlurBackground : Control
                 (int)Math.Ceiling(_bounds.Height), SKImageInfo.PlatformColorType, SKAlphaType.Premul));
             using (var filter = SKImageFilter.CreateBlur(3, 3))
             using (var blurPaint = new SKPaint
+                   {
+                       Shader = backdropShader,
+                       ImageFilter = filter
+                   })
             {
-                Shader = backdropShader,
-                ImageFilter = filter
-            })
                 blurred.Canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, blurPaint);
+            }
 
             using (var blurSnap = blurred.Snapshot())
             using (var blurSnapShader = SKShader.CreateImage(blurSnap))
@@ -109,7 +109,7 @@ public class BlurBackground : Control
                 using var blurSnapPaint = new SKPaint
                 {
                     Shader = blurSnapShader,
-                    IsAntialias = false,
+                    IsAntialias = false
                 };
 
                 canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, blurSnapPaint);
@@ -128,15 +128,15 @@ public class BlurBackground : Control
             if (s_acrylicNoiseShader == null)
             {
                 using var stream =
-                       typeof(SkiaPlatform).Assembly.GetManifestResourceStream(
-                           "Avalonia.Skia.Assets.NoiseAsset_256X256_PNG.png");
+                    typeof(SkiaPlatform).Assembly.GetManifestResourceStream(
+                        "Avalonia.Skia.Assets.NoiseAsset_256X256_PNG.png");
                 using var bitmap = SKBitmap.Decode(stream);
                 s_acrylicNoiseShader = SKShader.CreateBitmap(bitmap, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp)
                     .WithColorFilter(CreateAlphaColorFilter(noiseOpacity));
             }
 
             using var backdrop = SKShader.CreateColor(new SKColor(_material.MaterialColor.R, _material.MaterialColor.G,
-                       _material.MaterialColor.B, _material.MaterialColor.A));
+                _material.MaterialColor.B, _material.MaterialColor.A));
             using var tintShader = SKShader.CreateColor(tint);
             using var effectiveTint = SKShader.CreateCompose(backdrop, tintShader);
             using var compose = SKShader.CreateCompose(effectiveTint, s_acrylicNoiseShader);
@@ -152,15 +152,20 @@ public class BlurBackground : Control
         {
             return other is BlurBehindRenderOperation op && op._bounds == _bounds && op._material.Equals(_material);
         }
-    }
 
-    public override void Render(DrawingContext context)
-    {
-        var mat = Material != null
-            ? (ImmutableExperimentalAcrylicMaterial)Material.ToImmutable()
-            : Application.Current.ActualThemeVariant == ThemeVariant.Dark
-                ? DefaultAcrylicMaterialDark
-                : DefaultAcrylicMaterialLight;
-        context.Custom(new BlurBehindRenderOperation(mat, new Rect(default, Bounds.Size)));
+        private static SKColorFilter CreateAlphaColorFilter(double opacity)
+        {
+            if (opacity > 1)
+                opacity = 1;
+            var c = new byte[256];
+            var a = new byte[256];
+            for (var i = 0; i < 256; i++)
+            {
+                c[i] = (byte)i;
+                a[i] = (byte)(i * opacity);
+            }
+
+            return SKColorFilter.CreateTable(a, c, c, c);
+        }
     }
 }

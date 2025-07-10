@@ -8,8 +8,11 @@ using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Ui.Helper;
+using Aurelio.Public.Module.Value.Minecraft;
 using Aurelio.ViewModels;
+using Avalonia.Media.Imaging;
 using FluentAvalonia.UI.Controls;
 using Microsoft.VisualBasic.FileIO;
 using MinecraftLaunch.Base.Models.Game;
@@ -19,16 +22,9 @@ namespace Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages;
 
 public partial class SavePage : PageMixModelBase, IAurelioPage
 {
-    private readonly ObservableCollection<MinecraftLocalSaveEntry> _items = [];
-    public ObservableCollection<MinecraftLocalSaveEntry> FilteredItems { get; set; } = [];
     private readonly MinecraftEntry _entry;
+    private readonly ObservableCollection<MinecraftLocalSaveEntry> _items = [];
     private string _filter = string.Empty;
-
-    public string Filter
-    {
-        get => _filter;
-        set => SetField(ref _filter, value);
-    }
 
     public SavePage(MinecraftEntry entry)
     {
@@ -39,10 +35,7 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
         LoadItems();
         PropertyChanged += (_, e) =>
         {
-            if (e.PropertyName == nameof(Filter))
-            {
-                FilterItems();
-            }
+            if (e.PropertyName == nameof(Filter)) FilterItems();
         };
         Loaded += (_, _) => { LoadItems(); };
         DataContext = this;
@@ -51,9 +44,9 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
         SelectAllModBtn.Click += (_, _) => { ModManageList.SelectAll(); };
         OpenFolderBtn.Click += (_, _) =>
         {
-            var path = Public.Module.Value.Minecraft.Calculator.GetMinecraftSpecialFolder(_entry,
+            var path = Calculator.GetMinecraftSpecialFolder(_entry,
                 MinecraftSpecialFolder.SavesFolder);
-            Public.Module.IO.Local.Setter.TryCreateFolder(path);
+            Setter.TryCreateFolder(path);
             _ = OpenFolder(path);
         };
         DeleteSelectModBtn.Click += async (_, _) =>
@@ -74,13 +67,9 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
             {
                 var file = item as MinecraftLocalSaveEntry;
                 if (Data.DesktopType == DesktopType.Windows)
-                {
                     FileSystem.DeleteDirectory(file.Path, UIOption.AllDialogs, RecycleOption.SendToRecycleBin);
-                }
                 else
-                {
                     Directory.Delete(file.Path);
-                }
             }
 
             LoadItems();
@@ -92,6 +81,17 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
         SelectedModCount.Text = $"{MainLang.SelectedItem} 0";
     }
 
+    public ObservableCollection<MinecraftLocalSaveEntry> FilteredItems { get; set; } = [];
+
+    public string Filter
+    {
+        get => _filter;
+        set => SetField(ref _filter, value);
+    }
+
+    public Control RootElement { get; set; }
+    public PageLoadingAnimator InAnimator { get; set; }
+
     private async void LoadItems()
     {
         _items.Clear();
@@ -101,7 +101,7 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
         {
             _items.Add(new MinecraftLocalSaveEntry
             {
-                Name = save.FolderName, Path = Path.Combine(Public.Module.Value.Minecraft.Calculator.GetMinecraftSpecialFolder
+                Name = save.FolderName, Path = Path.Combine(Calculator.GetMinecraftSpecialFolder
                     (_entry, MinecraftSpecialFolder.SavesFolder), save.FolderName),
                 Icon = save.IconBitmap, Callback = LoadItems, SaveInfo = save,
                 Description =
@@ -123,17 +123,16 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
     public static async Task<List<SaveInfo>> GetSaves(MinecraftEntry entry)
     {
         var folderInfos = new List<SaveInfo>();
-        var parentPath = Public.Module.Value.Minecraft.Calculator.GetMinecraftSpecialFolder(entry, MinecraftSpecialFolder.SavesFolder);
+        var parentPath = Calculator.GetMinecraftSpecialFolder(entry, MinecraftSpecialFolder.SavesFolder);
         var folders = Directory.GetDirectories(parentPath);
         foreach (var folderPath in folders)
-        {
             try
             {
                 var folderName = Path.GetFileName(folderPath);
                 if (!File.Exists(Path.Combine(folderPath, "level.dat"))) continue;
                 var creationTime = Directory.GetCreationTime(folderPath);
                 var lastWriteTime = Directory.GetLastWriteTime(folderPath);
-                Avalonia.Media.Imaging.Bitmap iconBitmap = null;
+                Bitmap iconBitmap = null;
                 SaveEntry? saveNBTEntry = null;
                 string iconPath = null;
                 try
@@ -146,24 +145,21 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
                 }
 
                 if (File.Exists(iconPath ?? Path.Combine(folderPath, "icon.png")))
-                {
                     try
                     {
                         using var stream =
-                            new System.IO.MemoryStream(
+                            new MemoryStream(
                                 await File.ReadAllBytesAsync(iconPath ?? Path.Combine(folderPath, "icon.png")));
-                        iconBitmap = new Avalonia.Media.Imaging.Bitmap(stream);
+                        iconBitmap = new Bitmap(stream);
                     }
                     catch
                     {
                         iconBitmap = null;
                     }
-                }
 
                 var datFileCount = 0;
                 var playerDataPath = Path.Combine(folderPath, "playerdata");
                 if (Directory.Exists(playerDataPath))
-                {
                     try
                     {
                         datFileCount = Directory.GetFiles(playerDataPath, "*.dat").Length;
@@ -172,12 +168,10 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
                     {
                         datFileCount = 0;
                     }
-                }
 
                 var zipFileCount = 0;
                 var datapacksPath = Path.Combine(folderPath, "datapacks");
                 if (Directory.Exists(datapacksPath))
-                {
                     try
                     {
                         zipFileCount = Directory.GetFiles(datapacksPath, "*.zip").Length;
@@ -186,18 +180,15 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
                     {
                         zipFileCount = 0;
                     }
-                }
 
                 if (saveNBTEntry == null)
-                {
                     saveNBTEntry = new SaveEntry
                     {
                         LastPlayed = new DateTime(1970, 1, 1, 0, 0, 0),
                         Version = "Unknown",
                         AllowCommands = false,
-                        GameType = -1,
+                        GameType = -1
                     };
-                }
 
                 folderInfos.Add(new SaveInfo
                 {
@@ -219,11 +210,7 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
             {
                 Console.WriteLine($"Error processing folder {folderPath}: {ex.Message}");
             }
-        }
 
         return folderInfos;
     }
-
-    public Control RootElement { get; set; }
-    public PageLoadingAnimator InAnimator { get; set; }
 }

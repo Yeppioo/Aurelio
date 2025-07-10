@@ -1,5 +1,6 @@
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Module.App;
+using Aurelio.Public.Module.Ui;
 using Avalonia.Interactivity;
 using Avalonia.Platform;
 using Ursa.Controls;
@@ -11,8 +12,8 @@ public partial class CrashWindow : UrsaWindow
     public CrashWindow(string exception)
     {
         InitializeComponent();
-        Public.Module.Ui.Setter.UpdateWindowStyle(this);
-        
+        Setter.UpdateWindowStyle(this);
+
         Info.Text = exception;
         Copy.Click += async (_, _) =>
         {
@@ -23,10 +24,7 @@ public partial class CrashWindow : UrsaWindow
         Restart.Click += (_, _) => { AppMethod.RestartApp(); };
         Exit.Click += (_, _) => { Environment.Exit(0); };
         Topmost = true;
-        Loaded += (_, _) =>
-        {
-            Public.Module.Ui.Setter.UpdateWindowStyle(this);
-        };
+        Loaded += (_, _) => { Setter.UpdateWindowStyle(this); };
         Show();
         Activate();
     }

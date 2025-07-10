@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:controls="https://github.com/kikipoulet/SukiUI"
     xmlns:controls1="clr-namespace:Aurelio.Public.Controls"
     xmlns:ui="clr-namespace:Aurelio.Public.Module.Ui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">

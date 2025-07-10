@@ -14,7 +14,10 @@ namespace Aurelio.Views.Main.TabPages;
 
 public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
 {
-    public static Data Data => Data.Instance;
+    private double _containerWidth;
+
+
+    private string _searchText = string.Empty;
 
     public HomeTabPage()
     {
@@ -25,21 +28,7 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
         BindingEvent();
     }
 
-    private void BindingEvent()
-    {
-        SearchBox.KeyDown += (_, e) =>
-        {
-            if (e.Key == Key.Enter) MinecraftInstances.Search(SearchText);
-        };
-        SearchButton.Click += (_, _) => { MinecraftInstances.Search(SearchText); };
-        MinecraftCardsContainerRoot.SizeChanged += (_, _) =>
-        {
-            ContainerWidth = MinecraftCardsContainerRoot.Bounds.Width;
-        };
-    }
-
-
-    private string _searchText = string.Empty;
+    public static Data Data => Data.Instance;
 
     public string SearchText
     {
@@ -51,7 +40,12 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
         }
     }
 
-    
+    public double ContainerWidth
+    {
+        get => _containerWidth;
+        set => SetField(ref _containerWidth, value);
+    }
+
 
     public TabEntry HostTab { get; set; }
 
@@ -69,25 +63,26 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
     public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
 
-    public double ContainerWidth
+    private void BindingEvent()
     {
-        get => _containerWidth;
-        set => SetField(ref _containerWidth, value);
+        SearchBox.KeyDown += (_, e) =>
+        {
+            if (e.Key == Key.Enter) MinecraftInstances.Search(SearchText);
+        };
+        SearchButton.Click += (_, _) => { MinecraftInstances.Search(SearchText); };
+        MinecraftCardsContainerRoot.SizeChanged += (_, _) =>
+        {
+            ContainerWidth = MinecraftCardsContainerRoot.Bounds.Width;
+        };
     }
-
-    private double _containerWidth;
 
     private void IconBorder_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
         if (((Border)sender).Tag is not RecordMinecraftEntry entry) return;
         var tab = new TabEntry(new MinecraftInstancePage(entry));
         if (this.GetVisualRoot() is TabWindow window)
-        {
             window.CreateTab(tab);
-        }
         else
-        {
             App.UiRoot.CreateTab(tab);
-        }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Threading;
-using Avalonia;
-using Avalonia.Animation;
-using Avalonia.Animation.Easings;
-using Avalonia.Styling;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Aurelio.Public.Module;
 
@@ -14,12 +8,12 @@ public static class Extensions
     {
         return JsonConvert.SerializeObject(obj, formatting);
     }
-    
+
     public static bool IsNullOrWhiteSpace(this string str)
     {
         return string.IsNullOrWhiteSpace(str);
     }
-    
+
     // public static CancellationTokenSource Animate<T>(
     //     this Animatable control,
     //     AvaloniaProperty Property,

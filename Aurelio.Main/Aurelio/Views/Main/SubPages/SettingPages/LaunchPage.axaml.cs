@@ -2,6 +2,7 @@
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Module.App;
+using Aurelio.Public.Module.Op;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
 
@@ -9,10 +10,6 @@ namespace Aurelio.Views.Main.SubPages.SettingPages;
 
 public partial class LaunchPage : PageMixModelBase, IAurelioPage
 {
-    public static Data Data => Data.Instance;
-    public PageLoadingAnimator InAnimator { get; set; }
-    public PageLoadingAnimator OutAnimator { get; set; }
-
     public LaunchPage()
     {
         InitializeComponent();
@@ -22,9 +19,15 @@ public partial class LaunchPage : PageMixModelBase, IAurelioPage
         BindingEvent();
     }
 
+    public static Data Data => Data.Instance;
+    public PageLoadingAnimator OutAnimator { get; set; }
+    public PageLoadingAnimator InAnimator { get; set; }
+
+    public Control RootElement { get; set; }
+
     private void BindingEvent()
     {
-        AddMinecraftFolder.Click += async (_, _) => { await Public.Module.Op.MinecraftFolder.AddByUi(this); };
+        AddMinecraftFolder.Click += async (_, _) => { await MinecraftFolder.AddByUi(this); };
         RemoveSelectedMinecraftFolder.Click += (_, _) =>
         {
             var item = MinecraftFolderListBox.SelectedItem;
@@ -36,8 +39,8 @@ public partial class LaunchPage : PageMixModelBase, IAurelioPage
 
             AppMethod.SaveSetting();
         };
-        AutoScanJavaRuntime.Click += (_, _) => { Public.Module.Op.JavaRuntime.AddByAutoScan(); };
-        AddJavaRuntime.Click += (_, _) => { _ = Public.Module.Op.JavaRuntime.AddByUi(this); };
+        AutoScanJavaRuntime.Click += (_, _) => { JavaRuntime.AddByAutoScan(); };
+        AddJavaRuntime.Click += (_, _) => { _ = JavaRuntime.AddByUi(this); };
         RemoveSelectedJavaRuntime.Click += (_, _) =>
         {
             var item = JavaRuntimeComboBox.SelectedItem;
@@ -50,6 +53,4 @@ public partial class LaunchPage : PageMixModelBase, IAurelioPage
             AppMethod.SaveSetting();
         };
     }
-
-    public Control RootElement { get; set; }
 }

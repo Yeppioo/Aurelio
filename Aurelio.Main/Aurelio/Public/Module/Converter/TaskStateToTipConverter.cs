@@ -10,7 +10,6 @@ public class TaskStateToTipConverter : IValueConverter
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is TaskState state)
-        {
             return state switch
             {
                 TaskState.Waiting => MainLang.Waiting,
@@ -22,7 +21,6 @@ public class TaskStateToTipConverter : IValueConverter
                 TaskState.Finished => MainLang.Finished,
                 _ => state.ToString()
             };
-        }
         return string.Empty;
     }
 

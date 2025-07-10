@@ -19,7 +19,8 @@ public class BindKeys
         {
             Gesture = KeyGesture.Parse("Ctrl+W"),
             Command = new RelayCommand(c.CloseCurrentTab)
-        });  w.KeyBindings.Add(new KeyBinding
+        });
+        w.KeyBindings.Add(new KeyBinding
         {
             Gesture = KeyGesture.Parse("Ctrl+Shift+Q"),
             Command = new RelayCommand(c.ToggleTheme)

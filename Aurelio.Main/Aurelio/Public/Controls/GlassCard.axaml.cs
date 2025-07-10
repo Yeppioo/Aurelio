@@ -12,33 +12,42 @@ public class GlassCard : ContentControl
     public new static readonly StyledProperty<CornerRadius> CornerRadiusProperty =
         AvaloniaProperty.Register<GlassCard, CornerRadius>(nameof(CornerRadius), new CornerRadius(20));
 
+    public new static readonly StyledProperty<Thickness> BorderThicknessProperty =
+        AvaloniaProperty.Register<GlassCard, Thickness>(nameof(BorderThickness), new Thickness(1));
+
+
+    public static readonly StyledProperty<bool> IsAnimatedProperty =
+        AvaloniaProperty.Register<GlassCard, bool>(nameof(IsAnimated), true);
+
+    public static readonly StyledProperty<bool> IsOpaqueProperty =
+        AvaloniaProperty.Register<GlassCard, bool>(nameof(IsOpaque));
+
+    public static readonly StyledProperty<bool> IsInteractiveProperty =
+        AvaloniaProperty.Register<GlassCard, bool>(nameof(IsInteractive));
+
+    public static readonly StyledProperty<ICommand?> CommandProperty =
+        AvaloniaProperty.Register<GlassCard, ICommand?>(nameof(Command));
+
+    public static readonly StyledProperty<object?> CommandParameterProperty =
+        AvaloniaProperty.Register<GlassCard, object?>(nameof(CommandParameter));
+
     public new CornerRadius CornerRadius
     {
         get => GetValue(CornerRadiusProperty);
         set => SetValue(CornerRadiusProperty, value);
     }
 
-    public new static readonly StyledProperty<Thickness> BorderThicknessProperty =
-        AvaloniaProperty.Register<GlassCard, Thickness>(nameof(BorderThickness), new Thickness(1));
-
     public new Thickness BorderThickness
     {
         get => GetValue(BorderThicknessProperty);
         set => SetValue(BorderThicknessProperty, value);
     }
-    
- 
-    public static readonly StyledProperty<bool> IsAnimatedProperty =
-        AvaloniaProperty.Register<GlassCard, bool>(nameof(IsAnimated), true);
 
     public bool IsAnimated
     {
         get => GetValue(IsAnimatedProperty);
         set => SetValue(IsAnimatedProperty, value);
     }
-    
-    public static readonly StyledProperty<bool> IsOpaqueProperty =
-        AvaloniaProperty.Register<GlassCard, bool>(nameof(IsOpaque), false);
 
     public bool IsOpaque
     {
@@ -46,23 +55,17 @@ public class GlassCard : ContentControl
         set => SetValue(IsOpaqueProperty, value);
     }
 
-    public static readonly StyledProperty<bool> IsInteractiveProperty = AvaloniaProperty.Register<GlassCard, bool>(nameof(IsInteractive));
-
     public bool IsInteractive
     {
         get => GetValue(IsInteractiveProperty);
         set => SetValue(IsInteractiveProperty, value);
     }
 
-    public static readonly StyledProperty<ICommand?> CommandProperty = AvaloniaProperty.Register<GlassCard, ICommand?>(nameof(Command));
-
     public ICommand? Command
     {
         get => GetValue(CommandProperty);
         set => SetValue(CommandProperty, value);
     }
-
-    public static readonly StyledProperty<object?> CommandParameterProperty = AvaloniaProperty.Register<GlassCard, object?>(nameof(CommandParameter));
 
     public object? CommandParameter
     {
@@ -103,12 +106,8 @@ public class GlassCard : ContentControl
                 var v = ElementComposition.GetElementVisual(b3);
                 CompositionAnimationHelper.MakeSizeAnimated(v);
             };
-
         }
-
     }
-    
-
 
 
     private void ContextMenuOnOpening(object sender, CancelEventArgs e)
@@ -120,7 +119,7 @@ public class GlassCard : ContentControl
     {
         base.OnPointerPressed(e);
         PseudoClasses.Set(":pointerdown", true);
-        if(IsInteractive && Command is not null && Command.CanExecute(CommandParameter))
+        if (IsInteractive && Command is not null && Command.CanExecute(CommandParameter))
             Command.Execute(CommandParameter);
     }
 

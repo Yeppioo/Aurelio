@@ -1,43 +1,20 @@
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
-using Aurelio.Public.Controls;
-using Aurelio.Public.Langs;
-using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Services;
 using Aurelio.ViewModels;
-using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Layout;
-using Avalonia.LogicalTree;
-using Avalonia.Markup.Xaml;
-using Avalonia.Media;
-using Avalonia.Media.Imaging;
 using Avalonia.Platform;
-using Avalonia.Threading;
-using Avalonia.VisualTree;
-using CommunityToolkit.Mvvm.Input;
 using HotAvalonia;
-using Material.Icons;
 using Ursa.Controls;
 
 namespace Aurelio.Views.Main;
 
 public partial class MainWindow : UrsaWindow
 {
-    public MainViewModel ViewModel { get; set; } = new();
-    public ObservableCollection<TabEntry> Tabs => ViewModel.Tabs;
-    public TabEntry? SelectedTab => ViewModel.SelectedTab;
-
     public MainWindow()
     {
 #if DEBUG
@@ -59,6 +36,10 @@ public partial class MainWindow : UrsaWindow
 #endif
     }
 
+    public MainViewModel ViewModel { get; set; } = new();
+    public ObservableCollection<TabEntry> Tabs => ViewModel.Tabs;
+    public TabEntry? SelectedTab => ViewModel.SelectedTab;
+
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
@@ -75,7 +56,7 @@ public partial class MainWindow : UrsaWindow
 
         ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
         ExtendClientAreaToDecorationsHint = true;
-        
+
         // new CrashWindow("Message").Show();
     }
 
@@ -167,7 +148,10 @@ public partial class MainWindow : UrsaWindow
         NavScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
     }
 
-    public void CreateTab(TabEntry tab) => ViewModel.CreateTab(tab);
+    public void CreateTab(TabEntry tab)
+    {
+        ViewModel.CreateTab(tab);
+    }
 
     private void OnMainWindowClosing(object? sender, WindowClosingEventArgs e)
     {

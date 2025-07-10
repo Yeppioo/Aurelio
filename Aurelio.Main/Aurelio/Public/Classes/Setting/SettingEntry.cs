@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Minecraft;
+using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.Services;
 using Newtonsoft.Json;
@@ -13,21 +14,26 @@ namespace Aurelio.Public.Classes.Setting;
 
 public class SettingEntry : ReactiveObject
 {
+    public SettingEntry()
+    {
+        PropertyChanged += OnPropertyChanged;
+    }
+
     [Reactive] [JsonProperty] public Enum.Setting.NoticeWay NoticeWay { get; set; } = Enum.Setting.NoticeWay.Bubble;
     [Reactive] [JsonProperty] public Enum.Setting.Theme Theme { get; set; } = Enum.Setting.Theme.Dark;
     [Reactive] [JsonProperty] public double MemoryLimit { get; set; } = 2048;
 
     [Reactive]
     [JsonProperty]
-    public Enum.Minecraft.MinecraftInstanceCategoryMethod
-        MinecraftInstanceCategoryMethod { get; set; } = Enum.Minecraft.MinecraftInstanceCategoryMethod.MinecraftVersion;
+    public MinecraftInstanceCategoryMethod
+        MinecraftInstanceCategoryMethod { get; set; } = MinecraftInstanceCategoryMethod.MinecraftVersion;
 
     [Reactive]
     [JsonProperty]
-    public Enum.Minecraft.MinecraftInstanceSortMethod
-        MinecraftInstanceSortMethod { get; set; } = Enum.Minecraft.MinecraftInstanceSortMethod.Name;
+    public MinecraftInstanceSortMethod
+        MinecraftInstanceSortMethod { get; set; } = MinecraftInstanceSortMethod.Name;
 
-    [Reactive] [JsonProperty] public Language Language { get; set; } =  Langs.LanguageTypes.Langs[0];
+    [Reactive] [JsonProperty] public Language Language { get; set; } = LanguageTypes.Langs[0];
     [Reactive] [JsonProperty] public bool UseFilePicker { get; set; } = true;
     [Reactive] [JsonProperty] public bool EnableIndependentMinecraft { get; set; } = true;
 
@@ -44,13 +50,6 @@ public class SettingEntry : ReactiveObject
     [Reactive] [JsonProperty] public ObservableCollection<RecordJavaRuntime> JavaRuntimes { get; set; } = [];
     [Reactive] [JsonProperty] public ObservableCollection<RecordMinecraftAccount> MinecraftAccounts { get; set; } = [];
     [Reactive] [JsonProperty] public RecordMinecraftAccount? UsingMinecraftAccount { get; set; }
-
-
-    public SettingEntry()
-    {
-        PropertyChanged += OnPropertyChanged;
-        return;
-    }
 
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {

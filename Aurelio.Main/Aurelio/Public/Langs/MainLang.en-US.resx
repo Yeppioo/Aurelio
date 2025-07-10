@@ -1,1560 +1,1565 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+    <!-- 
+      Microsoft ResX Schema 
+      
+      Version 2.0
+      
+      The primary goals of this format is to allow a simple XML format 
+      that is mostly human readable. The generation and parsing of the 
+      various data types are done through the TypeConverter classes 
+      associated with the data types.
+      
+      Example:
+      
+      ... ado.net/XML headers & schema ...
+      <resheader name="resmimetype">text/microsoft-resx</resheader>
+      <resheader name="version">2.0</resheader>
+      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+          <value>[base64 mime encoded serialized .NET Framework object]</value>
+      </data>
+      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+          <comment>This is a comment</comment>
+      </data>
+                  
+      There are any number of "resheader" rows that contain simple 
+      name/value pairs.
+      
+      Each data row contains a name, and value. The row also contains a 
+      type or mimetype. Type corresponds to a .NET class that support 
+      text/value conversion through the TypeConverter architecture. 
+      Classes that don't support this are serialized and stored with the 
+      mimetype set.
+      
+      The mimetype is used for serialized objects, and tells the 
+      ResXResourceReader how to depersist the object. This is currently not 
+      extensible. For a given mimetype the value must be set accordingly:
+      
+      Note - application/x-microsoft.net.object.binary.base64 is the format 
+      that the ResXResourceWriter will generate, however the reader can 
+      read any of the formats listed below.
+      
+      mimetype: application/x-microsoft.net.object.binary.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+              : and then encoded with base64 encoding.
+      
+      mimetype: application/x-microsoft.net.object.soap.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+              : and then encoded with base64 encoding.
+  
+      mimetype: application/x-microsoft.net.object.bytearray.base64
+      value   : The object must be serialized into a byte array 
+              : using a System.ComponentModel.TypeConverter
+              : and then encoded with base64 encoding.
+      -->
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+                xmlns="">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="Language" xml:space="preserve">
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="Launch" xml:space="preserve">
+    <data name="Launch" xml:space="preserve">
     <value>Launch</value>
   </data>
-  <data name="MinecraftFolder" xml:space="preserve">
+    <data name="MinecraftFolder" xml:space="preserve">
     <value>Minecraft Folder</value>
   </data>
-  <data name="DelSelectedItem" xml:space="preserve">
+    <data name="DelSelectedItem" xml:space="preserve">
     <value>Delete Selected</value>
   </data>
-  <data name="AddFolder" xml:space="preserve">
+    <data name="AddFolder" xml:space="preserve">
     <value>Add Folder</value>
   </data>
-  <data name="SelectMinecraftFolder" xml:space="preserve">
+    <data name="SelectMinecraftFolder" xml:space="preserve">
     <value>Select the '.minecraft' folder</value>
   </data>
-  <data name="NeedToSelectMinecraftFolder" xml:space="preserve">
+    <data name="NeedToSelectMinecraftFolder" xml:space="preserve">
     <value>The '.minecraft' folder needs to be selected</value>
   </data>
-  <data name="SuccessAdd" xml:space="preserve">
+    <data name="SuccessAdd" xml:space="preserve">
     <value>Layouts Added Successfully</value>
   </data>
-  <data name="TheItemAlreadyExist" xml:space="preserve">
+    <data name="TheItemAlreadyExist" xml:space="preserve">
     <value>This item already exists</value>
   </data>
-  <data name="SuccessRemove" xml:space="preserve">
+    <data name="SuccessRemove" xml:space="preserve">
     <value>Removed successfully</value>
   </data>
-  <data name="AutoScan" xml:space="preserve">
+    <data name="AutoScan" xml:space="preserve">
     <value>Automatic Scan</value>
   </data>
-  <data name="LetAurelioChooseJava" xml:space="preserve">
+    <data name="LetAurelioChooseJava" xml:space="preserve">
     <value>Let Aurelio choose the right Java</value>
   </data>
-  <data name="ScanJavaSuccess" xml:space="preserve">
+    <data name="ScanJavaSuccess" xml:space="preserve">
     <value>Scanning Java succeeded</value>
   </data>
-  <data name="RepeatItem" xml:space="preserve">
+    <data name="RepeatItem" xml:space="preserve">
     <value>Repeating event</value>
   </data>
-  <data name="OpenFileWay" xml:space="preserve">
+    <data name="OpenFileWay" xml:space="preserve">
     <value>How to open a file</value>
   </data>
-  <data name="FileSelectWindow" xml:space="preserve">
+    <data name="FileSelectWindow" xml:space="preserve">
     <value>File Selection Window</value>
   </data>
-  <data name="ManualInput" xml:space="preserve">
+    <data name="ManualInput" xml:space="preserve">
     <value>Manual input</value>
   </data>
-  <data name="Ok" xml:space="preserve">
+    <data name="Ok" xml:space="preserve">
     <value>Confirm</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
+    <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="InputFolderPath" xml:space="preserve">
+    <data name="InputFolderPath" xml:space="preserve">
     <value>Type the folder path</value>
   </data>
-  <data name="FolderNotExist" xml:space="preserve">
+    <data name="FolderNotExist" xml:space="preserve">
     <value>Folder does not exist</value>
   </data>
-  <data name="InputFilePath" xml:space="preserve">
+    <data name="InputFilePath" xml:space="preserve">
     <value>input file path</value>
   </data>
-  <data name="FileNotExist" xml:space="preserve">
+    <data name="FileNotExist" xml:space="preserve">
     <value>File does not exist</value>
   </data>
-  <data name="ManualAdd" xml:space="preserve">
+    <data name="ManualAdd" xml:space="preserve">
     <value>Added manually</value>
   </data>
-  <data name="SelectJava" xml:space="preserve">
+    <data name="SelectJava" xml:space="preserve">
     <value>Choose Java</value>
   </data>
-  <data name="TheJavaIsError" xml:space="preserve">
+    <data name="TheJavaIsError" xml:space="preserve">
     <value>Java is incorrect</value>
   </data>
-  <data name="AddNewAccount" xml:space="preserve">
+    <data name="AddNewAccount" xml:space="preserve">
     <value>Add New Account</value>
   </data>
-  <data name="OfflineLogin" xml:space="preserve">
+    <data name="OfflineLogin" xml:space="preserve">
     <value>Log in offline</value>
   </data>
-  <data name="MicrosoftLogin" xml:space="preserve">
+    <data name="MicrosoftLogin" xml:space="preserve">
     <value>Microsoft Login</value>
   </data>
-  <data name="ThirdPartyLogin" xml:space="preserve">
+    <data name="ThirdPartyLogin" xml:space="preserve">
     <value>The third party signin</value>
   </data>
-  <data name="SelectAccountType" xml:space="preserve">
+    <data name="SelectAccountType" xml:space="preserve">
     <value>Choose account type</value>
   </data>
-  <data name="AccountNameCannotBeNull" xml:space="preserve">
+    <data name="AccountNameCannotBeNull" xml:space="preserve">
     <value>Account name cannot be empty</value>
   </data>
-  <data name="InputAccountName" xml:space="preserve">
+    <data name="InputAccountName" xml:space="preserve">
     <value>Enter Account Name</value>
   </data>
-  <data name="VerificationCode" xml:space="preserve">
+    <data name="VerificationCode" xml:space="preserve">
     <value>Verification code</value>
   </data>
-  <data name="Loading" xml:space="preserve">
+    <data name="Loading" xml:space="preserve">
     <value>Loading...</value>
   </data>
-  <data name="CopyCodeAndOPenBrowser" xml:space="preserve">
+    <data name="CopyCodeAndOPenBrowser" xml:space="preserve">
     <value>Copy the code and open your browser</value>
   </data>
-  <data name="WaitForMicrosoftVerification" xml:space="preserve">
+    <data name="WaitForMicrosoftVerification" xml:space="preserve">
     <value>Waiting for Microsoft account verification to complete
 Jump to the browser to complete verification</value>
   </data>
-  <data name="LoginFail" xml:space="preserve">
+    <data name="LoginFail" xml:space="preserve">
     <value>Login failed</value>
   </data>
-  <data name="VerifyingAccount" xml:space="preserve">
+    <data name="VerifyingAccount" xml:space="preserve">
     <value>Verifying account</value>
   </data>
-  <data name="VerificationServer" xml:space="preserve">
+    <data name="VerificationServer" xml:space="preserve">
     <value>Validation Server</value>
   </data>
-  <data name="EmailAddress" xml:space="preserve">
+    <data name="EmailAddress" xml:space="preserve">
     <value>Email address</value>
   </data>
-  <data name="AccountPassword" xml:space="preserve">
+    <data name="AccountPassword" xml:space="preserve">
     <value>Account Password</value>
   </data>
-  <data name="YggdrasilServerUrlIsEmpty" xml:space="preserve">
+    <data name="YggdrasilServerUrlIsEmpty" xml:space="preserve">
     <value>Verification server cannot be empty</value>
   </data>
-  <data name="YggdrasilPasswordIsEmpty" xml:space="preserve">
+    <data name="YggdrasilPasswordIsEmpty" xml:space="preserve">
     <value>Password cannot be empty</value>
   </data>
-  <data name="YggdrasilEmailIsEmpty" xml:space="preserve">
+    <data name="YggdrasilEmailIsEmpty" xml:space="preserve">
     <value>Email cannot be empty</value>
   </data>
-  <data name="ColorMode" xml:space="preserve">
+    <data name="ColorMode" xml:space="preserve">
     <value>Color mode</value>
   </data>
-  <data name="FollowSystem" xml:space="preserve">
+    <data name="FollowSystem" xml:space="preserve">
     <value>Follow the system</value>
   </data>
-  <data name="Light" xml:space="preserve">
+    <data name="Light" xml:space="preserve">
     <value>Light</value>
   </data>
-  <data name="Dark" xml:space="preserve">
+    <data name="Dark" xml:space="preserve">
     <value>Dark</value>
   </data>
-  <data name="MaxMem" xml:space="preserve">
+    <data name="MaxMem" xml:space="preserve">
     <value>Maximum memory</value>
   </data>
-  <data name="CannotOpenBrowser" xml:space="preserve">
+    <data name="CannotOpenBrowser" xml:space="preserve">
     <value>Unable to open browser</value>
   </data>
-  <data name="ManualOpen" xml:space="preserve">
+    <data name="ManualOpen" xml:space="preserve">
     <value>Hand Open</value>
   </data>
-  <data name="CopyUrlAndManualOpen" xml:space="preserve">
+    <data name="CopyUrlAndManualOpen" xml:space="preserve">
     <value>Ctrl + C Copy and paste the following link into your browser</value>
   </data>
-  <data name="VersionList" xml:space="preserve">
+    <data name="VersionList" xml:space="preserve">
     <value>version list</value>
   </data>
-  <data name="VersionSetting" xml:space="preserve">
+    <data name="VersionSetting" xml:space="preserve">
     <value>Version Settings</value>
   </data>
-  <data name="LaunchGame" xml:space="preserve">
+    <data name="LaunchGame" xml:space="preserve">
     <value>Start System</value>
   </data>
-  <data name="NoChooseGame" xml:space="preserve">
+    <data name="NoChooseGame" xml:space="preserve">
     <value>No game selected</value>
   </data>
-  <data name="ReturnWithIcon" xml:space="preserve">
+    <data name="ReturnWithIcon" xml:space="preserve">
     <value>← Go back</value>
   </data>
-  <data name="CreateGameEntryFail" xml:space="preserve">
+    <data name="CreateGameEntryFail" xml:space="preserve">
     <value>Failed to create game instance</value>
   </data>
-  <data name="NoChooseGameOrCannotFindGame" xml:space="preserve">
+    <data name="NoChooseGameOrCannotFindGame" xml:space="preserve">
     <value>No game selected or could not be found</value>
   </data>
-  <data name="AccountError" xml:space="preserve">
+    <data name="AccountError" xml:space="preserve">
     <value>Account Error</value>
   </data>
-  <data name="LaunchProgress" xml:space="preserve">
+    <data name="LaunchProgress" xml:space="preserve">
     <value>Startup</value>
   </data>
-  <data name="BuildLaunchConfigFail" xml:space="preserve">
+    <data name="BuildLaunchConfigFail" xml:space="preserve">
     <value>Failed to build startup configuration</value>
   </data>
-  <data name="GameExited" xml:space="preserve">
+    <data name="GameExited" xml:space="preserve">
     <value>Game exited</value>
   </data>
-  <data name="WaitForGameWindowAppear" xml:space="preserve">
+    <data name="WaitForGameWindowAppear" xml:space="preserve">
     <value>Wait for the game window to appear</value>
   </data>
-  <data name="LaunchFinish" xml:space="preserve">
+    <data name="LaunchFinish" xml:space="preserve">
     <value>Startup complete</value>
   </data>
-  <data name="LaunchFail" xml:space="preserve">
+    <data name="LaunchFail" xml:space="preserve">
     <value>Start failure</value>
   </data>
-  <data name="UserDataFolder" xml:space="preserve">
+    <data name="UserDataFolder" xml:space="preserve">
     <value>User Data Folder</value>
   </data>
-  <data name="OpenFolder" xml:space="preserve">
+    <data name="OpenFolder" xml:space="preserve">
     <value>Open Folder</value>
   </data>
-  <data name="AutoInstall" xml:space="preserve">
+    <data name="AutoInstall" xml:space="preserve">
     <value>Automated Installation</value>
   </data>
-  <data name="LatestVersion" xml:space="preserve">
+    <data name="LatestVersion" xml:space="preserve">
     <value>Latest Version</value>
   </data>
-  <data name="PreviewVersion" xml:space="preserve">
+    <data name="PreviewVersion" xml:space="preserve">
     <value>Pre release version</value>
   </data>
-  <data name="ReleaseVersion" xml:space="preserve">
+    <data name="ReleaseVersion" xml:space="preserve">
     <value>Release version</value>
   </data>
-  <data name="GetInstallableVersionFail" xml:space="preserve">
+    <data name="GetInstallableVersionFail" xml:space="preserve">
     <value>Failed to get installable list</value>
   </data>
-  <data name="OldVersion" xml:space="preserve">
+    <data name="OldVersion" xml:space="preserve">
     <value>Ancient Version</value>
   </data>
-  <data name="AllVersion" xml:space="preserve">
+    <data name="AllVersion" xml:space="preserve">
     <value>All Builds</value>
   </data>
-  <data name="SearchKeyword" xml:space="preserve">
+    <data name="SearchKeyword" xml:space="preserve">
     <value>Keywords Search...</value>
   </data>
-  <data name="InstallPreview" xml:space="preserve">
+    <data name="InstallPreview" xml:space="preserve">
     <value>Install Preview</value>
   </data>
-  <data name="NoAdditionalInstall" xml:space="preserve">
+    <data name="NoAdditionalInstall" xml:space="preserve">
     <value>No additional installation</value>
   </data>
-  <data name="BeginInstall" xml:space="preserve">
+    <data name="BeginInstall" xml:space="preserve">
     <value>Start Install</value>
   </data>
-  <data name="ViewUpdatedContent" xml:space="preserve">
+    <data name="ViewUpdatedContent" xml:space="preserve">
     <value>What's New</value>
   </data>
-  <data name="Reload" xml:space="preserve">
+    <data name="Reload" xml:space="preserve">
     <value>Reloading</value>
   </data>
-  <data name="GetFail" xml:space="preserve">
+    <data name="GetFail" xml:space="preserve">
     <value>Access failed</value>
   </data>
-  <data name="NoAvailableItem" xml:space="preserve">
+    <data name="NoAvailableItem" xml:space="preserve">
     <value>no available items</value>
   </data>
-  <data name="MineratCrashed" xml:space="preserve">
+    <data name="MineratCrashed" xml:space="preserve">
     <value>Minecrat crashed</value>
   </data>
-  <data name="TheVersionNameWillBeRenamedTo" xml:space="preserve">
+    <data name="TheVersionNameWillBeRenamedTo" xml:space="preserve">
     <value>Version name will be renamed to: </value>
   </data>
-  <data name="IncludeSpecialWord" xml:space="preserve">
+    <data name="IncludeSpecialWord" xml:space="preserve">
     <value>Contains Special Characters</value>
   </data>
-  <data name="FolderAlreadyExists" xml:space="preserve">
+    <data name="FolderAlreadyExists" xml:space="preserve">
     <value>Folder already exists</value>
   </data>
-  <data name="InstallFail" xml:space="preserve">
+    <data name="InstallFail" xml:space="preserve">
     <value>Installation failled</value>
   </data>
-  <data name="Install" xml:space="preserve">
+    <data name="Install" xml:space="preserve">
     <value>Installation</value>
   </data>
-  <data name="InstallFinish" xml:space="preserve">
+    <data name="InstallFinish" xml:space="preserve">
     <value>Installation finished</value>
   </data>
-  <data name="CannotFandRightJava" xml:space="preserve">
+    <data name="CannotFandRightJava" xml:space="preserve">
     <value>Couldn't find the right Java</value>
   </data>
-  <data name="Refresh" xml:space="preserve">
+    <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
   </data>
-  <data name="Mod" xml:space="preserve">
+    <data name="Mod" xml:space="preserve">
     <value>Module</value>
   </data>
-  <data name="Overview" xml:space="preserve">
+    <data name="Overview" xml:space="preserve">
     <value>Overview</value>
   </data>
-  <data name="Setting" xml:space="preserve">
+    <data name="Setting" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="SavesFolder" xml:space="preserve">
+    <data name="SavesFolder" xml:space="preserve">
     <value>Archive Folder</value>
   </data>
-  <data name="ModsFolder" xml:space="preserve">
+    <data name="ModsFolder" xml:space="preserve">
     <value>Module Folder</value>
   </data>
-  <data name="ResourcePacksFolder" xml:space="preserve">
+    <data name="ResourcePacksFolder" xml:space="preserve">
     <value>Resource Pack Folder</value>
   </data>
-  <data name="ShaderPacksFolder" xml:space="preserve">
+    <data name="ShaderPacksFolder" xml:space="preserve">
     <value>Light Pack Folder</value>
   </data>
-  <data name="VersionFolder" xml:space="preserve">
+    <data name="VersionFolder" xml:space="preserve">
     <value>Version Folder</value>
   </data>
-  <data name="EnableIndependencyCore" xml:space="preserve">
+    <data name="EnableIndependencyCore" xml:space="preserve">
     <value>Enable standalone cores</value>
   </data>
-  <data name="UseGlobalSetting" xml:space="preserve">
+    <data name="UseGlobalSetting" xml:space="preserve">
     <value>Use Global settings</value>
   </data>
-  <data name="Off" xml:space="preserve">
+    <data name="Off" xml:space="preserve">
     <value>Off</value>
   </data>
-  <data name="On" xml:space="preserve">
+    <data name="On" xml:space="preserve">
     <value>On</value>
   </data>
-  <data name="AutoJoinServer" xml:space="preserve">
+    <data name="AutoJoinServer" xml:space="preserve">
     <value>Automatically join the server</value>
   </data>
-  <data name="EnableSelect" xml:space="preserve">
+    <data name="EnableSelect" xml:space="preserve">
     <value>Enable Checked</value>
   </data>
-  <data name="DisableSelect" xml:space="preserve">
+    <data name="DisableSelect" xml:space="preserve">
     <value>Disable Selected</value>
   </data>
-  <data name="DeleteSelect" xml:space="preserve">
+    <data name="DeleteSelect" xml:space="preserve">
     <value>Delete Selected</value>
   </data>
-  <data name="SelectAll" xml:space="preserve">
+    <data name="SelectAll" xml:space="preserve">
     <value>Select All</value>
   </data>
-  <data name="DeselectAll" xml:space="preserve">
+    <data name="DeselectAll" xml:space="preserve">
     <value>Deselect all</value>
   </data>
-  <data name="SelectedItem" xml:space="preserve">
+    <data name="SelectedItem" xml:space="preserve">
     <value>Selected items: </value>
   </data>
-  <data name="MoveToRecycleBin" xml:space="preserve">
+    <data name="MoveToRecycleBin" xml:space="preserve">
     <value>Move to trash</value>
   </data>
-  <data name="WindowTitleBarStyle" xml:space="preserve">
+    <data name="WindowTitleBarStyle" xml:space="preserve">
     <value>Window title bar style</value>
   </data>
-  <data name="GetException" xml:space="preserve">
+    <data name="GetException" xml:space="preserve">
     <value>An exception occurs</value>
   </data>
-  <data name="UnhandledException" xml:space="preserve">
+    <data name="UnhandledException" xml:space="preserve">
     <value>Unhandled exception</value>
   </data>
-  <data name="CustomHomePage" xml:space="preserve">
+    <data name="CustomHomePage" xml:space="preserve">
     <value>Custom Home Page</value>
   </data>
-  <data name="LocalSourceCode" xml:space="preserve">
+    <data name="LocalSourceCode" xml:space="preserve">
     <value>Local source code</value>
   </data>
-  <data name="Edit" xml:space="preserve">
+    <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="CustomHomePageSourceCodeError" xml:space="preserve">
+    <data name="CustomHomePageSourceCodeError" xml:space="preserve">
     <value>Custom main page source code error</value>
   </data>
-  <data name="CheckUpdate" xml:space="preserve">
+    <data name="CheckUpdate" xml:space="preserve">
     <value>Check for updates</value>
   </data>
-  <data name="ChooseArchitecture" xml:space="preserve">
+    <data name="ChooseArchitecture" xml:space="preserve">
     <value>Select platform</value>
   </data>
-  <data name="CheckUpdateFail" xml:space="preserve">
+    <data name="CheckUpdateFail" xml:space="preserve">
     <value>Unable to check for updates</value>
   </data>
-  <data name="FoundNewVersion" xml:space="preserve">
+    <data name="FoundNewVersion" xml:space="preserve">
     <value>Detect a newer version</value>
   </data>
-  <data name="GetUpdateUrl" xml:space="preserve">
+    <data name="GetUpdateUrl" xml:space="preserve">
     <value>Get Updated Uniform Resource Locator</value>
   </data>
-  <data name="BeginDownload" xml:space="preserve">
+    <data name="BeginDownload" xml:space="preserve">
     <value>Start Download</value>
   </data>
-  <data name="UpdateFail" xml:space="preserve">
+    <data name="UpdateFail" xml:space="preserve">
     <value>Update Failed</value>
   </data>
-  <data name="ThisArchitectureCannotAutoUpdate" xml:space="preserve">
+    <data name="ThisArchitectureCannotAutoUpdate" xml:space="preserve">
     <value>This platform does not support automatic updates, open the following path to manually replace it</value>
   </data>
-  <data name="Update" xml:space="preserve">
+    <data name="Update" xml:space="preserve">
     <value>Updated</value>
   </data>
-  <data name="DownloadFinish" xml:space="preserve">
+    <data name="DownloadFinish" xml:space="preserve">
     <value>Download completed</value>
   </data>
-  <data name="CurrentlyTheLatestVersion" xml:space="preserve">
+    <data name="CurrentlyTheLatestVersion" xml:space="preserve">
     <value>The current version is up to date</value>
   </data>
-  <data name="OpenSourceProjectUsageTable" xml:space="preserve">
+    <data name="OpenSourceProjectUsageTable" xml:space="preserve">
     <value>Open Source Project Usage Sheet</value>
   </data>
-  <data name="GPL3Text" xml:space="preserve">
+    <data name="GPL3Text" xml:space="preserve">
     <value>The Aurelio is open source under the GPL 3.0 License and may be modified and distributed, but the software must contain the copyright and license notices for the original code, as well as a notification file containing the license information.</value>
   </data>
-  <data name="ShowGameOutput" xml:space="preserve">
+    <data name="ShowGameOutput" xml:space="preserve">
     <value>Show Game Output</value>
   </data>
-  <data name="Search" xml:space="preserve">
+    <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
-  <data name="LoadMore" xml:space="preserve">
+    <data name="LoadMore" xml:space="preserve">
     <value>Load More</value>
   </data>
-  <data name="ErrorCallingApi" xml:space="preserve">
+    <data name="ErrorCallingApi" xml:space="preserve">
     <value>Error calling Api</value>
   </data>
-  <data name="SearchNoResult" xml:space="preserve">
+    <data name="SearchNoResult" xml:space="preserve">
     <value>No result found</value>
   </data>
-  <data name="AddLocalSong" xml:space="preserve">
+    <data name="AddLocalSong" xml:space="preserve">
     <value>Add Audio File</value>
   </data>
-  <data name="SelectMusicFile" xml:space="preserve">
+    <data name="SelectMusicFile" xml:space="preserve">
     <value>Choose an Audio File</value>
   </data>
-  <data name="ThemeColor" xml:space="preserve">
+    <data name="ThemeColor" xml:space="preserve">
     <value>Theme color</value>
   </data>
-  <data name="InitAudioLibraryFail" xml:space="preserve">
+    <data name="InitAudioLibraryFail" xml:space="preserve">
     <value>Failed to initialize audio library</value>
   </data>
-  <data name="InstallVlcTip" xml:space="preserve">
+    <data name="InstallVlcTip" xml:space="preserve">
     <value>Attempt to execute: 
 
 sudo apt install libvlc-dev
 sudo apt install vlc</value>
   </data>
-  <data name="ThisFeatureIsCurrentlyUnderDevelopment" xml:space="preserve">
+    <data name="ThisFeatureIsCurrentlyUnderDevelopment" xml:space="preserve">
     <value>This feature is in development</value>
   </data>
-  <data name="TreasureBox" xml:space="preserve">
+    <data name="TreasureBox" xml:space="preserve">
     <value>Treasure chest</value>
   </data>
-  <data name="ActivateWinOffice" xml:space="preserve">
+    <data name="ActivateWinOffice" xml:space="preserve">
     <value>Activate Windows/Office</value>
   </data>
-  <data name="Run" xml:space="preserve">
+    <data name="Run" xml:space="preserve">
     <value>Run</value>
   </data>
-  <data name="ThisFeatureOnlySupportsWindowsPlatform" xml:space="preserve">
+    <data name="ThisFeatureOnlySupportsWindowsPlatform" xml:space="preserve">
     <value>This feature is only available on Windows</value>
   </data>
-  <data name="RunCommandFail" xml:space="preserve">
+    <data name="RunCommandFail" xml:space="preserve">
     <value>Failed to run command</value>
   </data>
-  <data name="RunActivate" xml:space="preserve">
+    <data name="RunActivate" xml:space="preserve">
     <value>Run activation</value>
   </data>
-  <data name="CancelActivateWin" xml:space="preserve">
+    <data name="CancelActivateWin" xml:space="preserve">
     <value>Deactivate Windows</value>
   </data>
-  <data name="CancelActivateWinTip" xml:space="preserve">
+    <data name="CancelActivateWinTip" xml:space="preserve">
     <value>This action will remove Windows activation status, making features such as Windows personalization unavailable. Do you want to continue?</value>
   </data>
-  <data name="ThisFeatureOnlySupportsWindows10AndAbove" xml:space="preserve">
+    <data name="ThisFeatureOnlySupportsWindows10AndAbove" xml:space="preserve">
     <value>This feature only supports Windows 10 and above, and systems below this version are not guaranteed to be activated successfully</value>
   </data>
-  <data name="PlayList" xml:space="preserve">
+    <data name="PlayList" xml:space="preserve">
     <value>Playlist</value>
   </data>
-  <data name="ModName" xml:space="preserve">
+    <data name="ModName" xml:space="preserve">
     <value>Module name</value>
   </data>
-  <data name="GameVersion" xml:space="preserve">
+    <data name="GameVersion" xml:space="preserve">
     <value>Game version</value>
   </data>
-  <data name="AnyModLoader" xml:space="preserve">
+    <data name="AnyModLoader" xml:space="preserve">
     <value>Any loader</value>
   </data>
-  <data name="AnySource" xml:space="preserve">
+    <data name="AnySource" xml:space="preserve">
     <value>All sources</value>
   </data>
-  <data name="Download" xml:space="preserve">
+    <data name="Download" xml:space="preserve">
     <value>Download</value>
   </data>
-  <data name="SaveFile" xml:space="preserve">
+    <data name="SaveFile" xml:space="preserve">
     <value>Save the file</value>
   </data>
-  <data name="DownloadFail" xml:space="preserve">
+    <data name="DownloadFail" xml:space="preserve">
     <value>Download failed</value>
   </data>
-  <data name="MatchingVersion" xml:space="preserve">
+    <data name="MatchingVersion" xml:space="preserve">
     <value>Matching version</value>
   </data>
-  <data name="ModifyMicrosoftSkin" xml:space="preserve">
+    <data name="ModifyMicrosoftSkin" xml:space="preserve">
     <value>Modify Skin (Microsoft)</value>
   </data>
-  <data name="SkinModel" xml:space="preserve">
+    <data name="SkinModel" xml:space="preserve">
     <value>Skin model</value>
   </data>
-  <data name="InputSkinFilePath" xml:space="preserve">
+    <data name="InputSkinFilePath" xml:space="preserve">
     <value>Enter skin file path</value>
   </data>
-  <data name="SelectSkinFile" xml:space="preserve">
+    <data name="SelectSkinFile" xml:space="preserve">
     <value>Select skin file</value>
   </data>
-  <data name="RefreshMicrosoftSkin" xml:space="preserve">
+    <data name="RefreshMicrosoftSkin" xml:space="preserve">
     <value>Refresh Skin (Microsoft)</value>
   </data>
-  <data name="ModifySuccess" xml:space="preserve">
+    <data name="ModifySuccess" xml:space="preserve">
     <value>modified</value>
   </data>
-  <data name="ModifyFail" xml:space="preserve">
+    <data name="ModifyFail" xml:space="preserve">
     <value>Modify failed</value>
   </data>
-  <data name="IfInstallBedRock" xml:space="preserve">
+    <data name="IfInstallBedRock" xml:space="preserve">
     <value>If the bedrock version is not installed, it will not start</value>
   </data>
-  <data name="BedRockVersion" xml:space="preserve">
+    <data name="BedRockVersion" xml:space="preserve">
     <value>Bedrock Edition</value>
   </data>
-  <data name="CannotOpenBedRockSetting" xml:space="preserve">
+    <data name="CannotOpenBedRockSetting" xml:space="preserve">
     <value>Could not open bedrock settings</value>
   </data>
-  <data name="UpgradeToAdministratorPrivileges" xml:space="preserve">
+    <data name="UpgradeToAdministratorPrivileges" xml:space="preserve">
     <value>Upgrade to Admin Permissions</value>
   </data>
-  <data name="UpgradeToAdministratorPrivilegesFail" xml:space="preserve">
+    <data name="UpgradeToAdministratorPrivilegesFail" xml:space="preserve">
     <value>Failed to upgrade to admin permissions</value>
   </data>
-  <data name="UpgradeToAdministratorPrivilegesTip" xml:space="preserve">
+    <data name="UpgradeToAdministratorPrivilegesTip" xml:space="preserve">
     <value>To perform the operation, you need to upgrade to administrator privileges. Click OK to restart the program with administrator privileges</value>
   </data>
-  <data name="ChooseLanguage" xml:space="preserve">
+    <data name="ChooseLanguage" xml:space="preserve">
     <value>Choose language/language</value>
   </data>
-  <data name="ReleaseTheMouseAndLetAurelioProcessThisFile" xml:space="preserve">
+    <data name="ReleaseTheMouseAndLetAurelioProcessThisFile" xml:space="preserve">
     <value>Release the mouse to let Aurelio process this file</value>
   </data>
-  <data name="UnableToAddModsForBedrockEdition" xml:space="preserve">
+    <data name="UnableToAddModsForBedrockEdition" xml:space="preserve">
     <value>Modules cannot be added to the Bedrock Edition</value>
   </data>
-  <data name="AddTheFollowingFilesAsModsToTheCurrentVersion" xml:space="preserve">
+    <data name="AddTheFollowingFilesAsModsToTheCurrentVersion" xml:space="preserve">
     <value>Add the following files as a module to the current version</value>
   </data>
-  <data name="UnsupportedFileType" xml:space="preserve">
+    <data name="UnsupportedFileType" xml:space="preserve">
     <value>File type not supported</value>
   </data>
-  <data name="InstallTheFollowingFilesAsAnIntegrationPackageCurseforgeFormat" xml:space="preserve">
+    <data name="InstallTheFollowingFilesAsAnIntegrationPackageCurseforgeFormat" xml:space="preserve">
     <value>Install the following files as an integration package (CurseForge format)</value>
   </data>
-  <data name="Unzip" xml:space="preserve">
+    <data name="Unzip" xml:space="preserve">
     <value>Unzip</value>
   </data>
-  <data name="UnzipingModPack" xml:space="preserve">
+    <data name="UnzipingModPack" xml:space="preserve">
     <value>Unpacking the Integration Pack</value>
   </data>
-  <data name="FinsihUnzipModPack" xml:space="preserve">
+    <data name="FinsihUnzipModPack" xml:space="preserve">
     <value>Unpacking Integration Pack complete</value>
   </data>
-  <data name="GetModPackInfo" xml:space="preserve">
+    <data name="GetModPackInfo" xml:space="preserve">
     <value>Get the Integration Pack Info</value>
   </data>
-  <data name="ModPackInfo" xml:space="preserve">
+    <data name="ModPackInfo" xml:space="preserve">
     <value>Integrate package information</value>
   </data>
-  <data name="ImportFailed" xml:space="preserve">
+    <data name="ImportFailed" xml:space="preserve">
     <value>Import Fail</value>
   </data>
-  <data name="ImportSuccess" xml:space="preserve">
+    <data name="ImportSuccess" xml:space="preserve">
     <value>The tapes for indexing are imported successfully</value>
   </data>
-  <data name="NoCrashInfo" xml:space="preserve">
+    <data name="NoCrashInfo" xml:space="preserve">
     <value>No crash information</value>
   </data>
-  <data name="DownloadModPackMod" xml:space="preserve">
+    <data name="DownloadModPackMod" xml:space="preserve">
     <value>Download the Integration Pack Module</value>
   </data>
-  <data name="TotalNumberOfMod" xml:space="preserve">
+    <data name="TotalNumberOfMod" xml:space="preserve">
     <value>Total number of modules</value>
   </data>
-  <data name="DownloadSuccess" xml:space="preserve">
+    <data name="DownloadSuccess" xml:space="preserve">
     <value>Downloaded successfully</value>
   </data>
-  <data name="OverrideModPack" xml:space="preserve">
+    <data name="OverrideModPack" xml:space="preserve">
     <value>Override the Integration Pack</value>
   </data>
-  <data name="DownloadFailedFileAgain" xml:space="preserve">
+    <data name="DownloadFailedFileAgain" xml:space="preserve">
     <value>Failed to re-download file</value>
   </data>
-  <data name="Plugin" xml:space="preserve">
+    <data name="Plugin" xml:space="preserve">
     <value>Plugins</value>
   </data>
-  <data name="EnableAll" xml:space="preserve">
+    <data name="EnableAll" xml:space="preserve">
     <value>Enable All</value>
   </data>
-  <data name="DisableAll" xml:space="preserve">
+    <data name="DisableAll" xml:space="preserve">
     <value>Disable All</value>
   </data>
-  <data name="Author" xml:space="preserve">
+    <data name="Author" xml:space="preserve">
     <value>Author</value>
   </data>
-  <data name="Version" xml:space="preserve">
+    <data name="Version" xml:space="preserve">
     <value>Version</value>
   </data>
-  <data name="Description" xml:space="preserve">
+    <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="NeedRestartApp" xml:space="preserve">
+    <data name="NeedRestartApp" xml:space="preserve">
     <value>Aurelio needs to be restarted</value>
   </data>
-  <data name="OnlySupportsWindows10AndAboveSystems" xml:space="preserve">
+    <data name="OnlySupportsWindows10AndAboveSystems" xml:space="preserve">
     <value>Only supports Windows 10 and above</value>
   </data>
-  <data name="TaskCenter" xml:space="preserve">
+    <data name="TaskCenter" xml:space="preserve">
     <value>task center</value>
   </data>
-  <data name="AllType" xml:space="preserve">
+    <data name="AllType" xml:space="preserve">
     <value>All Types</value>
   </data>
-  <data name="MaterialPack" xml:space="preserve">
+    <data name="MaterialPack" xml:space="preserve">
     <value>Texture pack</value>
   </data>
-  <data name="Map" xml:space="preserve">
+    <data name="Map" xml:space="preserve">
     <value>Maps</value>
   </data>
-  <data name="CustomBackGroundImg" xml:space="preserve">
+    <data name="CustomBackGroundImg" xml:space="preserve">
     <value>Custom Background Image</value>
   </data>
-  <data name="SelectImgFile" xml:space="preserve">
+    <data name="SelectImgFile" xml:space="preserve">
     <value>Select an item for editing</value>
   </data>
-  <data name="MusicNotAvailable" xml:space="preserve">
+    <data name="MusicNotAvailable" xml:space="preserve">
     <value>Music not available</value>
   </data>
-  <data name="MusicGetFail" xml:space="preserve">
+    <data name="MusicGetFail" xml:space="preserve">
     <value>Failed to get music</value>
   </data>
-  <data name="DownloadSource" xml:space="preserve">
+    <data name="DownloadSource" xml:space="preserve">
     <value>Download Source</value>
   </data>
-  <data name="MaximumDownloadThread" xml:space="preserve">
+    <data name="MaximumDownloadThread" xml:space="preserve">
     <value>Max Download Threads</value>
   </data>
-  <data name="DownloadThreadTooBigTip" xml:space="preserve">
+    <data name="DownloadThreadTooBigTip" xml:space="preserve">
     <value>The download thread is too large and may cause the device to crash</value>
   </data>
-  <data name="Unknown" xml:space="preserve">
+    <data name="Unknown" xml:space="preserve">
     <value>Unknown</value>
   </data>
-  <data name="ShaderPack" xml:space="preserve">
+    <data name="ShaderPack" xml:space="preserve">
     <value>Light Pack</value>
   </data>
-  <data name="DataPack" xml:space="preserve">
+    <data name="DataPack" xml:space="preserve">
     <value>Packs</value>
   </data>
-  <data name="Api" xml:space="preserve">
+    <data name="Api" xml:space="preserve">
     <value>APIs</value>
   </data>
-  <data name="ModPack" xml:space="preserve">
+    <data name="ModPack" xml:space="preserve">
     <value>Integration Package</value>
   </data>
-  <data name="SaveAudioFile" xml:space="preserve">
+    <data name="SaveAudioFile" xml:space="preserve">
     <value>Save the audio file</value>
   </data>
-  <data name="CustomUpdateUrl" xml:space="preserve">
+    <data name="CustomUpdateUrl" xml:space="preserve">
     <value>Custom Update Url</value>
   </data>
-  <data name="LyricTip" xml:space="preserve">
+    <data name="LyricTip" xml:space="preserve">
     <value>I am the lyrics (≧▽ ≦ *) o</value>
   </data>
-  <data name="MusicPlayerOnlySupportWindows" xml:space="preserve">
+    <data name="MusicPlayerOnlySupportWindows" xml:space="preserve">
     <value>Music player only supports Windows</value>
   </data>
-  <data name="LoadAudioFileFail" xml:space="preserve">
+    <data name="LoadAudioFileFail" xml:space="preserve">
     <value>Failed to load audio file</value>
   </data>
-  <data name="LaunchCore" xml:space="preserve">
+    <data name="LaunchCore" xml:space="preserve">
     <value>Launch Core</value>
   </data>
-  <data name="AfterLaunchKeepLauncherVisible" xml:space="preserve">
+    <data name="AfterLaunchKeepLauncherVisible" xml:space="preserve">
     <value>Leave unchanged after startup is complete</value>
   </data>
-  <data name="AfterLaunchMakeLauncherMinimize" xml:space="preserve">
+    <data name="AfterLaunchMakeLauncherMinimize" xml:space="preserve">
     <value>Minimize after startup is complete</value>
   </data>
-  <data name="AfterLaunchExitLauncher" xml:space="preserve">
+    <data name="AfterLaunchExitLauncher" xml:space="preserve">
     <value>Close when startup is complete</value>
   </data>
-  <data name="AfterLaunchHideAndShowWhenGameExit" xml:space="preserve">
+    <data name="AfterLaunchHideAndShowWhenGameExit" xml:space="preserve">
     <value>Hide after startup is complete, show after game exits</value>
   </data>
-  <data name="LauncherVisibility" xml:space="preserve">
+    <data name="LauncherVisibility" xml:space="preserve">
     <value>Launcher Visibility</value>
   </data>
-  <data name="AfterLaunchMinimizeAndShowWhenGameExit" xml:space="preserve">
+    <data name="AfterLaunchMinimizeAndShowWhenGameExit" xml:space="preserve">
     <value>Minimize after startup, show after game exits</value>
   </data>
-  <data name="UnofficialTip" xml:space="preserve">
+    <data name="UnofficialTip" xml:space="preserve">
     <value>The current version is unofficial and may be vulnerable to viruses.
 Redirect to https://ymcl.daiyu.fun/ to download the official version.</value>
   </data>
-  <data name="LanguageTip" xml:space="preserve">
+    <data name="LanguageTip" xml:space="preserve">
     <value>You need to select a language before you can start setting up Aurelio.</value>
   </data>
-  <data name="Account" xml:space="preserve">
+    <data name="Account" xml:space="preserve">
     <value>Account</value>
   </data>
-  <data name="WindowTitleBarStyleTip" xml:space="preserve">
+    <data name="WindowTitleBarStyleTip" xml:space="preserve">
     <value>Set the style of the launcher window title bar, in certain cases the launcher style is not supported.</value>
   </data>
-  <data name="SystemStyle" xml:space="preserve">
+    <data name="SystemStyle" xml:space="preserve">
     <value>System Style</value>
   </data>
-  <data name="LauncherStyle" xml:space="preserve">
+    <data name="LauncherStyle" xml:space="preserve">
     <value>Launcher style</value>
   </data>
-  <data name="MinecraftFolderTip" xml:space="preserve">
+    <data name="MinecraftFolderTip" xml:space="preserve">
     <value>Folder for Minecraft data (.minecraft)</value>
   </data>
-  <data name="ExistingNow" xml:space="preserve">
+    <data name="ExistingNow" xml:space="preserve">
     <value>Existing</value>
   </data>
-  <data name="JavaRuntime" xml:space="preserve">
+    <data name="JavaRuntime" xml:space="preserve">
     <value>Java Runtime</value>
   </data>
-  <data name="JavaRuntimeTip" xml:space="preserve">
+    <data name="JavaRuntimeTip" xml:space="preserve">
     <value>At least one Java runtime is required to start the gam.</value>
   </data>
-  <data name="AccountTip" xml:space="preserve">
+    <data name="AccountTip" xml:space="preserve">
     <value>At least one account is required to launch the game. If you use an offline account, you will not be able to log in to a server with genuine authentication.</value>
   </data>
-  <data name="MusicApi" xml:space="preserve">
+    <data name="MusicApi" xml:space="preserve">
     <value>Music Apis</value>
   </data>
-  <data name="ProjectInfo" xml:space="preserve">
+    <data name="ProjectInfo" xml:space="preserve">
     <value>Project Info</value>
   </data>
-  <data name="SaveAs" xml:space="preserve">
+    <data name="SaveAs" xml:space="preserve">
     <value>Save as</value>
   </data>
-  <data name="DeskLyricColor" xml:space="preserve">
+    <data name="DeskLyricColor" xml:space="preserve">
     <value>Desktop Lyrics Color</value>
   </data>
-  <data name="DeskLyricAlignment" xml:space="preserve">
+    <data name="DeskLyricAlignment" xml:space="preserve">
     <value>Desktop Lyrics Align</value>
   </data>
-  <data name="AlignLeft" xml:space="preserve">
+    <data name="AlignLeft" xml:space="preserve">
     <value>Align Left</value>
   </data>
-  <data name="AlignCenter" xml:space="preserve">
+    <data name="AlignCenter" xml:space="preserve">
     <value>Align center</value>
   </data>
-  <data name="AlignRight" xml:space="preserve">
+    <data name="AlignRight" xml:space="preserve">
     <value>Align Right</value>
   </data>
-  <data name="DeskLyricSize" xml:space="preserve">
+    <data name="DeskLyricSize" xml:space="preserve">
     <value>Desktop Lyrics Size</value>
   </data>
-  <data name="AutoUpdate" xml:space="preserve">
+    <data name="AutoUpdate" xml:space="preserve">
     <value>Auto Update</value>
   </data>
-  <data name="SkipThisVersion" xml:space="preserve">
+    <data name="SkipThisVersion" xml:space="preserve">
     <value>Skip This Version</value>
   </data>
-  <data name="SkipVersionTip" xml:space="preserve">
+    <data name="SkipVersionTip" xml:space="preserve">
     <value>Skip version:{version}.
 Go to Settings-Launcher-Check Updates download this version</value>
   </data>
-  <data name="WinSevenAutoUpdateTip" xml:space="preserve">
+    <data name="WinSevenAutoUpdateTip" xml:space="preserve">
     <value>New version:{version}
 Above Windows 10 can't auto updates.
 Go to "{url}" download new version.
 Go to Settings-Download-Auto Update can disable auto check update</value>
   </data>
-  <data name="OpenBrowser" xml:space="preserve">
+    <data name="OpenBrowser" xml:space="preserve">
     <value>Open Browser</value>
   </data>
-  <data name="CustomHomePageWay_Presetting_JavaNews" xml:space="preserve">
+    <data name="CustomHomePageWay_Presetting_JavaNews" xml:space="preserve">
     <value>Preset - Minecraft: Java Edition News</value>
   </data>
-  <data name="NetworkSource" xml:space="preserve">
+    <data name="NetworkSource" xml:space="preserve">
     <value>Network Source</value>
   </data>
-  <data name="NoSupportNow" xml:space="preserve">
+    <data name="NoSupportNow" xml:space="preserve">
     <value>Not supported</value>
   </data>
-  <data name="CannotRecognitionTheVersion" xml:space="preserve">
+    <data name="CannotRecognitionTheVersion" xml:space="preserve">
     <value>Can't Recognition The Version</value>
   </data>
-  <data name="LocalResource" xml:space="preserve">
+    <data name="LocalResource" xml:space="preserve">
     <value>Local Resources</value>
   </data>
-  <data name="InstallVersion" xml:space="preserve">
+    <data name="InstallVersion" xml:space="preserve">
     <value>Install Version</value>
   </data>
-  <data name="JumpSearch" xml:space="preserve">
+    <data name="JumpSearch" xml:space="preserve">
     <value>Jump Search</value>
   </data>
-  <data name="AggregateSearchWatermark" xml:space="preserve">
+    <data name="AggregateSearchWatermark" xml:space="preserve">
     <value>Enter keyword to search in Aurelio</value>
   </data>
-  <data name="SwitchedTo" xml:space="preserve">
+    <data name="SwitchedTo" xml:space="preserve">
     <value>Switched to</value>
   </data>
-  <data name="JumpToSearchTip" xml:space="preserve">
+    <data name="JumpToSearchTip" xml:space="preserve">
     <value>Jump to {target} to search</value>
   </data>
-  <data name="SearchInTip" xml:space="preserve">
+    <data name="SearchInTip" xml:space="preserve">
     <value>Search in {target}</value>
   </data>
-  <data name="Music" xml:space="preserve">
+    <data name="Music" xml:space="preserve">
     <value>Music</value>
   </data>
-  <data name="ExistAccount" xml:space="preserve">
+    <data name="ExistAccount" xml:space="preserve">
     <value>Existing accounts</value>
   </data>
-  <data name="DisplayIndependentTaskWindow" xml:space="preserve">
+    <data name="DisplayIndependentTaskWindow" xml:space="preserve">
     <value>Show independent task window</value>
   </data>
-  <data name="Sponsor" xml:space="preserve">
+    <data name="Sponsor" xml:space="preserve">
     <value>sponsored</value>
   </data>
-  <data name="Sponsors" xml:space="preserve">
+    <data name="Sponsors" xml:space="preserve">
     <value>Sponsors</value>
   </data>
-  <data name="SponsorsTip" xml:space="preserve">
+    <data name="SponsorsTip" xml:space="preserve">
     <value>Below are sponsors. Thank you for your support to Aurelio!</value>
   </data>
-  <data name="MacOsUpdateTip" xml:space="preserve">
+    <data name="MacOsUpdateTip" xml:space="preserve">
     <value>New version:{version}
 macOS can't auto updates.
 Go to "{url}" download new version.
 Go to Settings-Download-Auto Update can disable auto check update</value>
   </data>
-  <data name="CurrectSystemNoSupportAutoUpdateTip" xml:space="preserve">
+    <data name="CurrectSystemNoSupportAutoUpdateTip" xml:space="preserve">
     <value>Automatic updates are not supported on the current system
 Go to Settings - Downloads to turn off automatic updates
 You can manually download the latest version and replace the program file</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AlreadyCopyToClipBoard" xml:space="preserve">
+    <data name="AlreadyCopyToClipBoard" xml:space="preserve">
     <value>Copied to clipboard</value>
   </data>
-  <data name="UsedMem" xml:space="preserve">
+    <data name="UsedMem" xml:space="preserve">
     <value>Used Memory</value>
   </data>
-  <data name="CannotLoad" xml:space="preserve">
+    <data name="CannotLoad" xml:space="preserve">
     <value>Can't load</value>
   </data>
-  <data name="LoadFail" xml:space="preserve">
+    <data name="LoadFail" xml:space="preserve">
     <value>Loading failed</value>
   </data>
-  <data name="ToggleNav" xml:space="preserve">
+    <data name="ToggleNav" xml:space="preserve">
     <value>Toggle Navigation</value>
   </data>
-  <data name="NoWorkingTask" xml:space="preserve">
+    <data name="NoWorkingTask" xml:space="preserve">
     <value>No running tasks</value>
   </data>
-  <data name="CrashLa" xml:space="preserve">
+    <data name="CrashLa" xml:space="preserve">
     <value>Crash! Springtime `)o</value>
   </data>
-  <data name="AurelioHappenError" xml:space="preserve">
+    <data name="AurelioHappenError" xml:space="preserve">
     <value>Unhandled exception by Aurelio</value>
   </data>
-  <data name="DetailedInfo" xml:space="preserve">
+    <data name="DetailedInfo" xml:space="preserve">
     <value>Details</value>
   </data>
-  <data name="UnhandledErrorTip" xml:space="preserve">
+    <data name="UnhandledErrorTip" xml:space="preserve">
     <value>Aurelio encountered unhandled exceptions, may not continue to work, below for unusual details</value>
   </data>
-  <data name="Copy" xml:space="preserve">
+    <data name="Copy" xml:space="preserve">
     <value>Copy</value>
   </data>
-  <data name="NoMatterErrorAndKeepOnRun" xml:space="preserve">
+    <data name="NoMatterErrorAndKeepOnRun" xml:space="preserve">
     <value>Ignore Error, force to continue running</value>
   </data>
-  <data name="ExitApp" xml:space="preserve">
+    <data name="ExitApp" xml:space="preserve">
     <value>Exit app</value>
   </data>
-  <data name="RestartApp" xml:space="preserve">
+    <data name="RestartApp" xml:space="preserve">
     <value>Restart app</value>
   </data>
-  <data name="LoadBackGroudFromPicFailTip" xml:space="preserve">
+    <data name="LoadBackGroudFromPicFailTip" xml:space="preserve">
     <value>Failed to load background image from image file, check that image format is correct</value>
   </data>
-  <data name="CustomBackground" xml:space="preserve">
+    <data name="CustomBackground" xml:space="preserve">
     <value>Custom Background</value>
   </data>
-  <data name="Default" xml:space="preserve">
+    <data name="Default" xml:space="preserve">
     <value>Default</value>
   </data>
-  <data name="BackGroundImg" xml:space="preserve">
+    <data name="BackGroundImg" xml:space="preserve">
     <value>Background Graph</value>
   </data>
-  <data name="AcrylicBlur" xml:space="preserve">
+    <data name="AcrylicBlur" xml:space="preserve">
     <value>Subsection</value>
   </data>
-  <data name="Transparent" xml:space="preserve">
+    <data name="Transparent" xml:space="preserve">
     <value>Transparent</value>
   </data>
-  <data name="CannotFindMinecraftFolder" xml:space="preserve">
+    <data name="CannotFindMinecraftFolder" xml:space="preserve">
     <value>Could not find Minecraft folder</value>
   </data>
-  <data name="OneSentence" xml:space="preserve">
+    <data name="OneSentence" xml:space="preserve">
     <value>Hitokoto</value>
   </data>
-  <data name="TodayLuckyValue" xml:space="preserve">
+    <data name="TodayLuckyValue" xml:space="preserve">
     <value>Character of the day</value>
   </data>
-  <data name="CannotLoadVersionSetting" xml:space="preserve">
+    <data name="CannotLoadVersionSetting" xml:space="preserve">
     <value>Unable to load version settings</value>
   </data>
-  <data name="TodayLuckyValueTip" xml:space="preserve">
+    <data name="TodayLuckyValueTip" xml:space="preserve">
     <value>Today's character value is: {value}!</value>
   </data>
-  <data name="IKnow" xml:space="preserve">
+    <data name="IKnow" xml:space="preserve">
     <value>Okay then</value>
   </data>
-  <data name="LuckyValueTip" xml:space="preserve">
+    <data name="LuckyValueTip" xml:space="preserve">
     <value>Today's luck may be bad, but don't be discouraged, tomorrow will be better!/nToday's luck is a little bad./nToday's luck is average./nToday's luck is good./nToday's luck is good!/nToday's luck is very good!/nToday's luck is busting!/n</value>
   </data>
-  <data name="NeverClick" xml:space="preserve">
+    <data name="NeverClick" xml:space="preserve">
     <value>Don't you dare</value>
   </data>
-  <data name="NeverClickTip" xml:space="preserve">
+    <data name="NeverClickTip" xml:space="preserve">
     <value>This operation may cause strange issues, are you sure you want to continue?</value>
   </data>
-  <data name="Tip" xml:space="preserve">
+    <data name="Tip" xml:space="preserve">
     <value>Notice</value>
   </data>
-  <data name="GameMainFileDeletion" xml:space="preserve">
+    <data name="GameMainFileDeletion" xml:space="preserve">
     <value>The main game file is missing</value>
   </data>
-  <data name="GameUpdateLog" xml:space="preserve">
+    <data name="GameUpdateLog" xml:space="preserve">
     <value>ChangeLog</value>
   </data>
-  <data name="SureToInstallTheJava" xml:space="preserve">
+    <data name="SureToInstallTheJava" xml:space="preserve">
     <value>Are you sure you want to install Java: {Java}?</value>
   </data>
-  <data name="MaxFileFragmentation" xml:space="preserve">
+    <data name="MaxFileFragmentation" xml:space="preserve">
     <value>Maximum File Fragmentation</value>
   </data>
-  <data name="CreateDownloadTask" xml:space="preserve">
+    <data name="CreateDownloadTask" xml:space="preserve">
     <value>Create a download task</value>
   </data>
-  <data name="CustomDownload" xml:space="preserve">
+    <data name="CustomDownload" xml:space="preserve">
     <value>Custom Download</value>
   </data>
-  <data name="Locate" xml:space="preserve">
+    <data name="Locate" xml:space="preserve">
     <value>Location services</value>
   </data>
-  <data name="DownloadUrl" xml:space="preserve">
+    <data name="DownloadUrl" xml:space="preserve">
     <value>Download link</value>
   </data>
-  <data name="DisplayName" xml:space="preserve">
+    <data name="DisplayName" xml:space="preserve">
     <value>Display name</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Task" xml:space="preserve">
+    <data name="Task" xml:space="preserve">
     <value>Mission</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="More" xml:space="preserve">
+    <data name="More" xml:space="preserve">
     <value>More</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="About" xml:space="preserve">
+    <data name="About" xml:space="preserve">
     <value>about</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Personalize" xml:space="preserve">
+    <data name="Personalize" xml:space="preserve">
     <value>Customization</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Launcher" xml:space="preserve">
+    <data name="Launcher" xml:space="preserve">
     <value>Starter</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ServerUrlError" xml:space="preserve">
+    <data name="ServerUrlError" xml:space="preserve">
     <value>Server Url Error</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Waiting" xml:space="preserve">
+    <data name="Waiting" xml:space="preserve">
     <value>Waiting</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Running" xml:space="preserve">
+    <data name="Running" xml:space="preserve">
     <value>Running</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Paused" xml:space="preserve">
+    <data name="Paused" xml:space="preserve">
     <value>Paused</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Error" xml:space="preserve">
+    <data name="Error" xml:space="preserve">
     <value>Incorrect</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Finished" xml:space="preserve">
+    <data name="Finished" xml:space="preserve">
     <value>Completed</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Remove" xml:space="preserve">
+    <data name="Remove" xml:space="preserve">
     <value>Remove</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="BuildLaunchConfig" xml:space="preserve">
+    <data name="BuildLaunchConfig" xml:space="preserve">
     <value>Build startup configuration item</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="CheckLaunchArg" xml:space="preserve">
+    <data name="CheckLaunchArg" xml:space="preserve">
     <value>Check startup parameters</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="RefreshAccountToken" xml:space="preserve">
+    <data name="RefreshAccountToken" xml:space="preserve">
     <value>Refresh user token</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="LaunchMinecraftProcess" xml:space="preserve">
+    <data name="LaunchMinecraftProcess" xml:space="preserve">
     <value>Start the Minecraft process</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Canceled" xml:space="preserve">
+    <data name="Canceled" xml:space="preserve">
     <value>Cancelled</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Canceling" xml:space="preserve">
+    <data name="Canceling" xml:space="preserve">
     <value>Cancelling</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="CheckVersionResource" xml:space="preserve">
+    <data name="CheckVersionResource" xml:space="preserve">
     <value>Check version resources</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="DownloadResource" xml:space="preserve">
+    <data name="DownloadResource" xml:space="preserve">
     <value>downloadResources</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Return" xml:space="preserve">
+    <data name="Return" xml:space="preserve">
     <value>Back</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ScreenshotsFolder" xml:space="preserve">
+    <data name="ScreenshotsFolder" xml:space="preserve">
     <value>Screenshot Folder</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Saves" xml:space="preserve">
+    <data name="Saves" xml:space="preserve">
     <value>Archive</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Screenshots" xml:space="preserve">
+    <data name="Screenshots" xml:space="preserve">
     <value>Screenshot</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ResourcePacks" xml:space="preserve">
+    <data name="ResourcePacks" xml:space="preserve">
     <value>AssetBundle</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NoMatchResult" xml:space="preserve">
+    <data name="NoMatchResult" xml:space="preserve">
     <value>No matching results</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="CreateTime" xml:space="preserve">
+    <data name="CreateTime" xml:space="preserve">
     <value>Creation Time</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="LastModifiedTime" xml:space="preserve">
+    <data name="LastModifiedTime" xml:space="preserve">
     <value>last modified on</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="SaveInfo" xml:space="preserve">
+    <data name="SaveInfo" xml:space="preserve">
     <value>Archive information</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Name" xml:space="preserve">
+    <data name="Name" xml:space="preserve">
     <value>Name</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="PlayerCount" xml:space="preserve">
+    <data name="PlayerCount" xml:space="preserve">
     <value>No. of players</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="DataPackCount" xml:space="preserve">
+    <data name="DataPackCount" xml:space="preserve">
     <value>Number of packets</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ImportTime" xml:space="preserve">
+    <data name="ImportTime" xml:space="preserve">
     <value>Import Time</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="CanceledUpdate" xml:space="preserve">
+    <data name="CanceledUpdate" xml:space="preserve">
     <value>Update was canceled</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ApiError" xml:space="preserve">
+    <data name="ApiError" xml:space="preserve">
     <value>Api Error</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NetWorkError" xml:space="preserve">
+    <data name="NetWorkError" xml:space="preserve">
     <value>Network error</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="KillProcess" xml:space="preserve">
+    <data name="KillProcess" xml:space="preserve">
     <value>End Process</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="LaunchArguments" xml:space="preserve">
+    <data name="LaunchArguments" xml:space="preserve">
     <value>Bootargs</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="DisplayLaunchArguments" xml:space="preserve">
+    <data name="DisplayLaunchArguments" xml:space="preserve">
     <value>Show startup parameters</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ResetData" xml:space="preserve">
+    <data name="ResetData" xml:space="preserve">
     <value>Reset Data</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="FixLoadDataFailTip" xml:space="preserve">
+    <data name="FixLoadDataFailTip" xml:space="preserve">
     <value>An exception was encountered while loading data, which may be due to data corruption. Do you want to reset Aurelio data to fix this?</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Export" xml:space="preserve">
+    <data name="Export" xml:space="preserve">
     <value>Export</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExportLogFile" xml:space="preserve">
+    <data name="ExportLogFile" xml:space="preserve">
     <value>Export log file</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AutoScrollToEnd" xml:space="preserve">
+    <data name="AutoScrollToEnd" xml:space="preserve">
     <value>Automatically scroll to the end</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="GetJavaInfoFail" xml:space="preserve">
+    <data name="GetJavaInfoFail" xml:space="preserve">
     <value>Failed to get Java information
 Possibly this Java is incorrect/corrupted/has no execute permissions</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Seed" xml:space="preserve">
+    <data name="Seed" xml:space="preserve">
     <value>Seed pool</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AllowCommands" xml:space="preserve">
+    <data name="AllowCommands" xml:space="preserve">
     <value>Allow commands</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="GameType" xml:space="preserve">
+    <data name="GameType" xml:space="preserve">
     <value>Game types</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="LastPlayTime" xml:space="preserve">
+    <data name="LastPlayTime" xml:space="preserve">
     <value>Last Play Time</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NoDescription" xml:space="preserve">
+    <data name="NoDescription" xml:space="preserve">
     <value>No description</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Mica" xml:space="preserve">
+    <data name="Mica" xml:space="preserve">
     <value>Mica</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="TranslucentBackgroundOpacity" xml:space="preserve">
+    <data name="TranslucentBackgroundOpacity" xml:space="preserve">
     <value>Semi-transparent background control opacity</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="MusicApiWithIP" xml:space="preserve">
+    <data name="MusicApiWithIP" xml:space="preserve">
     <value>Music Api comes with IP address</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NoIdentifiedPlugins" xml:space="preserve">
+    <data name="NoIdentifiedPlugins" xml:space="preserve">
     <value>No plugins identified yet</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="LoadPluginError" xml:space="preserve">
+    <data name="LoadPluginError" xml:space="preserve">
     <value>Error loading plugin</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Unrecognized" xml:space="preserve">
+    <data name="Unrecognized" xml:space="preserve">
     <value>Not recognize</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ImportModPack" xml:space="preserve">
+    <data name="ImportModPack" xml:space="preserve">
     <value>Import Integration Package</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Prepare" xml:space="preserve">
+    <data name="Prepare" xml:space="preserve">
     <value>Prepare</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="VersionIdCannotBeEmpty" xml:space="preserve">
+    <data name="VersionIdCannotBeEmpty" xml:space="preserve">
     <value>Version Id cannot be empty</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="InstallModPack" xml:space="preserve">
+    <data name="InstallModPack" xml:space="preserve">
     <value>Install the Integration Pack</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="PrepareInstall" xml:space="preserve">
+    <data name="PrepareInstall" xml:space="preserve">
     <value>Preparing for Installation</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="SaveSkinFile" xml:space="preserve">
+    <data name="SaveSkinFile" xml:space="preserve">
     <value>Save skin file</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="SaveFinish" xml:space="preserve">
+    <data name="SaveFinish" xml:space="preserve">
     <value>Save Completed</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="CornerRadius" xml:space="preserve">
+    <data name="CornerRadius" xml:space="preserve">
     <value>Fillet radius</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="EnableTranslucentSpecialControlList" xml:space="preserve">
+    <data name="EnableTranslucentSpecialControlList" xml:space="preserve">
     <value>Enable translucent special control list</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NoticeWay" xml:space="preserve">
+    <data name="NoticeWay" xml:space="preserve">
     <value>Inform the way</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NotificationCard" xml:space="preserve">
+    <data name="NotificationCard" xml:space="preserve">
     <value>Notification card</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NotificationBubble" xml:space="preserve">
+    <data name="NotificationBubble" xml:space="preserve">
     <value>Notification Bubbles</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExampleNotification" xml:space="preserve">
+    <data name="ExampleNotification" xml:space="preserve">
     <value>Example Notice</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="CurrentListIsEmpty" xml:space="preserve">
+    <data name="CurrentListIsEmpty" xml:space="preserve">
     <value>Current list is empty</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Import" xml:space="preserve">
+    <data name="Import" xml:space="preserve">
     <value>Import</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="HopeHowToHandleTheFile" xml:space="preserve">
+    <data name="HopeHowToHandleTheFile" xml:space="preserve">
     <value>What do you want to do with this file</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AsResourcePackImport" xml:space="preserve">
+    <data name="AsResourcePackImport" xml:space="preserve">
     <value>Import as Asset Package</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AsShaderPackImport" xml:space="preserve">
+    <data name="AsShaderPackImport" xml:space="preserve">
     <value>Imported as a Light Package</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Conflict" xml:space="preserve">
+    <data name="Conflict" xml:space="preserve">
     <value>CONFLICT</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="FileConflictTip" xml:space="preserve">
+    <data name="FileConflictTip" xml:space="preserve">
     <value>File conflict, there is already a file with the same name in the destination folder, how do you want to handle the copy operation?</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Cover" xml:space="preserve">
+    <data name="Cover" xml:space="preserve">
     <value>Overlay</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Rename" xml:space="preserve">
+    <data name="Rename" xml:space="preserve">
     <value>Rename</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ImportFinish" xml:space="preserve">
+    <data name="ImportFinish" xml:space="preserve">
     <value>Imported</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="SureToImportTheFile" xml:space="preserve">
+    <data name="SureToImportTheFile" xml:space="preserve">
     <value>OK to import this file</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AllImport" xml:space="preserve">
+    <data name="AllImport" xml:space="preserve">
     <value>Full Import</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="MinecraftVersion" xml:space="preserve">
+    <data name="MinecraftVersion" xml:space="preserve">
     <value>Minecraft Version</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Home" xml:space="preserve">
+    <data name="Home" xml:space="preserve">
     <value>Home</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="HotResource" xml:space="preserve">
+    <data name="HotResource" xml:space="preserve">
     <value>Top Resources</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="All" xml:space="preserve">
+    <data name="All" xml:space="preserve">
     <value>All</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ServerPack" xml:space="preserve">
+    <data name="ServerPack" xml:space="preserve">
     <value>Server Package</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="DownloadUrlParserFail" xml:space="preserve">
+    <data name="DownloadUrlParserFail" xml:space="preserve">
     <value>Download link parsing failed</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Destroy" xml:space="preserve">
+    <data name="Destroy" xml:space="preserve">
     <value>Destroy</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Favourite" xml:space="preserve">
+    <data name="Favourite" xml:space="preserve">
     <value>Favourite</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Favourted" xml:space="preserve">
+    <data name="Favourted" xml:space="preserve">
     <value>Favourited</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Favourites" xml:space="preserve">
+    <data name="Favourites" xml:space="preserve">
     <value>Favorites</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="DependencyItems" xml:space="preserve">
+    <data name="DependencyItems" xml:space="preserve">
     <value>dependent</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ImportOrExportSetting" xml:space="preserve">
+    <data name="ImportOrExportSetting" xml:space="preserve">
     <value>Import/Export settings</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExportSettingTip" xml:space="preserve">
+    <data name="ExportSettingTip" xml:space="preserve">
     <value>Select the settings you want to export</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExchangeSetting_Ui" xml:space="preserve">
+    <data name="ExchangeSetting_Ui" xml:space="preserve">
     <value>Interface Settings</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExchangeSetting_Net" xml:space="preserve">
+    <data name="ExchangeSetting_Net" xml:space="preserve">
     <value>Network Settings</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExchangeSetting_Launch" xml:space="preserve">
+    <data name="ExchangeSetting_Launch" xml:space="preserve">
     <value>Launch Settings</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExchangeSetting_Account" xml:space="preserve">
+    <data name="ExchangeSetting_Account" xml:space="preserve">
     <value>Account data (excluding Microsoft account)</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExchangeSetting_Other" xml:space="preserve">
+    <data name="ExchangeSetting_Other" xml:space="preserve">
     <value>Other settings</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExportSuccess" xml:space="preserve">
+    <data name="ExportSuccess" xml:space="preserve">
     <value>Exported Successfully</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExportSettingSuccessTip" xml:space="preserve">
+    <data name="ExportSettingSuccessTip" xml:space="preserve">
     <value>The export was successful, the amount of data is too large to display, click Copy to copy all the data</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ImportSettingTextBoxWatermark" xml:space="preserve">
+    <data name="ImportSettingTextBoxWatermark" xml:space="preserve">
     <value>Enter hex data</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ReadClipBoard" xml:space="preserve">
+    <data name="ReadClipBoard" xml:space="preserve">
     <value>Read clipboard</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="CopyToClipBoard" xml:space="preserve">
+    <data name="CopyToClipBoard" xml:space="preserve">
     <value>Copy to clipboard</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="OpenFile" xml:space="preserve">
+    <data name="OpenFile" xml:space="preserve">
     <value>File To Load</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="WriteIn" xml:space="preserve">
+    <data name="WriteIn" xml:space="preserve">
     <value>Write in</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="OperateFailed" xml:space="preserve">
+    <data name="OperateFailed" xml:space="preserve">
     <value>Failed</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="OperateSuccess" xml:space="preserve">
+    <data name="OperateSuccess" xml:space="preserve">
     <value>Success</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NeedToManuallyOpenTheTerminalAndExecuteTheFollowingCommand" xml:space="preserve">
+    <data name="NeedToManuallyOpenTheTerminalAndExecuteTheFollowingCommand" xml:space="preserve">
     <value>You need to manually open the terminal to execute the following command</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AccountName" xml:space="preserve">
+    <data name="AccountName" xml:space="preserve">
     <value>Account Name</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AddNewAccountUuid" xml:space="preserve">
+    <data name="AddNewAccountUuid" xml:space="preserve">
     <value>Uuid, leave blank to auto-generate</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AutoAllocate" xml:space="preserve">
+    <data name="AutoAllocate" xml:space="preserve">
     <value>Automatic allocation</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="EnableAutoAllocateMem" xml:space="preserve">
+    <data name="EnableAutoAllocateMem" xml:space="preserve">
     <value>Enable automatic memory allocation</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Custom" xml:space="preserve">
+    <data name="Custom" xml:space="preserve">
     <value>Custom</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="FastLaunch" xml:space="preserve">
+    <data name="FastLaunch" xml:space="preserve">
     <value>Quick Launch</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Add" xml:space="preserve">
+    <data name="Add" xml:space="preserve">
     <value>Add</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Icon" xml:space="preserve">
+    <data name="Icon" xml:space="preserve">
     <value>Icon</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="SetIcon" xml:space="preserve">
+    <data name="SetIcon" xml:space="preserve">
     <value>Set Icon</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="SetServer" xml:space="preserve">
+    <data name="SetServer" xml:space="preserve">
     <value>Set server</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Delete" xml:space="preserve">
+    <data name="Delete" xml:space="preserve">
     <value>Delete</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="JavaRuntimeError" xml:space="preserve">
+    <data name="JavaRuntimeError" xml:space="preserve">
     <value>Java Runtime Error</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
 </root>

@@ -2,26 +2,13 @@
 
 public class Setting
 {
-    public enum Theme
+    public enum AccountType
     {
-        System,
-        Light,
-        Dark
+        Offline,
+        Microsoft,
+        ThirdParty
     }
 
-    public enum OpenFileWay
-    {
-        FileSelectWindow,
-        ManualInput
-    }
-
-    public enum WindowTitleBarStyle
-    {
-        System,
-        Aurelio,
-        Unset
-    }
-    
     public enum CustomBackGroundWay
     {
         Default,
@@ -31,16 +18,29 @@ public class Setting
         Mica
     }
 
-    public enum AccountType
-    {
-        Offline,
-        Microsoft,
-        ThirdParty
-    }
-
     public enum NoticeWay
     {
         Bubble,
         Card
+    }
+
+    public enum OpenFileWay
+    {
+        FileSelectWindow,
+        ManualInput
+    }
+
+    public enum Theme
+    {
+        System,
+        Light,
+        Dark
+    }
+
+    public enum WindowTitleBarStyle
+    {
+        System,
+        Aurelio,
+        Unset
     }
 }

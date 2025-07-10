@@ -1,16 +1,23 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.ViewModels;
-using Avalonia.Controls;
+using Aurelio.Views.Main;
+using Avalonia.Data;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.Input;
-using Aurelio.Views.Main;
 
 namespace Aurelio.Public.Classes.Entries;
 
 public partial class TabEntry : ViewModelBase
 {
+    private bool _canClose;
+    private IAurelioTabPage _content;
+    private object _headerContent;
+    private StreamGeometry? _icon;
+
+    private string _tag;
+    private string _title;
+
     public TabEntry(IAurelioTabPage content, string? title = null, object? headerContent = null)
     {
         CanClose = content.PageInfo.CanClose;
@@ -21,12 +28,6 @@ public partial class TabEntry : ViewModelBase
         content.HostTab = this;
     }
 
-    private string _tag;
-    private IAurelioTabPage _content;
-    private object _headerContent;
-    private string _title;
-    private StreamGeometry? _icon;
-    private bool _canClose;
     public bool IconIsVisible => Icon != null;
 
     public IAurelioTabPage Content
@@ -71,7 +72,7 @@ public partial class TabEntry : ViewModelBase
         {
             DataContext = this
         };
-        textBlock.Bind(TextBlock.TextProperty, new Avalonia.Data.Binding(nameof(Title)));
+        textBlock.Bind(TextBlock.TextProperty, new Binding(nameof(Title)));
         return textBlock;
     }
 
@@ -93,10 +94,7 @@ public partial class TabEntry : ViewModelBase
         App.UiRoot.ViewModel.Tabs.Remove(this);
 
         // If the removed tab was selected, select the last remaining tab (or null if no tabs left)
-        if (wasSelected)
-        {
-            App.UiRoot.ViewModel.SelectedTab = App.UiRoot.ViewModel.Tabs.LastOrDefault();
-        }
+        if (wasSelected) App.UiRoot.ViewModel.SelectedTab = App.UiRoot.ViewModel.Tabs.LastOrDefault();
 
         DisposeContent();
         Removing();
@@ -120,7 +118,10 @@ public partial class TabEntry : ViewModelBase
         GC.Collect(2);
     }
 
-    public void DisposeContent() => Content?.OnClose();
+    public void DisposeContent()
+    {
+        Content?.OnClose();
+    }
 
     [RelayCommand]
     public void CloseInWindow(Window window)
@@ -137,10 +138,7 @@ public partial class TabEntry : ViewModelBase
             tabWindow.ViewModel.RemoveTab(this);
 
             // If TabWindow has no more tabs, close it
-            if (!tabWindow.ViewModel.HasTabs)
-            {
-                tabWindow.Close();
-            }
+            if (!tabWindow.ViewModel.HasTabs) tabWindow.Close();
 
             DisposeContent();
             Removing();

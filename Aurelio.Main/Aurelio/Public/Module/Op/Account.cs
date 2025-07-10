@@ -57,7 +57,7 @@ public class Account
                         PrimaryButtonText = MainLang.Ok,
                         CloseButtonText = MainLang.Cancel,
                         DefaultButton = ContentDialogButton.Primary,
-                        Content = new StackPanel()
+                        Content = new StackPanel
                         {
                             Spacing = 10,
                             Children = { textBox, uuidTextBox }
@@ -201,10 +201,7 @@ public class Account
                             Skin = Value.Converter.BytesToBase64(bytes)
                         });
                         AppMethod.SaveSetting();
-                        if (TopLevel.GetTopLevel(sender) is Window window)
-                        {
-                            window.Activate();
-                        }
+                        if (TopLevel.GetTopLevel(sender) is Window window) window.Activate();
 
                         Notice($"{MainLang.LoginSucess}: {userProfile.Name}");
                     }
@@ -335,10 +332,7 @@ public class Account
                     }
 
                     AppMethod.SaveSetting();
-                    if (TopLevel.GetTopLevel(sender) is Window window)
-                    {
-                        window.Activate();
-                    }
+                    if (TopLevel.GetTopLevel(sender) is Window window) window.Activate();
                 }
                 catch (Exception ex)
                 {

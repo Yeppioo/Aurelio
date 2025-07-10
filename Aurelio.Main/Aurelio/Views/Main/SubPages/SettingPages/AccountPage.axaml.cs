@@ -1,8 +1,8 @@
-﻿using Aurelio.Public.Classes.Entries;
+﻿using System.Numerics;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Module.Op;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
-using Aurelio.Views.Main.Template;
 using Avalonia.Input;
 using PointerType = LiteSkinViewer3D.Shared.Enums.PointerType;
 
@@ -10,7 +10,7 @@ namespace Aurelio.Views.Main.SubPages.SettingPages;
 
 public partial class AccountPage : PageMixModelBase, IAurelioPage
 {
-    private bool _loadedSkin = false;
+    private bool _loadedSkin;
 
     public AccountPage()
     {
@@ -21,10 +21,13 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
         BindingEvent();
     }
 
+    public Control RootElement { get; set; }
+    public PageLoadingAnimator InAnimator { get; set; }
+
     private void BindingEvent()
     {
-        AddAccount.Click += (_, _) => { _ = Public.Module.Op.Account.AddByUi(this); };
-        DelSelectedAccount.Click += (_, _) => { Public.Module.Op.Account.RemoveSelected(); };
+        AddAccount.Click += (_, _) => { _ = Account.AddByUi(this); };
+        DelSelectedAccount.Click += (_, _) => { Account.RemoveSelected(); };
         // Open3DView.Click += (_, _) =>
         //     App.UiRoot.CreateTab(new TabEntry(new Render3DSkin(Data.SettingEntry.UsingMinecraftAccount.Name,
         //         Data.SettingEntry.UsingMinecraftAccount.Skin)));
@@ -47,25 +50,17 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
         };
     }
 
-    public Control RootElement { get; set; }
-    public PageLoadingAnimator InAnimator { get; set; }
-
     private void SkinViewer_PointerReleased(object? sender, PointerReleasedEventArgs e)
     {
         var po = e.GetCurrentPoint(this);
         var pos = e.GetPosition(this);
 
-        PointerType type = PointerType.None;
+        var type = PointerType.None;
         if (po.Properties.IsLeftButtonPressed)
-        {
             type = PointerType.PointerLeft;
-        }
-        else if (po.Properties.IsRightButtonPressed)
-        {
-            type = PointerType.PointerRight;
-        }
+        else if (po.Properties.IsRightButtonPressed) type = PointerType.PointerRight;
 
-        skinViewer.UpdatePointerReleased(type, new((float)pos.X, (float)pos.Y));
+        skinViewer.UpdatePointerReleased(type, new Vector2((float)pos.X, (float)pos.Y));
     }
 
     private void SkinViewer_PointerPressed(object? sender, PointerPressedEventArgs e)
@@ -73,17 +68,12 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
         var po = e.GetCurrentPoint(this);
         var pos = e.GetPosition(this);
 
-        PointerType type = PointerType.None;
+        var type = PointerType.None;
         if (po.Properties.IsLeftButtonPressed)
-        {
             type = PointerType.PointerLeft;
-        }
-        else if (po.Properties.IsRightButtonPressed)
-        {
-            type = PointerType.PointerRight;
-        }
+        else if (po.Properties.IsRightButtonPressed) type = PointerType.PointerRight;
 
-        skinViewer.UpdatePointerPressed(type, new((float)pos.X, (float)pos.Y));
+        skinViewer.UpdatePointerPressed(type, new Vector2((float)pos.X, (float)pos.Y));
     }
 
     private void SkinViewer_PointerMoved(object? sender, PointerEventArgs e)
@@ -91,16 +81,11 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
         var po = e.GetCurrentPoint(this);
         var pos = e.GetPosition(this);
 
-        PointerType type = PointerType.None;
+        var type = PointerType.None;
         if (po.Properties.IsLeftButtonPressed)
-        {
             type = PointerType.PointerLeft;
-        }
-        else if (po.Properties.IsRightButtonPressed)
-        {
-            type = PointerType.PointerRight;
-        }
+        else if (po.Properties.IsRightButtonPressed) type = PointerType.PointerRight;
 
-        skinViewer.UpdatePointerMoved(type, new((float)pos.X, (float)pos.Y));
+        skinViewer.UpdatePointerMoved(type, new Vector2((float)pos.X, (float)pos.Y));
     }
 }

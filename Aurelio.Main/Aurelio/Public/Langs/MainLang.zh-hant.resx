@@ -1,1556 +1,1561 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+    <!-- 
+      Microsoft ResX Schema 
+      
+      Version 2.0
+      
+      The primary goals of this format is to allow a simple XML format 
+      that is mostly human readable. The generation and parsing of the 
+      various data types are done through the TypeConverter classes 
+      associated with the data types.
+      
+      Example:
+      
+      ... ado.net/XML headers & schema ...
+      <resheader name="resmimetype">text/microsoft-resx</resheader>
+      <resheader name="version">2.0</resheader>
+      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+          <value>[base64 mime encoded serialized .NET Framework object]</value>
+      </data>
+      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+          <comment>This is a comment</comment>
+      </data>
+                  
+      There are any number of "resheader" rows that contain simple 
+      name/value pairs.
+      
+      Each data row contains a name, and value. The row also contains a 
+      type or mimetype. Type corresponds to a .NET class that support 
+      text/value conversion through the TypeConverter architecture. 
+      Classes that don't support this are serialized and stored with the 
+      mimetype set.
+      
+      The mimetype is used for serialized objects, and tells the 
+      ResXResourceReader how to depersist the object. This is currently not 
+      extensible. For a given mimetype the value must be set accordingly:
+      
+      Note - application/x-microsoft.net.object.binary.base64 is the format 
+      that the ResXResourceWriter will generate, however the reader can 
+      read any of the formats listed below.
+      
+      mimetype: application/x-microsoft.net.object.binary.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+              : and then encoded with base64 encoding.
+      
+      mimetype: application/x-microsoft.net.object.soap.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+              : and then encoded with base64 encoding.
+  
+      mimetype: application/x-microsoft.net.object.bytearray.base64
+      value   : The object must be serialized into a byte array 
+              : using a System.ComponentModel.TypeConverter
+              : and then encoded with base64 encoding.
+      -->
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+                xmlns="">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="Language" xml:space="preserve">
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="Language" xml:space="preserve">
     <value>語言</value>
   </data>
-  <data name="Launch" xml:space="preserve">
+    <data name="Launch" xml:space="preserve">
     <value>啟動</value>
   </data>
-  <data name="MinecraftFolder" xml:space="preserve">
+    <data name="MinecraftFolder" xml:space="preserve">
     <value>Minecraft資料夾</value>
   </data>
-  <data name="DelSelectedItem" xml:space="preserve">
+    <data name="DelSelectedItem" xml:space="preserve">
     <value>刪除選取項目</value>
   </data>
-  <data name="AddFolder" xml:space="preserve">
+    <data name="AddFolder" xml:space="preserve">
     <value>新增資料夾</value>
   </data>
-  <data name="SelectMinecraftFolder" xml:space="preserve">
+    <data name="SelectMinecraftFolder" xml:space="preserve">
     <value>選擇'.minecraft'資料夾</value>
   </data>
-  <data name="NeedToSelectMinecraftFolder" xml:space="preserve">
+    <data name="NeedToSelectMinecraftFolder" xml:space="preserve">
     <value>需選擇'.minecraft'資料夾</value>
   </data>
-  <data name="SuccessAdd" xml:space="preserve">
+    <data name="SuccessAdd" xml:space="preserve">
     <value>添加成功</value>
   </data>
-  <data name="TheItemAlreadyExist" xml:space="preserve">
+    <data name="TheItemAlreadyExist" xml:space="preserve">
     <value>已存在此項目</value>
   </data>
-  <data name="SuccessRemove" xml:space="preserve">
+    <data name="SuccessRemove" xml:space="preserve">
     <value>刪除成功</value>
   </data>
-  <data name="AutoScan" xml:space="preserve">
+    <data name="AutoScan" xml:space="preserve">
     <value>自動掃描</value>
   </data>
-  <data name="LetAurelioChooseJava" xml:space="preserve">
+    <data name="LetAurelioChooseJava" xml:space="preserve">
     <value>讓Aurelio選擇合適的Java</value>
   </data>
-  <data name="ScanJavaSuccess" xml:space="preserve">
+    <data name="ScanJavaSuccess" xml:space="preserve">
     <value>掃描Java成功</value>
   </data>
-  <data name="RepeatItem" xml:space="preserve">
+    <data name="RepeatItem" xml:space="preserve">
     <value>重複的項目</value>
   </data>
-  <data name="OpenFileWay" xml:space="preserve">
+    <data name="OpenFileWay" xml:space="preserve">
     <value>開啟檔案方式</value>
   </data>
-  <data name="FileSelectWindow" xml:space="preserve">
+    <data name="FileSelectWindow" xml:space="preserve">
     <value>文件選擇視窗</value>
   </data>
-  <data name="ManualInput" xml:space="preserve">
+    <data name="ManualInput" xml:space="preserve">
     <value>手動輸入</value>
   </data>
-  <data name="Ok" xml:space="preserve">
+    <data name="Ok" xml:space="preserve">
     <value>確定</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
+    <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="InputFolderPath" xml:space="preserve">
+    <data name="InputFolderPath" xml:space="preserve">
     <value>輸入資料夾路徑</value>
   </data>
-  <data name="FolderNotExist" xml:space="preserve">
+    <data name="FolderNotExist" xml:space="preserve">
     <value>資料夾不存在</value>
   </data>
-  <data name="InputFilePath" xml:space="preserve">
+    <data name="InputFilePath" xml:space="preserve">
     <value>輸入檔路徑</value>
   </data>
-  <data name="FileNotExist" xml:space="preserve">
+    <data name="FileNotExist" xml:space="preserve">
     <value>檔不存在</value>
   </data>
-  <data name="ManualAdd" xml:space="preserve">
+    <data name="ManualAdd" xml:space="preserve">
     <value>手動添加</value>
   </data>
-  <data name="SelectJava" xml:space="preserve">
+    <data name="SelectJava" xml:space="preserve">
     <value>選擇Java</value>
   </data>
-  <data name="TheJavaIsError" xml:space="preserve">
+    <data name="TheJavaIsError" xml:space="preserve">
     <value>Java不正確</value>
   </data>
-  <data name="AddNewAccount" xml:space="preserve">
+    <data name="AddNewAccount" xml:space="preserve">
     <value>新增帳戶</value>
   </data>
-  <data name="OfflineLogin" xml:space="preserve">
+    <data name="OfflineLogin" xml:space="preserve">
     <value>離線登入</value>
   </data>
-  <data name="MicrosoftLogin" xml:space="preserve">
+    <data name="MicrosoftLogin" xml:space="preserve">
     <value>微軟登入</value>
   </data>
-  <data name="ThirdPartyLogin" xml:space="preserve">
+    <data name="ThirdPartyLogin" xml:space="preserve">
     <value>第三方登入</value>
   </data>
-  <data name="SelectAccountType" xml:space="preserve">
+    <data name="SelectAccountType" xml:space="preserve">
     <value>選擇帳戶類型</value>
   </data>
-  <data name="AccountNameCannotBeNull" xml:space="preserve">
+    <data name="AccountNameCannotBeNull" xml:space="preserve">
     <value>帳戶名稱不可為空白</value>
   </data>
-  <data name="InputAccountName" xml:space="preserve">
+    <data name="InputAccountName" xml:space="preserve">
     <value>輸入帳戶名稱</value>
   </data>
-  <data name="VerificationCode" xml:space="preserve">
+    <data name="VerificationCode" xml:space="preserve">
     <value>驗證程式碼</value>
   </data>
-  <data name="Loading" xml:space="preserve">
+    <data name="Loading" xml:space="preserve">
     <value>載入中...</value>
   </data>
-  <data name="CopyCodeAndOPenBrowser" xml:space="preserve">
+    <data name="CopyCodeAndOPenBrowser" xml:space="preserve">
     <value>複製程式碼並開啟瀏覽器</value>
   </data>
-  <data name="WaitForMicrosoftVerification" xml:space="preserve">
+    <data name="WaitForMicrosoftVerification" xml:space="preserve">
     <value>正在等待微軟帳戶驗證完成
 跳轉至瀏覽器完成驗證</value>
   </data>
-  <data name="LoginFail" xml:space="preserve">
+    <data name="LoginFail" xml:space="preserve">
     <value>登入失敗</value>
   </data>
-  <data name="VerifyingAccount" xml:space="preserve">
+    <data name="VerifyingAccount" xml:space="preserve">
     <value>正在驗證帳戶</value>
   </data>
-  <data name="VerificationServer" xml:space="preserve">
+    <data name="VerificationServer" xml:space="preserve">
     <value>驗證伺服器</value>
   </data>
-  <data name="EmailAddress" xml:space="preserve">
+    <data name="EmailAddress" xml:space="preserve">
     <value>信箱地址</value>
   </data>
-  <data name="AccountPassword" xml:space="preserve">
+    <data name="AccountPassword" xml:space="preserve">
     <value>帳戶密碼</value>
   </data>
-  <data name="YggdrasilServerUrlIsEmpty" xml:space="preserve">
+    <data name="YggdrasilServerUrlIsEmpty" xml:space="preserve">
     <value>驗證伺服器不可為空</value>
   </data>
-  <data name="YggdrasilPasswordIsEmpty" xml:space="preserve">
+    <data name="YggdrasilPasswordIsEmpty" xml:space="preserve">
     <value>密碼不可為空</value>
   </data>
-  <data name="YggdrasilEmailIsEmpty" xml:space="preserve">
+    <data name="YggdrasilEmailIsEmpty" xml:space="preserve">
     <value>信箱不可為空</value>
   </data>
-  <data name="ColorMode" xml:space="preserve">
+    <data name="ColorMode" xml:space="preserve">
     <value>色彩模式</value>
   </data>
-  <data name="FollowSystem" xml:space="preserve">
+    <data name="FollowSystem" xml:space="preserve">
     <value>跟隨系統</value>
   </data>
-  <data name="Light" xml:space="preserve">
+    <data name="Light" xml:space="preserve">
     <value>淺色</value>
   </data>
-  <data name="Dark" xml:space="preserve">
+    <data name="Dark" xml:space="preserve">
     <value>深色</value>
   </data>
-  <data name="MaxMem" xml:space="preserve">
+    <data name="MaxMem" xml:space="preserve">
     <value>最大記憶體</value>
   </data>
-  <data name="CannotOpenBrowser" xml:space="preserve">
+    <data name="CannotOpenBrowser" xml:space="preserve">
     <value>無法開啟瀏覽器</value>
   </data>
-  <data name="ManualOpen" xml:space="preserve">
+    <data name="ManualOpen" xml:space="preserve">
     <value>手動打開</value>
   </data>
-  <data name="CopyUrlAndManualOpen" xml:space="preserve">
+    <data name="CopyUrlAndManualOpen" xml:space="preserve">
     <value>Ctrl + C 複製以下連結並貼上到瀏覽器</value>
   </data>
-  <data name="VersionList" xml:space="preserve">
+    <data name="VersionList" xml:space="preserve">
     <value>版本清單</value>
   </data>
-  <data name="VersionSetting" xml:space="preserve">
+    <data name="VersionSetting" xml:space="preserve">
     <value>版本設定</value>
   </data>
-  <data name="LaunchGame" xml:space="preserve">
+    <data name="LaunchGame" xml:space="preserve">
     <value>啟動遊戲</value>
   </data>
-  <data name="NoChooseGame" xml:space="preserve">
+    <data name="NoChooseGame" xml:space="preserve">
     <value>未選擇遊戲</value>
   </data>
-  <data name="ReturnWithIcon" xml:space="preserve">
+    <data name="ReturnWithIcon" xml:space="preserve">
     <value>返回</value>
   </data>
-  <data name="CreateGameEntryFail" xml:space="preserve">
+    <data name="CreateGameEntryFail" xml:space="preserve">
     <value>創建遊戲實例失敗</value>
   </data>
-  <data name="NoChooseGameOrCannotFindGame" xml:space="preserve">
+    <data name="NoChooseGameOrCannotFindGame" xml:space="preserve">
     <value>未選擇遊戲或無法找到遊戲</value>
   </data>
-  <data name="AccountError" xml:space="preserve">
+    <data name="AccountError" xml:space="preserve">
     <value>帳戶錯誤</value>
   </data>
-  <data name="LaunchProgress" xml:space="preserve">
+    <data name="LaunchProgress" xml:space="preserve">
     <value>啟動進度</value>
   </data>
-  <data name="BuildLaunchConfigFail" xml:space="preserve">
+    <data name="BuildLaunchConfigFail" xml:space="preserve">
     <value>建置啟動配置失敗</value>
   </data>
-  <data name="GameExited" xml:space="preserve">
+    <data name="GameExited" xml:space="preserve">
     <value>遊戲已退出</value>
   </data>
-  <data name="WaitForGameWindowAppear" xml:space="preserve">
+    <data name="WaitForGameWindowAppear" xml:space="preserve">
     <value>等待遊戲視窗出現</value>
   </data>
-  <data name="LaunchFinish" xml:space="preserve">
+    <data name="LaunchFinish" xml:space="preserve">
     <value>啟動完成</value>
   </data>
-  <data name="LaunchFail" xml:space="preserve">
+    <data name="LaunchFail" xml:space="preserve">
     <value>啟動失敗</value>
   </data>
-  <data name="UserDataFolder" xml:space="preserve">
+    <data name="UserDataFolder" xml:space="preserve">
     <value>使用者資料夾</value>
   </data>
-  <data name="OpenFolder" xml:space="preserve">
+    <data name="OpenFolder" xml:space="preserve">
     <value>打開資料夾</value>
   </data>
-  <data name="AutoInstall" xml:space="preserve">
+    <data name="AutoInstall" xml:space="preserve">
     <value>自動安裝</value>
   </data>
-  <data name="LatestVersion" xml:space="preserve">
+    <data name="LatestVersion" xml:space="preserve">
     <value>最新版本</value>
   </data>
-  <data name="PreviewVersion" xml:space="preserve">
+    <data name="PreviewVersion" xml:space="preserve">
     <value>預覽版本</value>
   </data>
-  <data name="ReleaseVersion" xml:space="preserve">
+    <data name="ReleaseVersion" xml:space="preserve">
     <value>正式版本</value>
   </data>
-  <data name="GetInstallableVersionFail" xml:space="preserve">
+    <data name="GetInstallableVersionFail" xml:space="preserve">
     <value>取得可安裝清單失敗</value>
   </data>
-  <data name="OldVersion" xml:space="preserve">
+    <data name="OldVersion" xml:space="preserve">
     <value>遠古版</value>
   </data>
-  <data name="AllVersion" xml:space="preserve">
+    <data name="AllVersion" xml:space="preserve">
     <value>所有版本</value>
   </data>
-  <data name="SearchKeyword" xml:space="preserve">
+    <data name="SearchKeyword" xml:space="preserve">
     <value>搜尋關鍵字...</value>
   </data>
-  <data name="InstallPreview" xml:space="preserve">
+    <data name="InstallPreview" xml:space="preserve">
     <value>安裝預覽</value>
   </data>
-  <data name="NoAdditionalInstall" xml:space="preserve">
+    <data name="NoAdditionalInstall" xml:space="preserve">
     <value>無附加安裝</value>
   </data>
-  <data name="BeginInstall" xml:space="preserve">
+    <data name="BeginInstall" xml:space="preserve">
     <value>開始安裝</value>
   </data>
-  <data name="ViewUpdatedContent" xml:space="preserve">
+    <data name="ViewUpdatedContent" xml:space="preserve">
     <value>查看更新內容</value>
   </data>
-  <data name="Reload" xml:space="preserve">
+    <data name="Reload" xml:space="preserve">
     <value>重新加載</value>
   </data>
-  <data name="GetFail" xml:space="preserve">
+    <data name="GetFail" xml:space="preserve">
     <value>取得失敗</value>
   </data>
-  <data name="NoAvailableItem" xml:space="preserve">
+    <data name="NoAvailableItem" xml:space="preserve">
     <value>無可用項目</value>
   </data>
-  <data name="MineratCrashed" xml:space="preserve">
+    <data name="MineratCrashed" xml:space="preserve">
     <value>Minecrat發生崩潰</value>
   </data>
-  <data name="TheVersionNameWillBeRenamedTo" xml:space="preserve">
+    <data name="TheVersionNameWillBeRenamedTo" xml:space="preserve">
     <value>版本名稱將被重新命名為: </value>
   </data>
-  <data name="IncludeSpecialWord" xml:space="preserve">
+    <data name="IncludeSpecialWord" xml:space="preserve">
     <value>包含特殊字元</value>
   </data>
-  <data name="FolderAlreadyExists" xml:space="preserve">
+    <data name="FolderAlreadyExists" xml:space="preserve">
     <value>資料夾已存在</value>
   </data>
-  <data name="InstallFail" xml:space="preserve">
+    <data name="InstallFail" xml:space="preserve">
     <value>安裝失敗</value>
   </data>
-  <data name="Install" xml:space="preserve">
+    <data name="Install" xml:space="preserve">
     <value>安裝</value>
   </data>
-  <data name="InstallFinish" xml:space="preserve">
+    <data name="InstallFinish" xml:space="preserve">
     <value>安裝完成</value>
   </data>
-  <data name="CannotFandRightJava" xml:space="preserve">
+    <data name="CannotFandRightJava" xml:space="preserve">
     <value>無法找到合適Java</value>
   </data>
-  <data name="Refresh" xml:space="preserve">
+    <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
-  <data name="Mod" xml:space="preserve">
+    <data name="Mod" xml:space="preserve">
     <value>模組</value>
   </data>
-  <data name="Overview" xml:space="preserve">
+    <data name="Overview" xml:space="preserve">
     <value>概述</value>
   </data>
-  <data name="Setting" xml:space="preserve">
+    <data name="Setting" xml:space="preserve">
     <value>設置</value>
   </data>
-  <data name="SavesFolder" xml:space="preserve">
+    <data name="SavesFolder" xml:space="preserve">
     <value>存檔資料夾</value>
   </data>
-  <data name="ModsFolder" xml:space="preserve">
+    <data name="ModsFolder" xml:space="preserve">
     <value>模組資料夾</value>
   </data>
-  <data name="ResourcePacksFolder" xml:space="preserve">
+    <data name="ResourcePacksFolder" xml:space="preserve">
     <value>資源包資料夾</value>
   </data>
-  <data name="ShaderPacksFolder" xml:space="preserve">
+    <data name="ShaderPacksFolder" xml:space="preserve">
     <value>光影包資料夾</value>
   </data>
-  <data name="VersionFolder" xml:space="preserve">
+    <data name="VersionFolder" xml:space="preserve">
     <value>版本資料夾</value>
   </data>
-  <data name="EnableIndependencyCore" xml:space="preserve">
+    <data name="EnableIndependencyCore" xml:space="preserve">
     <value>啟用獨立核心</value>
   </data>
-  <data name="UseGlobalSetting" xml:space="preserve">
+    <data name="UseGlobalSetting" xml:space="preserve">
     <value>使用全域設定</value>
   </data>
-  <data name="Off" xml:space="preserve">
+    <data name="Off" xml:space="preserve">
     <value>關閉</value>
   </data>
-  <data name="On" xml:space="preserve">
+    <data name="On" xml:space="preserve">
     <value>開啟</value>
   </data>
-  <data name="AutoJoinServer" xml:space="preserve">
+    <data name="AutoJoinServer" xml:space="preserve">
     <value>自動加入伺服器</value>
   </data>
-  <data name="EnableSelect" xml:space="preserve">
+    <data name="EnableSelect" xml:space="preserve">
     <value>啟用選取項目</value>
   </data>
-  <data name="DisableSelect" xml:space="preserve">
+    <data name="DisableSelect" xml:space="preserve">
     <value>停用選取項目</value>
   </data>
-  <data name="DeleteSelect" xml:space="preserve">
+    <data name="DeleteSelect" xml:space="preserve">
     <value>刪除選取項目</value>
   </data>
-  <data name="SelectAll" xml:space="preserve">
+    <data name="SelectAll" xml:space="preserve">
     <value>全選</value>
   </data>
-  <data name="DeselectAll" xml:space="preserve">
+    <data name="DeselectAll" xml:space="preserve">
     <value>全不選</value>
   </data>
-  <data name="SelectedItem" xml:space="preserve">
+    <data name="SelectedItem" xml:space="preserve">
     <value>已選擇項目: </value>
   </data>
-  <data name="MoveToRecycleBin" xml:space="preserve">
+    <data name="MoveToRecycleBin" xml:space="preserve">
     <value>移動到回收站</value>
   </data>
-  <data name="WindowTitleBarStyle" xml:space="preserve">
+    <data name="WindowTitleBarStyle" xml:space="preserve">
     <value>視窗標題欄樣式</value>
   </data>
-  <data name="GetException" xml:space="preserve">
+    <data name="GetException" xml:space="preserve">
     <value>發生異常</value>
   </data>
-  <data name="UnhandledException" xml:space="preserve">
+    <data name="UnhandledException" xml:space="preserve">
     <value>未處理的異常</value>
   </data>
-  <data name="CustomHomePage" xml:space="preserve">
+    <data name="CustomHomePage" xml:space="preserve">
     <value>自訂主頁面</value>
   </data>
-  <data name="LocalSourceCode" xml:space="preserve">
+    <data name="LocalSourceCode" xml:space="preserve">
     <value>本地原始碼</value>
   </data>
-  <data name="Edit" xml:space="preserve">
+    <data name="Edit" xml:space="preserve">
     <value>編輯</value>
   </data>
-  <data name="CustomHomePageSourceCodeError" xml:space="preserve">
+    <data name="CustomHomePageSourceCodeError" xml:space="preserve">
     <value>自訂主頁面原始碼錯誤</value>
   </data>
-  <data name="CheckUpdate" xml:space="preserve">
+    <data name="CheckUpdate" xml:space="preserve">
     <value>檢查更新</value>
   </data>
-  <data name="ChooseArchitecture" xml:space="preserve">
+    <data name="ChooseArchitecture" xml:space="preserve">
     <value>選擇平台</value>
   </data>
-  <data name="CheckUpdateFail" xml:space="preserve">
+    <data name="CheckUpdateFail" xml:space="preserve">
     <value>檢查更新失敗</value>
   </data>
-  <data name="FoundNewVersion" xml:space="preserve">
+    <data name="FoundNewVersion" xml:space="preserve">
     <value>發現新版本</value>
   </data>
-  <data name="GetUpdateUrl" xml:space="preserve">
+    <data name="GetUpdateUrl" xml:space="preserve">
     <value>取得更新統一資源定位器</value>
   </data>
-  <data name="BeginDownload" xml:space="preserve">
+    <data name="BeginDownload" xml:space="preserve">
     <value>開始下載</value>
   </data>
-  <data name="UpdateFail" xml:space="preserve">
+    <data name="UpdateFail" xml:space="preserve">
     <value>更新失敗</value>
   </data>
-  <data name="ThisArchitectureCannotAutoUpdate" xml:space="preserve">
+    <data name="ThisArchitectureCannotAutoUpdate" xml:space="preserve">
     <value>此平台不支援自動更新，開啟以下路徑手動替換</value>
   </data>
-  <data name="Update" xml:space="preserve">
+    <data name="Update" xml:space="preserve">
     <value>更新</value>
   </data>
-  <data name="DownloadFinish" xml:space="preserve">
+    <data name="DownloadFinish" xml:space="preserve">
     <value>下載完成</value>
   </data>
-  <data name="CurrentlyTheLatestVersion" xml:space="preserve">
+    <data name="CurrentlyTheLatestVersion" xml:space="preserve">
     <value>目前是最新版本</value>
   </data>
-  <data name="OpenSourceProjectUsageTable" xml:space="preserve">
+    <data name="OpenSourceProjectUsageTable" xml:space="preserve">
     <value>開源項目使用表</value>
   </data>
-  <data name="GPL3Text" xml:space="preserve">
+    <data name="GPL3Text" xml:space="preserve">
     <value>Aurelio 以GPL-3.0 協議開放原始碼，可以修改且分發，但不得刪除原作品的標記，修改後的作品必須也採用GPL 協定進行開源。</value>
   </data>
-  <data name="ShowGameOutput" xml:space="preserve">
+    <data name="ShowGameOutput" xml:space="preserve">
     <value>顯示遊戲輸出</value>
   </data>
-  <data name="Search" xml:space="preserve">
+    <data name="Search" xml:space="preserve">
     <value>搜尋</value>
   </data>
-  <data name="LoadMore" xml:space="preserve">
+    <data name="LoadMore" xml:space="preserve">
     <value>載入更多</value>
   </data>
-  <data name="ErrorCallingApi" xml:space="preserve">
+    <data name="ErrorCallingApi" xml:space="preserve">
     <value>呼叫Api時發生錯誤</value>
   </data>
-  <data name="SearchNoResult" xml:space="preserve">
+    <data name="SearchNoResult" xml:space="preserve">
     <value>搜尋無結果</value>
   </data>
-  <data name="AddLocalSong" xml:space="preserve">
+    <data name="AddLocalSong" xml:space="preserve">
     <value>新增音訊檔案</value>
   </data>
-  <data name="SelectMusicFile" xml:space="preserve">
+    <data name="SelectMusicFile" xml:space="preserve">
     <value>選擇音訊檔案</value>
   </data>
-  <data name="ThemeColor" xml:space="preserve">
+    <data name="ThemeColor" xml:space="preserve">
     <value>主題色</value>
   </data>
-  <data name="InitAudioLibraryFail" xml:space="preserve">
+    <data name="InitAudioLibraryFail" xml:space="preserve">
     <value>初始化音訊庫失敗</value>
   </data>
-  <data name="InstallVlcTip" xml:space="preserve">
+    <data name="InstallVlcTip" xml:space="preserve">
     <value>嘗試執行: 
 
 sudo apt install libvlc-dev
 sudo apt install vlc</value>
   </data>
-  <data name="ThisFeatureIsCurrentlyUnderDevelopment" xml:space="preserve">
+    <data name="ThisFeatureIsCurrentlyUnderDevelopment" xml:space="preserve">
     <value>此功能正在開發中</value>
   </data>
-  <data name="TreasureBox" xml:space="preserve">
+    <data name="TreasureBox" xml:space="preserve">
     <value>百寶箱</value>
   </data>
-  <data name="ActivateWinOffice" xml:space="preserve">
+    <data name="ActivateWinOffice" xml:space="preserve">
     <value>激活Windows/Office</value>
   </data>
-  <data name="Run" xml:space="preserve">
+    <data name="Run" xml:space="preserve">
     <value>運行</value>
   </data>
-  <data name="ThisFeatureOnlySupportsWindowsPlatform" xml:space="preserve">
+    <data name="ThisFeatureOnlySupportsWindowsPlatform" xml:space="preserve">
     <value>此功能僅支援Windows平台</value>
   </data>
-  <data name="RunCommandFail" xml:space="preserve">
+    <data name="RunCommandFail" xml:space="preserve">
     <value>運行命令失敗</value>
   </data>
-  <data name="RunActivate" xml:space="preserve">
+    <data name="RunActivate" xml:space="preserve">
     <value>運行激活</value>
   </data>
-  <data name="CancelActivateWin" xml:space="preserve">
+    <data name="CancelActivateWin" xml:space="preserve">
     <value>取消激活Windows</value>
   </data>
-  <data name="CancelActivateWinTip" xml:space="preserve">
+    <data name="CancelActivateWinTip" xml:space="preserve">
     <value>此操作會移除Windows啟動狀態，導致Windows個人化等功能無法使用，是否繼續？</value>
   </data>
-  <data name="ThisFeatureOnlySupportsWindows10AndAbove" xml:space="preserve">
+    <data name="ThisFeatureOnlySupportsWindows10AndAbove" xml:space="preserve">
     <value>此功能僅支援Windows10以上，低於此版本系統不保證啟動成功</value>
   </data>
-  <data name="PlayList" xml:space="preserve">
+    <data name="PlayList" xml:space="preserve">
     <value>播放清單</value>
   </data>
-  <data name="ModName" xml:space="preserve">
+    <data name="ModName" xml:space="preserve">
     <value>模組名稱</value>
   </data>
-  <data name="GameVersion" xml:space="preserve">
+    <data name="GameVersion" xml:space="preserve">
     <value>遊戲版本</value>
   </data>
-  <data name="AnyModLoader" xml:space="preserve">
+    <data name="AnyModLoader" xml:space="preserve">
     <value>任意載入器</value>
   </data>
-  <data name="AnySource" xml:space="preserve">
+    <data name="AnySource" xml:space="preserve">
     <value>所有來源</value>
   </data>
-  <data name="Download" xml:space="preserve">
+    <data name="Download" xml:space="preserve">
     <value>下載</value>
   </data>
-  <data name="SaveFile" xml:space="preserve">
+    <data name="SaveFile" xml:space="preserve">
     <value>保存檔案</value>
   </data>
-  <data name="DownloadFail" xml:space="preserve">
+    <data name="DownloadFail" xml:space="preserve">
     <value>下載失敗</value>
   </data>
-  <data name="MatchingVersion" xml:space="preserve">
+    <data name="MatchingVersion" xml:space="preserve">
     <value>匹配的版本</value>
   </data>
-  <data name="ModifyMicrosoftSkin" xml:space="preserve">
+    <data name="ModifyMicrosoftSkin" xml:space="preserve">
     <value>修改皮膚(微軟)</value>
   </data>
-  <data name="SkinModel" xml:space="preserve">
+    <data name="SkinModel" xml:space="preserve">
     <value>皮膚模型</value>
   </data>
-  <data name="InputSkinFilePath" xml:space="preserve">
+    <data name="InputSkinFilePath" xml:space="preserve">
     <value>輸入皮膚檔路徑</value>
   </data>
-  <data name="SelectSkinFile" xml:space="preserve">
+    <data name="SelectSkinFile" xml:space="preserve">
     <value>選擇皮膚檔案</value>
   </data>
-  <data name="RefreshMicrosoftSkin" xml:space="preserve">
+    <data name="RefreshMicrosoftSkin" xml:space="preserve">
     <value>刷新皮膚(微軟)</value>
   </data>
-  <data name="ModifySuccess" xml:space="preserve">
+    <data name="ModifySuccess" xml:space="preserve">
     <value>修改成功</value>
   </data>
-  <data name="ModifyFail" xml:space="preserve">
+    <data name="ModifyFail" xml:space="preserve">
     <value>修改失敗</value>
   </data>
-  <data name="IfInstallBedRock" xml:space="preserve">
+    <data name="IfInstallBedRock" xml:space="preserve">
     <value>如未安裝基岩版則無法啟動</value>
   </data>
-  <data name="BedRockVersion" xml:space="preserve">
+    <data name="BedRockVersion" xml:space="preserve">
     <value>基岩版</value>
   </data>
-  <data name="CannotOpenBedRockSetting" xml:space="preserve">
+    <data name="CannotOpenBedRockSetting" xml:space="preserve">
     <value>無法打開基岩版設定</value>
   </data>
-  <data name="UpgradeToAdministratorPrivileges" xml:space="preserve">
+    <data name="UpgradeToAdministratorPrivileges" xml:space="preserve">
     <value>提升至管理員權限</value>
   </data>
-  <data name="UpgradeToAdministratorPrivilegesFail" xml:space="preserve">
+    <data name="UpgradeToAdministratorPrivilegesFail" xml:space="preserve">
     <value>提升至管理員權限失敗</value>
   </data>
-  <data name="UpgradeToAdministratorPrivilegesTip" xml:space="preserve">
+    <data name="UpgradeToAdministratorPrivilegesTip" xml:space="preserve">
     <value>執行操作需要提升至管理員權限，點選確定以管理員權限重新啟動程式</value>
   </data>
-  <data name="ChooseLanguage" xml:space="preserve">
+    <data name="ChooseLanguage" xml:space="preserve">
     <value>选择语言/Choose Language</value>
   </data>
-  <data name="ReleaseTheMouseAndLetAurelioProcessThisFile" xml:space="preserve">
+    <data name="ReleaseTheMouseAndLetAurelioProcessThisFile" xml:space="preserve">
     <value>釋放滑鼠讓Aurelio處理此檔案</value>
   </data>
-  <data name="UnableToAddModsForBedrockEdition" xml:space="preserve">
+    <data name="UnableToAddModsForBedrockEdition" xml:space="preserve">
     <value>無法為基岩版添加模組</value>
   </data>
-  <data name="AddTheFollowingFilesAsModsToTheCurrentVersion" xml:space="preserve">
+    <data name="AddTheFollowingFilesAsModsToTheCurrentVersion" xml:space="preserve">
     <value>將以下文件作為模組新增至目前版本</value>
   </data>
-  <data name="UnsupportedFileType" xml:space="preserve">
+    <data name="UnsupportedFileType" xml:space="preserve">
     <value>不支援的文件類型</value>
   </data>
-  <data name="InstallTheFollowingFilesAsAnIntegrationPackageCurseforgeFormat" xml:space="preserve">
+    <data name="InstallTheFollowingFilesAsAnIntegrationPackageCurseforgeFormat" xml:space="preserve">
     <value>將下列檔案作為整合包(CurseForge格式)安裝</value>
   </data>
-  <data name="Unzip" xml:space="preserve">
+    <data name="Unzip" xml:space="preserve">
     <value>解壓</value>
   </data>
-  <data name="UnzipingModPack" xml:space="preserve">
+    <data name="UnzipingModPack" xml:space="preserve">
     <value>正在解壓縮整合包</value>
   </data>
-  <data name="FinsihUnzipModPack" xml:space="preserve">
+    <data name="FinsihUnzipModPack" xml:space="preserve">
     <value>解壓縮整合包完成</value>
   </data>
-  <data name="GetModPackInfo" xml:space="preserve">
+    <data name="GetModPackInfo" xml:space="preserve">
     <value>取得整合包資訊</value>
   </data>
-  <data name="ModPackInfo" xml:space="preserve">
+    <data name="ModPackInfo" xml:space="preserve">
     <value>整合包資訊</value>
   </data>
-  <data name="ImportFailed" xml:space="preserve">
+    <data name="ImportFailed" xml:space="preserve">
     <value>導入失敗</value>
   </data>
-  <data name="ImportSuccess" xml:space="preserve">
+    <data name="ImportSuccess" xml:space="preserve">
     <value>導入成功</value>
   </data>
-  <data name="NoCrashInfo" xml:space="preserve">
+    <data name="NoCrashInfo" xml:space="preserve">
     <value>無崩潰訊息</value>
   </data>
-  <data name="DownloadModPackMod" xml:space="preserve">
+    <data name="DownloadModPackMod" xml:space="preserve">
     <value>下載整合包模組</value>
   </data>
-  <data name="TotalNumberOfMod" xml:space="preserve">
+    <data name="TotalNumberOfMod" xml:space="preserve">
     <value>模組總數量</value>
   </data>
-  <data name="DownloadSuccess" xml:space="preserve">
+    <data name="DownloadSuccess" xml:space="preserve">
     <value>下載成功</value>
   </data>
-  <data name="OverrideModPack" xml:space="preserve">
+    <data name="OverrideModPack" xml:space="preserve">
     <value>覆蓋整合包</value>
   </data>
-  <data name="DownloadFailedFileAgain" xml:space="preserve">
+    <data name="DownloadFailedFileAgain" xml:space="preserve">
     <value>重新下載失敗檔</value>
   </data>
-  <data name="Plugin" xml:space="preserve">
+    <data name="Plugin" xml:space="preserve">
     <value>外掛程式</value>
   </data>
-  <data name="EnableAll" xml:space="preserve">
+    <data name="EnableAll" xml:space="preserve">
     <value>啟用所有</value>
   </data>
-  <data name="DisableAll" xml:space="preserve">
+    <data name="DisableAll" xml:space="preserve">
     <value>停用所有</value>
   </data>
-  <data name="Author" xml:space="preserve">
+    <data name="Author" xml:space="preserve">
     <value>作者</value>
   </data>
-  <data name="Version" xml:space="preserve">
+    <data name="Version" xml:space="preserve">
     <value>版本</value>
   </data>
-  <data name="Description" xml:space="preserve">
+    <data name="Description" xml:space="preserve">
     <value>課程描述</value>
   </data>
-  <data name="NeedRestartApp" xml:space="preserve">
+    <data name="NeedRestartApp" xml:space="preserve">
     <value>需要重啟Aurelio</value>
   </data>
-  <data name="OnlySupportsWindows10AndAboveSystems" xml:space="preserve">
+    <data name="OnlySupportsWindows10AndAboveSystems" xml:space="preserve">
     <value>僅支援Windows 10 以上系統</value>
   </data>
-  <data name="TaskCenter" xml:space="preserve">
+    <data name="TaskCenter" xml:space="preserve">
     <value>任務中心</value>
   </data>
-  <data name="AllType" xml:space="preserve">
+    <data name="AllType" xml:space="preserve">
     <value>所有類型</value>
   </data>
-  <data name="MaterialPack" xml:space="preserve">
+    <data name="MaterialPack" xml:space="preserve">
     <value>材質包</value>
   </data>
-  <data name="Map" xml:space="preserve">
+    <data name="Map" xml:space="preserve">
     <value>地圖</value>
   </data>
-  <data name="CustomBackGroundImg" xml:space="preserve">
+    <data name="CustomBackGroundImg" xml:space="preserve">
     <value>自訂背景圖</value>
   </data>
-  <data name="SelectImgFile" xml:space="preserve">
+    <data name="SelectImgFile" xml:space="preserve">
     <value>選擇圖像檔</value>
   </data>
-  <data name="MusicNotAvailable" xml:space="preserve">
+    <data name="MusicNotAvailable" xml:space="preserve">
     <value>音樂不可用</value>
   </data>
-  <data name="MusicGetFail" xml:space="preserve">
+    <data name="MusicGetFail" xml:space="preserve">
     <value>音樂獲取失敗</value>
   </data>
-  <data name="DownloadSource" xml:space="preserve">
+    <data name="DownloadSource" xml:space="preserve">
     <value>下載來源</value>
   </data>
-  <data name="MaximumDownloadThread" xml:space="preserve">
+    <data name="MaximumDownloadThread" xml:space="preserve">
     <value>最大下載線程</value>
   </data>
-  <data name="DownloadThreadTooBigTip" xml:space="preserve">
+    <data name="DownloadThreadTooBigTip" xml:space="preserve">
     <value>下載線程過大可能導致設備卡頓</value>
   </data>
-  <data name="Unknown" xml:space="preserve">
+    <data name="Unknown" xml:space="preserve">
     <value>未知</value>
   </data>
-  <data name="ShaderPack" xml:space="preserve">
+    <data name="ShaderPack" xml:space="preserve">
     <value>光影包</value>
   </data>
-  <data name="DataPack" xml:space="preserve">
+    <data name="DataPack" xml:space="preserve">
     <value>數據包</value>
   </data>
-  <data name="Api" xml:space="preserve">
+    <data name="Api" xml:space="preserve">
     <value>應用程式介面</value>
   </data>
-  <data name="ModPack" xml:space="preserve">
+    <data name="ModPack" xml:space="preserve">
     <value>整合包</value>
   </data>
-  <data name="SaveAudioFile" xml:space="preserve">
+    <data name="SaveAudioFile" xml:space="preserve">
     <value>儲存音訊檔案</value>
   </data>
-  <data name="CustomUpdateUrl" xml:space="preserve">
+    <data name="CustomUpdateUrl" xml:space="preserve">
     <value>自訂更新Url</value>
   </data>
-  <data name="LyricTip" xml:space="preserve">
+    <data name="LyricTip" xml:space="preserve">
     <value>我是歌詞ヾ(≧▽≦*)o</value>
   </data>
-  <data name="MusicPlayerOnlySupportWindows" xml:space="preserve">
+    <data name="MusicPlayerOnlySupportWindows" xml:space="preserve">
     <value>音樂播放器僅支援Windows</value>
   </data>
-  <data name="LoadAudioFileFail" xml:space="preserve">
+    <data name="LoadAudioFileFail" xml:space="preserve">
     <value>載入音訊檔案失敗</value>
   </data>
-  <data name="LaunchCore" xml:space="preserve">
+    <data name="LaunchCore" xml:space="preserve">
     <value>啟動核心</value>
   </data>
-  <data name="AfterLaunchKeepLauncherVisible" xml:space="preserve">
+    <data name="AfterLaunchKeepLauncherVisible" xml:space="preserve">
     <value>啟動完成後保持不變</value>
   </data>
-  <data name="AfterLaunchMakeLauncherMinimize" xml:space="preserve">
+    <data name="AfterLaunchMakeLauncherMinimize" xml:space="preserve">
     <value>啟動完成後最小化</value>
   </data>
-  <data name="AfterLaunchExitLauncher" xml:space="preserve">
+    <data name="AfterLaunchExitLauncher" xml:space="preserve">
     <value>啟動完成後關閉</value>
   </data>
-  <data name="AfterLaunchHideAndShowWhenGameExit" xml:space="preserve">
+    <data name="AfterLaunchHideAndShowWhenGameExit" xml:space="preserve">
     <value>啟動完成後隱藏，遊戲退出後顯示</value>
   </data>
-  <data name="LauncherVisibility" xml:space="preserve">
+    <data name="LauncherVisibility" xml:space="preserve">
     <value>啟動器可見性</value>
   </data>
-  <data name="AfterLaunchMinimizeAndShowWhenGameExit" xml:space="preserve">
+    <data name="AfterLaunchMinimizeAndShowWhenGameExit" xml:space="preserve">
     <value>啟動完成後最小化，遊戲退出後顯示</value>
   </data>
-  <data name="UnofficialTip" xml:space="preserve">
+    <data name="UnofficialTip" xml:space="preserve">
     <value>目前版本為非官方版本，可能遭受病毒攻擊。
 重定向至https://ymcl.daiyu.fun/ 下載官方版本。</value>
   </data>
-  <data name="LanguageTip" xml:space="preserve">
+    <data name="LanguageTip" xml:space="preserve">
     <value>在開始設定Aurelio 前，需要選擇語言。</value>
   </data>
-  <data name="Account" xml:space="preserve">
+    <data name="Account" xml:space="preserve">
     <value>帳戶</value>
   </data>
-  <data name="WindowTitleBarStyleTip" xml:space="preserve">
+    <data name="WindowTitleBarStyleTip" xml:space="preserve">
     <value>設定啟動器視窗標題列的樣式，在特定情況啟動器樣式不受支援。</value>
   </data>
-  <data name="SystemStyle" xml:space="preserve">
+    <data name="SystemStyle" xml:space="preserve">
     <value>系統樣式</value>
   </data>
-  <data name="LauncherStyle" xml:space="preserve">
+    <data name="LauncherStyle" xml:space="preserve">
     <value>啟動器樣式</value>
   </data>
-  <data name="MinecraftFolderTip" xml:space="preserve">
+    <data name="MinecraftFolderTip" xml:space="preserve">
     <value>存放Minecraft資料的資料夾(.minecraft)</value>
   </data>
-  <data name="ExistingNow" xml:space="preserve">
+    <data name="ExistingNow" xml:space="preserve">
     <value>現有的</value>
   </data>
-  <data name="JavaRuntime" xml:space="preserve">
+    <data name="JavaRuntime" xml:space="preserve">
     <value>Java運行時</value>
   </data>
-  <data name="JavaRuntimeTip" xml:space="preserve">
+    <data name="JavaRuntimeTip" xml:space="preserve">
     <value>啟動遊戲至少需要一個Java執行時。</value>
   </data>
-  <data name="AccountTip" xml:space="preserve">
+    <data name="AccountTip" xml:space="preserve">
     <value>啟動遊戲至少需要一個帳戶，例如使用離線帳戶將無法登錄有正版驗證的伺服器。</value>
   </data>
-  <data name="MusicApi" xml:space="preserve">
+    <data name="MusicApi" xml:space="preserve">
     <value>音樂Api</value>
   </data>
-  <data name="ProjectInfo" xml:space="preserve">
+    <data name="ProjectInfo" xml:space="preserve">
     <value>項目資訊</value>
   </data>
-  <data name="SaveAs" xml:space="preserve">
+    <data name="SaveAs" xml:space="preserve">
     <value>另存為</value>
   </data>
-  <data name="DeskLyricColor" xml:space="preserve">
+    <data name="DeskLyricColor" xml:space="preserve">
     <value>桌面歌詞顏色</value>
   </data>
-  <data name="DeskLyricAlignment" xml:space="preserve">
+    <data name="DeskLyricAlignment" xml:space="preserve">
     <value>桌面歌詞對齊</value>
   </data>
-  <data name="AlignLeft" xml:space="preserve">
+    <data name="AlignLeft" xml:space="preserve">
     <value>居左對齊</value>
   </data>
-  <data name="AlignCenter" xml:space="preserve">
+    <data name="AlignCenter" xml:space="preserve">
     <value>居中對齊</value>
   </data>
-  <data name="AlignRight" xml:space="preserve">
+    <data name="AlignRight" xml:space="preserve">
     <value>居右對齊</value>
   </data>
-  <data name="DeskLyricSize" xml:space="preserve">
+    <data name="DeskLyricSize" xml:space="preserve">
     <value>桌面歌詞大小</value>
   </data>
-  <data name="AutoUpdate" xml:space="preserve">
+    <data name="AutoUpdate" xml:space="preserve">
     <value>自動更新</value>
   </data>
-  <data name="SkipThisVersion" xml:space="preserve">
+    <data name="SkipThisVersion" xml:space="preserve">
     <value>跳過此版本</value>
   </data>
-  <data name="SkipVersionTip" xml:space="preserve">
+    <data name="SkipVersionTip" xml:space="preserve">
     <value>已跳過版本: {version}
 前往 設定-啟動器-檢查更新 可再次取得此版本</value>
   </data>
-  <data name="WinSevenAutoUpdateTip" xml:space="preserve">
+    <data name="WinSevenAutoUpdateTip" xml:space="preserve">
     <value>發現新版本: {version}
 win10 以下系統(不包括10)不支援自動更新
 前往以下連結下載新版本: “{url}”
 前往 設定-下載-自動更新 可關閉自動檢查更新</value>
   </data>
-  <data name="OpenBrowser" xml:space="preserve">
+    <data name="OpenBrowser" xml:space="preserve">
     <value>打開瀏覽器</value>
   </data>
-  <data name="CustomHomePageWay_Presetting_JavaNews" xml:space="preserve">
+    <data name="CustomHomePageWay_Presetting_JavaNews" xml:space="preserve">
     <value>預設-Java新聞</value>
   </data>
-  <data name="NetworkSource" xml:space="preserve">
+    <data name="NetworkSource" xml:space="preserve">
     <value>網路來源</value>
   </data>
-  <data name="NoSupportNow" xml:space="preserve">
+    <data name="NoSupportNow" xml:space="preserve">
     <value>現不支援</value>
   </data>
-  <data name="CannotRecognitionTheVersion" xml:space="preserve">
+    <data name="CannotRecognitionTheVersion" xml:space="preserve">
     <value>無法辨識選取版本</value>
   </data>
-  <data name="LocalResource" xml:space="preserve">
+    <data name="LocalResource" xml:space="preserve">
     <value>本地資源</value>
   </data>
-  <data name="InstallVersion" xml:space="preserve">
+    <data name="InstallVersion" xml:space="preserve">
     <value>安裝版本</value>
   </data>
-  <data name="JumpSearch" xml:space="preserve">
+    <data name="JumpSearch" xml:space="preserve">
     <value>跳轉搜尋</value>
   </data>
-  <data name="AggregateSearchWatermark" xml:space="preserve">
+    <data name="AggregateSearchWatermark" xml:space="preserve">
     <value>輸入關鍵字以在Aurelio中搜尋</value>
   </data>
-  <data name="SwitchedTo" xml:space="preserve">
+    <data name="SwitchedTo" xml:space="preserve">
     <value>已切換到</value>
   </data>
-  <data name="JumpToSearchTip" xml:space="preserve">
+    <data name="JumpToSearchTip" xml:space="preserve">
     <value>將會跳到{target} 搜尋此關鍵字</value>
   </data>
-  <data name="SearchInTip" xml:space="preserve">
+    <data name="SearchInTip" xml:space="preserve">
     <value>在{target} 中搜尋</value>
   </data>
-  <data name="Music" xml:space="preserve">
+    <data name="Music" xml:space="preserve">
     <value>音樂</value>
   </data>
-  <data name="ExistAccount" xml:space="preserve">
+    <data name="ExistAccount" xml:space="preserve">
     <value>現存帳戶</value>
   </data>
-  <data name="DisplayIndependentTaskWindow" xml:space="preserve">
+    <data name="DisplayIndependentTaskWindow" xml:space="preserve">
     <value>顯示獨立任務視窗</value>
   </data>
-  <data name="Sponsor" xml:space="preserve">
+    <data name="Sponsor" xml:space="preserve">
     <value>贊助</value>
   </data>
-  <data name="Sponsors" xml:space="preserve">
+    <data name="Sponsors" xml:space="preserve">
     <value>贊助者</value>
   </data>
-  <data name="SponsorsTip" xml:space="preserve">
+    <data name="SponsorsTip" xml:space="preserve">
     <value>以下是發電的贊助者，感謝對Aurelio 的支持！</value>
   </data>
-  <data name="MacOsUpdateTip" xml:space="preserve">
+    <data name="MacOsUpdateTip" xml:space="preserve">
     <value>發現新版本: {version}&amp;#10; MacOs 不支援自動更新前往以下連結下載新版本: “{url}”&amp;#10;前往設定-下載-自動更新可關閉自動檢查更新</value>
   </data>
-  <data name="CurrectSystemNoSupportAutoUpdateTip" xml:space="preserve">
+    <data name="CurrectSystemNoSupportAutoUpdateTip" xml:space="preserve">
     <value>目前系統不支援自動更新
 可前往 設定-下載 關閉自動更新
 可手動下載最新版本並取代程式檔案</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AlreadyCopyToClipBoard" xml:space="preserve">
+    <data name="AlreadyCopyToClipBoard" xml:space="preserve">
     <value>已複製到剪切板</value>
   </data>
-  <data name="UsedMem" xml:space="preserve">
+    <data name="UsedMem" xml:space="preserve">
     <value>已用記憶體</value>
   </data>
-  <data name="CannotLoad" xml:space="preserve">
+    <data name="CannotLoad" xml:space="preserve">
     <value>無法加載</value>
   </data>
-  <data name="LoadFail" xml:space="preserve">
+    <data name="LoadFail" xml:space="preserve">
     <value>載入失敗</value>
   </data>
-  <data name="ToggleNav" xml:space="preserve">
+    <data name="ToggleNav" xml:space="preserve">
     <value>切換導航</value>
   </data>
-  <data name="NoWorkingTask" xml:space="preserve">
+    <data name="NoWorkingTask" xml:space="preserve">
     <value>暫無運行中任務</value>
   </data>
-  <data name="CrashLa" xml:space="preserve">
+    <data name="CrashLa" xml:space="preserve">
     <value>崩潰啦！ヾ(•ω•`)o</value>
   </data>
-  <data name="AurelioHappenError" xml:space="preserve">
+    <data name="AurelioHappenError" xml:space="preserve">
     <value>Aurelio 發生未處理異常</value>
   </data>
-  <data name="DetailedInfo" xml:space="preserve">
+    <data name="DetailedInfo" xml:space="preserve">
     <value>詳細資料</value>
   </data>
-  <data name="UnhandledErrorTip" xml:space="preserve">
+    <data name="UnhandledErrorTip" xml:space="preserve">
     <value>Aurelio 遇到了沒有處理的異常, 可能無法繼續運行, 下方為異常的詳細信息</value>
   </data>
-  <data name="Copy" xml:space="preserve">
+    <data name="Copy" xml:space="preserve">
     <value>複製</value>
   </data>
-  <data name="NoMatterErrorAndKeepOnRun" xml:space="preserve">
+    <data name="NoMatterErrorAndKeepOnRun" xml:space="preserve">
     <value>忽略錯誤, 強制繼續運作</value>
   </data>
-  <data name="ExitApp" xml:space="preserve">
+    <data name="ExitApp" xml:space="preserve">
     <value>退出應用程式</value>
   </data>
-  <data name="RestartApp" xml:space="preserve">
+    <data name="RestartApp" xml:space="preserve">
     <value>重啟應用</value>
   </data>
-  <data name="LoadBackGroudFromPicFailTip" xml:space="preserve">
+    <data name="LoadBackGroudFromPicFailTip" xml:space="preserve">
     <value>從圖片檔案載入背景圖失敗, 檢查圖片格式是否正確</value>
   </data>
-  <data name="CustomBackground" xml:space="preserve">
+    <data name="CustomBackground" xml:space="preserve">
     <value>自訂背景</value>
   </data>
-  <data name="Default" xml:space="preserve">
+    <data name="Default" xml:space="preserve">
     <value>預設</value>
   </data>
-  <data name="BackGroundImg" xml:space="preserve">
+    <data name="BackGroundImg" xml:space="preserve">
     <value>背景圖</value>
   </data>
-  <data name="AcrylicBlur" xml:space="preserve">
+    <data name="AcrylicBlur" xml:space="preserve">
     <value>亞克力</value>
   </data>
-  <data name="Transparent" xml:space="preserve">
+    <data name="Transparent" xml:space="preserve">
     <value>透明</value>
   </data>
-  <data name="CannotFindMinecraftFolder" xml:space="preserve">
+    <data name="CannotFindMinecraftFolder" xml:space="preserve">
     <value>無法找到Minecraft資料夾</value>
   </data>
-  <data name="OneSentence" xml:space="preserve">
+    <data name="OneSentence" xml:space="preserve">
     <value>一言API</value>
   </data>
-  <data name="TodayLuckyValue" xml:space="preserve">
+    <data name="TodayLuckyValue" xml:space="preserve">
     <value>今日人品</value>
   </data>
-  <data name="CannotLoadVersionSetting" xml:space="preserve">
+    <data name="CannotLoadVersionSetting" xml:space="preserve">
     <value>無法載入版本設定</value>
   </data>
-  <data name="TodayLuckyValueTip" xml:space="preserve">
+    <data name="TodayLuckyValueTip" xml:space="preserve">
     <value>今日的人品值是: {value} !</value>
   </data>
-  <data name="IKnow" xml:space="preserve">
+    <data name="IKnow" xml:space="preserve">
     <value>我知道了</value>
   </data>
-  <data name="LuckyValueTip" xml:space="preserve">
+    <data name="LuckyValueTip" xml:space="preserve">
     <value>今天的運氣可能不太好，但別灰心，明天會更好！ /n今天的運氣有點差呢。 /n今天的運氣一般。 /n今天的運氣還好。 /n今天的運氣不錯呢！ /n今天的運氣非常好！ /n今天的運氣簡直爆棚！ /n</value>
   </data>
-  <data name="NeverClick" xml:space="preserve">
+    <data name="NeverClick" xml:space="preserve">
     <value>千萬別點</value>
   </data>
-  <data name="NeverClickTip" xml:space="preserve">
+    <data name="NeverClickTip" xml:space="preserve">
     <value>此操作可能會發生奇奇怪怪的問題，確定要繼續嗎？</value>
   </data>
-  <data name="Tip" xml:space="preserve">
+    <data name="Tip" xml:space="preserve">
     <value>提示</value>
   </data>
-  <data name="GameMainFileDeletion" xml:space="preserve">
+    <data name="GameMainFileDeletion" xml:space="preserve">
     <value>遊戲主要檔案缺失</value>
   </data>
-  <data name="GameUpdateLog" xml:space="preserve">
+    <data name="GameUpdateLog" xml:space="preserve">
     <value>更新日誌</value>
   </data>
-  <data name="SureToInstallTheJava" xml:space="preserve">
+    <data name="SureToInstallTheJava" xml:space="preserve">
     <value>確定要安裝Java : {Java}？</value>
   </data>
-  <data name="MaxFileFragmentation" xml:space="preserve">
+    <data name="MaxFileFragmentation" xml:space="preserve">
     <value>最大文件分片</value>
   </data>
-  <data name="CreateDownloadTask" xml:space="preserve">
+    <data name="CreateDownloadTask" xml:space="preserve">
     <value>建立下載任務</value>
   </data>
-  <data name="CustomDownload" xml:space="preserve">
+    <data name="CustomDownload" xml:space="preserve">
     <value>自訂下載</value>
   </data>
-  <data name="Locate" xml:space="preserve">
+    <data name="Locate" xml:space="preserve">
     <value>定位</value>
   </data>
-  <data name="DownloadUrl" xml:space="preserve">
+    <data name="DownloadUrl" xml:space="preserve">
     <value>下載連結</value>
   </data>
-  <data name="DisplayName" xml:space="preserve">
+    <data name="DisplayName" xml:space="preserve">
     <value>顯示名稱</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Task" xml:space="preserve">
+    <data name="Task" xml:space="preserve">
     <value>任務</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="More" xml:space="preserve">
+    <data name="More" xml:space="preserve">
     <value>更多</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="About" xml:space="preserve">
+    <data name="About" xml:space="preserve">
     <value>關於</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Personalize" xml:space="preserve">
+    <data name="Personalize" xml:space="preserve">
     <value>個性化</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Launcher" xml:space="preserve">
+    <data name="Launcher" xml:space="preserve">
     <value>啟動器</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ServerUrlError" xml:space="preserve">
+    <data name="ServerUrlError" xml:space="preserve">
     <value>伺服器Url錯誤</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Waiting" xml:space="preserve">
+    <data name="Waiting" xml:space="preserve">
     <value>等待中</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Running" xml:space="preserve">
+    <data name="Running" xml:space="preserve">
     <value>運行中</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Paused" xml:space="preserve">
+    <data name="Paused" xml:space="preserve">
     <value>已暫停</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Error" xml:space="preserve">
+    <data name="Error" xml:space="preserve">
     <value>錯誤</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Finished" xml:space="preserve">
+    <data name="Finished" xml:space="preserve">
     <value>已完成</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Remove" xml:space="preserve">
+    <data name="Remove" xml:space="preserve">
     <value>移除</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="BuildLaunchConfig" xml:space="preserve">
+    <data name="BuildLaunchConfig" xml:space="preserve">
     <value>建置啟動配置項</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="CheckLaunchArg" xml:space="preserve">
+    <data name="CheckLaunchArg" xml:space="preserve">
     <value>檢查啟動參數</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="RefreshAccountToken" xml:space="preserve">
+    <data name="RefreshAccountToken" xml:space="preserve">
     <value>刷新用戶令牌</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="LaunchMinecraftProcess" xml:space="preserve">
+    <data name="LaunchMinecraftProcess" xml:space="preserve">
     <value>啟動Minecraft 進程</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Canceled" xml:space="preserve">
+    <data name="Canceled" xml:space="preserve">
     <value>已取消</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Canceling" xml:space="preserve">
+    <data name="Canceling" xml:space="preserve">
     <value>取消中</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="CheckVersionResource" xml:space="preserve">
+    <data name="CheckVersionResource" xml:space="preserve">
     <value>檢查版本資源</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="DownloadResource" xml:space="preserve">
+    <data name="DownloadResource" xml:space="preserve">
     <value>下載資源</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Return" xml:space="preserve">
+    <data name="Return" xml:space="preserve">
     <value>返回</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ScreenshotsFolder" xml:space="preserve">
+    <data name="ScreenshotsFolder" xml:space="preserve">
     <value>截圖資料夾</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Saves" xml:space="preserve">
+    <data name="Saves" xml:space="preserve">
     <value>存檔</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Screenshots" xml:space="preserve">
+    <data name="Screenshots" xml:space="preserve">
     <value>截圖</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ResourcePacks" xml:space="preserve">
+    <data name="ResourcePacks" xml:space="preserve">
     <value>資源包</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NoMatchResult" xml:space="preserve">
+    <data name="NoMatchResult" xml:space="preserve">
     <value>無匹配結果</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="CreateTime" xml:space="preserve">
+    <data name="CreateTime" xml:space="preserve">
     <value>創建時間</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="LastModifiedTime" xml:space="preserve">
+    <data name="LastModifiedTime" xml:space="preserve">
     <value>最後修改時間</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="SaveInfo" xml:space="preserve">
+    <data name="SaveInfo" xml:space="preserve">
     <value>存檔資訊</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Name" xml:space="preserve">
+    <data name="Name" xml:space="preserve">
     <value>名稱</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="PlayerCount" xml:space="preserve">
+    <data name="PlayerCount" xml:space="preserve">
     <value>玩家數量</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="DataPackCount" xml:space="preserve">
+    <data name="DataPackCount" xml:space="preserve">
     <value>資料包數量</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ImportTime" xml:space="preserve">
+    <data name="ImportTime" xml:space="preserve">
     <value>導入時間</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="CanceledUpdate" xml:space="preserve">
+    <data name="CanceledUpdate" xml:space="preserve">
     <value>更新已取消</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ApiError" xml:space="preserve">
+    <data name="ApiError" xml:space="preserve">
     <value>Api錯誤</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NetWorkError" xml:space="preserve">
+    <data name="NetWorkError" xml:space="preserve">
     <value>網路錯誤</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="KillProcess" xml:space="preserve">
+    <data name="KillProcess" xml:space="preserve">
     <value>結束進程</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="LaunchArguments" xml:space="preserve">
+    <data name="LaunchArguments" xml:space="preserve">
     <value>啟動參數</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="DisplayLaunchArguments" xml:space="preserve">
+    <data name="DisplayLaunchArguments" xml:space="preserve">
     <value>顯示啟動參數</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ResetData" xml:space="preserve">
+    <data name="ResetData" xml:space="preserve">
     <value>重置數據</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="FixLoadDataFailTip" xml:space="preserve">
+    <data name="FixLoadDataFailTip" xml:space="preserve">
     <value>在載入資料時遇到異常，這可能是由於資料發生損壞導致的。是否重置Aurelio數據以解決此問題？</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Export" xml:space="preserve">
+    <data name="Export" xml:space="preserve">
     <value>導出</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExportLogFile" xml:space="preserve">
+    <data name="ExportLogFile" xml:space="preserve">
     <value>匯出日誌檔</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AutoScrollToEnd" xml:space="preserve">
+    <data name="AutoScrollToEnd" xml:space="preserve">
     <value>自動滾動到末尾</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="GetJavaInfoFail" xml:space="preserve">
+    <data name="GetJavaInfoFail" xml:space="preserve">
     <value>取得Java資訊失敗可能此Java不正確/已損壞/無執行權限</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Seed" xml:space="preserve">
+    <data name="Seed" xml:space="preserve">
     <value>種子</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AllowCommands" xml:space="preserve">
+    <data name="AllowCommands" xml:space="preserve">
     <value>允許命令</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="GameType" xml:space="preserve">
+    <data name="GameType" xml:space="preserve">
     <value>遊戲類型</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="LastPlayTime" xml:space="preserve">
+    <data name="LastPlayTime" xml:space="preserve">
     <value>最後遊玩時間</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NoDescription" xml:space="preserve">
+    <data name="NoDescription" xml:space="preserve">
     <value>無描述訊息</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Mica" xml:space="preserve">
+    <data name="Mica" xml:space="preserve">
     <value>雲母</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="TranslucentBackgroundOpacity" xml:space="preserve">
+    <data name="TranslucentBackgroundOpacity" xml:space="preserve">
     <value>半透明背景控制不透明度</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="MusicApiWithIP" xml:space="preserve">
+    <data name="MusicApiWithIP" xml:space="preserve">
     <value>音樂Api附IP位址</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NoIdentifiedPlugins" xml:space="preserve">
+    <data name="NoIdentifiedPlugins" xml:space="preserve">
     <value>暫無已辨識插件</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="LoadPluginError" xml:space="preserve">
+    <data name="LoadPluginError" xml:space="preserve">
     <value>載入插件錯誤</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Unrecognized" xml:space="preserve">
+    <data name="Unrecognized" xml:space="preserve">
     <value>無法辨識</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ImportModPack" xml:space="preserve">
+    <data name="ImportModPack" xml:space="preserve">
     <value>導入整合包</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Prepare" xml:space="preserve">
+    <data name="Prepare" xml:space="preserve">
     <value>準備</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="VersionIdCannotBeEmpty" xml:space="preserve">
+    <data name="VersionIdCannotBeEmpty" xml:space="preserve">
     <value>版本Id 不可為空白</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="InstallModPack" xml:space="preserve">
+    <data name="InstallModPack" xml:space="preserve">
     <value>安裝整合包</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="PrepareInstall" xml:space="preserve">
+    <data name="PrepareInstall" xml:space="preserve">
     <value>準備安裝</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="SaveSkinFile" xml:space="preserve">
+    <data name="SaveSkinFile" xml:space="preserve">
     <value>保存皮膚文件</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="SaveFinish" xml:space="preserve">
+    <data name="SaveFinish" xml:space="preserve">
     <value>儲存完成</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="CornerRadius" xml:space="preserve">
+    <data name="CornerRadius" xml:space="preserve">
     <value>圓角半徑</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="EnableTranslucentSpecialControlList" xml:space="preserve">
+    <data name="EnableTranslucentSpecialControlList" xml:space="preserve">
     <value>啟用半透明特殊控制項清單</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NoticeWay" xml:space="preserve">
+    <data name="NoticeWay" xml:space="preserve">
     <value>通知方式</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NotificationCard" xml:space="preserve">
+    <data name="NotificationCard" xml:space="preserve">
     <value>通知卡片</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NotificationBubble" xml:space="preserve">
+    <data name="NotificationBubble" xml:space="preserve">
     <value>通知氣泡</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExampleNotification" xml:space="preserve">
+    <data name="ExampleNotification" xml:space="preserve">
     <value>範例通知</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="CurrentListIsEmpty" xml:space="preserve">
+    <data name="CurrentListIsEmpty" xml:space="preserve">
     <value>目前列表為空</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Import" xml:space="preserve">
+    <data name="Import" xml:space="preserve">
     <value>導入</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="HopeHowToHandleTheFile" xml:space="preserve">
+    <data name="HopeHowToHandleTheFile" xml:space="preserve">
     <value>希望如何處理此文件</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AsResourcePackImport" xml:space="preserve">
+    <data name="AsResourcePackImport" xml:space="preserve">
     <value>作為資源包導入</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AsShaderPackImport" xml:space="preserve">
+    <data name="AsShaderPackImport" xml:space="preserve">
     <value>作為光影包導入</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Conflict" xml:space="preserve">
+    <data name="Conflict" xml:space="preserve">
     <value>沖突</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="FileConflictTip" xml:space="preserve">
+    <data name="FileConflictTip" xml:space="preserve">
     <value>文件衝突，目標資料夾已存在相同名稱文件，希望如何處理複製操作？</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Cover" xml:space="preserve">
+    <data name="Cover" xml:space="preserve">
     <value>覆蓋</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Rename" xml:space="preserve">
+    <data name="Rename" xml:space="preserve">
     <value>重新命名</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ImportFinish" xml:space="preserve">
+    <data name="ImportFinish" xml:space="preserve">
     <value>導入完成</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="SureToImportTheFile" xml:space="preserve">
+    <data name="SureToImportTheFile" xml:space="preserve">
     <value>確定導入此文件</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AllImport" xml:space="preserve">
+    <data name="AllImport" xml:space="preserve">
     <value>全部導入</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="MinecraftVersion" xml:space="preserve">
+    <data name="MinecraftVersion" xml:space="preserve">
     <value>Minecraft 版本</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Home" xml:space="preserve">
+    <data name="Home" xml:space="preserve">
     <value>主頁</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="HotResource" xml:space="preserve">
+    <data name="HotResource" xml:space="preserve">
     <value>熱門資源</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="All" xml:space="preserve">
+    <data name="All" xml:space="preserve">
     <value>全部</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ServerPack" xml:space="preserve">
+    <data name="ServerPack" xml:space="preserve">
     <value>伺服器包</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="DownloadUrlParserFail" xml:space="preserve">
+    <data name="DownloadUrlParserFail" xml:space="preserve">
     <value>下載連結解析失敗</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Destroy" xml:space="preserve">
+    <data name="Destroy" xml:space="preserve">
     <value>銷毀</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Favourite" xml:space="preserve">
+    <data name="Favourite" xml:space="preserve">
     <value>收藏</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Favourted" xml:space="preserve">
+    <data name="Favourted" xml:space="preserve">
     <value>已收藏</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Favourites" xml:space="preserve">
+    <data name="Favourites" xml:space="preserve">
     <value>收藏夾</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="DependencyItems" xml:space="preserve">
+    <data name="DependencyItems" xml:space="preserve">
     <value>依賴項</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ImportOrExportSetting" xml:space="preserve">
+    <data name="ImportOrExportSetting" xml:space="preserve">
     <value>導入/匯出設定</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExportSettingTip" xml:space="preserve">
+    <data name="ExportSettingTip" xml:space="preserve">
     <value>選擇需要匯出的設定項</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExchangeSetting_Ui" xml:space="preserve">
+    <data name="ExchangeSetting_Ui" xml:space="preserve">
     <value>介面設定</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExchangeSetting_Net" xml:space="preserve">
+    <data name="ExchangeSetting_Net" xml:space="preserve">
     <value>網路設定</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExchangeSetting_Launch" xml:space="preserve">
+    <data name="ExchangeSetting_Launch" xml:space="preserve">
     <value>啟動設定</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExchangeSetting_Account" xml:space="preserve">
+    <data name="ExchangeSetting_Account" xml:space="preserve">
     <value>帳戶資料(不含微軟帳戶)</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExchangeSetting_Other" xml:space="preserve">
+    <data name="ExchangeSetting_Other" xml:space="preserve">
     <value>其他設定</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExportSuccess" xml:space="preserve">
+    <data name="ExportSuccess" xml:space="preserve">
     <value>導出成功</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ExportSettingSuccessTip" xml:space="preserve">
+    <data name="ExportSettingSuccessTip" xml:space="preserve">
     <value>匯出成功，資料量過大無法顯示，點選複製以複製所有資料</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ImportSettingTextBoxWatermark" xml:space="preserve">
+    <data name="ImportSettingTextBoxWatermark" xml:space="preserve">
     <value>輸入hex資料</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="ReadClipBoard" xml:space="preserve">
+    <data name="ReadClipBoard" xml:space="preserve">
     <value>讀取剪貼簿</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="CopyToClipBoard" xml:space="preserve">
+    <data name="CopyToClipBoard" xml:space="preserve">
     <value>複製到剪貼簿</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="OpenFile" xml:space="preserve">
+    <data name="OpenFile" xml:space="preserve">
     <value>開啟檔案</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="WriteIn" xml:space="preserve">
+    <data name="WriteIn" xml:space="preserve">
     <value>寫入</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="OperateFailed" xml:space="preserve">
+    <data name="OperateFailed" xml:space="preserve">
     <value>操作失敗</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="OperateSuccess" xml:space="preserve">
+    <data name="OperateSuccess" xml:space="preserve">
     <value>操作成功</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="NeedToManuallyOpenTheTerminalAndExecuteTheFollowingCommand" xml:space="preserve">
+    <data name="NeedToManuallyOpenTheTerminalAndExecuteTheFollowingCommand" xml:space="preserve">
     <value>需要手動打開終端機執行以下命令</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AccountName" xml:space="preserve">
+    <data name="AccountName" xml:space="preserve">
     <value>帳戶名稱</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AddNewAccountUuid" xml:space="preserve">
+    <data name="AddNewAccountUuid" xml:space="preserve">
     <value>Uuid，留空則自動產生</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="AutoAllocate" xml:space="preserve">
+    <data name="AutoAllocate" xml:space="preserve">
     <value>自動分配</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="EnableAutoAllocateMem" xml:space="preserve">
+    <data name="EnableAutoAllocateMem" xml:space="preserve">
     <value>啟用自動分配記憶體</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Custom" xml:space="preserve">
+    <data name="Custom" xml:space="preserve">
     <value>自訂</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="FastLaunch" xml:space="preserve">
+    <data name="FastLaunch" xml:space="preserve">
     <value>快速啟動</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Add" xml:space="preserve">
+    <data name="Add" xml:space="preserve">
     <value>添加</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Icon" xml:space="preserve">
+    <data name="Icon" xml:space="preserve">
     <value>圖標</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="SetIcon" xml:space="preserve">
+    <data name="SetIcon" xml:space="preserve">
     <value>設定圖標</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="SetServer" xml:space="preserve">
+    <data name="SetServer" xml:space="preserve">
     <value>設定伺服器</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="Delete" xml:space="preserve">
+    <data name="Delete" xml:space="preserve">
     <value>刪除</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
-  <data name="JavaRuntimeError" xml:space="preserve">
+    <data name="JavaRuntimeError" xml:space="preserve">
     <value>Java運行時錯誤</value>
-    <comment>#TODO#_</comment>
+        <comment>#TODO#_</comment>
   </data>
 </root>

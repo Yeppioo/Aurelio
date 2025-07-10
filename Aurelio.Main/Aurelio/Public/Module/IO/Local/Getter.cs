@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
@@ -17,7 +16,7 @@ public class Getter
         var result = await reader.ReadToEndAsync();
         return result;
     }
-    
+
     public static Bitmap LoadBitmapFromAppFile(string uri)
     {
         // return null;
@@ -25,6 +24,6 @@ public class Getter
         var stream = AssetLoader.Open(new Uri("resm:" + uri));
         stream.CopyTo(memoryStream);
         memoryStream.Position = 0;
-        return Bitmap.DecodeToWidth(memoryStream,48);
+        return Bitmap.DecodeToWidth(memoryStream, 48);
     }
 }

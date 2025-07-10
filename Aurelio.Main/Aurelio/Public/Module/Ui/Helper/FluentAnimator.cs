@@ -14,7 +14,10 @@ namespace Aurelio.Public.Module.Ui.Helper;
 
 public static class FluentAnimatorExtensions
 {
-    public static FluentAnimator<T> Animate<T>(this Animatable control, AvaloniaProperty<T> property) => new FluentAnimator<T>(control, property);
+    public static FluentAnimator<T> Animate<T>(this Animatable control, AvaloniaProperty<T> property)
+    {
+        return new FluentAnimator<T>(control, property);
+    }
 }
 
 public ref struct FluentAnimator<T>(Animatable control, AvaloniaProperty<T> property)
@@ -29,24 +32,40 @@ public ref struct FluentAnimator<T>(Animatable control, AvaloniaProperty<T> prop
 
     private CancellationToken _cancellation;
 
-    public FluentAnimator<T> From(T value) => this with { _from = value };
+    public FluentAnimator<T> From(T value)
+    {
+        return this with { _from = value };
+    }
 
-    public FluentAnimator<T> To(T value) => this with { _to = value };
+    public FluentAnimator<T> To(T value)
+    {
+        return this with { _to = value };
+    }
 
-    public FluentAnimator<T> WithDuration(TimeSpan duration) => this with { _duration = duration };
+    public FluentAnimator<T> WithDuration(TimeSpan duration)
+    {
+        return this with { _duration = duration };
+    }
 
-    public FluentAnimator<T> WithEasing(Easing easing) => this with { _easing = easing };
+    public FluentAnimator<T> WithEasing(Easing easing)
+    {
+        return this with { _easing = easing };
+    }
 
-    public FluentAnimator<T> WithCancellationToken(CancellationToken cancellation) => this with { _cancellation = cancellation };
+    public FluentAnimator<T> WithCancellationToken(CancellationToken cancellation)
+    {
+        return this with { _cancellation = cancellation };
+    }
 
-    public readonly void Start() => _ = RunAsync();
+    public readonly void Start()
+    {
+        _ = RunAsync();
+    }
 
     public readonly Task RunAsync()
     {
         if (_to == null)
-        {
             throw new InvalidOperationException("The 'To' value must be set before starting the animation.");
-        }
 
         var duration = _duration ?? _defaultDuration;
         var easing = _easing ?? _defaultEasing;
@@ -55,7 +74,7 @@ public ref struct FluentAnimator<T>(Animatable control, AvaloniaProperty<T> prop
         {
             Duration = duration,
             Easing = easing,
-            FillMode = FillMode.Forward,
+            FillMode = FillMode.Forward
         };
 
         if (_from != null)
@@ -85,6 +104,4 @@ public ref struct FluentAnimator<T>(Animatable control, AvaloniaProperty<T> prop
 
         return animation.RunAsync(control, _cancellation);
     }
-    
-    
 }

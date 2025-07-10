@@ -1,16 +1,9 @@
 ﻿using System.IO;
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Public.Classes.Enum;
-using Aurelio.Public.Langs;
 using Aurelio.Views.Main;
 using Aurelio.Views.Main.Template;
-using Avalonia.Input;
-using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
-using Avalonia.Platform.Storage;
 using Avalonia.VisualTree;
-using FluentAvalonia.UI.Controls;
-using Microsoft.VisualBasic.FileIO;
 
 namespace Aurelio.Public.Controls;
 
@@ -34,6 +27,7 @@ public partial class ScreenshotEntry : UserControl
                 window.CreateTab(tab);
                 return;
             }
+
             App.UiRoot.CreateTab(tab);
         };
     }

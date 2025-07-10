@@ -2,7 +2,6 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:controls="clr-namespace:Aurelio.Public.Controls"
     xmlns:helper="clr-namespace:Aurelio.Public.Module.Ui.Helper"
-    xmlns:suki="https://github.com/kikipoulet/SukiUI"
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ControlTheme TargetType="MenuItem" x:Key="SukiTopLevelMenuItem">

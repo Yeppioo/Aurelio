@@ -1,28 +1,27 @@
-using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Public.Classes.Interfaces;
-using Aurelio.Public.Const;
-using Aurelio.Public.Langs;
-using Aurelio.Public.Module.Ui;
-using Aurelio.Views.Main.TabPages;
-using Avalonia;
-using CommunityToolkit.Mvvm.ComponentModel;
-using DynamicData;
-using Material.Icons;
 
 namespace Aurelio.ViewModels;
 
-public partial class TabWindowViewModel : ViewModelBase
+public class TabWindowViewModel : ViewModelBase
 {
-    public ObservableCollection<TabEntry> Tabs { get; set; } = [];
+    private bool _isTabMaskVisible;
 
     private TabEntry? _selectedTab;
     private Vector _tabScrollOffset;
-    private bool _isTabMaskVisible;
+
+    public TabWindowViewModel()
+    {
+        PropertyChanged += (s, e) =>
+        {
+            if (e.PropertyName != nameof(SelectedTab) || SelectedTab == null) return;
+            SelectedTab.Content.RootElement.IsVisible = false;
+            SelectedTab.Content.InAnimator.Animate();
+        };
+    }
+
+    public ObservableCollection<TabEntry> Tabs { get; set; } = [];
 
     public Vector TabScrollOffset
     {
@@ -42,15 +41,7 @@ public partial class TabWindowViewModel : ViewModelBase
         set => SetField(ref _selectedTab, value);
     }
 
-    public TabWindowViewModel()
-    {
-        PropertyChanged += (s, e) =>
-        {
-            if (e.PropertyName != nameof(SelectedTab) || SelectedTab == null) return;
-            SelectedTab.Content.RootElement.IsVisible = false;
-            SelectedTab.Content.InAnimator.Animate();
-        };
-    }
+    public bool HasTabs => Tabs.Count > 0;
 
     public void CreateTab(TabEntry tab)
     {
@@ -73,10 +64,7 @@ public partial class TabWindowViewModel : ViewModelBase
             Tabs.Remove(tab);
 
             // If the removed tab was selected, select the last remaining tab (or null if no tabs left)
-            if (wasSelected)
-            {
-                SelectedTab = Tabs.LastOrDefault();
-            }
+            if (wasSelected) SelectedTab = Tabs.LastOrDefault();
 
             // Notify that tabs collection changed
             OnPropertyChanged(nameof(HasTabs));
@@ -84,15 +72,10 @@ public partial class TabWindowViewModel : ViewModelBase
         }
     }
 
-    public bool HasTabs => Tabs.Count > 0;
-
     public event Action? TabsEmptied;
 
     private void OnTabsCollectionChanged()
     {
-        if (!HasTabs)
-        {
-            TabsEmptied?.Invoke();
-        }
+        if (!HasTabs) TabsEmptied?.Invoke();
     }
 }

@@ -1,18 +1,20 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using Aurelio.Public.Classes.Entries;
 
 namespace Aurelio.Public.Langs;
 
 public sealed class LangHelper : INotifyPropertyChanged
 {
+    private MainLang _resources;
+
+    private LangHelper()
+    {
+        _resources = new MainLang();
+    }
 
 
     public static LangHelper Current { get; } = new();
-
-    private MainLang _resources;
 
     public MainLang Resources
     {
@@ -26,11 +28,6 @@ public sealed class LangHelper : INotifyPropertyChanged
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
-
-    private LangHelper()
-    {
-        _resources = new MainLang();
-    }
 
     private void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {

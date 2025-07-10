@@ -1,6 +1,7 @@
 ﻿using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
 using Aurelio.Views.Main.SubPages.SettingPages;
@@ -11,9 +12,10 @@ namespace Aurelio.Views.Main.TabPages;
 
 public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
 {
-    public PageLoadingAnimator InAnimator { get; set; }
-    private SelectionListItem _selectedItem;
     private bool _fl = true;
+
+    private bool _isAnimating;
+    private SelectionListItem _selectedItem;
 
     public SettingTabPage()
     {
@@ -23,6 +25,31 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
         BindingEvent();
     }
+
+    public SelectionListItem? SelectedItem
+    {
+        get => _selectedItem;
+        set => SetField(ref _selectedItem, value);
+    }
+
+    public LaunchPage LaunchPage { get; } = new();
+    public AccountPage AccountPage { get; } = new();
+    public PersonalizationPage PersonalizationPage { get; } = new();
+    public PageLoadingAnimator InAnimator { get; set; }
+
+    public TabEntry HostTab { get; set; }
+
+    public PageInfoEntry PageInfo { get; } = new()
+    {
+        Icon = Icon.FromMaterial(MaterialIconKind.Settings),
+        Title = MainLang.Setting
+    };
+
+    public void OnClose()
+    {
+    }
+
+    public Control RootElement { get; set; }
 
     private void BindingEvent()
     {
@@ -41,37 +68,12 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
         };
     }
 
-    public TabEntry HostTab { get; set; }
-
-    public PageInfoEntry PageInfo { get; } = new()
-    {
-       Icon = Public.Module.Ui.Icon.FromMaterial(MaterialIconKind.Settings),
-       Title = MainLang.Setting
-    };
-
-    public SelectionListItem? SelectedItem
-    {
-        get => _selectedItem;
-        set => SetField(ref _selectedItem, value);
-    }
-
-    public LaunchPage LaunchPage { get; } = new();
-    public AccountPage AccountPage { get; } = new();
-    public PersonalizationPage PersonalizationPage { get; } = new();
-
-    public void OnClose()
-    {
-    }
-
-    private bool _isAnimating = false;
     public async Task Animate()
     {
-        if(_isAnimating) return;
+        if (_isAnimating) return;
         _isAnimating = true;
         InAnimator.Animate();
         await Task.Delay(500);
         _isAnimating = false;
     }
-
-    public Control RootElement { get; set; }
 }

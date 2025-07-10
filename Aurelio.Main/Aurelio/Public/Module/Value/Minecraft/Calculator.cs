@@ -2,6 +2,7 @@ using System.IO;
 using System.Linq;
 using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Minecraft;
+using Aurelio.Public.Module.IO.Local;
 using Avalonia.Media.Imaging;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Models.Game;
@@ -33,117 +34,84 @@ public class Calculator
             }
         }
 
-        if (type == MinecraftInstanceIconType.Base64)
-        {
-            return Converter.Base64ToBitmap(entry.SettingEntry.IconData);
-        }
-        
+        if (type == MinecraftInstanceIconType.Base64) return Converter.Base64ToBitmap(entry.SettingEntry.IconData);
+
         if (type == MinecraftInstanceIconType.CraftingTable)
-        {
-            return IO.Local.Getter.LoadBitmapFromAppFile(
+            return Getter.LoadBitmapFromAppFile(
                 "Aurelio.Public.Assets.McIcons.crafting_table_front.png");
-        }
-        
+
         if (type == MinecraftInstanceIconType.Furnace)
-        {
-            return IO.Local.Getter.LoadBitmapFromAppFile(
+            return Getter.LoadBitmapFromAppFile(
                 "Aurelio.Public.Assets.McIcons.furnace_front.png");
-        }
-        
+
         if (type == MinecraftInstanceIconType.DirtPath)
-        {
-            return IO.Local.Getter.LoadBitmapFromAppFile(
+            return Getter.LoadBitmapFromAppFile(
                 "Aurelio.Public.Assets.McIcons.dirt_path_side.png");
-        }
-        
+
         if (type == MinecraftInstanceIconType.GrassBlock)
-        {
-            return IO.Local.Getter.LoadBitmapFromAppFile(
+            return Getter.LoadBitmapFromAppFile(
                 "Aurelio.Public.Assets.McIcons.grass_block_side.png");
-        }
-           
+
         if (type == MinecraftInstanceIconType.GlassBlock)
-        {
-            return IO.Local.Getter.LoadBitmapFromAppFile(
+            return Getter.LoadBitmapFromAppFile(
                 "Aurelio.Public.Assets.McIcons.OptiFineIcon.png");
-        }
-        
+
         if (type == MinecraftInstanceIconType.Quilt)
-        {
-            return IO.Local.Getter.LoadBitmapFromAppFile(
+            return Getter.LoadBitmapFromAppFile(
                 "Aurelio.Public.Assets.McIcons.QuiltIcon.png");
-        }
-        
+
         if (type == MinecraftInstanceIconType.Forge)
-        {
-            return IO.Local.Getter.LoadBitmapFromAppFile(
+            return Getter.LoadBitmapFromAppFile(
                 "Aurelio.Public.Assets.McIcons.ForgeIcon.png");
-        }
-        
+
         if (type == MinecraftInstanceIconType.Fabric)
-        {
-            return IO.Local.Getter.LoadBitmapFromAppFile(
+            return Getter.LoadBitmapFromAppFile(
                 "Aurelio.Public.Assets.McIcons.FabricIcon.png");
-        }
-        
+
         if (type == MinecraftInstanceIconType.NoeForge)
-        {
-            return IO.Local.Getter.LoadBitmapFromAppFile(
+            return Getter.LoadBitmapFromAppFile(
                 "Aurelio.Public.Assets.McIcons.NeoForgeIcon.png");
-        }
-        
+
         if (type == MinecraftInstanceIconType.OptiFine)
-        {
-            return IO.Local.Getter.LoadBitmapFromAppFile(
+            return Getter.LoadBitmapFromAppFile(
                 "Aurelio.Public.Assets.McIcons.OptiFineIcon.png");
-        }
-        
-        return IO.Local.Getter.LoadBitmapFromAppFile(
+
+        return Getter.LoadBitmapFromAppFile(
             "Aurelio.Public.Assets.McIcons.grass_block_side.png");
 
         static Bitmap GetEmbeddedIcon(RecordMinecraftEntry entry)
         {
             if (entry.MlEntry.IsVanilla)
-            {
                 return entry.MlEntry.Version.Type switch
                 {
-                    MinecraftVersionType.Release => IO.Local.Getter.LoadBitmapFromAppFile(
+                    MinecraftVersionType.Release => Getter.LoadBitmapFromAppFile(
                         "Aurelio.Public.Assets.McIcons.grass_block_side.png"),
-                    MinecraftVersionType.Snapshot => IO.Local.Getter.LoadBitmapFromAppFile(
+                    MinecraftVersionType.Snapshot => Getter.LoadBitmapFromAppFile(
                         "Aurelio.Public.Assets.McIcons.crafting_table_front.png"),
-                    _ => IO.Local.Getter.LoadBitmapFromAppFile(
+                    _ => Getter.LoadBitmapFromAppFile(
                         "Aurelio.Public.Assets.McIcons.grass_block_side.png")
                 };
-            }
 
             if (entry.MlEntry is not ModifiedMinecraftEntry e)
-                return IO.Local.Getter.LoadBitmapFromAppFile(
+                return Getter.LoadBitmapFromAppFile(
                     "Aurelio.Public.Assets.McIcons.grass_block_side.png");
             if (e.ModLoaders.Any(a => a.Type == ModLoaderType.Forge))
-            {
-                return IO.Local.Getter.LoadBitmapFromAppFile(
+                return Getter.LoadBitmapFromAppFile(
                     "Aurelio.Public.Assets.McIcons.furnace_front.png");
-            }
 
             if (e.ModLoaders.Any(a => a.Type == ModLoaderType.NeoForge))
-            {
-                return IO.Local.Getter.LoadBitmapFromAppFile(
+                return Getter.LoadBitmapFromAppFile(
                     "Aurelio.Public.Assets.McIcons.NeoForgeIcon.png");
-            }
 
             if (e.ModLoaders.Any(a => a.Type == ModLoaderType.Fabric))
-            {
-                return IO.Local.Getter.LoadBitmapFromAppFile(
+                return Getter.LoadBitmapFromAppFile(
                     "Aurelio.Public.Assets.McIcons.FabricIcon.png");
-            }
 
             if (e.ModLoaders.Any(a => a.Type == ModLoaderType.Quilt))
-            {
-                return IO.Local.Getter.LoadBitmapFromAppFile(
+                return Getter.LoadBitmapFromAppFile(
                     "Aurelio.Public.Assets.McIcons.QuiltIcon.png");
-            }
 
-            return IO.Local.Getter.LoadBitmapFromAppFile(
+            return Getter.LoadBitmapFromAppFile(
                 e.ModLoaders.Any(a => a.Type == ModLoaderType.OptiFine)
                     ? "Aurelio.Public.Assets.McIcons.OptiFineIcon.png"
                     : "Aurelio.Public.Assets.McIcons.grass_block_side.png");
@@ -169,10 +137,10 @@ public class Calculator
             MinecraftSpecialFolder.ShaderPacksFolder => Path.Combine(basePath, "shaderpacks"),
             _ => basePath
         };
-        IO.Local.Setter.TryCreateFolder(path);
+        Setter.TryCreateFolder(path);
         return path;
     }
-    
+
     public static RecordMinecraftFolderEntry? GetMinecraftFolderByEntry(MinecraftEntry entry)
     {
         return Data.SettingEntry.MinecraftFolderEntries.FirstOrDefault(x => entry.MinecraftFolderPath == x.Path);

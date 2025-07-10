@@ -10,28 +10,24 @@ using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Ui.Helper;
+using Aurelio.Public.Module.Value.Minecraft;
 using Aurelio.ViewModels;
 using Avalonia.Media.Imaging;
 using FluentAvalonia.UI.Controls;
 using Microsoft.VisualBasic.FileIO;
 using MinecraftLaunch.Base.Models.Game;
 using Newtonsoft.Json.Linq;
+using SearchOption = System.IO.SearchOption;
 
 namespace Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages;
 
 public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
 {
-    private readonly ObservableCollection<MinecraftLocalResourcePackEntry> _items = [];
-    public ObservableCollection<MinecraftLocalResourcePackEntry> FilteredItems { get; set; } = [];
     private readonly MinecraftEntry _entry;
+    private readonly ObservableCollection<MinecraftLocalResourcePackEntry> _items = [];
     private string _filter = string.Empty;
-
-    public string Filter
-    {
-        get => _filter;
-        set => SetField(ref _filter, value);
-    }
 
     public ResourcePackPage(MinecraftEntry entry)
     {
@@ -42,10 +38,7 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
         PropertyChanged += (_, e) =>
         {
-            if (e.PropertyName == nameof(Filter))
-            {
-                FilterItems();
-            }
+            if (e.PropertyName == nameof(Filter)) FilterItems();
         };
         Loaded += (_, _) => { LoadItems(); };
         DataContext = this;
@@ -54,9 +47,9 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
         SelectAllModBtn.Click += (_, _) => { ModManageList.SelectAll(); };
         OpenFolderBtn.Click += (_, _) =>
         {
-            var path = Public.Module.Value.Minecraft.Calculator.GetMinecraftSpecialFolder(_entry,
+            var path = Calculator.GetMinecraftSpecialFolder(_entry,
                 MinecraftSpecialFolder.ResourcePacksFolder);
-            Public.Module.IO.Local.Setter.TryCreateFolder(path);
+            Setter.TryCreateFolder(path);
             _ = OpenFolder(path);
         };
         DeleteSelectModBtn.Click += async (_, _) =>
@@ -78,7 +71,6 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
             {
                 var file = item as MinecraftLocalResourcePackEntry;
                 if (Data.DesktopType == DesktopType.Windows)
-                {
                     try
                     {
                         FileSystem.DeleteFile(file.Path, UIOption.AllDialogs, RecycleOption.SendToRecycleBin);
@@ -86,11 +78,8 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
                     catch (OperationCanceledException)
                     {
                     }
-                }
                 else
-                {
                     File.Delete(file.Path);
-                }
             }
 
             LoadItems();
@@ -102,14 +91,33 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
         SelectedModCount.Text = $"{MainLang.SelectedItem} 0";
     }
 
+    public ResourcePackPage()
+    {
+        InitializeComponent();
+    }
+
+    public ObservableCollection<MinecraftLocalResourcePackEntry> FilteredItems { get; set; } = [];
+
+    public string Filter
+    {
+        get => _filter;
+        set => SetField(ref _filter, value);
+    }
+
+
+    public new event PropertyChangedEventHandler? PropertyChanged;
+
+    public Control RootElement { get; set; }
+    public PageLoadingAnimator InAnimator { get; set; }
+
     private void LoadItems()
     {
         _items.Clear();
 
         var files = Directory.GetFiles(
-            Public.Module.Value.Minecraft.Calculator.GetMinecraftSpecialFolder(_entry,
+            Calculator.GetMinecraftSpecialFolder(_entry,
                 MinecraftSpecialFolder.ResourcePacksFolder)
-            , "*.*", System.IO.SearchOption.AllDirectories);
+            , "*.*", SearchOption.AllDirectories);
         foreach (var file in files)
 
             if (Path.GetExtension(file) == ".zip")
@@ -131,9 +139,6 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
         SelectedModCount.Text = $"{MainLang.SelectedItem} {ModManageList.SelectedItems.Count}";
     }
 
-
-    public new event PropertyChangedEventHandler? PropertyChanged;
-
     private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -148,10 +153,7 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
 
     public Bitmap GetIconFromZip(string zipFilePath)
     {
-        if (!File.Exists(zipFilePath))
-        {
-            return null;
-        }
+        if (!File.Exists(zipFilePath)) return null;
 
         using var archive = ZipFile.OpenRead(zipFilePath);
         foreach (var entry in archive.Entries)
@@ -177,10 +179,7 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
 
     public string GetDescriptionFromZip(string zipFilePath)
     {
-        if (!File.Exists(zipFilePath))
-        {
-            return "string.Empty";
-        }
+        if (!File.Exists(zipFilePath)) return "string.Empty";
 
         using var archive = ZipFile.OpenRead(zipFilePath);
         foreach (var entry in archive.Entries)
@@ -196,12 +195,4 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
 
         return "string.Empty";
     }
-
-    public ResourcePackPage()
-    {
-        InitializeComponent();
-    }
-
-    public Control RootElement { get; set; }
-    public PageLoadingAnimator InAnimator { get; set; }
 }

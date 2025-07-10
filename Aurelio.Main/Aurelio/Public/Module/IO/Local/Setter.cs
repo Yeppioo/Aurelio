@@ -15,15 +15,9 @@ public abstract class Setter
     public static void ClearFolder(string folderPath, string[]? ignore = null)
     {
         if (ignore != null && ignore.Contains(folderPath)) return;
-        if (!Directory.Exists(folderPath))
-        {
-            return;
-        }
+        if (!Directory.Exists(folderPath)) return;
 
-        foreach (var file in Directory.GetFiles(folderPath))
-        {
-            File.Delete(file);
-        }
+        foreach (var file in Directory.GetFiles(folderPath)) File.Delete(file);
 
         foreach (var dir in Directory.GetDirectories(folderPath))
         {

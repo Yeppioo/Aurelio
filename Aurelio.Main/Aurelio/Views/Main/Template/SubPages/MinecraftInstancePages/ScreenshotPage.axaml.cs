@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Aurelio.Public.Classes.Enum.Minecraft;
@@ -7,23 +6,19 @@ using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Controls;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Ui.Helper;
+using Aurelio.Public.Module.Value.Minecraft;
 using Aurelio.ViewModels;
 using MinecraftLaunch.Base.Models.Game;
 
 namespace Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages;
 
-public partial class ScreenshotPage : PageMixModelBase , IAurelioPage
+public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
 {
-    private readonly ObservableCollection<MinecraftLocalResourcePackEntry> _items = [];
     private readonly MinecraftEntry _entry;
+    private readonly ObservableCollection<MinecraftLocalResourcePackEntry> _items = [];
     private string _filter = string.Empty;
-
-    public string Filter
-    {
-        get => _filter;
-        set => SetField(ref _filter, value);
-    }
 
     public ScreenshotPage(MinecraftEntry entry)
     {
@@ -34,10 +29,7 @@ public partial class ScreenshotPage : PageMixModelBase , IAurelioPage
         LoadItems();
         PropertyChanged += (_, e) =>
         {
-            if (e.PropertyName == nameof(Filter))
-            {
-                FilterItems();
-            }
+            if (e.PropertyName == nameof(Filter)) FilterItems();
         };
         Loaded += (_, _) =>
         {
@@ -50,19 +42,28 @@ public partial class ScreenshotPage : PageMixModelBase , IAurelioPage
         RefreshModBtn.Click += (_, _) => { LoadItems(); };
         OpenFolderBtn.Click += (_, _) =>
         {
-            var path = Public.Module.Value.Minecraft.Calculator.GetMinecraftSpecialFolder(_entry,
+            var path = Calculator.GetMinecraftSpecialFolder(_entry,
                 MinecraftSpecialFolder.ScreenshotsFolder);
-            Public.Module.IO.Local.Setter.TryCreateFolder(path);
+            Setter.TryCreateFolder(path);
             _ = OpenFolder(path);
         };
     }
+
+    public string Filter
+    {
+        get => _filter;
+        set => SetField(ref _filter, value);
+    }
+
+    public Control RootElement { get; set; }
+    public PageLoadingAnimator InAnimator { get; set; }
 
     private void LoadItems()
     {
         _items.Clear();
 
         var files = Directory.GetFiles(
-            Public.Module.Value.Minecraft.Calculator.GetMinecraftSpecialFolder(_entry,
+            Calculator.GetMinecraftSpecialFolder(_entry,
                 MinecraftSpecialFolder.ScreenshotsFolder)
             , "*.png", SearchOption.AllDirectories);
         foreach (var file in files)
@@ -83,7 +84,4 @@ public partial class ScreenshotPage : PageMixModelBase , IAurelioPage
                 new ScreenshotEntry(mod.Name, mod.Path, LoadItems)));
         NoMatchResultTip.IsVisible = Container.Children.Count == 0;
     }
-
-    public Control RootElement { get; set; }
-    public PageLoadingAnimator InAnimator { get; set; }
 }

@@ -11,9 +11,6 @@ namespace Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages;
 
 public partial class OverViewPage : PageMixModelBase, IAurelioPage
 {
-    public RecordMinecraftEntry Entry { get; }
-    public ObservableCollection<RecordJavaRuntime> JavaRuntimes { get; } = [];
-
     public OverViewPage(RecordMinecraftEntry entry)
     {
         InitializeComponent();
@@ -23,6 +20,12 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
         BindingEvent();
     }
+
+    public RecordMinecraftEntry Entry { get; }
+    public ObservableCollection<RecordJavaRuntime> JavaRuntimes { get; } = [];
+
+    public Control RootElement { get; set; }
+    public PageLoadingAnimator InAnimator { get; set; }
 
     private void BindingEvent()
     {
@@ -36,25 +39,19 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
         Loaded += (_, _) =>
         {
             JavaRuntimes.Clear();
-            JavaRuntimes.Add(new RecordJavaRuntime()
+            JavaRuntimes.Add(new RecordJavaRuntime
             {
                 JavaVersion = "global",
-                JavaPath = MainLang.UseGlobalSetting,
+                JavaPath = MainLang.UseGlobalSetting
             });
-            foreach (var item in Data.SettingEntry.JavaRuntimes)
-            {
-                JavaRuntimes.Add(item);
-            }
+            foreach (var item in Data.SettingEntry.JavaRuntimes) JavaRuntimes.Add(item);
 
             var matchingRuntime = JavaRuntimes.FirstOrDefault(j => j == Entry.SettingEntry.JavaRuntime);
-            JavaRuntimeComboBox.SelectedItem = matchingRuntime ?? JavaRuntimes[0]; 
+            JavaRuntimeComboBox.SelectedItem = matchingRuntime ?? JavaRuntimes[0];
         };
         JavaRuntimeComboBox.SelectionChanged += (_, _) =>
-        { 
+        {
             Entry.SettingEntry.JavaRuntime = JavaRuntimeComboBox.SelectedItem as RecordJavaRuntime;
         };
     }
-
-    public Control RootElement { get; set; }
-    public PageLoadingAnimator InAnimator { get; set; }
 }

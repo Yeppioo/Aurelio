@@ -1,42 +1,20 @@
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
-using Aurelio.Public.Langs;
-using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Services;
 using Aurelio.ViewModels;
-using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Layout;
-using Avalonia.LogicalTree;
-using Avalonia.Markup.Xaml;
-using Avalonia.Media;
-using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Threading;
-using Avalonia.VisualTree;
-using CommunityToolkit.Mvvm.Input;
-using HotAvalonia;
-using Material.Icons;
 using Ursa.Controls;
 
 namespace Aurelio.Views.Main;
 
 public partial class TabWindow : UrsaWindow
 {
-    public TabWindowViewModel ViewModel { get; set; } = new();
-    public ObservableCollection<TabEntry> Tabs => ViewModel.Tabs;
-    public TabEntry? SelectedTab => ViewModel.SelectedTab;
-
     public TabWindow()
     {
 #if DEBUG
@@ -58,6 +36,10 @@ public partial class TabWindow : UrsaWindow
         // Handle automatic closing when no tabs remain
         ViewModel.TabsEmptied += OnTabsEmptied;
     }
+
+    public TabWindowViewModel ViewModel { get; set; } = new();
+    public ObservableCollection<TabEntry> Tabs => ViewModel.Tabs;
+    public TabEntry? SelectedTab => ViewModel.SelectedTab;
 
     protected override void OnLoaded(RoutedEventArgs e)
     {
@@ -138,11 +120,20 @@ public partial class TabWindow : UrsaWindow
         NavScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
     }
 
-    public void CreateTab(TabEntry tab) => ViewModel.CreateTab(tab);
+    public void CreateTab(TabEntry tab)
+    {
+        ViewModel.CreateTab(tab);
+    }
 
-    public void AddTab(TabEntry tab) => ViewModel.AddTab(tab);
+    public void AddTab(TabEntry tab)
+    {
+        ViewModel.AddTab(tab);
+    }
 
-    public void RemoveTab(TabEntry tab) => ViewModel.RemoveTab(tab);
+    public void RemoveTab(TabEntry tab)
+    {
+        ViewModel.RemoveTab(tab);
+    }
 
     private void OnTabsEmptied()
     {

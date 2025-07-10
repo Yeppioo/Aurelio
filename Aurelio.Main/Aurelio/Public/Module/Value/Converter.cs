@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 
@@ -19,7 +18,6 @@ public class Converter
             context.BeginFigure(figure.StartPoint, figure.IsFilled);
 
             foreach (var segment in figure.Segments)
-            {
                 switch (segment)
                 {
                     case LineSegment line:
@@ -33,7 +31,7 @@ public class Converter
                         context.CubicBezierTo(bezier.Point1, bezier.Point2, bezier.Point3);
                         break;
                     case PolyBezierSegment polyBezier:
-                        for (int i = 0; i < polyBezier.Points.Count; i += 3)
+                        for (var i = 0; i < polyBezier.Points.Count; i += 3)
                             context.CubicBezierTo(polyBezier.Points[i], polyBezier.Points[i + 1],
                                 polyBezier.Points[i + 2]);
                         break;
@@ -44,27 +42,23 @@ public class Converter
                         context.ArcTo(arc.Point, arc.Size, arc.RotationAngle, arc.IsLargeArc, arc.SweepDirection);
                         break;
                 }
-            }
 
             context.EndFigure(figure.IsClosed);
         }
 
         return streamGeometry;
     }
-    
+
     public static Bitmap? Base64ToBitmap(string base64)
     {
-        if (string.IsNullOrWhiteSpace(base64))
-        {
-            return null;
-        }
+        if (string.IsNullOrWhiteSpace(base64)) return null;
 
         var imageBytes = Convert.FromBase64String(base64);
         using var ms = new MemoryStream(imageBytes);
         var bitmap = new Bitmap(ms);
         return bitmap;
     }
-    
+
     public static string BytesToBase64(byte[] imageBytes)
     {
         var base64String = Convert.ToBase64String(imageBytes);

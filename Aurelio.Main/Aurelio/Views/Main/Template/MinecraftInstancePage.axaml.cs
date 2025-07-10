@@ -5,34 +5,18 @@ using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
+using Aurelio.Public.Module.Value.Minecraft;
 using Aurelio.ViewModels;
 using Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages;
 using Avalonia.Platform.Storage;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using Ursa.Controls;
 
 namespace Aurelio.Views.Main.Template;
 
 public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
 {
-    public RecordMinecraftEntry Entry { get; }
-    private SelectionListItem _selectedItem;
-
-    public SelectionListItem SelectedItem
-    {
-        get => _selectedItem;
-        set => SetField(ref _selectedItem, value);
-    }
-
     private bool _fl = true;
-    public OverViewPage OverViewPage { get; } 
-    public ModPage ModPage { get; } 
-    public SavePage SavePage { get; } 
-    public ShaderPackPage ShaderPackPage { get; } 
-    public ScreenshotPage ScreenshotPage { get; } 
-    public ResourcePackPage ResourcePackPage { get; } 
+    private SelectionListItem _selectedItem;
 
     public MinecraftInstancePage(RecordMinecraftEntry entry)
     {
@@ -54,7 +38,7 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
         };
         Loaded += (_, _) =>
         {
-            if(!_fl) return;
+            if (!_fl) return;
             _fl = false;
             SelectedItem = Nav.Items[0] as SelectionListItem;
         };
@@ -67,11 +51,20 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
         };
     }
 
-    public void OpenFolder(MinecraftSpecialFolder folder)
+    public RecordMinecraftEntry Entry { get; }
+
+    public SelectionListItem SelectedItem
     {
-        App.TopLevel.Launcher.LaunchDirectoryInfoAsync(new DirectoryInfo(
-            Public.Module.Value.Minecraft.Calculator.GetMinecraftSpecialFolder(Entry.MlEntry, folder)));
+        get => _selectedItem;
+        set => SetField(ref _selectedItem, value);
     }
+
+    public OverViewPage OverViewPage { get; }
+    public ModPage ModPage { get; }
+    public SavePage SavePage { get; }
+    public ShaderPackPage ShaderPackPage { get; }
+    public ScreenshotPage ScreenshotPage { get; }
+    public ResourcePackPage ResourcePackPage { get; }
 
     public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
@@ -80,5 +73,11 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
 
     public void OnClose()
     {
+    }
+
+    public void OpenFolder(MinecraftSpecialFolder folder)
+    {
+        App.TopLevel.Launcher.LaunchDirectoryInfoAsync(new DirectoryInfo(
+            Calculator.GetMinecraftSpecialFolder(Entry.MlEntry, folder)));
     }
 }

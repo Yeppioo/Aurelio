@@ -5,16 +5,18 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Aurelio.ViewModels;
 
-public abstract class ViewModelBase : ObservableObject , INotifyPropertyChanged , INotifyPropertyChanging
+public abstract class ViewModelBase : ObservableObject, INotifyPropertyChanged, INotifyPropertyChanging
 {
     public Data Data => Data.Instance;
     public new event PropertyChangedEventHandler? PropertyChanged;
+
+    public new event PropertyChangingEventHandler? PropertyChanging;
 
     private new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
-    
+
     private new void OnPropertyChanging([CallerMemberName] string? propertyName = null)
     {
         PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
@@ -28,6 +30,4 @@ public abstract class ViewModelBase : ObservableObject , INotifyPropertyChanged 
         OnPropertyChanged(propertyName);
         return true;
     }
-
-    public new event PropertyChangingEventHandler? PropertyChanging;
 }

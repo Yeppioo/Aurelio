@@ -40,7 +40,7 @@ public record RecordJavaRuntime
             JavaVersion = entry.JavaVersion,
             JavaPath = entry.JavaPath,
             JavaType = entry.JavaType,
-            MajorVersion = entry.MajorVersion,
+            MajorVersion = entry.MajorVersion
         };
     }
 }

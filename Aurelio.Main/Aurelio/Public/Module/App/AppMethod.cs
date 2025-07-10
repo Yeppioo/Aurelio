@@ -1,7 +1,5 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using Aurelio.Public.Const;
 using Newtonsoft.Json;
 
 namespace Aurelio.Public.Module.App;
@@ -28,10 +26,7 @@ public class AppMethod
             WorkingDirectory = Environment.CurrentDirectory,
             FileName = Process.GetCurrentProcess().MainModule.FileName
         };
-        if (isAdmin)
-        {
-            startInfo.Verb = "runas";
-        }
+        if (isAdmin) startInfo.Verb = "runas";
         Process.Start(startInfo);
         Environment.Exit(0);
     }

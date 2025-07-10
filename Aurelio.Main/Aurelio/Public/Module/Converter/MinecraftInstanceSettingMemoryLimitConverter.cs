@@ -8,7 +8,7 @@ public class MinecraftInstanceSettingMemoryLimitConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if(value is not double memoryLimit) return null;
+        if (value is not double memoryLimit) return null;
         return memoryLimit < 0 ? MainLang.UseGlobalSetting : $"{memoryLimit} Mib";
     }
 

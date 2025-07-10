@@ -1,5 +1,4 @@
 using Aurelio.Public.Classes.Enum.Minecraft;
-using Avalonia.Media.Imaging;
 using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -13,10 +12,13 @@ public class MinecraftInstanceSettingEntry : ReactiveObject
     [Reactive] [JsonProperty] public double MemoryLimit { get; set; } = -1;
     [Reactive] [JsonProperty] public int EnableIndependentMinecraft { get; set; }
     [Reactive] [JsonProperty] public string AutoJoinServerAddress { get; set; }
-    [Reactive] [JsonProperty] public RecordJavaRuntime JavaRuntime { get; set; } = new()
+
+    [Reactive]
+    [JsonProperty]
+    public RecordJavaRuntime JavaRuntime { get; set; } = new()
     {
         JavaVersion = "global"
     };
+
     [Reactive] [JsonProperty] public string IconData { get; set; }
 }
-

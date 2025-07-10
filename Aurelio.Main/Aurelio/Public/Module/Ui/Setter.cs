@@ -1,13 +1,10 @@
-﻿using System;
-using Aurelio.Public.Classes.Enum;
-using Aurelio.Public.Const;
+﻿using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Module.Value;
-using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.Styling;
 using Ursa.Controls;
+using TitleBar = Aurelio.Public.Controls.TitleBar;
 
 namespace Aurelio.Public.Module.Ui;
 
@@ -55,7 +52,7 @@ public class Setter
             window.SystemDecorations = SystemDecorations.None;
         }
 
-        window.FindControl<Controls.TitleBar>("TitleBar").IsVisible = true;
+        window.FindControl<TitleBar>("TitleBar").IsVisible = true;
         window.FindControl<Border>("Root").CornerRadius = new CornerRadius(8);
         // window.WindowState = WindowState.Maximized;
         // window.WindowState = WindowState.Normal;
@@ -67,16 +64,9 @@ public class Setter
     public static void ToggleTheme(Setting.Theme theme)
     {
         if (theme == Setting.Theme.Light)
-        {
             Application.Current.RequestedThemeVariant = ThemeVariant.Light;
-        }
         else if (theme == Setting.Theme.Dark)
-        {
             Application.Current.RequestedThemeVariant = ThemeVariant.Dark;
-        }
-        else if (theme == Setting.Theme.System)
-        {
-            Application.Current.RequestedThemeVariant = ThemeVariant.Default;
-        }
+        else if (theme == Setting.Theme.System) Application.Current.RequestedThemeVariant = ThemeVariant.Default;
     }
 }

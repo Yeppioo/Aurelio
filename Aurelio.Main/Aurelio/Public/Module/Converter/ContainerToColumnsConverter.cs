@@ -4,7 +4,7 @@ using Avalonia.Data.Converters;
 namespace Aurelio.Public.Module.Converter;
 
 /// <summary>
-/// 根据容器宽度自动计算表格列数的转换器
+///     根据容器宽度自动计算表格列数的转换器
 /// </summary>
 public class ContainerToColumnsConverter : IValueConverter
 {
@@ -22,10 +22,8 @@ public class ContainerToColumnsConverter : IValueConverter
         else if (containerWidth <= 850)
             columns = 3;
         else
-        {
             // 使用公式 y = 250X + 150 计算列数，反向求解 X = (y - 150) / 250
             columns = Math.Max(3, (int)Math.Floor((containerWidth - 150) / 250));
-        }
 
         return columns;
     }

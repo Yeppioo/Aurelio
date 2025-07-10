@@ -11,6 +11,7 @@ using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui.Helper;
+using Aurelio.Public.Module.Value.Minecraft;
 using Aurelio.ViewModels;
 using FluentAvalonia.UI.Controls;
 using Microsoft.VisualBasic.FileIO;
@@ -18,21 +19,14 @@ using MinecraftLaunch.Base.Models.Game;
 using Newtonsoft.Json.Linq;
 using Tomlyn;
 using Tomlyn.Model;
+using SearchOption = System.IO.SearchOption;
 
 namespace Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages;
 
-public partial class ModPage : PageMixModelBase , IAurelioPage
+public partial class ModPage : PageMixModelBase, IAurelioPage
 {
-    private readonly ObservableCollection<MinecraftLocalModEntry> _mods = [];
-    public ObservableCollection<MinecraftLocalModEntry> FilteredMods { get; set; } = [];
-
-    public bool IsLoading
-    {
-        get => _isLoading;
-        set => SetField(ref _isLoading, value);
-    }
-
     private readonly MinecraftEntry _entry;
+    private readonly ObservableCollection<MinecraftLocalModEntry> _mods = [];
     private string _filter = string.Empty;
     private bool _isLoading;
 
@@ -45,10 +39,7 @@ public partial class ModPage : PageMixModelBase , IAurelioPage
         LoadMods();
         PropertyChanged += (_, e) =>
         {
-            if (e.PropertyName == nameof(Filter))
-            {
-                FilterMods();
-            }
+            if (e.PropertyName == nameof(Filter)) FilterMods();
         };
         DataContext = this;
         RefreshModBtn.Click += (_, _) => { LoadMods(); };
@@ -100,13 +91,9 @@ public partial class ModPage : PageMixModelBase , IAurelioPage
             {
                 var mod = item as MinecraftLocalModEntry;
                 if (Data.DesktopType == DesktopType.Windows)
-                {
                     FileSystem.DeleteFile(mod.Path, UIOption.AllDialogs, RecycleOption.SendToRecycleBin);
-                }
                 else
-                {
                     File.Delete(mod.Path);
-                }
             }
 
             LoadMods();
@@ -118,11 +105,22 @@ public partial class ModPage : PageMixModelBase , IAurelioPage
         SelectedModCount.Text = $"{MainLang.SelectedItem} 0";
     }
 
+    public ObservableCollection<MinecraftLocalModEntry> FilteredMods { get; set; } = [];
+
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set => SetField(ref _isLoading, value);
+    }
+
     public string Filter
     {
         get => _filter;
         set => SetField(ref _filter, value);
     }
+
+    public Control RootElement { get; set; }
+    public PageLoadingAnimator InAnimator { get; set; }
 
     private async void LoadMods()
     {
@@ -131,27 +129,25 @@ public partial class ModPage : PageMixModelBase , IAurelioPage
         FilterMods();
 
         var mods = Directory.GetFiles(
-            Public.Module.Value.Minecraft.Calculator.GetMinecraftSpecialFolder(_entry, MinecraftSpecialFolder.ModsFolder)
-            , "*.*", System.IO.SearchOption.AllDirectories);
+            Calculator.GetMinecraftSpecialFolder(_entry, MinecraftSpecialFolder.ModsFolder)
+            , "*.*", SearchOption.AllDirectories);
         foreach (var mod in mods)
         {
             MinecraftLocalModEntry? localModEntry = null;
             if (Path.GetExtension(mod) == ".jar")
-            {
                 localModEntry = new MinecraftLocalModEntry
                 {
                     FileName = Path.GetFileName(mod)[..(Path.GetFileName(mod).Length - 4)],
                     IsEnable = true, Path = mod, Callback = LoadMods,
                     DisplayText = Path.GetFileName(mod)[..(Path.GetFileName(mod).Length - 4)]
                 };
-            }
 
             if (Path.GetExtension(mod) == ".disabled")
                 localModEntry = new MinecraftLocalModEntry
                 {
                     FileName = Path.GetFileName(mod)[..(Path.GetFileName(mod).Length - 13)],
                     IsEnable = false, Path = mod, Callback = LoadMods,
-                    DisplayText = Path.GetFileName(mod)[..(Path.GetFileName(mod).Length - 13)],
+                    DisplayText = Path.GetFileName(mod)[..(Path.GetFileName(mod).Length - 13)]
                 };
 
             if (localModEntry == null) continue;
@@ -171,12 +167,11 @@ public partial class ModPage : PageMixModelBase , IAurelioPage
                 localModEntry.ShouldTranslateDescription = true;
             }
             else
-                localModEntry.Description = MainLang.NoDescription;
-
-            if (_mods.All(item => item.Path != localModEntry.Path))
             {
-                _mods.Add(localModEntry);
+                localModEntry.Description = MainLang.NoDescription;
             }
+
+            if (_mods.All(item => item.Path != localModEntry.Path)) _mods.Add(localModEntry);
 
             Translate(localModEntry);
         }
@@ -196,7 +191,6 @@ public partial class ModPage : PageMixModelBase , IAurelioPage
                 if (archive.Entries.Count <= 0) return (null, null);
                 var type1 = archive.GetEntry("META-INF/mods.toml");
                 if (type1 != null)
-                {
                     try
                     {
                         await using var entryStream = type1.Open();
@@ -208,7 +202,6 @@ public partial class ModPage : PageMixModelBase , IAurelioPage
                         var result = Toml.ToModel(text);
 
                         if (result.TryGetValue("mods", out var modsObj))
-                        {
                             if (modsObj is TomlTableArray modsList)
                                 foreach (var modTable in modsList.OfType<TomlTable>())
                                 {
@@ -220,21 +213,16 @@ public partial class ModPage : PageMixModelBase , IAurelioPage
                                         : null;
                                     if (!string.IsNullOrWhiteSpace(displayName) ||
                                         !string.IsNullOrWhiteSpace(description))
-                                    {
                                         return (displayName, description);
-                                    }
                                 }
-                        }
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
                     }
-                }
 
                 var type2 = archive.GetEntry("fabric.mod.json");
                 if (type2 != null)
-                {
                     try
                     {
                         await using var entryStream = type2.Open();
@@ -253,19 +241,15 @@ public partial class ModPage : PageMixModelBase , IAurelioPage
                             : null;
                         if (!string.IsNullOrWhiteSpace(displayName) ||
                             !string.IsNullOrWhiteSpace(description))
-                        {
                             return (displayName, description);
-                        }
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
                     }
-                }
 
                 var type3 = archive.GetEntry("mcmod.info");
                 if (type3 != null)
-                {
                     try
                     {
                         await using var entryStream = type3.Open();
@@ -286,19 +270,15 @@ public partial class ModPage : PageMixModelBase , IAurelioPage
                             : null;
                         if (!string.IsNullOrWhiteSpace(displayName) ||
                             !string.IsNullOrWhiteSpace(description))
-                        {
                             return (displayName, description);
-                        }
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
                     }
-                }
 
                 var type4 = archive.GetEntry("META-INF/neoforge.mods.toml");
                 if (type4 != null)
-                {
                     try
                     {
                         await using var entryStream = type4.Open();
@@ -310,7 +290,6 @@ public partial class ModPage : PageMixModelBase , IAurelioPage
                         var result = Toml.ToModel(text);
 
                         if (result.TryGetValue("mods", out var modsObj))
-                        {
                             if (modsObj is TomlTableArray modsList)
                                 foreach (var modTable in modsList.OfType<TomlTable>())
                                 {
@@ -322,17 +301,13 @@ public partial class ModPage : PageMixModelBase , IAurelioPage
                                         : null;
                                     if (!string.IsNullOrWhiteSpace(displayName) ||
                                         !string.IsNullOrWhiteSpace(description))
-                                    {
                                         return (displayName, description);
-                                    }
                                 }
-                        }
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
                     }
-                }
 
                 return (null, null);
             }
@@ -351,15 +326,12 @@ public partial class ModPage : PageMixModelBase , IAurelioPage
         _mods.Where(item => item.DisplayText.Contains(Filter, StringComparison.OrdinalIgnoreCase))
             .ToList().OrderBy(mod => mod.IsEnable).ToList().ForEach(mod =>
             {
-                if (FilteredMods.All(item => item.Path != mod.Path))
-                {
-                    FilteredMods.Add(mod);
-                }
+                if (FilteredMods.All(item => item.Path != mod.Path)) FilteredMods.Add(mod);
             });
         NoMatchResultTip.IsVisible = FilteredMods.Count == 0 && !IsLoading;
         SelectedModCount.Text = $"{MainLang.SelectedItem} {ModManageList.SelectedItems.Count}";
     }
-    
+
     private void Translate(MinecraftLocalModEntry entry)
     {
         return;
@@ -415,7 +387,4 @@ public partial class ModPage : PageMixModelBase , IAurelioPage
             }
         });
     }
-
-    public Control RootElement { get; set; }
-    public PageLoadingAnimator InAnimator { get; set; }
 }

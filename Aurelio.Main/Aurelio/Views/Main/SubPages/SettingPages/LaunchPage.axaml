@@ -5,7 +5,6 @@
     x:Class="Aurelio.Views.Main.SubPages.SettingPages.LaunchPage"
     x:DataType="settingPages:LaunchPage"
     xmlns="https://github.com/avaloniaui"
-    xmlns:const="clr-namespace:Aurelio.Public.Const"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:minecraft="clr-namespace:Aurelio.Public.Classes.Minecraft"

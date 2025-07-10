@@ -1,12 +1,10 @@
-﻿using System.Windows.Input;
-using Aurelio.Public.Classes.Enum;
-using Avalonia;
+﻿using Aurelio.Public.Classes.Enum;
 using Avalonia.Styling;
-using CommunityToolkit.Mvvm.Input;
+using Setter = Aurelio.Public.Module.Ui.Setter;
 
 namespace Aurelio.ViewModels;
 
-public partial class MoreButtonMenuCommands
+public class MoreButtonMenuCommands
 {
     public void NewTab()
     {
@@ -20,8 +18,9 @@ public partial class MoreButtonMenuCommands
 
     public void ToggleTheme()
     {
-        Public.Module.Ui.Setter.ToggleTheme
+        Setter.ToggleTheme
         (Application.Current.ActualThemeVariant == ThemeVariant.Dark
-            ? Setting.Theme.Light : Setting.Theme.Dark);
+            ? Setting.Theme.Light
+            : Setting.Theme.Dark);
     }
 }

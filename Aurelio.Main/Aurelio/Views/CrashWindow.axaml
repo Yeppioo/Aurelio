@@ -20,18 +20,11 @@
     mc:Ignorable="d"
     x:Class="Aurelio.Views.CrashWindow"
     xmlns="https://github.com/avaloniaui"
-    xmlns:aurelio="clr-namespace:Aurelio.Public.Module.Ui"
-    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-    xmlns:behaviors="clr-namespace:Aurelio.Public.Module.Behaviors"
     xmlns:controls="clr-namespace:Aurelio.Public.Controls"
-    xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:entries="clr-namespace:Aurelio.Public.Classes.Entries"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:u="https://irihi.tech/ursa"
-    xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
-    xmlns:viewModels="clr-namespace:Aurelio.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Window.Styles>
         <Style Selector="Window">

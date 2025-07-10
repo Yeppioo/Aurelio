@@ -1,21 +1,14 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Minecraft;
-using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.IO.Local;
-using Aurelio.Public.Module.Ui;
-using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Platform.Storage;
 using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Utilities;
-using Newtonsoft.Json;
 
 namespace Aurelio.Public.Module.Op;
 
@@ -65,7 +58,6 @@ public class JavaRuntime
         try
         {
             if (Data.DesktopType is DesktopType.Linux or DesktopType.MacOs)
-            {
                 // 给Java赋予执行权限 (Linux和MacOs) 通过命令行 chmod +777
                 await Task.Run(() =>
                 {
@@ -77,7 +69,6 @@ public class JavaRuntime
                     process.Start();
                     process.WaitForExit();
                 });
-            }
 
             javaInfo = await JavaUtil.GetJavaInfoAsync(list[0]);
         }
@@ -105,9 +96,9 @@ public class JavaRuntime
 
     public static void VerifyList()
     {
-        if (!Data.SettingEntry.JavaRuntimes.Contains(new RecordJavaRuntime()
+        if (!Data.SettingEntry.JavaRuntimes.Contains(new RecordJavaRuntime
                 { JavaVersion = "auto", JavaPath = MainLang.AutoChooseRightJavaRuntime }))
-            Data.SettingEntry.JavaRuntimes.Insert(0, new RecordJavaRuntime()
+            Data.SettingEntry.JavaRuntimes.Insert(0, new RecordJavaRuntime
                 { JavaVersion = "auto", JavaPath = MainLang.AutoChooseRightJavaRuntime });
     }
 }

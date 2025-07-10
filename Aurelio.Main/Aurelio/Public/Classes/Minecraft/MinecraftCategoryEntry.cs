@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Aurelio.ViewModels;
-using MinecraftLaunch.Base.Models.Game;
 
 namespace Aurelio.Public.Classes.Minecraft;
 

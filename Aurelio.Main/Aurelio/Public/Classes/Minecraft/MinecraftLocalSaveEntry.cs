@@ -7,6 +7,7 @@ using FluentAvalonia.UI.Controls;
 using Microsoft.VisualBasic.FileIO;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Setter = Aurelio.Public.Module.IO.Local.Setter;
 
 namespace Aurelio.Public.Classes.Minecraft;
 
@@ -31,13 +32,9 @@ public class MinecraftLocalSaveEntry : ReactiveObject
         if (dialog != ContentDialogResult.Primary) return;
 
         if (Data.DesktopType == DesktopType.Windows)
-        {
             FileSystem.DeleteDirectory(Path, UIOption.AllDialogs, RecycleOption.SendToRecycleBin);
-        }
         else
-        {
             Directory.Delete(Path);
-        }
 
         Callback?.Invoke();
     }
@@ -62,7 +59,7 @@ public class MinecraftLocalSaveEntry : ReactiveObject
     public void OpenFolder()
     {
         var path = SaveInfo.FolderPath;
-        Module.IO.Local.Setter.TryCreateFolder(path);
+        Setter.TryCreateFolder(path);
         _ = Shower.OpenFolder(path);
     }
 }
@@ -74,7 +71,7 @@ public class SaveInfo
     public DateTime CreationTime { get; init; }
     public DateTime LastWriteTime { get; init; }
     public DateTime LastPlayTime { get; init; }
-    public Avalonia.Media.Imaging.Bitmap IconBitmap { get; set; }
+    public Bitmap IconBitmap { get; set; }
     public int DatFileCount { get; init; }
     public int ZipFileCount { get; init; }
     public string Version { get; init; }

@@ -13,12 +13,19 @@ public class TabDragBehavior
     private static readonly AttachedProperty<TabDragHandler?> HandlerProperty =
         AvaloniaProperty.RegisterAttached<TabDragBehavior, Control, TabDragHandler?>("Handler");
 
-    public static bool GetIsEnabled(Control control) => control.GetValue(IsEnabledProperty);
-    public static void SetIsEnabled(Control control, bool value) => control.SetValue(IsEnabledProperty, value);
-
     static TabDragBehavior()
     {
         IsEnabledProperty.Changed.Subscribe(OnIsEnabledChanged);
+    }
+
+    public static bool GetIsEnabled(Control control)
+    {
+        return control.GetValue(IsEnabledProperty);
+    }
+
+    public static void SetIsEnabled(Control control, bool value)
+    {
+        control.SetValue(IsEnabledProperty, value);
     }
 
     private static void OnIsEnabledChanged(AvaloniaPropertyChangedEventArgs<bool> args)
@@ -106,10 +113,8 @@ public class TabDragBehavior
                 }
 
                 if (_isDragging && e.Pointer.Captured == _control)
-                {
                     // Handle drag feedback and detection of drop zones
                     HandleDragMove(e);
-                }
             }
         }
 
@@ -141,20 +146,14 @@ public class TabDragBehavior
 
             // Minimal visual feedback - only opacity changes
             if (TabDragDropService.IsPointOutsideAllWindows(screenPoint))
-            {
                 // Visual feedback for detachment (creating new window)
                 _control.Opacity = 0.4;
-            }
             else if (targetWindow != null && targetWindow != window)
-            {
                 // Visual feedback for transfer to another window
                 _control.Opacity = 0.5;
-            }
             else
-            {
                 // Visual feedback for reordering within same window
                 _control.Opacity = 0.6;
-            }
         }
 
         private void HandleDrop(PointerReleasedEventArgs e)

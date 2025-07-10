@@ -1,24 +1,18 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Avalonia;
-using Avalonia.Animation;
-using Avalonia.Animation.Easings;
-using Avalonia.Controls;
+﻿using System.Threading;
 using Avalonia.Layout;
 
 namespace Aurelio.Public.Module.Ui.Helper;
 
 public class PageLoadingAnimator(Control root, Thickness margin, (double o1, double o2) opacity)
 {
-    private CancellationTokenSource _opacity;
     private CancellationTokenSource _margin;
+    private CancellationTokenSource _opacity;
 
     public async void Animate()
     {
-        if (root.IsAnimating(Visual.OpacityProperty))  _opacity.Cancel();
-        if (root.IsAnimating(Layoutable.MarginProperty))  _margin.Cancel();
-        _opacity = root.Animate<double>(Visual.OpacityProperty, opacity.o1, opacity.o2);
+        if (root.IsAnimating(Visual.OpacityProperty)) _opacity.Cancel();
+        if (root.IsAnimating(Layoutable.MarginProperty)) _margin.Cancel();
+        _opacity = root.Animate(Visual.OpacityProperty, opacity.o1, opacity.o2);
         _margin = root.Animate(Layoutable.MarginProperty,
             margin, new Thickness(0));
 
@@ -40,7 +34,7 @@ public class PageLoadingAnimator(Control root, Thickness margin, (double o1, dou
         // });
         // root.Margin = new Thickness(0);
         // root.Opacity = opacity.o2;
-        
+
         root.IsVisible = true;
     }
 }

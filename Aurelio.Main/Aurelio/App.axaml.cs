@@ -1,33 +1,33 @@
-using System;
 using System.Diagnostics;
-using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core.Plugins;
 using System.Linq;
-using Aurelio.Public.Const;
 using Aurelio.Public.Module.App.Init;
 using Aurelio.Views;
-using Avalonia.Markup.Xaml;
 using Aurelio.Views.Main;
-using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Notifications;
+using Avalonia.Data.Core.Plugins;
 using Avalonia.Threading;
+using FluentAvalonia.Core;
+using Ursa.Controls;
+using WindowNotificationManager = Ursa.Controls.WindowNotificationManager;
 
 namespace Aurelio;
 
-public partial class App : Application
+public class App : Application
 {
     public delegate void UiLoadedEventHandler(MainWindow ui);
 
-    public static MainWindow? UiRoot => (Current!.ApplicationLifetime 
+    private bool _fl = true;
+
+    public static MainWindow? UiRoot => (Current!.ApplicationLifetime
         as IClassicDesktopStyleApplicationLifetime).MainWindow as MainWindow;
+
     public static TopLevel TopLevel => TopLevel.GetTopLevel(UiRoot);
     public static event UiLoadedEventHandler UiLoaded;
-    private bool _fl = true;
 
     public override void Initialize()
     {
-        FluentAvalonia.Core.FAUISettings.SetAnimationsEnabledAtAppLevel(false);
+        FAUISettings.SetAnimationsEnabledAtAppLevel(false);
         BeforeLoadXaml.Main();
         AvaloniaXamlLoader.Load(this);
     }
@@ -40,20 +40,20 @@ public partial class App : Application
             this.AttachDevTools();
 #endif
             DisableAvaloniaDataAnnotationValidation();
-            
+
             if (!Debugger.IsAttached)
             {
                 AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
                 Dispatcher.UIThread.UnhandledException += UIThread_UnhandledException;
             }
-            
+
             var win = new MainWindow();
             desktop.MainWindow = win;
-            UiProperty.Notification = new Ursa.Controls.WindowNotificationManager(TopLevel.GetTopLevel(win));
-            UiProperty.Toast = new Ursa.Controls.WindowToastManager(TopLevel.GetTopLevel(win));
+            UiProperty.Notification = new WindowNotificationManager(TopLevel.GetTopLevel(win));
+            UiProperty.Toast = new WindowToastManager(TopLevel.GetTopLevel(win));
             win.Loaded += (_, _) =>
             {
-                if(!_fl) return;
+                if (!_fl) return;
                 AfterUiLoaded.Main();
                 UiLoaded?.Invoke(win);
                 _fl = false;
@@ -61,7 +61,7 @@ public partial class App : Application
             UiProperty.Notification.Position = NotificationPosition.BottomRight;
             UiProperty.Toast.MaxItems = 2;
         }
-        
+
         base.OnFrameworkInitializationCompleted();
     }
 
@@ -105,9 +105,6 @@ public partial class App : Application
             BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
 
         // remove each entry found
-        foreach (var plugin in dataValidationPluginsToRemove)
-        {
-            BindingPlugins.DataValidators.Remove(plugin);
-        }
+        foreach (var plugin in dataValidationPluginsToRemove) BindingPlugins.DataValidators.Remove(plugin);
     }
 }

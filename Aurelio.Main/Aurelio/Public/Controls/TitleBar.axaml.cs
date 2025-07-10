@@ -1,7 +1,4 @@
-using System;
 using Aurelio.ViewModels;
-using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
@@ -10,9 +7,16 @@ namespace Aurelio.Public.Controls;
 
 public partial class TitleBar : PageMixModelBase
 {
+    private bool _isCloseBtnExitApp;
+    private bool _isCloseBtnHideWindow;
+    private bool _isCloseBtnShow = true;
+    private bool _isMaxBtnShow = true;
+    private bool _isMinBtnShow = true;
+
+    private object _leftContent;
     // public static readonly StyledProperty<string> DataSourceProperty =
     //     AvaloniaProperty.Register<TitleBar, string>(nameof(DataSource));
-    
+
     // public string DataSource
     // {
     //     get => GetValue(DataSourceProperty);
@@ -20,15 +24,7 @@ public partial class TitleBar : PageMixModelBase
     // }
 
     private string _title;
-    private object _leftContent;
-    private bool _isCloseBtnExitApp;
-    private bool _isCloseBtnHideWindow;
-    private bool _isCloseBtnShow = true;
-    private bool _isMaxBtnShow = true;
-    private bool _isMinBtnShow = true;
 
-    public Data Data => Data.Instance;
-    
     public TitleBar()
     {
         InitializeComponent();
@@ -38,6 +34,8 @@ public partial class TitleBar : PageMixModelBase
         MinimizeButton.Click += MinimizeButton_Click;
         MoveDragArea.PointerPressed += MoveDragArea_PointerPressed;
     }
+
+    public Data Data => Data.Instance;
 
     public string Title
     {
@@ -81,6 +79,8 @@ public partial class TitleBar : PageMixModelBase
         set => SetField(ref _isMinBtnShow, value);
     }
 
+    public DateTime? lastClickTime { get; set; }
+
 
     private void MoveDragArea_PointerPressed(object? sender, PointerPressedEventArgs e)
     {
@@ -108,8 +108,6 @@ public partial class TitleBar : PageMixModelBase
             e.Handled = true;
         }
     }
-
-    public DateTime? lastClickTime { get; set; }
 
     private void MinimizeButton_Click(object? sender, RoutedEventArgs e)
     {

@@ -7,5 +7,5 @@ public enum MinecraftSpecialFolder
     SavesFolder,
     ResourcePacksFolder,
     ShaderPacksFolder,
-    ScreenshotsFolder,
+    ScreenshotsFolder
 }

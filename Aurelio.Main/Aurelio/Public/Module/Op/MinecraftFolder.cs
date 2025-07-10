@@ -1,15 +1,11 @@
 ﻿using System.IO;
-using System.Threading.Tasks;
 using Aurelio.Public.Classes.Minecraft;
-using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.IO.Local;
-using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using FluentAvalonia.UI.Controls;
-using Newtonsoft.Json;
 
 namespace Aurelio.Public.Module.Op;
 
@@ -27,19 +23,14 @@ public class MinecraftFolder
             var folder = Path.GetFileName(path);
             var parentDirectoryPath = Path.GetDirectoryName(path);
             var name = string.Empty;
-            if (parentDirectoryPath != null)
-            {
-                name = Path.GetFileName(parentDirectoryPath);
-            }
+            if (parentDirectoryPath != null) name = Path.GetFileName(parentDirectoryPath);
 
             if (folder != ".minecraft")
-            {
                 if (Directory.Exists(Path.Combine(path, ".minecraft")))
                 {
                     path = Path.Combine(path, ".minecraft");
                     name = folder;
                 }
-            }
 
             var textbox = new TextBox
             {
