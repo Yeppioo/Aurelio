@@ -3,6 +3,7 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
+using Aurelio.Public.Module.Services;
 using Aurelio.Public.Module.Services.Minecraft;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
@@ -75,6 +76,11 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
 
     public void OnClose()
     {
+        // 清理各个子页面的资源
+        ScreenshotPage?.OnClose();
+
+        // 清理图片缓存以释放内存
+        ImageCache.ClearCache();
     }
 
     public void OpenFolder(MinecraftSpecialFolder folder)

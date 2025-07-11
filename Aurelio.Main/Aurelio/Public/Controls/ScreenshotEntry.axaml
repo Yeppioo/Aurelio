@@ -1,42 +1,12 @@
-﻿<UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
-    x:Class="Aurelio.Public.Controls.ScreenshotEntry"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Border
-        Background="{DynamicResource 2xCardBackgroundColor}"
-        ClipToBounds="True"
-        CornerRadius="{DynamicResource CardCornerRadius}"
-        Cursor="Hand"
-        Margin="5"
-        Name="Root">
-        <DockPanel>
-            <DockPanel
-                DockPanel.Dock="Top"
-                HorizontalAlignment="Center"
-                Margin="5,0">
-                <SelectableTextBlock
-                    HorizontalAlignment="Stretch"
-                    Margin="5"
-                    Name="FileNameTextBlock"
-                    TextTrimming="LeadingCharacterEllipsis"
-                    VerticalAlignment="Center" />
-            </DockPanel>
-            <Border
-                ClipToBounds="True"
-                CornerRadius="{DynamicResource CardCornerRadius}"
-                HorizontalAlignment="Center"
-                Margin="10,0,10,10"
-                VerticalAlignment="Center">
-                <Image
-                    Height="135"
-                    HorizontalAlignment="Center"
-                    Name="Image" />
-            </Border>
-        </DockPanel>
-    </Border>
+﻿<UserControl d:DesignHeight="450" d:DesignWidth="800" mc:Ignorable="d" x:Class="Aurelio.Public.Controls.ScreenshotEntry" xmlns="https://github.com/avaloniaui" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="{DynamicResource 2xCardBackgroundColor}" ClipToBounds="True" CornerRadius="{DynamicResource CardCornerRadius}" Cursor="Hand" Margin="5" Name="Root">
+    <DockPanel>
+      <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="5,0">
+        <SelectableTextBlock HorizontalAlignment="Stretch" Margin="5" Name="FileNameTextBlock" TextTrimming="LeadingCharacterEllipsis" VerticalAlignment="Center" />
+      </DockPanel>
+      <Border ClipToBounds="True" CornerRadius="{DynamicResource CardCornerRadius}" HorizontalAlignment="Center" Margin="10,0,10,10" VerticalAlignment="Center" Background="#10FFFFFF" Width="240" Height="135" Name="ImageBorder">
+        <!-- 不使用 Image 控件，而是通过 Border.Background 来显示图片 -->
+      </Border>
+    </DockPanel>
+  </Border>
 </UserControl>

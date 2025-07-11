@@ -5,6 +5,7 @@
     x:Class="Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages.ScreenshotPage"
     x:DataType="minecraftInstancePages:ScreenshotPage"
     xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:minecraftInstancePages="clr-namespace:Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages"
@@ -28,7 +29,7 @@
                             Watermark="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SearchKeyword}" />
                     </DockPanel>
                 </Border>
-                <ScrollViewer Margin="0,5,0,0">
+                <ScrollViewer Margin="0,5,0,0" Name="ScrollViewer">
                     <WrapPanel
                         HorizontalAlignment="Center"
                         Margin="10,0,10,10"
@@ -45,9 +46,14 @@
             <TextBlock
                 Foreground="{DynamicResource GrayColor}"
                 HorizontalAlignment="Center"
+                IsVisible="False"
                 Margin="0,100,0,0"
                 Name="NoMatchResultTip"
                 Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.NoMatchResult}" />
+            <controls:ProgressRing
+                Height="50"
+                IsVisible="{Binding Loading}"
+                Width="50" />
         </Grid>
     </Border>
 </UserControl>
