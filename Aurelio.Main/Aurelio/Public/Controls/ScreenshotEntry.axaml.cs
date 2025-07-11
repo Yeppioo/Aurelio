@@ -18,10 +18,12 @@ public partial class ScreenshotEntry : UserControl
         _refreshAction = refreshAction;
         InitializeComponent();
         FileNameTextBlock.Text = name;
-        Image.Source = Bitmap.DecodeToHeight(new MemoryStream(File.ReadAllBytes(path)), 135);
+        var memoryStream = new MemoryStream(File.ReadAllBytes(path));
+        Image.Source = Bitmap.DecodeToHeight(memoryStream, 135);
         Root.PointerReleased += (_, _) =>
         {
-            var tab = new TabEntry(new ImageViewer(name, new Bitmap(path), path));
+            var memoryStream1 = new MemoryStream(File.ReadAllBytes(path));
+            var tab = new TabEntry(new ImageViewer(name, Bitmap.DecodeToWidth(memoryStream1,1080), path));
             if (this.GetVisualRoot() is TabWindow window)
             {
                 window.CreateTab(tab);

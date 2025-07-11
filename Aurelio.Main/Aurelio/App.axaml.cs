@@ -41,11 +41,10 @@ public class App : Application
 #endif
             DisableAvaloniaDataAnnotationValidation();
 
-            if (!Debugger.IsAttached)
-            {
-                AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-                Dispatcher.UIThread.UnhandledException += UIThread_UnhandledException;
-            }
+#if RELEASE
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            Dispatcher.UIThread.UnhandledException += UIThread_UnhandledException;
+#endif
 
             var win = new MainWindow();
             desktop.MainWindow = win;

@@ -114,7 +114,6 @@ public partial class TabEntry : ViewModelBase
     {
         DisposeContent();
         Content = null;
-        GC.Collect(2, GCCollectionMode.Aggressive, true);
     }
 
     public void DisposeContent()

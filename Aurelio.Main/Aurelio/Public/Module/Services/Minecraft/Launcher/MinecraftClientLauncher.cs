@@ -4,9 +4,13 @@ namespace Aurelio.Public.Module.Services.Minecraft.Launcher;
 
 public class MinecraftClientLauncher
 {
-    public static void Launch(RecordMinecraftEntry entry)
+    public static async Task Launch(RecordMinecraftEntry entry)
     {
-        var setting = Calculator.CalcMinecraftInstanceSetting(entry);
+        MinecraftLaunchSettingEntry setting;
+
+        
+            setting = Calculator.CalcMinecraftInstanceSetting(entry);
+    
         
         
     }

@@ -8,8 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border Name="Root">
-        <WrapPanel Margin="15,5,15,15">
+        <WrapPanel ItemSpacing="10" Margin="15,5,15,15">
             <Button Click="CreateTask_OnClick" Content="Create Task" />
+            <Button Click="BobbleNotice_OnClick" Content="Bobble Notice" />
         </WrapPanel>
     </Border>
 </UserControl>

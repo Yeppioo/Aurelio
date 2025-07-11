@@ -36,6 +36,7 @@ public partial class TitleBar : PageMixModelBase
     }
 
     public Data Data => Data.Instance;
+    public Tasking Tasking => Tasking.Instance;
 
     public string Title
     {

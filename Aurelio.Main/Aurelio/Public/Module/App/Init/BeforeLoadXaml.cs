@@ -3,6 +3,7 @@ using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App.Init.Config;
 using Aurelio.Public.Module.Ui;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using MinecraftLaunch;
 using MinecraftLaunch.Utilities;
 

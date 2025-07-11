@@ -208,4 +208,7 @@
             </Style>
         </Style>
     </Style>
+    <Style Selector=":is(u|UrsaWindow)[ExtendClientAreaToDecorationsHint=True] u|WindowToastManager">
+        <Setter Property="Margin" Value="0 40 0 0" />
+    </Style>
 </Styles>

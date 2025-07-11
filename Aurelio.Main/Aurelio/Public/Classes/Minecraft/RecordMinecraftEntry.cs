@@ -56,7 +56,7 @@ public class RecordMinecraftEntry : ReactiveObject
 
     public void Launch()
     {
-        MinecraftClientLauncher.Launch(this);
+        _ = MinecraftClientLauncher.Launch(this);
     }
 
     [Reactive] public string Id { get; set; }

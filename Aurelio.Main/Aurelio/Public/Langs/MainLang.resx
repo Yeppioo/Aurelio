@@ -1664,4 +1664,7 @@ MacOs 不支持自动更新
   <data name="TaskingTip" xml:space="preserve">
     <value>{num} 项任务运行中</value>
   </data>
+  <data name="CannotFindJavaTip" xml:space="preserve">
+    <value>此Minecraft实例(Minecraft {mcVer})需求Java {javaVer}, 但Aurelio无法匹配此Java版本,检查此设备是否安装Java {javaVer}且添加到Aurelio</value>
+  </data>
 </root>

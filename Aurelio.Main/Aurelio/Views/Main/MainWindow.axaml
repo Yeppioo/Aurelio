@@ -71,7 +71,7 @@
                                         Name="FocusInfoBorder">
                                         <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
                                             <Border
-                                                Background="{Binding Data.SettingEntry.UsingMinecraftAccount, Converter={StaticResource MinecraftAccountToColorConverter}}"
+                                                Background="{Binding Tasking.FocusInfoColor}"
                                                 CornerRadius="90"
                                                 Height="7"
                                                 HorizontalAlignment="Right"
@@ -82,7 +82,7 @@
                                                 HorizontalAlignment="Right"
                                                 Margin="7,0,5,0"
                                                 Name="UsingMinecraftAccountTextBlock"
-                                                Text="{Binding Data.SettingEntry.UsingMinecraftAccount.Name}"
+                                                Text="{Binding Tasking.FocusInfoText}"
                                                 VerticalAlignment="Center"
                                                 x:DataType="controls:TitleBar" />
                                         </StackPanel>

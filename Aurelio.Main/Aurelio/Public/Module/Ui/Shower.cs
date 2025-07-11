@@ -53,12 +53,12 @@ public abstract class Shower
         return result;
     }
 
-    public static void Notice(string msg, NotificationType type = NotificationType.Information,
-        Action? onClick = null, bool time = true, string title = "Aurelio")
+    public static void Notice(string msg, NotificationType type = NotificationType.Information, TimeSpan? time = null,
+        Action? onClick = null, bool showTime = true, string title = "Aurelio")
     {
         var showTitle = "Aurelio";
         if (!string.IsNullOrWhiteSpace(title)) showTitle = title;
-        if (time) showTitle += $" - {DateTime.Now:HH:mm:ss}";
+        if (showTime) showTitle += $" - {DateTime.Now:HH:mm:ss}";
 
         var notification = new Notification(showTitle, msg, type);
         UiProperty.NotificationCards.Insert(0, new NotificationEntry(notification, notification.Type));
@@ -66,24 +66,28 @@ public abstract class Shower
         switch (Data.SettingEntry.NoticeWay)
         {
             case Setting.NoticeWay.Bubble:
-                NotificationBubble(msg, type, onClick);
+                NotificationBubble(msg, type, time, onClick);
                 break;
             case Setting.NoticeWay.Card:
-                NotificationCard(msg, type, showTitle, onClick);
+                NotificationCard(msg, type, showTitle, time, onClick);
                 break;
         }
     }
 
-    public static void NotificationBubble(string msg, NotificationType type, Action? onClick)
+    public static void NotificationBubble(string msg, NotificationType type, TimeSpan? time = null,
+        Action? onClick = null)
     {
         var toast = new Toast(msg, type);
-        UiProperty.Toast.Show(toast, toast.Type /*, classes: ["Light"]*/, onClick: onClick);
+        UiProperty.Toast.Show(toast, toast.Type , classes: ["Light"], onClick: onClick,
+            expiration: time ?? TimeSpan.FromSeconds(3.0));
     }
 
-    public static void NotificationCard(string msg, NotificationType type, string title, Action? onClick)
+    public static void NotificationCard(string msg, NotificationType type, string title, TimeSpan? time = null,
+        Action? onClick = null)
     {
         var notification = new Notification(title, msg, type);
-        UiProperty.Notification.Show(notification, notification.Type, classes: ["Light"], onClick: onClick);
+        UiProperty.Notification.Show(notification, notification.Type, classes: ["Light"], onClick: onClick,
+            expiration: time ?? TimeSpan.FromSeconds(3.0));
     }
 
     public static void ShowShortException(string msg, Exception ex)

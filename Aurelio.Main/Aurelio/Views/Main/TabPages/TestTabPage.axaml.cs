@@ -7,6 +7,7 @@ using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Material.Icons;
@@ -37,6 +38,12 @@ public partial class DebugTabPage : PageMixModelBase, IAurelioTabPage
     {
     }
 
+    private readonly Random r = new();
+    private void BobbleNotice_OnClick(object? sender, RoutedEventArgs e)
+    {
+        NotificationBubble("Test Message", (NotificationType)r.Next(0,4), TimeSpan.FromHours(1));
+    }
+
     private void CreateTask_OnClick(object? sender, RoutedEventArgs e)
     {
         var task = Tasking.CreateTask("Test Task");
@@ -51,8 +58,16 @@ public partial class DebugTabPage : PageMixModelBase, IAurelioTabPage
         sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Finished});
         task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Error});
         task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Canceled});
+        var sub2 = new TaskEntry() { Name = "SubTask", TaskState = TaskState.Finished };
+        sub2.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Finished });
+        sub2.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Error });
+        task.SubTasks.Add(sub2);
+        var sub1 = new TaskEntry() { Name = "SubTask", TaskState = TaskState.Finished };
+        sub1.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Finished });
+        sub1.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Error });
+        sub2.SubTasks.Add(sub1);
         task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Finished});
-        task.SubTasks.Add(sub);
+        task.SubTasks.Add(sub2);
         task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting});
         task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Running});
         task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Paused});

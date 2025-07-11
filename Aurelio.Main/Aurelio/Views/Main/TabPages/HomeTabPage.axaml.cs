@@ -90,5 +90,6 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
     private void IconBorder_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     { 
         (((Border)sender).Tag as RecordMinecraftEntry)?.Launch();
+        e.Handled = true;
     }
 }

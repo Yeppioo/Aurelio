@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Aurelio.Public.Classes.Enum;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 
@@ -63,5 +64,20 @@ public class Converter
     {
         var base64String = Convert.ToBase64String(imageBytes);
         return base64String;
+    }
+
+    public static Color TaskStateToColor(TaskState state)
+    {
+        return state switch
+        {
+            TaskState.Paused => Color.Parse("#FFA500"),
+            TaskState.Canceled => Color.Parse("#FFA500"),
+            TaskState.Canceling => Color.Parse("#FFA500"),
+            TaskState.Error => Color.Parse("#ff99a4"),
+            TaskState.Finished => Color.Parse("#00FF40"),
+            TaskState.Running => Color.Parse("#35FFF6"),
+            TaskState.Waiting => Color.Parse("#FFA500"),
+            _ => (Color)Application.Current.Resources["SystemAccentColor"]!
+        };
     }
 }

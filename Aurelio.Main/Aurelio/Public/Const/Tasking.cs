@@ -1,7 +1,9 @@
 using System.Collections.ObjectModel;
+using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Minecraft;
+using Aurelio.Public.Langs;
 using Avalonia.Media;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -14,11 +16,12 @@ public class Tasking : ReactiveObject
     [Reactive] public string TaskingState { get; set; }
     [Reactive] public string FocusInfoText { get; set; }
     [Reactive] public SolidColorBrush FocusInfoColor { get; set; }
+
     public static Tasking Instance
     {
         get { return _instance ??= new Tasking(); }
     }
-    
+
     public static ObservableCollection<TaskEntry> Tasks { get; } = [];
 
     public Tasking()
@@ -29,8 +32,9 @@ public class Tasking : ReactiveObject
                 UpdateDisplay();
         };
         Tasks.CollectionChanged += (_, _) => TasksChanged();
+        UpdateDisplay();
     }
-    
+
     public static TaskEntry CreateTask(string name)
     {
         var task = new TaskEntry
@@ -41,7 +45,7 @@ public class Tasking : ReactiveObject
         Tasks.Add(task);
         return task;
     }
-    
+
     private void UpdateDisplay()
     {
         if (Tasks.Count == 0)
@@ -55,9 +59,20 @@ public class Tasking : ReactiveObject
                 _ => SolidColorBrush.Parse("#00FF40")
             };
         }
+        else if (Tasks.Count == 1)
+        {
+            FocusInfoText = Tasks[0].Name;
+            FocusInfoColor = new SolidColorBrush(Module.Value.Converter.TaskStateToColor(Tasks[0].TaskState));
+        }
+        else
+        {
+            FocusInfoText = MainLang.TaskingTip.Replace("{num}", Tasks.Count.ToString());
+            FocusInfoColor = new SolidColorBrush(Module.Value.Converter.TaskStateToColor(Tasks.Last().TaskState));
+        }
     }
 
     private void TasksChanged()
     {
+        UpdateDisplay();
     }
 }

@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Minecraft;
+using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO.Local;
 using Avalonia.Media.Imaging;
 using MinecraftLaunch.Base.Enums;
@@ -15,7 +16,7 @@ public class Calculator
 {
     public static MinecraftLaunchSettingEntry CalcMinecraftInstanceSetting(RecordMinecraftEntry entry)
     {
-        RecordJavaRuntime javaRuntime;
+        RecordJavaRuntime javaRuntime = null;
 
         if (entry.SettingEntry.JavaRuntime.JavaVersion == "global")
         {
@@ -28,22 +29,25 @@ public class Calculator
         }
         else if (entry.SettingEntry.JavaRuntime.JavaVersion == "auto")
         {
-            javaRuntime = GetCurrentJava(Data.SettingEntry.JavaRuntimes.Select(RecordJavaRuntime.AurelioToMl).ToList(),
+            javaRuntime = GetCurrentJava(
+                Data.SettingEntry.JavaRuntimes.Select(RecordJavaRuntime.AurelioToMl).ToList(),
                 entry.MlEntry);
         }
         else
         {
             javaRuntime = entry.SettingEntry.JavaRuntime;
         }
-        
-        var memoryLimit = entry.SettingEntry.MemoryLimit < 0 ? Data.SettingEntry.MemoryLimit : entry.SettingEntry.MemoryLimit;
+
+        var memoryLimit = entry.SettingEntry.MemoryLimit < 0
+            ? Data.SettingEntry.MemoryLimit
+            : entry.SettingEntry.MemoryLimit;
 
         var enableIndependentMinecraft = entry.SettingEntry.EnableIndependentMinecraft == 0
             ? Data.SettingEntry.EnableIndependentMinecraft
             : entry.SettingEntry.EnableIndependentMinecraft == 1;
-        
+
         var AutoJoinServerAddress = entry.SettingEntry.AutoJoinServerAddress;
-        
+
         return new MinecraftLaunchSettingEntry
         {
             JavaRuntime = javaRuntime,
@@ -53,21 +57,9 @@ public class Calculator
         };
     }
 
-    public static RecordJavaRuntime? GetCurrentJava(List<JavaEntry> javaEntries, MinecraftEntry game)
+    public static RecordJavaRuntime GetCurrentJava(List<JavaEntry> javaEntries, MinecraftEntry game)
     {
-        try
-        {
-            return RecordJavaRuntime.MlToAurelio(game.GetAppropriateJava(javaEntries));
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return new RecordJavaRuntime()
-            {
-                JavaPath = "error",
-                JavaVersion = e.Message,
-            };
-        }
+        return RecordJavaRuntime.MlToAurelio(game.GetAppropriateJava(javaEntries));
     }
 
     public static Bitmap GetMinecraftInstanceIcon(RecordMinecraftEntry entry)
@@ -93,7 +85,8 @@ public class Calculator
             }
         }
 
-        if (type == MinecraftInstanceIconType.Base64) return Value.Converter.Base64ToBitmap(entry.SettingEntry.IconData);
+        if (type == MinecraftInstanceIconType.Base64)
+            return Value.Converter.Base64ToBitmap(entry.SettingEntry.IconData);
 
         if (type == MinecraftInstanceIconType.CraftingTable)
             return Getter.LoadBitmapFromAppFile(
@@ -204,6 +197,4 @@ public class Calculator
     {
         return Data.SettingEntry.MinecraftFolderEntries.FirstOrDefault(x => entry.MinecraftFolderPath == x.Path);
     }
-    
-    
 }
