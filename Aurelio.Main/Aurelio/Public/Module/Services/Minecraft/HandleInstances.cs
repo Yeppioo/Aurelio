@@ -7,14 +7,13 @@ using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui.Helper;
-using Aurelio.Public.Module.Value.Minecraft;
 using DynamicData;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Components.Parser;
 
-namespace Aurelio.Public.Module.Services;
+namespace Aurelio.Public.Module.Services.Minecraft;
 
-public partial class MinecraftInstances
+public partial class HandleInstances
 {
     private static CancellationTokenSource? _cts;
 

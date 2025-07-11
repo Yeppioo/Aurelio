@@ -10,8 +10,9 @@ using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.Services.Minecraft;
 using Aurelio.Public.Module.Ui.Helper;
-using Aurelio.Public.Module.Value.Minecraft;
+using Aurelio.Public.Module.Value;
 using Aurelio.ViewModels;
 using FluentAvalonia.UI.Controls;
 using Microsoft.VisualBasic.FileIO;
@@ -19,6 +20,7 @@ using MinecraftLaunch.Base.Models.Game;
 using Newtonsoft.Json.Linq;
 using Tomlyn;
 using Tomlyn.Model;
+using Calculator = Aurelio.Public.Module.Services.Minecraft.Calculator;
 using SearchOption = System.IO.SearchOption;
 
 namespace Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages;

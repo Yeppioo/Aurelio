@@ -7,10 +7,12 @@ using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Controls;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO.Local;
+using Aurelio.Public.Module.Services.Minecraft;
 using Aurelio.Public.Module.Ui.Helper;
-using Aurelio.Public.Module.Value.Minecraft;
+using Aurelio.Public.Module.Value;
 using Aurelio.ViewModels;
 using MinecraftLaunch.Base.Models.Game;
+using Calculator = Aurelio.Public.Module.Services.Minecraft.Calculator;
 
 namespace Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages;
 

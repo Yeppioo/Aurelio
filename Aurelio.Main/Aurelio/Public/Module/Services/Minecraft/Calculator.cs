@@ -9,7 +9,7 @@ using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Extensions;
 
-namespace Aurelio.Public.Module.Value.Minecraft;
+namespace Aurelio.Public.Module.Services.Minecraft;
 
 public class Calculator
 {
@@ -93,7 +93,7 @@ public class Calculator
             }
         }
 
-        if (type == MinecraftInstanceIconType.Base64) return Converter.Base64ToBitmap(entry.SettingEntry.IconData);
+        if (type == MinecraftInstanceIconType.Base64) return Value.Converter.Base64ToBitmap(entry.SettingEntry.IconData);
 
         if (type == MinecraftInstanceIconType.CraftingTable)
             return Getter.LoadBitmapFromAppFile(
@@ -204,4 +204,6 @@ public class Calculator
     {
         return Data.SettingEntry.MinecraftFolderEntries.FirstOrDefault(x => entry.MinecraftFolderPath == x.Path);
     }
+    
+    
 }

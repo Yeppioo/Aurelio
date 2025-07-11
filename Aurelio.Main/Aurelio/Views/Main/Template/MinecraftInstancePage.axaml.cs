@@ -3,13 +3,15 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
+using Aurelio.Public.Module.Services.Minecraft;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
-using Aurelio.Public.Module.Value.Minecraft;
+using Aurelio.Public.Module.Value;
 using Aurelio.ViewModels;
 using Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages;
 using Avalonia.Platform.Storage;
 using Ursa.Controls;
+using Calculator = Aurelio.Public.Module.Services.Minecraft.Calculator;
 
 namespace Aurelio.Views.Main.Template;
 
