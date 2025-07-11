@@ -28,6 +28,7 @@
                 <ResourceInclude Source="/Public/Styles/Suki/MenuFlyoutPresenter.axaml" />
                 <ResourceInclude Source="/Public/Styles/Suki/MenuItem.axaml" />
                 <ResourceInclude Source="/Public/Styles/Override/SplitButton.axaml" />
+                <ResourceInclude Source="/Public/Styles/Override/Drawer.axaml" />
             </ResourceDictionary.MergedDictionaries>
             <Color x:Key="SystemAccentColor">#1BD76A</Color>
             <Color x:Key="SystemAccentColorLight1">#1BD76A</Color>

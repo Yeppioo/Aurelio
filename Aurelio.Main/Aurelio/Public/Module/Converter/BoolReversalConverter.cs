@@ -5,12 +5,15 @@ using Avalonia.Data.Converters;
 
 namespace Aurelio.Public.Module.Converter;
 
-public class BoolReversalConverter : IMultiValueConverter
+public class BoolReversalConverter : IValueConverter
 {
-    public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (values.FirstOrDefault() is bool b) return !b;
+        return !(bool)(value ?? true);
+    }
 
-        return false;
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        return !(bool)(value ?? true);
     }
 }

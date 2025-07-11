@@ -1658,4 +1658,10 @@ MacOs 不支持自动更新
     <data name="EnabledFilePicker" xml:space="preserve">
     <value>启用文件选择器</value>
   </data>
+  <data name="TaskingState" xml:space="preserve">
+    <value>任务状态</value>
+  </data>
+  <data name="TaskingTip" xml:space="preserve">
+    <value>{num} 项任务运行中</value>
+  </data>
 </root>

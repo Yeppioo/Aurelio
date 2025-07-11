@@ -4057,6 +4057,24 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 任务状态.
+        /// </summary>
+        public static string TaskingState {
+            get {
+                return ResourceManager.GetString("TaskingState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {num} 项任务运行中.
+        /// </summary>
+        public static string TaskingTip {
+            get {
+                return ResourceManager.GetString("TaskingTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 已存在此项目.
         /// </summary>
         public static string TheItemAlreadyExist {

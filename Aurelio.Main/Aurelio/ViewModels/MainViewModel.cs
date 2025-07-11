@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Views.Main.TabPages;
 
 namespace Aurelio.ViewModels;
@@ -26,6 +27,8 @@ public class MainViewModel : ViewModelBase
     public ObservableCollection<TabEntry> Tabs { get; set; } = [];
     public HomeTabPage HomeTabPage { get; set; } = new();
     public SettingTabPage SettingTabPage { get; set; } = new();
+    public DebugTabPage DebugTabPage { get; set; } = new();
+
 
     public Vector TabScrollOffset
     {

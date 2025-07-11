@@ -1,0 +1,243 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:iri="https://irihi.tech/shared"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="u:CustomDrawerControl" x:Key="{x:Type u:CustomDrawerControl}">
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="MinWidth" Value="96" />
+        <Setter Property="MinHeight" Value="96" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="Padding" Value="{DynamicResource DrawerMargin}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource DrawerBorderThickness}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource DrawerCornerRadius}" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="u:CustomDrawerControl">
+                <Panel>
+                    <Border
+                        Background="{DynamicResource SemiColorBackground2}"
+                        BorderThickness="{TemplateBinding BorderThickness,
+                                                          Converter={iri:ThicknessMixerConverter Left}}"
+                        Classes="Shadow"
+                        ClipToBounds="False"
+                        CornerRadius="{TemplateBinding CornerRadius,
+                                                       Converter={iri:CornerRadiusMixerConverter Left}}"
+                        Focusable="True"
+                        HorizontalAlignment="Stretch"
+                        IsHitTestVisible="True"
+                        Margin="{TemplateBinding Padding,
+                                                 Converter={iri:ThicknessMixerConverter Left}}"
+                        Name="PART_Root"
+                        Padding="0"
+                        Theme="{DynamicResource CardBorder}"
+                        VerticalAlignment="Stretch">
+                        <Border ClipToBounds="True" CornerRadius="{Binding #PART_Root.CornerRadius}">
+                            <Grid RowDefinitions="Auto, *">
+                                <ScrollViewer
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    HorizontalScrollBarVisibility="{Binding (ScrollViewer.HorizontalScrollBarVisibility), RelativeSource={RelativeSource TemplatedParent}}"
+                                    VerticalScrollBarVisibility="{Binding (ScrollViewer.VerticalScrollBarVisibility), RelativeSource={RelativeSource TemplatedParent}}">
+                                    <ContentPresenter Content="{TemplateBinding Content}" Name="PART_ContentPresenter" />
+                                </ScrollViewer>
+                                <Grid ColumnDefinitions="*, Auto" Grid.Row="0">
+                                    <Panel
+                                        Background="Transparent"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        Name="{x:Static u:DialogControlBase.PART_TitleArea}" />
+                                    <Button
+                                        DockPanel.Dock="Right"
+                                        Grid.Column="1"
+                                        Margin="0,24,24,0"
+                                        Name="{x:Static u:MessageBoxWindow.PART_CloseButton}"
+                                        Theme="{DynamicResource OverlayCloseButton}" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <u:DialogResizer IsVisible="{TemplateBinding CanResize}" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^[Position=Right] /template/ Border#PART_Root">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Left}}" />
+            <Setter Property="CornerRadius" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CornerRadius, Converter={iri:CornerRadiusMixerConverter Left}}" />
+            <Setter Property="BorderThickness" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={iri:ThicknessMixerConverter Left}}" />
+        </Style>
+        <Style Selector="^[Position=Left] /template/ Border#PART_Root">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Right}}" />
+            <Setter Property="CornerRadius" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CornerRadius, Converter={iri:CornerRadiusMixerConverter Right}}" />
+            <Setter Property="BorderThickness" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={iri:ThicknessMixerConverter Right}}" />
+        </Style>
+        <Style Selector="^[Position=Top] /template/ Border#PART_Root">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Bottom}}" />
+            <Setter Property="CornerRadius" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CornerRadius, Converter={iri:CornerRadiusMixerConverter Bottom}}" />
+            <Setter Property="BorderThickness" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={iri:ThicknessMixerConverter Bottom}}" />
+        </Style>
+        <Style Selector="^[Position=Bottom] /template/ Border#PART_Root">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Top}}" />
+            <Setter Property="CornerRadius" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CornerRadius, Converter={iri:CornerRadiusMixerConverter Top}}" />
+            <Setter Property="BorderThickness" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={iri:ThicknessMixerConverter Top}}" />
+        </Style>
+        <Style Selector="^[Position=Top] /template/ u|DialogResizer">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Bottom}}" />
+            <Setter Property="ResizeDirection" Value="Bottom" />
+        </Style>
+        <Style Selector="^[Position=Bottom] /template/ u|DialogResizer">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Top}}" />
+            <Setter Property="ResizeDirection" Value="Top" />
+        </Style>
+        <Style Selector="^[Position=Left] /template/ u|DialogResizer">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Right}}" />
+            <Setter Property="ResizeDirection" Value="Right" />
+        </Style>
+        <Style Selector="^[Position=Right] /template/ u|DialogResizer">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Left}}" />
+            <Setter Property="ResizeDirection" Value="Left" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme TargetType="u:DefaultDrawerControl" x:Key="{x:Type u:DefaultDrawerControl}">
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="MinWidth" Value="96" />
+        <Setter Property="MinHeight" Value="96" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="Padding" Value="{DynamicResource DrawerMargin}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource DrawerBorderThickness}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource DrawerCornerRadius}" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="u:DefaultDrawerControl">
+                <Panel>
+                    <Border
+                        Background="{DynamicResource SemiColorBackground2}"
+                        BorderThickness="{TemplateBinding BorderThickness,
+                                                          Converter={iri:ThicknessMixerConverter Left}}"
+                        Classes="Shadow"
+                        ClipToBounds="False"
+                        CornerRadius="{TemplateBinding CornerRadius,
+                                                       Converter={iri:CornerRadiusMixerConverter Left}}"
+                        Focusable="True"
+                        HorizontalAlignment="Stretch"
+                        IsHitTestVisible="True"
+                        Margin="{TemplateBinding Padding,
+                                                 Converter={iri:ThicknessMixerConverter Left}}"
+                        Name="PART_Root"
+                        Padding="0"
+                        Theme="{DynamicResource CardBorder}"
+                        VerticalAlignment="Stretch">
+                        <Border ClipToBounds="True" CornerRadius="{Binding #PART_Root.CornerRadius}">
+                            <Grid RowDefinitions="Auto, *, Auto">
+                                <ScrollViewer
+                                    Grid.Row="1"
+                                    HorizontalScrollBarVisibility="{Binding (ScrollViewer.HorizontalScrollBarVisibility), RelativeSource={RelativeSource TemplatedParent}}"
+                                    VerticalScrollBarVisibility="{Binding (ScrollViewer.VerticalScrollBarVisibility), RelativeSource={RelativeSource TemplatedParent}}">
+                                    <ContentPresenter
+                                        ClipToBounds="True"
+                                        Content="{TemplateBinding Content}"
+                                        CornerRadius="{DynamicResource CardCornerRadius}"
+                                        Margin="0,5,0,-15"
+                                        Name="PART_ContentPresenter" />
+                                </ScrollViewer>
+                                <Grid ColumnDefinitions=" *, Auto" Grid.Row="0">
+                                    <TextBlock
+                                        FontSize="16"
+                                        FontWeight="{DynamicResource TextBlockTitleFontWeight}"
+                                        Grid.Column="0"
+                                        IsHitTestVisible="False"
+                                        IsVisible="{TemplateBinding Title,
+                                                                    Converter={x:Static ObjectConverters.IsNotNull}}"
+                                        Margin="24,24,0,0"
+                                        Name="PART_Title"
+                                        Text="{TemplateBinding Title}"
+                                        TextWrapping="Wrap"
+                                        VerticalAlignment="Center" />
+                                    <Button
+                                        DockPanel.Dock="Right"
+                                        Grid.Column="1"
+                                        Margin="0,24,24,0"
+                                        Name="{x:Static u:DrawerControlBase.PART_CloseButton}"
+                                        Theme="{DynamicResource OverlayCloseButton}" />
+                                </Grid>
+                                <StackPanel
+                                    Grid.Row="2"
+                                    HorizontalAlignment="Right"
+                                    Margin="24,0,24,24"
+                                    Orientation="Horizontal">
+                                    <Button Margin="8,0,0,0" Name="{x:Static u:DefaultDialogControl.PART_CancelButton}" />
+                                    <Button Margin="8,0,0,0" Name="{x:Static u:DefaultDialogControl.PART_NoButton}" />
+                                    <Button Margin="8,0,0,0" Name="{x:Static u:DefaultDialogControl.PART_YesButton}" />
+                                    <Button Margin="8,0,0,0" Name="{x:Static u:DefaultDialogControl.PART_OKButton}" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <u:DialogResizer IsVisible="{TemplateBinding CanResize}" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^ /template/ Button#PART_CancelButton">
+            <Setter Property="Grid.Column" Value="0" />
+            <Setter Property="iri:ClassHelper.Classes" Value="Tertiary" />
+            <Setter Property="Content" Value="{DynamicResource STRING_MENU_DIALOG_CANCEL}" />
+        </Style>
+        <Style Selector="^ /template/ Button#PART_NoButton">
+            <Setter Property="Grid.Column" Value="1" />
+            <Setter Property="iri:ClassHelper.Classes" Value="Danger" />
+            <Setter Property="Content" Value="{DynamicResource STRING_MENU_DIALOG_NO}" />
+            <Setter Property="Theme" Value="{DynamicResource SolidButton}" />
+        </Style>
+        <Style Selector="^ /template/ Button#PART_YesButton">
+            <Setter Property="Grid.Column" Value="2" />
+            <Setter Property="iri:ClassHelper.Classes" Value="Primary" />
+            <Setter Property="Content" Value="{DynamicResource STRING_MENU_DIALOG_YES}" />
+            <Setter Property="Theme" Value="{DynamicResource SolidButton}" />
+        </Style>
+        <Style Selector="^ /template/ Button#PART_OKButton">
+            <Setter Property="Grid.Column" Value="3" />
+            <Setter Property="iri:ClassHelper.Classes" Value="Primary" />
+            <Setter Property="Content" Value="{DynamicResource STRING_MENU_DIALOG_OK}" />
+            <Setter Property="Theme" Value="{DynamicResource SolidButton}" />
+        </Style>
+        <Style Selector="^[Position=Right] /template/ Border#PART_Root">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Left}}" />
+            <Setter Property="CornerRadius" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CornerRadius, Converter={iri:CornerRadiusMixerConverter Left}}" />
+            <Setter Property="BorderThickness" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={iri:ThicknessMixerConverter Left}}" />
+        </Style>
+        <Style Selector="^[Position=Left] /template/ Border#PART_Root">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Right}}" />
+            <Setter Property="CornerRadius" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CornerRadius, Converter={iri:CornerRadiusMixerConverter Right}}" />
+            <Setter Property="BorderThickness" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={iri:ThicknessMixerConverter Right}}" />
+        </Style>
+        <Style Selector="^[Position=Top] /template/ Border#PART_Root">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Bottom}}" />
+            <Setter Property="CornerRadius" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CornerRadius, Converter={iri:CornerRadiusMixerConverter Bottom}}" />
+            <Setter Property="BorderThickness" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={iri:ThicknessMixerConverter Bottom}}" />
+        </Style>
+        <Style Selector="^[Position=Bottom] /template/ Border#PART_Root">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Top}}" />
+            <Setter Property="CornerRadius" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CornerRadius, Converter={iri:CornerRadiusMixerConverter Top}}" />
+            <Setter Property="BorderThickness" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={iri:ThicknessMixerConverter Top}}" />
+        </Style>
+        <Style Selector="^[Position=Top] /template/ u|DialogResizer">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Bottom}}" />
+            <Setter Property="ResizeDirection" Value="Bottom" />
+        </Style>
+        <Style Selector="^[Position=Bottom] /template/ u|DialogResizer">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Top}}" />
+            <Setter Property="ResizeDirection" Value="Top" />
+        </Style>
+        <Style Selector="^[Position=Left] /template/ u|DialogResizer">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Right}}" />
+            <Setter Property="ResizeDirection" Value="Right" />
+        </Style>
+        <Style Selector="^[Position=Right] /template/ u|DialogResizer">
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding, Converter={iri:ThicknessMixerConverter Left}}" />
+            <Setter Property="ResizeDirection" Value="Left" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

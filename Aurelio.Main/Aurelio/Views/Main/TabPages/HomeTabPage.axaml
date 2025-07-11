@@ -130,12 +130,6 @@
                                             <Expander.Header>
                                                 <DockPanel>
                                                     <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
-                                                    <Border
-                                                        Background="{DynamicResource SystemAccentColor}"
-                                                        CornerRadius="10"
-                                                        Height="4"
-                                                        Margin="15,0,0,0"
-                                                        VerticalAlignment="Center" />
                                                 </DockPanel>
                                             </Expander.Header>
                                             <Border HorizontalAlignment="Stretch" Margin="10">

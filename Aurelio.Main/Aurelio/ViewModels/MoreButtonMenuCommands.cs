@@ -1,4 +1,6 @@
-﻿using Aurelio.Public.Classes.Enum;
+﻿using System.Linq;
+using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Classes.Enum;
 using Avalonia.Styling;
 using Setter = Aurelio.Public.Module.Ui.Setter;
 
@@ -22,5 +24,29 @@ public class MoreButtonMenuCommands
         (Application.Current.ActualThemeVariant == ThemeVariant.Dark
             ? Setting.Theme.Light
             : Setting.Theme.Dark);
+    }
+
+    public void DebugTab()
+    {
+        var existingTab = App.UiRoot.Tabs.FirstOrDefault(x => x.Tag == "debug");
+
+        if (existingTab == null)
+        {
+            var newTab = new TabEntry(App.UiRoot.ViewModel.DebugTabPage)
+            {
+                Tag = "debug"
+            };
+            App.UiRoot.Tabs.Add(newTab);
+            App.UiRoot.ViewModel.SelectedTab = newTab;
+        }
+        else
+        {
+            if (App.UiRoot.SelectedTab == existingTab)
+            {
+                _ = App.UiRoot.ViewModel.SettingTabPage.Animate();
+                return;
+            }
+            App.UiRoot.ViewModel.SelectedTab = existingTab;
+        }
     }
 }

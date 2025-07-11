@@ -65,7 +65,10 @@
                             Name="TitleBar">
                             <controls:TitleBar.LeftContent>
                                 <StackPanel Name="TitleBarContainer" Orientation="Horizontal">
-                                    <Border>
+                                    <Border
+                                        Background="{DynamicResource WindowBackgroundColor}"
+                                        Cursor="Hand"
+                                        Name="FocusInfoBorder">
                                         <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
                                             <Border
                                                 Background="{Binding Data.SettingEntry.UsingMinecraftAccount, Converter={StaticResource MinecraftAccountToColorConverter}}"

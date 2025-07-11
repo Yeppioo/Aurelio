@@ -2,14 +2,20 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Services;
 using Aurelio.ViewModels;
+using Aurelio.Views.Main.Drawer;
+using Aurelio.Views.Main.Template;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using HotAvalonia;
 using Ursa.Controls;
+using Ursa.Controls.Options;
 
 namespace Aurelio.Views.Main;
 
@@ -24,14 +30,10 @@ public partial class MainWindow : UrsaWindow
 #endif
         DataContext = ViewModel;
         NewTabButton.DataContext = ViewModel;
-        BindEvents();
-
-        // Register with drag service
         TabDragDropService.RegisterWindow(this);
-
-        // Handle window closing
         Closing += OnMainWindowClosing;
 #if RELEASE
+        BindEvents();
         InitTitleBar();
 #endif
     }
@@ -104,18 +106,35 @@ public partial class MainWindow : UrsaWindow
         };
     }
 
+#if DEBUG
+    [AvaloniaHotReload]
+#endif
     private void BindEvents()
     {
         NavScrollViewer.ScrollChanged += (_, _) => { ViewModel.IsTabMaskVisible = NavScrollViewer.Offset.X > 0; };
-        // Loaded += (_, _) =>
-        // {
-        //     RenderOptions.SetTextRenderingMode(this, TextRenderingMode.SubpixelAntialias); // 字体渲染模式
-        //     RenderOptions.SetBitmapInterpolationMode(this, BitmapInterpolationMode.MediumQuality); // 图片渲染模式
-        //     RenderOptions.SetEdgeMode(this, EdgeMode.Antialias); // 形状渲染模式
-        // };
+        Loaded += (_, _) =>
+        {
+            RenderOptions.SetTextRenderingMode(this, TextRenderingMode.SubpixelAntialias); // 字体渲染模式
+            RenderOptions.SetBitmapInterpolationMode(this, BitmapInterpolationMode.MediumQuality); // 图片渲染模式
+            RenderOptions.SetEdgeMode(this, EdgeMode.Antialias); // 形状渲染模式
+        };
         TitleBarContainer.SizeChanged += (_, _) =>
         {
             NavRoot.Margin = new Thickness(80, 0, TitleBarContainer.Bounds.Width + 85, 0);
+        };
+        FocusInfoBorder.PointerPressed += async (_, _) =>
+        {
+            var options = new DrawerOptions
+            {
+                Position = Ursa.Common.Position.Right,
+                Buttons = DialogButton.None,
+                CanLightDismiss = true,
+                IsCloseButtonVisible = true,
+                MinWidth = 420,
+                Title = MainLang.TaskingState,
+                CanResize = true,
+            };
+            await Ursa.Controls.Drawer.ShowModal<TaskCenterDrawer, Tasking>(Tasking.Instance, null, options);
         };
     }
 
