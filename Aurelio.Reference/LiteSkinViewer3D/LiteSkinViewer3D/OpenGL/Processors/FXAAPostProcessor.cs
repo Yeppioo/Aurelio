@@ -142,9 +142,6 @@ public sealed class FXAAPostProcessor : IDisposable {
         gl.BindVertexArray(_vao);
         gl.BindBuffer(gl.GL_ARRAY_BUFFER, _vbo);
         fixed (float* ptr = quadVertices) {
-            //2104565832352
-            Debug.WriteLine(new nint(ptr));
-            Debug.WriteLine(quadVertices.Length * sizeof(float));
             gl.BufferData(gl.GL_ARRAY_BUFFER, quadVertices.Length * sizeof(float), new(ptr), gl.GL_STATIC_DRAW);
         }
 

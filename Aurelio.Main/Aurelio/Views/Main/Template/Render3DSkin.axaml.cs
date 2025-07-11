@@ -52,6 +52,10 @@ public partial class Render3DSkin : UserControl, IAurelioTabPage
 
     public void OnClose()
     {
+        skinViewer.IsVisible = false;
+        skinViewer.PointerMoved -= SkinViewer_PointerMoved;
+        skinViewer.PointerPressed -= SkinViewer_PointerPressed;
+        skinViewer.PointerReleased -= SkinViewer_PointerReleased;
     }
 
     private void SkinViewer_PointerReleased(object? sender, PointerReleasedEventArgs e)

@@ -153,10 +153,9 @@
                                                                 Height="68"
                                                                 Margin="5"
                                                                 Name="MinecraftCardBorder"
-                                                                PointerReleased="IconBorder_OnPointerReleased"
+                                                                PointerReleased="MinecraftCardBorder_OnPointerReleased"
                                                                 Tag="{Binding}">
                                                                 <Border.Styles>
-
                                                                     <Style Selector="Border#MinecraftCardBorder:not(:pointerover)">
                                                                         <Style Selector="^ Image">
                                                                             <Setter Property="IsVisible" Value="True" />
@@ -186,6 +185,8 @@
                                                                         Height="48"
                                                                         Margin="10,0"
                                                                         Name="IconBorder"
+                                                                        PointerReleased="IconBorder_OnPointerReleased"
+                                                                        Tag="{Binding}"
                                                                         Width="48">
                                                                         <Border.Transitions>
                                                                             <Transitions>

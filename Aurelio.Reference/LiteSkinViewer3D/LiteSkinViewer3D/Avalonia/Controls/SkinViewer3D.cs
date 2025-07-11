@@ -207,7 +207,7 @@ public sealed class SkinViewer3D : OpenGlControlBase, ICustomHitTest {
             CheckError(gl);
         }
 
-        if (IsEnableAnimation && IsVisible && Opacity != 0 && Skin != null)
+        if (IsEnableAnimation && IsVisible && Opacity > 0 && Skin != null)
             RequestNextFrameRendering();
     }
 

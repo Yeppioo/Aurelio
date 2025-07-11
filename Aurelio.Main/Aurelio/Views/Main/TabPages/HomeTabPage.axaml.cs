@@ -76,7 +76,7 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
         };
     }
 
-    private void IconBorder_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+    private void MinecraftCardBorder_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
         if (((Border)sender).Tag is not RecordMinecraftEntry entry) return;
         var tab = new TabEntry(new MinecraftInstancePage(entry));
@@ -84,5 +84,10 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
             window.CreateTab(tab);
         else
             App.UiRoot.CreateTab(tab);
+    }
+
+    private void IconBorder_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+    { 
+        (((Border)sender).Tag as RecordMinecraftEntry)?.Launch();
     }
 }

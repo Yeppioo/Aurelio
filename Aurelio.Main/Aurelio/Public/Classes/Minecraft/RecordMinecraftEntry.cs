@@ -5,6 +5,7 @@ using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module;
 using Aurelio.Public.Module.IO.Local;
+using Aurelio.Public.Module.Services;
 using Aurelio.Public.Module.Value.Minecraft;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
@@ -50,6 +51,11 @@ public class RecordMinecraftEntry : ReactiveObject
 
             _debouncer.Trigger();
         };
+    }
+
+    public void Launch()
+    {
+        MinecraftClientLaunchService.Launch(this);
     }
 
     [Reactive] public string Id { get; set; }

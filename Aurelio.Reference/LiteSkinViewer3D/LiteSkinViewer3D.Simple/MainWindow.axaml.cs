@@ -24,6 +24,8 @@ public partial class MainWindow : Window {
         skinViewer.PointerMoved += SkinViewer_PointerMoved;
         skinViewer.PointerPressed += SkinViewer_PointerPressed;
         skinViewer.PointerReleased += SkinViewer_PointerReleased;
+
+        PART_SkinTextBox.Text = "C:\\Users\\wxysd\\Desktop\\skin.png";
     }
 
     private void OnPART_DoubleRenderCheckBoxIsCheckedChanged(object? sender, RoutedEventArgs e) {

@@ -1,4 +1,5 @@
-﻿using LiteSkinViewer3D.Shared.Enums;
+﻿using LiteSkinViewer3D.Shared.Animations;
+using LiteSkinViewer3D.Shared.Enums;
 
 namespace LiteSkinViewer3D.Shared.Interfaces;
 

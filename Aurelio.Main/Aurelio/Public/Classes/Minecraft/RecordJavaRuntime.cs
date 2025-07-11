@@ -32,7 +32,7 @@ public record RecordJavaRuntime
         };
     }
 
-    public static JavaEntry AurelioToMl(JavaEntry entry)
+    public static JavaEntry AurelioToMl(RecordJavaRuntime entry)
     {
         return new JavaEntry
         {

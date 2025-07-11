@@ -335,7 +335,7 @@ public abstract class SkinViewerBase {
                 Matrix4x4.CreateRotationZ(GetRot(_skinAnimationController.State.Head, HeadRotate).Z / 360f) *
                 Matrix4x4.CreateRotationX(GetRot(_skinAnimationController.State.Head, HeadRotate).X / 360f) *
                 Matrix4x4.CreateRotationY(GetRot(_skinAnimationController.State.Head, HeadRotate).Y / 360f) *
-                Matrix4x4.CreateTranslation(_skinAnimationController.State.BodyTranslation),
+                Matrix4x4.CreateTranslation(_skinAnimationController.State.HeadTranslation),
 
             ModelComponent.Body =>
                 Matrix4x4.CreateTranslation(_skinAnimationController.State.BodyTranslation) *

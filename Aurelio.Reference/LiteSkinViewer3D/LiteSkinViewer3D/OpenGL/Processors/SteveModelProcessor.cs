@@ -9,8 +9,9 @@ internal sealed class SteveModelProcessor : IDisposable {
     private readonly OpenGLApi gl;
     private readonly int shaderProgram;
 
-    public SteveModelBindings TopVAO { get; } = new();
-    public SteveModelBindings NormalVAO { get; } = new();
+    public SteveModelBindings BaseVAO { get; } = new();
+    public SteveModelBindings OverlayVAO { get; } = new();
+
     public int DrawIndexCount { get; private set; }
 
     public SteveModelProcessor(OpenGLApi gl, int shaderProgram) {
@@ -19,8 +20,8 @@ internal sealed class SteveModelProcessor : IDisposable {
     }
 
     public void Initialize(SkinType type) {
-        InitVAO(NormalVAO);
-        InitVAO(TopVAO);
+        InitVAO(BaseVAO);
+        InitVAO(OverlayVAO);
         Load(type);
     }
 
@@ -41,28 +42,29 @@ internal sealed class SteveModelProcessor : IDisposable {
     }
 
     public unsafe void Load(SkinType type) {
-        var model = SteveModelFactory.CreateBaseModel(type);
-        var top = SteveModelFactory.CreateOverlayModel(type);
-        var tex = SteveTextureBuilder.GetSteveTexture(type);
-        var textop = SteveTextureBuilder.GetSteveTextureTop(type);
+        var baseModel = SteveModelFactory.CreateBaseModel(type);
+        var baseTexture = SteveTextureBuilder.GetSteveTexture(type);
+        var overlayModel = SteveModelFactory.CreateOverlayModel(type);
+        var overlayTexture = SteveTextureBuilder.GetSteveTextureTop(type);
 
-        DrawIndexCount = model.Head.Indices.Length;
+        DrawIndexCount = baseModel.Head.Indices.Length;
 
-        PutVAO(NormalVAO.Head, model.Head, tex.Head);
-        PutVAO(NormalVAO.Body, model.Body, tex.Body);
-        PutVAO(NormalVAO.LeftArm, model.LeftArm, tex.LeftArm);
-        PutVAO(NormalVAO.RightArm, model.RightArm, tex.RightArm);
-        PutVAO(NormalVAO.LeftLeg, model.LeftLeg, tex.LeftLeg);
-        PutVAO(NormalVAO.RightLeg, model.RightLeg, tex.RightLeg);
-        PutVAO(NormalVAO.Cape, model.Cape!, tex.Cape!);
+        PutVAO(BaseVAO.Head, baseModel.Head, baseTexture.Head);
+        PutVAO(BaseVAO.Body, baseModel.Body, baseTexture.Body);
+        PutVAO(BaseVAO.LeftArm, baseModel.LeftArm, baseTexture.LeftArm);
+        PutVAO(BaseVAO.RightArm, baseModel.RightArm, baseTexture.RightArm);
+        PutVAO(BaseVAO.LeftLeg, baseModel.LeftLeg, baseTexture.LeftLeg);
+        PutVAO(BaseVAO.RightLeg, baseModel.RightLeg, baseTexture.RightLeg);
+        if (baseModel.Cape != null && baseTexture.Cape != null)
+            PutVAO(BaseVAO.Cape, baseModel.Cape, baseTexture.Cape);
 
-        PutVAO(TopVAO.Head, top.Head, textop.Head);
+        PutVAO(OverlayVAO.Head, overlayModel.Head, overlayTexture.Head);
         if (type != SkinType.Legacy) {
-            PutVAO(TopVAO.Body, top.Body, textop.Body);
-            PutVAO(TopVAO.LeftArm, top.LeftArm, textop.LeftArm);
-            PutVAO(TopVAO.RightArm, top.RightArm, textop.RightArm);
-            PutVAO(TopVAO.LeftLeg, top.LeftLeg, textop.LeftLeg);
-            PutVAO(TopVAO.RightLeg, top.RightLeg, textop.RightLeg);
+            PutVAO(OverlayVAO.Body, overlayModel.Body, overlayTexture.Body);
+            PutVAO(OverlayVAO.LeftArm, overlayModel.LeftArm, overlayTexture.LeftArm);
+            PutVAO(OverlayVAO.RightArm, overlayModel.RightArm, overlayTexture.RightArm);
+            PutVAO(OverlayVAO.LeftLeg, overlayModel.LeftLeg, overlayTexture.LeftLeg);
+            PutVAO(OverlayVAO.RightLeg, overlayModel.RightLeg, overlayTexture.RightLeg);
         }
     }
 
@@ -78,11 +80,11 @@ internal sealed class SteveModelProcessor : IDisposable {
         var vertices = new VertexDataGL[vertexCount];
 
         for (int i = 0; i < vertexCount; i++) {
-            int mi = i * 3, ui = i * 2;
+            int vi = i * 3, ui = i * 2;
             vertices[i] = new VertexDataGL {
+                Position = new(model.Vertices[vi], model.Vertices[vi + 1], model.Vertices[vi + 2]),
                 UV = new(uv[ui], uv[ui + 1]),
-                Position = new(model.Vertices[mi], model.Vertices[mi + 1], model.Vertices[mi + 2]),
-                Normal = new(Cube.Vertices[mi], Cube.Vertices[mi + 1], Cube.Vertices[mi + 2])
+                Normal = new(Cube.Vertices[vi], Cube.Vertices[vi + 1], Cube.Vertices[vi + 2])
             };
         }
 
@@ -108,8 +110,8 @@ internal sealed class SteveModelProcessor : IDisposable {
     }
 
     public void Dispose() {
-        DeleteVAO(NormalVAO);
-        DeleteVAO(TopVAO);
+        DeleteVAO(BaseVAO);
+        DeleteVAO(OverlayVAO);
     }
 
     private void DeleteVAO(SteveModelBindings smb) {
