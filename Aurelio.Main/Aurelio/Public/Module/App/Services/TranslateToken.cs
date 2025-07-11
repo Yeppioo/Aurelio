@@ -1,6 +1,6 @@
 using System.Net.Http;
 
-namespace Aurelio.Public.Module.App.Init.Services;
+namespace Aurelio.Public.Module.App.Services;
 
 public class TranslateToken
 {

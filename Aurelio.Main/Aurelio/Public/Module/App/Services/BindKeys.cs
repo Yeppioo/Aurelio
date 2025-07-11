@@ -2,7 +2,7 @@
 using Avalonia.Input;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Aurelio.Public.Module.App.Init.Services;
+namespace Aurelio.Public.Module.App.Services;
 
 public class BindKeys
 {

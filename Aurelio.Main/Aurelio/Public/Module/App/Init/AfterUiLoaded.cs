@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Aurelio.Public.Module.App.Init.Services;
+using Aurelio.Public.Module.App.Services;
 using Aurelio.Public.Module.Services;
 using Aurelio.Public.Module.Ui;
 using Avalonia.Media;
@@ -18,5 +18,6 @@ public abstract class AfterUiLoaded
         _ = MinecraftInstances.Load(Data.SettingEntry.MinecraftFolderEntries.Select(x => x.Path).ToArray());
         Setter.SetAccentColor(Color.Parse("#1BD76A"));
         _ = TranslateToken.RefreshToken();
+        LoopGC.BeginLoop();
     }
 }
