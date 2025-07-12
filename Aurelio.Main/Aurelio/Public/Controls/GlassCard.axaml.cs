@@ -90,27 +90,27 @@ public class GlassCard : ContentControl
             b.Loaded += (sender, args) =>
             {
                 var v = ElementComposition.GetElementVisual(b);
-                CompositionAnimationHelper.MakeOpacityAnimated(v);
+                CompositionAnimationHelper.MakeOpacityAnimated(v!);
             };
 
             var b2 = e.NameScope.Get<Border>("PART_BorderCard");
             b2.Loaded += (sender, args) =>
             {
                 var v = ElementComposition.GetElementVisual(b2);
-                CompositionAnimationHelper.MakeSizeAnimated(v);
+                CompositionAnimationHelper.MakeSizeAnimated(v!);
             };
 
             var b3 = e.NameScope.Get<Border>("PART_ClipBorder");
             b3.Loaded += (sender, args) =>
             {
                 var v = ElementComposition.GetElementVisual(b3);
-                CompositionAnimationHelper.MakeSizeAnimated(v);
+                CompositionAnimationHelper.MakeSizeAnimated(v!);
             };
         }
     }
 
 
-    private void ContextMenuOnOpening(object sender, CancelEventArgs e)
+    private void ContextMenuOnOpening(object? sender, CancelEventArgs e)
     {
         PseudoClasses.Set(":pointerdown", false);
     }

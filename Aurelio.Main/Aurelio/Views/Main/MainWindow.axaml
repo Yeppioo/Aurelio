@@ -23,7 +23,6 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:behavior="clr-namespace:Aurelio.Public.Module.Behavior"
     xmlns:controls="clr-namespace:Aurelio.Public.Controls"
-    xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:entries="clr-namespace:Aurelio.Public.Classes.Entries"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"

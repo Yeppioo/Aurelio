@@ -41,6 +41,10 @@ public partial class Render3DSkin : UserControl, IAurelioTabPage
         skinViewer.PointerReleased += SkinViewer_PointerReleased;
     }
 
+    public Render3DSkin()
+    {
+    }
+
     public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
     public TabEntry HostTab { get; set; }

@@ -35,6 +35,10 @@ public partial class ScreenshotEntry : UserControl, IDisposable
         Root.PointerReleased += OnImageClick;
     }
 
+    public ScreenshotEntry()
+    {
+    }
+
 
     /// <summary>
     ///     释放资源

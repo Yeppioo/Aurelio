@@ -29,6 +29,10 @@ public partial class CrashWindow : UrsaWindow
         Activate();
     }
 
+    public CrashWindow()
+    {
+    }
+
     public sealed override void Show()
     {
         base.Show();

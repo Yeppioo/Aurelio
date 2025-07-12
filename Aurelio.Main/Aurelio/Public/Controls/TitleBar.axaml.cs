@@ -35,7 +35,7 @@ public partial class TitleBar : PageMixModelBase
         MoveDragArea.PointerPressed += MoveDragArea_PointerPressed;
     }
 
-    public Data Data => Data.Instance;
+    public new Data Data => Data.Instance;
     public Tasking Tasking => Tasking.Instance;
 
     public string Title

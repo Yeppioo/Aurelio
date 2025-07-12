@@ -81,6 +81,10 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
         SelectedModCount.Text = $"{MainLang.SelectedItem} 0";
     }
 
+    public SavePage()
+    {
+    }
+
     public ObservableCollection<MinecraftLocalSaveEntry> FilteredItems { get; set; } = [];
 
     public string Filter

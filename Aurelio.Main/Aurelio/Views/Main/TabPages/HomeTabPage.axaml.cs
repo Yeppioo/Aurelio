@@ -29,7 +29,7 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
         BindingEvent();
     }
 
-    public static Data Data => Data.Instance;
+    public new static Data Data => Data.Instance;
 
     public string SearchText
     {

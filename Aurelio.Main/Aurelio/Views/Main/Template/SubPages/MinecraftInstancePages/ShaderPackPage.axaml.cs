@@ -84,6 +84,10 @@ public partial class ShaderPackPage : PageMixModelBase, IAurelioPage
         SelectedModCount.Text = $"{MainLang.SelectedItem} 0";
     }
 
+    public ShaderPackPage()
+    {
+    }
+
     public ObservableCollection<MinecraftLocalResourcePackEntry> FilteredItems { get; set; } = [];
 
     public string Filter

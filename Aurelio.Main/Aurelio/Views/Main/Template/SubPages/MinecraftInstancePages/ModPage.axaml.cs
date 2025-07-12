@@ -2,8 +2,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Enum.Minecraft;
@@ -105,6 +103,65 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
         SelectedModCount.Text = $"{MainLang.SelectedItem} 0";
     }
 
+    // private void Translate(MinecraftLocalModEntry entry)
+    // {
+    // if (string.IsNullOrWhiteSpace(Data.TranslateToken)) return;
+    // _ = Task.Run(async () =>
+    // {
+    //     if (!entry.ShouldTranslateInfoName) return;
+    //     try
+    //     {
+    //         var handler = new HttpClientHandler();
+    //         handler.ServerCertificateCustomValidationCallback =
+    //             (_, _, _, _) => true;
+    //         using var client = new HttpClient(handler);
+    //         client.DefaultRequestHeaders.Add("Authorization", Data.TranslateToken);
+    //         var response =
+    //             await client.PostAsync(
+    //                 $"https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to={Data.SettingEntry.Language.Code}&textType=plain",
+    //                 new StringContent($"[{{\"Text\": \"{entry.ModInfoName}\"}}]", Encoding.UTF8,
+    //                     "application/json"));
+    //         var responseContent = await response.Content.ReadAsStringAsync();
+    //         var translatedText =
+    //             ((JObject)JArray.Parse(responseContent)[0]["translations"][0])["text"].ToString();
+    //         entry.DisplayText = $"{translatedText} - {entry.ModInfoName} - {entry.FileName}";
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         Console.WriteLine(e);
+    //     }
+    // });
+    // _ = Task.Run(async () =>
+    // {
+    //     if (!entry.ShouldTranslateDescription) return;
+    //     try
+    //     {
+    //         var handler = new HttpClientHandler();
+    //         handler.ServerCertificateCustomValidationCallback =
+    //             (_, _, _, _) => true;
+    //         using var client = new HttpClient(handler);
+    //         client.DefaultRequestHeaders.Add("Authorization", Data.TranslateToken);
+    //         var response =
+    //             await client.PostAsync(
+    //                 $"https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to={Data.SettingEntry.Language.Code}&textType=plain",
+    //                 new StringContent($"[{{\"Text\": \"{entry.ModInfoName}\"}}]", Encoding.UTF8,
+    //                     "application/json"));
+    //         var responseContent = await response.Content.ReadAsStringAsync();
+    //         var translatedText =
+    //             ((JObject)JArray.Parse(responseContent)[0]["translations"][0])["text"].ToString();
+    //         entry.Description = translatedText.Trim();
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         Console.WriteLine(e);
+    //     }
+    // });
+    // }
+
+    public ModPage()
+    {
+    }
+
     public ObservableCollection<MinecraftLocalModEntry> FilteredMods { get; set; } = [];
 
     public bool IsLoading
@@ -173,7 +230,7 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
 
             if (_mods.All(item => item.Path != localModEntry.Path)) _mods.Add(localModEntry);
 
-            Translate(localModEntry);
+            // Translate(localModEntry);
         }
 
         IsLoading = false;
@@ -330,61 +387,5 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
             });
         NoMatchResultTip.IsVisible = FilteredMods.Count == 0 && !IsLoading;
         SelectedModCount.Text = $"{MainLang.SelectedItem} {ModManageList.SelectedItems.Count}";
-    }
-
-    private void Translate(MinecraftLocalModEntry entry)
-    {
-        return;
-        if (string.IsNullOrWhiteSpace(Data.TranslateToken)) return;
-        _ = Task.Run(async () =>
-        {
-            if (!entry.ShouldTranslateInfoName) return;
-            try
-            {
-                var handler = new HttpClientHandler();
-                handler.ServerCertificateCustomValidationCallback =
-                    (_, _, _, _) => true;
-                using var client = new HttpClient(handler);
-                client.DefaultRequestHeaders.Add("Authorization", Data.TranslateToken);
-                var response =
-                    await client.PostAsync(
-                        $"https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to={Data.SettingEntry.Language.Code}&textType=plain",
-                        new StringContent($"[{{\"Text\": \"{entry.ModInfoName}\"}}]", Encoding.UTF8,
-                            "application/json"));
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var translatedText =
-                    ((JObject)JArray.Parse(responseContent)[0]["translations"][0])["text"].ToString();
-                entry.DisplayText = $"{translatedText} - {entry.ModInfoName} - {entry.FileName}";
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        });
-        _ = Task.Run(async () =>
-        {
-            if (!entry.ShouldTranslateDescription) return;
-            try
-            {
-                var handler = new HttpClientHandler();
-                handler.ServerCertificateCustomValidationCallback =
-                    (_, _, _, _) => true;
-                using var client = new HttpClient(handler);
-                client.DefaultRequestHeaders.Add("Authorization", Data.TranslateToken);
-                var response =
-                    await client.PostAsync(
-                        $"https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to={Data.SettingEntry.Language.Code}&textType=plain",
-                        new StringContent($"[{{\"Text\": \"{entry.ModInfoName}\"}}]", Encoding.UTF8,
-                            "application/json"));
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var translatedText =
-                    ((JObject)JArray.Parse(responseContent)[0]["translations"][0])["text"].ToString();
-                entry.Description = translatedText.Trim();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        });
     }
 }

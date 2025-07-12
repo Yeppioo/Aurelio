@@ -19,7 +19,7 @@ public partial class LaunchPage : PageMixModelBase, IAurelioPage
         BindingEvent();
     }
 
-    public static Data Data => Data.Instance;
+    public new static Data Data => Data.Instance;
     public PageLoadingAnimator OutAnimator { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
 

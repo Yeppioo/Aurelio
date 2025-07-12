@@ -31,10 +31,6 @@ public class BlurBackground : Control
             PlatformTransparencyCompensationLevel = 0
         }.ToImmutable();
 
-    public static SKBlendMode blendmodedark = SKBlendMode.Clear;
-
-    private static SKShader s_acrylicNoiseShader;
-
     static BlurBackground()
     {
         AffectsRender<BlurBackground>(MaterialProperty);
@@ -94,56 +90,52 @@ public class BlurBackground : Control
                 (int)Math.Ceiling(_bounds.Width),
                 (int)Math.Ceiling(_bounds.Height), SKImageInfo.PlatformColorType, SKAlphaType.Premul));
             using (var filter = SKImageFilter.CreateBlur(3, 3))
-            using (var blurPaint = new SKPaint
-                   {
-                       Shader = backdropShader,
-                       ImageFilter = filter
-                   })
+            using (var blurPaint = new SKPaint())
             {
+                blurPaint.Shader = backdropShader;
+                blurPaint.ImageFilter = filter;
                 blurred.Canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, blurPaint);
             }
 
             using (var blurSnap = blurred.Snapshot())
             using (var blurSnapShader = SKShader.CreateImage(blurSnap))
             {
-                using var blurSnapPaint = new SKPaint
-                {
-                    Shader = blurSnapShader,
-                    IsAntialias = false
-                };
+                using var blurSnapPaint = new SKPaint();
+                blurSnapPaint.Shader = blurSnapShader;
+                blurSnapPaint.IsAntialias = false;
 
                 canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, blurSnapPaint);
             }
 
-            return;
+            // return;
 
-            using var acrylliPaint = new SKPaint();
-            acrylliPaint.IsAntialias = true;
-
-            const double noiseOpacity = 0.01;
-
-            var tintColor = _material.TintColor;
-            var tint = new SKColor(tintColor.R, tintColor.G, tintColor.B, tintColor.A);
-
-            if (s_acrylicNoiseShader == null)
-            {
-                using var stream =
-                    typeof(SkiaPlatform).Assembly.GetManifestResourceStream(
-                        "Avalonia.Skia.Assets.NoiseAsset_256X256_PNG.png");
-                using var bitmap = SKBitmap.Decode(stream);
-                s_acrylicNoiseShader = SKShader.CreateBitmap(bitmap, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp)
-                    .WithColorFilter(CreateAlphaColorFilter(noiseOpacity));
-            }
-
-            using var backdrop = SKShader.CreateColor(new SKColor(_material.MaterialColor.R, _material.MaterialColor.G,
-                _material.MaterialColor.B, _material.MaterialColor.A));
-            using var tintShader = SKShader.CreateColor(tint);
-            using var effectiveTint = SKShader.CreateCompose(backdrop, tintShader);
-            using var compose = SKShader.CreateCompose(effectiveTint, s_acrylicNoiseShader);
-            acrylliPaint.Shader = compose;
-            acrylliPaint.IsAntialias = true;
-
-            canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, acrylliPaint);
+            // using var acrylliPaint = new SKPaint();
+            // acrylliPaint.IsAntialias = true;
+            //
+            // const double noiseOpacity = 0.01;
+            //
+            // var tintColor = _material.TintColor;
+            // var tint = new SKColor(tintColor.R, tintColor.G, tintColor.B, tintColor.A);
+            //
+            // if (s_acrylicNoiseShader == null)
+            // {
+            //     using var stream =
+            //         typeof(SkiaPlatform).Assembly.GetManifestResourceStream(
+            //             "Avalonia.Skia.Assets.NoiseAsset_256X256_PNG.png");
+            //     using var bitmap = SKBitmap.Decode(stream);
+            //     s_acrylicNoiseShader = SKShader.CreateBitmap(bitmap, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp)
+            //         .WithColorFilter(CreateAlphaColorFilter(noiseOpacity));
+            // }
+            //
+            // using var backdrop = SKShader.CreateColor(new SKColor(_material.MaterialColor.R, _material.MaterialColor.G,
+            //     _material.MaterialColor.B, _material.MaterialColor.A));
+            // using var tintShader = SKShader.CreateColor(tint);
+            // using var effectiveTint = SKShader.CreateCompose(backdrop, tintShader);
+            // using var compose = SKShader.CreateCompose(effectiveTint, s_acrylicNoiseShader);
+            // acrylliPaint.Shader = compose;
+            // acrylliPaint.IsAntialias = true;
+            //
+            // canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, acrylliPaint);
         }
 
         public Rect Bounds => _bounds.Inflate(4);
@@ -153,19 +145,19 @@ public class BlurBackground : Control
             return other is BlurBehindRenderOperation op && op._bounds == _bounds && op._material.Equals(_material);
         }
 
-        private static SKColorFilter CreateAlphaColorFilter(double opacity)
-        {
-            if (opacity > 1)
-                opacity = 1;
-            var c = new byte[256];
-            var a = new byte[256];
-            for (var i = 0; i < 256; i++)
-            {
-                c[i] = (byte)i;
-                a[i] = (byte)(i * opacity);
-            }
-
-            return SKColorFilter.CreateTable(a, c, c, c);
-        }
+        // private static SKColorFilter CreateAlphaColorFilter(double opacity)
+        // {
+        //     if (opacity > 1)
+        //         opacity = 1;
+        //     var c = new byte[256];
+        //     var a = new byte[256];
+        //     for (var i = 0; i < 256; i++)
+        //     {
+        //         c[i] = (byte)i;
+        //         a[i] = (byte)(i * opacity);
+        //     }
+        //
+        //     return SKColorFilter.CreateTable(a, c, c, c);
+        // }
     }
 }

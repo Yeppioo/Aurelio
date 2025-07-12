@@ -15,7 +15,7 @@ public partial class PersonalizationPage : PageMixModelBase, IAurelioPage
         BindingEvent();
     }
 
-    public static Data Data => Data.Instance;
+    public new static Data Data => Data.Instance;
     public PageLoadingAnimator InAnimator { get; set; }
     public Control RootElement { get; set; }
 

@@ -45,6 +45,10 @@ public partial class ImageViewer : PageMixModelBase, IAurelioTabPage
         if (Data.DesktopType != DesktopType.Windows) CopyButton.IsVisible = false;
     }
 
+    public ImageViewer()
+    {
+    }
+
     public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
     public TabEntry HostTab { get; set; }
@@ -56,11 +60,13 @@ public partial class ImageViewer : PageMixModelBase, IAurelioTabPage
 
     private void OpenFolder(object? sender, RoutedEventArgs e)
     {
-        _ = Shower.OpenFolder(Path.GetDirectoryName(_path));
+        if (_path == null) return;
+        _ = Shower.OpenFolder(Path.GetDirectoryName(_path)!);
     }
 
     private void OpenFile(object? sender, RoutedEventArgs e)
     {
+        if (_path == null) return;
         var launcher = TopLevel.GetTopLevel(this).Launcher;
         launcher.LaunchFileInfoAsync(new FileInfo(_path));
     }
@@ -68,7 +74,7 @@ public partial class ImageViewer : PageMixModelBase, IAurelioTabPage
     private async void Copy(object? sender, RoutedEventArgs e)
     {
         // var clipboard = TopLevel.GetTopLevel(this).Clipboard;
-
+        if (_path == null) return;
         if (Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop ||
             desktop.MainWindow?.Clipboard is not { } clipboard || desktop.MainWindow?.StorageProvider is not
                 { } storageProvider)

@@ -15,7 +15,6 @@ public class SukiEaseInBackOutBack : Easing
 
     public override double Ease(double progress)
     {
-        var Pi = Math.PI;
         var c1 = BounceIntensity switch
         {
             EasingIntensity.Soft => 0.9,

@@ -52,6 +52,10 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
         };
     }
 
+    public MinecraftInstancePage()
+    {
+    }
+
     public RecordMinecraftEntry Entry { get; }
 
     public SelectionListItem SelectedItem

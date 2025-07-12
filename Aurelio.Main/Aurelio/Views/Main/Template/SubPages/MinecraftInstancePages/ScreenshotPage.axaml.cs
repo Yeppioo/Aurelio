@@ -67,6 +67,10 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
         };
     }
 
+    public ScreenshotPage()
+    {
+    }
+
     public string Filter
     {
         get => _filter;

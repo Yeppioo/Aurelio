@@ -21,6 +21,10 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
         BindingEvent();
     }
 
+    public OverViewPage()
+    {
+    }
+
     public RecordMinecraftEntry Entry { get; }
     public ObservableCollection<RecordJavaRuntime> JavaRuntimes { get; } = [];
 
