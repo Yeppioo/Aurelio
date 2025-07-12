@@ -50,14 +50,13 @@ public class Converter
         return streamGeometry;
     }
 
-    public static Bitmap? Base64ToBitmap(string base64)
+    public static Bitmap? Base64ToBitmap(string base64, int width = -1)
     {
         if (string.IsNullOrWhiteSpace(base64)) return null;
 
         var imageBytes = Convert.FromBase64String(base64);
         using var ms = new MemoryStream(imageBytes);
-        var bitmap = new Bitmap(ms);
-        return bitmap;
+        return width == -1 ? new Bitmap(ms) : Bitmap.DecodeToWidth(ms, width);
     }
 
     public static string BytesToBase64(byte[] imageBytes)

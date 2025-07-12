@@ -26,7 +26,7 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
         BindingEvent();
         PageInfo = new PageInfoEntry
         {
-            Icon = Icons.FromMaterial(MaterialIconKind.Settings),
+            Icon = 
             Title = MainLang.Setting
         };
     }

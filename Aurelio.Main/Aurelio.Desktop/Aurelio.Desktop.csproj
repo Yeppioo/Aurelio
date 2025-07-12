@@ -1,68 +1,69 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <!--If you are willing to use Windows/MacOS native APIs you will need to create 3 projects.
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <!--If you are willing to use Windows/MacOS native APIs you will need to create 3 projects.
         One for Windows with net8.0-windows TFM, one for MacOS with net8.0-macos and one with net8.0 TFM for Linux.-->
-        <TargetFramework>net8.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-    </PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+  </PropertyGroup>
 
-    <PropertyGroup>
-        <ApplicationManifest>app.manifest</ApplicationManifest>
-        <ApplicationIcon>Icon.ico</ApplicationIcon>
-        <Title>Aurelio</Title>
-        <Authors>Yeppioo</Authors>
-        <Description>Aurelio | Yeppioo | aurelio.yeppioo.vip</Description>
-        <Copyright>Aurelio | Yeppioo | aurelio.yeppioo.vip</Copyright>
-        <PackageProjectUrl>aurelio.yeppioo.vip</PackageProjectUrl>
-        <PackageIcon>Icon.Border.png</PackageIcon>
-        <PackageReadmeFile>Readme.md</PackageReadmeFile>
-        <RepositoryUrl>https://github.com/Yeppioo/Aurelio/</RepositoryUrl>
-        <PackageTags>Aurelio;Yeppioo;aurelio.yeppioo.vip</PackageTags>
-        <PackageReleaseNotes>Aurelio | Yeppioo | aurelio.yeppioo.vip</PackageReleaseNotes>
-        <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-        <CFBundleName>Aurelio</CFBundleName>
-        <CFBundleDisplayName>Aurelio</CFBundleDisplayName>
-        <CFBundleIdentifier>vip.yeppioo.aurelio</CFBundleIdentifier>
-        <CFBundleVersion>1.0.0</CFBundleVersion>
-        <CFBundlePackageType>AAPL</CFBundlePackageType>
-        <CFBundleSignature>Aurelio</CFBundleSignature>
-        <CFBundleExecutable>Aurelio.Desktop</CFBundleExecutable>
-        <CFBundleIconFile>Icon-Border.icns</CFBundleIconFile>
-        <CFBundleShortVersionString>1.0</CFBundleShortVersionString>
-        <NSPrincipalClass>NSApplication</NSPrincipalClass>
-        <NSHighResolutionCapable>true</NSHighResolutionCapable>
-    </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <Title>Aurelio</Title>
+    <Authors>Yeppioo</Authors>
+    <Description>Aurelio | Yeppioo | aurelio.yeppioo.vip</Description>
+    <Copyright>Aurelio | Yeppioo | aurelio.yeppioo.vip</Copyright>
+    <PackageProjectUrl>aurelio.yeppioo.vip</PackageProjectUrl>
+    <PackageIcon>Icon.Border.png</PackageIcon>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Yeppioo/Aurelio/</RepositoryUrl>
+    <PackageTags>Aurelio;Yeppioo;aurelio.yeppioo.vip</PackageTags>
+    <PackageReleaseNotes>Aurelio | Yeppioo | aurelio.yeppioo.vip</PackageReleaseNotes>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <CFBundleName>Aurelio</CFBundleName>
+    <CFBundleDisplayName>Aurelio</CFBundleDisplayName>
+    <CFBundleIdentifier>vip.yeppioo.aurelio</CFBundleIdentifier>
+    <CFBundleVersion>1.0.0</CFBundleVersion>
+    <CFBundlePackageType>AAPL</CFBundlePackageType>
+    <CFBundleSignature>Aurelio</CFBundleSignature>
+    <CFBundleExecutable>Aurelio.Desktop</CFBundleExecutable>
+    <CFBundleIconFile>Icon.Border.icns</CFBundleIconFile>
+    <CFBundleShortVersionString>1.0</CFBundleShortVersionString>
+    <NSPrincipalClass>NSApplication</NSPrincipalClass>
+    <NSHighResolutionCapable>true</NSHighResolutionCapable>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <Content Include="Icon.ico" />
-    </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icon.ico" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <None Include="..\..\Assets\Icon.Border.png">
-        <Pack>True</Pack>
-        <PackagePath>\</PackagePath>
-      </None>
-      <None Include="..\..\Readme.md">
-        <Pack>True</Pack>
-        <PackagePath>\</PackagePath>
-      </None>
-    </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Assets\Icon.Border.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\Readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Avalonia.Desktop" Version="11.3.2" />
-        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Include="Avalonia.Diagnostics" Version="11.3.2">
-            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
-            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="Dotnet.Bundle" Version="0.9.13" />
-        <!--        <PackageReference Include="Avalonia.Markup.Xaml.Loader" Version="11.3.2"/>-->
-        <!--    <PackageReference Include="HotAvalonia" PrivateAssets="All" Publish="True" />-->
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.2" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.3.2">
+      <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+      <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Dotnet.Bundle" Version="0.9.13" />
+    <PackageReference Remove="Avalonia.Markup.Xaml.Loader" />
+    <!--        <PackageReference Include="Avalonia.Markup.Xaml.Loader" Version="11.3.2"/>-->
+    <!--    <PackageReference Include="HotAvalonia" PrivateAssets="All" Publish="True" />-->
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\Aurelio\Aurelio.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aurelio\Aurelio.csproj" />
+  </ItemGroup>
 </Project>
