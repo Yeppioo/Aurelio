@@ -2,8 +2,6 @@ name: formal-publish
 
 on:
   workflow_dispatch:
-  push:
-    branches: ["main"]
 
 jobs:
   time:
