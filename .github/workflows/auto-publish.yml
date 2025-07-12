@@ -1,0 +1,208 @@
+name: auto-publish
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+jobs:
+  time:
+    runs-on: ubuntu-latest
+    outputs:
+      v: ${{ steps.date.outputs.time }}
+      y: ${{ steps.date.outputs.y }}
+      md: ${{ steps.date.outputs.md }}
+      hm: ${{ steps.date.outputs.hm }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Time
+        id: date
+        run: |
+          echo "::set-output name=time::$(date +'%Y.%m.%d.%H.%M')"
+          echo "::set-output name=y::$(date +'%Y')"
+          echo "::set-output name=md::$(date +'%m%d')"
+          echo "::set-output name=hm::$(date +'%H%M')"
+      - name: EchoTime
+        run: |
+          echo "The current time is: ${{ steps.date.outputs.time }}"
+
+  linux:
+    runs-on: ubuntu-22.04
+    needs: time
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Time
+        id: date
+        run: |
+          echo "${{ needs.time.outputs.v }}" > ./Assets/Version.txt
+          echo "Version is ${{ needs.time.outputs.v }}"
+      - name: Dependency
+        run: |
+          dotnet tool install -g KuiperZone.PupNet --version 1.8.0
+          sudo apt-get update
+          sudo apt-get install fuse
+      - name: Build-AppImage
+        run: |
+          cd ./Aurelio.Main/Aurelio.Desktop
+          sudo su
+          pupnet --runtime linux-x64 --kind appimage -o Aurelio.linux.x64.AppImage -y --app-version ${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}.${{ needs.time.outputs.hm }}
+          pupnet --runtime linux-arm --kind appimage -o Aurelio.linux.arm.AppImage -y --app-version ${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}.${{ needs.time.outputs.hm }}
+          pupnet --runtime linux-arm64 --kind appimage -o Aurelio.linux.arm64.AppImage -y --app-version ${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}.${{ needs.time.outputs.hm }}
+      - name: Build-MacOsApp-x64
+        run: |
+          cd ./Aurelio.Main/Aurelio.Desktop
+          sudo su
+          dotnet restore -r osx-x64
+          dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:SelfContained=true
+          cp ./Icon-Border.icns "./bin/Release/net8.0/osx-x64/publish/Aurelio.app/Contents/Resources/Icon-Border.icns"
+          cd ./bin/Release/net8.0/
+          cd ./osx-x64/publish/
+          zip -9 -r ../../Aurelio.osx.mac.x64.app.zip "./Aurelio.app"
+      - name: Build-MacOsApp-arm64
+        run: |
+          cd ./Aurelio.Main/Aurelio.Desktop
+          sudo su
+          dotnet restore -r osx-arm64
+          dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-arm64 -property:Configuration=Release -p:SelfContained=true
+          cp ./Icon-Border.icns "./bin/Release/net8.0/osx-arm64/publish/Aurelio.app/Contents/Resources/Icon-Border.icns"
+          cd ./bin/Release/net8.0/
+          cd ./osx-arm64/publish/
+          zip -9 -r ../../Aurelio.osx.mac.arm64.app.zip "./Aurelio.app"
+      - name: Build-WinExe
+        run: |
+          cd ./Aurelio.Main/Aurelio.Desktop
+          sudo su
+          dotnet publish -r win-x86 --self-contained true -p:PublishSingleFile=true
+          dotnet publish -r win-x64 --self-contained true -p:PublishSingleFile=true
+          dotnet publish -r win-arm64 --self-contained true -p:PublishSingleFile=true
+          mv ./bin/Release/net8.0/win-x86/publish/Aurelio.Desktop.exe ./bin/Release/net8.0/win-x86/publish/Aurelio.win.x86.executable.exe
+          mv ./bin/Release/net8.0/win-x64/publish/Aurelio.Desktop.exe ./bin/Release/net8.0/win-x64/publish/Aurelio.win.x64.executable.exe
+          mv ./bin/Release/net8.0/win-arm64/publish/Aurelio.Desktop.exe ./bin/Release/net8.0/win-arm64/publish/Aurelio.win.arm64.executable.exe
+          cd ./bin/Release/net8.0/
+          cd ./win-x86/
+          zip -9 -r "../Aurelio.win.x86.executable.zip" "./publish"
+          cd ../
+          cd ./win-x64/
+          zip -9 -r "../Aurelio.win.x64.executable.zip" "./publish"
+          cd ../
+          cd ./win-arm64/
+          zip -9 -r "../Aurelio.win.arm64.executable.zip" "./publish"
+      - name: UploadArtifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-artifacts
+          path: |
+            Aurelio.Main/Aurelio.Desktop/Deploy/OUT/*
+            Aurelio.Main/Aurelio.Desktop/bin/Release/net8.0/*.zip
+
+  win:
+    runs-on: windows-latest
+    needs: time
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Dependency-InnoSetup
+        uses: ConorMacBride/install-package@v1
+        with:
+          choco: innosetup
+      - name: Chinesize-InnoSetup
+        run: |
+          Copy-Item "./Assets/Default.isl" "C:\Program Files (x86)\Inno Setup 6\Default.isl" -Force
+      - name: Dependency-Pupnet
+        run: |
+          dotnet tool install -g KuiperZone.PupNet --version 1.8.0
+      - name: Time
+        id: date
+        run: |
+          echo "${{ needs.time.outputs.v }}" > ./Assets/Version.txt
+          echo "Version is ${{ needs.time.outputs.v }}"
+        shell: bash
+      - name: Build
+        run: |
+          cd ./Aurelio.Main/Aurelio.Desktop
+          pupnet -r win-x64 -k setup -y -o Aurelio.win.x64.installer.exe --app-version ${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}.${{ needs.time.outputs.hm }}
+          pupnet -r win-x86 -k setup -y -o Aurelio.win.x86.installer.exe --app-version ${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}.${{ needs.time.outputs.hm }}
+          pupnet -r win-arm64 -k setup -y -o Aurelio.win.arm64.installer.exe --app-version ${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}.${{ needs.time.outputs.hm }}
+      - name: UploadArtifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-artifacts
+          path: |
+            ./Aurelio.Main/Aurelio.Desktop/Deploy/OUT/*
+
+  mac:
+    needs: [linux, win]
+    runs-on: macos-latest
+    steps:
+      - name: Download-LinuxArtifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-artifacts
+          path: ./Aurelio.Release/
+      - name: Unzip
+        run: |
+          unzip -n ./Aurelio.Release/bin/Release/net8.0/Aurelio.osx.mac.x64.app.zip -d ./app.x64
+          unzip -n ./Aurelio.Release/bin/Release/net8.0/Aurelio.osx.mac.arm64.app.zip -d ./app.arm64
+      - name: Build-MacOsDmg-x64
+        uses: L-Super/create-dmg-actions@v1.0.3
+        with:
+          dmg_name: "Aurelio.osx.mac.x64"
+          src_dir: "./app.x64/Aurelio.app"
+      - name: Build-MacOsDmg-arm64
+        uses: L-Super/create-dmg-actions@v1.0.3
+        with:
+          dmg_name: "Aurelio.osx.mac.arm64"
+          src_dir: "./app.arm64/Aurelio.app"
+      - name: UploadArtifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: osx-artifacts
+          path: |
+            ./Aurelio.osx.mac.arm64.dmg
+            ./Aurelio.osx.mac.x64.dmg
+
+  publish:
+    needs: [mac]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Time
+        id: setDate
+        run: |
+          echo "date=$(date +'%Y-%m-%d.%H-%M-%S')" >> $GITHUB_OUTPUT
+          echo "title=$(date +'%Y.%m.%d.%H.%M')" >> $GITHUB_OUTPUT
+      - name: Download-LinuxArtifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-artifacts
+          path: ./Aurelio.Release/
+      - name: Download-WindowsArtifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: win-artifacts
+          path: ./Aurelio.Release/
+      - name: Download-MacArtifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: osx-artifacts
+          path: ./Aurelio.Release/
+      - name: List Files
+        run: |
+          ls -la ./Aurelio.Release/
+      - name: Publish Release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.TOKEN }}"
+          title: "v${{ needs.time.outputs.v }}"
+          automatic_release_tag: "auto-publish"
+          prerelease: false
+          files: |
+            Aurelio.Release/*.exe
+            Aurelio.Release/*.dmg
+            Aurelio.Release/Deploy/OUT/*.AppImage
+            Aurelio.Release/bin/Release/net8.0/*.zip
