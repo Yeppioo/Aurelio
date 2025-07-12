@@ -5,7 +5,6 @@ using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
 using Aurelio.Views.Main.SubPages.SettingPages;
-using Material.Icons;
 using Ursa.Controls;
 
 namespace Aurelio.Views.Main.TabPages;
@@ -26,7 +25,7 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
         BindingEvent();
         PageInfo = new PageInfoEntry
         {
-            Icon = 
+            Icon = Icons.Setting,
             Title = MainLang.Setting
         };
     }

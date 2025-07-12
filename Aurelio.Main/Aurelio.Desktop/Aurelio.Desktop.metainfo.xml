@@ -9,7 +9,7 @@
     <developer_name>${PUBLISHER_NAME}</developer_name>
     <url type="homepage">${PUBLISHER_LINK_URL}</url>
     <project_license>${APP_LICENSE_ID}</project_license>
-    <content_rating type="oars-1.1" />
+    <content_rating type="oars-1.1"/>
 
     <launchable type="desktop-id">${APP_ID}.desktop</launchable>
 

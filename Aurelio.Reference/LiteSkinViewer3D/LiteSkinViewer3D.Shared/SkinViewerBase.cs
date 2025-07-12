@@ -1,93 +1,100 @@
-﻿using LiteSkinViewer3D.Shared.Enums;
+﻿using System.Numerics;
+using LiteSkinViewer3D.Shared.Enums;
 using LiteSkinViewer3D.Shared.Helpers;
 using LiteSkinViewer3D.Shared.Models;
 using SkiaSharp;
-using System.Numerics;
 
 namespace LiteSkinViewer3D.Shared;
 
-public abstract class SkinViewerBase {
-    protected bool _enableCape;
-    protected bool _enableTop;
-    protected bool _switchModel;
-    protected bool _switchSkin;
-    protected bool _switchType;
-    protected bool _switchBack;
+public abstract class SkinViewerBase
+{
+    protected readonly SkinAnimationController _skinAnimationController;
     protected bool _animation;
 
     protected Vector4 _backColor;
-    protected SkinRenderMode _renderMode;
-    protected SkinType _skinType = SkinType.Unknown;
-
-    protected int _fps;
-    protected double _time;
-    protected float _dis = 1;
-
-    protected Vector2 _rotXY;
-    protected Vector2 _diffXY;
-
-    protected Vector2 _xy;
-    protected Vector2 _saveXY;
-    protected Vector2 _lastXY;
-
-    protected Matrix4x4 _last;
 
     /// <summary>
-    /// 皮肤贴图
-    /// </summary>
-    protected SKBitmap? _skinTex;
-    /// <summary>
-    /// 披风贴图
+    ///     披风贴图
     /// </summary>
     protected SKBitmap? _cape;
 
-    protected readonly SkinAnimationController _skinAnimationController;
+    protected Vector2 _diffXY;
+    protected float _dis = 1;
+    protected bool _enableCape;
+    protected bool _enableTop;
+
+    protected int _fps;
+
+    protected Matrix4x4 _last;
+    protected Vector2 _lastXY;
+    protected SkinRenderMode _renderMode;
+
+    protected Vector2 _rotXY;
+    protected Vector2 _saveXY;
 
     /// <summary>
-    /// 渲染出错
+    ///     皮肤贴图
     /// </summary>
-    public event Action<object?, ErrorType>? Error;
+    protected SKBitmap? _skinTex;
+
+    protected SkinType _skinType = SkinType.Unknown;
+    protected bool _switchBack;
+    protected bool _switchModel;
+    protected bool _switchSkin;
+    protected bool _switchType;
+    protected double _time;
+
+    protected Vector2 _xy;
+
+    public SkinViewerBase()
+    {
+        _last = Matrix4x4.Identity;
+        _skinAnimationController = new SkinAnimationController();
+    }
 
     /// <summary>
-    /// 是否存在披风
+    ///     是否存在披风
     /// </summary>
     public bool HaveCape { get; protected set; }
+
     /// <summary>
-    /// 是否存在皮肤
+    ///     是否存在皮肤
     /// </summary>
     public bool HaveSkin { get; protected set; }
 
     /// <summary>
-    /// 画布宽度
+    ///     画布宽度
     /// </summary>
     public int Width { get; set; }
+
     /// <summary>
-    /// 画布高度
+    ///     画布高度
     /// </summary>
     public int Height { get; set; }
 
     /// <summary>
-    /// 渲染器信息
+    ///     渲染器信息
     /// </summary>
     public string Info { get; protected set; }
 
     /// <summary>
-    /// 模型动画
+    ///     模型动画
     /// </summary>
-    public bool Animation {
+    public bool Animation
+    {
         get => _animation;
         set => _animation = _skinAnimationController.IsEnable = value;
     }
 
     /// <summary>
-    /// 皮肤类型
+    ///     皮肤类型
     /// </summary>
-    public SkinType SkinType {
+    public SkinType SkinType
+    {
         get => _skinType;
-        set {
-            if (_skinType == value) {
-                return;
-            }
+        set
+        {
+            if (_skinType == value) return;
             _skinType = value;
             _skinAnimationController.SkinType = value;
             _switchModel = true;
@@ -95,166 +102,191 @@ public abstract class SkinViewerBase {
     }
 
     /// <summary>
-    /// 背景色
+    ///     背景色
     /// </summary>
-    public Vector4 BackColor {
-        get { return _backColor; }
-        set {
+    public Vector4 BackColor
+    {
+        get => _backColor;
+        set
+        {
             _backColor = value;
             _switchBack = true;
         }
     }
 
     /// <summary>
-    /// 渲染类型
+    ///     渲染类型
     /// </summary>
-    public SkinRenderMode RenderMode {
-        get { return _renderMode; }
-        set {
+    public SkinRenderMode RenderMode
+    {
+        get => _renderMode;
+        set
+        {
             _renderMode = value;
             _switchType = true;
         }
     }
 
     /// <summary>
-    /// 是否启用披风渲染
+    ///     是否启用披风渲染
     /// </summary>
-    public bool EnableCape {
-        get { return _enableCape; }
-        set {
+    public bool EnableCape
+    {
+        get => _enableCape;
+        set
+        {
             _enableCape = value;
             _switchType = true;
         }
     }
 
     /// <summary>
-    /// 是否启用第二层渲染
+    ///     是否启用第二层渲染
     /// </summary>
-    public bool EnableTop {
-        get { return _enableTop; }
-        set {
+    public bool EnableTop
+    {
+        get => _enableTop;
+        set
+        {
             _enableTop = value;
             _switchType = true;
         }
     }
 
     /// <summary>
-    /// 手臂旋转
+    ///     手臂旋转
     /// </summary>
     public Vector3 ArmRotate { get; set; }
+
     /// <summary>
-    /// 腿旋转
+    ///     腿旋转
     /// </summary>
     public Vector3 LegRotate { get; set; }
+
     /// <summary>
-    /// 头旋转
+    ///     头旋转
     /// </summary>
     public Vector3 HeadRotate { get; set; }
 
     /// <summary>
-    /// FPS刷新
+    ///     渲染出错
+    /// </summary>
+    public event Action<object?, ErrorType>? Error;
+
+    /// <summary>
+    ///     FPS刷新
     /// </summary>
     public event Action<object?, int>? FpsUpdate;
 
-    public SkinViewerBase() {
-        _last = Matrix4x4.Identity;
-        _skinAnimationController = new();
-    }
-
     /// <summary>
-    /// 鼠标按下
+    ///     鼠标按下
     /// </summary>
     /// <param name="type"></param>
     /// <param name="point"></param>
-    public void PointerPressed(PointerType type, Vector2 point) {
-        if (type == PointerType.PointerLeft) {
+    public void PointerPressed(PointerType type, Vector2 point)
+    {
+        if (type == PointerType.PointerLeft)
+        {
             _diffXY.X = point.X;
             _diffXY.Y = -point.Y;
-        } else if (type == PointerType.PointerRight) {
+        }
+        else if (type == PointerType.PointerRight)
+        {
             _lastXY.X = point.X;
             _lastXY.Y = point.Y;
         }
     }
 
     /// <summary>
-    /// 鼠标松开
+    ///     鼠标松开
     /// </summary>
     /// <param name="type"></param>
     /// <param name="point"></param>
-    public void PointerReleased(PointerType type, Vector2 point) {
-        if (type == PointerType.PointerRight) {
+    public void PointerReleased(PointerType type, Vector2 point)
+    {
+        if (type == PointerType.PointerRight)
+        {
             _saveXY.X = _xy.X;
             _saveXY.Y = _xy.Y;
         }
     }
 
     /// <summary>
-    /// 鼠标移动
+    ///     鼠标移动
     /// </summary>
     /// <param name="type"></param>
     /// <param name="point"></param>
-    public void PointerMoved(PointerType type, Vector2 point) {
-        if (type == PointerType.PointerLeft) {
+    public void PointerMoved(PointerType type, Vector2 point)
+    {
+        if (type == PointerType.PointerLeft)
+        {
             _rotXY.Y = point.X - _diffXY.X;
             _rotXY.X = point.Y + _diffXY.Y;
             _rotXY.Y *= 8;
             _rotXY.X *= 8;
             _diffXY.X = point.X;
             _diffXY.Y = -point.Y;
-        } else if (type == PointerType.PointerRight) {
+        }
+        else if (type == PointerType.PointerRight)
+        {
             _xy.X = -(_lastXY.X - point.X) / 100 + _saveXY.X;
             _xy.Y = (_lastXY.Y - point.Y) / 100 + _saveXY.Y;
         }
     }
 
     /// <summary>
-    /// 滚轮
+    ///     滚轮
     /// </summary>
     /// <param name="ispost"></param>
-    public void PointerWheelChanged(bool ispost) {
-        if (ispost) {
+    public void PointerWheelChanged(bool ispost)
+    {
+        if (ispost)
             _dis += 0.1f;
-        } else {
+        else
             _dis -= 0.1f;
-        }
     }
 
     /// <summary>
-    /// 旋转
+    ///     旋转
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
-    public void Rot(float x, float y) {
+    public void Rot(float x, float y)
+    {
         _rotXY.X += x;
         _rotXY.Y += y;
     }
 
     /// <summary>
-    /// 移动
+    ///     移动
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
-    public void Pos(float x, float y) {
+    public void Pos(float x, float y)
+    {
         _xy.X += x;
         _xy.Y += y;
     }
 
     /// <summary>
-    /// 缩放
+    ///     缩放
     /// </summary>
     /// <param name="x"></param>
-    public void AddDis(float x) {
+    public void AddDis(float x)
+    {
         _dis += x;
     }
 
     /// <summary>
-    /// 设置皮肤贴图
+    ///     设置皮肤贴图
     /// </summary>
     /// <param name="skin"></param>
     /// <exception cref="Exception"></exception>
-    public void SetSkinTex(SKBitmap? skin) {
+    public void SetSkinTex(SKBitmap? skin)
+    {
         _skinTex?.Dispose();
-        if (skin == null) {
+        if (skin == null)
+        {
             HaveSkin = false;
             return;
         }
@@ -267,23 +299,27 @@ public abstract class SkinViewerBase {
     }
 
     /// <summary>
-    /// 设置披风贴图
+    ///     设置披风贴图
     /// </summary>
     /// <param name="cape"></param>
-    public void SetCapeTex(SKBitmap? cape) {
+    public void SetCapeTex(SKBitmap? cape)
+    {
         _cape = cape;
-        if (cape == null) {
+        if (cape == null)
+        {
             HaveCape = false;
             return;
         }
+
         _switchSkin = true;
         HaveCape = true;
     }
 
     /// <summary>
-    /// 重置模型
+    ///     重置模型
     /// </summary>
-    public void ResetPos() {
+    public void ResetPos()
+    {
         _dis = 1;
         _diffXY.X = 0;
         _diffXY.Y = 0;
@@ -297,16 +333,18 @@ public abstract class SkinViewerBase {
     }
 
     /// <summary>
-    /// 模型逻辑
+    ///     模型逻辑
     /// </summary>
     /// <param name="time"></param>
-    public void Tick(double time) {
+    public void Tick(double time)
+    {
         if (_animation)
             _skinAnimationController.Tick(time);
 
-        if (_rotXY.X != 0 || _rotXY.Y != 0) {
+        if (_rotXY.X != 0 || _rotXY.Y != 0)
+        {
             _last *= Matrix4x4.CreateRotationX(_rotXY.X / 360)
-                    * Matrix4x4.CreateRotationY(_rotXY.Y / 360);
+                     * Matrix4x4.CreateRotationY(_rotXY.Y / 360);
 
             _rotXY.X = 0;
             _rotXY.Y = 0;
@@ -314,22 +352,26 @@ public abstract class SkinViewerBase {
 
         _fps++;
         _time += time;
-        if (_time > 1) {
+        if (_time > 1)
+        {
             _time -= 1;
             FpsUpdate?.Invoke(this, _fps);
             _fps = 0;
         }
     }
 
-    protected void OnErrorChange(ErrorType data) {
+    protected void OnErrorChange(ErrorType data)
+    {
         Error?.Invoke(this, data);
     }
 
-    protected Matrix4x4 GetMatrix4(ModelComponent component) {
-        bool enable = _animation;
-        float armWidth = _skinType == SkinType.Slim ? 1.375f : 1.5f;
+    protected Matrix4x4 GetMatrix4(ModelComponent component)
+    {
+        var enable = _animation;
+        var armWidth = _skinType == SkinType.Slim ? 1.375f : 1.5f;
 
-        return component switch {
+        return component switch
+        {
             ModelComponent.Head =>
                 Matrix4x4.CreateTranslation(0, Cube.Value * 2.5f, 0) *
                 Matrix4x4.CreateRotationZ(GetRot(_skinAnimationController.State.Head, HeadRotate).Z / 360f) *
@@ -353,9 +395,9 @@ public abstract class SkinViewerBase {
 
             ModelComponent.ArmRight =>
                 Matrix4x4.CreateTranslation(-Cube.Value / 2f, -armWidth * Cube.Value, 0) *
-                Matrix4x4.CreateRotationZ(GetRot(_skinAnimationController.State.ArmRight, ArmRotate, mirror: true).Z / 360f) *
-                Matrix4x4.CreateRotationY(GetRot(_skinAnimationController.State.ArmRight, ArmRotate, mirror: true).Y / 360f) *
-                Matrix4x4.CreateRotationX(GetRot(_skinAnimationController.State.ArmRight, ArmRotate, mirror: true).X / 360f) *
+                Matrix4x4.CreateRotationZ(GetRot(_skinAnimationController.State.ArmRight, ArmRotate, true).Z / 360f) *
+                Matrix4x4.CreateRotationY(GetRot(_skinAnimationController.State.ArmRight, ArmRotate, true).Y / 360f) *
+                Matrix4x4.CreateRotationX(GetRot(_skinAnimationController.State.ArmRight, ArmRotate, true).X / 360f) *
                 Matrix4x4.CreateTranslation(-armWidth * Cube.Value + Cube.Value / 2f, armWidth * Cube.Value, 0) *
                 Matrix4x4.CreateTranslation(_skinAnimationController.State.ArmRightTranslation),
 
@@ -368,14 +410,15 @@ public abstract class SkinViewerBase {
 
             ModelComponent.LegRight =>
                 Matrix4x4.CreateTranslation(0, -1.5f * Cube.Value, 0) *
-                Matrix4x4.CreateRotationZ(GetRot(_skinAnimationController.State.LegRight, LegRotate, mirror: true).Z / 360f) *
-                Matrix4x4.CreateRotationY(GetRot(_skinAnimationController.State.LegRight, LegRotate, mirror: true).Y / 360f) *
-                Matrix4x4.CreateRotationX(GetRot(_skinAnimationController.State.LegRight, LegRotate, mirror: true).X / 360f) *
+                Matrix4x4.CreateRotationZ(GetRot(_skinAnimationController.State.LegRight, LegRotate, true).Z / 360f) *
+                Matrix4x4.CreateRotationY(GetRot(_skinAnimationController.State.LegRight, LegRotate, true).Y / 360f) *
+                Matrix4x4.CreateRotationX(GetRot(_skinAnimationController.State.LegRight, LegRotate, true).X / 360f) *
                 Matrix4x4.CreateTranslation(-Cube.Value * 0.5f, -Cube.Value * 1.5f, 0),
 
             ModelComponent.Cape =>
                 Matrix4x4.CreateTranslation(0, -2f * Cube.Value, -Cube.Value * 0.1f) *
-                Matrix4x4.CreateRotationX((float)((enable ? 11.8 + _skinAnimationController.State.Cape : 6.3) * Math.PI / 180)) *
+                Matrix4x4.CreateRotationX((float)((enable ? 11.8 + _skinAnimationController.State.Cape : 6.3) *
+                    Math.PI / 180)) *
                 Matrix4x4.CreateTranslation(0, 1.6f * Cube.Value, -Cube.Value * 0.5f),
 
             ModelComponent.ModelMatrix =>
@@ -392,7 +435,8 @@ public abstract class SkinViewerBase {
             _ => Matrix4x4.Identity
         };
 
-        Vector3 GetRot(Vector3 animated, Vector3 manual, bool mirror = false) {
+        Vector3 GetRot(Vector3 animated, Vector3 manual, bool mirror = false)
+        {
             var v = enable ? animated : manual;
             return mirror ? new Vector3(-v.X, -v.Y, -v.Z) : v;
         }

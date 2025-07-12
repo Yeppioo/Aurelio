@@ -1,37 +1,39 @@
-﻿using LiteSkinViewer3D.OpenGL.Processors;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
+using LiteSkinViewer3D.OpenGL.Processors;
 using LiteSkinViewer3D.Shared;
 using LiteSkinViewer3D.Shared.Enums;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace LiteSkinViewer3D.OpenGL;
 
-public class OpenGLSkinViewerBase : SkinViewerBase {
+public class OpenGLSkinViewerBase : SkinViewerBase
+{
     private readonly OpenGLApi _gl;
-    private readonly bool _isGLES;
 
     private FXAAPostProcessor? _fxaaProcessor;
-    private MSAAPostProcessor? _msaaProcessor;
-    private SteveModelProcessor? _modelProcessor;
-    private SkinTextureProcessor? _textureProcessor;
 
-    private bool _init = false;
+    private bool _init;
+    private SteveModelProcessor? _modelProcessor;
+    private MSAAPostProcessor? _msaaProcessor;
+    private SkinTextureProcessor? _textureProcessor;
     private int _width, _height, _drawIndexCount, _programId;
 
-    public bool IsGLES => _isGLES;
-
-    public OpenGLSkinViewerBase(OpenGLApi gl, bool isGLES = false) {
+    public OpenGLSkinViewerBase(OpenGLApi gl, bool isGLES = false)
+    {
         _gl = gl;
-        _isGLES = isGLES;
+        IsGLES = isGLES;
     }
 
-    public unsafe void OpenGlInit() {
+    public bool IsGLES { get; }
+
+    public void OpenGlInit()
+    {
         if (_init)
             return;
 
         var info = $"Renderer: {_gl.GetString(_gl.GL_RENDERER)}\n" +
-            $"OpenGL Version: {_gl.GetString(_gl.GL_VERSION)}\n" +
-            $"GLSL Version: {_gl.GetString(_gl.GL_SHADING_LANGUAGE_VERSION)}";
+                   $"OpenGL Version: {_gl.GetString(_gl.GL_VERSION)}\n" +
+                   $"GLSL Version: {_gl.GetString(_gl.GL_SHADING_LANGUAGE_VERSION)}";
 
         Debug.WriteLine(info);
 
@@ -53,14 +55,17 @@ public class OpenGLSkinViewerBase : SkinViewerBase {
         _msaaProcessor = new MSAAPostProcessor(_gl);
     }
 
-    public unsafe void OpenGlRender(int fb) {
-        if (_switchSkin) {
+    public void OpenGlRender(int fb)
+    {
+        if (_switchSkin)
+        {
             _textureProcessor.Load(_skinTex!, _cape, _skinType);
             _switchSkin = false;
             _switchModel = true;
         }
 
-        if (_switchModel) {
+        if (_switchModel)
+        {
             _modelProcessor.Load(_skinType);
             _switchModel = false;
         }
@@ -68,14 +73,16 @@ public class OpenGLSkinViewerBase : SkinViewerBase {
         if (!HaveSkin || Width == 0 || Height == 0)
             return;
 
-        if (Width != _width || Height != _height) {
+        if (Width != _width || Height != _height)
+        {
             _width = Width;
             _height = Height;
             _fxaaProcessor.Resize(_width, _height);
             _msaaProcessor.Resize(_width, _height);
         }
 
-        int renderTarget = _renderMode switch {
+        var renderTarget = _renderMode switch
+        {
             SkinRenderMode.MSAA => _msaaProcessor.Framebuffer,
             SkinRenderMode.FXAA => _fxaaProcessor.Framebuffer,
             _ => fb
@@ -101,7 +108,8 @@ public class OpenGLSkinViewerBase : SkinViewerBase {
         RenderSkin();
         RenderCape();
 
-        if (_enableTop) {
+        if (_enableTop)
+        {
             _gl.DepthMask(false);
             _gl.Enable(_gl.GL_BLEND);
             _gl.Enable(_gl.GL_SAMPLE_ALPHA_TO_COVERAGE);
@@ -121,7 +129,8 @@ public class OpenGLSkinViewerBase : SkinViewerBase {
         CheckError();
     }
 
-    public unsafe void OpenGlDeinit() {
+    public void OpenGlDeinit()
+    {
         // 关闭贴图资源或纹理流
         _skinAnimationController.Close();
 
@@ -131,22 +140,26 @@ public class OpenGLSkinViewerBase : SkinViewerBase {
         _gl.BindVertexArray(0);
         _gl.UseProgram(0);
 
-        if (_modelProcessor != null) {
+        if (_modelProcessor != null)
+        {
             _modelProcessor.Dispose();
             _modelProcessor = null;
         }
 
-        if (_textureProcessor != null) {
+        if (_textureProcessor != null)
+        {
             _textureProcessor.Dispose();
             _textureProcessor = null;
         }
 
-        if (_fxaaProcessor != null) {
+        if (_fxaaProcessor != null)
+        {
             _fxaaProcessor.Dispose();
             _fxaaProcessor = null;
         }
 
-        if (_msaaProcessor != null) {
+        if (_msaaProcessor != null)
+        {
             _msaaProcessor.Dispose();
             _msaaProcessor = null;
         }
@@ -155,20 +168,23 @@ public class OpenGLSkinViewerBase : SkinViewerBase {
         _init = false;
     }
 
-    private unsafe void RenderSkin() {
+    private unsafe void RenderSkin()
+    {
         _gl.BindTexture(_gl.GL_TEXTURE_2D, _textureProcessor.SkinTexture);
 
-        int modelLoc = _gl.GetUniformLocation(_programId, "self");
-        var modelParts = new (ModelComponent partType, MeshBinding vao)[] {
+        var modelLoc = _gl.GetUniformLocation(_programId, "self");
+        var modelParts = new (ModelComponent partType, MeshBinding vao)[]
+        {
             (ModelComponent.Body, _modelProcessor.BaseVAO.Body),
             (ModelComponent.Head, _modelProcessor.BaseVAO.Head),
             (ModelComponent.ArmLeft, _modelProcessor.BaseVAO.LeftArm),
             (ModelComponent.ArmRight, _modelProcessor.BaseVAO.RightArm),
             (ModelComponent.LegLeft, _modelProcessor.BaseVAO.LeftLeg),
-            (ModelComponent.LegRight, _modelProcessor.BaseVAO.RightLeg),
+            (ModelComponent.LegRight, _modelProcessor.BaseVAO.RightLeg)
         };
 
-        foreach (var (partType, vao) in modelParts) {
+        foreach (var (partType, vao) in modelParts)
+        {
             var modelMatrix = GetMatrix4(partType);
             _gl.UniformMatrix4fv(modelLoc, 1, false, (float*)&modelMatrix);
             _gl.BindVertexArray(vao.VertexArrayObject);
@@ -178,20 +194,23 @@ public class OpenGLSkinViewerBase : SkinViewerBase {
         _gl.BindTexture(_gl.GL_TEXTURE_2D, 0);
     }
 
-    private unsafe void RenderSkinTop() {
+    private unsafe void RenderSkinTop()
+    {
         _gl.BindTexture(_gl.GL_TEXTURE_2D, _textureProcessor.SkinTexture);
 
-        int modelLoc = _gl.GetUniformLocation(_programId, "self");
-        var parts = new (ModelComponent partType, MeshBinding vao)[] {
+        var modelLoc = _gl.GetUniformLocation(_programId, "self");
+        var parts = new (ModelComponent partType, MeshBinding vao)[]
+        {
             (ModelComponent.Body, _modelProcessor.OverlayVAO.Body),
             (ModelComponent.Head, _modelProcessor.OverlayVAO.Head),
             (ModelComponent.ArmLeft, _modelProcessor.OverlayVAO.LeftArm),
             (ModelComponent.ArmRight, _modelProcessor.OverlayVAO.RightArm),
             (ModelComponent.LegLeft, _modelProcessor.OverlayVAO.LeftLeg),
-            (ModelComponent.LegRight, _modelProcessor.OverlayVAO.RightLeg),
+            (ModelComponent.LegRight, _modelProcessor.OverlayVAO.RightLeg)
         };
 
-        foreach (var (type, vao) in parts) {
+        foreach (var (type, vao) in parts)
+        {
             var mat = GetMatrix4(type);
             _gl.UniformMatrix4fv(modelLoc, 1, false, (float*)&mat);
             _gl.BindVertexArray(vao.VertexArrayObject);
@@ -201,13 +220,14 @@ public class OpenGLSkinViewerBase : SkinViewerBase {
         _gl.BindTexture(_gl.GL_TEXTURE_2D, 0);
     }
 
-    private unsafe void RenderCape() {
+    private unsafe void RenderCape()
+    {
         if (!HaveCape || !_enableCape)
             return;
 
         _gl.BindTexture(_gl.GL_TEXTURE_2D, _textureProcessor.CapeTexture);
 
-        int modelLoc = _gl.GetUniformLocation(_programId, "self");
+        var modelLoc = _gl.GetUniformLocation(_programId, "self");
         var mat = GetMatrix4(ModelComponent.Cape);
 
         _gl.UniformMatrix4fv(modelLoc, 1, false, (float*)&mat);
@@ -217,20 +237,22 @@ public class OpenGLSkinViewerBase : SkinViewerBase {
         _gl.BindTexture(_gl.GL_TEXTURE_2D, 0);
     }
 
-    private void InitShader() {
-        string vertexSource = GetHeader() + GLSLSource.VertexShaderSource;
-        string fragmentSource = GetHeader() + GLSLSource.FragmentShaderSource;
+    private void InitShader()
+    {
+        var vertexSource = GetHeader() + GLSLSource.VertexShaderSource;
+        var fragmentSource = GetHeader() + GLSLSource.FragmentShaderSource;
 
-        int vertexShader = CompileShader(_gl.GL_VERTEX_SHADER, vertexSource, "Vertex");
-        int fragmentShader = CompileShader(_gl.GL_FRAGMENT_SHADER, fragmentSource, "Fragment");
+        var vertexShader = CompileShader(_gl.GL_VERTEX_SHADER, vertexSource, "Vertex");
+        var fragmentShader = CompileShader(_gl.GL_FRAGMENT_SHADER, fragmentSource, "Fragment");
 
         _programId = _gl.CreateProgram();
         _gl.AttachShader(_programId, vertexShader);
         _gl.AttachShader(_programId, fragmentShader);
         _gl.LinkProgram(_programId);
 
-        _gl.GetProgramiv(_programId, _gl.GL_LINK_STATUS, out int linkStatus);
-        if (linkStatus == 0) {
+        _gl.GetProgramiv(_programId, _gl.GL_LINK_STATUS, out var linkStatus);
+        if (linkStatus == 0)
+        {
             _gl.GetProgramInfoLog(_programId, out var log);
             throw new Exception($"GL_PROGRAM_LINK_ERROR:\n{log}");
         }
@@ -241,33 +263,37 @@ public class OpenGLSkinViewerBase : SkinViewerBase {
         _gl.DeleteShader(fragmentShader);
     }
 
-    private static string GetHeader() {
+    private static string GetHeader()
+    {
         return RuntimeInformation.IsOSPlatform(OSPlatform.OSX)
             ? "#version 150\n#define Macos\n"
             : string.Empty;
     }
 
-    private unsafe void SetupMatrices() {
+    private unsafe void SetupMatrices()
+    {
         var view = GetMatrix4(ModelComponent.ViewMatrix);
         var model = GetMatrix4(ModelComponent.ModelMatrix);
         var projection = GetMatrix4(ModelComponent.ProjectionMatrix);
 
-        int projLoc = _gl.GetUniformLocation(_programId, "projection");
-        int viewLoc = _gl.GetUniformLocation(_programId, "view");
-        int modelLoc = _gl.GetUniformLocation(_programId, "model");
+        var projLoc = _gl.GetUniformLocation(_programId, "projection");
+        var viewLoc = _gl.GetUniformLocation(_programId, "view");
+        var modelLoc = _gl.GetUniformLocation(_programId, "model");
 
         _gl.UniformMatrix4fv(projLoc, 1, false, (float*)&projection);
         _gl.UniformMatrix4fv(viewLoc, 1, false, (float*)&view);
         _gl.UniformMatrix4fv(modelLoc, 1, false, (float*)&model);
     }
 
-    private int CompileShader(int type, string source, string label) {
-        int shader = _gl.CreateShader(type);
+    private int CompileShader(int type, string source, string label)
+    {
+        var shader = _gl.CreateShader(type);
         _gl.ShaderSource(shader, source);
         _gl.CompileShader(shader);
-        _gl.GetShaderiv(shader, _gl.GL_COMPILE_STATUS, out int compiled);
+        _gl.GetShaderiv(shader, _gl.GL_COMPILE_STATUS, out var compiled);
 
-        if (compiled == 0) {
+        if (compiled == 0)
+        {
             _gl.GetShaderInfoLog(shader, out var info);
             throw new Exception($"GL_{label}_SHADER_COMPILE_ERROR:\n{info}");
         }
@@ -275,7 +301,8 @@ public class OpenGLSkinViewerBase : SkinViewerBase {
         return shader;
     }
 
-    private void CheckError() {
+    private void CheckError()
+    {
         int err;
         while ((err = _gl.GetError()) != 0)
             Console.WriteLine(err);

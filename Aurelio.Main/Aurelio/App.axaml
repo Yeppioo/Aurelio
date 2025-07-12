@@ -2,7 +2,6 @@
     RequestedThemeVariant="Dark"
     x:Class="Aurelio.App"
     xmlns="https://github.com/avaloniaui"
-    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:helper="clr-namespace:Aurelio.Public.Module.Ui.Helper"
     xmlns:semi="https://irihi.tech/semi"
     xmlns:styling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
@@ -54,6 +53,5 @@
         <StyleInclude Source="/Public/Styles/Override/Card.axaml" />
         <StyleInclude Source="/Public/Styles/Override/Override.axaml" />
         <StyleInclude Source="avares://AsyncImageLoader.Avalonia/AdvancedImage.axaml" />
-        <avalonia:MaterialIconStyles />
     </Application.Styles>
 </Application>
