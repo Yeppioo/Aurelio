@@ -138,7 +138,7 @@ jobs:
             -o "../../publish/win-arm64" -p:DebugType=none -p:DebugSymbols=false
       - name: ZIP
         run: |
-          Compress-Archive -Path "./publish/win-arm64/*" -DestinationPath "./Aurelio.win.executable.arm64.zip" -Force
+          Compress-Archive -Path "./publish/win-arm64/*" -DestinationPath "./publish/Aurelio.win.executable.arm64.zip" -Force
       - name: UploadArtifacts
         uses: actions/upload-artifact@v4
         with:
