@@ -127,7 +127,7 @@ jobs:
             -o "../../publish/win-x64" -p:DebugType=none -p:DebugSymbols=false
       - name: ZIP
         run: |
-          Compress-Archive -Path "./publish/win-x64/*" -DestinationPath "./publish/Aurelio.win.executable.x64.zip" -Force
+          Compress-Archive -Path "./publish/win-x64/*" -DestinationPath "./publish/Aurelio.win.x64.executable.zip" -Force
       - name: UploadArtifacts
         uses: actions/upload-artifact@v4
         with:
@@ -159,7 +159,7 @@ jobs:
             -o "../../publish/win-x86" -p:DebugType=none -p:DebugSymbols=false
       - name: ZIP
         run: |
-          Compress-Archive -Path "./publish/win-x86/*" -DestinationPath "./publish/Aurelio.win.executable.x86.zip" -Force
+          Compress-Archive -Path "./publish/win-x86/*" -DestinationPath "./publish/Aurelio.win.x86.executable.zip" -Force
       - name: UploadArtifacts
         uses: actions/upload-artifact@v4
         with:
@@ -191,7 +191,7 @@ jobs:
             -o "../../publish/win-arm64" -p:DebugType=none -p:DebugSymbols=false
       - name: ZIP
         run: |
-          Compress-Archive -Path "./publish/win-arm64/*" -DestinationPath "./publish/Aurelio.win.executable.arm64.zip" -Force
+          Compress-Archive -Path "./publish/win-arm64/*" -DestinationPath "./publish/Aurelio.win.arm64.executable.zip" -Force
       - name: UploadArtifacts
         uses: actions/upload-artifact@v4
         with:
