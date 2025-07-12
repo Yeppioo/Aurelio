@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
-using Aurelio.Public.Module.Op;
+using Aurelio.Public.Module.Operate;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.Module.Value;
 using Aurelio.ViewModels;
@@ -42,9 +42,10 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
                 window.CreateTab(tab);
                 return;
             }
+
             App.UiRoot.CreateTab(tab);
         };
-       
+
         skinViewer.PointerMoved += SkinViewer_PointerMoved;
         skinViewer.PointerPressed += SkinViewer_PointerPressed;
         skinViewer.PointerReleased += SkinViewer_PointerReleased;
@@ -52,7 +53,7 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
         Data.SettingEntry.PropertyChanged += (_, e) =>
         {
             if (e.PropertyName != nameof(Data.SettingEntry.UsingMinecraftAccount)) return;
-            skinViewer.Skin = (Converter.Base64ToBitmap(Data.SettingEntry.UsingMinecraftAccount.Skin));
+            skinViewer.Skin = Converter.Base64ToBitmap(Data.SettingEntry.UsingMinecraftAccount.Skin);
             skinViewer.RenderMode = SkinRenderMode.None;
         };
         Data.UiProperty.PropertyChanged += (_, e) =>
@@ -60,7 +61,7 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
             if (e.PropertyName != nameof(Data.UiProperty.IsEnable3DSkinRender)
                 || !Data.UiProperty.IsEnable3DSkinRender || _loadedSkin) return;
             _loadedSkin = true;
-            skinViewer.Skin = (Converter.Base64ToBitmap(Data.SettingEntry.UsingMinecraftAccount.Skin));
+            skinViewer.Skin = Converter.Base64ToBitmap(Data.SettingEntry.UsingMinecraftAccount.Skin);
             skinViewer.RenderMode = SkinRenderMode.None;
         };
     }

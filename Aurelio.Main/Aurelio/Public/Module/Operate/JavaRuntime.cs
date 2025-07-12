@@ -10,7 +10,7 @@ using Avalonia.Platform.Storage;
 using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Utilities;
 
-namespace Aurelio.Public.Module.Op;
+namespace Aurelio.Public.Module.Operate;
 
 public class JavaRuntime
 {

@@ -8,7 +8,7 @@ using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Ursa.Controls;
 
-namespace Aurelio.Public.Module.Services;
+namespace Aurelio.Public.Module.Service;
 
 public static class TabDragDropService
 {

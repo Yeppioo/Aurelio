@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+                id="root"
                 xmlns="">
         <xsd:element name="root" msdata:IsDataSet="true"></xsd:element>
     </xsd:schema>
@@ -1658,13 +1659,13 @@ MacOs 不支持自动更新
     <data name="EnabledFilePicker" xml:space="preserve">
     <value>启用文件选择器</value>
   </data>
-  <data name="TaskingState" xml:space="preserve">
+    <data name="TaskingState" xml:space="preserve">
     <value>任务状态</value>
   </data>
-  <data name="TaskingTip" xml:space="preserve">
+    <data name="TaskingTip" xml:space="preserve">
     <value>{num} 项任务运行中</value>
   </data>
-  <data name="CannotFindJavaTip" xml:space="preserve">
-    <value>此Minecraft实例(Minecraft {mcVer})需求Java {javaVer}, 但Aurelio无法匹配此Java版本,检查此设备是否安装Java {javaVer}且添加到Aurelio</value>
+    <data name="CannotFindJavaTip" xml:space="preserve">
+    <value>此 Minecraft 实例 (Minecraft {mcVer}) 需求 Java {javaVer}, 但 Aurelio 无法匹配此 Java 版本, 检查此设备是否安装 Java {javaVer} 且添加到 Aurelio</value>
   </data>
 </root>

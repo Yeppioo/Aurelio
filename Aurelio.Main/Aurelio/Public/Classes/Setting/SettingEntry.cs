@@ -5,11 +5,10 @@ using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
-using Aurelio.Public.Module.Services;
-using Aurelio.Public.Module.Services.Minecraft;
 using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using HandleInstances = Aurelio.Public.Module.Service.Minecraft.HandleInstances;
 
 namespace Aurelio.Public.Classes.Setting;
 

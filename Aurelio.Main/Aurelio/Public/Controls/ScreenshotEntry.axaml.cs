@@ -1,8 +1,9 @@
 ﻿using System.IO;
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Public.Module.Services;
+using Aurelio.Public.Module.Service;
 using Aurelio.Views.Main;
 using Aurelio.Views.Main.Template;
+using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
@@ -12,11 +13,11 @@ namespace Aurelio.Public.Controls;
 
 public partial class ScreenshotEntry : UserControl, IDisposable
 {
-    private readonly string _imagePath;
     private readonly string _imageName;
-    private bool _imageLoaded = false;
-    private bool _isVisible = false;
-    private bool _disposed = false;
+    private readonly string _imagePath;
+    private bool _disposed;
+    private bool _imageLoaded;
+    private bool _isVisible;
 
     public ScreenshotEntry(string name, string path)
     {
@@ -28,10 +29,32 @@ public partial class ScreenshotEntry : UserControl, IDisposable
         // ImageBorder 已经有默认背景色，等待图片加载
 
         // 监听可见性变化
-        this.AttachedToVisualTree += OnAttachedToVisualTree;
-        this.DetachedFromVisualTree += OnDetachedFromVisualTree;
+        AttachedToVisualTree += OnAttachedToVisualTree;
+        DetachedFromVisualTree += OnDetachedFromVisualTree;
 
         Root.PointerReleased += OnImageClick;
+    }
+
+
+    /// <summary>
+    ///     释放资源
+    /// </summary>
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        _disposed = true;
+        _isVisible = false;
+
+        // 清理事件监听
+        AttachedToVisualTree -= OnAttachedToVisualTree;
+        DetachedFromVisualTree -= OnDetachedFromVisualTree;
+        Root.PointerReleased -= OnImageClick;
+
+        // 清理图片资源
+        if (ImageBorder.Background is ImageBrush)
+            ImageBorder.Background = new SolidColorBrush(Color.FromArgb(16, 255, 255, 255));
+        // 注意：不要在这里 dispose bitmap，因为它可能被缓存复用
     }
 
     private void OnAttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
@@ -53,9 +76,8 @@ public partial class ScreenshotEntry : UserControl, IDisposable
 
         try
         {
-            var bitmap = await ImageCache.GetImageAsync(_imagePath, 135);
+            var bitmap = await ImageCache.GetImageAsync(_imagePath);
             if (bitmap != null && _isVisible && !_disposed)
-            {
                 await Dispatcher.UIThread.InvokeAsync(() =>
                 {
                     if (!_disposed)
@@ -68,7 +90,6 @@ public partial class ScreenshotEntry : UserControl, IDisposable
                         ImageBorder.Background = imageBrush;
                     }
                 });
-            }
         }
         catch
         {
@@ -76,7 +97,7 @@ public partial class ScreenshotEntry : UserControl, IDisposable
         }
     }
 
-    private async void OnImageClick(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
+    private async void OnImageClick(object? sender, PointerReleasedEventArgs e)
     {
         try
         {
@@ -100,33 +121,6 @@ public partial class ScreenshotEntry : UserControl, IDisposable
         catch
         {
             // 处理加载失败的情况
-        }
-    }
-
-
-
-
-
-    /// <summary>
-    /// 释放资源
-    /// </summary>
-    public void Dispose()
-    {
-        if (_disposed) return;
-
-        _disposed = true;
-        _isVisible = false;
-
-        // 清理事件监听
-        this.AttachedToVisualTree -= OnAttachedToVisualTree;
-        this.DetachedFromVisualTree -= OnDetachedFromVisualTree;
-        Root.PointerReleased -= OnImageClick;
-
-        // 清理图片资源
-        if (ImageBorder.Background is ImageBrush)
-        {
-            ImageBorder.Background = new SolidColorBrush(Color.FromArgb(16, 255, 255, 255));
-            // 注意：不要在这里 dispose bitmap，因为它可能被缓存复用
         }
     }
 }

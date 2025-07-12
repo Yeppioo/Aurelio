@@ -46,6 +46,7 @@ public class MoreButtonMenuCommands
                 _ = App.UiRoot.ViewModel.SettingTabPage.Animate();
                 return;
             }
+
             App.UiRoot.ViewModel.SelectedTab = existingTab;
         }
     }

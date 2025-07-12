@@ -1,9 +1,9 @@
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Public.Module.Services;
+using Aurelio.Public.Module.Service;
 using Avalonia.Input;
 using Avalonia.VisualTree;
 
-namespace Aurelio.Public.Module.Behaviors;
+namespace Aurelio.Public.Module.Behavior;
 
 public class TabDragBehavior
 {

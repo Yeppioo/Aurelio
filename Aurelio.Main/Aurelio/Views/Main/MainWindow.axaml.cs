@@ -2,11 +2,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
-using Aurelio.Public.Langs;
-using Aurelio.Public.Module.Services;
+using Aurelio.Public.Module.Service;
 using Aurelio.ViewModels;
-using Aurelio.Views.Main.Drawer;
-using Aurelio.Views.Main.Template;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -15,7 +12,6 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using HotAvalonia;
 using Ursa.Controls;
-using Ursa.Controls.Options;
 
 namespace Aurelio.Views.Main;
 
@@ -122,20 +118,7 @@ public partial class MainWindow : UrsaWindow
         {
             NavRoot.Margin = new Thickness(80, 0, TitleBarContainer.Bounds.Width + 85, 0);
         };
-        FocusInfoBorder.PointerPressed += async (_, _) =>
-        {
-            var options = new DrawerOptions
-            {
-                Position = Ursa.Common.Position.Right,
-                Buttons = DialogButton.None,
-                CanLightDismiss = true,
-                IsCloseButtonVisible = true,
-                MinWidth = 420,
-                Title = MainLang.TaskingState,
-                CanResize = true,
-            };
-            await Ursa.Controls.Drawer.ShowModal<TaskCenterDrawer, Tasking>(Tasking.Instance, null, options);
-        };
+        FocusInfoBorder.PointerPressed += async (_, _) => { };
     }
 
     private void TabItem_OnPointerPressed(object? sender, PointerPressedEventArgs e)

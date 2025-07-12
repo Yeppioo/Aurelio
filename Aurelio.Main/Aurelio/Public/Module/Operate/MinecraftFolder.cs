@@ -7,7 +7,7 @@ using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using FluentAvalonia.UI.Controls;
 
-namespace Aurelio.Public.Module.Op;
+namespace Aurelio.Public.Module.Operate;
 
 public class MinecraftFolder
 {

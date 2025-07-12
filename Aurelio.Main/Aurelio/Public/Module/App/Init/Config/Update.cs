@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Minecraft;
-using Aurelio.Public.Module.Op;
+using Aurelio.Public.Module.Operate;
 using Aurelio.Public.Module.Value;
 using DynamicData;
 using MinecraftLaunch.Components.Authenticator;

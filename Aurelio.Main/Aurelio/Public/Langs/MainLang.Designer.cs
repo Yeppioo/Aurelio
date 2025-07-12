@@ -636,7 +636,7 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 此Minecraft实例(Minecraft {mcVer})需求Java {javaVer}, 但Aurelio无法匹配此Java版本,检查此设备是否安装Java {javaVer}且添加到Aurelio.
+        ///   Looks up a localized string similar to 此 Minecraft 实例 (Minecraft {mcVer}) 需求 Java {javaVer}, 但 Aurelio 无法匹配此 Java 版本, 检查此设备是否安装 Java {javaVer} 且添加到 Aurelio.
         /// </summary>
         public static string CannotFindJavaTip {
             get {

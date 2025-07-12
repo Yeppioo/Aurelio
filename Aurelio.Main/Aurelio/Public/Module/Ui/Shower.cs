@@ -78,7 +78,7 @@ public abstract class Shower
         Action? onClick = null)
     {
         var toast = new Toast(msg, type);
-        UiProperty.Toast.Show(toast, toast.Type , classes: ["Light"], onClick: onClick,
+        UiProperty.Toast.Show(toast, toast.Type, classes: ["Light"], onClick: onClick,
             expiration: time ?? TimeSpan.FromSeconds(3.0));
     }
 

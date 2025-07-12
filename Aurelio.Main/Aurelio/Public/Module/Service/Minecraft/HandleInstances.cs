@@ -11,7 +11,7 @@ using DynamicData;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Components.Parser;
 
-namespace Aurelio.Public.Module.Services.Minecraft;
+namespace Aurelio.Public.Module.Service.Minecraft;
 
 public partial class HandleInstances
 {

@@ -16,7 +16,7 @@ using MinecraftLaunch.Skin.Class.Fetchers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Aurelio.Public.Module.Op;
+namespace Aurelio.Public.Module.Operate;
 
 public class Account
 {

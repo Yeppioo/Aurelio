@@ -5,9 +5,8 @@ using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module;
 using Aurelio.Public.Module.IO.Local;
-using Aurelio.Public.Module.Services;
-using Aurelio.Public.Module.Services.Minecraft;
-using Aurelio.Public.Module.Services.Minecraft.Launcher;
+using Aurelio.Public.Module.Service.Minecraft;
+using Aurelio.Public.Module.Service.Minecraft.Launcher;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using MinecraftLaunch.Base.Enums;
@@ -35,10 +34,10 @@ public class RecordMinecraftEntry : ReactiveObject
             : (mlEntry as ModifiedMinecraftEntry)?
             .ModLoaders.Select(x => $"{x.Type}").ToArray();
         SettingEntry = GetMinecraftSetting();
-        Icon = Module.Services.Minecraft.Calculator.GetMinecraftInstanceIcon(this);
+        Icon = Calculator.GetMinecraftInstanceIcon(this);
         _debouncer = new Debouncer(() =>
         {
-            var path = Path.Combine(Module.Services.Minecraft.Calculator.GetMinecraftSpecialFolder
+            var path = Path.Combine(Calculator.GetMinecraftSpecialFolder
                 (MlEntry, MinecraftSpecialFolder.InstanceFolder), "Aurelio.MinecraftInstance.Setting.Yeppioo");
             File.WriteAllText(path, SettingEntry.AsJson());
         }, 250);
@@ -46,17 +45,12 @@ public class RecordMinecraftEntry : ReactiveObject
         {
             if (e.PropertyName is nameof(SettingEntry.IconType) or nameof(SettingEntry.IconData))
             {
-                Icon = Module.Services.Minecraft.Calculator.GetMinecraftInstanceIcon(this);
+                Icon = Calculator.GetMinecraftInstanceIcon(this);
                 SetIcon(e);
             }
 
             _debouncer.Trigger();
         };
-    }
-
-    public void Launch()
-    {
-        _ = MinecraftClientLauncher.Launch(this);
     }
 
     [Reactive] public string Id { get; set; }
@@ -71,14 +65,19 @@ public class RecordMinecraftEntry : ReactiveObject
     public MinecraftInstanceSettingEntry SettingEntry { get; }
 
     public RecordMinecraftFolderEntry? ParentMinecraftFolder =>
-        Module.Services.Minecraft.Calculator.GetMinecraftFolderByEntry(MlEntry);
+        Calculator.GetMinecraftFolderByEntry(MlEntry);
 
     public string InstancePath =>
-        Module.Services.Minecraft.Calculator.GetMinecraftSpecialFolder(MlEntry, MinecraftSpecialFolder.InstanceFolder);
+        Calculator.GetMinecraftSpecialFolder(MlEntry, MinecraftSpecialFolder.InstanceFolder);
+
+    public void Launch()
+    {
+        _ = MinecraftClientLauncher.Launch(this);
+    }
 
     private MinecraftInstanceSettingEntry GetMinecraftSetting()
     {
-        var path = Path.Combine(Module.Services.Minecraft.Calculator.GetMinecraftSpecialFolder
+        var path = Path.Combine(Calculator.GetMinecraftSpecialFolder
             (MlEntry, MinecraftSpecialFolder.InstanceFolder), "Aurelio.MinecraftInstance.Setting.Yeppioo");
         if (File.Exists(path))
             return JsonConvert.DeserializeObject<MinecraftInstanceSettingEntry>(File.ReadAllText(path));

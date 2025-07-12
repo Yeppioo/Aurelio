@@ -21,9 +21,8 @@
     x:Class="Aurelio.Views.Main.TabWindow"
     x:DataType="viewModels:TabWindowViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:behaviors="clr-namespace:Aurelio.Public.Module.Behaviors"
+    xmlns:behavior="clr-namespace:Aurelio.Public.Module.Behavior"
     xmlns:controls="clr-namespace:Aurelio.Public.Controls"
-    xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:entries="clr-namespace:Aurelio.Public.Classes.Entries"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -145,7 +144,7 @@
                                                         Name="ItemRoot"
                                                         PointerPressed="TabItem_OnPointerPressed"
                                                         Tag="{Binding}"
-                                                        behaviors:TabDragBehavior.IsEnabled="True">
+                                                        behavior:TabDragBehavior.IsEnabled="True">
                                                         <Border.Transitions>
                                                             <Transitions>
                                                                 <BrushTransition Duration="0:0:0.2" Property="BorderBrush" />

@@ -2,7 +2,7 @@
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Module.App;
-using Aurelio.Public.Module.Op;
+using Aurelio.Public.Module.Operate;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
 

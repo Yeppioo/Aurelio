@@ -2,14 +2,11 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 
 namespace Aurelio.Views.Main.Template;
 
-public partial class TaskCenter : PageMixModelBase , IAurelioTabPage
+public partial class TaskCenter : PageMixModelBase, IAurelioTabPage
 {
     public TaskCenter()
     {
@@ -24,10 +21,7 @@ public partial class TaskCenter : PageMixModelBase , IAurelioTabPage
         };
         Tasking.Instance.PropertyChanged += (_, e) =>
         {
-            if (e.PropertyName == nameof(Tasking.Instance.TaskingState))
-            {
-                PageInfo.Title = Tasking.Instance.TaskingState;
-            }
+            if (e.PropertyName == nameof(Tasking.Instance.TaskingState)) PageInfo.Title = Tasking.Instance.TaskingState;
         };
     }
 
@@ -35,6 +29,7 @@ public partial class TaskCenter : PageMixModelBase , IAurelioTabPage
     public PageLoadingAnimator InAnimator { get; set; }
     public TabEntry HostTab { get; set; }
     public PageInfoEntry PageInfo { get; }
+
     public void OnClose()
     {
     }

@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
-using Aurelio.Public.Module.Services;
+using Aurelio.Public.Module.Service;
 using Aurelio.ViewModels;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;

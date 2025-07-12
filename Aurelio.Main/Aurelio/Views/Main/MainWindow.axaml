@@ -21,7 +21,7 @@
     x:Class="Aurelio.Views.Main.MainWindow"
     x:DataType="viewModels:MainViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:behaviors="clr-namespace:Aurelio.Public.Module.Behaviors"
+    xmlns:behavior="clr-namespace:Aurelio.Public.Module.Behavior"
     xmlns:controls="clr-namespace:Aurelio.Public.Controls"
     xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -30,9 +30,7 @@
     xmlns:u="https://irihi.tech/ursa"
     xmlns:viewModels="clr-namespace:Aurelio.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Window.Resources>
-        <converter:MinecraftAccountToColorConverter x:Key="MinecraftAccountToColorConverter" />
-    </Window.Resources>
+    <Window.Resources />
     <Window.Styles>
         <Style Selector="Window">
             <Setter Property="Background">
@@ -192,7 +190,7 @@
                                                         Name="ItemRoot"
                                                         PointerPressed="TabItem_OnPointerPressed"
                                                         Tag="{Binding}"
-                                                        behaviors:TabDragBehavior.IsEnabled="True">
+                                                        behavior:TabDragBehavior.IsEnabled="True">
                                                         <Border.Transitions>
                                                             <Transitions>
                                                                 <BrushTransition Duration="0:0:0.2" Property="BorderBrush" />

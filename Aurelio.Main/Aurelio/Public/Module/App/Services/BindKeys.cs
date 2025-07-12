@@ -24,7 +24,8 @@ public class BindKeys
         {
             Gesture = KeyGesture.Parse("Ctrl+Shift+Q"),
             Command = new RelayCommand(c.ToggleTheme)
-        }); w.KeyBindings.Add(new KeyBinding
+        });
+        w.KeyBindings.Add(new KeyBinding
         {
             Gesture = KeyGesture.Parse("Shift+F12"),
             Command = new RelayCommand(c.DebugTab)

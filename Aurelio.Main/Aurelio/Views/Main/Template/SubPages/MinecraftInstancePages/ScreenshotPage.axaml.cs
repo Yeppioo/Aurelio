@@ -2,36 +2,33 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Controls;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO.Local;
-using Aurelio.Public.Module.Services;
-using Aurelio.Public.Module.Services.Minecraft;
+using Aurelio.Public.Module.Service;
 using Aurelio.Public.Module.Ui.Helper;
-using Aurelio.Public.Module.Value;
 using Aurelio.ViewModels;
 using Avalonia.Threading;
 using MinecraftLaunch.Base.Models.Game;
-using Calculator = Aurelio.Public.Module.Services.Minecraft.Calculator;
+using Calculator = Aurelio.Public.Module.Service.Minecraft.Calculator;
 
 namespace Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages;
 
 public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
 {
-    private readonly MinecraftEntry _entry;
+    private const int BatchSize = 50; // 每批加载的数量
     private readonly ObservableCollection<MinecraftLocalResourcePackEntry> _allItems = []; // 所有项目
+    private readonly MinecraftEntry _entry;
     private readonly ObservableCollection<MinecraftLocalResourcePackEntry> _filteredItems = []; // 过滤后的项目
+    private List<string> _allFiles = [];
+    private int _currentBatch;
     private string _filter = string.Empty;
     private bool _fl = true;
+    private bool _isLoadingBatch; // 防止重复加载
     private bool loading = true;
-    private const int BatchSize = 50; // 每批加载的数量
-    private int _currentBatch = 0;
-    private List<string> _allFiles = [];
-    private bool _isLoadingBatch = false; // 防止重复加载
 
 
     public ScreenshotPage(MinecraftEntry entry)
@@ -62,13 +59,11 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
         };
 
         // 添加滚动事件监听，实现无限滚动
-        this.Loaded += (_, _) =>
+        Loaded += (_, _) =>
         {
             // 找到 ScrollViewer 并监听滚动事件
             if (this.FindControl<ScrollViewer>("ScrollViewer") is ScrollViewer scrollViewer)
-            {
                 scrollViewer.PropertyChanged += OnScrollChanged;
-            }
         };
     }
 
@@ -78,21 +73,24 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
         set => SetField(ref _filter, value);
     }
 
+    public bool Loading
+    {
+        get => loading;
+        set => SetField(ref loading, value);
+    }
+
     public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
 
     /// <summary>
-    /// 清理资源，释放所有图片内存
+    ///     清理资源，释放所有图片内存
     /// </summary>
     public void OnClose()
     {
         // 清理所有 ScreenshotEntry 控件
         Dispatcher.UIThread.InvokeAsync(() =>
         {
-            foreach (var child in Container.Children.OfType<ScreenshotEntry>())
-            {
-                child.Dispose();
-            }
+            foreach (var child in Container.Children.OfType<ScreenshotEntry>()) child.Dispose();
             Container.Children.Clear();
         });
 
@@ -103,12 +101,6 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
 
         // 清理图片缓存
         ImageCache.ClearCache();
-    }
-
-    public bool Loading
-    {
-        get => loading;
-        set => SetField(ref loading, value);
     }
 
     private void LoadItems()
@@ -124,15 +116,14 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
 
             // 获取所有文件并按时间排序（最新的在前）
             _allFiles = Directory.GetFiles(
-                Calculator.GetMinecraftSpecialFolder(_entry,
-                    MinecraftSpecialFolder.ScreenshotsFolder)
-                , "*.png", SearchOption.AllDirectories)
+                    Calculator.GetMinecraftSpecialFolder(_entry,
+                        MinecraftSpecialFolder.ScreenshotsFolder)
+                    , "*.png", SearchOption.AllDirectories)
                 .OrderByDescending(f => new FileInfo(f).CreationTime)
                 .ToList();
 
             // 创建所有项目但不立即显示
             foreach (var file in _allFiles)
-            {
                 _allItems.Add(new MinecraftLocalResourcePackEntry
                 {
                     Name = Path.GetFileName(file),
@@ -140,7 +131,6 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
                     Icon = null,
                     Description = $"{MainLang.ImportTime}: {new FileInfo(file).CreationTime}"
                 });
-            }
 
             // 预加载前几张图片
             if (_allFiles.Count > 0)
@@ -169,10 +159,7 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
 
         Dispatcher.UIThread.InvokeAsync(() =>
         {
-            foreach (var item in batchItems)
-            {
-                Container.Children.Add(new ScreenshotEntry(item.Name, item.Path));
-            }
+            foreach (var item in batchItems) Container.Children.Add(new ScreenshotEntry(item.Name, item.Path));
             NoMatchResultTip.IsVisible = Container.Children.Count == 0;
 
             _currentBatch++;
@@ -194,9 +181,7 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
                 !_isLoadingBatch &&
                 _currentBatch * BatchSize < _filteredItems.Count &&
                 scrollableHeight > 0) // 确保有可滚动内容
-            {
                 LoadNextBatch();
-            }
         }
     }
 
@@ -207,10 +192,7 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
         var filteredItems = _allItems.Where(item
             => item.Name.Contains(Filter, StringComparison.OrdinalIgnoreCase)).ToList();
 
-        foreach (var item in filteredItems)
-        {
-            _filteredItems.Add(item);
-        }
+        foreach (var item in filteredItems) _filteredItems.Add(item);
 
         // 重置批次计数器和加载标志
         _currentBatch = 0;
@@ -222,10 +204,7 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
             NoMatchResultTip.IsVisible = _filteredItems.Count == 0;
 
             // 加载第一批
-            if (_filteredItems.Count > 0)
-            {
-                LoadNextBatch();
-            }
+            if (_filteredItems.Count > 0) LoadNextBatch();
         });
     }
 }

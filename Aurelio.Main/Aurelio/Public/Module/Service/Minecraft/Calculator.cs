@@ -3,14 +3,13 @@ using System.IO;
 using System.Linq;
 using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Minecraft;
-using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO.Local;
 using Avalonia.Media.Imaging;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Extensions;
 
-namespace Aurelio.Public.Module.Services.Minecraft;
+namespace Aurelio.Public.Module.Service.Minecraft;
 
 public class Calculator
 {
@@ -53,7 +52,7 @@ public class Calculator
             JavaRuntime = javaRuntime,
             MemoryLimit = memoryLimit,
             EnableIndependentMinecraft = enableIndependentMinecraft,
-            AutoJoinServerAddress = AutoJoinServerAddress,
+            AutoJoinServerAddress = AutoJoinServerAddress
         };
     }
 

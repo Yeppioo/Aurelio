@@ -5,21 +5,20 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
-using Avalonia.Threading;
 
-namespace Aurelio.Public.Module.Services;
+namespace Aurelio.Public.Module.Service;
 
 /// <summary>
-/// 简单的图片缓存服务，用于优化截图加载性能
+///     简单的图片缓存服务，用于优化截图加载性能
 /// </summary>
 public static class ImageCache
 {
+    private const int MaxCacheSize = 200; // 最大缓存数量
     private static readonly ConcurrentDictionary<string, Bitmap> _cache = new();
     private static readonly ConcurrentDictionary<string, Task<Bitmap>> _loadingTasks = new();
-    private const int MaxCacheSize = 200; // 最大缓存数量
 
     /// <summary>
-    /// 异步获取图片，如果缓存中存在则直接返回，否则异步加载
+    ///     异步获取图片，如果缓存中存在则直接返回，否则异步加载
     /// </summary>
     public static async Task<Bitmap?> GetImageAsync(string filePath, int targetHeight = 135)
     {
@@ -68,12 +67,8 @@ public static class ImageCache
                 {
                     var keysToRemove = _cache.Keys.Take(_cache.Count - MaxCacheSize + 50).ToList();
                     foreach (var key in keysToRemove)
-                    {
                         if (_cache.TryRemove(key, out var oldBitmap))
-                        {
                             oldBitmap?.Dispose();
-                        }
-                    }
                 }
 
                 return bitmap;
@@ -87,7 +82,7 @@ public static class ImageCache
     }
 
     /// <summary>
-    /// 创建占位符图片
+    ///     创建占位符图片
     /// </summary>
     private static Bitmap CreatePlaceholderBitmap(int height)
     {
@@ -96,20 +91,17 @@ public static class ImageCache
     }
 
     /// <summary>
-    /// 清理缓存
+    ///     清理缓存
     /// </summary>
     public static void ClearCache()
     {
-        foreach (var bitmap in _cache.Values)
-        {
-            bitmap?.Dispose();
-        }
+        foreach (var bitmap in _cache.Values) bitmap?.Dispose();
         _cache.Clear();
         _loadingTasks.Clear();
     }
 
     /// <summary>
-    /// 预加载指定路径的图片
+    ///     预加载指定路径的图片
     /// </summary>
     public static void PreloadImages(IEnumerable<string> filePaths, int targetHeight = 135)
     {

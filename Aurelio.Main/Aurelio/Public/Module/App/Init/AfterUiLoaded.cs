@@ -2,10 +2,9 @@
 using System.IO;
 using System.Linq;
 using Aurelio.Public.Module.App.Services;
-using Aurelio.Public.Module.Services;
-using Aurelio.Public.Module.Services.Minecraft;
 using Aurelio.Public.Module.Ui;
 using Avalonia.Media;
+using HandleInstances = Aurelio.Public.Module.Service.Minecraft.HandleInstances;
 
 namespace Aurelio.Public.Module.App.Init;
 
