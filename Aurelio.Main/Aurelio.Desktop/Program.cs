@@ -25,6 +25,5 @@ internal sealed class Program
             .UseHotReload()
 #endif
             .UsePlatformDetect()
-            .WithInterFont()
             .LogToTrace();
 }

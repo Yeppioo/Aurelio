@@ -11,6 +11,7 @@
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:settingPages="clr-namespace:Aurelio.Views.Main.SubPages.SettingPages"
     xmlns:u="https://irihi.tech/ursa"
+    xmlns:ui="clr-namespace:Aurelio.Public.Module.Ui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border Name="Root">
         <ScrollViewer>
@@ -40,7 +41,7 @@
                                     <u:IconButton Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AddFolder}" Name="AddMinecraftFolder">
                                         <u:IconButton.Icon>
                                             <PathIcon
-                                                Data="M512 416c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 96C0 60.7 28.7 32 64 32l128 0c20.1 0 39.1 9.5 51.2 25.6l19.2 25.6c6 8.1 15.5 12.8 25.6 12.8l160 0c35.3 0 64 28.7 64 64l0 256zM232 376c0 13.3 10.7 24 24 24s24-10.7 24-24l0-64 64 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-64 0 0-64c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 64-64 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l64 0 0 64z"
+                                                Data="{x:Static ui:Icons.AddFolder}"
                                                 Height="14"
                                                 Width="14" />
                                         </u:IconButton.Icon>
@@ -48,7 +49,7 @@
                                     <u:IconButton Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.DelSelectedItem}" Name="RemoveSelectedMinecraftFolder">
                                         <u:IconButton.Icon>
                                             <PathIcon
-                                                Data="M448 480L64 480c-35.3 0-64-28.7-64-64L0 96C0 60.7 28.7 32 64 32l128 0c20.1 0 39.1 9.5 51.2 25.6l19.2 25.6c6 8.1 15.5 12.8 25.6 12.8l160 0c35.3 0 64 28.7 64 64l0 256c0 35.3-28.7 64-64 64zM184 272c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z"
+                                                Data="{x:Static ui:Icons.MinusFolder}"
                                                 Height="14"
                                                 Width="14" />
                                         </u:IconButton.Icon>
@@ -109,7 +110,7 @@
                                     <u:IconButton Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AutoScan}" Name="AutoScanJavaRuntime">
                                         <u:IconButton.Icon>
                                             <PathIcon
-                                                Data="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+                                                Data="{x:Static ui:Icons.Search}"
                                                 Height="13"
                                                 Width="13" />
                                         </u:IconButton.Icon>
@@ -117,7 +118,7 @@
                                     <u:IconButton Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ManualAdd}" Name="AddJavaRuntime">
                                         <u:IconButton.Icon>
                                             <PathIcon
-                                                Data="M88 0C74.7 0 64 10.7 64 24c0 38.9 23.4 59.4 39.1 73.1l1.1 1C120.5 112.3 128 119.9 128 136c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C119.5 47.7 112 40.1 112 24c0-13.3-10.7-24-24-24zM32 192c-17.7 0-32 14.3-32 32L0 416c0 53 43 96 96 96l192 0c53 0 96-43 96-96l16 0c61.9 0 112-50.1 112-112s-50.1-112-112-112l-48 0L32 192zm352 64l16 0c26.5 0 48 21.5 48 48s-21.5 48-48 48l-16 0 0-96zM224 24c0-13.3-10.7-24-24-24s-24 10.7-24 24c0 38.9 23.4 59.4 39.1 73.1l1.1 1C232.5 112.3 240 119.9 240 136c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C231.5 47.7 224 40.1 224 24z"
+                                                Data="{x:Static ui:Icons.Java}"
                                                 Height="14"
                                                 Width="14" />
                                         </u:IconButton.Icon>
@@ -125,7 +126,7 @@
                                     <u:IconButton Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.DelSelectedItem}" Name="RemoveSelectedJavaRuntime">
                                         <u:IconButton.Icon>
                                             <PathIcon
-                                                Data="M290.7 57.4L57.4 290.7c-25 25-25 65.5 0 90.5l80 80c12 12 28.3 18.7 45.3 18.7L288 480l9.4 0L512 480c17.7 0 32-14.3 32-32s-14.3-32-32-32l-124.1 0L518.6 285.3c25-25 25-65.5 0-90.5L381.3 57.4c-25-25-65.5-25-90.5 0zM297.4 416l-9.4 0-105.4 0-80-80L227.3 211.3 364.7 348.7 297.4 416z"
+                                                Data="{x:Static ui:Icons.Eraser}"
                                                 Height="14"
                                                 Width="14" />
                                         </u:IconButton.Icon>
@@ -151,35 +152,6 @@
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </DockPanel>
-                            <!--  <Border  -->
-                            <!--  Background="{DynamicResource 2xCardBackgroundColor}"  -->
-                            <!--  CornerRadius="{DynamicResource CardCornerRadius}"  -->
-                            <!--  IsVisible="False"  -->
-                            <!--  Margin="10,0,10,0">  -->
-                            <!--  <Expander  -->
-                            <!--  Background="{DynamicResource 2xCardBackgroundColor}"  -->
-                            <!--  Classes="card"  -->
-                            <!--  Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ExistingNow}">  -->
-                            <!--  <ListBox  -->
-                            <!--  ItemsSource="{Binding Data.SettingEntry.JavaRuntimes}"  -->
-                            <!--  Margin="5"  -->
-                            <!--  Name="JavaRuntimeListBox"  -->
-                            <!--  SelectedItem="{Binding Data.SettingEntry.PreferredJavaRuntime, Converter={StaticResource SelectedPreferredJavaRuntimeConverter}}"  -->
-                            <!--  SelectionMode="Toggle">  -->
-                            <!--             <ListBox.ItemTemplate> -->
-                            <!--                 <DataTemplate DataType="minecraft:RecordJavaRuntime"> -->
-                            <!--                     <TextBlock Height="18"> -->
-                            <!--                         <Run Text="[" /> -->
-                            <!--                         <Run Text="{Binding JavaType}" /> -->
-                            <!--                         <Run Text="{Binding JavaVersion}" /> -->
-                            <!--                         <Run Text="]" /> -->
-                            <!--                         <Run Text="{Binding JavaPath}" /> -->
-                            <!--                     </TextBlock> -->
-                            <!--                 </DataTemplate> -->
-                            <!--             </ListBox.ItemTemplate> -->
-                            <!--         </ListBox> -->
-                            <!--     </Expander> -->
-                            <!-- </Border> -->
                         </DockPanel>
                     </StackPanel>
                 </Border>

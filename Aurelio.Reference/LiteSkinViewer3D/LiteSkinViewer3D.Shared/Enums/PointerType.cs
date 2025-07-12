@@ -1,7 +1,8 @@
 ﻿namespace LiteSkinViewer3D.Shared.Enums;
 
-public enum PointerType {
+public enum PointerType
+{
     None,
     PointerLeft,
-    PointerRight,
+    PointerRight
 }
