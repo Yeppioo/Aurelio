@@ -115,6 +115,7 @@ public partial class HandleInstances
         var filtered = Data.SortedMinecraftCategories
             .FirstOrDefault(x => x.Tag == "filtered");
         if (filtered == null) return;
+        filtered.Minecrafts.Clear();
         filtered.Expanded = false;
         if (ui && key.IsNullOrWhiteSpace())
         {
@@ -350,9 +351,9 @@ public partial class HandleInstances
             Data.SettingEntry.MinecraftInstanceSortMethod != MinecraftInstanceSortMethod.Name)
             Sort(Data.SettingEntry.MinecraftInstanceSortMethod);
 
-        if (Aurelio.App.UiRoot != null)
-            Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
-                .Animate<double>(Visual.OpacityProperty, 0, 1);
+        // if (Aurelio.App.UiRoot != null)
+        //     Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
+        //         .Animate<double>(Visual.OpacityProperty, 0, 1);
     }
 
     [GeneratedRegex(@"^(\d+)\.(\d+)(?:\.(\d+))?")]

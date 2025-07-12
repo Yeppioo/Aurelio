@@ -10,6 +10,7 @@
     <Border Name="Root">
         <WrapPanel ItemSpacing="10" Margin="15,5,15,15">
             <Button Click="CreateTask_OnClick" Content="Create Task" />
+            <Button Click="NextTask_OnClick" Content="Next Task" />
             <Button Click="BobbleNotice_OnClick" Content="Bobble Notice" />
         </WrapPanel>
     </Border>

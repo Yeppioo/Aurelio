@@ -41,32 +41,50 @@ public partial class DebugTabPage : PageMixModelBase, IAurelioTabPage
         NotificationBubble("Test Message", (NotificationType)r.Next(0, 4), TimeSpan.FromHours(1));
     }
 
+    private void NextTask_OnClick(object? sender, RoutedEventArgs e)
+    {
+        task.NextSubTask();
+    }
+    
+    private TaskEntry? task;
+
     private void CreateTask_OnClick(object? sender, RoutedEventArgs e)
     {
-        var task = Tasking.CreateTask("Test Task");
-        var sub = new TaskEntry { Name = "SubTask", TaskState = TaskState.Finished };
-        sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Finished });
-        sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Error });
-        sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Canceled });
-        sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Canceling });
+        task = Tasking.CreateTask("Test Task");
+        task.ProgressIsIndeterminate = false;
+        task.ProgressValue = 100;
+        task.IsButtonEnable = true;
+        task.ButtonText = "ButtonText";
+        task.ButtonAction = () =>
+        {
+            task.Cancel();
+        };
+        task.BottomLeftInfoText = "BottomLeftInfoText";
+        task.TopRightInfoText = "TopRightInfoText";
+        task.IsDestroyButtonVisible = true;
+        
+        var sub = new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting };
         sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
-        sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Running });
-        sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Paused });
-        sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Finished });
-        task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Error });
-        task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Canceled });
-        var sub2 = new TaskEntry { Name = "SubTask", TaskState = TaskState.Finished };
-        sub2.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Finished });
-        sub2.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Error });
-        task.SubTasks.Add(sub2);
-        var sub1 = new TaskEntry { Name = "SubTask", TaskState = TaskState.Finished };
-        sub1.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Finished });
-        sub1.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Error });
-        sub2.SubTasks.Add(sub1);
-        task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Finished });
-        task.SubTasks.Add(sub2);
+        sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
+        sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
+        sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
+        sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
+        sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
+        sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
+        sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
         task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
-        task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Running });
-        task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Paused });
+        task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
+        var sub2 = new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting };
+        sub2.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
+        sub2.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
+        task.SubTasks.Add(sub2);
+        var sub1 = new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting };
+        sub1.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
+        sub1.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
+        sub2.SubTasks.Add(sub1);
+        task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
+        task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
+        task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
+        task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
     }
 }

@@ -33,4 +33,9 @@ public partial class TaskCenter : PageMixModelBase, IAurelioTabPage
     public void OnClose()
     {
     }
+
+    private void AvaloniaObject_OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+    {
+
+    }
 }

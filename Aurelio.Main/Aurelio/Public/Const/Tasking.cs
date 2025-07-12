@@ -47,7 +47,7 @@ public class Tasking : ReactiveObject
         return task;
     }
 
-    private void UpdateDisplay()
+    public void UpdateDisplay()
     {
         if (Tasks.Count == 0)
         {

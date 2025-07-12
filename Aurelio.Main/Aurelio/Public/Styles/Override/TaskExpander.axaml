@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
     xmlns:controls1="clr-namespace:Aurelio.Public.Controls"
+    xmlns:properties="clr-namespace:Aurelio.Public.Langs"
+    xmlns:u="https://irihi.tech/ursa"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="20">
@@ -26,12 +28,13 @@
                     <Border CornerRadius="{TemplateBinding CornerRadius}" Name="PART_InnerBorder">
                         <Panel>
                             <controls1:ContentExpandControl
+                                Classes="task-content"
                                 Content="{TemplateBinding Content}"
                                 ContentTemplate="{TemplateBinding ContentTemplate}"
                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Margin="0,60,0,0"
                                 Name="PART_ContentExpand"
                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-
                             <LayoutTransformControl Name="PART_ToggleTransform">
                                 <DockPanel>
                                     <Border
@@ -55,18 +58,10 @@
                                                                     Mode=TwoWay}"
                                         Name="PART_ToggleButton"
                                         VerticalAlignment="Center">
-                                        <DockPanel>
-                                            <StackPanel
-                                                DockPanel.Dock="Right"
-                                                Height="10"
-                                                HorizontalAlignment="Right"
-                                                Margin="10,0,0,0"
-                                                Name="PART_Icon" />
-                                            <ContentPresenter
-                                                Content="{TemplateBinding Header}"
-                                                FontWeight="{DynamicResource DefaultDemiBold}"
-                                                VerticalAlignment="Center" />
-                                        </DockPanel>
+                                        <ContentPresenter
+                                            Content="{TemplateBinding Header}"
+                                            FontWeight="{DynamicResource DefaultDemiBold}"
+                                            VerticalAlignment="Center" />
                                     </ToggleButton>
                                 </DockPanel>
                             </LayoutTransformControl>

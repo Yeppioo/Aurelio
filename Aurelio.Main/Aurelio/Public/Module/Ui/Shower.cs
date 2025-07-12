@@ -3,11 +3,14 @@ using System.IO;
 using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Langs;
+using Aurelio.Views.Main.Drawer;
 using Avalonia.Controls.Notifications;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using FluentAvalonia.UI.Controls;
 using Ursa.Controls;
+using Ursa.Controls.Options;
 using Notification = Avalonia.Controls.Notifications.Notification;
 
 namespace Aurelio.Public.Module.Ui;
@@ -115,5 +118,20 @@ public abstract class Shower
             var launcher = Aurelio.App.TopLevel.Launcher;
             await launcher.LaunchDirectoryInfoAsync(new DirectoryInfo(path));
         }
+    }
+
+    public static async Task OpenTaskDrawer(string? host = null)
+    {
+        var options = new DrawerOptions
+        {
+            Position = Ursa.Common.Position.Right,
+            Buttons = DialogButton.None,
+            CanLightDismiss = true,
+            IsCloseButtonVisible = true,
+            MinWidth = 470,
+            Title = MainLang.TaskingState,
+            CanResize = true,
+        };
+        await Drawer.ShowModal<TaskCenterDrawer, Tasking>(Tasking.Instance, host, options);
     }
 }

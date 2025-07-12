@@ -118,7 +118,7 @@ public partial class MainWindow : UrsaWindow
         {
             NavRoot.Margin = new Thickness(80, 0, TitleBarContainer.Bounds.Width + 85, 0);
         };
-        FocusInfoBorder.PointerPressed += (_, _) => { };
+        FocusInfoBorder.PointerPressed += (_, _) => { _ = OpenTaskDrawer(); };
     }
 
     private void TabItem_OnPointerPressed(object? sender, PointerPressedEventArgs e)
