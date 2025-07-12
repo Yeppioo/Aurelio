@@ -29,7 +29,7 @@ jobs:
         run: |
           echo "The current time is: ${{ steps.date.outputs.time }}"
 
-  linux:
+  osx-appImage:
     runs-on: ubuntu-22.04
     needs: time
     steps:
@@ -74,25 +74,6 @@ jobs:
           cd ./bin/Release/net8.0/
           cd ./osx-arm64/publish/
           zip -9 -r ../../Aurelio.osx.mac.arm64.app.zip "./Aurelio.app"
-      - name: Build-WinExe
-        run: |
-          cd ./Aurelio.Main/Aurelio.Desktop
-          sudo su
-          dotnet publish -r win-x86 --self-contained true -p:PublishSingleFile=true
-          dotnet publish -r win-x64 --self-contained true -p:PublishSingleFile=true
-          dotnet publish -r win-arm64 --self-contained true -p:PublishSingleFile=true
-          mv ./bin/Release/net8.0/win-x86/publish/Aurelio.Desktop.exe ./bin/Release/net8.0/win-x86/publish/Aurelio.win.x86.executable.exe
-          mv ./bin/Release/net8.0/win-x64/publish/Aurelio.Desktop.exe ./bin/Release/net8.0/win-x64/publish/Aurelio.win.x64.executable.exe
-          mv ./bin/Release/net8.0/win-arm64/publish/Aurelio.Desktop.exe ./bin/Release/net8.0/win-arm64/publish/Aurelio.win.arm64.executable.exe
-          cd ./bin/Release/net8.0/
-          cd ./win-x86/
-          zip -9 -r "../Aurelio.win.x86.executable.zip" "./publish"
-          cd ../
-          cd ./win-x64/
-          zip -9 -r "../Aurelio.win.x64.executable.zip" "./publish"
-          cd ../
-          cd ./win-arm64/
-          zip -9 -r "../Aurelio.win.arm64.executable.zip" "./publish"
       - name: UploadArtifacts
         uses: actions/upload-artifact@v4
         with:
@@ -101,7 +82,47 @@ jobs:
             Aurelio.Main/Aurelio.Desktop/Deploy/OUT/*
             Aurelio.Main/Aurelio.Desktop/bin/Release/net8.0/*.zip
 
-  win:
+  win-exe:
+    runs-on: windows-latest
+    needs: time
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Time
+        id: date
+        run: |
+          echo "${{ needs.time.outputs.v }}" > ./Assets/Version.txt
+          echo "Version is ${{ needs.time.outputs.v }}"
+        shell: bash
+      - name: Build
+        run: |
+          cd ./Aurelio.Main/Aurelio.Desktop
+          dotnet publish -c Release -r win-x64 `
+            /p:PublishSingleFile=true `
+            /p:PublishReadyToRun=true `
+            /p:IncludeNativeLibrariesForSelfExtract=true `
+            /p:SelfContained=true `
+            /p:Version=${{ needs.time.outputs.v }} `
+            -o "../../publish/win-x64" -p:DebugType=none -p:DebugSymbols=false
+          dotnet publish -c Release -r win-arm64 `
+            /p:PublishSingleFile=true `
+            /p:PublishReadyToRun=true `
+            /p:IncludeNativeLibrariesForSelfExtract=true `
+            /p:SelfContained=true `
+            /p:Version=${{ needs.time.outputs.v }} `
+            -o "../../publish/win-arm64" -p:DebugType=none -p:DebugSymbols=false
+      - name: ZIP
+        run: |
+          Compress-Archive -Path "./publish/win-x64/*" -DestinationPath "./Aurelio.win.executable.x64.zip" -Force
+          Compress-Archive -Path "./publish/win-arm64/*" -DestinationPath "./Aurelio.win.executable.arm64.zip" -Force
+      - name: UploadArtifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-exe-artifacts
+          path: |
+            ./publish/*.zip
+
+  win-installer:
     runs-on: windows-latest
     needs: time
     steps:
@@ -132,12 +153,12 @@ jobs:
       - name: UploadArtifacts
         uses: actions/upload-artifact@v4
         with:
-          name: win-artifacts
+          name: win-installer-artifacts
           path: |
             ./Aurelio.Main/Aurelio.Desktop/Deploy/OUT/*
 
-  mac:
-    needs: [linux, win]
+  mac-dmg:
+    needs: [osx-appImage]
     runs-on: macos-latest
     steps:
       - name: Download-LinuxArtifacts
@@ -168,7 +189,7 @@ jobs:
             ./Aurelio.osx.mac.x64.dmg
 
   publish:
-    needs: [mac]
+    needs: [mac-dmg, win-installer, win-exe]
     runs-on: ubuntu-latest
     steps:
       - name: Time
@@ -181,10 +202,15 @@ jobs:
         with:
           name: linux-artifacts
           path: ./Aurelio.Release/
-      - name: Download-WindowsArtifacts
+      - name: Download-WindowsInstallerArtifacts
         uses: actions/download-artifact@v4
         with:
-          name: win-artifacts
+          name: win-installer-artifacts
+          path: ./Aurelio.Release/
+      - name: Download-WindowsExeArtifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: win-exe-artifacts
           path: ./Aurelio.Release/
       - name: Download-MacArtifacts
         uses: actions/download-artifact@v4
@@ -204,5 +230,6 @@ jobs:
           files: |
             Aurelio.Release/*.exe
             Aurelio.Release/*.dmg
+            Aurelio.Release/publish/*.zip
             Aurelio.Release/Deploy/OUT/*.AppImage
             Aurelio.Release/bin/Release/net8.0/*.zip
