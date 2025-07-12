@@ -1,5 +1,4 @@
 ﻿using Avalonia.Media;
-using Material.Icons;
 
 namespace Aurelio.Public.Module.Ui;
 
@@ -32,10 +31,5 @@ public abstract class Icons
     private static StreamGeometry Parse(string s)
     {
         return StreamGeometry.Parse(s);
-    }
-
-    public static StreamGeometry FromMaterial(MaterialIconKind kind)
-    {
-        return StreamGeometry.Parse(MaterialIconDataProvider.GetData(kind));
     }
 }

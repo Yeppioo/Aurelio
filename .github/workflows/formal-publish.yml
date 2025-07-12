@@ -58,7 +58,7 @@ jobs:
           sudo su
           dotnet restore -r osx-x64
           dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:SelfContained=true
-          cp ./Icon-Border.icns "./bin/Release/net8.0/osx-x64/publish/Aurelio.app/Contents/Resources/Icon-Border.icns"
+          cp ./Icon.Border.icns "./bin/Release/net8.0/osx-x64/publish/Aurelio.app/Contents/Resources/Icon.Border.icns"
           cd ./bin/Release/net8.0/
           cd ./osx-x64/publish/
           zip -9 -r ../../Aurelio.osx.mac.x64.app.zip "./Aurelio.app"
@@ -68,7 +68,7 @@ jobs:
           sudo su
           dotnet restore -r osx-arm64
           dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-arm64 -property:Configuration=Release -p:SelfContained=true
-          cp ./Icon-Border.icns "./bin/Release/net8.0/osx-arm64/publish/Aurelio.app/Contents/Resources/Icon-Border.icns"
+          cp ./Icon.Border.icns "./bin/Release/net8.0/osx-arm64/publish/Aurelio.app/Contents/Resources/Icon.Border.icns"
           cd ./bin/Release/net8.0/
           cd ./osx-arm64/publish/
           zip -9 -r ../../Aurelio.osx.mac.arm64.app.zip "./Aurelio.app"

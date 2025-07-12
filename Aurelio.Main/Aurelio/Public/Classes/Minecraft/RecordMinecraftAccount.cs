@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using Aurelio.Public.Module.Value;
 using Avalonia.Media.Imaging;
-using MinecraftSkinRender.Image;
+using MinecraftLaunch.Skin;
 using Newtonsoft.Json;
 using SkiaSharp;
 
@@ -54,27 +54,16 @@ public sealed record RecordMinecraftAccount : INotifyPropertyChanged
 
     private Bitmap HandleHeadSkin()
     {
-        // SkinResolver SkinResolver = new(Convert.FromBase64String(Skin));
-        // var bytes = ImageHelper.ConvertToByteArray(SkinResolver.CropSkinHeadBitmap());
-        // return Converter.Base64ToBitmap(Converter.BytesToBase64(bytes));
-
-        using var stream = new MemoryStream(Convert.FromBase64String(Skin));
-        using var skin = SKBitmap.Decode(stream);
-        var image = Skin2DHeadTypeB.MakeHeadImage(skin);
-        using var imageData = image.Encode(SKEncodedImageFormat.Png, 100);
-        using var imageStream = new MemoryStream(imageData.ToArray());
-        return Bitmap.DecodeToWidth(imageStream, 220);
+        SkinResolver SkinResolver = new(Convert.FromBase64String(Skin));
+        var bytes = ImageHelper.ConvertToByteArray(SkinResolver.CropSkinHeadBitmap());
+        return Converter.Base64ToBitmap(Converter.BytesToBase64(bytes), 48);
     }
 
     private Bitmap HandleBodySkin()
     {
-        using var stream = new MemoryStream(Convert.FromBase64String(Skin));
-        using var skin = SKBitmap.Decode(stream);
-        var head = Skin2DTypeB.MakeSkinImage(skin);
-        using var imageStream = new MemoryStream();
-        head.Encode(imageStream, SKEncodedImageFormat.Png, 100);
-        imageStream.Seek(0, SeekOrigin.Begin);
-        return Bitmap.DecodeToWidth(imageStream, 220);
+        SkinResolver SkinResolver = new(Convert.FromBase64String(Skin));
+        var bytes = ImageHelper.ConvertToByteArray(SkinResolver.CropSkinBodyBitmap());
+        return Converter.Base64ToBitmap(Converter.BytesToBase64(bytes), 220);
     }
 
     private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
