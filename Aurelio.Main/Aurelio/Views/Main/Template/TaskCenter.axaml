@@ -5,7 +5,6 @@
     x:Class="Aurelio.Views.Main.Template.TaskCenter"
     x:DataType="const:Tasking"
     xmlns="https://github.com/avaloniaui"
-    xmlns:System="clr-namespace:System;assembly=System.Runtime"
     xmlns:const="clr-namespace:Aurelio.Public.Const"
     xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"

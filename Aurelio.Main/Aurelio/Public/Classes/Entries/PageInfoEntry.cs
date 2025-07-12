@@ -1,10 +1,12 @@
 ﻿using Avalonia.Media;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace Aurelio.Public.Classes.Entries;
 
-public class PageInfoEntry
+public class PageInfoEntry : ReactiveObject
 {
-    public string Title { get; set; }
-    public StreamGeometry Icon { get; init; }
-    public bool CanClose { get; init; } = true;
+    [Reactive] public string Title { get; set; }
+    [Reactive] public StreamGeometry Icon { get; init; }
+    [Reactive] public bool CanClose { get; init; } = true;
 }

@@ -27,6 +27,12 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
         BindingEvent();
+        PageInfo = new PageInfoEntry
+        {
+            CanClose = false,
+            Title = MainLang.Launch,
+            Icon = Icons.Home
+        };
     }
 
     public new static Data Data => Data.Instance;
@@ -50,12 +56,7 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
 
     public TabEntry HostTab { get; set; }
 
-    public PageInfoEntry PageInfo { get; } = new()
-    {
-        CanClose = false,
-        Title = MainLang.Launch,
-        Icon = Icons.Home
-    };
+    public PageInfoEntry PageInfo { get; }
 
     public void OnClose()
     {

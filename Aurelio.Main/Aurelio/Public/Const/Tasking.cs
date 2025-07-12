@@ -25,7 +25,6 @@ public class Tasking : ReactiveObject
         UpdateDisplay();
     }
 
-    [Reactive] public string TaskingState { get; set; }
     [Reactive] public string FocusInfoText { get; set; }
     [Reactive] public SolidColorBrush FocusInfoColor { get; set; }
 

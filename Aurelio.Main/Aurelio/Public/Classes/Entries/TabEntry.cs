@@ -26,6 +26,11 @@ public partial class TabEntry : ViewModelBase
         Content = content;
         HeaderContent = headerContent ?? CreateHeaderTextBlock();
         content.HostTab = this;
+        content.PageInfo.PropertyChanged += (_, _) =>
+        {
+            Title = content.PageInfo.Title;
+            Icon = content.PageInfo.Icon;
+        };
     }
 
     public bool IconIsVisible => Icon != null;

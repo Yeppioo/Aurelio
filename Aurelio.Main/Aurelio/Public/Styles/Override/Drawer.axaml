@@ -1,8 +1,62 @@
 <ResourceDictionary
+    x:Class="Aurelio.Public.Styles.Override.Drawer"
     xmlns="https://github.com/avaloniaui"
     xmlns:iri="https://irihi.tech/shared"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="Button" x:Key="OverlayCloseButton">
+        <Setter Property="CornerRadius" Value="3" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="Button">
+                <Border
+                    Background="Transparent"
+                    CornerRadius="99"
+                    Padding="{TemplateBinding Padding}">
+                    <PathIcon
+                        Data="{DynamicResource SemiIconClose}"
+                        Foreground="{DynamicResource SemiColorText1}"
+                        Theme="{StaticResource InnerPathIcon}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:pointerover /template/ Border">
+            <Setter Property="Background" Value="{DynamicResource SemiColorFill1}" />
+        </Style>
+        <Style Selector="^:pressed /template/ Border">
+            <Setter Property="Background" Value="{DynamicResource SemiColorFill2}" />
+        </Style>
+    </ControlTheme>
+    <ControlTheme TargetType="Button" x:Key="OverlayCustomButton">
+        <Setter Property="CornerRadius" Value="3" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="Button">
+                <Border
+                    Background="Transparent"
+                    CornerRadius="99"
+                    Padding="{TemplateBinding Padding}">
+                    <PathIcon
+                        Data="{TemplateBinding Tag}"
+                        Foreground="{DynamicResource SemiColorText1}"
+                        Theme="{StaticResource InnerPathIcon}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:pointerover /template/ Border">
+            <Setter Property="Background" Value="{DynamicResource SemiColorFill1}" />
+        </Style>
+        <Style Selector="^:pressed /template/ Border">
+            <Setter Property="Background" Value="{DynamicResource SemiColorFill2}" />
+        </Style>
+    </ControlTheme>
+
     <ControlTheme TargetType="u:CustomDrawerControl" x:Key="{x:Type u:CustomDrawerControl}">
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -156,12 +210,18 @@
                                         Text="{TemplateBinding Title}"
                                         TextWrapping="Wrap"
                                         VerticalAlignment="Center" />
-                                    <Button
+                                    <StackPanel
                                         DockPanel.Dock="Right"
                                         Grid.Column="1"
                                         Margin="0,24,24,0"
-                                        Name="{x:Static u:DrawerControlBase.PART_CloseButton}"
-                                        Theme="{DynamicResource OverlayCloseButton}" />
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <Button
+                                            Click="Button_OnClick"
+                                            Tag="M12 3.5c0-.83.67-1.5 1.5-1.5h6A2.5 2.5 0 0 1 22 4.5v6a1.5 1.5 0 0 1-3 0V7l-7.94 7.94a1.5 1.5 0 0 1-2.12-2.12L16.76 5H13.5A1.5 1.5 0 0 1 12 3.5Z,         M5 8.5v10c0 .28.22.5.5.5h10a.5.5 0 0 0 .5-.5v-3a1.5 1.5 0 0 1 3 0v3a3.5 3.5 0 0 1-3.5 3.5h-10A3.5 3.5 0 0 1 2 18.5v-10A3.5 3.5 0 0 1 5.5 5h3a1.5 1.5 0 1 1 0 3h-3a.5.5 0 0 0-.5.5Z"
+                                            Theme="{DynamicResource OverlayCustomButton}" />
+                                        <Button Name="{x:Static u:MessageBoxWindow.PART_CloseButton}" Theme="{DynamicResource OverlayCloseButton}" />
+                                    </StackPanel>
                                 </Grid>
                                 <StackPanel
                                     Grid.Row="2"

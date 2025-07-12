@@ -104,11 +104,11 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
         set => SetField(ref _filter, value);
     }
 
-
-    public new event PropertyChangedEventHandler? PropertyChanged;
-
     public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
+
+
+    public new event PropertyChangedEventHandler? PropertyChanged;
 
     private void LoadItems()
     {

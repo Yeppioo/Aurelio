@@ -60,7 +60,7 @@ public class MinecraftLocalSaveEntry : ReactiveObject
     {
         var path = SaveInfo.FolderPath;
         Setter.TryCreateFolder(path);
-        _ = Shower.OpenFolder(path);
+        _ = Overlay.OpenFolder(path);
     }
 }
 

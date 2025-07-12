@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
@@ -8,14 +9,17 @@ using Aurelio.Views.Main.Drawer;
 using Avalonia.Controls.Notifications;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using Avalonia.VisualTree;
 using FluentAvalonia.UI.Controls;
+using Irihi.Avalonia.Shared.Shapes;
+using Ursa.Common;
 using Ursa.Controls;
 using Ursa.Controls.Options;
-using Notification = Avalonia.Controls.Notifications.Notification;
+using Notification = Ursa.Controls.Notification;
 
 namespace Aurelio.Public.Module.Ui;
 
-public abstract class Shower
+public abstract class Overlay
 {
     public static async Task<ContentDialogResult> ShowDialogAsync(string title = "Title", string msg = null,
         Control? p_content = null, string b_primary = null, string b_cancel = null, string b_secondary = null,
@@ -120,17 +124,28 @@ public abstract class Shower
         }
     }
 
+    public static void ClearDrawer()
+    {
+        var host = Aurelio.App.UiRoot.FindDescendantOfType<OverlayDialogHost>();
+        if (host == null) return;
+        var list = new List<Control>();
+        foreach (var c in host.Children)
+            if (c is PureRectangle or DefaultDrawerControl)
+                list.Add(c);
+        list.ForEach(x => host.Children.Remove(x));
+    }
+
     public static async Task OpenTaskDrawer(string? host = null)
     {
         var options = new DrawerOptions
         {
-            Position = Ursa.Common.Position.Right,
+            Position = Position.Right,
             Buttons = DialogButton.None,
             CanLightDismiss = true,
             IsCloseButtonVisible = true,
             MinWidth = 470,
             Title = MainLang.TaskingState,
-            CanResize = true,
+            CanResize = true
         };
         await Drawer.ShowModal<TaskCenterDrawer, Tasking>(Tasking.Instance, host, options);
     }

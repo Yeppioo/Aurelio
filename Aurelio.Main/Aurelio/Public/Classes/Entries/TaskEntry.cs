@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Timers;
 using Aurelio.Public.Classes.Enum;
@@ -12,6 +11,8 @@ namespace Aurelio.Public.Classes.Entries;
 
 public class TaskEntry : ReactiveObject
 {
+    private readonly Timer _timer;
+
     public TaskEntry(string name)
     {
         Name = name;
@@ -19,7 +20,7 @@ public class TaskEntry : ReactiveObject
         _timer = new Timer(1000);
         _timer.Elapsed += (sender, args) => { Time = Time.Add(TimeSpan.FromSeconds(1)); };
         PropertyChanged += OnPropertyChanged;
-        PropertyChanging += (_, E) => { Console.WriteLine($"{E.PropertyName} , {E.ToString()}"); };
+        PropertyChanging += (_, E) => { Console.WriteLine($"{E.PropertyName} , {E}"); };
     }
 
     public TaskEntry()
@@ -40,7 +41,7 @@ public class TaskEntry : ReactiveObject
     public ObservableCollection<TaskEntry> SubTasks { get; set; } = [];
     public ObservableCollection<OperateButtonEntry> OperateButtons { get; set; } = [];
     [Reactive] public Action? ButtonAction { get; set; }
-    [Reactive] public Action? DestroyAction { get; set; } 
+    [Reactive] public Action? DestroyAction { get; set; }
     [Reactive] public string ButtonText { get; set; }
     [Reactive] public string TopRightInfoText { get; set; }
     [Reactive] public string BottomLeftInfoText { get; set; }
@@ -59,16 +60,10 @@ public class TaskEntry : ReactiveObject
         if (e.PropertyName != nameof(TaskState)) return;
         Tasking.Instance.UpdateDisplay();
         if (TaskState is TaskState.Running or TaskState.Canceling)
-        {
             BeginTimer();
-        }
         else
-        {
             StopTimer();
-        }
     }
-
-    private readonly Timer _timer;
 
     public void BeginTimer()
     {
@@ -111,23 +106,18 @@ public class TaskEntry : ReactiveObject
             runningTask.FinishWithSuccess();
 
             // 获取下一个等待中的任务
-            int currentIndex = SubTasks.IndexOf(runningTask);
+            var currentIndex = SubTasks.IndexOf(runningTask);
             var nextTask = SubTasks.Skip(currentIndex + 1).FirstOrDefault(t => t.TaskState == TaskState.Waiting);
 
             if (nextTask != null)
-            {
                 // 有下一个任务，设置为运行中
                 nextTask.TaskState = TaskState.Running;
-            }
         }
         else
         {
             // 没有运行中的任务，将第一个等待中的任务设置为运行中
             var firstWaitingTask = SubTasks.FirstOrDefault(t => t.TaskState == TaskState.Waiting);
-            if (firstWaitingTask != null)
-            {
-                firstWaitingTask.TaskState = TaskState.Running;
-            }
+            if (firstWaitingTask != null) firstWaitingTask.TaskState = TaskState.Running;
         }
     }
 

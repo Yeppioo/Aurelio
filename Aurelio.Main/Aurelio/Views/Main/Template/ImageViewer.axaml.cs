@@ -61,7 +61,7 @@ public partial class ImageViewer : PageMixModelBase, IAurelioTabPage
     private void OpenFolder(object? sender, RoutedEventArgs e)
     {
         if (_path == null) return;
-        _ = Shower.OpenFolder(Path.GetDirectoryName(_path)!);
+        _ = Overlay.OpenFolder(Path.GetDirectoryName(_path)!);
     }
 
     private void OpenFile(object? sender, RoutedEventArgs e)

@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using System.Text.RegularExpressions;
 using System.Threading;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
@@ -59,8 +57,8 @@ public class MinecraftClientLauncher
         new TaskEntry(MainLang.RefreshAccountToken).AddIn(task);
         new TaskEntry(MainLang.BuildLaunchConfig).AddIn(task);
         new TaskEntry(MainLang.LaunchMinecraftProcess).AddIn(task);
-        
-        
+
+
         task.NextSubTask();
         task.NextSubTask();
 
@@ -98,6 +96,7 @@ public class MinecraftClientLauncher
                         task.CancelFinish();
                         return;
                     }
+
                     ShowShortException(MainLang.LoginFail, ex);
                     task.FinishWithError();
                     return;
@@ -124,9 +123,9 @@ public class MinecraftClientLauncher
             Notice(MainLang.AccountError, NotificationType.Error);
             task.FinishWithError();
         }
-        
+
         task.NextSubTask();
-        
+
         var config = new LaunchConfig
         {
             Account = account,
@@ -135,13 +134,13 @@ public class MinecraftClientLauncher
             MinMemorySize = 512,
             IsEnableIndependency = setting.EnableIndependentMinecraft,
             JvmArguments = [],
-            LauncherName = "Aurelio",
+            LauncherName = "Aurelio"
         };
 
         if (!string.IsNullOrWhiteSpace(setting.AutoJoinServerAddress))
         {
             var serverInfo = setting.AutoJoinServerAddress.Split(':');
-            config.ServerInfo = new ServerInfo()
+            config.ServerInfo = new ServerInfo
             {
                 Address = serverInfo[0],
                 Port = Convert.ToInt32(serverInfo[1])
@@ -160,7 +159,7 @@ public class MinecraftClientLauncher
                     var copyArguments = string.Join(" ", process.ArgumentList);
                     process.Exited += async (_, arg) =>
                     {
-                        await Dispatcher.UIThread.InvokeAsync(async () =>
+                        await Dispatcher.UIThread.InvokeAsync(() =>
                         {
                             // if (Data.SettingEntry.LauncherVisibility !=
                             //     Setting.LauncherVisibility.AfterLaunchMakeLauncherMinimize)
@@ -176,7 +175,7 @@ public class MinecraftClientLauncher
                             Notice($"{MainLang.GameExited} - {entry.Id}", NotificationType.Warning);
 
                             task.FinishWithSuccess();
-                            
+
                             // await Task.Delay(2000);
                             // if (TopLevel.GetTopLevel(YMCL.App.UiRoot) is Window window2)
                             // {
@@ -216,7 +215,7 @@ public class MinecraftClientLauncher
                                 await clipboard.SetTextAsync(copyArguments);
                                 Notice(MainLang.AlreadyCopyToClipBoard, NotificationType.Success);
                             }));
-                        task.OperateButtons.Add(new OperateButtonEntry(MainLang.KillProcess, async void () =>
+                        task.OperateButtons.Add(new OperateButtonEntry(MainLang.KillProcess, void () =>
                         {
                             try
                             {
@@ -234,7 +233,7 @@ public class MinecraftClientLauncher
                             // window.Activate();
                         }));
                     });
-                    _ = Task.Run( () =>
+                    _ = Task.Run(() =>
                     {
                         task.ButtonText = MainLang.KillProcess;
                         task.ButtonAction = () =>
@@ -249,7 +248,7 @@ public class MinecraftClientLauncher
                                 // ignored
                             }
                         };
-                        
+
                         // await Task.Delay(8000);
                         // Dispatcher.UIThread.Invoke(() =>
                         // {

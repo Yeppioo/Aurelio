@@ -24,6 +24,11 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
         BindingEvent();
+        PageInfo = new PageInfoEntry
+        {
+            Icon = Icons.FromMaterial(MaterialIconKind.Settings),
+            Title = MainLang.Setting
+        };
     }
 
     public SelectionListItem? SelectedItem
@@ -39,11 +44,7 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
 
     public TabEntry HostTab { get; set; }
 
-    public PageInfoEntry PageInfo { get; } = new()
-    {
-        Icon = Icon.FromMaterial(MaterialIconKind.Settings),
-        Title = MainLang.Setting
-    };
+    public PageInfoEntry PageInfo { get; }
 
     public void OnClose()
     {

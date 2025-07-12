@@ -14,23 +14,26 @@ public partial class DebugTabPage : PageMixModelBase, IAurelioTabPage
 {
     private readonly Random r = new();
 
+    private TaskEntry? task;
+
     public DebugTabPage()
     {
         InitializeComponent();
         DataContext = this;
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
+        PageInfo = new PageInfoEntry
+        {
+            Icon = Icons.FromMaterial(MaterialIconKind.Bug),
+            Title = "Debug"
+        };
     }
 
     public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
     public TabEntry HostTab { get; set; }
 
-    public PageInfoEntry PageInfo { get; } = new()
-    {
-        Icon = Icon.FromMaterial(MaterialIconKind.Bug),
-        Title = "Debug"
-    };
+    public PageInfoEntry PageInfo { get; }
 
     public void OnClose()
     {
@@ -45,8 +48,6 @@ public partial class DebugTabPage : PageMixModelBase, IAurelioTabPage
     {
         task.NextSubTask();
     }
-    
-    private TaskEntry? task;
 
     private void CreateTask_OnClick(object? sender, RoutedEventArgs e)
     {
@@ -55,14 +56,11 @@ public partial class DebugTabPage : PageMixModelBase, IAurelioTabPage
         task.ProgressValue = 100;
         task.IsButtonEnable = true;
         task.ButtonText = "ButtonText";
-        task.ButtonAction = () =>
-        {
-            task.Cancel();
-        };
+        task.ButtonAction = () => { task.Cancel(); };
         task.BottomLeftInfoText = "BottomLeftInfoText";
         task.TopRightInfoText = "TopRightInfoText";
         task.IsDestroyButtonVisible = true;
-        
+
         var sub = new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting };
         sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
         sub.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
