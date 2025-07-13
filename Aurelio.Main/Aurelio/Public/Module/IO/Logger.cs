@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -13,6 +14,7 @@ namespace Aurelio.Public.Module.IO
         private static string _logFilePath = string.Empty;
         private static bool _initialized;
         private static readonly StringBuilder LogCache = new StringBuilder();
+        private const int MaxLogBackups = 3; // 最多保留的备份数量
 
         public enum LogLevel
         {
@@ -53,6 +55,9 @@ namespace Aurelio.Public.Module.IO
                     }
                 }
 
+                // 清理旧日志文件，保持备份数量不超过上限
+                CleanupOldLogFiles(logDirectory);
+                
                 // 写入日志头
                 var version = Assembly.GetExecutingAssembly().GetName().Version;
                 string header = $"=== Aurelio Log {timestamp} ===\n" +
@@ -77,6 +82,42 @@ namespace Aurelio.Public.Module.IO
             catch (Exception ex)
             {
                 Console.WriteLine($"初始化日志系统失败: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// 清理旧的日志备份文件，只保留指定数量的最新备份
+        /// </summary>
+        private static void CleanupOldLogFiles(string logDirectory)
+        {
+            try
+            {
+                // 获取所有备份日志文件
+                var backupFiles = Directory.GetFiles(logDirectory, "log_*.log")
+                    .Select(f => new FileInfo(f))
+                    .OrderByDescending(f => f.CreationTime)
+                    .ToList();
+
+                // 如果备份文件数量超过限制，删除最旧的文件
+                if (backupFiles.Count > MaxLogBackups)
+                {
+                    foreach (var file in backupFiles.Skip(MaxLogBackups))
+                    {
+                        try
+                        {
+                            file.Delete();
+                            Console.WriteLine($"已删除旧日志文件: {file.Name}");
+                        }
+                        catch
+                        {
+                            // 如果删除失败，继续处理下一个文件
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"清理旧日志文件失败: {ex.Message}");
             }
         }
 

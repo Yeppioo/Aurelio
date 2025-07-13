@@ -67,39 +67,41 @@ public partial class MainWindow : UrsaWindow
         var menu = (MenuFlyout)c.MainControl!.Flyout;
         MoreButton.Flyout = menu;
         MoreButton.DataContext = new MoreButtonMenuCommands();
-        SettingButton.Click += async (_, _) =>
+        SettingButton.Click += async (_, _) => { await OpenSettingPage(); };
+    }
+
+    private async Task OpenSettingPage()
+    {
+        var (otherWindow, otherSettingsTab) = TabDragDropService.FindSettingsTabInOtherWindows();
+        var hasSettingsInOtherWindow = otherWindow != null && otherSettingsTab != null;
+        if (hasSettingsInOtherWindow)
         {
-            var (otherWindow, otherSettingsTab) = TabDragDropService.FindSettingsTabInOtherWindows();
-            var hasSettingsInOtherWindow = otherWindow != null && otherSettingsTab != null;
-            if (hasSettingsInOtherWindow)
+            await TabDragDropService.RemoveSettingsTabFromOtherWindowsAsync();
+            await Task.Delay(50); // Increased delay to ensure UI operations complete
+        }
+
+        var existingTab = Tabs.FirstOrDefault(x => x.Tag == "setting");
+
+        if (existingTab == null)
+        {
+            var newTab = new TabEntry(ViewModel.SettingTabPage)
             {
-                await TabDragDropService.RemoveSettingsTabFromOtherWindowsAsync();
-                await Task.Delay(50); // Increased delay to ensure UI operations complete
+                Tag = "setting"
+            };
+            Tabs.Add(newTab);
+            ViewModel.SelectedTab = newTab;
+        }
+        else
+        {
+            // Use existing tab in main window
+            if (SelectedTab == existingTab)
+            {
+                _ = ViewModel.SettingTabPage.Animate();
+                return;
             }
 
-            var existingTab = Tabs.FirstOrDefault(x => x.Tag == "setting");
-
-            if (existingTab == null)
-            {
-                var newTab = new TabEntry(ViewModel.SettingTabPage)
-                {
-                    Tag = "setting"
-                };
-                Tabs.Add(newTab);
-                ViewModel.SelectedTab = newTab;
-            }
-            else
-            {
-                // Use existing tab in main window
-                if (SelectedTab == existingTab)
-                {
-                    _ = ViewModel.SettingTabPage.Animate();
-                    return;
-                }
-
-                ViewModel.SelectedTab = existingTab;
-            }
-        };
+            ViewModel.SelectedTab = existingTab;
+        }
     }
 
 #if DEBUG
@@ -118,7 +120,17 @@ public partial class MainWindow : UrsaWindow
         {
             NavRoot.Margin = new Thickness(80, 0, TitleBarContainer.Bounds.Width + 85, 0);
         };
-        FocusInfoBorder.PointerPressed += (_, _) => { _ = OpenTaskDrawer(); };
+        FocusInfoBorder.PointerPressed += async (_, _) =>
+        {
+            if (Tasking.Tasks.Count == 0)
+            {
+                ViewModel.SettingTabPage.SelectedItem = ViewModel.SettingTabPage.Nav.Items[1] as SelectionListItem;
+                ViewModel.SettingTabPage.DefaultNav = 1;
+                await OpenSettingPage();
+            }
+            else
+                _ = OpenTaskDrawer();
+        };
     }
 
     private void TabItem_OnPointerPressed(object? sender, PointerPressedEventArgs e)

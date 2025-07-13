@@ -18,5 +18,4 @@ public class UiProperty : ReactiveObject
     public static ObservableCollection<NotificationEntry> NotificationCards { get; } = [];
     public static WindowNotificationManager Notification { get; set; }
     public static WindowToastManager Toast { get; set; }
-    [Reactive] public bool IsEnable3DSkinRender { get; set; }
 }

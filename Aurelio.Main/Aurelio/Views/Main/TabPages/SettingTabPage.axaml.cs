@@ -12,7 +12,7 @@ namespace Aurelio.Views.Main.TabPages;
 public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
 {
     private bool _fl = true;
-
+    public int DefaultNav = 0;
     private bool _isAnimating;
     private SelectionListItem _selectedItem;
 
@@ -56,7 +56,8 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
         Loaded += (_, _) =>
         {
             if (!_fl) return;
-            SelectedItem = Nav.Items[0] as SelectionListItem;
+            SelectedItem = Nav.Items[DefaultNav] as SelectionListItem;
+            DefaultNav = 0;
             _fl = false;
         };
         PropertyChanged += (s, e) =>

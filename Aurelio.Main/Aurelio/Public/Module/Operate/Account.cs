@@ -377,7 +377,6 @@ public class Account
             var uuid = obj["Uuid"].ToString();
             MicrosoftSkinFetcher skinFetcher = new(uuid);
             var skin = await skinFetcher.GetSkinAsync();
-            Data.SettingEntry.UsingMinecraftAccount.UpdateSkin(skin);
         }
     }
 }

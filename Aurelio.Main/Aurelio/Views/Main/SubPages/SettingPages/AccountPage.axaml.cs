@@ -8,6 +8,9 @@ using Aurelio.ViewModels;
 using Aurelio.Views.Main.Template;
 using Avalonia.Input;
 using Avalonia.VisualTree;
+using Avalonia.Media.Imaging;
+using Avalonia.Media;
+using LiteSkinViewer3D.Shared.Helpers;
 using LiteSkinViewer3D.Shared.Enums;
 using PointerType = LiteSkinViewer3D.Shared.Enums.PointerType;
 
@@ -15,8 +18,7 @@ namespace Aurelio.Views.Main.SubPages.SettingPages;
 
 public partial class AccountPage : PageMixModelBase, IAurelioPage
 {
-    private bool _loadedSkin;
-
+    private bool _fl = true;
     public AccountPage()
     {
         InitializeComponent();
@@ -56,16 +58,16 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
             skinViewer.Skin = Converter.Base64ToBitmap(Data.SettingEntry.UsingMinecraftAccount.Skin);
             skinViewer.RenderMode = SkinRenderMode.None;
         };
-        Data.UiProperty.PropertyChanged += (_, e) =>
+        Loaded += async (_, _) =>
         {
-            if (e.PropertyName != nameof(Data.UiProperty.IsEnable3DSkinRender)
-                || !Data.UiProperty.IsEnable3DSkinRender || _loadedSkin) return;
-            _loadedSkin = true;
+            if(!_fl) return;
+            _fl = false;
+            await Task.Delay(100);
             skinViewer.Skin = Converter.Base64ToBitmap(Data.SettingEntry.UsingMinecraftAccount.Skin);
             skinViewer.RenderMode = SkinRenderMode.None;
         };
     }
-
+    
     private void SkinViewer_PointerReleased(object? sender, PointerReleasedEventArgs e)
     {
         var po = e.GetCurrentPoint(this);
