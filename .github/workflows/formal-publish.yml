@@ -125,6 +125,9 @@ jobs:
             /p:SelfContained=true `
             /p:Version=${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}.${{ needs.time.outputs.hm }} `
             -o "../../publish/win-x64" -p:DebugType=none -p:DebugSymbols=false
+      - name: Rename Executable
+        run: |
+          Rename-Item -Path "./publish/win-x64/Aurelio.Desktop.exe" -NewName "Aurelio.win.x64.executable.exe" -Force
       - name: ZIP
         run: |
           Compress-Archive -Path "./publish/win-x64/*" -DestinationPath "./publish/Aurelio.win.x64.executable.zip" -Force
@@ -157,6 +160,9 @@ jobs:
             /p:SelfContained=true `
             /p:Version=${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}.${{ needs.time.outputs.hm }} `
             -o "../../publish/win-x86" -p:DebugType=none -p:DebugSymbols=false
+      - name: Rename Executable
+        run: |
+          Rename-Item -Path "./publish/win-x86/Aurelio.Desktop.exe" -NewName "Aurelio.win.x86.executable.exe" -Force
       - name: ZIP
         run: |
           Compress-Archive -Path "./publish/win-x86/*" -DestinationPath "./publish/Aurelio.win.x86.executable.zip" -Force
@@ -189,6 +195,9 @@ jobs:
             /p:SelfContained=true `
             /p:Version=${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}.${{ needs.time.outputs.hm }} `
             -o "../../publish/win-arm64" -p:DebugType=none -p:DebugSymbols=false
+      - name: Rename Executable
+        run: |
+          Rename-Item -Path "./publish/win-arm64/Aurelio.Desktop.exe" -NewName "Aurelio.win.arm64.executable.exe" -Force
       - name: ZIP
         run: |
           Compress-Archive -Path "./publish/win-arm64/*" -DestinationPath "./publish/Aurelio.win.arm64.executable.zip" -Force
