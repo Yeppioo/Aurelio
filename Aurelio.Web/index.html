@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurelio - 现代化Minecraft启动器</title>
+    <link rel="icon" href="assets/icon.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="assets/icon.png" alt="Aurelio" class="nav-logo">
+                <span class="nav-title">Aurelio</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">首页</a>
+                <a href="#features" class="nav-link">功能</a>
+                <a href="#download" class="nav-link">下载</a>
+                <a href="#about" class="nav-link">关于</a>
+            </div>
+            <div class="nav-actions">
+                <a href="#download" class="btn-primary">立即下载</a>
+                <a href="https://github.com/Yeppioo/Aurelio" class="btn-secondary" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主页面 -->
+    <main>
+        <!-- Hero 区域 -->
+        <section id="home" class="hero section-fullscreen">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span>🚀 现代化设计</span>
+                    </div>
+                    <h1 class="hero-title">
+                        下一代 <span class="gradient-text">Minecraft</span> 启动器
+                    </h1>
+                    <p class="hero-description">
+                        Aurelio 是一款革命性的多标签页 Minecraft 启动器，
+                        采用现代化标签页设计，让您同时管理多个游戏实例。支持标签页拖拽、分离窗口、
+                        Mod管理、资源包管理等丰富功能，为您提供前所未有的游戏管理体验。
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#download" class="btn-primary btn-large">
+                            <span>免费下载</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7,10 12,15 17,10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                        </a>
+                        <a href="#features" class="btn-secondary btn-large">了解更多</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-image">
+                        <div class="app-mockup">
+                            <div class="mockup-header">
+                                <div class="mockup-controls">
+                                    <span class="control close"></span>
+                                    <span class="control minimize"></span>
+                                    <span class="control maximize"></span>
+                                </div>
+                                <div class="mockup-title">Aurelio</div>
+                                <div class="mockup-tabs">
+                                    <div class="tab-item active">
+                                        <span class="tab-icon">🏠</span>
+                                        <span class="tab-title">启动</span>
+                                    </div>
+                                    <div class="tab-item">
+                                        <span class="tab-icon">🌱</span>
+                                        <span class="tab-title">我的世界 1.20.1</span>
+                                        <span class="tab-close">×</span>
+                                    </div>
+                                    <div class="tab-item">
+                                        <span class="tab-icon">⚡</span>
+                                        <span class="tab-title">Fabric 1.19.4</span>
+                                        <span class="tab-close">×</span>
+                                    </div>
+                                    <div class="tab-item">
+                                        <span class="tab-icon">⚙️</span>
+                                        <span class="tab-title">设置</span>
+                                    </div>
+                                    <div class="tab-add">+</div>
+                                </div>
+                            </div>
+                            <div class="mockup-content">
+                                <div class="mockup-main">
+                                    <div class="instance-grid">
+                                        <div class="instance-card">
+                                            <div class="instance-icon minecraft"></div>
+                                            <div class="instance-info">
+                                                <div class="instance-name">我的世界 1.20.1</div>
+                                                <div class="instance-version">Forge 47.2.0 • 128个Mod</div>
+                                            </div>
+                                            <div class="instance-actions">
+                                                <button class="instance-play">▶</button>
+                                                <button class="instance-settings">⚙</button>
+                                            </div>
+                                        </div>
+                                        <div class="instance-card">
+                                            <div class="instance-icon fabric"></div>
+                                            <div class="instance-info">
+                                                <div class="instance-name">Fabric 1.19.4</div>
+                                                <div class="instance-version">Fabric 0.14.21 • 45个Mod</div>
+                                            </div>
+                                            <div class="instance-actions">
+                                                <button class="instance-play">▶</button>
+                                                <button class="instance-settings">⚙</button>
+                                            </div>
+                                        </div>
+                                        <div class="instance-card">
+                                            <div class="instance-icon vanilla"></div>
+                                            <div class="instance-info">
+                                                <div class="instance-name">原版 1.20.4</div>
+                                                <div class="instance-version">Vanilla • 无Mod</div>
+                                            </div>
+                                            <div class="instance-actions">
+                                                <button class="instance-play">▶</button>
+                                                <button class="instance-settings">⚙</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 功能特性 -->
+        <section id="features" class="features section-fullscreen">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">强大功能</h2>
+                    <p class="section-description">为 Minecraft 玩家量身打造的完整解决方案</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card featured">
+                        <div class="feature-badge">🔥 核心特性</div>
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                                <line x1="8" y1="21" x2="16" y2="21" />
+                                <line x1="12" y1="17" x2="12" y2="21" />
+                                <rect x="6" y="7" width="4" height="6" rx="1" />
+                                <rect x="14" y="7" width="4" height="6" rx="1" />
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">多标签页管理</h3>
+                        <p class="feature-description">革命性的多标签页界面设计，同时管理多个 Minecraft 实例。支持标签页拖拽、分离窗口、独立配置，让您的工作流程更加高效流畅。
+                        </p>
+                        <div class="feature-highlights">
+                            <span class="highlight">✨ 标签页拖拽</span>
+                            <span class="highlight">🪟 分离窗口</span>
+                            <span class="highlight">⚡ 快速切换</span>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                                <polyline points="14,2 14,8 20,8" />
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Mod 管理</h3>
+                        <p class="feature-description">内置 Mod 管理器，支持一键安装、启用/禁用 Mod，让您的游戏体验更加丰富。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">资源包管理</h3>
+                        <p class="feature-description">方便的资源包和光影包管理，支持预览和一键切换，打造个性化游戏画面。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Java 管理</h3>
+                        <p class="feature-description">智能 Java 版本检测和管理，自动为不同版本的 Minecraft 选择合适的 Java 运行时。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="M21 21l-4.35-4.35" />
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">智能搜索</h3>
+                        <p class="feature-description">强大的搜索功能，快速找到您需要的游戏实例、Mod 或资源包。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                                <polyline points="3.27,6.96 12,12.01 20.73,6.96" />
+                                <line x1="12" y1="22.08" x2="12" y2="12" />
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">现代化界面</h3>
+                        <p class="feature-description">采用现代化设计语言，流畅的动画效果，为您提供优雅的用户体验。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 下载区域 -->
+        <section id="download" class="download section-fullscreen">
+            <div class="container">
+                <div class="download-content">
+                    <h2 class="download-title">立即开始使用 Aurelio</h2>
+                    <p class="download-description">免费下载，开启您的 Minecraft 新体验</p>
+                    <div class="download-cards">
+                        <div class="download-card">
+                            <div class="download-platform">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                    <rect x="9" y="9" width="6" height="6" />
+                                    <path d="M9 1v6" />
+                                    <path d="M15 1v6" />
+                                    <path d="M9 17v6" />
+                                    <path d="M15 17v6" />
+                                    <path d="M1 9h6" />
+                                    <path d="M1 15h6" />
+                                    <path d="M17 9h6" />
+                                    <path d="M17 15h6" />
+                                </svg>
+                                <h3>Windows</h3>
+                            </div>
+                            <p>支持 Windows 7+</br>安装程序仅支持Windows 10+</p>
+                            <div class="download-dropdown">
+                                <select class="download-select">
+                                    <option value="Aurelio.win.x64.installer.exe" selected>Windows x64 安装程序 (推荐)
+                                    </option>
+                                    <option value="Aurelio.win.arm64.installer.exe">Windows ARM64 安装程序</option>
+                                    <option value="Aurelio.win.x86.installer.exe">Windows x86 安装程序</option>
+                                    <option value="Aurelio.win.x64.executable.zip">Windows x64 便携版</option>
+                                    <option value="Aurelio.win.arm64.executable.zip">Windows ARM64 便携版</option>
+                                    <option value="Aurelio.win.x86.executable.zip">Windows x86 便携版</option>
+                                </select>
+                                <button class="download-btn" onclick="downloadSelected(this)">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="7,10 12,15 17,10" />
+                                        <line x1="12" y1="15" x2="12" y2="3" />
+                                    </svg>
+                                    下载
+                                </button>
+                            </div>
+                        </div>
+                        <div class="download-card">
+                            <div class="download-platform">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                                    <line x1="9" y1="9" x2="9.01" y2="9" />
+                                    <line x1="15" y1="9" x2="15.01" y2="9" />
+                                </svg>
+                                <h3>Linux</h3>
+                            </div>
+                            <p>支持主流 Linux 发行版</p>
+                            <div class="download-dropdown">
+                                <select class="download-select">
+                                    <option value="Aurelio.linux.x64.AppImage" selected>Linux x64 AppImage (推荐)</option>
+                                    <option value="Aurelio.linux.arm64.AppImage">Linux ARM64 AppImage</option>
+                                    <option value="Aurelio.linux.arm.AppImage">Linux ARM AppImage</option>
+                                </select>
+                                <button class="download-btn" onclick="downloadSelected(this)">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="7,10 12,15 17,10" />
+                                        <line x1="12" y1="15" x2="12" y2="3" />
+                                    </svg>
+                                    下载
+                                </button>
+                            </div>
+                        </div>
+                        <div class="download-card">
+                            <div class="download-platform">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                                <h3>macOS</h3>
+                            </div>
+                            <p>支持 macOS 10.15+</p>
+                            <div class="download-dropdown">
+                                <select class="download-select">
+                                    <option value="Aurelio.osx.mac.x64.dmg" selected>macOS x64 DMG (推荐)</option>
+                                    <option value="Aurelio.osx.mac.arm64.dmg">macOS ARM64 DMG (Apple Silicon)</option>
+                                    <option value="Aurelio.osx.mac.x64.app.zip">macOS x64 APP</option>
+                                    <option value="Aurelio.osx.mac.arm64.app.zip">macOS ARM64 APP</option>
+                                </select>
+                                <button class="download-btn" onclick="downloadSelected(this)">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="7,10 12,15 17,10" />
+                                        <line x1="12" y1="15" x2="12" y2="3" />
+                                    </svg>
+                                    下载
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="download-info">
+                        <p class="version-info">当前版本：loading... | 文件大小：~50MB | 免费开源</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于区域 -->
+        <section id="about" class="about section-fullscreen">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2 class="about-title">关于 Aurelio</h2>
+                        <p class="about-description">
+                            Aurelio 是由 <a href="https://yeppioo.vip/" class="author-link" target="_blank">Yeppioo</a>
+                            开发的现代化 Minecraft 启动器，
+                            致力于为玩家提供最佳的游戏管理体验。我们相信简洁而强大的工具
+                            能够让您更专注于游戏本身的乐趣。
+                        </p>
+                        <div class="about-stats">
+                            <div class="stat">
+                                <div class="stat-number version-number">loading...</div>
+                                <div class="stat-label">当前版本</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">开源</div>
+                                <div class="stat-label">完全免费</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">跨平台</div>
+                                <div class="stat-label">多系统支持</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-links">
+                        <a href="https://github.com/Yeppioo/Aurelio" class="about-link" target="_blank">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                            </svg>
+                            GitHub 仓库
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="assets/icon.png" alt="Aurelio" class="footer-logo">
+                    <span class="footer-title">Aurelio</span>
+                </div>
+                <div class="footer-text">
+                    <p>&copy; 2024 <a href="https://yeppioo.vip/" class="author-link" target="_blank">Yeppioo</a>.
+                        保留所有权利。</p>
+                    <p>Aurelio - 现代化 Minecraft 启动器</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
