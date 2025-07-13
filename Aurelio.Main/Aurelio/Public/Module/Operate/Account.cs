@@ -4,6 +4,7 @@ using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
+using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.Value;
 using Avalonia.Controls.Notifications;
 using Avalonia.Layout;
@@ -89,7 +90,7 @@ public class Account
                             }
                             catch (Exception e)
                             {
-                                Console.WriteLine(e);
+                                Logger.Error(e);
                                 Notice(MainLang.OperateFailed, NotificationType.Error);
                             }
 

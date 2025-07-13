@@ -1,4 +1,5 @@
 using System.Net.Http;
+using Aurelio.Public.Module.IO;
 
 namespace Aurelio.Public.Module.App.Services;
 
@@ -30,7 +31,7 @@ public class TranslateToken
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logger.Error(e);
             }
 
             await Task.Delay(TimeSpan.FromMinutes(4));

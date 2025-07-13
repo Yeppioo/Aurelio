@@ -1,4 +1,5 @@
 ﻿using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.Value;
 using Avalonia.Media;
 using Avalonia.Platform;
@@ -36,7 +37,7 @@ public class Setter
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Logger.Error(e);
         }
     }
 

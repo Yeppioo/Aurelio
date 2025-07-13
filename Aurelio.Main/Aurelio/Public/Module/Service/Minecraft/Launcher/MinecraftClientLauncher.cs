@@ -3,6 +3,7 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.IO;
 using Avalonia.Controls.Notifications;
 using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
@@ -30,7 +31,7 @@ public class MinecraftClientLauncher
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Logger.Error(e);
             if (e.Message.StartsWith("No suitable version of Java found to start this game"))
             {
                 _ = ShowDialogAsync(MainLang.LaunchFail, MainLang.CannotFindJavaTip
@@ -197,7 +198,7 @@ public class MinecraftClientLauncher
                         //             string.IsNullOrWhiteSpace(regStr) ? arg.Data.Source : regStr);
                         //     },
                         //     DispatcherPriority.ApplicationIdle);
-                        Console.WriteLine(arg.Data);
+                        Logger.Info(arg.Data.ToString());
                     };
 
                     await Dispatcher.UIThread.InvokeAsync(() =>

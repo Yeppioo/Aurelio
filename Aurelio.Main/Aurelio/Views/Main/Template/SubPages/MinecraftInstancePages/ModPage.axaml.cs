@@ -8,6 +8,7 @@ using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
 using FluentAvalonia.UI.Controls;
@@ -128,7 +129,7 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
     //     }
     //     catch (Exception e)
     //     {
-    //         Console.WriteLine(e);
+    //         Logger.Error(e);
     //     }
     // });
     // _ = Task.Run(async () =>
@@ -153,7 +154,7 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
     //     }
     //     catch (Exception e)
     //     {
-    //         Console.WriteLine(e);
+    //         Logger.Error(e);
     //     }
     // });
     // }
@@ -275,7 +276,7 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e);
+                        Logger.Error(e);
                     }
 
                 var type2 = archive.GetEntry("fabric.mod.json");
@@ -302,7 +303,7 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e);
+                        Logger.Error(e);
                     }
 
                 var type3 = archive.GetEntry("mcmod.info");
@@ -331,7 +332,7 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e);
+                        Logger.Error(e);
                     }
 
                 var type4 = archive.GetEntry("META-INF/neoforge.mods.toml");
@@ -363,14 +364,14 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e);
+                        Logger.Error(e);
                     }
 
                 return (null, null);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logger.Error(e);
                 return (null, null);
             }
         });

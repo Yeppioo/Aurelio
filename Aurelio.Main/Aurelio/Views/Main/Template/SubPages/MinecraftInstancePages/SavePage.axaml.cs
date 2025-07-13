@@ -8,6 +8,7 @@ using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
@@ -212,7 +213,7 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error processing folder {folderPath}: {ex.Message}");
+                Logger.Error(ex);
             }
 
         return folderInfos;

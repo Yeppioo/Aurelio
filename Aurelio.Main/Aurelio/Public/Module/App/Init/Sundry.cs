@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Module.IO;
 
 namespace Aurelio.Public.Module.App.Init;
 
@@ -9,27 +10,27 @@ public static class Sundry
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
-            Console.WriteLine("Running on Windows");
+            Logger.Info("Running on Windows");
             Data.DesktopType = DesktopType.Windows;
         }
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
-            Console.WriteLine("Running on Linux");
+            Logger.Info("Running on Linux");
             Data.DesktopType = DesktopType.Linux;
         }
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
-            Console.WriteLine("Running on macOS");
+            Logger.Info("Running on macOS");
             Data.DesktopType = DesktopType.MacOs;
         }
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD))
         {
-            Console.WriteLine("Running on FreeBSD");
+            Logger.Info("Running on FreeBSD");
             Data.DesktopType = DesktopType.FreeBSD;
         }
         else
         {
-            Console.WriteLine("Running on an unknown platform");
+            Logger.Info("Running on an unknown platform");
             Data.DesktopType = DesktopType.Unknown;
         }
     }

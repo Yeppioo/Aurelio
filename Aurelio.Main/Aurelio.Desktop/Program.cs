@@ -2,6 +2,7 @@
 using Avalonia;
 using Avalonia.Dialogs;
 using HotAvalonia;
+using Aurelio.Public.Module.IO;
 
 namespace Aurelio.Desktop;
 
@@ -13,8 +14,20 @@ internal sealed class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        BuildAvaloniaApp()
-            .StartWithClassicDesktopLifetime(args);
+        // 初始化日志系统
+        Logger.Initialize();
+        Logger.Info("应用程序启动");
+        
+        try
+        {
+            BuildAvaloniaApp()
+                .StartWithClassicDesktopLifetime(args);
+        }
+        catch (Exception ex)
+        {
+            Logger.Fatal(ex);
+            throw;
+        }
     }
 
     // Avalonia configuration, don't remove; also used by visual designer.

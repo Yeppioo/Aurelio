@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using Aurelio.Public.Classes.Setting;
+using Aurelio.Public.Module.IO;
 using Newtonsoft.Json;
 
 namespace Aurelio.Public.Module.App.Init.Config;
@@ -33,6 +34,9 @@ public abstract class Reader
             Data.SettingEntry = new SettingEntry();
         }
 
-        if (FailedSettingKeys.Count > 0) Console.WriteLine($"Setting load with errors: {FailedSettingKeys.AsJson()}");
+        if (FailedSettingKeys.Count > 0)
+        {
+            Logger.Error($"Setting load with errors: {FailedSettingKeys.AsJson()}");
+        }
     }
 }
