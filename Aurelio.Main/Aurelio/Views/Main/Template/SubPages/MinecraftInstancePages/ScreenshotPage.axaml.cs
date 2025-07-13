@@ -29,6 +29,7 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
     private bool _fl = true;
     private bool _isLoadingBatch; // 防止重复加载
     private bool loading = true;
+    private readonly List<ScreenshotEntry> _createdEntries = new List<ScreenshotEntry>();
 
 
     public ScreenshotPage(MinecraftEntry entry)
@@ -91,20 +92,43 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
     /// </summary>
     public void OnClose()
     {
+        // 清理所有挂起的加载任务
+        ImageCache.ClearPendingTasks();
+        
+        // 强制调用GC
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        
         // 清理所有 ScreenshotEntry 控件
         Dispatcher.UIThread.InvokeAsync(() =>
         {
-            foreach (var child in Container.Children.OfType<ScreenshotEntry>()) child.Dispose();
-            Container.Children.Clear();
+            try
+            {
+                foreach (var child in Container.Children.OfType<ScreenshotEntry>())
+                {
+                    try
+                    {
+                        child.Dispose();
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Error disposing screenshot entry: {ex.Message}");
+                    }
+                }
+                
+                Container.Children.Clear();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error clearing container: {ex.Message}");
+            }
         });
 
         // 清理集合
         _allItems.Clear();
         _filteredItems.Clear();
         _allFiles.Clear();
-
-        // 清理图片缓存
-        ImageCache.ClearCache();
+        _createdEntries.Clear();
     }
 
     private void LoadItems()
@@ -136,13 +160,6 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
                     Description = $"{MainLang.ImportTime}: {new FileInfo(file).CreationTime}"
                 });
 
-            // 预加载前几张图片
-            if (_allFiles.Count > 0)
-            {
-                var preloadFiles = _allFiles.Take(10).ToList();
-                ImageCache.PreloadImages(preloadFiles);
-            }
-
             // 应用当前过滤器并加载第一批
             FilterItems();
             Loading = false;
@@ -163,7 +180,13 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
 
         Dispatcher.UIThread.InvokeAsync(() =>
         {
-            foreach (var item in batchItems) Container.Children.Add(new ScreenshotEntry(item.Name, item.Path));
+            foreach (var item in batchItems)
+            {
+                var entry = new ScreenshotEntry(item.Name, item.Path);
+                Container.Children.Add(entry);
+                _createdEntries.Add(entry);
+            }
+            
             NoMatchResultTip.IsVisible = Container.Children.Count == 0;
 
             _currentBatch++;
@@ -191,6 +214,16 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
 
     private void FilterItems()
     {
+        // 清理当前所有控件
+        Dispatcher.UIThread.InvokeAsync(() =>
+        {
+            foreach (var child in Container.Children.OfType<ScreenshotEntry>()) 
+                child.Dispose();
+                
+            Container.Children.Clear();
+            _createdEntries.Clear();
+        });
+        
         // 重新过滤所有项目
         _filteredItems.Clear();
         var filteredItems = _allItems.Where(item
@@ -204,7 +237,6 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
 
         Dispatcher.UIThread.InvokeAsync(() =>
         {
-            Container.Children.Clear();
             NoMatchResultTip.IsVisible = _filteredItems.Count == 0;
 
             // 加载第一批

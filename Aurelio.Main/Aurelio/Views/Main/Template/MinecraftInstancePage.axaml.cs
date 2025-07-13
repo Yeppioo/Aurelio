@@ -81,8 +81,8 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
         // 清理各个子页面的资源
         ScreenshotPage?.OnClose();
 
-        // 清理图片缓存以释放内存
-        ImageCache.ClearCache();
+        // // 清理图片缓存以释放内存
+        // ImageCache.ClearCache();
     }
 
     public void OpenFolder(MinecraftSpecialFolder folder)

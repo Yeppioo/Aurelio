@@ -1,127 +1,167 @@
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
+using Avalonia.Threading;
 
 namespace Aurelio.Public.Module.Service;
 
 /// <summary>
-///     简单的图片缓存服务，用于优化截图加载性能
+///     图片加载服务，使用线程池处理图片加载
 /// </summary>
 public static class ImageCache
 {
-    private const int MaxCacheSize = 200; // 最大缓存数量
-    private static readonly ConcurrentDictionary<string, Bitmap> _cache = new();
-    private static readonly ConcurrentDictionary<string, Task<Bitmap>> _loadingTasks = new();
+    private static readonly ThreadPool _imageThreadPool = new ThreadPool(4); // 最多同时4个线程
+    private static readonly ConcurrentDictionary<string, CancellationTokenSource> _pendingTasks = new();
+    private static readonly object _lockObj = new object();
 
     /// <summary>
-    ///     异步获取图片，如果缓存中存在则直接返回，否则异步加载
+    ///     异步加载图片
     /// </summary>
-    public static async Task<Bitmap?> GetImageAsync(string filePath, int targetHeight = 135)
+    public static Task<Bitmap?> LoadImageAsync(string filePath, int targetHeight = 135)
     {
         if (!File.Exists(filePath))
-            return null;
+            return Task.FromResult<Bitmap?>(null);
 
-        var cacheKey = $"{filePath}_{targetHeight}";
-
-        // 检查缓存
-        if (_cache.TryGetValue(cacheKey, out var cachedBitmap))
-            return cachedBitmap;
-
-        // 检查是否正在加载
-        if (_loadingTasks.TryGetValue(cacheKey, out var loadingTask))
-            return await loadingTask;
-
-        // 创建加载任务
-        var task = LoadImageAsync(filePath, targetHeight, cacheKey);
-        _loadingTasks[cacheKey] = task;
-
-        try
-        {
-            var result = await task;
-            return result;
-        }
-        finally
-        {
-            _loadingTasks.TryRemove(cacheKey, out _);
-        }
-    }
-
-    private static async Task<Bitmap> LoadImageAsync(string filePath, int targetHeight, string cacheKey)
-    {
-        return await Task.Run(() =>
+        return _imageThreadPool.QueueTask(() =>
         {
             try
             {
                 using var fileStream = File.OpenRead(filePath);
-                var bitmap = Bitmap.DecodeToHeight(fileStream, targetHeight);
-
-                // 添加到缓存
-                _cache[cacheKey] = bitmap;
-
-                // 简单的LRU清理：如果缓存过大，移除一些旧项
-                if (_cache.Count > MaxCacheSize)
-                {
-                    var keysToRemove = _cache.Keys.Take(_cache.Count - MaxCacheSize + 50).ToList();
-                    foreach (var key in keysToRemove)
-                        if (_cache.TryRemove(key, out var oldBitmap))
-                            oldBitmap?.Dispose();
-                }
-
-                return bitmap;
+                return Bitmap.DecodeToHeight(fileStream, targetHeight);
             }
             catch
             {
-                // 如果加载失败，返回空的占位符
-                return CreatePlaceholderBitmap(targetHeight);
+                return null;
             }
         });
     }
 
     /// <summary>
-    ///     创建占位符图片
+    ///     取消加载任务
     /// </summary>
-    private static Bitmap CreatePlaceholderBitmap(int height)
+    public static void CancelLoading(string key)
     {
-        // 返回 null，让 Image 控件显示空白
-        return null;
-    }
+        if (string.IsNullOrEmpty(key)) return;
 
-    /// <summary>
-    ///     清理缓存
-    /// </summary>
-    public static void ClearCache()
-    {
-        foreach (var bitmap in _cache.Values) bitmap?.Dispose();
-        _cache.Clear();
-        _loadingTasks.Clear();
-    }
+        // 线程安全地移除并获取CTS
+        CancellationTokenSource? cts = null;
+        _pendingTasks.TryRemove(key, out cts);
 
-    /// <summary>
-    ///     预加载指定路径的图片
-    /// </summary>
-    public static void PreloadImages(IEnumerable<string> filePaths, int targetHeight = 135)
-    {
-        Task.Run(async () =>
+        // 如果成功获取到CTS，安全地取消和释放
+        if (cts != null)
         {
-            var semaphore = new SemaphoreSlim(4, 4); // 限制并发数
-            var tasks = filePaths.Select(async path =>
+            try
             {
-                await semaphore.WaitAsync();
+                // 仅当尚未取消时才取消
+                if (!cts.IsCancellationRequested && !cts.Token.CanBeCanceled)
+                {
+                    cts.Cancel();
+                }
+            }
+            catch (ObjectDisposedException)
+            {
+                // 忽略已处置对象的异常
+            }
+            catch (Exception ex)
+            {
+                // 记录其他异常但不传播
+                System.Diagnostics.Debug.WriteLine($"Error cancelling task {key}: {ex.Message}");
+            }
+            finally
+            {
                 try
                 {
-                    await GetImageAsync(path, targetHeight);
+                    cts.Dispose();
+                }
+                catch
+                {
+                    // 忽略处置时的异常
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    ///     请求延迟加载图片，返回一个可以取消的令牌
+    /// </summary>
+    public static CancellationTokenSource RequestDelayedLoad(string key, int delayMs, Func<Task> loadAction)
+    {
+        // 取消之前的请求（如果有）
+        CancelLoading(key);
+
+        // 创建新的取消令牌
+        var cts = new CancellationTokenSource();
+
+        // 安全地添加到字典
+        _pendingTasks.TryAdd(key, cts);
+
+        // 启动延迟任务
+        Task.Delay(delayMs, cts.Token).ContinueWith(async t =>
+        {
+            // 只在未取消时执行操作
+            if (!t.IsCanceled)
+            {
+                try
+                {
+                    await loadAction();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error in delayed task {key}: {ex.Message}");
                 }
                 finally
                 {
-                    semaphore.Release();
+                    // 完成后自动从字典中移除
+                    CancellationTokenSource? removedCts;
+                    _pendingTasks.TryRemove(key, out removedCts);
                 }
-            });
+            }
+        }, TaskContinuationOptions.NotOnCanceled);
 
-            await Task.WhenAll(tasks);
-        });
+        return cts;
+    }
+    
+    /// <summary>
+    /// 清理所有挂起的任务
+    /// </summary>
+    public static void ClearPendingTasks()
+    {
+        // 获取所有键的副本
+        var keys = _pendingTasks.Keys.ToArray();
+        
+        // 逐个取消任务
+        foreach (var key in keys)
+        {
+            CancelLoading(key);
+        }
+    }
+}
+
+/// <summary>
+///     简单的线程池实现
+/// </summary>
+public class ThreadPool
+{
+    private readonly SemaphoreSlim _semaphore;
+    
+    public ThreadPool(int maxConcurrency)
+    {
+        _semaphore = new SemaphoreSlim(maxConcurrency, maxConcurrency);
+    }
+    
+    public async Task<T> QueueTask<T>(Func<T> workItem)
+    {
+        await _semaphore.WaitAsync();
+        try
+        {
+            return await Task.Run(workItem);
+        }
+        finally
+        {
+            _semaphore.Release();
+        }
     }
 }
