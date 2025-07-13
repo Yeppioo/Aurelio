@@ -103,9 +103,9 @@ public partial class HandleInstances
             foreach (var item in sortedList) category.Minecrafts.Add(item);
         }
 
-        if (Aurelio.App.UiRoot != null)
-            if (_cts is { IsCancellationRequested: false })
-                _cts.Cancel();
+        if (Aurelio.App.UiRoot == null) return;
+        if (_cts is { IsCancellationRequested: false })
+            _cts.Cancel();
         _cts = Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
             .Animate<double>(Visual.OpacityProperty, 0, 1);
     }
@@ -347,13 +347,12 @@ public partial class HandleInstances
         }
 
         // 如果用户设置了其他排序方法，则应用该排序方法
-        if (Data.SettingEntry != null &&
-            Data.SettingEntry.MinecraftInstanceSortMethod != MinecraftInstanceSortMethod.Name)
+        if (Data.SettingEntry == null) return;
+        if (Data.SettingEntry.MinecraftInstanceSortMethod != MinecraftInstanceSortMethod.Name)
             Sort(Data.SettingEntry.MinecraftInstanceSortMethod);
-
-        // if (Aurelio.App.UiRoot != null)
-        //     Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
-        //         .Animate<double>(Visual.OpacityProperty, 0, 1);
+        else if (Aurelio.App.UiRoot != null)
+            Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
+                .Animate<double>(Visual.OpacityProperty, 0, 1);
     }
 
     [GeneratedRegex(@"^(\d+)\.(\d+)(?:\.(\d+))?")]

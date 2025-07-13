@@ -20,7 +20,6 @@ public class TaskEntry : ReactiveObject
         _timer = new Timer(1000);
         _timer.Elapsed += (sender, args) => { Time = Time.Add(TimeSpan.FromSeconds(1)); };
         PropertyChanged += OnPropertyChanged;
-        PropertyChanging += (_, E) => { Console.WriteLine($"{E.PropertyName} , {E}"); };
     }
 
     public TaskEntry()
