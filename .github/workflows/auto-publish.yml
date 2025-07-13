@@ -21,10 +21,10 @@ jobs:
       - name: Time
         id: date
         run: |
-          echo "::set-output name=time::$(date +'%Y.%m.%d.%H.%M')"
-          echo "::set-output name=y::$(date +'%Y')"
-          echo "::set-output name=md::$(date +'%m%d')"
-          echo "::set-output name=hm::$(date +'%H%M')"
+          echo "::set-output name=time::$(TZ='Asia/Shanghai' date +'%Y.%m.%d.%H.%M')"
+          echo "::set-output name=y::$(TZ='Asia/Shanghai' date +'%Y')"
+          echo "::set-output name=md::$(TZ='Asia/Shanghai' date +'%m%d')"
+          echo "::set-output name=hm::$(TZ='Asia/Shanghai' date +'%H%M')"
       - name: EchoTime
         run: |
           echo "The current time is: ${{ steps.date.outputs.time }}"
@@ -313,7 +313,7 @@ jobs:
           repo_token: "${{ secrets.TOKEN }}"
           title: "v${{ needs.time.outputs.v }}"
           automatic_release_tag: "auto-publish"
-          prerelease: true
+          prerelease: false
           files: |
             Aurelio.Release/*.exe
             Aurelio.Release/*.dmg

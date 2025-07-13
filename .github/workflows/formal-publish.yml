@@ -7,6 +7,7 @@ jobs:
   time:
     runs-on: ubuntu-latest
     outputs:
+      tag: ${{ steps.date.outputs.tag }}
       v: ${{ steps.date.outputs.time }}
       y: ${{ steps.date.outputs.y }}
       md: ${{ steps.date.outputs.md }}
@@ -19,10 +20,11 @@ jobs:
       - name: Time
         id: date
         run: |
-          echo "::set-output name=time::$(date +'%Y.%m.%d.%H.%M')"
-          echo "::set-output name=y::$(date +'%Y')"
-          echo "::set-output name=md::$(date +'%m%d')"
-          echo "::set-output name=hm::$(date +'%H%M')"
+          echo "::set-output name=time::$(TZ='Asia/Shanghai' date +'%Y.%m.%d.%H.%M')"
+          echo "::set-output name=tag::$(TZ='Asia/Shanghai' date +'%Y-%m-%d.%H-%M-%S')"
+          echo "::set-output name=y::$(TZ='Asia/Shanghai' date +'%Y')"
+          echo "::set-output name=md::$(TZ='Asia/Shanghai' date +'%m%d')"
+          echo "::set-output name=hm::$(TZ='Asia/Shanghai' date +'%H%M')"
       - name: EchoTime
         run: |
           echo "The current time is: ${{ steps.date.outputs.time }}"
@@ -267,11 +269,6 @@ jobs:
     needs: [time, mac-dmg, win-installer, win-exe-x64, win-exe-arm64,win-exe-x86,appImage]
     runs-on: ubuntu-latest
     steps:
-      - name: Time
-        id: gdate
-        run: |
-          echo "date=$(date +'%Y-%m-%d.%H-%M-%S')" >> $GITHUB_OUTPUT
-          echo "title=$(date +'%Y.%m.%d.%H.%M')" >> $GITHUB_OUTPUT
       - name: Download-LinuxArtifacts
         uses: actions/download-artifact@v4
         with:
@@ -315,7 +312,7 @@ jobs:
         with:
           repo_token: "${{ secrets.TOKEN }}"
           title: "v${{ needs.time.outputs.v }}"
-          automatic_release_tag: "Publish-${{ steps.gdate.outputs.date }}"
+          automatic_release_tag: "Publish-${{ needs.time.outputs.tag }}"
           prerelease: false
           files: |
             Aurelio.Release/*.exe
