@@ -1,6 +1,7 @@
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
 using Avalonia.Media;
@@ -17,8 +18,7 @@ public partial class TaskCenter : PageMixModelBase, IAurelioTabPage
         PageInfo = new PageInfoEntry
         {
             Title = MainLang.TaskingTip.Replace("{num}", Tasking.Tasks.Count.ToString()),
-            Icon = StreamGeometry.Parse(
-                "{x:Static ui:Icons.Model3D}")
+            Icon = Icons.Model3D
         };
         Tasking.Tasks.CollectionChanged += (_, _) =>
         {

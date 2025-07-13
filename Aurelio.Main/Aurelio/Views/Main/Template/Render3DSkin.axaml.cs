@@ -1,6 +1,7 @@
 using System.Numerics;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.Module.Value;
 using Avalonia.Input;
@@ -24,8 +25,7 @@ public partial class Render3DSkin : UserControl, IAurelioTabPage
         PageInfo = new PageInfoEntry
         {
             Title = name,
-            Icon = StreamGeometry.Parse(
-                "{x:Static ui:Icons.Model3D}")
+            Icon = Icons.Model3D
         };
         Loaded += async (_, _) =>
         {
