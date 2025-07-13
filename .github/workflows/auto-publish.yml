@@ -21,10 +21,10 @@ jobs:
       - name: Time
         id: date
         run: |
-          echo "::set-output name=time::$(TZ='Asia/Shanghai' date +'%Y.%m.%d.%H.%M')"
-          echo "::set-output name=y::$(TZ='Asia/Shanghai' date +'%Y')"
-          echo "::set-output name=md::$(TZ='Asia/Shanghai' date +'%m%d')"
-          echo "::set-output name=hm::$(TZ='Asia/Shanghai' date +'%H%M')"
+          echo "time=$(TZ='Asia/Shanghai' date +'%Y.%m.%d.%H.%M')" >> $GITHUB_OUTPUT
+          echo "y=$(TZ='Asia/Shanghai' date +'%Y')" >> $GITHUB_OUTPUT
+          echo "md=$(TZ='Asia/Shanghai' date +'%m%d')" >> $GITHUB_OUTPUT
+          echo "hm=$(TZ='Asia/Shanghai' date +'%H%M')" >> $GITHUB_OUTPUT
       - name: EchoTime
         run: |
           echo "The current time is: ${{ steps.date.outputs.time }}"
