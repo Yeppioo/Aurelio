@@ -14,8 +14,9 @@ public sealed class FXAAPostProcessor : IDisposable
         1f, -1f, 1f, 0f
     ];
 
-    private int _shader;
     private int _renderBuffer;
+
+    private int _shader;
     private int _uniformTexelStep;
 
     private int _vao, _vbo;
