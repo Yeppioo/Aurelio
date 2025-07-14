@@ -29,6 +29,8 @@
                 <ResourceInclude Source="/Public/Styles/Override/SplitButton.axaml" />
                 <ResourceInclude Source="/Public/Styles/Override/Drawer.axaml" />
                 <ResourceInclude Source="/Public/Styles/Override/Toast.axaml" />
+                <ResourceInclude Source="/Public/Styles/Override/MultiComboBox.axaml" />
+                <ResourceInclude Source="/Public/Styles/Override/TagInput.axaml" />
             </ResourceDictionary.MergedDictionaries>
             <Color x:Key="SystemAccentColor">#1BD76A</Color>
             <Color x:Key="SystemAccentColorLight1">#1BD76A</Color>

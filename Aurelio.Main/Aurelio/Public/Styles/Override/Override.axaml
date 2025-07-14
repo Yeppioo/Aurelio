@@ -192,6 +192,9 @@
     <Style Selector="ComboBoxItem">
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
     </Style>
+    <Style Selector="u|MultiComboBoxItem">
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+    </Style>
     <Style Selector="Expander.card:down:expanded /template/ Border#PART_BottomBorder">
         <Setter Property="Background" Value="{DynamicResource ExpanderSeparatorColor}" />
     </Style>

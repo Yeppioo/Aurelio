@@ -1,6 +1,7 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
     xmlns:controls="clr-namespace:Aurelio.Public.Controls"
+    xmlns:u="https://irihi.tech/ursa"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="20">
@@ -71,6 +72,10 @@
         <Setter Property="Padding" Value="10,0,8,0" />
     </Style>
     <Style Selector="ComboBox">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+    </Style>
+    <Style Selector="u|MultiComboBox">
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
     </Style>

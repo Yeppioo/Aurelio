@@ -7,6 +7,7 @@ using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui.Helper;
+using Avalonia.Threading;
 using DynamicData;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Components.Parser;
@@ -23,12 +24,36 @@ public partial class HandleInstances
         Aurelio.App.UiRoot.ViewModel.HomeTabPage.ProgressRing.IsVisible = true;
         await Task.Run(() =>
         {
+            // 清空现有实例集合，避免重复加载
+            Data.AllMinecraftInstances.Clear();
+
             foreach (var p in path)
             {
                 var parser = new MinecraftParser(p);
                 Data.AllMinecraftInstances.AddRange(parser.GetMinecrafts()
                     .Select(x => new RecordMinecraftEntry(x)));
             }
+
+            // 清除所有实例中的重复标签
+            foreach (var instance in Data.AllMinecraftInstances)
+            {
+                instance.SettingEntry.RemoveDuplicateTags();
+            }
+
+            // 更新标签列表，确保内置标签总是存在
+            UiProperty.AllMinecraftTags.Clear();
+
+            // 先添加所有内置标签
+            UiProperty.AllMinecraftTags.AddRange(UiProperty.BuiltInTags);
+
+            // 再添加用户标签（避免重复添加内置标签）
+            var userTags = Data.AllMinecraftInstances
+                .SelectMany(minecraft => minecraft.SettingEntry.Tags)
+                .Where(tag => !UiProperty.BuiltInTags.Contains(tag))
+                .Distinct()
+                .OrderBy(tag => tag);
+
+            UiProperty.AllMinecraftTags.AddRange(userTags);
         });
         Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
         Aurelio.App.UiRoot.ViewModel.HomeTabPage.Root.IsVisible = true;
@@ -106,8 +131,11 @@ public partial class HandleInstances
         if (Aurelio.App.UiRoot == null) return;
         if (_cts is { IsCancellationRequested: false })
             _cts.Cancel();
-        _cts = Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
-            .Animate<double>(Visual.OpacityProperty, 0, 1);
+        Dispatcher.UIThread.InvokeAsync(() =>
+        {
+            _cts = Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
+                .Animate<double>(Visual.OpacityProperty, 0, 1);
+        });
     }
 
     public static void Search(string key, bool ui = true)
@@ -135,11 +163,35 @@ public partial class HandleInstances
 
     public static void Categorize(MinecraftInstanceCategoryMethod method)
     {
-        if (Aurelio.App.UiRoot != null)
-            Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
+        Dispatcher.UIThread.InvokeAsync(() =>
+        {
+            if (Aurelio.App.UiRoot != null)
+                Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
+        });
         var filtered = Data.SortedMinecraftCategories
             .FirstOrDefault(x => x.Tag == "filtered")?.Minecrafts;
         Data.SortedMinecraftCategories.Clear();
+
+        var categories = new List<MinecraftCategoryEntry>();
+
+        var favouriteTag = UiProperty.FavouriteTag;
+        var favouriteInstances = Data.AllMinecraftInstances
+            .Where(minecraft => minecraft.SettingEntry.Tags.Contains(favouriteTag))
+            .OrderBy(x => x.Id)
+            .ToList();
+
+        if (favouriteInstances.Any())
+        {
+            categories.Add(new MinecraftCategoryEntry
+            {
+                Tag = favouriteTag,
+                Name = favouriteTag,
+                Minecrafts = new ObservableCollection<RecordMinecraftEntry>(favouriteInstances),
+                Expanded = true
+            });
+        }
+
+        // 先添加搜索结果分类（绝对置顶）
         Data.SortedMinecraftCategories.Add(new MinecraftCategoryEntry
         {
             Tag = "filtered",
@@ -148,35 +200,44 @@ public partial class HandleInstances
             Expanded = filtered is { Count: > 0 },
             Minecrafts = filtered ?? []
         });
+
+        // 再添加收藏夹和其他分类
+        foreach (var category in categories)
+        {
+            Data.SortedMinecraftCategories.Add(category);
+        }
+
         switch (method)
         {
             case MinecraftInstanceCategoryMethod.None:
-                Data.SortedMinecraftCategories.Add(new MinecraftCategoryEntry
+                // 显示所有实例，不排除收藏夹的实例
+                var allInstances = Data.AllMinecraftInstances
+                    .OrderBy(x => x.Id)
+                    .ToList();
+
+                categories.Add(new MinecraftCategoryEntry
                 {
                     Tag = "all",
                     Name = MainLang.AllInstance,
-                    Minecrafts =
-                        new ObservableCollection<RecordMinecraftEntry>(Data.AllMinecraftInstances.OrderBy(x => x.Id)
-                            .ToList()),
+                    Minecrafts = new ObservableCollection<RecordMinecraftEntry>(allInstances),
                     Expanded = true
                 });
                 break;
 
             case MinecraftInstanceCategoryMethod.Tag:
-                var allTags = Data.AllMinecraftInstances
-                    .SelectMany(minecraft => minecraft.Tags)
-                    .Distinct()
+                var sortedTags = UiProperty.AllMinecraftTags
+                    .Where(tag => !UiProperty.BuiltInTags.Contains(tag) && tag != favouriteTag)
                     .OrderBy(tag => tag);
 
-                foreach (var tag in allTags)
+                foreach (var tag in sortedTags)
                 {
                     var minecraftsWithTag = Data.AllMinecraftInstances
-                        .Where(minecraft => minecraft.Tags.Contains(tag))
+                        .Where(minecraft => minecraft.SettingEntry.Tags.Contains(tag))
                         .OrderBy(x => x.Id)
                         .ToList();
 
                     if (minecraftsWithTag.Any())
-                        Data.SortedMinecraftCategories.Add(new MinecraftCategoryEntry
+                        categories.Add(new MinecraftCategoryEntry
                         {
                             Tag = $"tag-{tag}",
                             Name = tag,
@@ -185,13 +246,15 @@ public partial class HandleInstances
                         });
                 }
 
+                // 最后处理未分类的实例
                 var minecraftsWithoutTag = new ObservableCollection<RecordMinecraftEntry>(
                     Data.AllMinecraftInstances
-                        .Where(x => x.Tags.Length == 0)
+                        .Where(x => x.SettingEntry.Tags.Count == 0)
                         .OrderBy(x => x.Id)
                         .ToList());
-                Data.SortedMinecraftCategories.Add(new MinecraftCategoryEntry
+                categories.Add(new MinecraftCategoryEntry
                 {
+                    Tag = "unclassified",
                     Name = MainLang.Unclassified,
                     Minecrafts = minecraftsWithoutTag,
                     Expanded = true,
@@ -213,7 +276,7 @@ public partial class HandleInstances
                         .ToList();
 
                     if (minecraftsWithLoader.Any())
-                        Data.SortedMinecraftCategories.Add(new MinecraftCategoryEntry
+                        categories.Add(new MinecraftCategoryEntry
                         {
                             Tag = loader,
                             Name = loader,
@@ -225,7 +288,7 @@ public partial class HandleInstances
                 break;
 
             case MinecraftInstanceCategoryMethod.FolderName:
-                // 按文件夹名称分类
+                // 按文件夹名称分类，不排除收藏夹的实例
                 var folderGroups = Data.AllMinecraftInstances
                     .GroupBy(minecraft =>
                     {
@@ -242,7 +305,7 @@ public partial class HandleInstances
                         .ToList();
 
                     if (minecraftsInFolder.Any())
-                        Data.SortedMinecraftCategories.Add(new MinecraftCategoryEntry
+                        categories.Add(new MinecraftCategoryEntry
                         {
                             Tag = $"folder-{folderGroup.Key}",
                             Name = folderGroup.Key,
@@ -254,7 +317,7 @@ public partial class HandleInstances
                 break;
 
             case MinecraftInstanceCategoryMethod.MinecraftVersion:
-                // 首先按VersionType分类
+                // 首先按VersionType分类，不排除收藏夹的实例
                 var versionGroups = Data.AllMinecraftInstances
                     .GroupBy(minecraft => minecraft.Type)
                     .OrderBy(group => group.Key);
@@ -285,7 +348,7 @@ public partial class HandleInstances
                             else
                             {
                                 // 对于不符合主版本号格式的，单独添加
-                                Data.SortedMinecraftCategories.Add(new MinecraftCategoryEntry
+                                categories.Add(new MinecraftCategoryEntry
                                 {
                                     Tag = minecraft.MlEntry.Version.VersionId,
                                     Name = $"Release - {minecraft.MlEntry.Version.VersionId}",
@@ -317,7 +380,7 @@ public partial class HandleInstances
                                 .OrderBy(x => x.Id)
                                 .ToList();
 
-                            Data.SortedMinecraftCategories.Add(new MinecraftCategoryEntry
+                            categories.Add(new MinecraftCategoryEntry
                             {
                                 Tag = $"release-{majorVersion}",
                                 Name = $"Minecraft {majorVersion}",
@@ -333,7 +396,7 @@ public partial class HandleInstances
                             .OrderBy(x => x.Id)
                             .ToList();
 
-                        Data.SortedMinecraftCategories.Add(new MinecraftCategoryEntry
+                        categories.Add(new MinecraftCategoryEntry
                         {
                             Tag = versionTypeName.ToLower(),
                             Name = versionTypeName,
@@ -346,13 +409,23 @@ public partial class HandleInstances
                 break;
         }
 
+        // 将收集的所有分类添加到SortedMinecraftCategories中
+        foreach (var category in categories)
+        {
+            if (category.Tag == favouriteTag) continue;
+            Data.SortedMinecraftCategories.Add(category);
+        }
+
         // 如果用户设置了其他排序方法，则应用该排序方法
         if (Data.SettingEntry == null) return;
         if (Data.SettingEntry.MinecraftInstanceSortMethod != MinecraftInstanceSortMethod.Name)
             Sort(Data.SettingEntry.MinecraftInstanceSortMethod);
         else if (Aurelio.App.UiRoot != null)
-            Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
-                .Animate<double>(Visual.OpacityProperty, 0, 1);
+            Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
+                    .Animate<double>(Visual.OpacityProperty, 0, 1);
+            });
     }
 
     [GeneratedRegex(@"^(\d+)\.(\d+)(?:\.(\d+))?")]

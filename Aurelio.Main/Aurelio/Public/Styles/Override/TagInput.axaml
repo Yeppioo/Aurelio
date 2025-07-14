@@ -1,0 +1,156 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <u:ClosableTag Content="Closable Tag" />
+    </Design.PreviewWith>
+    <ControlTheme TargetType="u:TagInput" x:Key="{x:Type u:TagInput}">
+        <Setter Property="InputTheme" Value="{DynamicResource TagInputTextBoxTheme}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="MinHeight" Value="{DynamicResource TextBoxDefaultHeight}" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="ItemTemplate">
+            <DataTemplate>
+                <u:ClosableTag Command="{Binding $parent[u:TagInput].Close}" Content="{ReflectionBinding}" />
+            </DataTemplate>
+        </Setter>
+        <Setter Property="Template">
+            <ControlTemplate TargetType="u:TagInput">
+                <Border
+                    Background="{DynamicResource TextBoxDefaultBackground}"
+                    BorderBrush="{DynamicResource TextBoxDefaultBorderBrush}"
+                    BorderThickness="{DynamicResource TextBoxBorderThickness}"
+                    CornerRadius="{DynamicResource TextBoxDefaultCornerRadius}"
+                    MinHeight="30"
+                    Name="PART_RootBorder"
+                    Padding="8,4"
+                    VerticalAlignment="Stretch">
+                    <Panel HorizontalAlignment="Stretch">
+                        <TextBlock
+                            IsVisible="False"
+                            Name="{x:Static u:TagInput.PART_Watermark}"
+                            Opacity="0.5"
+                            Text="{TemplateBinding Watermark}"
+                            VerticalAlignment="Center" />
+                        <ItemsControl
+                            HorizontalAlignment="Stretch"
+                            ItemTemplate="{TemplateBinding ItemTemplate}"
+                            ItemsSource="{TemplateBinding Items}"
+                            Name="PART_ItemsControl"
+                            VerticalAlignment="Top">
+
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <u:TagInputPanel VerticalAlignment="Top" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Panel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:empty /template/ TextBlock#PART_Watermark">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^:pointerover /template/ Border#PART_BackgroundBorder">
+            <Setter Property="Background" Value="{DynamicResource TextBoxPointeroverBackground}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource TextBoxPointeroverBorderBrush}" />
+        </Style>
+        <Style Selector="^:focus-within /template/ Border#PART_BackgroundBorder">
+            <Setter Property="BorderBrush" Value="{DynamicResource TextBoxFocusBorderBrush}" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme TargetType="TextBox" x:Key="TagInputTextBoxTheme">
+        <Setter Property="Foreground" Value="{DynamicResource TextBoxInnerForeground}" />
+        <Setter Property="Background" Value="{DynamicResource TextBoxDefaultBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource TextBoxDefaultBorderBrush}" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource TextBoxSelectionBackground}" />
+        <Setter Property="SelectionForegroundBrush" Value="{DynamicResource TextBoxSelectionForeground}" />
+        <Setter Property="Cursor" Value="Ibeam" />
+        <Setter Property="CaretBrush" Value="{DynamicResource TextBoxTextCaretBrush}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="ScrollViewer.IsScrollChainingEnabled" Value="True" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="TextBox">
+                <Border Padding="0,4">
+                    <ScrollViewer
+                        AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+                        HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                        IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+                        VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+                        Width="{Binding $parent[TextBox].Bounds.Width}">
+                        <TextPresenter
+                            CaretBrush="{TemplateBinding CaretBrush}"
+                            CaretIndex="{TemplateBinding CaretIndex}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            LineHeight="{TemplateBinding LineHeight}"
+                            Name="PART_TextPresenter"
+                            PasswordChar="{TemplateBinding PasswordChar}"
+                            RevealPassword="{TemplateBinding RevealPassword}"
+                            SelectionBrush="{TemplateBinding SelectionBrush}"
+                            SelectionEnd="{TemplateBinding SelectionEnd}"
+                            SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                            SelectionStart="{TemplateBinding SelectionStart}"
+                            Text="{TemplateBinding Text,
+                                                   Mode=TwoWay}"
+                            TextAlignment="{TemplateBinding TextAlignment}"
+                            TextWrapping="{TemplateBinding TextWrapping}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </ScrollViewer>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <ControlTheme TargetType="u:ClosableTag" x:Key="{x:Type u:ClosableTag}">
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Foreground" Value="{DynamicResource ClosableTagForeground}" />
+        <Setter Property="Background" Value="{DynamicResource ClosableTagBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ClosableTagBorder}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="u:ClosableTag">
+                <Border
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{DynamicResource CardCornerRadius}"
+                    Margin="1"
+                    Padding="8,4,6,4">
+                    <DockPanel LastChildFill="True">
+                        <Button
+                            Command="{TemplateBinding Command}"
+                            CommandParameter="{TemplateBinding}"
+                            Content="{StaticResource ClosableTagCloseIconGlyph}"
+                            DockPanel.Dock="Right"
+                            Foreground="{DynamicResource SemiColorText2}"
+                            Height="12"
+                            Margin="4,0,0,0"
+                            Name="{x:Static u:ClosableTag.PART_CloseButton}"
+                            Theme="{DynamicResource InnerIconButton}"
+                            Width="12" />
+                        <ContentPresenter
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            FontSize="12"
+                            Foreground="{TemplateBinding Foreground}"
+                            TextTrimming="CharacterEllipsis"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </DockPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^ /template/ Button#PART_CloseButton:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource SemiColorText1}" />
+        </Style>
+        <Style Selector="^ /template/ Button#PART_CloseButton:pressed">
+            <Setter Property="Foreground" Value="{DynamicResource SemiColorText0}" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

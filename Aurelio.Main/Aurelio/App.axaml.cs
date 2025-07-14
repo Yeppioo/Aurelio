@@ -49,6 +49,12 @@ public class App : Application
             Logger.Info("注册全局异常处理");
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Dispatcher.UIThread.UnhandledException += UIThread_UnhandledException;
+#else
+            Dispatcher.UIThread.UnhandledException += (_, e) =>
+            {
+                Logger.Fatal($"UI线程未处理异常: {e.Exception}");
+                throw e.Exception;
+            };
 #endif
 
             var win = new MainWindow();

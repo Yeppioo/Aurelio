@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Langs;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Ursa.Controls;
@@ -16,6 +17,16 @@ public class UiProperty : ReactiveObject
     }
 
     public static ObservableCollection<NotificationEntry> NotificationCards { get; } = [];
+    public static ObservableCollection<string> AllMinecraftTags { get; } = [];
+    public static ObservableCollection<string> BuiltInTags { get; } = [];
+    public static readonly string FavouriteTag = MainLang.Favourite;
     public static WindowNotificationManager Notification { get; set; }
     public static WindowToastManager Toast { get; set; }
+    
+    // 初始化内置标签
+    static UiProperty()
+    {
+        // 添加收藏夹标签到内置标签集合
+        BuiltInTags.Add(FavouriteTag);
+    }
 }

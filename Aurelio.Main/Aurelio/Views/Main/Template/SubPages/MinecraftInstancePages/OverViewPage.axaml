@@ -12,6 +12,7 @@
     xmlns:minecraftInstancePages="clr-namespace:Aurelio.Views.Main.Template.SubPages.MinecraftInstancePages"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:u="https://irihi.tech/ursa"
+    xmlns:ui="clr-namespace:Aurelio.Public.Module.Ui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Resources>
         <converter:MinecraftInstanceSettingMemoryLimitConverter x:Key="MinecraftInstanceSettingMemoryLimitConverter" />
@@ -33,6 +34,7 @@
                                 VerticalAlignment="Center" />
                             <DockPanel>
                                 <u:IconButton
+                                    Command="{Binding EditMinecraftIdCommand}"
                                     Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Edit}"
                                     DockPanel.Dock="Right"
                                     Margin="10,0,0,0"
@@ -74,6 +76,34 @@
                                 <ComboBoxItem Content="NoeForge" />
                                 <ComboBoxItem Content="Quilt" />
                             </ComboBox>
+                        </Grid>
+                        <Grid>
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Tag}"
+                                VerticalAlignment="Center" />
+                            <DockPanel>
+                                <u:IconButton
+                                    Command="{Binding CreateNewTagCommand}"
+                                    Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.New}"
+                                    DockPanel.Dock="Right"
+                                    Margin="10,0,0,0"
+                                    Name="CreateNewTag"
+                                    VerticalAlignment="Center">
+                                    <u:IconButton.Icon>
+                                        <PathIcon
+                                            Data="{x:Static ui:Icons.Plus}"
+                                            Height="14"
+                                            Width="14" />
+                                    </u:IconButton.Icon>
+                                </u:IconButton>
+                                <u:MultiComboBox
+                                    HorizontalAlignment="Stretch"
+                                    ItemsSource="{Binding Data.UiProperty.AllMinecraftTags}"
+                                    Margin="100,0,0,0"
+                                    Name="TagsMultiComboBox"
+                                    SelectedItems="{Binding Entry.SettingEntry.Tags}" />
+                            </DockPanel>
                         </Grid>
                     </StackPanel>
                 </Border>

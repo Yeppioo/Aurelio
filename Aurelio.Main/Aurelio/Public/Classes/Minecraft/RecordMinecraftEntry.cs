@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Aurelio.Public.Classes.Enum.Minecraft;
@@ -9,6 +10,7 @@ using Aurelio.Public.Module.Service.Minecraft;
 using Aurelio.Public.Module.Service.Minecraft.Launcher;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
+using DynamicData;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Models.Game;
 using Newtonsoft.Json;
@@ -51,6 +53,26 @@ public class RecordMinecraftEntry : ReactiveObject
 
             _debouncer.Trigger();
         };
+        SettingEntry.Tags.CollectionChanged += (_, _) =>
+        {
+            _debouncer.Trigger();
+            // 不要重新加载所有实例，只更新标签列表
+            UiProperty.AllMinecraftTags.Clear();
+            
+            // 先添加内置标签
+            UiProperty.AllMinecraftTags.AddRange(UiProperty.BuiltInTags);
+            
+            // 再添加用户标签（避免重复添加内置标签）
+            var userTags = Data.AllMinecraftInstances
+                .SelectMany(minecraft => minecraft.SettingEntry.Tags)
+                .Where(tag => !UiProperty.BuiltInTags.Contains(tag))
+                .Distinct()
+                .OrderBy(tag => tag);
+                
+            UiProperty.AllMinecraftTags.AddRange(userTags);
+            // 只需重新分类，不需要重新加载
+            HandleInstances.Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
+        };
     }
 
     [Reactive] public string Id { get; set; }
@@ -58,7 +80,6 @@ public class RecordMinecraftEntry : ReactiveObject
     public MinecraftEntry MlEntry { get; }
     public string ShortDescription => $"{Loader} {MlEntry.Version.VersionId}";
     public string Loader { get; }
-    public string[] Tags { get; } = [];
     public string[] Loaders { get; }
     [Reactive] public Bitmap Icon { get; set; }
     [Reactive] public object Tag { get; set; }

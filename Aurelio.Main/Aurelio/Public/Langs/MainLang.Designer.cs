@@ -2922,6 +2922,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 新建.
+        /// </summary>
+        public static string New {
+            get {
+                return ResourceManager.GetString("New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 新标签页.
         /// </summary>
         public static string NewTab {

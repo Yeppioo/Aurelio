@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+using System.Linq;
 using Aurelio.Public.Classes.Enum.Minecraft;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -21,4 +23,28 @@ public class MinecraftInstanceSettingEntry : ReactiveObject
     };
 
     [Reactive] [JsonProperty] public string IconData { get; set; }
+    [JsonProperty] public ObservableCollection<string> Tags { get; } = [];
+    
+    // 添加标签方法，防止重复添加
+    public void AddTag(string tag)
+    {
+        if (!string.IsNullOrWhiteSpace(tag) && !Tags.Contains(tag))
+        {
+            Tags.Add(tag);
+        }
+    }
+    
+    // 清除重复标签方法
+    public void RemoveDuplicateTags()
+    {
+        var uniqueTags = Tags.Distinct().ToList();
+        if (uniqueTags.Count != Tags.Count)
+        {
+            Tags.Clear();
+            foreach (var tag in uniqueTags)
+            {
+                Tags.Add(tag);
+            }
+        }
+    }
 }

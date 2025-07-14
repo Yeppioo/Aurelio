@@ -23,4 +23,9 @@ public class MinecraftCategoryEntry : ViewModelBase
     }
 
     public ObservableCollection<RecordMinecraftEntry> Minecrafts { get; set; } = [];
+
+    public override bool Equals(object? obj)
+    {
+        return Tag == ((MinecraftCategoryEntry)obj).Tag && Visible == ((MinecraftCategoryEntry)obj).Visible;
+    }
 }
