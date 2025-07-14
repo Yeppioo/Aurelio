@@ -1,4 +1,21 @@
-* text=auto eol=lf charset=utf-8
+* text=auto
+*.cs text eol=lf diff=csharp working-tree-encoding=utf-8
+*.axaml text eol=lf working-tree-encoding=utf-8
+*.xaml text eol=lf working-tree-encoding=utf-8
+*.xml text eol=lf working-tree-encoding=utf-8
+*.json text eol=lf working-tree-encoding=utf-8
+*.resx text eol=lf working-tree-encoding=utf-8
+*.config text eol=lf working-tree-encoding=utf-8
+*.md text eol=lf working-tree-encoding=utf-8
+*.txt text eol=lf working-tree-encoding=utf-8
 
-*.axaml text charset=utf-8
-*.cs text charset=utf-8
+# 二进制文件
+*.png binary
+*.jpg binary
+*.ico binary
+*.icns binary
+*.psd binary
+*.gfie binary
+*.ai binary
+*.svg binary
+*.otf binary
