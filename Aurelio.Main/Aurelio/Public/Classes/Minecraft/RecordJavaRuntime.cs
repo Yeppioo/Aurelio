@@ -2,7 +2,7 @@
 
 namespace Aurelio.Public.Classes.Minecraft;
 
-public record RecordJavaRuntime
+public class RecordJavaRuntime
 {
     public bool Is64bit { get; init; }
     public string JavaPath { get; set; }
@@ -11,9 +11,9 @@ public record RecordJavaRuntime
     public string JavaFolder { get; init; }
     public int MajorVersion { get; init; }
 
-    public bool Equals(JavaEntry? other)
+    public override bool Equals(object? obj)
     {
-        if (other == null) return false;
+        if (obj is not RecordJavaRuntime other) return false;
         if (other.JavaVersion == "auto" && JavaVersion == "auto") return true;
         if (other.JavaVersion == "global" && JavaVersion == "global") return true;
         return Is64bit == other.Is64bit && JavaPath == other.JavaPath && JavaType == other.JavaType;
