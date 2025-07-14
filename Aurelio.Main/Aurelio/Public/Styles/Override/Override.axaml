@@ -72,9 +72,9 @@
                     Property="Background" />
             </Transitions>
         </Setter>
-        <!-- <Style Selector="^ AccessText"> -->
-        <!--     <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" /> -->
-        <!-- </Style> -->
+        <Style Selector="^ AccessText">
+            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
+        </Style>
     </Style>
     <Style Selector="u|IconButton">
         <Setter Property="FontFamily" Value="{DynamicResource MiSans}" />
@@ -92,10 +92,10 @@
             </Transitions>
         </Setter>
         <Style Selector="^ TextBlock">
-            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
         </Style>
         <Style Selector="^ PathIcon">
-            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
         </Style>
     </Style>
     <Style Selector="ListBoxItem /template/ ContentPresenter#PART_ContentPresenter">
@@ -154,7 +154,7 @@
     </Style>
     <Style Selector="u|IconButton">
         <Style Selector="^ PathIcon">
-            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
         </Style>
         <Style Selector="^ /template/ ReversibleStackPanel#PART_RootPanel">
             <Setter Property="Spacing" Value="0" />
