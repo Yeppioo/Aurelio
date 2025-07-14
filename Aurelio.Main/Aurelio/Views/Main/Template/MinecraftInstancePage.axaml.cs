@@ -3,7 +3,6 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
-using Aurelio.Public.Module.Service;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;

@@ -35,10 +35,7 @@ public partial class HandleInstances
             }
 
             // 清除所有实例中的重复标签
-            foreach (var instance in Data.AllMinecraftInstances)
-            {
-                instance.SettingEntry.RemoveDuplicateTags();
-            }
+            foreach (var instance in Data.AllMinecraftInstances) instance.SettingEntry.RemoveDuplicateTags();
 
             // 更新标签列表，确保内置标签总是存在
             UiProperty.AllMinecraftTags.Clear();
@@ -181,7 +178,6 @@ public partial class HandleInstances
             .ToList();
 
         if (favouriteInstances.Any())
-        {
             categories.Add(new MinecraftCategoryEntry
             {
                 Tag = favouriteTag,
@@ -189,7 +185,6 @@ public partial class HandleInstances
                 Minecrafts = new ObservableCollection<RecordMinecraftEntry>(favouriteInstances),
                 Expanded = true
             });
-        }
 
         // 先添加搜索结果分类（绝对置顶）
         Data.SortedMinecraftCategories.Add(new MinecraftCategoryEntry
@@ -202,10 +197,7 @@ public partial class HandleInstances
         });
 
         // 再添加收藏夹和其他分类
-        foreach (var category in categories)
-        {
-            Data.SortedMinecraftCategories.Add(category);
-        }
+        foreach (var category in categories) Data.SortedMinecraftCategories.Add(category);
 
         switch (method)
         {

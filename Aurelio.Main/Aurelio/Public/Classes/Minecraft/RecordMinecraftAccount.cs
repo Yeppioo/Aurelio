@@ -1,19 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
 using Aurelio.Public.Module.Value;
-using Aurelio.Public.Module.IO;
 using Avalonia.Media.Imaging;
-using Avalonia.Media;
 using MinecraftLaunch.Skin;
 using Newtonsoft.Json;
-using SkiaSharp;
 
 namespace Aurelio.Public.Classes.Minecraft;
 
 public sealed record RecordMinecraftAccount : INotifyPropertyChanged
 {
+    [JsonIgnore] private Bitmap? _body;
     [JsonIgnore] private Bitmap? _head;
     public Enum.Setting.AccountType AccountType { get; set; }
     public string Name { get; set; } = "Unnamed";
@@ -31,7 +28,13 @@ public sealed record RecordMinecraftAccount : INotifyPropertyChanged
     {
         get { return _head ??= HandleHeadSkin(); }
     }
-    
+
+    [JsonIgnore]
+    public Bitmap Body
+    {
+        get { return _body ??= HandleBodySkin(); }
+    }
+
 
     public bool Equals(RecordMinecraftAccount? other)
     {
@@ -39,6 +42,11 @@ public sealed record RecordMinecraftAccount : INotifyPropertyChanged
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
+
+    private Bitmap? HandleBodySkin()
+    {
+        return null;
+    }
 
     private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
@@ -52,7 +60,7 @@ public sealed record RecordMinecraftAccount : INotifyPropertyChanged
         OnPropertyChanged(propertyName);
         return true;
     }
-    
+
     private Bitmap HandleHeadSkin()
     {
         SkinResolver SkinResolver = new(Convert.FromBase64String(Skin));

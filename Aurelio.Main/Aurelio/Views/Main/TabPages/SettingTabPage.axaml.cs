@@ -12,9 +12,9 @@ namespace Aurelio.Views.Main.TabPages;
 public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
 {
     private bool _fl = true;
-    public int DefaultNav = 0;
     private bool _isAnimating;
     private SelectionListItem _selectedItem;
+    public int DefaultNav;
 
     public SettingTabPage()
     {

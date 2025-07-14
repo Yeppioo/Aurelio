@@ -1,8 +1,8 @@
 ﻿using System;
+using Aurelio.Public.Module.IO;
 using Avalonia;
 using Avalonia.Dialogs;
 using HotAvalonia;
-using Aurelio.Public.Module.IO;
 
 namespace Aurelio.Desktop;
 
@@ -17,7 +17,7 @@ internal sealed class Program
         // 初始化日志系统
         Logger.Initialize();
         Logger.Info("应用程序启动");
-        
+
         try
         {
             BuildAvaloniaApp()

@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Aurelio.Public.Classes.Enum.Minecraft;
@@ -58,17 +57,17 @@ public class RecordMinecraftEntry : ReactiveObject
             _debouncer.Trigger();
             // 不要重新加载所有实例，只更新标签列表
             UiProperty.AllMinecraftTags.Clear();
-            
+
             // 先添加内置标签
             UiProperty.AllMinecraftTags.AddRange(UiProperty.BuiltInTags);
-            
+
             // 再添加用户标签（避免重复添加内置标签）
             var userTags = Data.AllMinecraftInstances
                 .SelectMany(minecraft => minecraft.SettingEntry.Tags)
                 .Where(tag => !UiProperty.BuiltInTags.Contains(tag))
                 .Distinct()
                 .OrderBy(tag => tag);
-                
+
             UiProperty.AllMinecraftTags.AddRange(userTags);
             // 只需重新分类，不需要重新加载
             HandleInstances.Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);

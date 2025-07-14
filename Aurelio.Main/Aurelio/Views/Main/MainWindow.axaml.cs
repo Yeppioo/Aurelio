@@ -129,7 +129,9 @@ public partial class MainWindow : UrsaWindow
                 await OpenSettingPage();
             }
             else
+            {
                 _ = OpenTaskDrawer("MainWindow");
+            }
         };
     }
 

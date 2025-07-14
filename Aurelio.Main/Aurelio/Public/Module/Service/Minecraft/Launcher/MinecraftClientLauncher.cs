@@ -1,18 +1,13 @@
-using System.Collections.Generic;
-using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
-using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO;
-using Aurelio.Public.Module.Ui.Helper;
+using Aurelio.Views.Main;
 using Aurelio.Views.Main.Template;
-using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
-using Avalonia.Controls.Primitives;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using FluentAvalonia.UI.Controls;
@@ -24,8 +19,6 @@ using MinecraftLaunch.Components.Parser;
 using MinecraftLaunch.Extensions;
 using MinecraftLaunch.Launch;
 using Newtonsoft.Json;
-using System.Text.RegularExpressions;
-using Aurelio.Views.Main;
 
 namespace Aurelio.Public.Module.Service.Minecraft.Launcher;
 
@@ -240,7 +233,7 @@ public partial class MinecraftClientLauncher
                             }
                         }));
                         task.OperateButtons.Add(new OperateButtonEntry("显示Minecraft日志",
-                            (sender) => { ShowLogViewer(tab, sender); }));
+                            sender => { ShowLogViewer(tab, sender); }));
                     });
                     _ = Task.Run(() =>
                     {
@@ -313,13 +306,9 @@ public partial class MinecraftClientLauncher
             if (w.ViewModel.Tabs.Contains(tab))
             {
                 if (w.ViewModel.SelectedTab == tab)
-                {
                     tab.Content.InAnimator.Animate();
-                }
                 else
-                {
                     w.ViewModel.SelectedTab = tab;
-                }
             }
             else
             {
@@ -332,13 +321,9 @@ public partial class MinecraftClientLauncher
             if (Aurelio.App.UiRoot.ViewModel.Tabs.Contains(tab))
             {
                 if (Aurelio.App.UiRoot.ViewModel.SelectedTab == tab)
-                {
                     tab.Content.InAnimator.Animate();
-                }
                 else
-                {
                     Aurelio.App.UiRoot.ViewModel.SelectedTab = tab;
-                }
             }
             else
             {

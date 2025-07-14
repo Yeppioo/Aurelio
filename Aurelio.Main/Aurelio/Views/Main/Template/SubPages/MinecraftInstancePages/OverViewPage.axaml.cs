@@ -79,7 +79,7 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
             b_cancel: MainLang.Cancel);
         if (d != ContentDialogResult.Primary || text.Text.IsNullOrWhiteSpace()) return;
 
-        string newTag = text.Text!;
+        var newTag = text.Text!;
 
         // 检查是否为内置标签名
         if (UiProperty.BuiltInTags.Contains(newTag))
@@ -90,9 +90,6 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
         }
 
         // 检查标签是否已存在
-        if (!UiProperty.AllMinecraftTags.Contains(newTag))
-        {
-            UiProperty.AllMinecraftTags.Add(newTag);
-        }
+        if (!UiProperty.AllMinecraftTags.Contains(newTag)) UiProperty.AllMinecraftTags.Add(newTag);
     }
 }

@@ -4,7 +4,6 @@ using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
-using Avalonia.Media;
 
 namespace Aurelio.Views.Main.Template;
 
