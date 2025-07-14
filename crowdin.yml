@@ -1,0 +1,3 @@
+files:
+  - source: /Aurelio.Main/Aurelio/Public/Langs/MainLang.resx
+    translation: Aurelio.Main/Aurelio/Public/Langs/MainLang.%language%.resx
