@@ -17,13 +17,13 @@ public class Getter
         return result;
     }
 
-    public static Bitmap LoadBitmapFromAppFile(string uri)
+    public static Bitmap LoadBitmapFromAppFile(string uri, int width = 48)
     {
         // return null;
         var memoryStream = new MemoryStream();
         var stream = AssetLoader.Open(new Uri("resm:" + uri));
         stream.CopyTo(memoryStream);
         memoryStream.Position = 0;
-        return Bitmap.DecodeToWidth(memoryStream, 48);
+        return Bitmap.DecodeToWidth(memoryStream, width);
     }
 }

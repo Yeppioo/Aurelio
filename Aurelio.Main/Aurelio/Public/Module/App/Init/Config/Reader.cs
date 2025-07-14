@@ -34,9 +34,6 @@ public abstract class Reader
             Data.SettingEntry = new SettingEntry();
         }
 
-        if (FailedSettingKeys.Count > 0)
-        {
-            Logger.Error($"Setting load with errors: {FailedSettingKeys.AsJson()}");
-        }
+        if (FailedSettingKeys.Count > 0) Logger.Error($"Setting load with errors: {FailedSettingKeys.AsJson()}");
     }
 }
