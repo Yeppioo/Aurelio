@@ -1,12 +1,22 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO;
+using Aurelio.Public.Module.Ui.Helper;
+using Aurelio.Views.Main.Template;
+using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
+using Avalonia.Controls.Primitives;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using FluentAvalonia.UI.Controls;
+using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Models.Authentication;
 using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Components.Authenticator;
@@ -14,10 +24,12 @@ using MinecraftLaunch.Components.Parser;
 using MinecraftLaunch.Extensions;
 using MinecraftLaunch.Launch;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
+using Aurelio.Views.Main;
 
 namespace Aurelio.Public.Module.Service.Minecraft.Launcher;
 
-public class MinecraftClientLauncher
+public partial class MinecraftClientLauncher
 {
     public static async Task Launch(RecordMinecraftEntry entry)
     {
@@ -63,7 +75,7 @@ public class MinecraftClientLauncher
         task.NextSubTask();
         task.NextSubTask();
 
-        _ = OpenTaskDrawer();
+        _ = OpenTaskDrawer("MainWindow");
 
         Account? account;
         switch (Data.SettingEntry.UsingMinecraftAccount.AccountType)
@@ -150,6 +162,8 @@ public class MinecraftClientLauncher
 
         task.NextSubTask();
         MinecraftRunner runner = new(config, new MinecraftParser(entry.ParentMinecraftFolder.Path));
+        var logViewer = new LogViewer($"{entry.Id}");
+        var tab = new TabEntry(logViewer);
         try
         {
             await Task.Run(async () =>
@@ -158,47 +172,44 @@ public class MinecraftClientLauncher
                 {
                     var process = await runner.RunAsync(entry.Id, token);
                     var copyArguments = string.Join(" ", process.ArgumentList);
+
                     process.Exited += async (_, arg) =>
                     {
                         await Dispatcher.UIThread.InvokeAsync(() =>
                         {
-                            // if (Data.SettingEntry.LauncherVisibility !=
-                            //     Setting.LauncherVisibility.AfterLaunchMakeLauncherMinimize)
-                            // {
-                            //     if (TopLevel.GetTopLevel(YMCL.App.UiRoot) is Window window1)
-                            //     {
-                            //         window1.Show();
-                            //         window1.WindowState = WindowState.Normal;
-                            //         window1.Activate();
-                            //     }
-                            // }
-
                             Notice($"{MainLang.GameExited} - {entry.Id}", NotificationType.Warning);
 
-                            task.FinishWithSuccess();
+                            logViewer.AddLog("Aurelio", LogType.Info, $"游戏进程已退出 - {entry.Id}");
 
-                            // await Task.Delay(2000);
-                            // if (TopLevel.GetTopLevel(YMCL.App.UiRoot) is Window window2)
-                            // {
-                            //     window2.Activate();
-                            //     window2.Focus();
-                            // }
+                            task.FinishWithSuccess();
                         });
                     };
 
                     process.OutputLogReceived += (_, arg) =>
                     {
-                        // var regex = new Regex(@"^\[[^\]]*\]\s*\[([^\]]*?)(\]|$)(\s*.*)");
-                        // var match = regex.Match(arg.Data.Source);
-                        // var regStr = match.Groups[1].Value + match.Groups[3].Value;
-                        // Dispatcher.UIThread.Invoke(
-                        //     () =>
-                        //     {
-                        //         window.Append(arg.Data.Log, arg.Data.Time, (LogType)arg.Data.LogLevel,
-                        //             string.IsNullOrWhiteSpace(regStr) ? arg.Data.Source : regStr);
-                        //     },
-                        //     DispatcherPriority.ApplicationIdle);
-                        Logger.Info(arg.Data.ToString());
+                        var regex = MyRegex();
+                        var match = regex.Match(arg.Data.Source);
+                        var regStr = match.Groups[1].Value + match.Groups[3].Value;
+
+                        Dispatcher.UIThread.Invoke(() =>
+                        {
+                            var logType = arg.Data.LogLevel switch
+                            {
+                                MinecraftLogLevel.Info => LogType.Info,
+                                MinecraftLogLevel.Warning => LogType.Warning,
+                                MinecraftLogLevel.Error => LogType.Error,
+                                MinecraftLogLevel.Fatal => LogType.Fatal,
+                                MinecraftLogLevel.Debug => LogType.Debug,
+                                _ => LogType.Unknown
+                            };
+
+                            logViewer.AddLog(
+                                string.IsNullOrWhiteSpace(regStr) ? arg.Data.Source : regStr,
+                                logType,
+                                arg.Data.Log);
+
+                            Logger.Info(arg.Data.ToString());
+                        });
                     };
 
                     await Dispatcher.UIThread.InvokeAsync(() =>
@@ -206,7 +217,7 @@ public class MinecraftClientLauncher
                         task.NextSubTask();
                         Notice($"{MainLang.LaunchFinish} - {entry.Id}", NotificationType.Success);
                         task.OperateButtons.Add(new OperateButtonEntry(MainLang.DisplayLaunchArguments,
-                            async void () =>
+                            async void (_) =>
                             {
                                 var dialog = await ShowDialogAsync(MainLang.LaunchArguments,
                                     string.Join(" \n", process.ArgumentList), b_cancel: MainLang.Ok,
@@ -216,7 +227,7 @@ public class MinecraftClientLauncher
                                 await clipboard.SetTextAsync(copyArguments);
                                 Notice(MainLang.AlreadyCopyToClipBoard, NotificationType.Success);
                             }));
-                        task.OperateButtons.Add(new OperateButtonEntry(MainLang.KillProcess, void () =>
+                        task.OperateButtons.Add(new OperateButtonEntry(MainLang.KillProcess, void (_) =>
                         {
                             try
                             {
@@ -228,11 +239,8 @@ public class MinecraftClientLauncher
                                 // ignored
                             }
                         }));
-                        task.OperateButtons.Add(new OperateButtonEntry("显示Minecraft日志", () =>
-                        {
-                            // window.Show();
-                            // window.Activate();
-                        }));
+                        task.OperateButtons.Add(new OperateButtonEntry("显示Minecraft日志",
+                            (sender) => { ShowLogViewer(tab, sender); }));
                     });
                     _ = Task.Run(() =>
                     {
@@ -296,4 +304,50 @@ public class MinecraftClientLauncher
             task.CancelFinish();
         }
     }
+
+    private static void ShowLogViewer(TabEntry tab, object sender)
+    {
+        var vis = ((Button)sender).GetVisualRoot();
+        if (vis is TabWindow w)
+        {
+            if (w.ViewModel.Tabs.Contains(tab))
+            {
+                if (w.ViewModel.SelectedTab == tab)
+                {
+                    tab.Content.InAnimator.Animate();
+                }
+                else
+                {
+                    w.ViewModel.SelectedTab = tab;
+                }
+            }
+            else
+            {
+                w.ViewModel.Tabs.Add(tab);
+                w.ViewModel.SelectedTab = tab;
+            }
+        }
+        else
+        {
+            if (Aurelio.App.UiRoot.ViewModel.Tabs.Contains(tab))
+            {
+                if (Aurelio.App.UiRoot.ViewModel.SelectedTab == tab)
+                {
+                    tab.Content.InAnimator.Animate();
+                }
+                else
+                {
+                    Aurelio.App.UiRoot.ViewModel.SelectedTab = tab;
+                }
+            }
+            else
+            {
+                Aurelio.App.UiRoot.ViewModel.Tabs.Add(tab);
+                Aurelio.App.UiRoot.ViewModel.SelectedTab = tab;
+            }
+        }
+    }
+
+    [GeneratedRegex(@"^\[[^\]]*\]\s*\[([^\]]*?)(\]|$)(\s*.*)")]
+    private static partial Regex MyRegex();
 }

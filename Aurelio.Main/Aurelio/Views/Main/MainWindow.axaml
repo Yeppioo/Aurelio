@@ -312,6 +312,7 @@
                 Opacity="0"
                 VerticalAlignment="Top"
                 Width="1" />
+            <u:OverlayDialogHost HostId="MainWindow" />
         </Grid>
     </Border>
 </u:UrsaWindow>

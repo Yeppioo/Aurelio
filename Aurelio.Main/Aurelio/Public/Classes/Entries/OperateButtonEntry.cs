@@ -3,13 +3,13 @@ using ReactiveUI.Fody.Helpers;
 
 namespace Aurelio.Public.Classes.Entries;
 
-public class OperateButtonEntry(string content, Action action) : ReactiveObject
+public class OperateButtonEntry(string content, Action<object> action) : ReactiveObject
 {
     [Reactive] public object? Content { get; set; } = content;
-    [Reactive] public Action? Action { get; set; } = action;
+    [Reactive] public Action<object>? Action { get; set; } = action;
 
-    public void Command()
+    public void Command(object sender)
     {
-        Action?.Invoke();
+        Action?.Invoke(sender);
     }
 }

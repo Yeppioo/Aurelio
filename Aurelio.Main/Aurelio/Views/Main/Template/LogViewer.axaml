@@ -1,0 +1,116 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Views.Main.Template.LogViewer"
+    x:DataType="template:LogViewer"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:data="clr-namespace:Aurelio.Public.Classes.Entries"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:template="clr-namespace:Aurelio.Views.Main.Template"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <converter:LogTypeToColorConverter x:Key="LogTypeColorConverter" />
+    </UserControl.Resources>
+    <Border Name="Root">
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Top">
+                <WrapPanel
+                    DockPanel.Dock="Top"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,10,0"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Top">
+                    <ToggleButton
+                        Content="错误"
+                        IsChecked="{Binding Error}"
+                        Margin="4" />
+                    <ToggleButton
+                        Content="信息"
+                        IsChecked="{Binding Info}"
+                        Margin="4" />
+                    <ToggleButton
+                        Content="调试"
+                        IsChecked="{Binding Debug}"
+                        Margin="4" />
+                    <ToggleButton
+                        Content="致命"
+                        IsChecked="{Binding Fatal}"
+                        Margin="4" />
+                    <ToggleButton
+                        Content="警告"
+                        IsChecked="{Binding Warning}"
+                        Margin="4" />
+                    <ToggleButton
+                        Content="异常"
+                        IsChecked="{Binding Exception}"
+                        Margin="4" />
+                    <ToggleButton
+                        Content="堆栈跟踪"
+                        IsChecked="{Binding StackTrace}"
+                        Margin="4" />
+                    <ToggleButton
+                        Content="未知"
+                        IsChecked="{Binding Unknown}"
+                        Margin="4" />
+                </WrapPanel>
+                <DockPanel
+                    Dock="Bottom"
+                    LastChildFill="False"
+                    Margin="10,0,10,10"
+                    VerticalAlignment="Bottom">
+                    <u:IconButton
+                        Classes="accent"
+                        Click="Button_OnClick"
+                        Content="导出日志文件"
+                        DockPanel.Dock="Left"
+                        VerticalAlignment="Center">
+                        <u:IconButton.Icon>
+                            <PathIcon
+                                Data="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-128 0c-17.7 0-32-14.3-32-32L224 0 64 0zM256 0l0 128 128 0L256 0zM216 232l0 102.1 31-31c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-72 72c-9.4 9.4-24.6 9.4-33.9 0l-72-72c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l31 31L168 232c0-13.3 10.7-24 24-24s24 10.7 24 24z"
+                                Height="13"
+                                HorizontalAlignment="Center"
+                                Margin="0,-1,1,0"
+                                VerticalAlignment="Center"
+                                Width="14" />
+                        </u:IconButton.Icon>
+                    </u:IconButton>
+                    <CheckBox
+                        Content="自动滚动到底部"
+                        DockPanel.Dock="Right"
+                        IsChecked="{Binding AutoScrollToEnd}"
+                        Margin="0,5,10,0" />
+                </DockPanel>
+                <ScrollViewer Margin="0,10,0,10" Name="ScrollViewer">
+                    <ItemsControl
+                        ItemsSource="{Binding DisplayLogItems}"
+                        Margin="10,10,10,10"
+                        Name="Control">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="data:LogItemEntry">
+                                <SelectableTextBlock TextWrapping="Wrap">
+                                    <Run Text="[" />
+                                    <Run Foreground="#6a9955" Text="{Binding Time}" />
+                                    <Run Text="] [" />
+                                    <Run Foreground="#48a8ff" Text="{Binding Source}" />
+                                    <Run Text="/" />
+                                    <Run Foreground="{Binding Type, Converter={StaticResource LogTypeColorConverter}}" Text="{Binding Type}" />
+                                    <Run Text="]" />
+                                    <Run Text="{Binding Message}" />
+                                </SelectableTextBlock>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </DockPanel>
+        </DockPanel>
+    </Border>
+</UserControl>

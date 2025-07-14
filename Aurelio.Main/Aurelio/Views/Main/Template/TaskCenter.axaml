@@ -125,7 +125,10 @@
                                         </ItemsControl.ItemsPanel>
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate DataType="entries:OperateButtonEntry">
-                                                <Button Command="{Binding Command}" Content="{Binding Content}" />
+                                                <Button
+                                                    Command="{Binding Command}"
+                                                    CommandParameter="{Binding $self}"
+                                                    Content="{Binding Content}" />
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
