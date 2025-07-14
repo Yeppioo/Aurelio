@@ -1,16 +1,15 @@
 ﻿using System.Numerics;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.Operate;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.Module.Value;
 using Aurelio.ViewModels;
 using Aurelio.Views.Main.Template;
+using Avalonia.Controls.Notifications;
 using Avalonia.Input;
 using Avalonia.VisualTree;
-using Avalonia.Media.Imaging;
-using Avalonia.Media;
-using LiteSkinViewer3D.Shared.Helpers;
 using LiteSkinViewer3D.Shared.Enums;
 using PointerType = LiteSkinViewer3D.Shared.Enums.PointerType;
 
@@ -18,7 +17,6 @@ namespace Aurelio.Views.Main.SubPages.SettingPages;
 
 public partial class AccountPage : PageMixModelBase, IAurelioPage
 {
-    private bool _fl = true;
     public AccountPage()
     {
         InitializeComponent();
@@ -55,19 +53,35 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
         Data.SettingEntry.PropertyChanged += (_, e) =>
         {
             if (e.PropertyName != nameof(Data.SettingEntry.UsingMinecraftAccount)) return;
-            skinViewer.Skin = Converter.Base64ToBitmap(Data.SettingEntry.UsingMinecraftAccount.Skin);
-            skinViewer.RenderMode = SkinRenderMode.None;
+            if (!UiProperty.Instance.IsRender3D) return;
+            try
+            {
+                skinViewer.Skin = Converter.Base64ToBitmap(Data.SettingEntry.UsingMinecraftAccount.Skin);
+                skinViewer.RenderMode = SkinRenderMode.None;
+            }
+            catch (Exception exception)
+            {
+                Logger.Error(exception);
+                Notice("渲染3D失败", NotificationType.Error);
+            }
         };
-        Loaded += async (_, _) =>
+        Data.UiProperty.PropertyChanged += (_, e) =>
         {
-            if(!_fl) return;
-            _fl = false;
-            await Task.Delay(100);
-            skinViewer.Skin = Converter.Base64ToBitmap(Data.SettingEntry.UsingMinecraftAccount.Skin);
-            skinViewer.RenderMode = SkinRenderMode.None;
+            if (e.PropertyName != nameof(UiProperty.IsRender3D)) return;
+            if (!UiProperty.Instance.IsRender3D) return;
+            try
+            {
+                skinViewer.Skin = Converter.Base64ToBitmap(Data.SettingEntry.UsingMinecraftAccount.Skin);
+                skinViewer.RenderMode = SkinRenderMode.None;
+            }
+            catch (Exception exception)
+            {
+                Logger.Error(exception);
+                Notice("渲染3D失败", NotificationType.Error);
+            }
         };
     }
-    
+
     private void SkinViewer_PointerReleased(object? sender, PointerReleasedEventArgs e)
     {
         var po = e.GetCurrentPoint(this);
