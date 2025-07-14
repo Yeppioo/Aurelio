@@ -5,9 +5,8 @@ on:
     branches: [ main ]
 
 jobs:
-  synchronize-with-crowdin:
+  upload:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,8 +17,30 @@ jobs:
           upload_sources: true
           upload_translations: true
           download_translations: false
-          localization_branch_name: translate
+          localization_branch_name: main
           create_pull_request: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: translate
+      - name: crowdin action
+        uses: crowdin/github-action@v2
+        with:
+          upload_sources: false
+          upload_translations: false
+          download_translations: true
+          localization_branch_name: translate
+          create_pull_request: true
+          pull_request_title: 'translate: 同步 crowdin 翻译内容'
+          pull_request_body: '由 crowdin github action 自动生成 \n 详情请查看 https://zh.crowdin.com/project/aurelio'
+          pull_request_base_branch_name: 'main'
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
