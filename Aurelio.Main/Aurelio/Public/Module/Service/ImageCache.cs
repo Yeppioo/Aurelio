@@ -1,10 +1,10 @@
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
-using Avalonia.Threading;
 
 namespace Aurelio.Public.Module.Service;
 
@@ -13,9 +13,9 @@ namespace Aurelio.Public.Module.Service;
 /// </summary>
 public static class ImageCache
 {
-    private static readonly ThreadPool _imageThreadPool = new ThreadPool(4); // 最多同时4个线程
+    private static readonly ThreadPool _imageThreadPool = new(4); // 最多同时4个线程
     private static readonly ConcurrentDictionary<string, CancellationTokenSource> _pendingTasks = new();
-    private static readonly object _lockObj = new object();
+    private static readonly object _lockObj = new();
 
     /// <summary>
     ///     异步加载图片
@@ -52,14 +52,10 @@ public static class ImageCache
 
         // 如果成功获取到CTS，安全地取消和释放
         if (cts != null)
-        {
             try
             {
                 // 仅当尚未取消时才取消
-                if (!cts.IsCancellationRequested && !cts.Token.CanBeCanceled)
-                {
-                    cts.Cancel();
-                }
+                if (!cts.IsCancellationRequested && !cts.Token.CanBeCanceled) cts.Cancel();
             }
             catch (ObjectDisposedException)
             {
@@ -68,7 +64,7 @@ public static class ImageCache
             catch (Exception ex)
             {
                 // 记录其他异常但不传播
-                System.Diagnostics.Debug.WriteLine($"Error cancelling task {key}: {ex.Message}");
+                Debug.WriteLine($"Error cancelling task {key}: {ex.Message}");
             }
             finally
             {
@@ -81,7 +77,6 @@ public static class ImageCache
                     // 忽略处置时的异常
                 }
             }
-        }
     }
 
     /// <summary>
@@ -103,14 +98,13 @@ public static class ImageCache
         {
             // 只在未取消时执行操作
             if (!t.IsCanceled)
-            {
                 try
                 {
                     await loadAction();
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Error in delayed task {key}: {ex.Message}");
+                    Debug.WriteLine($"Error in delayed task {key}: {ex.Message}");
                 }
                 finally
                 {
@@ -118,25 +112,21 @@ public static class ImageCache
                     CancellationTokenSource? removedCts;
                     _pendingTasks.TryRemove(key, out removedCts);
                 }
-            }
         }, TaskContinuationOptions.NotOnCanceled);
 
         return cts;
     }
-    
+
     /// <summary>
-    /// 清理所有挂起的任务
+    ///     清理所有挂起的任务
     /// </summary>
     public static void ClearPendingTasks()
     {
         // 获取所有键的副本
         var keys = _pendingTasks.Keys.ToArray();
-        
+
         // 逐个取消任务
-        foreach (var key in keys)
-        {
-            CancelLoading(key);
-        }
+        foreach (var key in keys) CancelLoading(key);
     }
 }
 
@@ -146,12 +136,12 @@ public static class ImageCache
 public class ThreadPool
 {
     private readonly SemaphoreSlim _semaphore;
-    
+
     public ThreadPool(int maxConcurrency)
     {
         _semaphore = new SemaphoreSlim(maxConcurrency, maxConcurrency);
     }
-    
+
     public async Task<T> QueueTask<T>(Func<T> workItem)
     {
         await _semaphore.WaitAsync();

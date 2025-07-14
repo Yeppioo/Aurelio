@@ -5,7 +5,6 @@ using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.Module.Value;
 using Avalonia.Input;
-using Avalonia.Media;
 using LiteSkinViewer3D.Shared.Enums;
 using PointerType = LiteSkinViewer3D.Shared.Enums.PointerType;
 

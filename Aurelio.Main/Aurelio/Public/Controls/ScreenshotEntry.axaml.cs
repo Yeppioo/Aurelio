@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Module.Service;
@@ -14,15 +15,15 @@ namespace Aurelio.Public.Controls;
 
 public partial class ScreenshotEntry : UserControl, IDisposable
 {
+    private const int DelayTime = 500; // 延迟时间，单位毫秒
     private readonly string _imageName;
     private readonly string _imagePath;
+    private readonly object _lockObj = new();
     private bool _disposed;
     private bool _imageLoaded;
     private bool _isVisible;
     private CancellationTokenSource? _loadCts;
     private CancellationTokenSource? _unloadCts;
-    private const int DelayTime = 500; // 延迟时间，单位毫秒
-    private readonly object _lockObj = new object();
 
     public ScreenshotEntry(string name, string path)
     {
@@ -52,16 +53,16 @@ public partial class ScreenshotEntry : UserControl, IDisposable
             if (_disposed) return;
             _disposed = true;
             _isVisible = false;
-        
+
             // 取消所有挂起的操作
             SafelyCancelAndDispose(ref _loadCts);
             SafelyCancelAndDispose(ref _unloadCts);
-        
+
             // 清理事件监听
             AttachedToVisualTree -= OnAttachedToVisualTree;
             DetachedFromVisualTree -= OnDetachedFromVisualTree;
             Root.PointerReleased -= OnImageClick;
-        
+
             // 清理图片资源
             UnloadImage();
         }
@@ -73,10 +74,10 @@ public partial class ScreenshotEntry : UserControl, IDisposable
         {
             if (_disposed) return;
             _isVisible = true;
-        
+
             // 取消之前的卸载请求
             SafelyCancelAndDispose(ref _unloadCts);
-        
+
             // 创建延迟加载请求
             _loadCts = ImageCache.RequestDelayedLoad($"load_{_imagePath}", DelayTime, async () =>
             {
@@ -92,10 +93,10 @@ public partial class ScreenshotEntry : UserControl, IDisposable
         {
             if (_disposed) return;
             _isVisible = false;
-        
+
             // 取消之前的加载请求
             SafelyCancelAndDispose(ref _loadCts);
-        
+
             // 创建延迟卸载请求
             _unloadCts = ImageCache.RequestDelayedLoad($"unload_{_imagePath}", DelayTime, async () =>
             {
@@ -124,9 +125,9 @@ public partial class ScreenshotEntry : UserControl, IDisposable
         catch (Exception ex)
         {
             // 其他异常记录但不抛出
-            System.Diagnostics.Debug.WriteLine($"Error cancelling token: {ex.Message}");
+            Debug.WriteLine($"Error cancelling token: {ex.Message}");
         }
-        
+
         try
         {
             localCts.Dispose();
@@ -134,7 +135,7 @@ public partial class ScreenshotEntry : UserControl, IDisposable
         catch (Exception ex)
         {
             // 处置时出错，记录但不抛出
-            System.Diagnostics.Debug.WriteLine($"Error disposing token: {ex.Message}");
+            Debug.WriteLine($"Error disposing token: {ex.Message}");
         }
     }
 
@@ -145,11 +146,10 @@ public partial class ScreenshotEntry : UserControl, IDisposable
         try
         {
             var bitmap = await ImageCache.LoadImageAsync(_imagePath);
-            
+
             lock (_lockObj)
             {
                 if (bitmap != null && _isVisible && !_disposed)
-                {
                     Dispatcher.UIThread.InvokeAsync(() =>
                     {
                         if (!_disposed)
@@ -168,12 +168,9 @@ public partial class ScreenshotEntry : UserControl, IDisposable
                             bitmap.Dispose();
                         }
                     });
-                }
                 else if (bitmap != null)
-                {
                     // 如果不可见或已处置，释放bitmap
                     bitmap.Dispose();
-                }
             }
         }
         catch
@@ -187,7 +184,7 @@ public partial class ScreenshotEntry : UserControl, IDisposable
         lock (_lockObj)
         {
             if (!_imageLoaded) return;
-            
+
             // 清理图片资源
             if (ImageBorder.Background is ImageBrush brush && brush.Source is Bitmap bitmap)
             {
@@ -198,7 +195,7 @@ public partial class ScreenshotEntry : UserControl, IDisposable
             {
                 ImageBorder.Background = new SolidColorBrush(Color.FromArgb(16, 255, 255, 255));
             }
-            
+
             _imageLoaded = false;
         }
     }
@@ -206,7 +203,7 @@ public partial class ScreenshotEntry : UserControl, IDisposable
     private async void OnImageClick(object? sender, PointerReleasedEventArgs e)
     {
         if (_disposed) return;
-        
+
         try
         {
             // 异步加载高分辨率图片用于查看

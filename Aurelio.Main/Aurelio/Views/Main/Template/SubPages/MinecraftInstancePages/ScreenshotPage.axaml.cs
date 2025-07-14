@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Aurelio.Public.Classes.Enum.Minecraft;
@@ -21,6 +22,7 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
 {
     private const int BatchSize = 50; // 每批加载的数量
     private readonly ObservableCollection<MinecraftLocalResourcePackEntry> _allItems = []; // 所有项目
+    private readonly List<ScreenshotEntry> _createdEntries = new();
     private readonly MinecraftEntry _entry;
     private readonly ObservableCollection<MinecraftLocalResourcePackEntry> _filteredItems = []; // 过滤后的项目
     private List<string> _allFiles = [];
@@ -29,7 +31,6 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
     private bool _fl = true;
     private bool _isLoadingBatch; // 防止重复加载
     private bool loading = true;
-    private readonly List<ScreenshotEntry> _createdEntries = new List<ScreenshotEntry>();
 
 
     public ScreenshotPage(MinecraftEntry entry)
@@ -94,33 +95,31 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
     {
         // 清理所有挂起的加载任务
         ImageCache.ClearPendingTasks();
-        
+
         // 强制调用GC
         GC.Collect();
         GC.WaitForPendingFinalizers();
-        
+
         // 清理所有 ScreenshotEntry 控件
         Dispatcher.UIThread.InvokeAsync(() =>
         {
             try
             {
                 foreach (var child in Container.Children.OfType<ScreenshotEntry>())
-                {
                     try
                     {
                         child.Dispose();
                     }
                     catch (Exception ex)
                     {
-                        System.Diagnostics.Debug.WriteLine($"Error disposing screenshot entry: {ex.Message}");
+                        Debug.WriteLine($"Error disposing screenshot entry: {ex.Message}");
                     }
-                }
-                
+
                 Container.Children.Clear();
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error clearing container: {ex.Message}");
+                Debug.WriteLine($"Error clearing container: {ex.Message}");
             }
         });
 
@@ -186,7 +185,7 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
                 Container.Children.Add(entry);
                 _createdEntries.Add(entry);
             }
-            
+
             NoMatchResultTip.IsVisible = Container.Children.Count == 0;
 
             _currentBatch++;
@@ -217,13 +216,13 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
         // 清理当前所有控件
         Dispatcher.UIThread.InvokeAsync(() =>
         {
-            foreach (var child in Container.Children.OfType<ScreenshotEntry>()) 
+            foreach (var child in Container.Children.OfType<ScreenshotEntry>())
                 child.Dispose();
-                
+
             Container.Children.Clear();
             _createdEntries.Clear();
         });
-        
+
         // 重新过滤所有项目
         _filteredItems.Clear();
         var filteredItems = _allItems.Where(item
