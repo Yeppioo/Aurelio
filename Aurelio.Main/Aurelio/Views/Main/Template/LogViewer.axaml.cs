@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -7,10 +6,7 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
-using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 
@@ -18,16 +14,39 @@ namespace Aurelio.Views.Main.Template;
 
 public partial class LogViewer : PageMixModelBase, IAurelioTabPage
 {
+    private bool _autoScrollToEnd = true;
+
+    private bool _debug = true;
+
     // 属性字段
     private bool _error = true;
-    private bool _info = true;
-    private bool _debug = true;
-    private bool _fatal = true;
-    private bool _warning = true;
     private bool _exception = true;
+    private bool _fatal = true;
+    private bool _info = true;
     private bool _stackTrace = true;
     private bool _unknown = true;
-    private bool _autoScrollToEnd = true;
+    private bool _warning = true;
+
+    public LogViewer(string title)
+    {
+        InitializeComponent();
+        PageInfo = new PageInfoEntry
+        {
+            Title = title,
+            Icon = StreamGeometry.Parse(
+                "M192 0c-41.8 0-77.4 26.7-90.5 64L64 64C28.7 64 0 92.7 0 128L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64l-37.5 0C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM72 272a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm104-16l128 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-128 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zM72 368a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm88 0c0-8.8 7.2-16 16-16l128 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-128 0c-8.8 0-16-7.2-16-16z")
+        };
+        RootElement = Root;
+        InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
+
+        // 直接使用自身作为数据上下文
+        DataContext = this;
+    }
+
+    public LogViewer()
+    {
+        InitializeComponent();
+    }
 
     // 属性
     public bool Error
@@ -131,27 +150,6 @@ public partial class LogViewer : PageMixModelBase, IAurelioTabPage
         { LogType.Unknown, Unknown }
     };
 
-    public LogViewer(string title)
-    {
-        InitializeComponent();
-        PageInfo = new PageInfoEntry
-        {
-            Title = title,
-            Icon = StreamGeometry.Parse(
-                "M192 0c-41.8 0-77.4 26.7-90.5 64L64 64C28.7 64 0 92.7 0 128L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64l-37.5 0C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM72 272a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm104-16l128 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-128 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zM72 368a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm88 0c0-8.8 7.2-16 16-16l128 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-128 0c-8.8 0-16-7.2-16-16z")
-        };
-        RootElement = Root;
-        InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
-
-        // 直接使用自身作为数据上下文
-        DataContext = this;
-    }
-
-    public LogViewer()
-    {
-        InitializeComponent();
-    }
-
     public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
     public TabEntry HostTab { get; set; }
@@ -199,10 +197,7 @@ public partial class LogViewer : PageMixModelBase, IAurelioTabPage
         if (TypeMap[type])
         {
             DisplayLogItems.Add(log);
-            if (AutoScrollToEnd)
-            {
-                ScrollViewer.ScrollToEnd();
-            }
+            if (AutoScrollToEnd) ScrollViewer.ScrollToEnd();
         }
     }
 
@@ -213,24 +208,15 @@ public partial class LogViewer : PageMixModelBase, IAurelioTabPage
         if (TypeMap[log.Type])
         {
             DisplayLogItems.Add(log);
-            if (AutoScrollToEnd)
-            {
-                ScrollViewer.ScrollToEnd();
-            }
+            if (AutoScrollToEnd) ScrollViewer.ScrollToEnd();
         }
     }
 
     private void UpdateDisplayLogs()
     {
         DisplayLogItems.Clear();
-        foreach (var log in LogItems.Where(log => TypeMap[log.Type]))
-        {
-            DisplayLogItems.Add(log);
-        }
+        foreach (var log in LogItems.Where(log => TypeMap[log.Type])) DisplayLogItems.Add(log);
 
-        if (AutoScrollToEnd)
-        {
-            ScrollViewer.ScrollToEnd();
-        }
+        if (AutoScrollToEnd) ScrollViewer.ScrollToEnd();
     }
 }

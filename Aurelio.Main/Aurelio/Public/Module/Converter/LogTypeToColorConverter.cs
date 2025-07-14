@@ -1,4 +1,3 @@
-using System;
 using System.Globalization;
 using Aurelio.Public.Classes.Entries;
 using Avalonia.Data.Converters;
@@ -11,7 +10,7 @@ public class LogTypeToColorConverter : IValueConverter
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not LogType logType) return new SolidColorBrush(Colors.White);
-        
+
         return logType switch
         {
             LogType.Error => new SolidColorBrush(Color.Parse("#FF0000")),
@@ -30,4 +29,4 @@ public class LogTypeToColorConverter : IValueConverter
     {
         return null;
     }
-} 
+}
