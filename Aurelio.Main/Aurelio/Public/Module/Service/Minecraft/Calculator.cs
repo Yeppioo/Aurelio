@@ -177,7 +177,7 @@ public class Calculator
         // var isEnableIndependencyCore = isForceEnableIndependencyCore || setting.IsEnableIndependencyCore;
         var basePath = true
             ? Path.Combine(entry.MinecraftFolderPath, "versions", entry.Id)
-            : entry.MinecraftFolderPath; //TODO
+            : entry.MinecraftFolderPath;
         var path = folder switch
         {
             MinecraftSpecialFolder.InstanceFolder => basePath,

@@ -14,7 +14,7 @@ using MinecraftLaunch.Components.Parser;
 
 namespace Aurelio.Public.Module.Service.Minecraft;
 
-public partial class HandleInstances
+public partial class HandleMinecraftInstances
 {
     private static CancellationTokenSource? _cts;
 

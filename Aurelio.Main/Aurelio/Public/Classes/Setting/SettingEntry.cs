@@ -5,10 +5,10 @@ using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
+using Aurelio.Public.Module.Service.Minecraft;
 using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using HandleInstances = Aurelio.Public.Module.Service.Minecraft.HandleInstances;
 
 namespace Aurelio.Public.Classes.Setting;
 
@@ -57,14 +57,14 @@ public class SettingEntry : ReactiveObject
         {
             if (App.UiRoot == null) return;
             App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
-            HandleInstances.Categorize(MinecraftInstanceCategoryMethod);
+            HandleMinecraftInstances.Categorize(MinecraftInstanceCategoryMethod);
         }
 
         if (e.PropertyName == nameof(MinecraftInstanceSortMethod))
         {
             if (App.UiRoot == null) return;
             App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
-            HandleInstances.Sort(MinecraftInstanceSortMethod);
+            HandleMinecraftInstances.Sort(MinecraftInstanceSortMethod);
         }
 
 

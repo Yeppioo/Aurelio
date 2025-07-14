@@ -1,8 +1,10 @@
 ﻿using System.IO;
+using System.Linq;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.IO.Local;
+using Aurelio.Public.Module.Service.Minecraft;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using FluentAvalonia.UI.Controls;
@@ -70,7 +72,9 @@ public class MinecraftFolder
                 { Name = textbox.Text, Path = textbox1.Text };
             Data.SettingEntry.MinecraftFolderEntries.Add(entry);
         }
-
+        
         AppMethod.SaveSetting();
+        _ = HandleMinecraftInstances.Load(Data.SettingEntry.MinecraftFolderEntries
+            .Select(x => x.Path).ToArray());
     }
 }

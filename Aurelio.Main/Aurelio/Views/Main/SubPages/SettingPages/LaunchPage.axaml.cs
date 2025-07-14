@@ -3,6 +3,7 @@ using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.Operate;
+using Aurelio.Public.Module.Service.Minecraft;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
 
@@ -35,6 +36,8 @@ public partial class LaunchPage : PageMixModelBase, IAurelioPage
             {
                 Data.SettingEntry.MinecraftFolderEntries.Remove(folder);
                 MinecraftFolderListBox.SelectedItem = MinecraftFolderListBox.Items.FirstOrDefault();
+                _ = HandleMinecraftInstances.Load(Data.SettingEntry.MinecraftFolderEntries.
+                    Select(x => x.Path).ToArray());
             }
 
             AppMethod.SaveSetting();

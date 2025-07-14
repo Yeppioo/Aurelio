@@ -70,7 +70,7 @@ public class RecordMinecraftEntry : ReactiveObject
 
             UiProperty.AllMinecraftTags.AddRange(userTags);
             // 只需重新分类，不需要重新加载
-            HandleInstances.Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
+            HandleMinecraftInstances.Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
         };
     }
 
