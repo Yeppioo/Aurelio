@@ -4490,6 +4490,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 2D视图.
+        /// </summary>
+        public static string View2D {
+            get {
+                return ResourceManager.GetString("View2D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 3D视图.
         /// </summary>
         public static string View3D {

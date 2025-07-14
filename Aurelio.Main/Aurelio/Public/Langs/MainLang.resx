@@ -1668,7 +1668,10 @@ MacOs 不支持自动更新
     <data name="CannotFindJavaTip" xml:space="preserve">
     <value>此 Minecraft 实例 (Minecraft {mcVer}) 需求 Java {javaVer}, 但 Aurelio 无法匹配此 Java 版本, 检查此设备是否安装 Java {javaVer} 且添加到 Aurelio</value>
   </data>
-  <data name="New" xml:space="preserve">
+    <data name="New" xml:space="preserve">
     <value>新建</value>
+  </data>
+    <data name="View2D" xml:space="preserve">
+    <value>2D视图</value>
   </data>
 </root>
