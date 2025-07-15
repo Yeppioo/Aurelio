@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Module.IO;
 using Newtonsoft.Json;
@@ -35,5 +36,17 @@ public abstract class Reader
         }
 
         if (FailedSettingKeys.Count > 0) Logger.Error($"Setting load with errors: {FailedSettingKeys.AsJson()}");
+
+        GetVersion();
+    }
+
+    public static void GetVersion()
+    {
+        const string resourceName = "Aurelio.Version.txt";
+        var _assembly = Assembly.GetExecutingAssembly();
+        var stream = _assembly.GetManifestResourceStream(resourceName);
+        using var reader = new StreamReader(stream!);
+        var result = reader.ReadToEnd();
+        Data.Instance.Version = $"v{result.Trim()}";
     }
 }

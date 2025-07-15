@@ -132,10 +132,10 @@
         <Style Selector="^.accent">
             <Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
             <Style Selector="^ PathIcon">
-                <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
             </Style>
             <Style Selector="^ TextBlock">
-                <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
             </Style>
         </Style>
 

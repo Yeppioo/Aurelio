@@ -98,6 +98,14 @@
             <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
         </Style>
     </Style>
+    <Style Selector="u|IconButton.accent">
+        <Style Selector="^ TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+        </Style>
+        <Style Selector="^ PathIcon">
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+        </Style>
+    </Style>
     <Style Selector="ListBoxItem /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
     </Style>
