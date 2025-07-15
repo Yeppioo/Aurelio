@@ -1,4 +1,5 @@
 using System.Linq;
+using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App.Init;
 using Aurelio.Public.Module.IO;
 using Aurelio.Views;
@@ -28,31 +29,31 @@ public class App : Application
     public override void Initialize()
     {
         FAUISettings.SetAnimationsEnabledAtAppLevel(false);
-        Logger.Info("开始初始化应用程序");
+        Logger.Info(MainLang.StartInitAppTip);
         BeforeLoadXaml.Main();
         AvaloniaXamlLoader.Load(this);
-        Logger.Info("应用程序初始化完成");
+        Logger.Info(MainLang.AppInitCompleteTip);
     }
 
     public override void OnFrameworkInitializationCompleted()
     {
-        Logger.Info("框架初始化完成");
+        Logger.Info(MainLang.FrameworkInitCompleteTip);
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
 #if DEBUG
-            Logger.Debug("开发模式：附加开发工具");
+            Logger.Debug(MainLang.DevModeAttachDevToolsTip);
             this.AttachDevTools();
 #endif
             DisableAvaloniaDataAnnotationValidation();
 
 #if RELEASE
-            Logger.Info("注册全局异常处理");
+            Logger.Info(MainLang.RegisterGlobalExceptionHandlerTip);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Dispatcher.UIThread.UnhandledException += UIThread_UnhandledException;
 #else
             Dispatcher.UIThread.UnhandledException += (_, e) =>
             {
-                Logger.Fatal($"UI线程未处理异常: {e.Exception}");
+                Logger.Fatal($"{MainLang.UIThreadUnhandledExceptionTip}: {e.Exception}");
                 throw e.Exception;
             };
 #endif
@@ -64,14 +65,14 @@ public class App : Application
             win.Loaded += (_, _) =>
             {
                 if (!_fl) return;
-                Logger.Info("UI加载完成，执行后续初始化");
+                Logger.Info(MainLang.UILoadCompleteTip);
                 AfterUiLoaded.Main();
                 UiLoaded?.Invoke(win);
                 _fl = false;
             };
             UiProperty.Notification.Position = NotificationPosition.BottomRight;
             UiProperty.Toast.MaxItems = 2;
-            Logger.Info("UI配置完成");
+            Logger.Info(MainLang.UIConfigCompleteTip);
         }
 
         base.OnFrameworkInitializationCompleted();
@@ -79,7 +80,7 @@ public class App : Application
 
     private void UIThread_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
-        Logger.Fatal($"UI线程未处理异常: {e.Exception}");
+        Logger.Fatal($"{MainLang.UIThreadUnhandledExceptionTip}: {e.Exception}");
         try
         {
             var win = new CrashWindow(e.Exception.ToString());
@@ -87,7 +88,7 @@ public class App : Application
         }
         catch (Exception ex)
         {
-            Logger.Fatal($"显示崩溃窗口失败: {ex}");
+            Logger.Fatal($"{MainLang.ShowCrashWindowFailTip}: {ex}");
         }
         finally
         {
@@ -97,7 +98,7 @@ public class App : Application
 
     private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
-        Logger.Fatal($"应用域未处理异常: {e}");
+        Logger.Fatal($"{MainLang.AppDomainUnhandledExceptionTip}: {e}");
         try
         {
             var win = new CrashWindow(e.ToString() ?? "Unhandled Exception");
@@ -105,14 +106,14 @@ public class App : Application
         }
         catch (Exception ex)
         {
-            Logger.Fatal($"显示崩溃窗口失败: {ex}");
+            Logger.Fatal($"{MainLang.ShowCrashWindowFailTip}: {ex}");
         }
     }
 
 
     private void DisableAvaloniaDataAnnotationValidation()
     {
-        Logger.Debug("禁用Avalonia数据注解验证");
+        Logger.Debug(MainLang.DisableAvaloniaDataValidationTip);
         // Get an array of plugins to remove
         var dataValidationPluginsToRemove =
             BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();

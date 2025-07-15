@@ -85,7 +85,7 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
         if (UiProperty.BuiltInTags.Contains(newTag))
         {
             // 显示错误提示，不允许创建与内置标签同名的标签
-            UiProperty.Toast.Show($"{newTag} - 这是预留的标签名，无法创建", NotificationType.Error);
+            UiProperty.Toast.Show($"{newTag} - {MainLang.ReservedTagNameTip}", NotificationType.Error);
             return;
         }
 

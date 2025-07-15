@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using Aurelio.Public.Langs;
 
 namespace Aurelio.Public.Module.IO;
 
@@ -73,11 +74,11 @@ public static class Logger
                 LogCache.Clear();
             }
 
-            Info("日志系统初始化完成");
+            Info(MainLang.LogSystemInitCompleteTip);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"初始化日志系统失败: {ex.Message}");
+            Console.WriteLine($"{MainLang.InitLogSystemFailTip}: {ex.Message}");
         }
     }
 
@@ -100,7 +101,7 @@ public static class Logger
                     try
                     {
                         file.Delete();
-                        Console.WriteLine($"已删除旧日志文件: {file.Name}");
+                        Console.WriteLine($"{MainLang.DeletedOldLogFileTip}: {file.Name}");
                     }
                     catch
                     {
@@ -109,7 +110,7 @@ public static class Logger
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"清理旧日志文件失败: {ex.Message}");
+            Console.WriteLine($"{MainLang.CleanupOldLogFilesFailTip}: {ex.Message}");
         }
     }
 
@@ -139,7 +140,7 @@ public static class Logger
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"写入日志失败: {ex.Message}");
+            Console.WriteLine($"{MainLang.WriteLogFailTip}: {ex.Message}");
         }
     }
 
@@ -171,14 +172,14 @@ public static class Logger
     public static void Fatal(string message)
     {
         WriteLog(LogLevel.Fatal, message);
-        // Console.WriteLine($"致命错误: {message}");
+        // Console.WriteLine($"{MainLang.FatalErrorTip}: {message}");
     }
 
     public static void Fatal(Exception ex)
     {
         var message = $"{ex.Message}\n{ex.StackTrace}";
         if (ex.InnerException != null)
-            message += $"\n内部异常: {ex.InnerException.Message}\n{ex.InnerException.StackTrace}";
+            message += $"\n{MainLang.InnerExceptionTip}: {ex.InnerException.Message}\n{ex.InnerException.StackTrace}";
         Fatal(message);
     }
 }

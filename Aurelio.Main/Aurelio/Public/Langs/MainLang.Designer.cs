@@ -384,11 +384,29 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 应用域未处理异常.
+        /// </summary>
+        public static string AppDomainUnhandledExceptionTip {
+            get {
+                return ResourceManager.GetString("AppDomainUnhandledExceptionTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 外观.
         /// </summary>
         public static string Appearance {
             get {
                 return ResourceManager.GetString("Appearance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 应用程序初始化完成.
+        /// </summary>
+        public static string AppInitCompleteTip {
+            get {
+                return ResourceManager.GetString("AppInitCompleteTip", resourceCulture);
             }
         }
         
@@ -780,6 +798,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 清理旧日志文件失败.
+        /// </summary>
+        public static string CleanupOldLogFilesFailTip {
+            get {
+                return ResourceManager.GetString("CleanupOldLogFilesFailTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 关闭.
         /// </summary>
         public static string Close {
@@ -916,8 +943,8 @@ namespace Aurelio.Public.Langs {
         
         /// <summary>
         ///   Looks up a localized string similar to 当前系统不支持自动更新
-        ///可前往 设置-下载 关闭自动更新
-        ///可手动下载最新版本并替换程序文件.
+        ///      可前往 设置-下载 关闭自动更新
+        ///      可手动下载最新版本并替换程序文件.
         /// </summary>
         public static string CurrectSystemNoSupportAutoUpdateTip {
             get {
@@ -1079,6 +1106,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 已删除旧日志文件.
+        /// </summary>
+        public static string DeletedOldLogFileTip {
+            get {
+                return ResourceManager.GetString("DeletedOldLogFileTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 删除选中项.
         /// </summary>
         public static string DeleteSelect {
@@ -1169,6 +1205,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 开发模式：附加开发工具.
+        /// </summary>
+        public static string DevModeAttachDevToolsTip {
+            get {
+                return ResourceManager.GetString("DevModeAttachDevToolsTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 草径.
         /// </summary>
         public static string DirtPath {
@@ -1183,6 +1228,15 @@ namespace Aurelio.Public.Langs {
         public static string DisableAll {
             get {
                 return ResourceManager.GetString("DisableAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 禁用Avalonia数据注解验证.
+        /// </summary>
+        public static string DisableAvaloniaDataValidationTip {
+            get {
+                return ResourceManager.GetString("DisableAvaloniaDataValidationTip", resourceCulture);
             }
         }
         
@@ -1601,6 +1655,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 致命错误.
+        /// </summary>
+        public static string FatalErrorTip {
+            get {
+                return ResourceManager.GetString("FatalErrorTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 收藏.
         /// </summary>
         public static string Favourite {
@@ -1736,6 +1799,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 框架初始化完成.
+        /// </summary>
+        public static string FrameworkInitCompleteTip {
+            get {
+                return ResourceManager.GetString("FrameworkInitCompleteTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 熔炉.
         /// </summary>
         public static string Furnace {
@@ -1818,7 +1890,7 @@ namespace Aurelio.Public.Langs {
         
         /// <summary>
         ///   Looks up a localized string similar to 获取Java信息失败
-        ///可能此Java不正确/已损坏/无执行权限.
+        ///      可能此Java不正确/已损坏/无执行权限.
         /// </summary>
         public static string GetJavaInfoFail {
             get {
@@ -2016,6 +2088,24 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 初始化日志系统失败.
+        /// </summary>
+        public static string InitLogSystemFailTip {
+            get {
+                return ResourceManager.GetString("InitLogSystemFailTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 内部异常.
+        /// </summary>
+        public static string InnerExceptionTip {
+            get {
+                return ResourceManager.GetString("InnerExceptionTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 输入账户名称.
         /// </summary>
         public static string InputAccountName {
@@ -2115,10 +2205,10 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 尝试执行: 
+        ///   Looks up a localized string similar to 尝试执行:
         ///
-        ///sudo apt install libvlc-dev
-        ///sudo apt install vlc.
+        ///      sudo apt install libvlc-dev
+        ///      sudo apt install vlc.
         /// </summary>
         public static string InstallVlcTip {
             get {
@@ -2141,6 +2231,15 @@ namespace Aurelio.Public.Langs {
         public static string IsolateMinecraftInstances {
             get {
                 return ResourceManager.GetString("IsolateMinecraftInstances", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 日本語.
+        /// </summary>
+        public static string Japanese {
+            get {
+                return ResourceManager.GetString("Japanese", resourceCulture);
             }
         }
         
@@ -2505,6 +2604,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 日志系统初始化完成.
+        /// </summary>
+        public static string LogSystemInitCompleteTip {
+            get {
+                return ResourceManager.GetString("LogSystemInitCompleteTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 今天的运气可能不太好，但别灰心，明天会更好！/n今天的运气有点差呢。/n今天的运气一般般。/n今天的运气还行。/n今天的运气不错呢！/n今天的运气非常好！/n今天的运气简直爆棚！/n.
         /// </summary>
         public static string LuckyValueTip {
@@ -2524,9 +2632,9 @@ namespace Aurelio.Public.Langs {
         
         /// <summary>
         ///   Looks up a localized string similar to 发现新版本 : {version}
-        ///MacOs 不支持自动更新
-        ///前往以下链接下载新版本 :  “{url}”
-        ///前往 设置-下载-自动更新 可关闭自动检查更新.
+        ///      MacOs 不支持自动更新
+        ///      前往以下链接下载新版本 : “{url}”
+        ///      前往 设置-下载-自动更新 可关闭自动检查更新.
         /// </summary>
         public static string MacOsUpdateTip {
             get {
@@ -3417,6 +3525,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 注册全局异常处理.
+        /// </summary>
+        public static string RegisterGlobalExceptionHandlerTip {
+            get {
+                return ResourceManager.GetString("RegisterGlobalExceptionHandlerTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 注册新账号.
         /// </summary>
         public static string RegisterNewAccount {
@@ -3476,6 +3593,15 @@ namespace Aurelio.Public.Langs {
         public static string RepeatItem {
             get {
                 return ResourceManager.GetString("RepeatItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 这是预留的标签名，无法创建.
+        /// </summary>
+        public static string ReservedTagNameTip {
+            get {
+                return ResourceManager.GetString("ReservedTagNameTip", resourceCulture);
             }
         }
         
@@ -3566,6 +3692,15 @@ namespace Aurelio.Public.Langs {
         public static string Running {
             get {
                 return ResourceManager.GetString("Running", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Русский язык.
+        /// </summary>
+        public static string Russian {
+            get {
+                return ResourceManager.GetString("Russian", resourceCulture);
             }
         }
         
@@ -3903,11 +4038,29 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 显示崩溃窗口失败.
+        /// </summary>
+        public static string ShowCrashWindowFailTip {
+            get {
+                return ResourceManager.GetString("ShowCrashWindowFailTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 显示游戏输出.
         /// </summary>
         public static string ShowGameOutput {
             get {
                 return ResourceManager.GetString("ShowGameOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 简体中文.
+        /// </summary>
+        public static string SimplifiedChinese {
+            get {
+                return ResourceManager.GetString("SimplifiedChinese", resourceCulture);
             }
         }
         
@@ -3931,7 +4084,7 @@ namespace Aurelio.Public.Langs {
         
         /// <summary>
         ///   Looks up a localized string similar to 已跳过版本 : {version}
-        ///前往 设置-启动器-检查更新 可再次获取此版本.
+        ///      前往 设置-启动器-检查更新 可再次获取此版本.
         /// </summary>
         public static string SkipVersionTip {
             get {
@@ -3972,6 +4125,15 @@ namespace Aurelio.Public.Langs {
         public static string SponsorsTip {
             get {
                 return ResourceManager.GetString("SponsorsTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 开始初始化应用程序.
+        /// </summary>
+        public static string StartInitAppTip {
+            get {
+                return ResourceManager.GetString("StartInitAppTip", resourceCulture);
             }
         }
         
@@ -4228,6 +4390,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 繁體中文.
+        /// </summary>
+        public static string TraditionalChinese {
+            get {
+                return ResourceManager.GetString("TraditionalChinese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 半透明背景控件不透明度.
         /// </summary>
         public static string TranslucentBackgroundOpacity {
@@ -4251,6 +4422,33 @@ namespace Aurelio.Public.Langs {
         public static string TreasureBox {
             get {
                 return ResourceManager.GetString("TreasureBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UI配置完成.
+        /// </summary>
+        public static string UIConfigCompleteTip {
+            get {
+                return ResourceManager.GetString("UIConfigCompleteTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UI加载完成，执行后续初始化.
+        /// </summary>
+        public static string UILoadCompleteTip {
+            get {
+                return ResourceManager.GetString("UILoadCompleteTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UI线程未处理异常.
+        /// </summary>
+        public static string UIThreadUnhandledExceptionTip {
+            get {
+                return ResourceManager.GetString("UIThreadUnhandledExceptionTip", resourceCulture);
             }
         }
         
@@ -4301,7 +4499,7 @@ namespace Aurelio.Public.Langs {
         
         /// <summary>
         ///   Looks up a localized string similar to 当前版本为非官方版本，可能遭受病毒攻击。
-        ///重定向至 https://ymcl.daiyu.fun/ 下载官方版本。.
+        ///      重定向至 https://ymcl.daiyu.fun/ 下载官方版本。.
         /// </summary>
         public static string UnofficialTip {
             get {
@@ -4527,7 +4725,7 @@ namespace Aurelio.Public.Langs {
         
         /// <summary>
         ///   Looks up a localized string similar to 正在等待微软账户验证完成
-        ///跳转至浏览器完成验证.
+        ///      跳转至浏览器完成验证.
         /// </summary>
         public static string WaitForMicrosoftVerification {
             get {
@@ -4564,9 +4762,9 @@ namespace Aurelio.Public.Langs {
         
         /// <summary>
         ///   Looks up a localized string similar to 发现新版本 : {version}
-        ///win10 以下系统(不包括10)不支持自动更新
-        ///前往以下链接下载新版本 :  “{url}”
-        ///前往 设置-下载-自动更新 可关闭自动检查更新.
+        ///      win10 以下系统(不包括10)不支持自动更新
+        ///      前往以下链接下载新版本 : “{url}”
+        ///      前往 设置-下载-自动更新 可关闭自动检查更新.
         /// </summary>
         public static string WinSevenAutoUpdateTip {
             get {
@@ -4589,6 +4787,15 @@ namespace Aurelio.Public.Langs {
         public static string WriteIn {
             get {
                 return ResourceManager.GetString("WriteIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 写入日志失败.
+        /// </summary>
+        public static string WriteLogFailTip {
+            get {
+                return ResourceManager.GetString("WriteLogFailTip", resourceCulture);
             }
         }
         
