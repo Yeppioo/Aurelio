@@ -12,6 +12,7 @@
             <Button Click="CreateTask_OnClick" Content="Create Task" />
             <Button Click="NextTask_OnClick" Content="Next Task" />
             <Button Click="BobbleNotice_OnClick" Content="Bobble Notice" />
+            <Button Click="Crash_OnClick" Content="Crash" />
         </WrapPanel>
     </Border>
 </UserControl>

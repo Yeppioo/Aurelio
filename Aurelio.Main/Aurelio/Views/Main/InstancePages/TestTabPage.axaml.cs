@@ -43,6 +43,11 @@ public partial class DebugTabPage : PageMixModelBase, IAurelioTabPage
     {
         NotificationBubble("Test Message", (NotificationType)r.Next(0, 4), TimeSpan.FromHours(1));
     }
+    private void Crash_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var a = 0;
+        var b = 0 / a;
+    }
 
     private void NextTask_OnClick(object? sender, RoutedEventArgs e)
     {
