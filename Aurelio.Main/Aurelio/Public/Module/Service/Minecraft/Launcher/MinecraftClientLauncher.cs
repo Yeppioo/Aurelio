@@ -2,6 +2,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Classes.Enum.Minecraft;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO;
@@ -47,6 +48,12 @@ public partial class MinecraftClientLauncher
             }
 
             throw;
+        }
+        
+        entry.SettingEntry.LastPlayed = DateTime.Now;
+        if (Data.SettingEntry.MinecraftInstanceSortMethod == MinecraftInstanceSortMethod.LastPlayed)
+        {
+            HandleMinecraftInstances.Sort(MinecraftInstanceSortMethod.LastPlayed);
         }
 
         Notice($"{MainLang.Launch}: {entry.Id}");

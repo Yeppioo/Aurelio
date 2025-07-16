@@ -173,7 +173,6 @@
                                                                 </Border.Styles>
                                                                 <DockPanel>
                                                                     <Border
-                                                                        Background="{DynamicResource CardBackgroundColor}"
                                                                         ClipToBounds="True"
                                                                         CornerRadius="{DynamicResource CardCornerRadius}"
                                                                         Height="48"
