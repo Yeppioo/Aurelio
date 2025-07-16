@@ -157,6 +157,10 @@
                                                                         <Style Selector="^ PathIcon">
                                                                             <Setter Property="IsVisible" Value="False" />
                                                                         </Style>
+                                                                        <Style Selector="^ Border#IconBorder">
+                                                                            <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+                                                                            <Setter Property="Background" Value="Transparent" />
+                                                                        </Style>
                                                                     </Style>
                                                                     <Style Selector="Border#MinecraftCardBorder:pointerover">
                                                                         <Style Selector="^ Border#IconBorder">
