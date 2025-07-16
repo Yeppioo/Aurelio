@@ -36,8 +36,10 @@ public class SettingEntry : ReactiveObject
     [Reactive] [JsonProperty] public Language Language { get; set; } = LanguageTypes.Langs[0];
     [Reactive] [JsonProperty] public bool UseFilePicker { get; set; } = true;
     [Reactive] [JsonProperty] public bool AutoCheckUpdate { get; set; } = true;
+    [Reactive] [JsonProperty] public bool EnableSpeedUpGithubApi { get; set; } = true;
     [Reactive] [JsonProperty] public bool EnableIndependentMinecraft { get; set; } = true;
 
+    [Reactive] [JsonProperty] public string GithubSpeedUpApiUrl { get; set; } = "https://ghproxy.net/%url%";
 
     [Reactive]
     [JsonProperty]

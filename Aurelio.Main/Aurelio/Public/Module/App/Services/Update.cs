@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using System.IO;
+using System.Net;
+using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -122,7 +124,7 @@ public class Update
                     {
                         task.FinishWithSuccess();
                         Notice($"{MainLang.DownloadFinish}: {file}", NotificationType.Success);
-                        
+
                         var startInfo = new ProcessStartInfo
                         {
                             UseShellExecute = true,
@@ -137,7 +139,9 @@ public class Update
         };
 
         await downloader.DownloadFileTaskAsync(
-            $"{DOWNLOAD_BASE_URL}{file}", Path.Combine
+            Data.SettingEntry.EnableSpeedUpGithubApi
+                ? Data.SettingEntry.GithubSpeedUpApiUrl.Replace("%url%", $"{DOWNLOAD_BASE_URL}{file}")
+                : $"{DOWNLOAD_BASE_URL}{file}", Path.Combine
                 (ConfigPath.TempFolderPath, file!), cts.Token);
     }
 
@@ -146,10 +150,22 @@ public class Update
         var downloadOpt = new DownloadConfiguration()
         {
             ChunkCount = 5,
-            ParallelDownload = true
+            ParallelDownload = true,
+            // RequestConfiguration =
+            // {
+            //     Accept = "*/*",
+            //     UserAgent =
+            //         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/18.17763",
+            //     KeepAlive = true,
+            //     Headers =
+            //     [
+            //         $"Host: {(Data.SettingEntry.EnableSpeedUpGithubApi ? new Uri(Data.SettingEntry.GithubSpeedUpApiUrl).Host : "github.com")}"
+            //     ]
+            // }
         };
 
         var downloader = new DownloadService(downloadOpt);
+
         var cts = new CancellationTokenSource();
 
         var task = Tasking.CreateTask($"{MainLang.Download}: {file}");
@@ -216,7 +232,8 @@ public class Update
         };
 
         await downloader.DownloadFileTaskAsync(
-            $"{DOWNLOAD_BASE_URL}{file}",
-            path, cts.Token);
+            Data.SettingEntry.EnableSpeedUpGithubApi
+                ? Data.SettingEntry.GithubSpeedUpApiUrl.Replace("%url%", $"{DOWNLOAD_BASE_URL}{file}")
+                : $"{DOWNLOAD_BASE_URL}{file}", path, cts.Token);
     }
 }

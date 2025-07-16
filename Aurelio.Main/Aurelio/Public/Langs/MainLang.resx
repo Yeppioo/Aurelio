@@ -1744,4 +1744,7 @@
   <data name="CheckingUpdate" xml:space="preserve">
     <value>正在检查更新</value>
   </data>
+  <data name="GithubSpeedUpApi" xml:space="preserve">
+    <value>Github加速接口</value>
+  </data>
 </root>

@@ -1926,6 +1926,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Github加速接口.
+        /// </summary>
+        public static string GithubSpeedUpApi {
+            get {
+                return ResourceManager.GetString("GithubSpeedUpApi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 草方块.
         /// </summary>
         public static string GlassBlock {
