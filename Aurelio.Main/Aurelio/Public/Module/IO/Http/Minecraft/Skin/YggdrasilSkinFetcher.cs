@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Flurl.Http;
+using Newtonsoft.Json;
 
 namespace Aurelio.Public.Module.IO.Http.Minecraft.Skin;
 
@@ -14,11 +14,12 @@ public class YggdrasilSkinFetcher(string url, string uuid)
     {
         var json = await BaseApi.GetStringAsync();
         var skin = Encoding.UTF8.GetString(Convert
-            .FromBase64String(JsonSerializer
-                .Deserialize<Models.AccountSkinModel>(json)!
+            .FromBase64String(JsonConvert
+                .DeserializeObject<Models.AccountSkinModel>(json)!
                 .Properties.First().Value));
 
-        var skinUrl = JsonSerializer.Deserialize<Models.SkinMoreInfo>(skin)!.Textures.Skin.Url;
+        var skinUrl = JsonConvert
+            .DeserializeObject<Models.SkinMoreInfo>(skin)!.Textures.Skin.Url;
         return await skinUrl.GetBytesAsync();
     }
 }

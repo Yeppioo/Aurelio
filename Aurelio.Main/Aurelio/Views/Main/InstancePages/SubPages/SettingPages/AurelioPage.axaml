@@ -34,7 +34,8 @@
                                         Text="© 2025 Yeppioo. All rights reserved." />
                                 </StackPanel>
                                 <u:IconButton
-                                    Classes="accent"
+                                    Classes="accent fixed"
+                                    Click="Update_OnClick"
                                     Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.CheckUpdate}"
                                     DockPanel.Dock="Right"
                                     HorizontalAlignment="Right"

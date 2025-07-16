@@ -1741,4 +1741,7 @@
   <data name="DisableAvaloniaDataValidationTip" xml:space="preserve">
     <value>禁用Avalonia数据注解验证</value>
   </data>
+  <data name="CheckingUpdate" xml:space="preserve">
+    <value>正在检查更新</value>
+  </data>
 </root>

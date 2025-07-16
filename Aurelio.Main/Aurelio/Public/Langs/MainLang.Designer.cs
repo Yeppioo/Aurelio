@@ -744,6 +744,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 正在检查更新.
+        /// </summary>
+        public static string CheckingUpdate {
+            get {
+                return ResourceManager.GetString("CheckingUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 检查启动参数.
         /// </summary>
         public static string CheckLaunchArg {

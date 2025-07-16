@@ -167,7 +167,7 @@
         <Style Selector="^ /template/ ReversibleStackPanel#PART_RootPanel">
             <Setter Property="Spacing" Value="0" />
         </Style>
-        <Style Selector="^ /template/ Panel#PART_IconRoot">
+        <Style Selector="^:not(.fixed) /template/ Panel#PART_IconRoot">
             <Setter Property="Margin" Value="-21,0,8,0" />
             <Setter Property="Opacity" Value="0" />
             <Setter Property="Transitions">
@@ -183,10 +183,19 @@
                 </Transitions>
             </Setter>
         </Style>
-        <Style Selector="^:pointerover /template/ Panel#PART_IconRoot">
+        <Style Selector="^:not(.fixed):pointerover /template/ Panel#PART_IconRoot">
             <Setter Property="Margin" Value="0,0,8,0" />
             <Setter Property="Opacity" Value="1" />
         </Style>
+    </Style>
+    <Style Selector="u|IconButton.fixed">
+        <Style Selector="^ /template/ Panel#PART_IconRoot">
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+    </Style>
+    <Style Selector="u|IconButton:disabled">
+        <Setter Property="Background" Value="{DynamicResource SystemAccentColorLight2}" />
     </Style>
     <Style Selector="ComboBox:dropdownopen /template/ Border#PopupBorder">
         <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}" />
