@@ -13,6 +13,8 @@ public class Update
 {
     public static void Main()
     {
+        IO.Local.Setter.ClearFolder(ConfigPath.TempFolderPath);
+        
         if (Data.SettingEntry.MinecraftAccounts.Count == 0)
         {
             Data.SettingEntry.MinecraftAccounts.Add(new RecordMinecraftAccount
