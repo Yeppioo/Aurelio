@@ -1,10 +1,8 @@
-using System.Globalization;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
-using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Interactivity;
 using Avalonia.Media;
@@ -31,7 +29,47 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
 
     public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
-
+    public static async Task ShowUpdateDialogIfNeed()
+    {
+        var info = await Public.Module.App.Services.Update.CheckUpdate();
+        if (info.IsNeedUpdate)
+        {
+            var changelogPanel = ParseMarkdown(info.Body);
+            var c = new StackPanel()
+            {
+                Spacing = 10,
+                Children =
+                {
+                    new SelectableTextBlock
+                        { Text = "https://github.com/Yeppioo/Aurelio/releases/tag/auto-publish" },
+                    changelogPanel
+                }
+            };
+            if (Data.DesktopType == DesktopType.Windows && Environment.OSVersion.Version.Major >= 10)
+            {
+                var cr = await ShowDialogAsync($"{MainLang.FoundNewVersion}: {info.NewVersion}", p_content: c, b_primary: MainLang.Update,
+                    b_secondary: MainLang.SaveAs, b_cancel: MainLang.Cancel, sender: UiProperty.ActiveWindow);
+                if (cr == ContentDialogResult.Primary)
+                {
+                    _ = Public.Module.App.Services.Update.UpdateApp(UiProperty.ActiveWindow);
+                }
+                else if (cr == ContentDialogResult.Secondary)
+                {
+                    SaveAs(UiProperty.ActiveWindow);
+                }
+            }
+            else
+            {
+                var cr = await ShowDialogAsync($"{MainLang.FoundNewVersion}: {info.NewVersion}", p_content: c, b_primary: MainLang.SaveAs,
+                    b_cancel: MainLang.Cancel, sender: UiProperty.ActiveWindow);
+                if (cr == ContentDialogResult.Primary)
+                {
+                    SaveAs(UiProperty.ActiveWindow);
+                }
+            }
+        }
+    }
+    
     private async void Update_OnClick(object? sender, RoutedEventArgs e)
     {
         Update.IsLoading = true;
@@ -58,7 +96,7 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
                 };
                 if (Data.DesktopType == DesktopType.Windows && Environment.OSVersion.Version.Major >= 10)
                 {
-                    var cr = await ShowDialogAsync(info.NewVersion, p_content: c, b_primary: MainLang.Update,
+                    var cr = await ShowDialogAsync($"{MainLang.FoundNewVersion}: {info.NewVersion}", p_content: c, b_primary: MainLang.Update,
                         b_secondary: MainLang.SaveAs, b_cancel: MainLang.Cancel, sender: sender as Control);
                     if (cr == ContentDialogResult.Primary)
                     {
@@ -66,16 +104,16 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
                     }
                     else if (cr == ContentDialogResult.Secondary)
                     {
-                        SaveAs();
+                        SaveAs(this);
                     }
                 }
                 else
                 {
-                    var cr = await ShowDialogAsync(info.NewVersion, p_content: c, b_primary: MainLang.SaveAs,
+                    var cr = await ShowDialogAsync($"{MainLang.FoundNewVersion}: {info.NewVersion}", p_content: c, b_primary: MainLang.SaveAs,
                         b_cancel: MainLang.Cancel, sender: sender as Control);
                     if (cr == ContentDialogResult.Primary)
                     {
-                        SaveAs();
+                        SaveAs(this);
                     }
                 }
             }
@@ -91,7 +129,7 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
         Update.Content = MainLang.CheckUpdate;
     }
 
-    private async void SaveAs()
+    private static async void SaveAs(Control sender)
     {
         var fileList = new List<DownloadFileInfo>
         {
@@ -153,12 +191,12 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
             p_content: listBox,
             b_primary: MainLang.Download,
             b_cancel: MainLang.Cancel,
-            sender: this
+            sender: sender
         );
 
         if (dialog == ContentDialogResult.Primary && listBox.SelectedItem is DownloadFileInfo selectedFile)
         {
-            var path = (await TopLevel.GetTopLevel(this).StorageProvider.SaveFilePickerAsync(
+            var path = (await TopLevel.GetTopLevel(sender).StorageProvider.SaveFilePickerAsync(
                 new FilePickerSaveOptions
                 {
                     Title = MainLang.SaveAs,
@@ -171,7 +209,7 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
                 }))?.Path.LocalPath;
             if (string.IsNullOrWhiteSpace(path)) return;
             Notice($"{MainLang.BeginDownload}: {selectedFile.FileName}");
-            await Public.Module.App.Services.Update.Download(selectedFile.FileName, path, this);
+            await Public.Module.App.Services.Update.Download(selectedFile.FileName, path, sender);
         }
     }
 
@@ -188,7 +226,7 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
         }
     }
 
-    private Panel ParseMarkdown(string markdown)
+    private static Panel ParseMarkdown(string markdown)
     {
         var panel = new StackPanel { Spacing = 8 };
 
@@ -228,7 +266,7 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
         return panel;
     }
 
-    private Panel ParseListItem(string itemText)
+    private static Panel ParseListItem(string itemText)
     {
         var itemPanel = new StackPanel
         {
@@ -253,7 +291,7 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
         return itemPanel;
     }
 
-    private void ParseInlineContent(string text, Panel container)
+    private static void ParseInlineContent(string text, Panel container)
     {
         // 使用正则表达式匹配 Markdown 链接格式 [text](url) 和粗体格式 **text**
         var linkPattern = @"\[([^\]]+)\]\(([^)]+)\)";
@@ -327,7 +365,7 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
                     e.Handled = true; // 阻止事件冒泡
                     try
                     {
-                        var launcher = TopLevel.GetTopLevel(this)?.Launcher;
+                        var launcher = TopLevel.GetTopLevel(UiProperty.ActiveWindow)?.Launcher;
                         if (launcher != null)
                         {
                             await launcher.LaunchUriAsync(new Uri(linkUrl));

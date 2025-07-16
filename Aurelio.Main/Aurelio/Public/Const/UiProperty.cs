@@ -30,24 +30,10 @@ public class UiProperty : ReactiveObject
     public static ObservableCollection<NotificationEntry> Notifications { get; } = [];
     public static ObservableCollection<string> AllMinecraftTags { get; } = [];
     public static ObservableCollection<string> BuiltInTags { get; } = [];
+    public static WindowNotificationManager Notification => ActiveWindow.Notification;
+    public static WindowToastManager Toast => ActiveWindow.Toast;
 
-    public static WindowNotificationManager Notification
-    {
-        get
-        {
-            var active = (Application.Current!.ApplicationLifetime as
-                IClassicDesktopStyleApplicationLifetime).Windows.FirstOrDefault(x => x.IsActive);
-            return (active as WindowBase)?.Notification ?? App.UiRoot.Notification;
-        }
-    }
-
-    public static WindowToastManager Toast
-    {
-        get
-        {
-            var active = (Application.Current!.ApplicationLifetime as
-                IClassicDesktopStyleApplicationLifetime).Windows.FirstOrDefault(x => x.IsActive);
-            return (active as WindowBase)?.Toast ?? App.UiRoot.Toast;
-        }
-    }
+    public static WindowBase ActiveWindow => (Application.Current!.ApplicationLifetime as
+        IClassicDesktopStyleApplicationLifetime).Windows.FirstOrDefault
+        (x => x.IsActive) as WindowBase ?? App.UiRoot;
 }

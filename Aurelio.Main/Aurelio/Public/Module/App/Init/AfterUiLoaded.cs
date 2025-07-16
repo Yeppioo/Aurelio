@@ -4,6 +4,7 @@ using System.Linq;
 using Aurelio.Public.Module.App.Services;
 using Aurelio.Public.Module.Service.Minecraft;
 using Aurelio.Public.Module.Ui;
+using Aurelio.Views.Main.InstancePages.SubPages.SettingPages;
 using Avalonia.Media;
 
 namespace Aurelio.Public.Module.App.Init;
@@ -19,5 +20,7 @@ public abstract class AfterUiLoaded
         Setter.SetAccentColor(Color.Parse("#1BD76A"));
         _ = TranslateToken.RefreshToken();
         LoopGC.BeginLoop();
+        if (Data.SettingEntry.AutoCheckUpdate)
+            _ = AurelioPage.ShowUpdateDialogIfNeed();
     }
 }
