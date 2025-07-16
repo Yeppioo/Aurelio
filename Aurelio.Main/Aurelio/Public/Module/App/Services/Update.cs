@@ -124,6 +124,7 @@ public class Update
                     {
                         task.FinishWithSuccess();
                         Notice($"{MainLang.DownloadFinish}: {file}", NotificationType.Success);
+                        task.NextSubTask();
 
                         var startInfo = new ProcessStartInfo
                         {
