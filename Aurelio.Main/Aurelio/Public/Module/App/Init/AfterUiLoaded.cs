@@ -20,7 +20,7 @@ public abstract class AfterUiLoaded
         Setter.SetAccentColor(Color.Parse("#1BD76A"));
         _ = TranslateToken.RefreshToken();
         LoopGC.BeginLoop();
-        if (Data.SettingEntry.AutoCheckUpdate)
+        if (Data.SettingEntry.AutoCheckUpdate && Data.Instance.Version != "vDebug")
             _ = AurelioPage.ShowUpdateDialogIfNeed();
     }
 }
