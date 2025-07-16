@@ -5,6 +5,7 @@ using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Value;
 using Avalonia.Media;
+using Avalonia.Threading;
 using Irihi.Avalonia.Shared.Contracts;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -49,27 +50,30 @@ public class Tasking : ReactiveObject , IDialogContext
 
     public void UpdateDisplay()
     {
-        if (Tasks.Count == 0)
+        Dispatcher.UIThread.InvokeAsync(() =>
         {
-            FocusInfoText = Data.SettingEntry.UsingMinecraftAccount.Name;
-            FocusInfoColor = Data.SettingEntry.UsingMinecraftAccount.AccountType switch
+            if (Tasks.Count == 0)
             {
-                Setting.AccountType.Microsoft => SolidColorBrush.Parse("#00FF40"),
-                Setting.AccountType.Offline => SolidColorBrush.Parse("#FFA500"),
-                Setting.AccountType.ThirdParty => SolidColorBrush.Parse("#35FFF6"),
-                _ => SolidColorBrush.Parse("#00FF40")
-            };
-        }
-        else if (Tasks.Count == 1)
-        {
-            FocusInfoText = Tasks[0].Name;
-            FocusInfoColor = new SolidColorBrush(Converter.TaskStateToColor(Tasks[0].TaskState));
-        }
-        else
-        {
-            FocusInfoText = MainLang.TaskingTip.Replace("{num}", Tasks.Count.ToString());
-            FocusInfoColor = new SolidColorBrush(Converter.TaskStateToColor(Tasks.Last().TaskState));
-        }
+                FocusInfoText = Data.SettingEntry.UsingMinecraftAccount.Name;
+                FocusInfoColor = Data.SettingEntry.UsingMinecraftAccount.AccountType switch
+                {
+                    Setting.AccountType.Microsoft => SolidColorBrush.Parse("#00FF40"),
+                    Setting.AccountType.Offline => SolidColorBrush.Parse("#FFA500"),
+                    Setting.AccountType.ThirdParty => SolidColorBrush.Parse("#35FFF6"),
+                    _ => SolidColorBrush.Parse("#00FF40")
+                };
+            }
+            else if (Tasks.Count == 1)
+            {
+                FocusInfoText = Tasks[0].Name;
+                FocusInfoColor = new SolidColorBrush(Converter.TaskStateToColor(Tasks[0].TaskState));
+            }
+            else
+            {
+                FocusInfoText = MainLang.TaskingTip.Replace("{num}", Tasks.Count.ToString());
+                FocusInfoColor = new SolidColorBrush(Converter.TaskStateToColor(Tasks.Last().TaskState));
+            }
+        });
     }
 
     private void TasksChanged()

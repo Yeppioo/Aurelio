@@ -37,7 +37,7 @@ public class UiProperty : ReactiveObject
         {
             var active = (Application.Current!.ApplicationLifetime as
                 IClassicDesktopStyleApplicationLifetime).Windows.FirstOrDefault(x => x.IsActive);
-            return (active as WindowBase)?.Notification;
+            return (active as WindowBase)?.Notification ?? App.UiRoot.Notification;
         }
     }
 
@@ -47,7 +47,7 @@ public class UiProperty : ReactiveObject
         {
             var active = (Application.Current!.ApplicationLifetime as
                 IClassicDesktopStyleApplicationLifetime).Windows.FirstOrDefault(x => x.IsActive);
-            return (active as WindowBase)?.Toast;
+            return (active as WindowBase)?.Toast ?? App.UiRoot.Toast;
         }
     }
 }

@@ -143,4 +143,12 @@ public abstract class Overlay
         };
         await Drawer.ShowModal<TaskCenterDrawer, Tasking>(Tasking.Instance, host, options);
     }
+
+    public static string GetHostId(Control sender)
+    {
+        var vis = sender.GetVisualRoot();
+        return vis is TabWindow w
+            ? w.DialogHost.HostId
+            : "MainWindow";
+    }
 }

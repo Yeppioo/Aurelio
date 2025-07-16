@@ -13,6 +13,9 @@ using Aurelio.Public.Classes.Enum;
 using Avalonia.Layout;
 using FluentAvalonia.UI.Controls;
 using System.Collections.Generic;
+using System.IO;
+using Avalonia.Controls.Templates;
+using Avalonia.Platform.Storage;
 
 namespace Aurelio.Views.Main.InstancePages.SubPages.SettingPages;
 
@@ -37,6 +40,9 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
         try
         {
             var info = await Public.Module.App.Services.Update.CheckUpdate();
+            Update.IsLoading = false;
+            Update.IsEnabled = true;
+            Update.Content = MainLang.CheckUpdate;
             if (info.IsNeedUpdate)
             {
                 var changelogPanel = ParseMarkdown(info.Body);
@@ -54,11 +60,23 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
                 {
                     var cr = await ShowDialogAsync(info.NewVersion, p_content: c, b_primary: MainLang.Update,
                         b_secondary: MainLang.SaveAs, b_cancel: MainLang.Cancel, sender: sender as Control);
+                    if (cr == ContentDialogResult.Primary)
+                    {
+                        _ = Public.Module.App.Services.Update.UpdateApp(this);
+                    }
+                    else if (cr == ContentDialogResult.Secondary)
+                    {
+                        SaveAs();
+                    }
                 }
                 else
                 {
                     var cr = await ShowDialogAsync(info.NewVersion, p_content: c, b_primary: MainLang.SaveAs,
                         b_cancel: MainLang.Cancel, sender: sender as Control);
+                    if (cr == ContentDialogResult.Primary)
+                    {
+                        SaveAs();
+                    }
                 }
             }
         }
@@ -71,6 +89,103 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
         Update.IsLoading = false;
         Update.IsEnabled = true;
         Update.Content = MainLang.CheckUpdate;
+    }
+
+    private async void SaveAs()
+    {
+        var fileList = new List<DownloadFileInfo>
+        {
+            new("Windows x64 便携版", "Aurelio.win.x64.executable.zip"),
+            new("Windows x64 安装程序", "Aurelio.win.x64.installer.exe"),
+            new("Windows x86 便携版", "Aurelio.win.x86.executable.zip"),
+            new("Windows x86 安装程序", "Aurelio.win.x86.installer.exe"),
+            new("Windows ARM64 便携版", "Aurelio.win.arm64.executable.zip"),
+            new("Windows ARM64 安装程序", "Aurelio.win.arm64.installer.exe"),
+            new("macOS ARM64 应用程序包", "Aurelio.osx.mac.arm64.app.zip"),
+            new("macOS ARM64 安装程序", "Aurelio.osx.mac.arm64.dmg"),
+            new("macOS x64 应用程序包", "Aurelio.osx.mac.x64.app.zip"),
+            new("macOS x64 安装程序", "Aurelio.osx.mac.x64.dmg"),
+            new("Linux ARM AppImage", "Aurelio.linux.arm.AppImage"),
+            new("Linux ARM64 AppImage", "Aurelio.linux.arm64.AppImage"),
+            new("Linux x64 AppImage", "Aurelio.linux.x64.AppImage"),
+        };
+
+        var listBox = new ListBox
+        {
+            ItemsSource = fileList, Width = 420,
+            ItemTemplate = new FuncDataTemplate<DownloadFileInfo>((item, _) =>
+            {
+                if (item == null) return new TextBlock { Text = "Error" };
+
+                var stackPanel = new StackPanel
+                {
+                    Margin = new Thickness(8, 6, 8, 6)
+                };
+
+                // 主标题
+                var titleBlock = new TextBlock
+                {
+                    Text = item.Description,
+                    FontSize = 14,
+                    FontWeight = FontWeight.Normal
+                };
+
+                // 副标题（文件名）
+                var fileNameBlock = new TextBlock
+                {
+                    Text = item.FileName,
+                    FontSize = 12,
+                    Foreground = new SolidColorBrush(Color.Parse("#7e7e7e")),
+                    Margin = new Thickness(0, 2, 0, 0)
+                };
+
+                stackPanel.Children.Add(titleBlock);
+                stackPanel.Children.Add(fileNameBlock);
+
+                return stackPanel;
+            })
+        };
+
+        listBox.SelectedIndex = 0;
+
+        var dialog = await ShowDialogAsync(
+            title: MainLang.SaveAs,
+            p_content: listBox,
+            b_primary: MainLang.Download,
+            b_cancel: MainLang.Cancel,
+            sender: this
+        );
+
+        if (dialog == ContentDialogResult.Primary && listBox.SelectedItem is DownloadFileInfo selectedFile)
+        {
+            var path = (await TopLevel.GetTopLevel(this).StorageProvider.SaveFilePickerAsync(
+                new FilePickerSaveOptions
+                {
+                    Title = MainLang.SaveAs,
+                    SuggestedFileName = selectedFile.FileName,
+                    FileTypeChoices =
+                    [
+                        new FilePickerFileType("App File")
+                            { Patterns = [$"*{Path.GetExtension(selectedFile.FileName)}"] }
+                    ]
+                }))?.Path.LocalPath;
+            if (string.IsNullOrWhiteSpace(path)) return;
+            Notice($"{MainLang.BeginDownload}: {selectedFile.FileName}");
+            await Public.Module.App.Services.Update.Download(selectedFile.FileName, path, this);
+        }
+    }
+
+    // 文件信息数据模型
+    private class DownloadFileInfo
+    {
+        public string Description { get; }
+        public string FileName { get; }
+
+        public DownloadFileInfo(string description, string fileName)
+        {
+            Description = description;
+            FileName = fileName;
+        }
     }
 
     private Panel ParseMarkdown(string markdown)

@@ -65,20 +65,23 @@
                                                     Text="{Binding Name}" />
                                                 <StackPanel
                                                     DockPanel.Dock="Right"
+                                                    FlowDirection="RightToLeft"
                                                     HorizontalAlignment="Right"
-                                                    Orientation="Horizontal">
-                                                    <TextBlock
-                                                        FontSize="12"
-                                                        Foreground="{DynamicResource GrayColor}"
-                                                        Margin="0,0,10,0"
-                                                        Text="{Binding TopRightInfoText}" />
+                                                    Orientation="Horizontal"
+                                                    Width="140">
                                                     <TextBlock
                                                         HorizontalAlignment="Right"
                                                         IsVisible="{Binding ProgressIsIndeterminate, Converter={StaticResource BoolReversalConverter}}"
-                                                        Margin="0,0,1,0">
+                                                        Margin="0,0,1,0"
+                                                        TextAlignment="Right"><Run Text="%" />
                                                         <Run Text="{Binding ProgressValue}" />
-                                                        <Run Text="%" />
                                                     </TextBlock>
+                                                    <TextBlock
+                                                        FontSize="12"
+                                                        Foreground="{DynamicResource GrayColor}"
+                                                        Margin="5,0,10,0"
+                                                        Text="{Binding TopRightInfoText}"
+                                                        TextAlignment="Right" />
                                                 </StackPanel>
                                             </DockPanel>
                                             <ProgressBar
