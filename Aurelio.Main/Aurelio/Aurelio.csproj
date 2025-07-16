@@ -110,7 +110,7 @@
             <DependentUpon>CrashWindow.axaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Compile Update="Views\Main\MoreButtonMenu.axaml.cs">
+        <Compile Update="Views\Main\InstancePages\MoreButtonMenu.axaml.cs">
           <DependentUpon>MoreButtonMenu.axaml</DependentUpon>
           <SubType>Code</SubType>
         </Compile>

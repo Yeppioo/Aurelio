@@ -2,8 +2,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.Service;
+using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
+using Aurelio.Views.Main.InstancePages;
 using Aurelio.Views.Main.Template;
 using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Primitives;
@@ -58,12 +61,29 @@ public partial class MainWindow : WindowBase
             IsManagedResizerVisible = true;
             SystemDecorations = SystemDecorations.None;
             Root.CornerRadius = new CornerRadius(0);
+            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
+            ExtendClientAreaToDecorationsHint = true;
         }
-
-        ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
-        ExtendClientAreaToDecorationsHint = true;
-
-        // new CrashWindow("Message").Show();
+        else if (Data.DesktopType == DesktopType.MacOs)
+        {
+            // Mac平台使用系统装饰，但扩展客户区域
+            SystemDecorations = SystemDecorations.Full;
+            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.Default;
+            ExtendClientAreaToDecorationsHint = true;
+            TitleRoot.Margin = new Thickness(65, 0, 0, 0);
+            
+            // 隐藏自定义标题栏按钮
+            TitleBar.IsCloseBtnShow = false;
+            TitleBar.IsMinBtnShow = false;
+            TitleBar.IsMaxBtnShow = false;
+            Separator.IsVisible = false;
+        }
+        else
+        {
+            // Windows 10+或其他平台
+            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
+            ExtendClientAreaToDecorationsHint = true;
+        }
     }
 
 #if DEBUG
@@ -85,7 +105,7 @@ public partial class MainWindow : WindowBase
         if (hasSettingsInOtherWindow)
         {
             await TabDragDropService.RemoveSettingsTabFromOtherWindowsAsync();
-            await Task.Delay(50); // Increased delay to ensure UI operations complete
+            await Task.Delay(50);
         }
 
         var existingTab = Tabs.FirstOrDefault(x => x.Tag == "setting");
@@ -117,6 +137,32 @@ public partial class MainWindow : WindowBase
 #endif
     private void BindEvents()
     {
+        PropertyChanged += (_, e) =>
+        {
+            if (Data.DesktopType == DesktopType.MacOs)
+            {
+                var platform = TryGetPlatformHandle();
+                if (platform is not null)
+                {
+                    var nsWindow = platform.Handle;
+                    if (nsWindow != IntPtr.Zero)
+                    {
+                        try
+                        {
+                            MacOsWindowHandler.RefreshTitleBarButtonPosition(nsWindow);
+                            // 移除隐藏按钮的代码，使用系统原生按钮
+                            MacOsWindowHandler.HideZoomButton(nsWindow);
+                            
+                            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.Default;
+                        }
+                        catch (Exception exception)
+                        {
+                            Console.WriteLine(exception);
+                        }
+                    }
+                }
+            }
+        };
         NavScrollViewer.ScrollChanged += (_, _) => { ViewModel.IsTabMaskVisible = NavScrollViewer.Offset.X > 0; };
         Loaded += (_, _) =>
         {
@@ -126,7 +172,8 @@ public partial class MainWindow : WindowBase
         };
         TitleBarContainer.SizeChanged += (_, _) =>
         {
-            NavRoot.Margin = new Thickness(80, 0, TitleBarContainer.Bounds.Width + 85, 0);
+            NavRoot.Margin = new Thickness((Data.DesktopType == DesktopType.MacOs ? 125 : 80), 0,
+                TitleBarContainer.Bounds.Width + (Data.DesktopType == DesktopType.MacOs ? 20 : 85), 0);
         };
         FocusInfoBorder.PointerPressed += async (s, e) =>
         {
@@ -139,6 +186,7 @@ public partial class MainWindow : WindowBase
                 _ = OpenTaskDrawer(host!);
                 return;
             }
+
             if (e.GetCurrentPoint(this).Properties.IsMiddleButtonPressed)
             {
                 if ((s as Control)!.GetVisualRoot() is TabWindow window)
@@ -147,6 +195,7 @@ public partial class MainWindow : WindowBase
                     App.UiRoot.CreateTab(new TabEntry(new TaskCenter()));
                 return;
             }
+
             if (Tasking.Tasks.Count == 0)
             {
                 ViewModel.SettingTabPage.SelectedItem = ViewModel.SettingTabPage.Nav.Items[1] as SelectionListItem;
@@ -203,5 +252,6 @@ public partial class MainWindow : WindowBase
         // If this is the main window closing and there are other TabWindows open,
         // we should handle the scenario appropriately
         TabDragDropService.UnregisterWindow(this);
+        Environment.Exit(0);
     }
 }

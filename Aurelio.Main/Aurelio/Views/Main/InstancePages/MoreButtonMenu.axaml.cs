@@ -1,4 +1,4 @@
-﻿namespace Aurelio.Views.Main;
+﻿namespace Aurelio.Views.Main.InstancePages;
 
 public partial class MoreButtonMenu : UserControl
 {
