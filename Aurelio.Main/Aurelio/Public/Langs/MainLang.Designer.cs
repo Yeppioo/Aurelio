@@ -825,6 +825,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 关闭自动更新.
+        /// </summary>
+        public static string CloseAutoUpdate {
+            get {
+                return ResourceManager.GetString("CloseAutoUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 关闭当前标签页.
         /// </summary>
         public static string CloseCurrentTab {

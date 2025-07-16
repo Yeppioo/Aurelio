@@ -61,10 +61,14 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
             else
             {
                 var cr = await ShowDialogAsync($"{MainLang.FoundNewVersion}: {info.NewVersion}", p_content: c, b_primary: MainLang.SaveAs,
-                    b_cancel: MainLang.Cancel, sender: UiProperty.ActiveWindow);
+                    b_cancel: MainLang.Cancel, sender: UiProperty.ActiveWindow, b_secondary: MainLang.CloseAutoUpdate);
                 if (cr == ContentDialogResult.Primary)
                 {
                     SaveAs(UiProperty.ActiveWindow);
+                }
+                else if (cr == ContentDialogResult.Secondary)
+                {
+                    Data.SettingEntry.AutoCheckUpdate = false;
                 }
             }
         }
@@ -116,6 +120,10 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
                         SaveAs(this);
                     }
                 }
+            }
+            else
+            {
+                Notice($"{MainLang.LatestVersion}" , NotificationType.Success);
             }
         }
         catch (Exception exception)

@@ -1747,4 +1747,7 @@
   <data name="GithubSpeedUpApi" xml:space="preserve">
     <value>Github加速接口</value>
   </data>
+  <data name="CloseAutoUpdate" xml:space="preserve">
+    <value>关闭自动更新</value>
+  </data>
 </root>
