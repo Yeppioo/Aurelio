@@ -132,7 +132,7 @@
                                 Name="skinViewer" />
                             <Image
                                 IsVisible="{Binding UiProperty.IsRender3D, Converter={StaticResource BoolReversalConverter}}"
-                                Margin="30,20,30,60"
+                                Margin="55,55,55,90"
                                 Source="{Binding SettingEntry.UsingMinecraftAccount.Body}" />
                             <ToggleSwitch
                                 HorizontalAlignment="Center"
