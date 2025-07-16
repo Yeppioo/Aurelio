@@ -13,7 +13,7 @@ using Avalonia.VisualTree;
 using LiteSkinViewer3D.Shared.Enums;
 using PointerType = LiteSkinViewer3D.Shared.Enums.PointerType;
 
-namespace Aurelio.Views.Main.SubPages.SettingPages;
+namespace Aurelio.Views.Main.InstancePages.SubPages.SettingPages;
 
 public partial class AccountPage : PageMixModelBase, IAurelioPage
 {

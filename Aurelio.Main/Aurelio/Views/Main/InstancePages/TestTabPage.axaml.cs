@@ -7,7 +7,7 @@ using Avalonia.Controls.Notifications;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 
-namespace Aurelio.Views.Main.TabPages;
+namespace Aurelio.Views.Main.InstancePages;
 
 public partial class DebugTabPage : PageMixModelBase, IAurelioTabPage
 {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Langs;
-using Aurelio.Views.Main.Drawer;
+using Aurelio.Views.Main.InstancePages.Drawer;
 using Avalonia.Controls.Notifications;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;

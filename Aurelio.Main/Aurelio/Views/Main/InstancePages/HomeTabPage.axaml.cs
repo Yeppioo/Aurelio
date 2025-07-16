@@ -11,7 +11,7 @@ using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.VisualTree;
 
-namespace Aurelio.Views.Main.TabPages;
+namespace Aurelio.Views.Main.InstancePages;
 
 public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
 {

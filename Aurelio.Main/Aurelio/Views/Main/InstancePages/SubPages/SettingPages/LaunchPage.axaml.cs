@@ -7,7 +7,7 @@ using Aurelio.Public.Module.Service.Minecraft;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
 
-namespace Aurelio.Views.Main.SubPages.SettingPages;
+namespace Aurelio.Views.Main.InstancePages.SubPages.SettingPages;
 
 public partial class LaunchPage : PageMixModelBase, IAurelioPage
 {

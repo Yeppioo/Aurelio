@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Views.Main.TabPages;
+using Aurelio.Views.Main.InstancePages;
 
 namespace Aurelio.ViewModels;
 

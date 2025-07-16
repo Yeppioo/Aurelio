@@ -118,7 +118,6 @@
 
     <ItemGroup>
         <Folder Include="Public\Module\IO\Http\Api\"/>
-        <Folder Include="Views\Main\SubPages\"/>
         <Folder Include="Views\Main\Template\SubPages\"/>
     </ItemGroup>
 
@@ -127,8 +126,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="Views\Main\SubPages\SettingPages\AccountPage.axaml"/>
-        <AdditionalFiles Include="Views\Main\SubPages\SettingPages\LaunchPage.axaml"/>
+        <AdditionalFiles Include="Views\Main\InstancePages\Drawer\TaskCenterDrawer.axaml" />
+        <AdditionalFiles Include="Views\Main\InstancePages\SubPages\SettingPages\AurelioPage.axaml" />
+        <AdditionalFiles Include="Views\Main\InstancePages\SubPages\SettingPages\PersonalizationPage.axaml" />
         <AdditionalFiles Include="Views\Main\Template\SubPages\MinecraftInstancePages\ModPage.axaml"/>
         <AdditionalFiles Include="Views\Main\Template\SubPages\MinecraftInstancePages\OverViewPage.axaml"/>
         <AdditionalFiles Include="Views\Main\Template\SubPages\MinecraftInstancePages\ResourcePackPage.axaml"/>

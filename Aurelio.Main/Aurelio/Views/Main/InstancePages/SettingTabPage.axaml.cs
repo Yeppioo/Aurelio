@@ -4,10 +4,10 @@ using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.ViewModels;
-using Aurelio.Views.Main.SubPages.SettingPages;
+using Aurelio.Views.Main.InstancePages.SubPages.SettingPages;
 using Ursa.Controls;
 
-namespace Aurelio.Views.Main.TabPages;
+namespace Aurelio.Views.Main.InstancePages;
 
 public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
 {

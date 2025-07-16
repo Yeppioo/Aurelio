@@ -1,6 +1,6 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
-    xmlns:drawer="clr-namespace:Aurelio.Views.Main.Drawer"
+    xmlns:drawer="clr-namespace:Aurelio.Views.Main.InstancePages.Drawer"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:template="clr-namespace:Aurelio.Views.Main.Template"
     xmlns:u="https://irihi.tech/ursa"
