@@ -4,6 +4,7 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Module.Service;
 using Aurelio.ViewModels;
+using Aurelio.Views.Main.Template;
 using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
@@ -129,6 +130,23 @@ public partial class MainWindow : WindowBase
         };
         FocusInfoBorder.PointerPressed += async (s, e) =>
         {
+            if (e.GetCurrentPoint(this).Properties.IsRightButtonPressed)
+            {
+                var vis = ((Control)s)!.GetVisualRoot();
+                var host = vis is TabWindow w
+                    ? w.DialogHost.HostId
+                    : "MainWindow";
+                _ = OpenTaskDrawer(host!);
+                return;
+            }
+            if (e.GetCurrentPoint(this).Properties.IsMiddleButtonPressed)
+            {
+                if ((s as Control)!.GetVisualRoot() is TabWindow window)
+                    window.CreateTab(new TabEntry(new TaskCenter()));
+                else
+                    App.UiRoot.CreateTab(new TabEntry(new TaskCenter()));
+                return;
+            }
             if (Tasking.Tasks.Count == 0)
             {
                 ViewModel.SettingTabPage.SelectedItem = ViewModel.SettingTabPage.Nav.Items[1] as SelectionListItem;
