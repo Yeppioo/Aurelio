@@ -5,6 +5,8 @@ using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.IO;
+using Aurelio.Public.Module.IO.Http.Minecraft;
+using Aurelio.Public.Module.IO.Http.Minecraft.Skin;
 using Aurelio.Public.Module.Value;
 using Avalonia.Controls.Notifications;
 using Avalonia.Layout;
@@ -13,7 +15,6 @@ using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
 using MinecraftLaunch.Base.Models.Authentication;
 using MinecraftLaunch.Components.Authenticator;
-using MinecraftLaunch.Skin.Class.Fetchers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

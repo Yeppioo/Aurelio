@@ -3,8 +3,10 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Aurelio.Public.Module.Value;
 using Avalonia.Media.Imaging;
-using MinecraftLaunch.Skin;
+using LiteSkinViewer2D;
+using LiteSkinViewer2D.Extensions;
 using Newtonsoft.Json;
+using SkiaSharp;
 
 namespace Aurelio.Public.Classes.Minecraft;
 
@@ -43,9 +45,10 @@ public sealed record RecordMinecraftAccount : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    private Bitmap? HandleBodySkin()
+    private Bitmap HandleBodySkin()
     {
-        return null;
+        var imageBytes = Convert.FromBase64String(Skin);
+        return FullBodyCapturer.Default.Capture(SKBitmap.Decode(imageBytes)).ToBitmap();
     }
 
     private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -63,8 +66,7 @@ public sealed record RecordMinecraftAccount : INotifyPropertyChanged
 
     private Bitmap HandleHeadSkin()
     {
-        SkinResolver SkinResolver = new(Convert.FromBase64String(Skin));
-        var bytes = ImageHelper.ConvertToByteArray(SkinResolver.CropSkinHeadBitmap());
-        return Converter.Base64ToBitmap(Converter.BytesToBase64(bytes), 48);
+        var imageBytes = Convert.FromBase64String(Skin);
+        return HeadCapturer.Default.Capture(SKBitmap.Decode(imageBytes)).ToBitmap(48);
     }
 }

@@ -64,7 +64,6 @@
         <PackageReference Include="Irihi.Ursa" Version="1.12.0"/>
         <PackageReference Include="Irihi.Ursa.Themes.Semi" Version="1.12.0"/>
         <PackageReference Include="MinecraftLaunch" Version="4.0.2-preview11"/>
-        <PackageReference Include="MinecraftLaunch.Skin" Version="1.0.1"/>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
         <PackageReference Include="ReactiveUI" Version="20.4.1"/>
         <PackageReference Include="ReactiveUI.Fody" Version="19.5.41"/>
@@ -117,7 +116,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Public\Module\IO\Http\Api\"/>
         <Folder Include="Views\Main\Template\SubPages\"/>
     </ItemGroup>
     
