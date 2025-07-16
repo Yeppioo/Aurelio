@@ -49,7 +49,7 @@ public class RecordMinecraftEntry : ReactiveObject
             if (e.PropertyName is nameof(SettingEntry.IconType) or nameof(SettingEntry.IconData))
             {
                 Icon = Calculator.GetMinecraftInstanceIcon(this);
-                SetIcon(s, e);
+                SetIcon(s as Control, e);
             }
 
             _debouncer.Trigger();
