@@ -16,7 +16,7 @@ public class MinecraftFolder
     public static async Task AddByUi(Control sender)
     {
         var list = await TopLevel.GetTopLevel(sender).StorageProvider.PickFolderAsync(
-            new FolderPickerOpenOptions { Title = MainLang.SelectMinecraftFolder, AllowMultiple = true });
+            new FolderPickerOpenOptions { Title = MainLang.SelectMinecraftFolder, AllowMultiple = true }, sender);
         if (list.Count < 1) return;
         foreach (var p in list)
         {
