@@ -22,11 +22,11 @@ public class SkinAnimationController
         Controller = controller ?? new DefaultAnimation();
     }
 
-    public IModelAnimation Controller { get; set; }
     public SkinAnimationState State { get; } = new();
+    public IModelAnimation Controller { get; set; }
     public SkinType SkinType { get; set; }
     public bool IsEnable { get; set; } = true;
-    public float IdleIntervalSeconds { get; set; } = 1f;
+    public float IdleIntervalSeconds { get; set; } = 15f;
 
     public void Close()
     {

@@ -91,8 +91,6 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
     private async void IconBorder_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
         var border = (Border)sender;
-        var vis = border!.GetVisualRoot();
-        string host;
         var icon = (PathIcon)((Grid)border.Child).Children[0];
         (border.Tag as RecordMinecraftEntry)?.Launch(border);
         e.Handled = true;

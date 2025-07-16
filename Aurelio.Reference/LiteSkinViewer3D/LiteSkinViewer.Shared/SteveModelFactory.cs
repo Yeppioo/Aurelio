@@ -15,7 +15,7 @@ public static class SteveModelFactory
         return new SteveMeshModel
         {
             Head = CreateCube(1.0f, 1.0f, 1.0f),
-            Body = CreateCube(1.0f, 1.5f),
+            Body = CreateCube(1.0f, 1.5f, 0.5f),
             LeftArm = CreateCube(GetArmScale(type), 1.5f),
             RightArm = CreateCube(GetArmScale(type), 1.5f),
             LeftLeg = CreateCube(scaleY: 1.5f, scaleZ: 0.5f),

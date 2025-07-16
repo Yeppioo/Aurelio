@@ -120,11 +120,7 @@
         <Folder Include="Public\Module\IO\Http\Api\"/>
         <Folder Include="Views\Main\Template\SubPages\"/>
     </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\Aurelio.Reference\LiteSkinViewer3D\LiteSkinViewer3D\LiteSkinViewer3D.csproj"/>
-    </ItemGroup>
-
+    
     <ItemGroup>
         <AdditionalFiles Include="Views\Main\InstancePages\Drawer\TaskCenterDrawer.axaml" />
         <AdditionalFiles Include="Views\Main\InstancePages\SubPages\SettingPages\AurelioPage.axaml" />
@@ -153,5 +149,10 @@
             <Pack>True</Pack>
             <PackagePath>\</PackagePath>
         </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Aurelio.Reference\LiteSkinViewer3D\LiteSkinViewer.2D\LiteSkinViewer.2D.csproj" />
+      <ProjectReference Include="..\..\Aurelio.Reference\LiteSkinViewer3D\LiteSkinViewer.3D\LiteSkinViewer.3D.csproj" />
     </ItemGroup>
 </Project>
