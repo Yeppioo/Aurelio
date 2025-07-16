@@ -81,15 +81,12 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
 
         var newTag = text.Text!;
 
-        // 检查是否为内置标签名
         if (UiProperty.BuiltInTags.Contains(newTag))
         {
-            // 显示错误提示，不允许创建与内置标签同名的标签
-            UiProperty.Toast.Show($"{newTag} - {MainLang.ReservedTagNameTip}", NotificationType.Error);
+            Notice($"{newTag} - {MainLang.ReservedTagNameTip}", NotificationType.Error);
             return;
         }
 
-        // 检查标签是否已存在
         if (!UiProperty.AllMinecraftTags.Contains(newTag)) UiProperty.AllMinecraftTags.Add(newTag);
     }
 }

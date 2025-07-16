@@ -57,11 +57,8 @@ public class App : Application
                 throw e.Exception;
             };
 #endif
-
             var win = new MainWindow();
             desktop.MainWindow = win;
-            UiProperty.Notification = new WindowNotificationManager(TopLevel.GetTopLevel(win));
-            UiProperty.Toast = new WindowToastManager(TopLevel.GetTopLevel(win));
             win.Loaded += (_, _) =>
             {
                 if (!_fl) return;
@@ -70,8 +67,6 @@ public class App : Application
                 UiLoaded?.Invoke(win);
                 _fl = false;
             };
-            UiProperty.Notification.Position = NotificationPosition.BottomRight;
-            UiProperty.Toast.MaxItems = 2;
             Logger.Info(MainLang.UIConfigCompleteTip);
         }
 

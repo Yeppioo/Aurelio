@@ -4,18 +4,21 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Module.Service;
 using Aurelio.ViewModels;
+using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using Avalonia.VisualTree;
 using HotAvalonia;
 using Ursa.Controls;
+using WindowNotificationManager = Ursa.Controls.WindowNotificationManager;
 
 namespace Aurelio.Views.Main;
 
-public partial class MainWindow : UrsaWindow
+public partial class MainWindow : WindowBase
 {
     public MainWindow()
     {
@@ -24,6 +27,10 @@ public partial class MainWindow : UrsaWindow
 #else
         InitializeComponent();
 #endif
+        Notification = new WindowNotificationManager(GetTopLevel(this));
+        Toast = new WindowToastManager(GetTopLevel(this));
+        Notification.Position = NotificationPosition.BottomRight;
+        Toast.MaxItems = 2;
         DataContext = ViewModel;
         NewTabButton.DataContext = ViewModel;
         TabDragDropService.RegisterWindow(this);
@@ -120,7 +127,7 @@ public partial class MainWindow : UrsaWindow
         {
             NavRoot.Margin = new Thickness(80, 0, TitleBarContainer.Bounds.Width + 85, 0);
         };
-        FocusInfoBorder.PointerPressed += async (_, _) =>
+        FocusInfoBorder.PointerPressed += async (s, e) =>
         {
             if (Tasking.Tasks.Count == 0)
             {
@@ -130,7 +137,11 @@ public partial class MainWindow : UrsaWindow
             }
             else
             {
-                _ = OpenTaskDrawer("MainWindow");
+                var vis = ((Control)s)!.GetVisualRoot();
+                var host = vis is TabWindow w
+                    ? w.DialogHost.HostId
+                    : "MainWindow";
+                _ = OpenTaskDrawer(host!);
             }
         };
     }

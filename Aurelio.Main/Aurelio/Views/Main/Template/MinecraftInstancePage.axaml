@@ -101,6 +101,7 @@
                         <u:IconButton
                             Classes="accent"
                             Command="{Binding Entry.Launch}"
+                            CommandParameter="{Binding $self}"
                             Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Launch}"
                             VerticalAlignment="Center">
                             <u:IconButton.Icon>

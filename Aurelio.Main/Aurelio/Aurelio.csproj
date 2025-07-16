@@ -102,10 +102,6 @@
             <DependentUpon>MainWindow.axaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Compile Update="Views\Main\MoreButtonMenu.axaml.cs">
-            <DependentUpon>MoreButtonMenu.axaml</DependentUpon>
-            <SubType>Code</SubType>
-        </Compile>
         <Compile Update="Public\Styles\Override\ContentDialog.axaml.cs">
             <DependentUpon>ContentDialog.axaml</DependentUpon>
             <SubType>Code</SubType>
@@ -113,6 +109,10 @@
         <Compile Update="Views\CrashWindow.axaml.cs">
             <DependentUpon>CrashWindow.axaml</DependentUpon>
             <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Views\Main\MoreButtonMenu.axaml.cs">
+          <DependentUpon>MoreButtonMenu.axaml</DependentUpon>
+          <SubType>Code</SubType>
         </Compile>
     </ItemGroup>
 

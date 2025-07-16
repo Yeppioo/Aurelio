@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Langs;
+using Aurelio.Views.Main;
 using Aurelio.Views.Main.InstancePages.Drawer;
 using Avalonia.Controls.Notifications;
 using Avalonia.Media;
@@ -68,7 +69,7 @@ public abstract class Overlay
         if (showTime) showTitle += $" - {DateTime.Now:HH:mm:ss}";
 
         var notification = new Notification(showTitle, msg, type);
-        UiProperty.NotificationCards.Insert(0, new NotificationEntry(notification, notification.Type));
+        UiProperty.Notifications.Insert(0, new NotificationEntry(notification, notification.Type));
 
         switch (Data.SettingEntry.NoticeWay)
         {
@@ -88,7 +89,6 @@ public abstract class Overlay
         UiProperty.Toast.Show(toast, toast.Type, classes: ["Light"], onClick: onClick,
             expiration: time ?? TimeSpan.FromSeconds(3.0));
     }
-
     public static void NotificationCard(string msg, NotificationType type, string title, TimeSpan? time = null,
         Action? onClick = null)
     {
@@ -126,16 +126,10 @@ public abstract class Overlay
 
     public static void ClearDrawer()
     {
-        var host = Aurelio.App.UiRoot.FindDescendantOfType<OverlayDialogHost>();
-        if (host == null) return;
-        var list = new List<Control>();
-        foreach (var c in host.Children)
-            if (c is PureRectangle or DefaultDrawerControl)
-                list.Add(c);
-        list.ForEach(x => host.Children.Remove(x));
+        Tasking.Instance.Close();
     }
 
-    public static async Task OpenTaskDrawer(string? host = null)
+    public static async Task OpenTaskDrawer(string host)
     {
         var options = new DrawerOptions
         {

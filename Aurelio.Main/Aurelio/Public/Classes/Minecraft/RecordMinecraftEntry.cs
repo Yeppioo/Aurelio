@@ -7,8 +7,10 @@ using Aurelio.Public.Module;
 using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Service.Minecraft;
 using Aurelio.Public.Module.Service.Minecraft.Launcher;
+using Aurelio.Views.Main;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
+using Avalonia.VisualTree;
 using DynamicData;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Models.Game;
@@ -90,9 +92,13 @@ public class RecordMinecraftEntry : ReactiveObject
     public string InstancePath =>
         Calculator.GetMinecraftSpecialFolder(MlEntry, MinecraftSpecialFolder.InstanceFolder);
 
-    public void Launch()
+    public void Launch(Control sender)
     {
-        _ = MinecraftClientLauncher.Launch(this);
+        var vis = sender.GetVisualRoot();
+        var host = vis is TabWindow w
+            ? w.DialogHost.HostId
+            : "MainWindow";
+        _ = MinecraftClientLauncher.Launch(this, host);
     }
 
     private MinecraftInstanceSettingEntry GetMinecraftSetting()

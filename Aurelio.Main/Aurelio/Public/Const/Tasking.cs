@@ -5,12 +5,13 @@ using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Value;
 using Avalonia.Media;
+using Irihi.Avalonia.Shared.Contracts;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
 namespace Aurelio.Public.Const;
 
-public class Tasking : ReactiveObject
+public class Tasking : ReactiveObject , IDialogContext
 {
     private static Tasking? _instance;
 
@@ -75,4 +76,11 @@ public class Tasking : ReactiveObject
     {
         UpdateDisplay();
     }
+
+    public void Close()
+    {
+        RequestClose?.Invoke(this, null);
+    }
+
+    public event EventHandler<object?>? RequestClose;
 }

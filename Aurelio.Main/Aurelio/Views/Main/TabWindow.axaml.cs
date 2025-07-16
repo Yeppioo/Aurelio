@@ -4,16 +4,18 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Module.Service;
 using Aurelio.ViewModels;
+using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform;
 using Avalonia.Threading;
 using Ursa.Controls;
+using WindowNotificationManager = Ursa.Controls.WindowNotificationManager;
 
 namespace Aurelio.Views.Main;
 
-public partial class TabWindow : UrsaWindow
+public partial class TabWindow : WindowBase
 {
     public TabWindow()
     {
@@ -22,6 +24,11 @@ public partial class TabWindow : UrsaWindow
 #else
         InitializeComponent();
 #endif
+        Notification = new WindowNotificationManager(GetTopLevel(this));
+        Toast = new WindowToastManager(GetTopLevel(this));
+        Notification.Position = NotificationPosition.BottomRight;
+        Toast.MaxItems = 2;
+        DialogHost.HostId = $"DialogHost_{DateTime.Now}";
         DataContext = ViewModel;
         NewTabButton.DataContext = ViewModel;
         NewTabButton.Click += NewTabButton_Click;

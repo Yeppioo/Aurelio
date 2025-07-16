@@ -1,9 +1,12 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Langs;
+using Avalonia.Controls.ApplicationLifetimes;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Ursa.Controls;
+using WindowBase = Aurelio.Views.Main.WindowBase;
 
 namespace Aurelio.Public.Const;
 
@@ -12,10 +15,8 @@ public class UiProperty : ReactiveObject
     private static UiProperty? _instance;
     public static readonly string FavouriteTag = MainLang.Favourite;
 
-    // 初始化内置标签
     static UiProperty()
     {
-        // 添加收藏夹标签到内置标签集合
         BuiltInTags.Add(FavouriteTag);
     }
 
@@ -26,9 +27,27 @@ public class UiProperty : ReactiveObject
 
     [Reactive] public bool IsRender3D { get; set; }
 
-    public static ObservableCollection<NotificationEntry> NotificationCards { get; } = [];
+    public static ObservableCollection<NotificationEntry> Notifications { get; } = [];
     public static ObservableCollection<string> AllMinecraftTags { get; } = [];
     public static ObservableCollection<string> BuiltInTags { get; } = [];
-    public static WindowNotificationManager Notification { get; set; }
-    public static WindowToastManager Toast { get; set; }
+
+    public static WindowNotificationManager Notification
+    {
+        get
+        {
+            var active = (Application.Current!.ApplicationLifetime as
+                IClassicDesktopStyleApplicationLifetime).Windows.FirstOrDefault(x => x.IsActive);
+            return (active as WindowBase)?.Notification;
+        }
+    }
+
+    public static WindowToastManager Toast
+    {
+        get
+        {
+            var active = (Application.Current!.ApplicationLifetime as
+                IClassicDesktopStyleApplicationLifetime).Windows.FirstOrDefault(x => x.IsActive);
+            return (active as WindowBase)?.Toast;
+        }
+    }
 }

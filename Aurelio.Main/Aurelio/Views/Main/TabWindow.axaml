@@ -267,6 +267,7 @@
                 Opacity="0"
                 VerticalAlignment="Top"
                 Width="1" />
+            <u:OverlayDialogHost Name="DialogHost" />
         </Grid>
     </Border>
 </u:UrsaWindow>

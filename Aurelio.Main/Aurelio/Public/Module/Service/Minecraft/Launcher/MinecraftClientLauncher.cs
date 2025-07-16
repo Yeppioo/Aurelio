@@ -25,7 +25,7 @@ namespace Aurelio.Public.Module.Service.Minecraft.Launcher;
 
 public partial class MinecraftClientLauncher
 {
-    public static async Task Launch(RecordMinecraftEntry entry)
+    public static async Task Launch(RecordMinecraftEntry entry, string host)
     {
         var cts = new CancellationTokenSource();
         var token = cts.Token;
@@ -49,7 +49,7 @@ public partial class MinecraftClientLauncher
 
             throw;
         }
-        
+
         entry.SettingEntry.LastPlayed = DateTime.Now;
         if (Data.SettingEntry.MinecraftInstanceSortMethod == MinecraftInstanceSortMethod.LastPlayed)
         {
@@ -75,7 +75,7 @@ public partial class MinecraftClientLauncher
         task.NextSubTask();
         task.NextSubTask();
 
-        _ = OpenTaskDrawer("MainWindow");
+        _ = OpenTaskDrawer(host);
 
         Account? account;
         switch (Data.SettingEntry.UsingMinecraftAccount.AccountType)
