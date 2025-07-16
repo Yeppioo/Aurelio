@@ -20,7 +20,7 @@ public class MinecraftLocalSaveEntry : ReactiveObject
     [Reactive] public SaveInfo SaveInfo { get; set; }
     [Reactive] public Action Callback { get; set; }
 
-    public async Task Delete()
+    public async Task Delete(Control sender)
     {
         var text = $"• {System.IO.Path.GetFileName(Name)}";
 
@@ -28,7 +28,7 @@ public class MinecraftLocalSaveEntry : ReactiveObject
             ? MainLang.MoveToRecycleBin
             : MainLang.DeleteSelect;
         var dialog = await ShowDialogAsync(title, text, b_cancel: MainLang.Cancel,
-            b_primary: MainLang.Ok);
+            b_primary: MainLang.Ok, sender: sender);
         if (dialog != ContentDialogResult.Primary) return;
 
         if (Data.DesktopType == DesktopType.Windows)
@@ -39,7 +39,7 @@ public class MinecraftLocalSaveEntry : ReactiveObject
         Callback?.Invoke();
     }
 
-    public async Task ShowInfo()
+    public async Task ShowInfo(Control sender)
     {
         var text =
             $"{MainLang.Name}: {SaveInfo.FolderName}\n" +
@@ -52,7 +52,7 @@ public class MinecraftLocalSaveEntry : ReactiveObject
             $"{MainLang.LastModifiedTime}: {SaveInfo.LastWriteTime}\n" +
             $"{MainLang.PlayerCount}: {SaveInfo.DatFileCount}\n" +
             $"{MainLang.DataPackCount}: {SaveInfo.ZipFileCount}";
-        await ShowDialogAsync(MainLang.SaveInfo, text, b_primary: MainLang.Ok);
+        await ShowDialogAsync(MainLang.SaveInfo, text, b_primary: MainLang.Ok, sender: sender);
         Callback?.Invoke();
     }
 

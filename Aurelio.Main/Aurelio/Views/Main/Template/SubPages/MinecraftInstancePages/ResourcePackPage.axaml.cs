@@ -52,7 +52,7 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
             Setter.TryCreateFolder(path);
             _ = OpenFolder(path);
         };
-        DeleteSelectModBtn.Click += async (_, _) =>
+        DeleteSelectModBtn.Click += async (sender, _) =>
         {
             var items = ModManageList.SelectedItems;
             if (items is null) return;
@@ -64,7 +64,7 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
                 ? MainLang.MoveToRecycleBin
                 : MainLang.DeleteSelect;
             var dialog = await ShowDialogAsync(title, text, b_cancel: MainLang.Cancel,
-                b_primary: MainLang.Ok);
+                b_primary: MainLang.Ok, sender: sender as Control);
             if (dialog != ContentDialogResult.Primary) return;
 
             foreach (var item in items)

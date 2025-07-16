@@ -64,19 +64,19 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
         };
     }
 
-    public async void EditMinecraftIdCommand()
+    public async void EditMinecraftIdCommand(Control sender)
     {
         var text = new TextBox { Text = Entry.Id };
         var d = await ShowDialogAsync(MainLang.Rename, p_content: text, b_primary: MainLang.Ok,
-            b_cancel: MainLang.Cancel);
+            b_cancel: MainLang.Cancel, sender: sender);
         if (d != ContentDialogResult.Primary) return;
     }
 
-    public async void CreateNewTagCommand()
+    public async void CreateNewTagCommand(Control sender)
     {
         var text = new TextBox { Watermark = MainLang.Name };
         var d = await ShowDialogAsync(MainLang.New, p_content: text, b_primary: MainLang.Ok,
-            b_cancel: MainLang.Cancel);
+            b_cancel: MainLang.Cancel, sender: sender);
         if (d != ContentDialogResult.Primary || text.Text.IsNullOrWhiteSpace()) return;
 
         var newTag = text.Text!;

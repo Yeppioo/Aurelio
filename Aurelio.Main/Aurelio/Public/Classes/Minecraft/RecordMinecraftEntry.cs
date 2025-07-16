@@ -44,12 +44,12 @@ public class RecordMinecraftEntry : ReactiveObject
                 (MlEntry, MinecraftSpecialFolder.InstanceFolder), "Aurelio.MinecraftInstance.Setting.Yeppioo");
             File.WriteAllText(path, SettingEntry.AsJson());
         }, 250);
-        SettingEntry.PropertyChanged += (_, e) =>
+        SettingEntry.PropertyChanged += (s, e) =>
         {
             if (e.PropertyName is nameof(SettingEntry.IconType) or nameof(SettingEntry.IconData))
             {
                 Icon = Calculator.GetMinecraftInstanceIcon(this);
-                SetIcon(e);
+                SetIcon(s, e);
             }
 
             _debouncer.Trigger();
@@ -94,11 +94,7 @@ public class RecordMinecraftEntry : ReactiveObject
 
     public void Launch(Control sender)
     {
-        var vis = sender.GetVisualRoot();
-        var host = vis is TabWindow w
-            ? w.DialogHost.HostId
-            : "MainWindow";
-        _ = MinecraftClientLauncher.Launch(this, host);
+        _ = MinecraftClientLauncher.Launch(this, sender);
     }
 
     private MinecraftInstanceSettingEntry GetMinecraftSetting()
@@ -111,7 +107,7 @@ public class RecordMinecraftEntry : ReactiveObject
         return new MinecraftInstanceSettingEntry();
     }
 
-    private async void SetIcon(PropertyChangedEventArgs e)
+    private async void SetIcon(Control sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName != nameof(MinecraftInstanceSettingEntry.IconType) ||
             SettingEntry.IconType != MinecraftInstanceIconType.Base64) return;
@@ -121,7 +117,7 @@ public class RecordMinecraftEntry : ReactiveObject
             Title = MainLang.SelectImgFile,
             FileTypeFilter =
                 [new FilePickerFileType("Image Files") { Patterns = ["*.png", "*.jpg", "*.jpeg", "*.webp"] }]
-        });
+        }, sender);
         if (pic.Count == 0) return;
         SettingEntry.IconData = Convert.ToBase64String(await File.ReadAllBytesAsync(pic[0]));
     }

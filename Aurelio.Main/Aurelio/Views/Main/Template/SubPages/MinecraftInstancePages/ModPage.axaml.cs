@@ -72,7 +72,7 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
 
             LoadMods();
         };
-        DeleteSelectModBtn.Click += async (_, _) =>
+        DeleteSelectModBtn.Click += async (sender, _) =>
         {
             var mods = ModManageList.SelectedItems;
             if (mods is null || mods.Count <= 0) return;
@@ -83,7 +83,7 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
                 ? MainLang.MoveToRecycleBin
                 : MainLang.DeleteSelect;
             var dialog = await ShowDialogAsync(title, text, b_cancel: MainLang.Cancel,
-                b_primary: MainLang.Ok);
+                b_primary: MainLang.Ok, sender: sender as Control);
             if (dialog != ContentDialogResult.Primary) return;
 
             foreach (var item in mods)

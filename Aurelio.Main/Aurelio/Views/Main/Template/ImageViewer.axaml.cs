@@ -102,7 +102,7 @@ public partial class ImageViewer : PageMixModelBase, IAurelioTabPage
             ? MainLang.MoveToRecycleBin
             : MainLang.DeleteSelect;
         var dialog = await ShowDialogAsync(title, $"• {Path.GetFileName(_path)}\n", b_cancel: MainLang.Cancel,
-            b_primary: MainLang.Ok);
+            b_primary: MainLang.Ok, sender: sender as Control);
         if (dialog != ContentDialogResult.Primary) return;
 
         if (Data.DesktopType == DesktopType.Windows)

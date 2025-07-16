@@ -25,10 +25,14 @@ namespace Aurelio.Public.Module.Service.Minecraft.Launcher;
 
 public partial class MinecraftClientLauncher
 {
-    public static async Task Launch(RecordMinecraftEntry entry, string host)
+    public static async Task Launch(RecordMinecraftEntry entry, Control sender)
     {
         var cts = new CancellationTokenSource();
         var token = cts.Token;
+        var vis = sender.GetVisualRoot();
+        var host = vis is TabWindow w
+            ? w.DialogHost.HostId
+            : "MainWindow";
         MinecraftLaunchSettingEntry setting;
 
         try
@@ -43,7 +47,7 @@ public partial class MinecraftClientLauncher
                 _ = ShowDialogAsync(MainLang.LaunchFail, MainLang.CannotFindJavaTip
                         .Replace("{mcVer}", entry.MlEntry.Version.VersionId)
                         .Replace("{javaVer}", entry.MlEntry.GetAppropriateJavaVersion().ToString()),
-                    b_primary: MainLang.Ok);
+                    b_primary: MainLang.Ok, sender: sender);
                 return;
             }
 
@@ -221,7 +225,7 @@ public partial class MinecraftClientLauncher
                             {
                                 var dialog = await ShowDialogAsync(MainLang.LaunchArguments,
                                     string.Join(" \n", process.ArgumentList), b_cancel: MainLang.Ok,
-                                    b_primary: MainLang.Copy);
+                                    b_primary: MainLang.Copy , sender: sender);
                                 if (dialog != ContentDialogResult.Primary) return;
                                 var clipboard = Aurelio.App.TopLevel.Clipboard;
                                 await clipboard.SetTextAsync(copyArguments);

@@ -36,7 +36,7 @@ public class MinecraftLocalModEntry : ReactiveObject
         Callback?.Invoke();
     }
 
-    public async Task Delete()
+    public async Task Delete(Control sender)
     {
         var text = $"• {System.IO.Path.GetFileName(FileName)}";
 
@@ -44,7 +44,7 @@ public class MinecraftLocalModEntry : ReactiveObject
             ? MainLang.MoveToRecycleBin
             : MainLang.DeleteSelect;
         var dialog = await ShowDialogAsync(title, text, b_cancel: MainLang.Cancel,
-            b_primary: MainLang.Ok);
+            b_primary: MainLang.Ok, sender: sender);
         if (dialog != ContentDialogResult.Primary) return;
 
         if (Data.DesktopType == DesktopType.Windows)

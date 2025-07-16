@@ -24,7 +24,7 @@ public abstract class Overlay
 {
     public static async Task<ContentDialogResult> ShowDialogAsync(string title = "Title", string msg = null,
         Control? p_content = null, string b_primary = null, string b_cancel = null, string b_secondary = null,
-        TopLevel? p_host = null)
+        TopLevel? p_host = null, Control? sender = null)
     {
         var content = p_content ?? new SelectableTextBlock
         {
@@ -57,7 +57,7 @@ public abstract class Overlay
             SecondaryButtonText = b_secondary,
             Title = title
         };
-        var result = await dialog.ShowAsync(p_host ?? TopLevel.GetTopLevel(Aurelio.App.UiRoot));
+        var result = await dialog.ShowAsync(p_host ?? TopLevel.GetTopLevel(sender ?? Aurelio.App.UiRoot));
         return result;
     }
 
