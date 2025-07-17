@@ -1,6 +1,7 @@
 ﻿using System;
 using Aurelio.Public.Module.IO;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Dialogs;
 using HotAvalonia;
 
@@ -38,5 +39,10 @@ internal sealed class Program
             .UseHotReload()
 #endif
             .UsePlatformDetect()
+            .With(new MacOSPlatformOptions
+            {
+                DisableAvaloniaAppDelegate = true,
+                DisableDefaultApplicationMenuItems = true
+            })
             .LogToTrace();
 }
