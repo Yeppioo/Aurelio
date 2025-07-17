@@ -1,8 +1,8 @@
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Views.Main;
-using Aurelio.Views.Main.Template;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
+using TaskCenter = Aurelio.Views.Main.Pages.Template.TaskCenter;
 
 namespace Aurelio.Public.Styles.Override;
 

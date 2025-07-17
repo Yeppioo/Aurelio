@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using Aurelio.ViewModels;
+using Aurelio.Public.ViewModels;
 
 namespace Aurelio.Public.Classes.Minecraft;
 

@@ -6,17 +6,16 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Langs;
 using Aurelio.Views.Main;
-using Aurelio.Views.Main.InstancePages.Drawer;
 using Avalonia.Controls.Notifications;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.VisualTree;
 using FluentAvalonia.UI.Controls;
-using Irihi.Avalonia.Shared.Shapes;
 using Ursa.Common;
 using Ursa.Controls;
 using Ursa.Controls.Options;
 using Notification = Ursa.Controls.Notification;
+using TaskCenterDrawer = Aurelio.Views.Overlay.TaskCenterDrawer;
 
 namespace Aurelio.Public.Module.Ui;
 

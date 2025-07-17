@@ -110,26 +110,26 @@
             <DependentUpon>CrashWindow.axaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Compile Update="Views\Main\InstancePages\MoreButtonMenu.axaml.cs">
-          <DependentUpon>MoreButtonMenu.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Views\Main\Template\SubPages\"/>
+        <Folder Include="Views\Main\Pages\" />
     </ItemGroup>
     
     <ItemGroup>
-        <AdditionalFiles Include="Views\Main\InstancePages\Drawer\TaskCenterDrawer.axaml" />
-        <AdditionalFiles Include="Views\Main\InstancePages\SubPages\SettingPages\AurelioPage.axaml" />
-        <AdditionalFiles Include="Views\Main\InstancePages\SubPages\SettingPages\PersonalizationPage.axaml" />
-        <AdditionalFiles Include="Views\Main\Template\SubPages\MinecraftInstancePages\ModPage.axaml"/>
-        <AdditionalFiles Include="Views\Main\Template\SubPages\MinecraftInstancePages\OverViewPage.axaml"/>
-        <AdditionalFiles Include="Views\Main\Template\SubPages\MinecraftInstancePages\ResourcePackPage.axaml"/>
-        <AdditionalFiles Include="Views\Main\Template\SubPages\MinecraftInstancePages\SavePage.axaml"/>
-        <AdditionalFiles Include="Views\Main\Template\SubPages\MinecraftInstancePages\ScreenshotPage.axaml"/>
-        <AdditionalFiles Include="Views\Main\Template\SubPages\MinecraftInstancePages\ShaderPackPage.axaml"/>
+        <AdditionalFiles Include="Views\Overlay\TaskCenterDrawer.axaml" />
+        <AdditionalFiles Include="Views\Main\Pages\Instance\HomeTabPage.axaml" />
+        <AdditionalFiles Include="Views\Main\Pages\Instance\MoreButtonMenu.axaml" />
+        <AdditionalFiles Include="Views\Main\Pages\Instance\SettingTabPage.axaml" />
+        <AdditionalFiles Include="Views\Main\Pages\Instance\SubPages\SettingPages\AccountPage.axaml" />
+        <AdditionalFiles Include="Views\Main\Pages\Instance\SubPages\SettingPages\DownloadPage.axaml" />
+        <AdditionalFiles Include="Views\Main\Pages\Instance\SubPages\SettingPages\LaunchPage.axaml" />
+        <AdditionalFiles Include="Views\Main\Pages\Instance\TestTabPage.axaml" />
+        <AdditionalFiles Include="Views\Main\Pages\Template\ImageViewer.axaml" />
+        <AdditionalFiles Include="Views\Main\Pages\Template\LogViewer.axaml" />
+        <AdditionalFiles Include="Views\Main\Pages\Template\MinecraftInstancePage.axaml" />
+        <AdditionalFiles Include="Views\Main\Pages\Template\Render3DSkin.axaml" />
+        <AdditionalFiles Include="Views\Main\Pages\Template\TaskCenter.axaml" />
     </ItemGroup>
 
     <ItemGroup>

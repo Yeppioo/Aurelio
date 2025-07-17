@@ -4,12 +4,12 @@ using System.Threading;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Module.Service;
 using Aurelio.Views.Main;
-using Aurelio.Views.Main.Template;
 using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using ImageViewer = Aurelio.Views.Main.Pages.Template.ImageViewer;
 
 namespace Aurelio.Public.Controls;
 

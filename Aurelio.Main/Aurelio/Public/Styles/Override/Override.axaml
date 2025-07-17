@@ -1,8 +1,8 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
-    xmlns:drawer="clr-namespace:Aurelio.Views.Main.InstancePages.Drawer"
+    xmlns:drawer1="clr-namespace:Aurelio.Views.Overlay"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
-    xmlns:template="clr-namespace:Aurelio.Views.Main.Template"
+    xmlns:template1="clr-namespace:Aurelio.Views.Main.Pages.Template"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
@@ -221,8 +221,8 @@
     <Style Selector="u|DefaultDrawerControl /template/ Border#PART_Root.Shadow">
         <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}" />
     </Style>
-    <Style Selector="drawer|TaskCenterDrawer">
-        <Style Selector="^ template|TaskCenter">
+    <Style Selector="drawer1|TaskCenterDrawer">
+        <Style Selector="^ template1|TaskCenter">
             <Style Selector="^ Border.card">
                 <Setter Property="Background" Value="{DynamicResource 2xCardBackgroundColor}" />
             </Style>

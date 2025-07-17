@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Aurelio.Public.Classes.Interfaces;
-using Aurelio.ViewModels;
+using Aurelio.Public.ViewModels;
 using Aurelio.Views.Main;
 using Avalonia.Data;
 using Avalonia.Media;

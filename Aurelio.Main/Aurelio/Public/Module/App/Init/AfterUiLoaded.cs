@@ -4,8 +4,8 @@ using System.Linq;
 using Aurelio.Public.Module.App.Services;
 using Aurelio.Public.Module.Service.Minecraft;
 using Aurelio.Public.Module.Ui;
-using Aurelio.Views.Main.InstancePages.SubPages.SettingPages;
 using Avalonia.Media;
+using AurelioPage = Aurelio.Views.Main.Pages.Instance.SubPages.SettingPages.AurelioPage;
 
 namespace Aurelio.Public.Module.App.Init;
 

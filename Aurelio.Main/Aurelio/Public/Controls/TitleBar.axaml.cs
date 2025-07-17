@@ -1,4 +1,4 @@
-using Aurelio.ViewModels;
+using Aurelio.Public.ViewModels;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;

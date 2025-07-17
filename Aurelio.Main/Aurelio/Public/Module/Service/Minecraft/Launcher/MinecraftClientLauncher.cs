@@ -7,7 +7,6 @@ using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO;
 using Aurelio.Views.Main;
-using Aurelio.Views.Main.Template;
 using Avalonia.Controls.Notifications;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -20,6 +19,7 @@ using MinecraftLaunch.Components.Parser;
 using MinecraftLaunch.Extensions;
 using MinecraftLaunch.Launch;
 using Newtonsoft.Json;
+using LogViewer = Aurelio.Views.Main.Pages.Template.LogViewer;
 
 namespace Aurelio.Public.Module.Service.Minecraft.Launcher;
 

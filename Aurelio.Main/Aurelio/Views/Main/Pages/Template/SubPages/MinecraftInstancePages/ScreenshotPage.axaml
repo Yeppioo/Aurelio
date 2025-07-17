@@ -1,0 +1,59 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Views.Main.Pages.Template.SubPages.MinecraftInstancePages.ScreenshotPage"
+    x:DataType="minecraftInstancePages1:ScreenshotPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:minecraftInstancePages1="clr-namespace:Aurelio.Views.Main.Pages.Template.SubPages.MinecraftInstancePages"
+    xmlns:properties="clr-namespace:Aurelio.Public.Langs"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Name="Root">
+        <Grid Margin="15,0,15,15">
+            <DockPanel>
+                <Border DockPanel.Dock="Top" Margin="0,0,0,0">
+                    <DockPanel VerticalAlignment="Top">
+                        <Button Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.OpenFolder}" Name="OpenFolderBtn" />
+                        <Button
+                            Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Refresh}"
+                            Margin="5,0,0,0"
+                            Name="RefreshModBtn" />
+                        <TextBox
+                            HorizontalAlignment="Stretch"
+                            Margin="5,0,0,0"
+                            Name="ModSearchBox"
+                            Text="{Binding Filter}"
+                            Watermark="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SearchKeyword}" />
+                    </DockPanel>
+                </Border>
+                <ScrollViewer Margin="0,5,0,0" Name="ScrollViewer">
+                    <WrapPanel
+                        HorizontalAlignment="Center"
+                        Margin="10,0,10,10"
+                        Name="Container"
+                        VerticalAlignment="Top">
+                        <WrapPanel.Transitions>
+                            <Transitions>
+                                <DoubleTransition Duration="0:0:0.3" Property="Opacity" />
+                            </Transitions>
+                        </WrapPanel.Transitions>
+                    </WrapPanel>
+                </ScrollViewer>
+            </DockPanel>
+            <TextBlock
+                Foreground="{DynamicResource GrayColor}"
+                HorizontalAlignment="Center"
+                IsVisible="False"
+                Margin="0,100,0,0"
+                Name="NoMatchResultTip"
+                Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.NoMatchResult}" />
+            <controls:ProgressRing
+                Height="50"
+                IsVisible="{Binding Loading}"
+                Width="50" />
+        </Grid>
+    </Border>
+</UserControl>

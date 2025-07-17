@@ -1,0 +1,132 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Views.Main.Pages.Instance.SettingTabPage"
+    x:DataType="instance:SettingTabPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:instance="clr-namespace:Aurelio.Views.Main.Pages.Instance"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:properties="clr-namespace:Aurelio.Public.Langs"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Name="Root">
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Margin="15,5,15,10">
+                <Border
+                    Background="{DynamicResource CardBackgroundColor}"
+                    CornerRadius="{DynamicResource CardCornerRadius}"
+                    DockPanel.Dock="Top"
+                    Height="40"
+                    VerticalAlignment="Top">
+                    <u:SelectionList
+                        Margin="0,-1,0,0"
+                        SelectedItem="{Binding SelectedItem}"
+                        x:Name="Nav">
+                        <u:SelectionList.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel
+                                    Margin="15,0"
+                                    Orientation="Horizontal"
+                                    Spacing="25" />
+                            </ItemsPanelTemplate>
+                        </u:SelectionList.ItemsPanel>
+                        <u:SelectionList.Items>
+                            <u:SelectionListItem
+                                IsSelected="True"
+                                Name="NavLaunch"
+                                Tag="{Binding LaunchPage}">
+                                <DockPanel>
+                                    <PathIcon
+                                        Data="F1 M 19.730377 2.548828 C 19.686432 2.338867 19.45694 2.109375 19.246979 2.06543 C 17.992172 1.796875 17.010765 1.796875 16.029396 1.796875 C 12.001305 1.796875 9.579582 3.955078 7.777901 6.796875 L 3.705864 6.796875 C 3.071136 6.796875 2.314339 7.260742 2.031136 7.832031 L 0.102539 11.689453 C 0.039062 11.821289 0.009766 11.962891 0 12.109375 C 0.004883 12.626953 0.419884 13.046875 0.942345 13.046875 L 4.999733 13.046875 C 7.069931 13.046875 8.749542 14.726562 8.749542 16.796875 L 8.749542 20.859375 C 8.749542 21.376953 9.169426 21.796875 9.687004 21.796875 C 9.83345 21.791992 9.975052 21.757812 10.106888 21.699219 L 13.964119 19.770508 C 14.530487 19.482422 14.999161 18.730469 14.999161 18.095703 L 14.999161 14.013672 C 17.831039 12.207031 19.998894 9.780273 19.998894 5.771484 C 20.003777 4.785156 20.003777 3.803711 19.730377 2.548828 Z M 14.999161 8.359375 C 14.139862 8.359375 13.436775 7.661133 13.436775 6.796875 C 13.441658 5.932617 14.139862 5.234375 15.004044 5.234375 C 15.86338 5.234375 16.561584 5.932617 16.561584 6.796875 C 16.561584 7.661133 15.86338 8.359375 14.999161 8.359375 Z M 1.391525 15.551758 C 0.385704 16.557617 -0.117188 19.086914 0.024414 21.772461 C 2.724457 21.914062 5.243874 21.40625 6.249657 20.400391 C 7.821846 18.828125 7.924385 16.733398 6.493797 15.302734 C 5.06321 13.876953 2.968597 13.974609 1.391525 15.551758 Z M 4.584732 18.833008 C 4.247818 19.165039 3.408012 19.335938 2.509651 19.287109 C 2.460823 18.393555 2.626801 17.548828 2.963715 17.216797 C 3.49102 16.689453 4.189224 16.655273 4.662857 17.133789 C 5.141335 17.607422 5.107155 18.305664 4.584732 18.833008 Z "
+                                        Height="13"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,-1,1,0"
+                                        VerticalAlignment="Center"
+                                        Width="14" />
+                                    <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Launch}" />
+                                </DockPanel>
+                            </u:SelectionListItem>
+                            <u:SelectionListItem Name="NavAccount" Tag="{Binding AccountPage}">
+                                <DockPanel>
+                                    <PathIcon
+                                        Data="F1 M 10 2.421875 C 4.822311 2.421875 0.625 6.619186 0.625 11.796875 C 0.625 16.974564 4.822311 21.171875 10 21.171875 C 15.177689 21.171875 19.375 16.974564 19.375 11.796875 C 19.375 6.619186 15.177689 2.421875 10 2.421875 Z M 10 6.796875 C 11.553345 6.796875 12.8125 8.056107 12.8125 9.609375 C 12.8125 11.162643 11.553345 12.421875 10 12.421875 C 8.446808 12.421875 7.1875 11.162643 7.1875 9.609375 C 7.1875 8.056107 8.446808 6.796875 10 6.796875 Z M 10 18.671875 C 7.922134 18.671875 6.060715 17.741547 4.799042 16.279907 C 5.533524 15.093842 6.835861 14.296875 8.333359 14.296875 L 11.666641 14.296875 C 13.164291 14.296875 14.466553 15.093765 15.200958 16.279831 C 13.939209 17.741547 12.077866 18.671875 10 18.671875 Z "
+                                        Height="15"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,0,3,0"
+                                        VerticalAlignment="Center"
+                                        Width="15" />
+                                    <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Account}" />
+                                </DockPanel>
+                            </u:SelectionListItem>
+                            <u:SelectionListItem Name="NavPersonalize" Tag="{Binding PersonalizationPage}">
+                                <DockPanel>
+                                    <PathIcon
+                                        Data="F1 M 7.980919 1.993637 C 4.0979 2.751732 0.9692 5.87307 0.202599 9.744034 C -1.242714 17.048836 5.3479 22.494507 10.3125 21.724205 C 11.921349 21.473999 12.711182 19.591599 11.972656 18.142624 C 11.070557 16.368904 12.359619 14.298553 14.351807 14.298553 L 17.4646 14.298553 C 18.863525 14.298553 19.996338 13.142509 20 11.747208 C 19.980469 5.591087 14.378662 0.747261 7.980919 1.993637 Z M 3.75 14.298553 C 3.059044 14.298553 2.5 13.739471 2.5 13.048515 C 2.5 12.357559 3.059044 11.798515 3.75 11.798515 C 4.440956 11.798515 5 12.357559 5 13.048515 C 5 13.739471 4.44088 14.298553 3.75 14.298553 Z M 5 9.298439 C 4.309044 9.298439 3.75 8.739357 3.75 8.048439 C 3.75 7.357483 4.309044 6.798401 5 6.798401 C 5.690956 6.798401 6.25 7.357483 6.25 8.048439 C 6.25 8.739357 5.69088 9.298439 5 9.298439 Z M 10 6.798401 C 9.309044 6.798401 8.75 6.239281 8.75 5.548401 C 8.75 4.857483 9.309044 4.298363 10 4.298363 C 10.690956 4.298363 11.25 4.857445 11.25 5.548401 C 11.25 6.239319 10.69088 6.798401 10 6.798401 Z M 15 9.298439 C 14.309044 9.298439 13.75 8.739357 13.75 8.048439 C 13.75 7.357483 14.309044 6.798401 15 6.798401 C 15.690956 6.798401 16.25 7.357483 16.25 8.048439 C 16.25 8.739357 15.69088 9.298439 15 9.298439 Z "
+                                        Height="15"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,0,3,-1"
+                                        VerticalAlignment="Center"
+                                        Width="15" />
+                                    <TextBlock
+                                        FontSize="14"
+                                        Margin="5,0,0,0"
+                                        Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Personalize}" />
+                                </DockPanel>
+                            </u:SelectionListItem>
+                            <u:SelectionListItem Tag="{Binding DownloadPage}">
+                                <DockPanel>
+                                    <PathIcon
+                                        Data="F1 M 18.499756 10.648193 C 18.659706 10.230713 18.75 9.77356 18.75 9.296875 C 18.75 7.226562 17.070312 5.546875 15 5.546875 C 14.230919 5.546875 13.511963 5.78125 12.917519 6.17981 C 11.835938 4.30481 9.816856 3.046875 7.5 3.046875 C 4.046631 3.046875 1.25 5.843506 1.25 9.296875 C 1.25 9.402466 1.253662 9.508057 1.257362 9.613037 C -0.930138 10.38269 -2.5 12.468872 -2.5 14.921875 C -2.5 18.027344 0.019531 20.546875 3.125 20.546875 L 17.5 20.546875 C 20.261269 20.546875 22.5 18.308716 22.5 15.546875 C 22.5 13.128662 20.78125 11.109619 18.499756 10.648193 Z M 14.100342 14.334717 L 10.662842 17.772217 C 10.562706 17.872391 10.331802 18.046875 10 18.046875 C 9.668198 18.046875 9.437294 17.872391 9.337158 17.772217 L 5.899658 14.334717 C 5.533447 13.968506 5.533447 13.375244 5.899658 13.009033 C 6.265869 12.642822 6.859131 12.642822 7.225342 13.009033 L 9.0625 14.846153 L 9.0625 8.984375 C 9.0625 8.466797 9.482422 8.046875 10 8.046875 C 10.517578 8.046875 10.9375 8.466797 10.9375 8.984375 L 10.9375 14.846153 L 12.774658 13.009033 C 13.140869 12.642822 13.734131 12.642822 14.100342 13.009033 C 14.466553 13.375244 14.466553 13.968506 14.100342 14.334717 Z "
+                                        Height="15"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,0,8,0"
+                                        VerticalAlignment="Center"
+                                        Width="17" />
+                                    <TextBlock Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Download}" />
+                                </DockPanel>
+                            </u:SelectionListItem>
+                            <u:SelectionListItem Name="PluginSettingNavControl" Tag="plugin">
+                                <DockPanel>
+                                    <PathIcon
+                                        Data="F1 M 15 3.046875 C 15 2.358398 14.438477 1.796875 13.75 1.796875 C 13.061523 1.796875 12.5 2.358398 12.5 3.046875 L 12.5 6.796875 L 15 6.796875 Z M 16.875 8.046875 L 3.125 8.046875 C 2.77832 8.046875 2.5 8.325195 2.5 8.671875 L 2.5 9.921875 C 2.5 10.268555 2.77832 10.546875 3.125 10.546875 L 3.75 10.546875 L 3.75 11.796875 C 3.75 14.765625 5.839844 17.329102 8.75 17.919922 L 8.75 21.796875 L 11.25 21.796875 L 11.25 17.919922 C 14.160156 17.329102 16.25 14.765625 16.25 11.796875 L 16.25 10.546875 L 16.875 10.546875 C 17.22168 10.546875 17.5 10.268555 17.5 9.921875 L 17.5 8.671875 C 17.5 8.325195 17.22168 8.046875 16.875 8.046875 Z M 7.5 3.046875 C 7.5 2.358398 6.938477 1.796875 6.25 1.796875 C 5.561523 1.796875 5 2.358398 5 3.046875 L 5 6.796875 L 7.5 6.796875 Z "
+                                        Height="16"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,0,10,0"
+                                        VerticalAlignment="Center"
+                                        Width="15" />
+                                    <TextBlock Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Plugin}" />
+                                </DockPanel>
+                            </u:SelectionListItem>
+                            <u:SelectionListItem Name="NavAurelio" Tag="{Binding AurelioPage}">
+                                <DockPanel>
+                                    <PathIcon
+                                        Data="M40.1 467.1l-11.2 9c-3.2 2.5-7.1 3.9-11.1 3.9C8 480 0 472 0 462.2L0 192C0 86 86 0 192 0S384 86 384 192l0 270.2c0 9.8-8 17.8-17.8 17.8c-4 0-7.9-1.4-11.1-3.9l-11.2-9c-13.4-10.7-32.8-9-44.1 3.9L269.3 506c-3.3 3.8-8.2 6-13.3 6s-9.9-2.2-13.3-6l-26.6-30.5c-12.7-14.6-35.4-14.6-48.2 0L141.3 506c-3.3 3.8-8.2 6-13.3 6s-9.9-2.2-13.3-6L84.2 471c-11.3-12.9-30.7-14.6-44.1-3.9zM160 192a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm96 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
+                                        Height="16"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,0,7,0"
+                                        VerticalAlignment="Center"
+                                        Width="18" />
+                                    <TextBlock Text="Aurelio" />
+                                </DockPanel>
+                            </u:SelectionListItem>
+                        </u:SelectionList.Items>
+                        <u:SelectionList.Indicator>
+                            <Border>
+                                <Border
+                                    Background="{DynamicResource SystemAccentColor}"
+                                    CornerRadius="10"
+                                    Height="3"
+                                    Margin="5,0,5,5"
+                                    VerticalAlignment="Bottom"
+                                    Width="40" />
+                            </Border>
+                        </u:SelectionList.Indicator>
+                    </u:SelectionList>
+                </Border>
+            </StackPanel>
+            <ContentControl Content="{Binding SelectedItem.Tag}" DockPanel.Dock="Bottom" />
+        </DockPanel>
+    </Border>
+</UserControl>
