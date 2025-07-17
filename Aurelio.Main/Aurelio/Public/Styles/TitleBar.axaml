@@ -39,8 +39,11 @@
                 <Setter Property="Background" Value="{DynamicResource TitleBarHoverColor}" />
             </Style>
             <Style Selector="^.close-button /template/ Border">
+                <Setter Property="Background" Value="Red" />
+            </Style>
+            <Style Selector="^.close-button /template/ Border">
                 <Style Selector="^ Path">
-                    <Setter Property="Fill" Value="{DynamicResource SystemAccentColor}" />
+                    <Setter Property="Fill" Value="White" />
                 </Style>
             </Style>
         </Style>

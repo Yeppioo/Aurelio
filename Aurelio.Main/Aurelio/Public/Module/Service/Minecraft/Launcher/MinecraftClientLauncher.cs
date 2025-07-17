@@ -79,7 +79,7 @@ public partial class MinecraftClientLauncher
         task.NextSubTask();
         task.NextSubTask();
 
-        _ = OpenTaskDrawer(host);
+        _ = OpenTaskDrawer(host!);
 
         Account? account;
         switch (Data.SettingEntry.UsingMinecraftAccount.AccountType)
