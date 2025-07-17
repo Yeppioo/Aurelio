@@ -134,32 +134,27 @@ public partial class MainWindow : WindowBase
     private void BindEvents()
     {
         Closing += OnMainWindowClosing;
-        PropertyChanged += (_, e) =>
+        if (Data.DesktopType == DesktopType.MacOs)
         {
-            if (Data.DesktopType == DesktopType.MacOs)
+            PropertyChanged += (_, e) =>
             {
                 var platform = TryGetPlatformHandle();
-                if (platform is not null)
+                if (platform is null) return;
+                var nsWindow = platform.Handle;
+                if (nsWindow == IntPtr.Zero) return;
+                try
                 {
-                    var nsWindow = platform.Handle;
-                    if (nsWindow != IntPtr.Zero)
-                    {
-                        try
-                        {
-                            MacOsWindowHandler.RefreshTitleBarButtonPosition(nsWindow);
-                            // 移除隐藏按钮的代码，使用系统原生按钮
-                            MacOsWindowHandler.HideZoomButton(nsWindow);
+                    MacOsWindowHandler.RefreshTitleBarButtonPosition(nsWindow);
+                    MacOsWindowHandler.HideZoomButton(nsWindow);
 
-                            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.Default;
-                        }
-                        catch (Exception exception)
-                        {
-                            Console.WriteLine(exception);
-                        }
-                    }
+                    ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.Default;
                 }
-            }
-        };
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                }
+            };
+        }
         NavScrollViewer.ScrollChanged += (_, _) => { ViewModel.IsTabMaskVisible = NavScrollViewer.Offset.X > 0; };
         Loaded += (_, _) =>
         {

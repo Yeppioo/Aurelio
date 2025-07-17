@@ -3,6 +3,7 @@ using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Module.Service;
+using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
 using Aurelio.Views.Overlay;
 using Avalonia.Controls.Notifications;
@@ -55,10 +56,25 @@ public partial class TabWindow : WindowBase
             IsManagedResizerVisible = true;
             SystemDecorations = SystemDecorations.None;
             Root.CornerRadius = new CornerRadius(0);
+            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
+            ExtendClientAreaToDecorationsHint = true;
         }
-
-        ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
-        ExtendClientAreaToDecorationsHint = true;
+        else if (Data.DesktopType == DesktopType.MacOs)
+        {
+            SystemDecorations = SystemDecorations.Full;
+            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.Default;
+            ExtendClientAreaToDecorationsHint = true;
+            TitleRoot.Margin = new Thickness(65, 0, 0, 0);
+            TitleBar.IsCloseBtnShow = false;
+            TitleBar.IsMinBtnShow = false;
+            TitleBar.IsMaxBtnShow = false;
+            NavRoot.Margin = new Thickness(125, 0, 15, 0);
+        }
+        else
+        {
+            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
+            ExtendClientAreaToDecorationsHint = true;
+        }
     }
 
     private void OnClosing(object? sender, WindowClosingEventArgs e)
@@ -94,6 +110,27 @@ public partial class TabWindow : WindowBase
         Closing += OnClosing;
         ViewModel.TabsEmptied += OnTabsEmptied;
         NavScrollViewer.ScrollChanged += (_, _) => { ViewModel.IsTabMaskVisible = NavScrollViewer.Offset.X > 0; };
+        if (Data.DesktopType == DesktopType.MacOs)
+        {
+            PropertyChanged += (_, e) =>
+            {
+                var platform = TryGetPlatformHandle();
+                if (platform is null) return;
+                var nsWindow = platform.Handle;
+                if (nsWindow == IntPtr.Zero) return;
+                try
+                {
+                    MacOsWindowHandler.RefreshTitleBarButtonPosition(nsWindow);
+                    MacOsWindowHandler.HideZoomButton(nsWindow);
+
+                    ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.Default;
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                }
+            };
+        }
         KeyDown += (_, e) =>
         {
             if (e.Key is not (Key.LeftShift or Key.RightShift)) return;

@@ -1,6 +1,7 @@
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.Ui;
+using Aurelio.Public.Module.Ui.Helper;
 using Avalonia.Interactivity;
 using Avalonia.Platform;
 using Ursa.Controls;
@@ -50,9 +51,45 @@ public partial class CrashWindow : UrsaWindow
             IsManagedResizerVisible = true;
             SystemDecorations = SystemDecorations.None;
             Root.CornerRadius = new CornerRadius(0);
+            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
+            ExtendClientAreaToDecorationsHint = true;
         }
+        else if (Data.DesktopType == DesktopType.MacOs)
+        {
+            SystemDecorations = SystemDecorations.Full;
+            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.Default;
+            ExtendClientAreaToDecorationsHint = true;
+            TitleRoot.Margin = new Thickness(65, 0, 0, 0);
+            TitleBar.IsCloseBtnShow = false;
+            TitleBar.IsMinBtnShow = false;
+            TitleBar.IsMaxBtnShow = false;
+        }
+        else
+        {
+            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
+            ExtendClientAreaToDecorationsHint = true;
+        }
+        
+        if (Data.DesktopType == DesktopType.MacOs)
+        {
+            PropertyChanged += (_, _) =>
+            {
+                var platform = TryGetPlatformHandle();
+                if (platform is null) return;
+                var nsWindow = platform.Handle;
+                if (nsWindow == IntPtr.Zero) return;
+                try
+                {
+                    MacOsWindowHandler.RefreshTitleBarButtonPosition(nsWindow);
+                    MacOsWindowHandler.HideZoomButton(nsWindow);
 
-        ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
-        ExtendClientAreaToDecorationsHint = true;
+                    ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.Default;
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                }
+            };
+        }
     }
 }
