@@ -24,140 +24,149 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Border Name="Root">
-        <ScrollViewer Margin="15,5,15,15">
-            <ItemsControl ItemsSource="{Binding Tasks}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="entries:TaskEntry">
-                        <Border Classes="card" Margin="0,0,0,15">
-                            <Expander
-                                Classes="card"
-                                IsExpanded="{Binding Expanded}"
-                                Tag="{Binding}">
-                                <Expander.Header>
-                                    <DockPanel
-                                        HorizontalAlignment="Stretch"
-                                        Margin="5,10,0,10"
-                                        Name="HeaderContent"
-                                        Width="{x:Static x:Double.NaN}"
-                                        x:DataType="entries:TaskEntry">
-                                        <ContentControl DockPanel.Dock="Left">
-                                            <PathIcon Data="M32 32C32 14.3 46.3 0 64 0L320 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-29.5 0 11.4 148.2c36.7 19.9 65.7 53.2 79.5 94.7l1 3c3.3 9.8 1.6 20.5-4.4 28.8s-15.7 13.3-26 13.3L32 352c-10.3 0-19.9-4.9-26-13.3s-7.7-19.1-4.4-28.8l1-3c13.8-41.5 42.8-74.8 79.5-94.7L93.5 64 64 64C46.3 64 32 49.7 32 32zM160 384l64 0 0 96c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-96z" />
-                                        </ContentControl>
-                                        <StackPanel
-                                            DockPanel.Dock="Right"
-                                            Orientation="Horizontal"
-                                            Spacing="10">
-                                            <Button
-                                                Command="{Binding DestroyActionCommand}"
-                                                Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Destroy}"
-                                                IsVisible="{Binding IsDestroyButtonVisible}" />
-                                            <Button
-                                                Command="{Binding ButtonActionCommand}"
-                                                Content="{Binding ButtonText}"
-                                                IsEnabled="{Binding IsButtonEnable}" />
-                                        </StackPanel>
-                                        <StackPanel Margin="10,0">
-                                            <DockPanel>
-                                                <TextBlock
-                                                    DockPanel.Dock="Left"
-                                                    HorizontalAlignment="Left"
-                                                    Margin="1,0,0,0"
-                                                    Text="{Binding Name}" />
-                                                <StackPanel
-                                                    DockPanel.Dock="Right"
-                                                    FlowDirection="RightToLeft"
-                                                    HorizontalAlignment="Right"
-                                                    Orientation="Horizontal"
-                                                    Width="140">
-                                                    <TextBlock
-                                                        HorizontalAlignment="Right"
-                                                        IsVisible="{Binding ProgressIsIndeterminate, Converter={StaticResource BoolReversalConverter}}"
-                                                        Margin="0,0,1,0"
-                                                        TextAlignment="Right"><Run Text="%" />
-                                                        <Run Text="{Binding ProgressValue}" />
-                                                    </TextBlock>
-                                                    <TextBlock
-                                                        FontSize="12"
-                                                        Foreground="{DynamicResource GrayColor}"
-                                                        Margin="5,0,10,0"
-                                                        Text="{Binding TopRightInfoText}"
-                                                        TextAlignment="Right" />
-                                                </StackPanel>
-                                            </DockPanel>
-                                            <ProgressBar
-                                                Foreground="{Binding TaskState, Converter={StaticResource TaskStateToColorConverter}}"
-                                                IsIndeterminate="{Binding ProgressIsIndeterminate}"
-                                                MinWidth="0"
-                                                Value="{Binding ProgressValue}" />
-                                            <DockPanel>
-                                                <StackPanel
-                                                    DockPanel.Dock="Left"
-                                                    HorizontalAlignment="Left"
-                                                    Orientation="Horizontal">
-                                                    <TextBlock
-                                                        FontSize="12"
-                                                        Foreground="{DynamicResource GrayColor}"
-                                                        Margin="1,0,0,0"
-                                                        Text="{Binding TaskState, Converter={StaticResource TaskStateToTipConverter}}" />
-                                                    <TextBlock
-                                                        FontSize="12"
-                                                        Foreground="{DynamicResource GrayColor}"
-                                                        Margin="10,0,0,0"
-                                                        Text="{Binding BottomLeftInfoText}" />
-                                                </StackPanel>
-                                                <StackPanel
-                                                    DockPanel.Dock="Right"
-                                                    HorizontalAlignment="Right"
-                                                    Orientation="Horizontal">
-                                                    <TextBlock
-                                                        FontSize="12"
-                                                        Foreground="{DynamicResource GrayColor}"
-                                                        HorizontalAlignment="Right"
-                                                        Text="{Binding Time}" />
-                                                </StackPanel>
-                                            </DockPanel>
-                                        </StackPanel>
-                                    </DockPanel>
-                                </Expander.Header>
-                                <StackPanel>
-                                    <ItemsControl ItemsSource="{Binding OperateButtons}" Margin="10,10,10,0">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <WrapPanel ItemSpacing="10" />
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate DataType="entries:OperateButtonEntry">
+        <Grid>
+            <ScrollViewer Margin="15,5,15,15">
+                <ItemsControl ItemsSource="{Binding Tasks}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="entries:TaskEntry">
+                            <Border Classes="card" Margin="0,0,0,15">
+                                <Expander
+                                    Classes="card"
+                                    IsExpanded="{Binding Expanded}"
+                                    Tag="{Binding}">
+                                    <Expander.Header>
+                                        <DockPanel
+                                            HorizontalAlignment="Stretch"
+                                            Margin="5,10,0,10"
+                                            Name="HeaderContent"
+                                            Width="{x:Static x:Double.NaN}"
+                                            x:DataType="entries:TaskEntry">
+                                            <ContentControl DockPanel.Dock="Left">
+                                                <PathIcon Data="M32 32C32 14.3 46.3 0 64 0L320 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-29.5 0 11.4 148.2c36.7 19.9 65.7 53.2 79.5 94.7l1 3c3.3 9.8 1.6 20.5-4.4 28.8s-15.7 13.3-26 13.3L32 352c-10.3 0-19.9-4.9-26-13.3s-7.7-19.1-4.4-28.8l1-3c13.8-41.5 42.8-74.8 79.5-94.7L93.5 64 64 64C46.3 64 32 49.7 32 32zM160 384l64 0 0 96c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-96z" />
+                                            </ContentControl>
+                                            <StackPanel
+                                                DockPanel.Dock="Right"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
                                                 <Button
-                                                    Command="{Binding Command}"
-                                                    CommandParameter="{Binding $self}"
-                                                    Content="{Binding Content}" />
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                    <Border HorizontalAlignment="Stretch" Margin="10">
-                                        <TreeView ItemsSource="{Binding SubTasks}">
-                                            <TreeView.Styles>
-                                                <Style Selector="TreeViewItem">
-                                                    <Setter Property="IsExpanded" Value="{Binding Expanded}" />
-                                                </Style>
-                                            </TreeView.Styles>
-                                            <TreeView.ItemTemplate>
-                                                <TreeDataTemplate DataType="entries:TaskEntry" ItemsSource="{Binding SubTasks}">
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <ContentControl Content="{Binding TaskState, Converter={StaticResource TaskStateToIconConverter}}" Margin="0,0,10,0" />
-                                                        <TextBlock Text="{Binding Name}" />
+                                                    Command="{Binding DestroyActionCommand}"
+                                                    Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Destroy}"
+                                                    IsVisible="{Binding IsDestroyButtonVisible}" />
+                                                <Button
+                                                    Command="{Binding ButtonActionCommand}"
+                                                    Content="{Binding ButtonText}"
+                                                    IsEnabled="{Binding IsButtonEnable}" />
+                                            </StackPanel>
+                                            <StackPanel Margin="10,0">
+                                                <DockPanel>
+                                                    <TextBlock
+                                                        DockPanel.Dock="Left"
+                                                        HorizontalAlignment="Left"
+                                                        Margin="1,0,0,0"
+                                                        Text="{Binding Name}" />
+                                                    <StackPanel
+                                                        DockPanel.Dock="Right"
+                                                        FlowDirection="RightToLeft"
+                                                        HorizontalAlignment="Right"
+                                                        Orientation="Horizontal"
+                                                        Width="140">
+                                                        <TextBlock
+                                                            HorizontalAlignment="Right"
+                                                            IsVisible="{Binding ProgressIsIndeterminate, Converter={StaticResource BoolReversalConverter}}"
+                                                            Margin="0,0,1,0"
+                                                            TextAlignment="Right"><Run Text="%" />
+                                                            <Run Text="{Binding ProgressValue}" />
+                                                        </TextBlock>
+                                                        <TextBlock
+                                                            FontSize="12"
+                                                            Foreground="{DynamicResource GrayColor}"
+                                                            Margin="5,0,10,0"
+                                                            Text="{Binding TopRightInfoText}"
+                                                            TextAlignment="Right" />
                                                     </StackPanel>
-                                                </TreeDataTemplate>
-                                            </TreeView.ItemTemplate>
-                                        </TreeView>
-                                    </Border>
-                                </StackPanel>
-                            </Expander>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+                                                </DockPanel>
+                                                <ProgressBar
+                                                    Foreground="{Binding TaskState, Converter={StaticResource TaskStateToColorConverter}}"
+                                                    IsIndeterminate="{Binding ProgressIsIndeterminate}"
+                                                    MinWidth="0"
+                                                    Value="{Binding ProgressValue}" />
+                                                <DockPanel>
+                                                    <StackPanel
+                                                        DockPanel.Dock="Left"
+                                                        HorizontalAlignment="Left"
+                                                        Orientation="Horizontal">
+                                                        <TextBlock
+                                                            FontSize="12"
+                                                            Foreground="{DynamicResource GrayColor}"
+                                                            Margin="1,0,0,0"
+                                                            Text="{Binding TaskState, Converter={StaticResource TaskStateToTipConverter}}" />
+                                                        <TextBlock
+                                                            FontSize="12"
+                                                            Foreground="{DynamicResource GrayColor}"
+                                                            Margin="10,0,0,0"
+                                                            Text="{Binding BottomLeftInfoText}" />
+                                                    </StackPanel>
+                                                    <StackPanel
+                                                        DockPanel.Dock="Right"
+                                                        HorizontalAlignment="Right"
+                                                        Orientation="Horizontal">
+                                                        <TextBlock
+                                                            FontSize="12"
+                                                            Foreground="{DynamicResource GrayColor}"
+                                                            HorizontalAlignment="Right"
+                                                            Text="{Binding Time}" />
+                                                    </StackPanel>
+                                                </DockPanel>
+                                            </StackPanel>
+                                        </DockPanel>
+                                    </Expander.Header>
+                                    <StackPanel>
+                                        <ItemsControl ItemsSource="{Binding OperateButtons}" Margin="10,10,10,0">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel ItemSpacing="10" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate DataType="entries:OperateButtonEntry">
+                                                    <Button
+                                                        Command="{Binding Command}"
+                                                        CommandParameter="{Binding $self}"
+                                                        Content="{Binding Content}" />
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                        <Border HorizontalAlignment="Stretch" Margin="10">
+                                            <TreeView ItemsSource="{Binding SubTasks}">
+                                                <TreeView.Styles>
+                                                    <Style Selector="TreeViewItem">
+                                                        <Setter Property="IsExpanded" Value="{Binding Expanded}" />
+                                                    </Style>
+                                                </TreeView.Styles>
+                                                <TreeView.ItemTemplate>
+                                                    <TreeDataTemplate DataType="entries:TaskEntry" ItemsSource="{Binding SubTasks}">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <ContentControl Content="{Binding TaskState, Converter={StaticResource TaskStateToIconConverter}}" Margin="0,0,10,0" />
+                                                            <TextBlock Text="{Binding Name}" />
+                                                        </StackPanel>
+                                                    </TreeDataTemplate>
+                                                </TreeView.ItemTemplate>
+                                            </TreeView>
+                                        </Border>
+                                    </StackPanel>
+                                </Expander>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <TextBlock
+                Foreground="{DynamicResource GrayColor}"
+                HorizontalAlignment="Center"
+                IsVisible="{Binding HasTask, Converter={StaticResource BoolReversalConverter}}"
+                Margin="0,80,0,0"
+                Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.NoWorkingTask}"
+                VerticalAlignment="Top" />
+        </Grid>
     </Border>
 </UserControl>

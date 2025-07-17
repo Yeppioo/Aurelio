@@ -27,6 +27,7 @@ public class Tasking : ReactiveObject , IDialogContext
         UpdateDisplay();
     }
 
+    [Reactive] public bool HasTask { get; set; }
     [Reactive] public string FocusInfoText { get; set; }
     [Reactive] public SolidColorBrush FocusInfoColor { get; set; }
 
@@ -79,6 +80,7 @@ public class Tasking : ReactiveObject , IDialogContext
     private void TasksChanged()
     {
         UpdateDisplay();
+        HasTask = Tasks.Count > 0;
     }
 
     public void Close()
