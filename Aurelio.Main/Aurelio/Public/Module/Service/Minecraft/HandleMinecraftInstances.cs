@@ -51,6 +51,7 @@ public partial class HandleMinecraftInstances
                 .OrderBy(tag => tag);
 
             UiProperty.AllMinecraftTags.AddRange(userTags);
+            Data.UpdateAggregateSearchEntries();
         });
         Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
         Aurelio.App.UiRoot.ViewModel.HomeTabPage.Root.IsVisible = true;

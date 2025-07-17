@@ -19,7 +19,7 @@
             <converter:TaskStateToTipConverter x:Key="TaskStateToTipConverter" />
             <converter:TaskStateToIconConverter x:Key="TaskStateToIconConverter" />
             <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="/Public/Styles/Override/TaskExpander.axaml" />
+                <ResourceInclude Source="/Public/Styles/Override/Template/TaskExpander.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>

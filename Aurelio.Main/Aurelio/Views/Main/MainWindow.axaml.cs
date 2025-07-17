@@ -5,6 +5,7 @@ using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Module.Service;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
+using Aurelio.Views.Overlay;
 using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
@@ -37,7 +38,6 @@ public partial class MainWindow : WindowBase
         DataContext = ViewModel;
         NewTabButton.DataContext = ViewModel;
         TabDragDropService.RegisterWindow(this);
-        Closing += OnMainWindowClosing;
 #if RELEASE
         BindEvents();
         InitTitleBar();
@@ -46,6 +46,7 @@ public partial class MainWindow : WindowBase
 
     public MainViewModel ViewModel { get; set; } = new();
     public ObservableCollection<TabEntry> Tabs => ViewModel.Tabs;
+    private DateTime _lastShiftPressTime;
     public TabEntry? SelectedTab => ViewModel.SelectedTab;
 
     protected override void OnLoaded(RoutedEventArgs e)
@@ -65,13 +66,10 @@ public partial class MainWindow : WindowBase
         }
         else if (Data.DesktopType == DesktopType.MacOs)
         {
-            // Mac平台使用系统装饰，但扩展客户区域
             SystemDecorations = SystemDecorations.Full;
             ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.Default;
             ExtendClientAreaToDecorationsHint = true;
             TitleRoot.Margin = new Thickness(65, 0, 0, 0);
-            
-            // 隐藏自定义标题栏按钮
             TitleBar.IsCloseBtnShow = false;
             TitleBar.IsMinBtnShow = false;
             TitleBar.IsMaxBtnShow = false;
@@ -79,7 +77,6 @@ public partial class MainWindow : WindowBase
         }
         else
         {
-            // Windows 10+或其他平台
             ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
             ExtendClientAreaToDecorationsHint = true;
         }
@@ -136,6 +133,7 @@ public partial class MainWindow : WindowBase
 #endif
     private void BindEvents()
     {
+        Closing += OnMainWindowClosing;
         PropertyChanged += (_, e) =>
         {
             if (Data.DesktopType == DesktopType.MacOs)
@@ -151,7 +149,7 @@ public partial class MainWindow : WindowBase
                             MacOsWindowHandler.RefreshTitleBarButtonPosition(nsWindow);
                             // 移除隐藏按钮的代码，使用系统原生按钮
                             MacOsWindowHandler.HideZoomButton(nsWindow);
-                            
+
                             ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.Default;
                         }
                         catch (Exception exception)
@@ -209,6 +207,25 @@ public partial class MainWindow : WindowBase
                     : "MainWindow";
                 _ = OpenTaskDrawer(host!);
             }
+        };
+        KeyDown += (_, e) =>
+        {
+            if (e.Key is not (Key.LeftShift or Key.RightShift)) return;
+            if ((DateTime.Now - _lastShiftPressTime).TotalMilliseconds < 300)
+            {
+                var options = new DialogOptions()
+                {
+                    ShowInTaskBar = false,
+                    IsCloseButtonVisible = false,
+                    StartupLocation = WindowStartupLocation.Manual,
+                    CanDragMove = true,
+                    StyleClass = "aggregate-search"
+                };
+                Dialog.ShowCustom<AggregateSearchDialog, AggregateSearchDialog>(new AggregateSearchDialog(),
+                    this.GetVisualRoot() as Window, options: options);
+            }
+
+            _lastShiftPressTime = DateTime.Now;
         };
     }
 

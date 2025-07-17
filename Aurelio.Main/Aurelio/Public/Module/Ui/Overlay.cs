@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.IO;
 using Aurelio.Views.Main;
 using Avalonia.Controls.Notifications;
 using Avalonia.Media;
@@ -16,6 +17,7 @@ using Ursa.Controls;
 using Ursa.Controls.Options;
 using Notification = Ursa.Controls.Notification;
 using TaskCenterDrawer = Aurelio.Views.Overlay.TaskCenterDrawer;
+using WindowBase = Aurelio.Views.Main.WindowBase;
 
 namespace Aurelio.Public.Module.Ui;
 
@@ -61,8 +63,9 @@ public abstract class Overlay
     }
 
     public static void Notice(string msg, NotificationType type = NotificationType.Information, TimeSpan? time = null,
-        Action? onClick = null, bool showTime = true, string title = "Aurelio")
+        Action? onClick = null, bool showTime = true, string title = "Aurelio", WindowBase? host = null)
     {
+        Logger.Info($"[Notice] [{type}] {msg}");
         var showTitle = "Aurelio";
         if (!string.IsNullOrWhiteSpace(title)) showTitle = title;
         if (showTime) showTitle += $" - {DateTime.Now:HH:mm:ss}";
@@ -73,26 +76,28 @@ public abstract class Overlay
         switch (Data.SettingEntry.NoticeWay)
         {
             case Setting.NoticeWay.Bubble:
-                NotificationBubble(msg, type, time, onClick);
+                NotificationBubble(msg, type, time, onClick, host);
                 break;
             case Setting.NoticeWay.Card:
-                NotificationCard(msg, type, showTitle, time, onClick);
+                NotificationCard(msg, type, showTitle, time, onClick, host);
                 break;
         }
     }
 
     public static void NotificationBubble(string msg, NotificationType type, TimeSpan? time = null,
-        Action? onClick = null)
+        Action? onClick = null, WindowBase? host = null)
     {
         var toast = new Toast(msg, type);
-        UiProperty.Toast.Show(toast, toast.Type, classes: ["Light"], onClick: onClick,
+        (host != null ? host.Toast : UiProperty.Toast).Show(toast, toast.Type, classes: ["Light"], onClick: onClick,
             expiration: time ?? TimeSpan.FromSeconds(3.0));
     }
+
     public static void NotificationCard(string msg, NotificationType type, string title, TimeSpan? time = null,
-        Action? onClick = null)
+        Action? onClick = null, WindowBase? host = null)
     {
         var notification = new Notification(title, msg, type);
-        UiProperty.Notification.Show(notification, notification.Type, classes: ["Light"], onClick: onClick,
+        (host != null ? host.Notification : UiProperty.Notification).Show(notification, notification.Type,
+            classes: ["Light"], onClick: onClick,
             expiration: time ?? TimeSpan.FromSeconds(3.0));
     }
 

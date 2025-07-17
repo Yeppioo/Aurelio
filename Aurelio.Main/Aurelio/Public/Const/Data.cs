@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Classes.Setting;
+using DynamicData;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -24,4 +27,13 @@ public class Data : ReactiveObject
     [Reactive] public string Version { get; set; }
     public static List<RecordMinecraftEntry> AllMinecraftInstances { get; } = [];
     public static ObservableCollection<MinecraftCategoryEntry> SortedMinecraftCategories { get; } = [];
+    public static ObservableCollection<AggregateSearchEntry> AggregateSearchEntries { get; } = [];
+
+    public static void UpdateAggregateSearchEntries()
+    {
+        AggregateSearchEntries.Clear();
+        AggregateSearchEntries.AddRange(AllMinecraftInstances.Select(x => new AggregateSearchEntry(x)));
+        if (SettingEntry != null)
+            AggregateSearchEntries.AddRange(SettingEntry.MinecraftAccounts.Select(x => new AggregateSearchEntry(x)));
+    }
 }

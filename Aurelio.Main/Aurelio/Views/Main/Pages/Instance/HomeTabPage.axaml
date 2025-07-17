@@ -147,7 +147,7 @@
                                                                 Height="68"
                                                                 Margin="5"
                                                                 Name="MinecraftCardBorder"
-                                                                PointerReleased="MinecraftCardBorder_OnPointerReleased"
+                                                                PointerPressed="MinecraftCardBorder_OnPointerPressed"
                                                                 Tag="{Binding}">
                                                                 <Border.Styles>
                                                                     <Style Selector="Border#MinecraftCardBorder:not(:pointerover)">

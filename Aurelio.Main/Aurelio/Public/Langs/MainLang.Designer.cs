@@ -2805,6 +2805,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Minecraft实例.
+        /// </summary>
+        public static string MinecraftInstance {
+            get {
+                return ResourceManager.GetString("MinecraftInstance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Minecraft 版本.
         /// </summary>
         public static string MinecraftVersion {
@@ -4386,6 +4395,15 @@ namespace Aurelio.Public.Langs {
         public static string TodayLuckyValueTip {
             get {
                 return ResourceManager.GetString("TodayLuckyValueTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 已切换.
+        /// </summary>
+        public static string Toggled {
+            get {
+                return ResourceManager.GetString("Toggled", resourceCulture);
             }
         }
         

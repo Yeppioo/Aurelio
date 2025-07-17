@@ -78,7 +78,7 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
         };
     }
 
-    private void MinecraftCardBorder_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+    private void MinecraftCardBorder_OnPointerPressed(object? sender, PointerPressedEventArgs pointerPressedEventArgs)
     {
         if (((Border)sender).Tag is not RecordMinecraftEntry entry) return;
         var tab = new TabEntry(new MinecraftInstancePage(entry));

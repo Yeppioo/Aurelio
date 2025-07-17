@@ -54,11 +54,15 @@ public static class Logger
 
             // 清理旧日志文件，保持备份数量不超过上限
             CleanupOldLogFiles(logDirectory);
+            
+            const string resourceName = "Aurelio.Version.txt";
+            var _assembly = Assembly.GetExecutingAssembly();
+            var stream = _assembly.GetManifestResourceStream(resourceName);
+            using var reader = new StreamReader(stream!);
+            var result = reader.ReadToEnd();
 
-            // 写入日志头
-            var version = Assembly.GetExecutingAssembly().GetName().Version;
-            var header = $"=== Aurelio Log {timestamp} ===\n" +
-                         $"Version: {version}\n" +
+            var header = $"== Aurelio Log {timestamp} ==\n" +
+                         $"Version: v{result.Trim()}\n" +
                          $"OS: {Environment.OSVersion}\n" +
                          $"Runtime: {Environment.Version}\n" +
                          "===============================\n";

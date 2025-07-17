@@ -231,4 +231,10 @@
     <Style Selector=":is(u|UrsaWindow)[ExtendClientAreaToDecorationsHint=True] u|WindowToastManager">
         <Setter Property="Margin" Value="0 40 0 0" />
     </Style>
+    <Style Selector="u|DialogWindow">
+        <Setter Property="Background" Value="{DynamicResource WindowBackgroundColor}" />
+    </Style>
+    <Style Selector="u|DialogWindow.aggregate-search /template/ Panel#PART_TitleArea">
+        <Setter Property="Margin" Value="0,0,180,0" />
+    </Style>
 </Styles>

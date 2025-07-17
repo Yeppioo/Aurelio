@@ -102,13 +102,17 @@
             <DependentUpon>MainWindow.axaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Compile Update="Public\Styles\Override\ContentDialog.axaml.cs">
-            <DependentUpon>ContentDialog.axaml</DependentUpon>
-            <SubType>Code</SubType>
-        </Compile>
         <Compile Update="Views\CrashWindow.axaml.cs">
             <DependentUpon>CrashWindow.axaml</DependentUpon>
             <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Public\Styles\Override\Template\ContentDialog.axaml.cs">
+          <DependentUpon>ContentDialog.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Public\Styles\Override\Template\Drawer.axaml.cs">
+          <DependentUpon>Drawer.axaml</DependentUpon>
+          <SubType>Code</SubType>
         </Compile>
     </ItemGroup>
 

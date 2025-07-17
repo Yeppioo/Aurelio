@@ -4,12 +4,14 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Module.Service;
 using Aurelio.Public.ViewModels;
+using Aurelio.Views.Overlay;
 using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using Ursa.Controls;
 using WindowNotificationManager = Ursa.Controls.WindowNotificationManager;
 
@@ -17,6 +19,8 @@ namespace Aurelio.Views.Main;
 
 public partial class TabWindow : WindowBase
 {
+    private DateTime _lastShiftPressTime;
+
     public TabWindow()
     {
 #if DEBUG
@@ -31,17 +35,8 @@ public partial class TabWindow : WindowBase
         DialogHost.HostId = $"DialogHost_{DateTime.Now}";
         DataContext = ViewModel;
         NewTabButton.DataContext = ViewModel;
-        NewTabButton.Click += NewTabButton_Click;
         BindEvents();
-
-        // Register with drag service
         TabDragDropService.RegisterWindow(this);
-
-        // Handle window closing
-        Closing += OnClosing;
-
-        // Handle automatic closing when no tabs remain
-        ViewModel.TabsEmptied += OnTabsEmptied;
     }
 
     public TabWindowViewModel ViewModel { get; set; } = new();
@@ -95,7 +90,29 @@ public partial class TabWindow : WindowBase
 
     private void BindEvents()
     {
+        NewTabButton.Click += NewTabButton_Click;
+        Closing += OnClosing;
+        ViewModel.TabsEmptied += OnTabsEmptied;
         NavScrollViewer.ScrollChanged += (_, _) => { ViewModel.IsTabMaskVisible = NavScrollViewer.Offset.X > 0; };
+        KeyDown += (_, e) =>
+        {
+            if (e.Key is not (Key.LeftShift or Key.RightShift)) return;
+            if ((DateTime.Now - _lastShiftPressTime).TotalMilliseconds < 300)
+            {
+                var options = new DialogOptions()
+                {
+                    ShowInTaskBar = false,
+                    IsCloseButtonVisible = false,
+                    StartupLocation = WindowStartupLocation.Manual,
+                    CanDragMove = true,
+                    StyleClass = "aggregate-search"
+                };
+                Dialog.ShowCustom<AggregateSearchDialog, AggregateSearchDialog>(new AggregateSearchDialog(),
+                    this.GetVisualRoot() as Window, options: options);
+            }
+
+            _lastShiftPressTime = DateTime.Now;
+        };
     }
 
     private void TabItem_OnPointerPressed(object? sender, PointerPressedEventArgs e)

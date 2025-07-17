@@ -1750,4 +1750,10 @@
   <data name="CloseAutoUpdate" xml:space="preserve">
     <value>关闭自动更新</value>
   </data>
+  <data name="MinecraftInstance" xml:space="preserve">
+    <value>Minecraft实例</value>
+  </data>
+  <data name="Toggled" xml:space="preserve">
+    <value>已切换</value>
+  </data>
 </root>
