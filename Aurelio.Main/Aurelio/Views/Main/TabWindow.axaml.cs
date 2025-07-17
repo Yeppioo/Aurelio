@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Module.App.Services;
 using Aurelio.Public.Module.Service;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
@@ -47,6 +48,7 @@ public partial class TabWindow : WindowBase
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
+        BindKeys.Main(this);
 
         if (Data.DesktopType == DesktopType.Linux ||
             Data.DesktopType == DesktopType.FreeBSD ||

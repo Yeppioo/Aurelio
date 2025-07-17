@@ -1,5 +1,6 @@
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Module.App;
+using Aurelio.Public.Module.App.Services;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Avalonia.Interactivity;
@@ -42,6 +43,7 @@ public partial class CrashWindow : UrsaWindow
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
+        BindKeys.Main(this);
 
         if (Data.DesktopType == DesktopType.Linux ||
             Data.DesktopType == DesktopType.FreeBSD ||

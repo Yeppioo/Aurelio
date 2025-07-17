@@ -15,7 +15,7 @@ public abstract class AfterUiLoaded
     {
         File.WriteAllText(ConfigPath.AppPathDataPath,
             Process.GetCurrentProcess().MainModule.FileName);
-        BindKeys.Main();
+        BindKeys.Main(Aurelio.App.UiRoot!);
         _ = HandleMinecraftInstances.Load(Data.SettingEntry.MinecraftFolderEntries.Select(x => x.Path).ToArray());
         Setter.SetAccentColor(Color.Parse("#1BD76A"));
         _ = TranslateToken.RefreshToken();
