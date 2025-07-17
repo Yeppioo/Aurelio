@@ -9,10 +9,96 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:settingPages1="clr-namespace:Aurelio.Views.Main.Pages.Instance.SubPages.SettingPages"
+    xmlns:u="https://irihi.tech/ursa"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border Name="Root">
         <ScrollViewer>
             <StackPanel Margin="15,0,15,15" Spacing="10">
+                <Border
+                    Background="{DynamicResource CardBackgroundColor}"
+                    CornerRadius="{DynamicResource CardCornerRadius}"
+                    DockPanel.Dock="Top"
+                    VerticalAlignment="Top">
+                    <StackPanel>
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock="Top" Margin="17.5,0,10,0">
+                                <PathIcon
+                                    Data="M448 256c0-106-86-192-192-192l0 384c106 0 192-86 192-192zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"
+                                    Margin="0,0,15,0"
+                                    Width="15" />
+                                <TextBlock
+                                    Margin="0,-1,0,0"
+                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ColorMode}"
+                                    VerticalAlignment="Center" />
+                                <Border
+                                    BorderBrush="{DynamicResource BorderBrush}"
+                                    BorderThickness="2"
+                                    CornerRadius="{DynamicResource CardCornerRadius}"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,5,-5,5">
+                                    <u:SelectionList Height="40" SelectedIndex="{Binding Data.SettingEntry.Theme}">
+                                        <u:SelectionList.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel
+                                                    Margin="15,0"
+                                                    Orientation="Horizontal"
+                                                    Spacing="25" />
+                                            </ItemsPanelTemplate>
+                                        </u:SelectionList.ItemsPanel>
+                                        <u:SelectionList.Items>
+                                            <u:SelectionListItem>
+                                                <DockPanel>
+                                                    <PathIcon
+                                                        Data="M384 96l0 224L64 320 64 96l320 0zM64 32C28.7 32 0 60.7 0 96L0 320c0 35.3 28.7 64 64 64l117.3 0-10.7 32L96 416c-17.7 0-32 14.3-32 32s14.3 32 32 32l256 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-74.7 0-10.7-32L384 384c35.3 0 64-28.7 64-64l0-224c0-35.3-28.7-64-64-64L64 32zm464 0c-26.5 0-48 21.5-48 48l0 352c0 26.5 21.5 48 48 48l64 0c26.5 0 48-21.5 48-48l0-352c0-26.5-21.5-48-48-48l-64 0zm16 64l32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm-16 80c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16zm32 160a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"
+                                                        Height="14"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,0,2,0"
+                                                        VerticalAlignment="Center" />
+                                                    <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.FollowSystem}" />
+                                                </DockPanel>
+                                            </u:SelectionListItem>
+                                            <u:SelectionListItem>
+                                                <DockPanel>
+                                                    <PathIcon
+                                                        Data="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+                                                        Height="17"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,0,1,0"
+                                                        VerticalAlignment="Center" />
+                                                    <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Light}" />
+                                                </DockPanel>
+                                            </u:SelectionListItem>
+                                            <u:SelectionListItem>
+                                                <DockPanel>
+                                                    <PathIcon
+                                                        Data="F1 M 12.978516 18.452148 C 9.34082 19.145508 6.005859 16.357422 6.005859 12.685547 C 6.005859 10.566406 7.138672 8.623047 8.974609 7.573242 C 9.262695 7.412109 9.189453 6.982422 8.867188 6.923828 C 4.248047 6.069336 0 9.609375 0 14.296875 C 0 18.437538 3.349609 21.796875 7.490234 21.796875 C 9.804688 21.796875 11.914062 20.74707 13.310547 19.018555 C 13.520508 18.764648 13.291016 18.388672 12.978516 18.452148 Z M 11.250381 4.296799 L 11.735535 5.460205 C 11.759338 5.508041 11.821899 5.546875 11.875305 5.546875 C 11.928711 5.546875 11.991196 5.508041 12.014999 5.460205 L 12.500153 4.296799 L 13.663635 3.811646 C 13.711243 3.787842 13.75 3.724899 13.75 3.671799 C 13.75 3.618469 13.711243 3.555908 13.663635 3.532104 L 12.500153 3.046951 L 12.014999 1.883469 C 11.991196 1.835556 11.928711 1.796875 11.875305 1.796875 C 11.821899 1.796875 11.759338 1.835556 11.735535 1.883469 L 11.250381 3.046951 L 10.086899 3.532104 C 10.039368 3.555908 10.00061 3.618469 10.00061 3.671799 C 10.00061 3.724899 10.039368 3.787842 10.086899 3.811646 Z M 19.829102 10.268555 L 17.5 9.296875 L 16.52832 6.967773 C 16.474609 6.865234 16.367188 6.796875 16.25 6.796875 C 16.132812 6.796875 16.025391 6.865234 15.97168 6.967773 L 15 9.296875 L 12.670898 10.268555 C 12.568359 10.322266 12.5 10.429688 12.5 10.546875 C 12.5 10.664062 12.568359 10.771484 12.670898 10.825195 L 15 11.796875 L 15.97168 14.125977 C 16.025391 14.228516 16.132812 14.296875 16.25 14.296875 C 16.367188 14.296875 16.474609 14.228516 16.52832 14.125977 L 17.5 11.796875 L 19.829102 10.825195 C 19.931641 10.771484 20 10.664062 20 10.546875 C 20 10.429688 19.931641 10.322266 19.829102 10.268555 Z "
+                                                        Height="17"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,0,1,0"
+                                                        VerticalAlignment="Center" />
+                                                    <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Dark}" />
+                                                </DockPanel>
+                                            </u:SelectionListItem>
+                                        </u:SelectionList.Items>
+                                        <u:SelectionList.Indicator>
+                                            <Border
+                                                Background="{DynamicResource HoverTabBackgroundColor}"
+                                                CornerRadius="10"
+                                                Margin="-12,3">
+                                                <Border
+                                                    Background="{DynamicResource SystemAccentColor}"
+                                                    CornerRadius="10"
+                                                    Height="3"
+                                                    VerticalAlignment="Bottom"
+                                                    Width="20" />
+                                            </Border>
+                                        </u:SelectionList.Indicator>
+                                    </u:SelectionList>
+                                </Border>
+                            </DockPanel>
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
                 <Border
                     Background="{DynamicResource CardBackgroundColor}"
                     CornerRadius="{DynamicResource CardCornerRadius}"
@@ -25,12 +111,12 @@
                                 Height="40"
                                 Margin="17.5,0,10,0">
                                 <PathIcon
-                                    Data="M448 256c0-106-86-192-192-192l0 384c106 0 192-86 192-192zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"
-                                    Margin="0,-1,15,0"
-                                    Width="15" />
+                                    Data="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-128 0c-17.7 0-32-14.3-32-32L224 0 64 0zM256 0l0 128 128 0L256 0zM216 408c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-102.1-31 31c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l72-72c9.4-9.4 24.6-9.4 33.9 0l72 72c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-31-31L216 408z"
+                                    Margin="2,-1,16,0"
+                                    Width="12" />
                                 <TextBlock
                                     Margin="0,-1,0,0"
-                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ColorMode}"
+                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.EnabledFilePicker}"
                                     VerticalAlignment="Center" />
                                 <ToggleSwitch
                                     DockPanel.Dock="Right"

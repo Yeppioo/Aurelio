@@ -19,6 +19,7 @@ public abstract class AfterUiLoaded
         _ = HandleMinecraftInstances.Load(Data.SettingEntry.MinecraftFolderEntries.Select(x => x.Path).ToArray());
         Setter.SetAccentColor(Color.Parse("#1BD76A"));
         _ = TranslateToken.RefreshToken();
+        Setter.ToggleTheme(Data.SettingEntry.Theme);
         LoopGC.BeginLoop();
         if (Data.SettingEntry.AutoCheckUpdate && Data.Instance.Version != "vDebug")
             _ = AurelioPage.ShowUpdateDialogIfNeed();
