@@ -15,18 +15,23 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border Name="Root">
         <ScrollViewer>
-            <StackPanel Margin="15,0,15,15" Spacing="10">
-                <Border
-                    Background="{DynamicResource CardBackgroundColor}"
-                    CornerRadius="{DynamicResource CardCornerRadius}"
-                    DockPanel.Dock="Top"
-                    VerticalAlignment="Top">
+            <Border
+                Background="{DynamicResource CardBackgroundColor}"
+                CornerRadius="{DynamicResource CardCornerRadius}"
+                DockPanel.Dock="Top"
+                Margin="15,0,15,15"
+                VerticalAlignment="Top">
+                <StackPanel Margin="0,0,0,5" Spacing="0">
                     <StackPanel>
                         <DockPanel>
                             <DockPanel
                                 DockPanel.Dock="Top"
                                 Height="50"
                                 Margin="17.5,0,10,0">
+                                <PathIcon
+                                    Data="M64 32C64 14.3 49.7 0 32 0S0 14.3 0 32l0 96L0 384c0 35.3 28.7 64 64 64l192 0 0-64L64 384l0-224 192 0 0-64L64 96l0-64zM288 192c0 17.7 14.3 32 32 32l224 0c17.7 0 32-14.3 32-32l0-128c0-17.7-14.3-32-32-32l-98.7 0c-8.5 0-16.6-3.4-22.6-9.4L409.4 9.4c-6-6-14.1-9.4-22.6-9.4L320 0c-17.7 0-32 14.3-32 32l0 160zm0 288c0 17.7 14.3 32 32 32l224 0c17.7 0 32-14.3 32-32l0-128c0-17.7-14.3-32-32-32l-98.7 0c-8.5 0-16.6-3.4-22.6-9.4l-13.3-13.3c-6-6-14.1-9.4-22.6-9.4L320 288c-17.7 0-32 14.3-32 32l0 160z"
+                                    Margin="0,-1,15,0"
+                                    Width="16" />
                                 <TextBlock
                                     Margin="0,-1,0,0"
                                     Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.MinecraftFolder}"
@@ -83,18 +88,17 @@
                             </Border>
                         </DockPanel>
                     </StackPanel>
-                </Border>
-                <Border
-                    Background="{DynamicResource CardBackgroundColor}"
-                    CornerRadius="{DynamicResource CardCornerRadius}"
-                    DockPanel.Dock="Top"
-                    VerticalAlignment="Top">
+                    <Separator Margin="10,0" />
                     <StackPanel>
                         <DockPanel>
                             <DockPanel
                                 DockPanel.Dock="Top"
                                 Height="50"
                                 Margin="17.5,0,10,0">
+                                <PathIcon
+                                    Data="M88 0C74.7 0 64 10.7 64 24c0 38.9 23.4 59.4 39.1 73.1l1.1 1C120.5 112.3 128 119.9 128 136c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C119.5 47.7 112 40.1 112 24c0-13.3-10.7-24-24-24zM32 192c-17.7 0-32 14.3-32 32L0 416c0 53 43 96 96 96l192 0c53 0 96-43 96-96l16 0c61.9 0 112-50.1 112-112s-50.1-112-112-112l-48 0L32 192zm352 64l16 0c26.5 0 48 21.5 48 48s-21.5 48-48 48l-16 0 0-96zM224 24c0-13.3-10.7-24-24-24s-24 10.7-24 24c0 38.9 23.4 59.4 39.1 73.1l1.1 1C232.5 112.3 240 119.9 240 136c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C231.5 47.7 224 40.1 224 24z"
+                                    Margin="0,-4,15,0"
+                                    Width="17" />
                                 <TextBlock
                                     DockPanel.Dock="Left"
                                     Margin="0,-1,0,0"
@@ -154,18 +158,17 @@
                             </DockPanel>
                         </DockPanel>
                     </StackPanel>
-                </Border>
-                <Border
-                    Background="{DynamicResource CardBackgroundColor}"
-                    CornerRadius="{DynamicResource CardCornerRadius}"
-                    DockPanel.Dock="Top"
-                    VerticalAlignment="Top">
-                    <StackPanel>
+                    <Separator Margin="10,0" />
+                    <StackPanel Margin="0,3">
                         <DockPanel>
                             <DockPanel
                                 DockPanel.Dock="Top"
                                 Height="40"
                                 Margin="17.5,0,10,0">
+                                <PathIcon
+                                    Data="M64 64C28.7 64 0 92.7 0 128l0 7.4c0 6.8 4.4 12.6 10.1 16.3C23.3 160.3 32 175.1 32 192s-8.7 31.7-21.9 40.3C4.4 236 0 241.8 0 248.6L0 320l576 0 0-71.4c0-6.8-4.4-12.6-10.1-16.3C552.7 223.7 544 208.9 544 192s8.7-31.7 21.9-40.3c5.7-3.7 10.1-9.5 10.1-16.3l0-7.4c0-35.3-28.7-64-64-64L64 64zM576 352L0 352l0 64c0 17.7 14.3 32 32 32l48 0 0-32c0-8.8 7.2-16 16-16s16 7.2 16 16l0 32 96 0 0-32c0-8.8 7.2-16 16-16s16 7.2 16 16l0 32 96 0 0-32c0-8.8 7.2-16 16-16s16 7.2 16 16l0 32 96 0 0-32c0-8.8 7.2-16 16-16s16 7.2 16 16l0 32 48 0c17.7 0 32-14.3 32-32l0-64zM192 160l0 64c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32s32 14.3 32 32zm128 0l0 64c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32s32 14.3 32 32zm128 0l0 64c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32s32 14.3 32 32z"
+                                    Margin="-1,-1,15,0"
+                                    Width="17" />
                                 <TextBlock
                                     Margin="0,-1,0,0"
                                     Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.MemoryLimit}"
@@ -190,18 +193,17 @@
                             </DockPanel>
                         </DockPanel>
                     </StackPanel>
-                </Border>
-                <Border
-                    Background="{DynamicResource CardBackgroundColor}"
-                    CornerRadius="{DynamicResource CardCornerRadius}"
-                    DockPanel.Dock="Top"
-                    VerticalAlignment="Top">
+                    <Separator Margin="10,0" />
                     <StackPanel>
                         <DockPanel>
                             <DockPanel
                                 DockPanel.Dock="Top"
                                 Height="40"
                                 Margin="17.5,0,10,0">
+                                <PathIcon
+                                    Data="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L489.3 358.2l90.5-90.5c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114l-96 96-31.9-25C430.9 239.6 420.1 175.1 377 132c-52.2-52.3-134.5-56.2-191.3-11.7L38.8 5.1zM239 162c30.1-14.9 67.7-9.9 92.8 15.3c20 20 27.5 48.3 21.7 74.5L239 162zM406.6 416.4L220.9 270c-2.1 39.8 12.2 80.1 42.2 110c38.9 38.9 94.4 51 143.6 36.3zm-290-228.5L60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5l61.8-61.8-50.6-39.9z"
+                                    Margin="-1,-1,15,0"
+                                    Width="17" />
                                 <TextBlock
                                     Margin="0,-1,0,0"
                                     Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.IsolateMinecraftInstances}"
@@ -215,8 +217,8 @@
                             </DockPanel>
                         </DockPanel>
                     </StackPanel>
-                </Border>
-            </StackPanel>
+                </StackPanel>
+            </Border>
         </ScrollViewer>
     </Border>
 </UserControl>

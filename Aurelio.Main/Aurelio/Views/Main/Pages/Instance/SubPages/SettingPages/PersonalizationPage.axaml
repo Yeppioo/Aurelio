@@ -24,9 +24,13 @@
                                 DockPanel.Dock="Top"
                                 Height="40"
                                 Margin="17.5,0,10,0">
+                                <PathIcon
+                                    Data="M448 256c0-106-86-192-192-192l0 384c106 0 192-86 192-192zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"
+                                    Margin="0,-1,15,0"
+                                    Width="15" />
                                 <TextBlock
                                     Margin="0,-1,0,0"
-                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.EnabledFilePicker}"
+                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ColorMode}"
                                     VerticalAlignment="Center" />
                                 <ToggleSwitch
                                     DockPanel.Dock="Right"

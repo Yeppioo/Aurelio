@@ -1,5 +1,5 @@
 <Application
-    RequestedThemeVariant="Dark"
+    RequestedThemeVariant="Default"
     x:Class="Aurelio.App"
     xmlns="https://github.com/avaloniaui"
     xmlns:helper="clr-namespace:Aurelio.Public.Module.Ui.Helper"
