@@ -111,13 +111,13 @@ public class RecordMinecraftEntry : ReactiveObject
     {
         if (e.PropertyName != nameof(MinecraftInstanceSettingEntry.IconType) ||
             SettingEntry.IconType != MinecraftInstanceIconType.Base64) return;
-        var pic = await App.TopLevel.StorageProvider.PickFileAsync(new FilePickerOpenOptions
+        var pic = await sender.PickFileAsync(new FilePickerOpenOptions
         {
             AllowMultiple = false,
             Title = MainLang.SelectImgFile,
             FileTypeFilter =
                 [new FilePickerFileType("Image Files") { Patterns = ["*.png", "*.jpg", "*.jpeg", "*.webp"] }]
-        }, sender);
+        });
         if (pic.Count == 0) return;
         SettingEntry.IconData = Convert.ToBase64String(await File.ReadAllBytesAsync(pic[0]));
     }

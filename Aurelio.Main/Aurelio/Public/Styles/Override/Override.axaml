@@ -57,6 +57,14 @@
         <Setter Property="Margin" Value="0" />
         <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
+    <Style Selector="TextBox.card">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+    </Style>
+    <Style Selector="TextBox.card /template/ DataValidationErrors">
+        <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+    </Style>
     <Style Selector="Button">
         <Setter Property="FontFamily" Value="{DynamicResource MiSans}" />
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />

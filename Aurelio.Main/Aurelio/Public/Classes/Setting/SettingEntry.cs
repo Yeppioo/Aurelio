@@ -7,6 +7,7 @@ using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.Service.Minecraft;
 using Aurelio.Public.Module.Ui;
+using Avalonia.Controls.Notifications;
 using Avalonia.Media;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -26,6 +27,7 @@ public class SettingEntry : ReactiveObject
     [Reactive] [JsonProperty] public Enum.Setting.Theme Theme { get; set; } = Enum.Setting.Theme.Dark;
     [Reactive] [JsonProperty] public Enum.Setting.BackGround BackGround { get; set; } = Enum.Setting.BackGround.Default;
     [Reactive] [JsonProperty] public Color ThemeColor { get; set; } = Color.Parse("#1BD76A");
+    [Reactive] [JsonProperty] public Color BackGroundColor { get; set; } = Color.Parse("#00B7FF52");
     [Reactive] [JsonProperty] public double MemoryLimit { get; set; } = 2048;
 
     [Reactive]
@@ -45,12 +47,12 @@ public class SettingEntry : ReactiveObject
     [Reactive] [JsonProperty] public bool EnableIndependentMinecraft { get; set; } = true;
 
     [Reactive] [JsonProperty] public string GithubSpeedUpApiUrl { get; set; } = "https://ghproxy.net/%url%";
+    [Reactive] [JsonProperty] public string BackGroundImgData { get; set; }
 
     [Reactive]
     [JsonProperty]
     public RecordJavaRuntime PreferredJavaRuntime { get; set; } = new() { JavaVersion = "auto" };
-
-
+    
     [Reactive]
     [JsonProperty]
     public ObservableCollection<RecordMinecraftFolderEntry> MinecraftFolderEntries { get; set; } = [];
@@ -80,6 +82,11 @@ public class SettingEntry : ReactiveObject
         else if (e.PropertyName == nameof(ThemeColor))
         {
             Setter.SetAccentColor(ThemeColor);
+        }
+        else if (e.PropertyName == nameof(Language))
+        {
+            LangHelper.Current.ChangedCulture(Language.Code == "zh-CN" ? "" : Language.Code);
+            Notice(MainLang.NeedRestartApp, NotificationType.Warning);
         }
 
 

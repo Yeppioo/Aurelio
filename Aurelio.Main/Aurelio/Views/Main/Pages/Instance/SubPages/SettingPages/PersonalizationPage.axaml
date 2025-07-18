@@ -5,12 +5,17 @@
     x:Class="Aurelio.Views.Main.Pages.Instance.SubPages.SettingPages.PersonalizationPage"
     x:DataType="settingPages1:PersonalizationPage"
     xmlns="https://github.com/avaloniaui"
+    xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:entries="clr-namespace:Aurelio.Public.Classes.Entries"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:settingPages1="clr-namespace:Aurelio.Views.Main.Pages.Instance.SubPages.SettingPages"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <converter:EnumIndexToBoolConverter x:Key="EnumIndexToBoolConverter" />
+    </UserControl.Resources>
     <Border Name="Root">
         <ScrollViewer>
             <StackPanel Margin="15,0,15,15" Spacing="10">
@@ -99,7 +104,7 @@
                         </DockPanel>
                         <Separator />
                         <DockPanel>
-                            <DockPanel DockPanel.Dock="Top" Margin="17.5,0,10,5">
+                            <DockPanel DockPanel.Dock="Top" Margin="17.5,3,10,3">
                                 <PathIcon
                                     Data="M512 256c0 .9 0 1.8 0 2.7c-.4 36.5-33.6 61.3-70.1 61.3L344 320c-26.5 0-48 21.5-48 48c0 3.4 .4 6.7 1 9.9c2.1 10.2 6.5 20 10.8 29.9c6.1 13.8 12.1 27.5 12.1 42c0 31.8-21.6 60.7-53.4 62c-3.5 .1-7 .2-10.6 .2C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256zM128 288a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm0-96a32 32 0 1 0 0-64 32 32 0 1 0 0 64zM288 96a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm96 96a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
                                     Margin="0,0,15,0"
@@ -108,24 +113,19 @@
                                     Margin="0,-1,0,0"
                                     Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ThemeColor}"
                                     VerticalAlignment="Center" />
-                                <ColorPicker
-                                    Color="{Binding Data.SettingEntry.ThemeColor}"
+                                <Border
+                                    BorderBrush="{DynamicResource BorderBrush}"
+                                    ClipToBounds="True"
+                                    CornerRadius="{DynamicResource CardCornerRadius}"
                                     HorizontalAlignment="Right"
-                                    Margin="0,5"
-                                    Width="120" />
+                                    Margin="0,5">
+                                    <ColorPicker Color="{Binding Data.SettingEntry.ThemeColor}" Width="140" />
+                                </Border>
                             </DockPanel>
                         </DockPanel>
-                    </StackPanel>
-                </Border>
-                <Border
-                    Background="{DynamicResource CardBackgroundColor}"
-                    CornerRadius="{DynamicResource CardCornerRadius}"
-                    DockPanel.Dock="Top"
-                    Padding="0,5"
-                    VerticalAlignment="Top">
-                    <StackPanel>
+                        <Separator />
                         <DockPanel>
-                            <DockPanel DockPanel.Dock="Top" Margin="17.5,0,10,0">
+                            <DockPanel DockPanel.Dock="Top" Margin="17.5,0,10,5">
                                 <PathIcon
                                     Data="F1 M 11.791382 12.350159 C 11.94397 12.502747 12.143555 12.57843 12.34375 12.57843 C 12.543945 12.57843 12.74353 12.502747 12.896118 12.350159 L 14.771118 10.475159 C 15.076294 10.169983 15.076294 9.674377 14.771118 9.369202 L 12.896118 7.494202 C 12.590942 7.189026 12.096558 7.189026 11.791382 7.494202 C 11.486168 7.799416 11.486206 8.294983 11.791382 8.600159 L 13.114014 9.92218 L 11.791382 11.244202 C 11.486206 11.549377 11.486206 12.044983 11.791382 12.350159 Z M 19.375 1.796875 L 0.625 1.796875 C -0.410156 1.796875 -1.25 2.636719 -1.25 3.671875 L -1.25 16.171875 C -1.25 17.207031 -0.410156 18.046875 0.625 18.046875 L 8.125 18.046875 L 7.5 19.921875 L 4.6875 19.921875 C 4.169922 19.921875 3.75 20.341797 3.75 20.859375 C 3.75 21.376953 4.169922 21.796875 4.6875 21.796875 L 15.3125 21.796875 C 15.830078 21.796875 16.25 21.376953 16.25 20.859375 C 16.25 20.341797 15.830078 19.921875 15.3125 19.921875 L 12.5 19.921875 L 11.875 18.046875 L 19.375 18.046875 C 20.410156 18.046875 21.25 17.207031 21.25 16.171875 L 21.25 3.671875 C 21.25 2.636719 20.410156 1.796875 19.375 1.796875 Z M 18.75 15.546875 L 1.25 15.546875 L 1.25 4.296875 L 18.75 4.296875 Z M 7.103882 12.350159 C 7.25647 12.502747 7.456055 12.57843 7.65625 12.57843 C 7.856445 12.57843 8.05603 12.502747 8.208618 12.350159 C 8.513794 12.044983 8.513794 11.549377 8.208618 11.244202 L 6.885986 9.92218 L 8.208618 8.600159 C 8.513794 8.294983 8.513794 7.799377 8.208618 7.494202 C 7.903481 7.189064 7.409058 7.189026 7.103882 7.494202 L 5.228882 9.369202 C 4.923706 9.674377 4.923706 10.169983 5.228882 10.475159 Z "
                                     Margin="0,0,15,0"
@@ -134,17 +134,75 @@
                                     Margin="0,-1,0,0"
                                     Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.CustomBackground}"
                                     VerticalAlignment="Center" />
-                                <ComboBox
+                                <StackPanel
                                     HorizontalAlignment="Right"
                                     Margin="0,5"
+                                    Orientation="Horizontal"
+                                    Spacing="10">
+                                    <u:IconButton
+                                        Command="{Binding SetBackGroundImg}"
+                                        Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.OpenFile}"
+                                        DockPanel.Dock="Right"
+                                        IsVisible="{Binding Data.SettingEntry.BackGround, Converter={StaticResource EnumIndexToBoolConverter}, ConverterParameter=1}"
+                                        Name="EditMinecraftId"
+                                        VerticalAlignment="Center">
+                                        <u:IconButton.Icon>
+                                            <PathIcon
+                                                Data="M0 96C0 60.7 28.7 32 64 32l384 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6l96 0 32 0 208 0c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"
+                                                Height="14"
+                                                Width="14" />
+                                        </u:IconButton.Icon>
+                                    </u:IconButton>
+                                    <ColorPicker
+                                        Color="{Binding Data.SettingEntry.BackGroundColor}"
+                                        HorizontalAlignment="Right"
+                                        IsVisible="{Binding Data.SettingEntry.BackGround, Converter={StaticResource EnumIndexToBoolConverter}, ConverterParameter=4}"
+                                        Width="120" />
+                                    <ComboBox MinWidth="140" SelectedIndex="{Binding Data.SettingEntry.BackGround}">
+                                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Default}" />
+                                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.BackGroundImg}" />
+                                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AcrylicBlur}" />
+                                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Transparent}" />
+                                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ColorBlock}" />
+                                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Mica}" />
+                                    </ComboBox>
+                                </StackPanel>
+                            </DockPanel>
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+                <Border
+                    Background="{DynamicResource CardBackgroundColor}"
+                    CornerRadius="{DynamicResource CardCornerRadius}"
+                    DockPanel.Dock="Top"
+                    Padding="0,10"
+                    VerticalAlignment="Top">
+                    <StackPanel>
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock="Top" Margin="17.5,0,10,0">
+                                <PathIcon
+                                    Data="M12.87,15.07L10.33,12.56L10.36,12.53C12.1,10.59 13.34,8.36 14.07,6H17V4H10V2H8V4H1V6H12.17C11.5,7.92 10.44,9.75 9,11.35C8.07,10.32 7.3,9.19 6.69,8H4.69C5.42,9.63 6.42,11.17 7.67,12.56L2.58,17.58L4,19L9,14L12.11,17.11L12.87,15.07M18.5,10H16.5L12,22H14L15.12,19H19.87L21,22H23L18.5,10M15.88,17L17.5,12.67L19.12,17H15.88Z"
+                                    Margin="0,1,15,0"
+                                    Width="15" />
+                                <TextBlock
+                                    Margin="0,0,0,0"
+                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Language}"
+                                    VerticalAlignment="Center" />
+                                <ComboBox
+                                    HorizontalAlignment="Right"
+                                    ItemsSource="{Binding Langs}"
                                     MinWidth="140"
-                                    SelectedIndex="{Binding Data.SettingEntry.BackGround}">
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Default}" />
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.BackGroundImg}" />
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AcrylicBlur}" />
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Transparent}" />
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ColorBlock}" />
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Mica}" />
+                                    SelectedItem="{Binding Data.SettingEntry.Language}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate DataType="entries:Language">
+                                            <TextBlock>
+                                                <Run Text="[" />
+                                                <Run Text="{Binding Code}" />
+                                                <Run Text="]" />
+                                                <Run Text="{Binding Label}" />
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </DockPanel>
                         </DockPanel>

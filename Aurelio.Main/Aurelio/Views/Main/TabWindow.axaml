@@ -15,7 +15,6 @@
     MinWidth="450"
     SystemDecorations="Full"
     Title="Aurelio"
-    TransparencyLevelHint="{Binding Data.UiProperty.WindowBackGround}"
     WindowStartupLocation="Manual"
     d:DesignHeight="450"
     d:DesignWidth="800"

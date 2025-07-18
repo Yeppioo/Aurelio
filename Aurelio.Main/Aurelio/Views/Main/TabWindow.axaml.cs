@@ -26,7 +26,6 @@ namespace Aurelio.Views.Main;
 public partial class TabWindow : UrsaWindow, IAurelioWindow
 {
     private DateTime _lastShiftPressTime;
-    private IAurelioWindow _aurelioWindowImplementation;
 
     public TabWindow()
     {
@@ -120,7 +119,9 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
             (_, _) => Setter.SetBackGround(Data.SettingEntry.BackGround, this);
         Data.SettingEntry.PropertyChanged += (_, e) =>
         {
-            if (e.PropertyName != nameof(SettingEntry.BackGround)) return;
+            if (e.PropertyName != nameof(SettingEntry.BackGround) && 
+                e.PropertyName != nameof(SettingEntry.BackGroundImgData) &&
+                e.PropertyName != nameof(SettingEntry.BackGroundColor)) return;
             Setter.SetBackGround(Data.SettingEntry.BackGround, this);
         };
         NewTabButton.Click += NewTabButton_Click;

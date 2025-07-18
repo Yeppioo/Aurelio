@@ -20,10 +20,9 @@ public class MoreButtonMenuCommands
 
     public void ToggleTheme()
     {
-        Setter.ToggleTheme
-        (Application.Current.ActualThemeVariant == ThemeVariant.Dark
+        Data.SettingEntry.Theme = Application.Current.ActualThemeVariant == ThemeVariant.Dark
             ? Setting.Theme.Light
-            : Setting.Theme.Dark);
+            : Setting.Theme.Dark;
     }
 
     public void DebugTab()

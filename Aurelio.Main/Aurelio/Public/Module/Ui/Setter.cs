@@ -5,6 +5,7 @@ using Aurelio.Public.Module.Value;
 using Avalonia.Data;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Styling;
 using Ursa.Controls;
@@ -48,27 +49,46 @@ public class Setter
     {
         try
         {
-            Application.Current.Resources["BackGroundOpacity"] = bg == Setting.BackGround.Default ? 1.0 : 0.5;
             var window = w.Window;
             if (bg == Setting.BackGround.Default)
             {
                 window.TransparencyLevelHint = [];
-                (w.RootElement as Border).Background = (IBrush)new DynamicResourceExtension("WindowBackgroundColor").ProvideValue(null);
+                Application.Current.Resources["BackGroundOpacity"] = 1.0;
+                (w.RootElement as Border).Background =
+                    (IBrush)new DynamicResourceExtension("WindowBackgroundColor").ProvideValue(null);
             }
             else if (bg == Setting.BackGround.Transparent)
             {
+                Application.Current.Resources["BackGroundOpacity"] = 0.4;
                 window.TransparencyLevelHint = [WindowTransparencyLevel.Transparent];
                 (w.RootElement as Border).Background = Brushes.Transparent;
             }
             else if (bg == Setting.BackGround.AcrylicBlur)
             {
+                Application.Current.Resources["BackGroundOpacity"] = 0.5;
                 window.TransparencyLevelHint = [WindowTransparencyLevel.AcrylicBlur];
                 (w.RootElement as Border).Background = Brushes.Transparent;
             }
             else if (bg == Setting.BackGround.Mica)
             {
+                Application.Current.Resources["BackGroundOpacity"] = 0.5;
                 window.TransparencyLevelHint = [WindowTransparencyLevel.Mica];
                 (w.RootElement as Border).Background = Brushes.Transparent;
+            }
+            else if (bg == Setting.BackGround.Image)
+            {
+                Application.Current.Resources["BackGroundOpacity"] = 0.5;
+                window.TransparencyLevelHint = [WindowTransparencyLevel.Mica];
+                (w.RootElement as Border).Background = new ImageBrush(UiProperty.WindowBackGroundImg)
+                {
+                    Stretch = Stretch.UniformToFill
+                };
+            }
+            else if (bg == Setting.BackGround.ColorBlock)
+            {
+                Application.Current.Resources["BackGroundOpacity"] = 0.5;
+                window.TransparencyLevelHint = [WindowTransparencyLevel.Transparent];
+                (w.RootElement as Border).Background = new SolidColorBrush(Data.SettingEntry.BackGroundColor);
             }
         }
         catch (Exception e)

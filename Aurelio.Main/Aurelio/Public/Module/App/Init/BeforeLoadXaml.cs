@@ -15,9 +15,8 @@ public abstract class BeforeLoadXaml
         Sundry.DetectPlatform();
         Create.Main();
         Reader.Main();
+        InitLanguage(Data.SettingEntry.Language.Code);
         Update.Main();
-        LangHelper.Current.ChangedCulture("");
-        Setter.SetAccentColor(Color.Parse("#9373EE"));
         InitMl();
     }
 
@@ -26,5 +25,10 @@ public abstract class BeforeLoadXaml
         HttpUtil.Initialize();
         DownloadMirrorManager.MaxThread = 128;
         ServicePointManager.DefaultConnectionLimit = int.MaxValue;
+    }
+
+    public static void InitLanguage(string code)
+    {
+        LangHelper.Current.ChangedCulture(code == "zh-CN" ? "" : code);
     }
 }

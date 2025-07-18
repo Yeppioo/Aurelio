@@ -40,7 +40,9 @@ public partial class CrashWindow : UrsaWindow , IAurelioWindow
         };
         Data.SettingEntry.PropertyChanged += (_, e) =>
         {
-            if (e.PropertyName != nameof(SettingEntry.BackGround)) return;
+            if (e.PropertyName != nameof(SettingEntry.BackGround) && 
+                e.PropertyName != nameof(SettingEntry.BackGroundImgData) &&
+                e.PropertyName != nameof(SettingEntry.BackGroundColor)) return;
             Setter.SetBackGround(Data.SettingEntry.BackGround, this);
         };
         Notification = new WindowNotificationManager(GetTopLevel(this));
