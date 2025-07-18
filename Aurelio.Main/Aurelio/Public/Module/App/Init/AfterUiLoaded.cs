@@ -17,7 +17,7 @@ public abstract class AfterUiLoaded
             Process.GetCurrentProcess().MainModule.FileName);
         BindKeys.Main(Aurelio.App.UiRoot!);
         _ = HandleMinecraftInstances.Load(Data.SettingEntry.MinecraftFolderEntries.Select(x => x.Path).ToArray());
-        Setter.SetAccentColor(Color.Parse("#1BD76A"));
+        Setter.SetAccentColor(Data.SettingEntry.ThemeColor);
         _ = TranslateToken.RefreshToken();
         Setter.ToggleTheme(Data.SettingEntry.Theme);
         LoopGC.BeginLoop();

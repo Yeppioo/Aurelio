@@ -9,12 +9,13 @@ public class Setting
         ThirdParty
     }
 
-    public enum CustomBackGroundWay
+    public enum BackGround
     {
         Default,
         Image,
         AcrylicBlur,
         Transparent,
+        ColorBlock,
         Mica
     }
 

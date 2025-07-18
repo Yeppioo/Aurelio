@@ -48,23 +48,23 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
             if (Data.DesktopType == DesktopType.Windows && Environment.OSVersion.Version.Major >= 10)
             {
                 var cr = await ShowDialogAsync($"{MainLang.FoundNewVersion}: {info.NewVersion}", p_content: c, b_primary: MainLang.Update,
-                    b_secondary: MainLang.SaveAs, b_cancel: MainLang.Cancel, sender: UiProperty.ActiveWindow);
+                    b_secondary: MainLang.SaveAs, b_cancel: MainLang.Cancel, sender: UiProperty.ActiveWindow.RootElement);
                 if (cr == ContentDialogResult.Primary)
                 {
-                    _ = Public.Module.App.Services.Update.UpdateApp(UiProperty.ActiveWindow);
+                    _ = Public.Module.App.Services.Update.UpdateApp(UiProperty.ActiveWindow.RootElement);
                 }
                 else if (cr == ContentDialogResult.Secondary)
                 {
-                    SaveAs(UiProperty.ActiveWindow);
+                    SaveAs(UiProperty.ActiveWindow.RootElement);
                 }
             }
             else
             {
                 var cr = await ShowDialogAsync($"{MainLang.FoundNewVersion}: {info.NewVersion}", p_content: c, b_primary: MainLang.SaveAs,
-                    b_cancel: MainLang.Cancel, sender: UiProperty.ActiveWindow, b_secondary: MainLang.CloseAutoUpdate);
+                    b_cancel: MainLang.Cancel, sender: UiProperty.ActiveWindow.RootElement, b_secondary: MainLang.CloseAutoUpdate);
                 if (cr == ContentDialogResult.Primary)
                 {
-                    SaveAs(UiProperty.ActiveWindow);
+                    SaveAs(UiProperty.ActiveWindow.RootElement);
                 }
                 else if (cr == ContentDialogResult.Secondary)
                 {
@@ -373,7 +373,7 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
                     e.Handled = true; // 阻止事件冒泡
                     try
                     {
-                        var launcher = TopLevel.GetTopLevel(UiProperty.ActiveWindow)?.Launcher;
+                        var launcher = TopLevel.GetTopLevel(UiProperty.ActiveWindow.RootElement)?.Launcher;
                         if (launcher != null)
                         {
                             await launcher.LaunchUriAsync(new Uri(linkUrl));

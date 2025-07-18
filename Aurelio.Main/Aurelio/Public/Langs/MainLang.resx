@@ -1756,4 +1756,7 @@
   <data name="Toggled" xml:space="preserve">
     <value>已切换</value>
   </data>
+  <data name="ColorBlock" xml:space="preserve">
+    <value>色块</value>
+  </data>
 </root>

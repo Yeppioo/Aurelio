@@ -2,8 +2,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Module.App.Services;
 using Aurelio.Public.Module.Service;
+using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
 using Aurelio.Views.Overlay;
@@ -15,13 +18,15 @@ using Avalonia.Platform;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Ursa.Controls;
+using Notification = System.Reactive.Notification;
 using WindowNotificationManager = Ursa.Controls.WindowNotificationManager;
 
 namespace Aurelio.Views.Main;
 
-public partial class TabWindow : WindowBase
+public partial class TabWindow : UrsaWindow, IAurelioWindow
 {
     private DateTime _lastShiftPressTime;
+    private IAurelioWindow _aurelioWindowImplementation;
 
     public TabWindow()
     {
@@ -33,6 +38,8 @@ public partial class TabWindow : WindowBase
         Notification = new WindowNotificationManager(GetTopLevel(this));
         Toast = new WindowToastManager(GetTopLevel(this));
         Notification.Position = NotificationPosition.BottomRight;
+        RootElement = Root;
+        Window = this;
         Toast.MaxItems = 2;
         DialogHost.HostId = $"DialogHost_{DateTime.Now}";
         DataContext = ViewModel;
@@ -104,10 +111,18 @@ public partial class TabWindow : WindowBase
 
         // Unregister from drag service
         TabDragDropService.UnregisterWindow(this);
+        Setter.SetBackGround(Data.SettingEntry.BackGround, this);
     }
 
     private void BindEvents()
     {
+        Application.Current.ActualThemeVariantChanged +=
+            (_, _) => Setter.SetBackGround(Data.SettingEntry.BackGround, this);
+        Data.SettingEntry.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName != nameof(SettingEntry.BackGround)) return;
+            Setter.SetBackGround(Data.SettingEntry.BackGround, this);
+        };
         NewTabButton.Click += NewTabButton_Click;
         Closing += OnClosing;
         ViewModel.TabsEmptied += OnTabsEmptied;
@@ -133,6 +148,7 @@ public partial class TabWindow : WindowBase
                 }
             };
         }
+
         KeyDown += (_, e) =>
         {
             if (e.Key is not (Key.LeftShift or Key.RightShift)) return;
@@ -220,4 +236,9 @@ public partial class TabWindow : WindowBase
             // ViewModel.CreateTab(settingsTab);
         }
     }
+
+    public WindowNotificationManager Notification { get; set; }
+    public WindowToastManager Toast { get; set; }
+    public Control RootElement { get; set; }
+    public UrsaWindow Window { get; set; }
 }

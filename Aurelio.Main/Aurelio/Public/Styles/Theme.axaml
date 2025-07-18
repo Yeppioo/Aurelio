@@ -1,37 +1,101 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Dark">
-            <Color x:Key="TextColor">#ffffff</Color>
-            <Color x:Key="WindowBackgroundColor">#191919</Color>
-            <Color x:Key="PageBackgroundColor">#242424</Color>
-            <Color x:Key="TitleBarHoverColor">#272727</Color>
-            <Color x:Key="ExpanderHoverColor">#2F2F2F</Color>
-            <Color x:Key="ExpanderSeparatorColor">#21606E7E</Color>
-            <Color x:Key="CardBackgroundColor">#272727</Color>
-            <Color x:Key="2xCardBackgroundColor">#404040</Color>
-            <Color x:Key="GrayColor">#7e7e7e</Color>
-            <Color x:Key="BorderBrush">#383838</Color>
+            <SolidColorBrush Color="#ffffff" x:Key="TextColor" />
+            <Color x:Key="WindowBackgroundColor">
+                #191919
+            </Color>
+            <SolidColorBrush
+                Color="#242424"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="PageBackgroundColor" />
+            <SolidColorBrush
+                Color="#272727"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="TitleBarHoverColor" />
+            <SolidColorBrush
+                Color="#2F2F2F"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="ExpanderHoverColor" />
+            <SolidColorBrush Color="#21606E7E" x:Key="ExpanderSeparatorColor" />
+            <SolidColorBrush
+                Color="#272727"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="CardBackgroundColor" />
+            <SolidColorBrush
+                Color="#404040"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="2xCardBackgroundColor" />
+            <SolidColorBrush
+                Color="#7e7e7e"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="GrayColor" />
+            <SolidColorBrush
+                Color="#383838"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="BorderBrush" />
             <Color x:Key="LinearGradientTransparentColor">#00191919</Color>
-            <Color x:Key="SelectedTabBackgroundColor">#121212</Color>
-            <Color x:Key="HoverTabBackgroundColor">#323232</Color>
-            <Color x:Key="TabBackgroundColor">#272727</Color>
+            <SolidColorBrush
+                Color="#121212"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="SelectedTabBackgroundColor" />
+            <SolidColorBrush
+                Color="#323232"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="HoverTabBackgroundColor" />
+            <SolidColorBrush
+                Color="#272727"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="TabBackgroundColor" />
             <CornerRadius x:Key="CardCornerRadius">10</CornerRadius>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
-            <Color x:Key="TextColor">#2C3E50</Color>
-            <Color x:Key="ExpanderSeparatorColor">#21606E7E</Color>
-            <Color x:Key="WindowBackgroundColor">#F5F7FA</Color>
-            <Color x:Key="PageBackgroundColor">#FFFFFF</Color>
-            <Color x:Key="TitleBarHoverColor">#E8ECF2</Color>
-            <Color x:Key="ExpanderHoverColor">#EFF2F7</Color>
-            <Color x:Key="CardBackgroundColor">#E2E8F0</Color>
-            <Color x:Key="2xCardBackgroundColor">#D3DCE6</Color>
-            <Color x:Key="GrayColor">#8492A6</Color>
-            <Color x:Key="BorderBrush">#D3DCE6</Color>
+            <SolidColorBrush Color="#2C3E50" x:Key="TextColor" />
+            <SolidColorBrush Color="#21606E7E" x:Key="ExpanderSeparatorColor" />
+            <Color x:Key="WindowBackgroundColor">
+                #F5F7FA
+            </Color>
+            <SolidColorBrush
+                Color="#FFFFFF"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="PageBackgroundColor" />
+            <SolidColorBrush
+                Color="#E8ECF2"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="TitleBarHoverColor" />
+            <SolidColorBrush
+                Color="#EFF2F7"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="ExpanderHoverColor" />
+            <SolidColorBrush
+                Color="#E2E8F0"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="CardBackgroundColor" />
+            <SolidColorBrush
+                Color="#D3DCE6"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="2xCardBackgroundColor" />
+            <SolidColorBrush
+                Color="#8492A6"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="GrayColor" />
+            <SolidColorBrush
+                Color="#D3DCE6"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="BorderBrush" />
             <Color x:Key="LinearGradientTransparentColor">#00FFFFFF</Color>
-            <Color x:Key="SelectedTabBackgroundColor">#FFFFFF</Color>
-            <Color x:Key="HoverTabBackgroundColor">#D4DDEA</Color>
-            <Color x:Key="TabBackgroundColor">#E2E8F0</Color>
+            <SolidColorBrush
+                Color="#FFFFFF"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="SelectedTabBackgroundColor" />
+            <SolidColorBrush
+                Color="#D4DDEA"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="HoverTabBackgroundColor" />
+            <SolidColorBrush
+                Color="#E2E8F0"
+                Opacity="{DynamicResource BackGroundOpacity}"
+                x:Key="TabBackgroundColor" />
             <CornerRadius x:Key="CardCornerRadius">10</CornerRadius>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>

@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO;
 using Aurelio.Views.Main;
@@ -17,7 +18,6 @@ using Ursa.Controls;
 using Ursa.Controls.Options;
 using Notification = Ursa.Controls.Notification;
 using TaskCenterDrawer = Aurelio.Views.Overlay.TaskCenterDrawer;
-using WindowBase = Aurelio.Views.Main.WindowBase;
 
 namespace Aurelio.Public.Module.Ui;
 
@@ -63,7 +63,7 @@ public abstract class Overlay
     }
 
     public static void Notice(string msg, NotificationType type = NotificationType.Information, TimeSpan? time = null,
-        Action? onClick = null, bool showTime = true, string title = "Aurelio", WindowBase? host = null)
+        Action? onClick = null, bool showTime = true, string title = "Aurelio", IAurelioWindow? host = null)
     {
         Logger.Info($"[Notice] [{type}] {msg}");
         var showTitle = "Aurelio";
@@ -85,7 +85,7 @@ public abstract class Overlay
     }
 
     public static void NotificationBubble(string msg, NotificationType type, TimeSpan? time = null,
-        Action? onClick = null, WindowBase? host = null)
+        Action? onClick = null, IAurelioWindow? host = null)
     {
         var toast = new Toast(msg, type);
         (host != null ? host.Toast : UiProperty.Toast).Show(toast, toast.Type, classes: ["Light"], onClick: onClick,
@@ -93,7 +93,7 @@ public abstract class Overlay
     }
 
     public static void NotificationCard(string msg, NotificationType type, string title, TimeSpan? time = null,
-        Action? onClick = null, WindowBase? host = null)
+        Action? onClick = null, IAurelioWindow? host = null)
     {
         var notification = new Notification(title, msg, type);
         (host != null ? host.Notification : UiProperty.Notification).Show(notification, notification.Type,

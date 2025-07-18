@@ -2,7 +2,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Module.Service;
+using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
 using Aurelio.Views.Overlay;
@@ -22,7 +25,7 @@ using WindowNotificationManager = Ursa.Controls.WindowNotificationManager;
 
 namespace Aurelio.Views.Main;
 
-public partial class MainWindow : WindowBase
+public partial class MainWindow : UrsaWindow, IAurelioWindow
 {
     public MainWindow()
     {
@@ -34,9 +37,11 @@ public partial class MainWindow : WindowBase
         Notification = new WindowNotificationManager(GetTopLevel(this));
         Toast = new WindowToastManager(GetTopLevel(this));
         Notification.Position = NotificationPosition.BottomRight;
+        RootElement = Root;
         Toast.MaxItems = 2;
         DataContext = ViewModel;
         NewTabButton.DataContext = ViewModel;
+        Window = this;
         TabDragDropService.RegisterWindow(this);
 #if RELEASE
         BindEvents();
@@ -80,6 +85,8 @@ public partial class MainWindow : WindowBase
             ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
             ExtendClientAreaToDecorationsHint = true;
         }
+
+        Setter.SetBackGround(Data.SettingEntry.BackGround, this);
     }
 
 #if DEBUG
@@ -133,6 +140,8 @@ public partial class MainWindow : WindowBase
 #endif
     private void BindEvents()
     {
+        Application.Current.ActualThemeVariantChanged +=
+            (_, _) => Setter.SetBackGround(Data.SettingEntry.BackGround, this);
         Closing += OnMainWindowClosing;
         if (Data.DesktopType == DesktopType.MacOs)
         {
@@ -155,6 +164,12 @@ public partial class MainWindow : WindowBase
                 }
             };
         }
+
+        Data.SettingEntry.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName != nameof(SettingEntry.BackGround)) return;
+            Setter.SetBackGround(Data.SettingEntry.BackGround, this);
+        };
         NavScrollViewer.ScrollChanged += (_, _) => { ViewModel.IsTabMaskVisible = NavScrollViewer.Offset.X > 0; };
         Loaded += (_, _) =>
         {
@@ -265,4 +280,9 @@ public partial class MainWindow : WindowBase
         TabDragDropService.UnregisterWindow(this);
         Environment.Exit(0);
     }
+
+    public WindowNotificationManager Notification { get; set; }
+    public WindowToastManager Toast { get; set; }
+    public Control RootElement { get; set; }
+    public UrsaWindow Window { get; set; }
 }

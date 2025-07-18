@@ -843,6 +843,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 色块.
+        /// </summary>
+        public static string ColorBlock {
+            get {
+                return ResourceManager.GetString("ColorBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 色彩模式.
         /// </summary>
         public static string ColorMode {

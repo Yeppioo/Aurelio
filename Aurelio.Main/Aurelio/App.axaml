@@ -5,6 +5,7 @@
     xmlns:helper="clr-namespace:Aurelio.Public.Module.Ui.Helper"
     xmlns:semi="https://irihi.tech/semi"
     xmlns:styling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:u-semi="https://irihi.tech/ursa/themes/semi"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
@@ -39,6 +40,7 @@
             <Color x:Key="SystemAccentColorDark1">#1BD76A</Color>
             <Color x:Key="SystemAccentColorDark2">#1BD76A</Color>
             <Color x:Key="SystemAccentColorDark3">#1BD76A</Color>
+            <system:Double x:Key="BackGroundOpacity">1</system:Double>
             <FontFamily x:Key="MiSans">avares://Aurelio/Public/Assets#MiSans</FontFamily>
             <FontWeight x:Key="FontWeight">650</FontWeight>
         </ResourceDictionary>

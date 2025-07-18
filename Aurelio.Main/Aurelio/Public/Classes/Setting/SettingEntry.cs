@@ -7,6 +7,7 @@ using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.Service.Minecraft;
 using Aurelio.Public.Module.Ui;
+using Avalonia.Media;
 using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -23,6 +24,8 @@ public class SettingEntry : ReactiveObject
 
     [Reactive] [JsonProperty] public Enum.Setting.NoticeWay NoticeWay { get; set; } = Enum.Setting.NoticeWay.Bubble;
     [Reactive] [JsonProperty] public Enum.Setting.Theme Theme { get; set; } = Enum.Setting.Theme.Dark;
+    [Reactive] [JsonProperty] public Enum.Setting.BackGround BackGround { get; set; } = Enum.Setting.BackGround.Default;
+    [Reactive] [JsonProperty] public Color ThemeColor { get; set; } = Color.Parse("#1BD76A");
     [Reactive] [JsonProperty] public double MemoryLimit { get; set; } = 2048;
 
     [Reactive]
@@ -64,17 +67,19 @@ public class SettingEntry : ReactiveObject
             App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
             HandleMinecraftInstances.Categorize(MinecraftInstanceCategoryMethod);
         }
-
-        if (e.PropertyName == nameof(MinecraftInstanceSortMethod))
+        else if (e.PropertyName == nameof(MinecraftInstanceSortMethod))
         {
             if (App.UiRoot == null) return;
             App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
             HandleMinecraftInstances.Sort(MinecraftInstanceSortMethod);
         }
-        
-        if (e.PropertyName == nameof(Theme))
+        else if (e.PropertyName == nameof(Theme))
         {
             Setter.ToggleTheme(Theme);
+        }
+        else if (e.PropertyName == nameof(ThemeColor))
+        {
+            Setter.SetAccentColor(ThemeColor);
         }
 
 

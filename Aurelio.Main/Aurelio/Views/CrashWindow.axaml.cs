@@ -1,21 +1,26 @@
 using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.App.Services;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
+using Avalonia.Controls.Notifications;
 using Avalonia.Interactivity;
 using Avalonia.Platform;
 using Ursa.Controls;
+using WindowNotificationManager = Ursa.Controls.WindowNotificationManager;
 
 namespace Aurelio.Views;
 
-public partial class CrashWindow : UrsaWindow
+public partial class CrashWindow : UrsaWindow , IAurelioWindow
 {
+    public Data Data => Data.Instance;
     public CrashWindow(string exception)
     {
         InitializeComponent();
+        DataContext = this;
         Setter.UpdateWindowStyle(this);
-
         Info.Text = exception;
         Copy.Click += async (_, _) =>
         {
@@ -25,8 +30,24 @@ public partial class CrashWindow : UrsaWindow
         Continue.Click += (_, _) => { Close(); };
         Restart.Click += (_, _) => { AppMethod.RestartApp(); };
         Exit.Click += (_, _) => { Environment.Exit(0); };
+        Application.Current.ActualThemeVariantChanged +=
+            (_, _) => Setter.SetBackGround(Data.SettingEntry.BackGround, this);
         Topmost = true;
-        Loaded += (_, _) => { Setter.UpdateWindowStyle(this); };
+        Loaded += (_, _) =>
+        {
+            Setter.UpdateWindowStyle(this); 
+            Setter.SetBackGround(Data.SettingEntry.BackGround, this);
+        };
+        Data.SettingEntry.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName != nameof(SettingEntry.BackGround)) return;
+            Setter.SetBackGround(Data.SettingEntry.BackGround, this);
+        };
+        Notification = new WindowNotificationManager(GetTopLevel(this));
+        Toast = new WindowToastManager(GetTopLevel(this));
+        Notification.Position = NotificationPosition.BottomRight;
+        RootElement = Root;
+        Window = this;
         Show();
         Activate();
     }
@@ -94,4 +115,9 @@ public partial class CrashWindow : UrsaWindow
             };
         }
     }
+
+    public WindowNotificationManager Notification { get; set; }
+    public WindowToastManager Toast { get; set; }
+    public Control RootElement { get; set; }
+    public UrsaWindow Window { get; set; }
 }

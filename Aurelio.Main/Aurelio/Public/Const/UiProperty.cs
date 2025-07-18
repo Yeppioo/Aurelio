@@ -1,12 +1,13 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Langs;
 using Avalonia.Controls.ApplicationLifetimes;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Ursa.Controls;
-using WindowBase = Aurelio.Views.Main.WindowBase;
 
 namespace Aurelio.Public.Const;
 
@@ -30,10 +31,11 @@ public class UiProperty : ReactiveObject
     public static ObservableCollection<NotificationEntry> Notifications { get; } = [];
     public static ObservableCollection<string> AllMinecraftTags { get; } = [];
     public static ObservableCollection<string> BuiltInTags { get; } = [];
+    public static IReadOnlyList<WindowTransparencyLevel> WindowBackGround { get; } = [];
     public static WindowNotificationManager Notification => ActiveWindow.Notification;
     public static WindowToastManager Toast => ActiveWindow.Toast;
 
-    public static WindowBase ActiveWindow => (Application.Current!.ApplicationLifetime as
+    public static IAurelioWindow ActiveWindow => (Application.Current!.ApplicationLifetime as
         IClassicDesktopStyleApplicationLifetime).Windows.FirstOrDefault
-        (x => x.IsActive) as WindowBase ?? App.UiRoot;
+        (x => x.IsActive) as IAurelioWindow ?? App.UiRoot;
 }
