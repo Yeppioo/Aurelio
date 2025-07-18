@@ -1759,4 +1759,7 @@
   <data name="ColorBlock" xml:space="preserve">
     <value>色块</value>
   </data>
+  <data name="WindowVisibility" xml:space="preserve">
+    <value>窗口可见性</value>
+  </data>
 </root>

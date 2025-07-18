@@ -4815,6 +4815,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 窗口可见性.
+        /// </summary>
+        public static string WindowVisibility {
+            get {
+                return ResourceManager.GetString("WindowVisibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 发现新版本 : {version}
         ///      win10 以下系统(不包括10)不支持自动更新
         ///      前往以下链接下载新版本 : “{url}”

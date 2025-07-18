@@ -88,7 +88,7 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
             App.UiRoot.CreateTab(tab);
     }
 
-    private async void IconBorder_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+    private async void IconBorder_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         var border = (Border)sender;
         var icon = (PathIcon)((Grid)border.Child).Children[0];

@@ -26,6 +26,7 @@ public class SettingEntry : ReactiveObject
     [Reactive] [JsonProperty] public Enum.Setting.NoticeWay NoticeWay { get; set; } = Enum.Setting.NoticeWay.Bubble;
     [Reactive] [JsonProperty] public Enum.Setting.Theme Theme { get; set; } = Enum.Setting.Theme.Dark;
     [Reactive] [JsonProperty] public Enum.Setting.BackGround BackGround { get; set; } = Enum.Setting.BackGround.Default;
+    [Reactive] [JsonProperty] public Enum.Setting.WindowVisibility WindowVisibility { get; set; } = Enum.Setting.WindowVisibility.AfterLaunchKeepVisible;
     [Reactive] [JsonProperty] public Color ThemeColor { get; set; } = Color.Parse("#1BD76A");
     [Reactive] [JsonProperty] public Color BackGroundColor { get; set; } = Color.Parse("#00B7FF52");
     [Reactive] [JsonProperty] public double MemoryLimit { get; set; } = 2048;
@@ -91,6 +92,10 @@ public class SettingEntry : ReactiveObject
         else if (e.PropertyName == nameof(BackGround))
         {
             Application.Current.Resources["BackGroundOpacity"] = BackGround == Enum.Setting.BackGround.Default ? 1.0 : 0.5;
+        }
+        else if (e.PropertyName == nameof(NoticeWay))
+        {
+            Notice(MainLang.ExampleNotification);
         }
 
 

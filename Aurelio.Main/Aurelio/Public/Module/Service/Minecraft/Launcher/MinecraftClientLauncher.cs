@@ -179,12 +179,30 @@ public partial class MinecraftClientLauncher
 
                     process.Exited += async (_, arg) =>
                     {
-                        await Dispatcher.UIThread.InvokeAsync(() =>
+                        await Dispatcher.UIThread.InvokeAsync(async () =>
                         {
+                            await Task.Delay(500);
+                            if (Data.SettingEntry.WindowVisibility !=
+                                Setting.WindowVisibility.AfterLaunchMakeMinimize)
+                            {
+                                if (sender.GetVisualRoot() is Window window1)
+                                {
+                                    window1.Show();
+                                    window1.WindowState = WindowState.Normal;
+                                    window1.Activate();
+                                }
+                            }
+                            else
+                            {
+                                if (sender.GetVisualRoot() is Window window2)
+                                {
+                                    window2.Activate();
+                                    window2.Focus();
+                                }
+                            }
+                            
                             Notice($"{MainLang.GameExited} - {entry.Id}", NotificationType.Warning);
-
-                            logViewer.AddLog("Aurelio", LogType.Info, $"游戏进程已退出 - {entry.Id}");
-
+                            logViewer.AddLog("Aurelio", LogType.Info, $"{MainLang.GameExited} - {entry.Id}");
                             task.FinishWithSuccess();
                         });
                     };
@@ -246,7 +264,7 @@ public partial class MinecraftClientLauncher
                         task.OperateButtons.Add(new OperateButtonEntry("显示Minecraft日志",
                             sender => { ShowLogViewer(tab, sender); }));
                     });
-                    _ = Task.Run(() =>
+                    _ = Task.Run(async () =>
                     {
                         task.ButtonText = MainLang.KillProcess;
                         task.ButtonAction = () =>
@@ -262,34 +280,33 @@ public partial class MinecraftClientLauncher
                             }
                         };
 
-                        // await Task.Delay(8000);
-                        // Dispatcher.UIThread.Invoke(() =>
-                        // {
-                        //     switch (Data.SettingEntry.LauncherVisibility)
-                        //     {
-                        //         case Setting.LauncherVisibility.AfterLaunchExitLauncher:
-                        //             Environment.Exit(0);
-                        //             break;
-                        //         case Setting.LauncherVisibility.AfterLaunchMakeLauncherMinimize:
-                        //         case Setting.LauncherVisibility.AfterLaunchMinimizeAndShowWhenGameExit:
-                        //             if (TopLevel.GetTopLevel(YMCL.App.UiRoot) is Window window2)
-                        //             {
-                        //                 window2.WindowState = WindowState.Minimized;
-                        //             }
-                        //
-                        //             break;
-                        //         case Setting.LauncherVisibility.AfterLaunchHideAndShowWhenGameExit:
-                        //             if (TopLevel.GetTopLevel(YMCL.App.UiRoot) is Window window1)
-                        //             {
-                        //                 window1.Hide();
-                        //             }
-                        //
-                        //             break;
-                        //         case Setting.LauncherVisibility.AfterLaunchKeepLauncherVisible:
-                        //         default:
-                        //             break;
-                        //     }
-                        // });
+                        Dispatcher.UIThread.Invoke(() =>
+                        {
+                            switch (Data.SettingEntry.WindowVisibility)
+                            {
+                                case Setting.WindowVisibility.AfterLaunchExit:
+                                    Environment.Exit(0);
+                                    break;
+                                case Setting.WindowVisibility.AfterLaunchMakeMinimize:
+                                case Setting.WindowVisibility.AfterLaunchMinimizeAndShowWhenGameExit:
+                                    if (sender.GetVisualRoot() is Window window2)
+                                    {
+                                        window2.WindowState = WindowState.Minimized;
+                                    }
+                        
+                                    break;
+                                case Setting.WindowVisibility.AfterLaunchHideAndShowWhenGameExit:
+                                    if (sender.GetVisualRoot() is Window window1)
+                                    {
+                                        window1.Hide();
+                                    }
+                        
+                                    break;
+                                case Setting.WindowVisibility.AfterLaunchKeepVisible:
+                                default:
+                                    break;
+                            }
+                        });
                     }, token);
                 }
                 catch (Exception ex)

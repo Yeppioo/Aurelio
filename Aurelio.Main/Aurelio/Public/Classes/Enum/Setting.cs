@@ -8,6 +8,15 @@ public class Setting
         Microsoft,
         ThirdParty
     }
+    
+    public enum WindowVisibility
+    {
+        AfterLaunchKeepVisible,
+        AfterLaunchMakeMinimize,
+        AfterLaunchMinimizeAndShowWhenGameExit,
+        AfterLaunchHideAndShowWhenGameExit,
+        AfterLaunchExit
+    }
 
     public enum BackGround
     {

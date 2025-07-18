@@ -181,7 +181,7 @@
                                                                         Height="48"
                                                                         Margin="10,0"
                                                                         Name="IconBorder"
-                                                                        PointerReleased="IconBorder_OnPointerReleased"
+                                                                        PointerPressed="IconBorder_OnPointerPressed"
                                                                         Tag="{Binding}"
                                                                         Width="48">
                                                                         <Border.Transitions>

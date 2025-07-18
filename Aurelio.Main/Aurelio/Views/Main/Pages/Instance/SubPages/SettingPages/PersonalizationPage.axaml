@@ -26,7 +26,7 @@
                     VerticalAlignment="Top">
                     <StackPanel>
                         <DockPanel>
-                            <DockPanel DockPanel.Dock="Top" Margin="17.5,0,10,0">
+                            <DockPanel DockPanel.Dock="Top" Margin="17.5,0,10,3">
                                 <PathIcon
                                     Data="M448 256c0-106-86-192-192-192l0 384c106 0 192-86 192-192zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"
                                     Margin="0,0,15,0"
@@ -102,7 +102,7 @@
                                 </Border>
                             </DockPanel>
                         </DockPanel>
-                        <Separator />
+                        <Separator Margin="10,0" />
                         <DockPanel>
                             <DockPanel DockPanel.Dock="Top" Margin="17.5,3,10,3">
                                 <PathIcon
@@ -123,9 +123,9 @@
                                 </Border>
                             </DockPanel>
                         </DockPanel>
-                        <Separator />
+                        <Separator Margin="10,0" />
                         <DockPanel>
-                            <DockPanel DockPanel.Dock="Top" Margin="17.5,0,10,5">
+                            <DockPanel DockPanel.Dock="Top" Margin="17.5,3,10,5">
                                 <PathIcon
                                     Data="F1 M 11.791382 12.350159 C 11.94397 12.502747 12.143555 12.57843 12.34375 12.57843 C 12.543945 12.57843 12.74353 12.502747 12.896118 12.350159 L 14.771118 10.475159 C 15.076294 10.169983 15.076294 9.674377 14.771118 9.369202 L 12.896118 7.494202 C 12.590942 7.189026 12.096558 7.189026 11.791382 7.494202 C 11.486168 7.799416 11.486206 8.294983 11.791382 8.600159 L 13.114014 9.92218 L 11.791382 11.244202 C 11.486206 11.549377 11.486206 12.044983 11.791382 12.350159 Z M 19.375 1.796875 L 0.625 1.796875 C -0.410156 1.796875 -1.25 2.636719 -1.25 3.671875 L -1.25 16.171875 C -1.25 17.207031 -0.410156 18.046875 0.625 18.046875 L 8.125 18.046875 L 7.5 19.921875 L 4.6875 19.921875 C 4.169922 19.921875 3.75 20.341797 3.75 20.859375 C 3.75 21.376953 4.169922 21.796875 4.6875 21.796875 L 15.3125 21.796875 C 15.830078 21.796875 16.25 21.376953 16.25 20.859375 C 16.25 20.341797 15.830078 19.921875 15.3125 19.921875 L 12.5 19.921875 L 11.875 18.046875 L 19.375 18.046875 C 20.410156 18.046875 21.25 17.207031 21.25 16.171875 L 21.25 3.671875 C 21.25 2.636719 20.410156 1.796875 19.375 1.796875 Z M 18.75 15.546875 L 1.25 15.546875 L 1.25 4.296875 L 18.75 4.296875 Z M 7.103882 12.350159 C 7.25647 12.502747 7.456055 12.57843 7.65625 12.57843 C 7.856445 12.57843 8.05603 12.502747 8.208618 12.350159 C 8.513794 12.044983 8.513794 11.549377 8.208618 11.244202 L 6.885986 9.92218 L 8.208618 8.600159 C 8.513794 8.294983 8.513794 7.799377 8.208618 7.494202 C 7.903481 7.189064 7.409058 7.189026 7.103882 7.494202 L 5.228882 9.369202 C 4.923706 9.674377 4.923706 10.169983 5.228882 10.475159 Z "
                                     Margin="0,0,15,0"
@@ -177,7 +177,27 @@
                     DockPanel.Dock="Top"
                     Padding="0,10"
                     VerticalAlignment="Top">
-                    <StackPanel>
+                    <StackPanel Spacing="7">
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock="Top" Margin="17.5,0,10,0">
+                                <PathIcon
+                                    Data="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"
+                                    Margin="-1,0,16,0"
+                                    Width="15" />
+                                <TextBlock
+                                    Margin="0,0,0,0"
+                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.NoticeWay}"
+                                    VerticalAlignment="Center" />
+                                <ComboBox
+                                    HorizontalAlignment="Right"
+                                    MinWidth="140"
+                                    SelectedIndex="{Binding Data.SettingEntry.NoticeWay}">
+                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.NotificationBubble}" />
+                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.NotificationCard}" />
+                                </ComboBox>
+                            </DockPanel>
+                        </DockPanel>
+                        <Separator Margin="10,0" />
                         <DockPanel>
                             <DockPanel DockPanel.Dock="Top" Margin="17.5,0,10,0">
                                 <PathIcon
@@ -203,6 +223,29 @@
                                             </TextBlock>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </DockPanel>
+                        </DockPanel>
+                        <Separator Margin="10,0" />
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock="Top" Margin="17.5,0,10,0">
+                                <PathIcon
+                                    Data="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c8.4-19.3 10.6-41.4 4.8-63.3c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zM373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5L373 389.9z"
+                                    Margin="0,1,15,0"
+                                    Width="15" />
+                                <TextBlock
+                                    Margin="0,0,0,0"
+                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.WindowVisibility}"
+                                    VerticalAlignment="Center" />
+                                <ComboBox
+                                    HorizontalAlignment="Right"
+                                    MinWidth="140"
+                                    SelectedIndex="{Binding Data.SettingEntry.WindowVisibility}">
+                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AfterLaunchKeepLauncherVisible}" />
+                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AfterLaunchMakeLauncherMinimize}" />
+                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AfterLaunchMinimizeAndShowWhenGameExit}" />
+                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AfterLaunchHideAndShowWhenGameExit}" />
+                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AfterLaunchExitLauncher}" />
                                 </ComboBox>
                             </DockPanel>
                         </DockPanel>
