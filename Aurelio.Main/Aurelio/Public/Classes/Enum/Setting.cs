@@ -9,6 +9,13 @@ public class Setting
         ThirdParty
     }
     
+    public enum LaunchPage
+    {
+        NewTab,
+        MinecraftInstance,
+        Setting
+    }
+    
     public enum WindowVisibility
     {
         AfterLaunchKeepVisible,

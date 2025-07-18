@@ -1762,4 +1762,7 @@
   <data name="WindowVisibility" xml:space="preserve">
     <value>窗口可见性</value>
   </data>
+  <data name="LaunchPage" xml:space="preserve">
+    <value>启动页面</value>
+  </data>
 </root>

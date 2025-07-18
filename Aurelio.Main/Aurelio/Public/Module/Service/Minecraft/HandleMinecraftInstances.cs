@@ -20,8 +20,8 @@ public partial class HandleMinecraftInstances
 
     public static async Task Load(string[] path)
     {
-        Aurelio.App.UiRoot.ViewModel.HomeTabPage.Root.IsVisible = false;
-        Aurelio.App.UiRoot.ViewModel.HomeTabPage.ProgressRing.IsVisible = true;
+        Aurelio.App.UiRoot.ViewModel.MinecraftInstancesPage.Root.IsVisible = false;
+        Aurelio.App.UiRoot.ViewModel.MinecraftInstancesPage.ProgressRing.IsVisible = true;
         await Task.Run(() =>
         {
             // 清空现有实例集合，避免重复加载
@@ -52,8 +52,8 @@ public partial class HandleMinecraftInstances
             Data.UpdateAggregateSearchEntries();
         });
         Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
-        Aurelio.App.UiRoot.ViewModel.HomeTabPage.Root.IsVisible = true;
-        Aurelio.App.UiRoot.ViewModel.HomeTabPage.ProgressRing.IsVisible = false;
+        Aurelio.App.UiRoot.ViewModel.MinecraftInstancesPage.Root.IsVisible = true;
+        Aurelio.App.UiRoot.ViewModel.MinecraftInstancesPage.ProgressRing.IsVisible = false;
     }
 
     public static void Sort(MinecraftInstanceSortMethod method)
@@ -129,7 +129,7 @@ public partial class HandleMinecraftInstances
             _cts.Cancel();
         Dispatcher.UIThread.InvokeAsync(() =>
         {
-            _cts = Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
+            _cts = Aurelio.App.UiRoot.ViewModel.MinecraftInstancesPage.MinecraftCardsContainerRoot
                 .Animate<double>(Visual.OpacityProperty, 0, 1);
         });
     }
@@ -162,7 +162,7 @@ public partial class HandleMinecraftInstances
         Dispatcher.UIThread.InvokeAsync(() =>
         {
             if (Aurelio.App.UiRoot != null)
-                Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
+                Aurelio.App.UiRoot.ViewModel.MinecraftInstancesPage.MinecraftCardsContainerRoot.Opacity = 0;
         });
         var filtered = Data.SortedMinecraftCategories
             .FirstOrDefault(x => x.Tag == "filtered")?.Minecrafts;
@@ -411,7 +411,7 @@ public partial class HandleMinecraftInstances
         else if (Aurelio.App.UiRoot != null)
             Dispatcher.UIThread.InvokeAsync(() =>
             {
-                Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
+                Aurelio.App.UiRoot.ViewModel.MinecraftInstancesPage.MinecraftCardsContainerRoot
                     .Animate<double>(Visual.OpacityProperty, 0, 1);
             });
     }

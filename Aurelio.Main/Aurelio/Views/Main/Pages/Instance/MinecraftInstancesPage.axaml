@@ -2,8 +2,8 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d"
-    x:Class="Aurelio.Views.Main.Pages.Instance.HomeTabPage"
-    x:DataType="instance:HomeTabPage"
+    x:Class="Aurelio.Views.Main.Pages.Instance.MinecraftInstancesPage"
+    x:DataType="instance:MinecraftInstancesPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -135,7 +135,7 @@
                                                 <ItemsControl HorizontalAlignment="Stretch" ItemsSource="{Binding Minecrafts}">
                                                     <ItemsControl.ItemsPanel>
                                                         <ItemsPanelTemplate>
-                                                            <UniformGrid Columns="{Binding Path=ContainerWidth, RelativeSource={RelativeSource AncestorType=instance:HomeTabPage}, Converter={StaticResource ContainerToColumnsConverter}}" Name="MinecraftCardsGrid" />
+                                                            <UniformGrid Columns="{Binding Path=ContainerWidth, RelativeSource={RelativeSource AncestorType=instance:MinecraftInstancesPage}, Converter={StaticResource ContainerToColumnsConverter}}" Name="MinecraftCardsGrid" />
                                                         </ItemsPanelTemplate>
                                                     </ItemsControl.ItemsPanel>
                                                     <ItemsControl.ItemTemplate>

@@ -2487,6 +2487,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 启动页面.
+        /// </summary>
+        public static string LaunchPage {
+            get {
+                return ResourceManager.GetString("LaunchPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 启动进度.
         /// </summary>
         public static string LaunchProgress {

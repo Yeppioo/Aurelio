@@ -1,6 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Views.Main.Pages.Instance;
+using Aurelio.Views.Main.Pages.Template;
 
 namespace Aurelio.Public.ViewModels;
 
@@ -13,7 +16,13 @@ public class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
-        Tabs.Add(new TabEntry(HomeTabPage));
+        IAurelioTabPage page = Data.SettingEntry.LaunchPage switch
+        {
+            Setting.LaunchPage.MinecraftInstance => MinecraftInstancesPage,
+            Setting.LaunchPage.Setting => SettingTabPage,
+            _ => NewTabPage 
+        };
+        Tabs.Add(new TabEntry(page));
         SelectedTab = Tabs[0];
         PropertyChanged += (s, e) =>
         {
@@ -24,8 +33,9 @@ public class MainViewModel : ViewModelBase
     }
 
     public ObservableCollection<TabEntry> Tabs { get; set; } = [];
-    public HomeTabPage HomeTabPage { get; set; } = new();
+    public MinecraftInstancesPage MinecraftInstancesPage { get; set; } = new();
     public SettingTabPage SettingTabPage { get; set; } = new();
+    public NewTabPage NewTabPage { get; set; } = new();
     public DebugTabPage DebugTabPage { get; set; } = new();
 
 

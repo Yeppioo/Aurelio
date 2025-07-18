@@ -13,14 +13,14 @@ using Avalonia.VisualTree;
 
 namespace Aurelio.Views.Main.Pages.Instance;
 
-public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
+public partial class MinecraftInstancesPage : PageMixModelBase, IAurelioTabPage
 {
     private double _containerWidth;
 
 
     private string _searchText = string.Empty;
 
-    public HomeTabPage()
+    public MinecraftInstancesPage()
     {
         InitializeComponent();
         DataContext = this;
@@ -29,7 +29,6 @@ public partial class HomeTabPage : PageMixModelBase, IAurelioTabPage
         BindingEvent();
         PageInfo = new PageInfoEntry
         {
-            CanClose = false,
             Title = MainLang.Launch,
             Icon = Icons.Home
         };

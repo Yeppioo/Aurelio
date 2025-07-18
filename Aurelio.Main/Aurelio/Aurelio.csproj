@@ -122,7 +122,7 @@
     
     <ItemGroup>
         <AdditionalFiles Include="Views\Overlay\TaskCenterDrawer.axaml" />
-        <AdditionalFiles Include="Views\Main\Pages\Instance\HomeTabPage.axaml" />
+        <AdditionalFiles Include="Views\Main\Pages\Instance\MinecraftInstancesPage.axaml" />
         <AdditionalFiles Include="Views\Main\Pages\Instance\MoreButtonMenu.axaml" />
         <AdditionalFiles Include="Views\Main\Pages\Instance\SettingTabPage.axaml" />
         <AdditionalFiles Include="Views\Main\Pages\Instance\SubPages\SettingPages\AccountPage.axaml" />

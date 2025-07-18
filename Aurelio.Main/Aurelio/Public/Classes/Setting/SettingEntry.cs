@@ -27,6 +27,7 @@ public class SettingEntry : ReactiveObject
     [Reactive] [JsonProperty] public Enum.Setting.Theme Theme { get; set; } = Enum.Setting.Theme.Dark;
     [Reactive] [JsonProperty] public Enum.Setting.BackGround BackGround { get; set; } = Enum.Setting.BackGround.Default;
     [Reactive] [JsonProperty] public Enum.Setting.WindowVisibility WindowVisibility { get; set; } = Enum.Setting.WindowVisibility.AfterLaunchKeepVisible;
+    [Reactive] [JsonProperty] public Enum.Setting.LaunchPage LaunchPage { get; set; } = Enum.Setting.LaunchPage.MinecraftInstance;
     [Reactive] [JsonProperty] public Color ThemeColor { get; set; } = Color.Parse("#1BD76A");
     [Reactive] [JsonProperty] public Color BackGroundColor { get; set; } = Color.Parse("#00B7FF52");
     [Reactive] [JsonProperty] public double MemoryLimit { get; set; } = 2048;
@@ -67,13 +68,13 @@ public class SettingEntry : ReactiveObject
         if (e.PropertyName == nameof(MinecraftInstanceCategoryMethod))
         {
             if (App.UiRoot == null) return;
-            App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
+            App.UiRoot.ViewModel.MinecraftInstancesPage.MinecraftCardsContainerRoot.Opacity = 0;
             HandleMinecraftInstances.Categorize(MinecraftInstanceCategoryMethod);
         }
         else if (e.PropertyName == nameof(MinecraftInstanceSortMethod))
         {
             if (App.UiRoot == null) return;
-            App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot.Opacity = 0;
+            App.UiRoot.ViewModel.MinecraftInstancesPage.MinecraftCardsContainerRoot.Opacity = 0;
             HandleMinecraftInstances.Sort(MinecraftInstanceSortMethod);
         }
         else if (e.PropertyName == nameof(Theme))

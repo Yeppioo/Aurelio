@@ -38,7 +38,7 @@ public partial class LogViewer : PageMixModelBase, IAurelioTabPage
         };
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
-
+        
         // 直接使用自身作为数据上下文
         DataContext = this;
     }
