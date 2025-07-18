@@ -19,7 +19,7 @@ using MinecraftLaunch.Components.Parser;
 using MinecraftLaunch.Extensions;
 using MinecraftLaunch.Launch;
 using Newtonsoft.Json;
-using LogViewer = Aurelio.Views.Main.Pages.Template.LogViewer;
+using LogViewer = Aurelio.Views.Main.Pages.LogViewer;
 
 namespace Aurelio.Public.Module.Service.Minecraft.Launcher;
 
@@ -57,7 +57,7 @@ public partial class MinecraftClientLauncher
         entry.SettingEntry.LastPlayed = DateTime.Now;
         if (Data.SettingEntry.MinecraftInstanceSortMethod == MinecraftInstanceSortMethod.LastPlayed)
         {
-            HandleMinecraftInstances.Sort(MinecraftInstanceSortMethod.LastPlayed);
+            MinecraftInstancesHandler.Sort(MinecraftInstanceSortMethod.LastPlayed);
         }
 
         Notice($"{MainLang.Launch}: {entry.Id}");

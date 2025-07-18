@@ -1,5 +1,5 @@
 <ResourceDictionary
-    x:Class="Aurelio.Public.Styles.Override.Drawer"
+    x:Class="Aurelio.Public.Styles.Override.Template.Drawer"
     xmlns="https://github.com/avaloniaui"
     xmlns:iri="https://irihi.tech/shared"
     xmlns:u="https://irihi.tech/ursa"

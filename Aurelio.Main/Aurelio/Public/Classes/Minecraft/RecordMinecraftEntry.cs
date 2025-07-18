@@ -68,7 +68,7 @@ public class RecordMinecraftEntry : ReactiveObject
 
             UiProperty.AllMinecraftTags.AddRange(userTags);
             // 只需重新分类，不需要重新加载
-            HandleMinecraftInstances.Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
+            MinecraftInstancesHandler.Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
         };
 
         // 监听收藏状态变化，触发重新分类
@@ -77,7 +77,7 @@ public class RecordMinecraftEntry : ReactiveObject
             if (e.PropertyName == nameof(SettingEntry.IsFavourite))
             {
                 _debouncer.Trigger();
-                HandleMinecraftInstances.Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
+                MinecraftInstancesHandler.Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
             }
         };
     }

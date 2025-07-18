@@ -117,23 +117,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Views\Main\Pages\" />
-    </ItemGroup>
-    
-    <ItemGroup>
         <AdditionalFiles Include="Views\Overlay\TaskCenterDrawer.axaml" />
-        <AdditionalFiles Include="Views\Main\Pages\Instance\MinecraftInstancesPage.axaml" />
-        <AdditionalFiles Include="Views\Main\Pages\Instance\MoreButtonMenu.axaml" />
-        <AdditionalFiles Include="Views\Main\Pages\Instance\SettingTabPage.axaml" />
-        <AdditionalFiles Include="Views\Main\Pages\Instance\SubPages\SettingPages\AccountPage.axaml" />
-        <AdditionalFiles Include="Views\Main\Pages\Instance\SubPages\SettingPages\DownloadPage.axaml" />
-        <AdditionalFiles Include="Views\Main\Pages\Instance\SubPages\SettingPages\LaunchPage.axaml" />
-        <AdditionalFiles Include="Views\Main\Pages\Instance\TestTabPage.axaml" />
-        <AdditionalFiles Include="Views\Main\Pages\Template\ImageViewer.axaml" />
-        <AdditionalFiles Include="Views\Main\Pages\Template\LogViewer.axaml" />
-        <AdditionalFiles Include="Views\Main\Pages\Template\MinecraftInstancePage.axaml" />
-        <AdditionalFiles Include="Views\Main\Pages\Template\Render3DSkin.axaml" />
-        <AdditionalFiles Include="Views\Main\Pages\Template\TaskCenter.axaml" />
     </ItemGroup>
 
     <ItemGroup>

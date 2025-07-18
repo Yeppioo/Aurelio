@@ -10,7 +10,7 @@ using Aurelio.Public.Module.Service;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
-using Aurelio.Views.Main.Pages.Instance;
+using Aurelio.Views.Main.Pages;
 using Aurelio.Views.Overlay;
 using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Primitives;

@@ -2,8 +2,7 @@
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Interfaces;
-using Aurelio.Views.Main.Pages.Instance;
-using Aurelio.Views.Main.Pages.Template;
+using Aurelio.Views.Main.Pages;
 
 namespace Aurelio.Public.ViewModels;
 
@@ -18,9 +17,9 @@ public class MainViewModel : ViewModelBase
     {
         (IAurelioTabPage page, string? tag) obj = Data.SettingEntry.LaunchPage switch
         {
-            Setting.LaunchPage.MinecraftInstance => (MinecraftInstancesPage, "minecraftInstances"),
+            Setting.LaunchPage.MinecraftInstance => (new MinecraftInstancesPage(), "minecraftInstances"),
             Setting.LaunchPage.Setting => (new SettingTabPage(), "setting"),
-            _ => (NewTabPage, null)
+            _ => (new NewTabPage(), null)
         };
         Tabs.Add(new TabEntry(obj.page) { Tag = obj.tag });
         SelectedTab = Tabs[0];
@@ -28,13 +27,11 @@ public class MainViewModel : ViewModelBase
         {
             if (e.PropertyName != nameof(SelectedTab) || SelectedTab == null) return;
             SelectedTab.Content.RootElement.IsVisible = false;
-            SelectedTab.Content.InAnimator?.Animate();
+            SelectedTab.Content.InAnimator.Animate();
         };
     }
 
     public ObservableCollection<TabEntry> Tabs { get; set; } = [];
-    public MinecraftInstancesPage MinecraftInstancesPage { get; set; } = new();
-    public NewTabPage NewTabPage { get; set; } = new();
     public DebugTabPage DebugTabPage { get; set; } = new();
 
 

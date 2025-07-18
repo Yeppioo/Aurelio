@@ -30,6 +30,7 @@ public class UiProperty : ReactiveObject
     }
 
     [Reactive] public bool IsRender3D { get; set; }
+    [Reactive] public bool IsLoadingMinecraftLoading { get; set; }
 
     public static ObservableCollection<NotificationEntry> Notifications { get; } = [];
     public static ObservableCollection<string> AllMinecraftTags { get; } = [];

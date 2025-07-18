@@ -9,7 +9,7 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
-using ImageViewer = Aurelio.Views.Main.Pages.Template.ImageViewer;
+using ImageViewer = Aurelio.Views.Main.Pages.ImageViewer;
 
 namespace Aurelio.Public.Controls;
 

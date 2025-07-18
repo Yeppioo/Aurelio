@@ -1,5 +1,5 @@
 ﻿<ResourceDictionary
-    x:Class="Aurelio.Public.Styles.Override.ContentDialog"
+    x:Class="Aurelio.Public.Styles.Override.Template.ContentDialog"
     x:CompileBindings="True"
     xmlns="https://github.com/avaloniaui"
     xmlns:core="using:FluentAvalonia.Core"

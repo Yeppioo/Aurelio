@@ -74,7 +74,7 @@ public class MinecraftFolder
         }
         
         AppMethod.SaveSetting();
-        _ = HandleMinecraftInstances.Load(Data.SettingEntry.MinecraftFolderEntries
+        _ = MinecraftInstancesHandler.Load(Data.SettingEntry.MinecraftFolderEntries
             .Select(x => x.Path).ToArray());
     }
 }

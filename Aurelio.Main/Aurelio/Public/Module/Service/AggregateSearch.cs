@@ -5,7 +5,7 @@ using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Langs;
 using Aurelio.Views.Main;
-using Aurelio.Views.Main.Pages.Template;
+using Aurelio.Views.Main.Pages;
 using Avalonia.Controls.Notifications;
 using Avalonia.VisualTree;
 

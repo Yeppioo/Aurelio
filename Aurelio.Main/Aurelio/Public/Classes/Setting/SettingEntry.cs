@@ -68,14 +68,12 @@ public class SettingEntry : ReactiveObject
         if (e.PropertyName == nameof(MinecraftInstanceCategoryMethod))
         {
             if (App.UiRoot == null) return;
-            App.UiRoot.ViewModel.MinecraftInstancesPage.MinecraftCardsContainerRoot.Opacity = 0;
-            HandleMinecraftInstances.Categorize(MinecraftInstanceCategoryMethod);
+            MinecraftInstancesHandler.Categorize(MinecraftInstanceCategoryMethod);
         }
         else if (e.PropertyName == nameof(MinecraftInstanceSortMethod))
         {
             if (App.UiRoot == null) return;
-            App.UiRoot.ViewModel.MinecraftInstancesPage.MinecraftCardsContainerRoot.Opacity = 0;
-            HandleMinecraftInstances.Sort(MinecraftInstanceSortMethod);
+            MinecraftInstancesHandler.Sort(MinecraftInstanceSortMethod);
         }
         else if (e.PropertyName == nameof(Theme))
         {

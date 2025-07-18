@@ -2,9 +2,9 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Views.Main;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
-using TaskCenter = Aurelio.Views.Main.Pages.Template.TaskCenter;
+using TaskCenter = Aurelio.Views.Main.Pages.TaskCenter;
 
-namespace Aurelio.Public.Styles.Override;
+namespace Aurelio.Public.Styles.Override.Template;
 
 public class Drawer : ResourceDictionary
 {
