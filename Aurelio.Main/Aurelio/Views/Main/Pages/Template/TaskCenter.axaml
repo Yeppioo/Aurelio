@@ -160,6 +160,7 @@
                 Background="{DynamicResource 2xCardBackgroundColor}"
                 CornerRadius="{DynamicResource CardCornerRadius}"
                 HorizontalAlignment="Center"
+                IsVisible="{Binding HasTask, Converter={StaticResource BoolReversalConverter}}"
                 Margin="0,-40,0,0"
                 Name="NoMatchResultTip"
                 Padding="45,10"
