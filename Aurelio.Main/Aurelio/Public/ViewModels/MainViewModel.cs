@@ -19,7 +19,7 @@ public class MainViewModel : ViewModelBase
         (IAurelioTabPage page, string? tag) obj = Data.SettingEntry.LaunchPage switch
         {
             Setting.LaunchPage.MinecraftInstance => (MinecraftInstancesPage, "minecraftInstances"),
-            Setting.LaunchPage.Setting => (SettingTabPage, "setting"),
+            Setting.LaunchPage.Setting => (new SettingTabPage(), "setting"),
             _ => (NewTabPage, null)
         };
         Tabs.Add(new TabEntry(obj.page) { Tag = obj.tag });
@@ -34,7 +34,6 @@ public class MainViewModel : ViewModelBase
 
     public ObservableCollection<TabEntry> Tabs { get; set; } = [];
     public MinecraftInstancesPage MinecraftInstancesPage { get; set; } = new();
-    public SettingTabPage SettingTabPage { get; set; } = new();
     public NewTabPage NewTabPage { get; set; } = new();
     public DebugTabPage DebugTabPage { get; set; } = new();
 

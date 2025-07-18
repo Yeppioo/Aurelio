@@ -133,11 +133,8 @@ public static class TabDragDropService
         var tabToTransfer = DraggedTab;
         var sourceWindow = _sourceWindow;
 
-        // Check if target window already has a settings tab and we're trying to transfer one
-        var targetTabs = GetTabsCollection(targetWindow);
-        if (targetTabs != null && tabToTransfer.Tag == "setting" &&
-            targetTabs.Any(t => t.Tag == "setting"))
-            return; // Don't allow duplicate settings tabs in the same window
+        // Allow settings tabs to be transferred to any window
+        // Multiple settings tabs are now permitted across different windows
 
         // Use async operation to avoid layout manager conflicts
         Dispatcher.UIThread.Post(async () =>
@@ -349,63 +346,6 @@ public static class TabDragDropService
         return false;
     }
 
-    public static (Window? window, TabEntry? tab) FindSettingsTabInOtherWindows()
-    {
-        foreach (var window in _registeredWindows.Where(w => w.IsVisible))
-        {
-            // Skip the main window
-            if (window is MainWindow) continue;
-
-            var tabs = GetTabsCollection(window);
-            if (tabs != null)
-            {
-                var settingsTab = tabs.FirstOrDefault(t => t.Tag == "setting");
-                if (settingsTab != null) return (window, settingsTab);
-            }
-        }
-
-        return (null, null);
-    }
-
-    public static async Task RemoveSettingsTabFromOtherWindowsAsync()
-    {
-        var (window, settingsTab) = FindSettingsTabInOtherWindows();
-        if (window != null && settingsTab != null && window is TabWindow tabWindow)
-        {
-            // Use synchronous UI thread operation to avoid layout manager conflicts
-            if (Dispatcher.UIThread.CheckAccess())
-                // We're already on the UI thread, execute directly
-                await RemoveSettingsTabSafely(tabWindow, settingsTab);
-            else
-                // We're not on the UI thread, invoke on UI thread
-                await Dispatcher.UIThread.InvokeAsync(async () =>
-                {
-                    await RemoveSettingsTabSafely(tabWindow, settingsTab);
-                });
-        }
-    }
-
-    private static async Task RemoveSettingsTabSafely(TabWindow tabWindow, TabEntry settingsTab)
-    {
-        try
-        {
-            // First, remove from the collection to avoid UI conflicts
-            tabWindow.ViewModel.RemoveTab(settingsTab);
-
-            // Small delay to allow UI to update
-            await Task.Delay(10);
-
-            // Then dispose content safely
-            settingsTab.DisposeContent();
-            settingsTab.Removing();
-
-            // Close the window if it becomes empty
-            if (!tabWindow.ViewModel.HasTabs) tabWindow.Close();
-        }
-        catch (Exception ex)
-        {
-            // Log error but don't crash the application
-            Debug.WriteLine($"Error removing settings tab: {ex.Message}");
-        }
-    }
+    // Settings tab enforcement methods removed to allow multiple settings tabs
+    // across different windows simultaneously
 }

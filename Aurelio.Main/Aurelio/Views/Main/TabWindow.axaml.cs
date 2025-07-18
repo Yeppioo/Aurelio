@@ -10,6 +10,7 @@ using Aurelio.Public.Module.Service;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
+using Aurelio.Views.Main.Pages.Instance;
 using Aurelio.Views.Overlay;
 using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Primitives;
@@ -87,7 +88,7 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
 
         Setter.SetBackGround(Data.SettingEntry.BackGround, this);
     }
-    
+
     public void TogglePage(string tag, IAurelioTabPage page)
     {
         var existingTab = Tabs.FirstOrDefault(x => x.Tag == tag);
@@ -103,6 +104,32 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
         }
         else
         {
+            if (SelectedTab == existingTab)
+            {
+                existingTab.Content.InAnimator.Animate();
+                return;
+            }
+
+            ViewModel.SelectedTab = existingTab;
+        }
+    }
+
+    public void OpenSettingPage()
+    {
+        var existingTab = Tabs.FirstOrDefault(x => x.Tag == "setting");
+
+        if (existingTab == null)
+        {
+            var newTab = new TabEntry(new SettingTabPage())
+            {
+                Tag = "setting"
+            };
+            Tabs.Add(newTab);
+            ViewModel.SelectedTab = newTab;
+        }
+        else
+        {
+            // Use existing tab in this window
             if (SelectedTab == existingTab)
             {
                 existingTab.Content.InAnimator.Animate();
@@ -258,19 +285,13 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
 
     private void NewTabButton_Click(object? sender, RoutedEventArgs e)
     {
-        // Check if this window already has a settings tab
-        var hasSettingsTab = ViewModel.Tabs.Any(t => t.Tag == "setting");
-
-        if (!hasSettingsTab)
+        // Create a new settings tab for this window
+        // Each TabWindow can now have its own settings tab
+        var newSettingsTab = new TabEntry(new SettingTabPage())
         {
-            // Create a new settings tab for this window
-            // You may need to adjust this based on how settings tabs are created in your app
-            // For now, I'll add a placeholder - you should replace this with your actual settings tab creation logic
-
-            // Example: Create settings tab (replace with your actual implementation)
-            // var settingsTab = new TabEntry("设置", "setting", new SettingsTabPage());
-            // ViewModel.CreateTab(settingsTab);
-        }
+            Tag = "setting"
+        };
+        ViewModel.CreateTab(newSettingsTab);
     }
 
     public WindowNotificationManager Notification { get; set; }

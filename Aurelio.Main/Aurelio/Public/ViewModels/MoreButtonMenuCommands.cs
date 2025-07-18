@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
+using Aurelio.Views.Main.Pages.Instance;
 using Avalonia.Styling;
 using Setter = Aurelio.Public.Module.Ui.Setter;
 
@@ -27,27 +28,7 @@ public class MoreButtonMenuCommands
 
     public void DebugTab()
     {
-        var existingTab = App.UiRoot.Tabs.FirstOrDefault(x => x.Tag == "debug");
-
-        if (existingTab == null)
-        {
-            var newTab = new TabEntry(App.UiRoot.ViewModel.DebugTabPage)
-            {
-                Tag = "debug"
-            };
-            App.UiRoot.Tabs.Add(newTab);
-            App.UiRoot.ViewModel.SelectedTab = newTab;
-        }
-        else
-        {
-            if (App.UiRoot.SelectedTab == existingTab)
-            {
-                _ = App.UiRoot.ViewModel.SettingTabPage.Animate();
-                return;
-            }
-
-            App.UiRoot.ViewModel.SelectedTab = existingTab;
-        }
+        App.UiRoot.TogglePage("debug", App.UiRoot.ViewModel.DebugTabPage);
     }
 
     public void OpenInstancePage(string page)
@@ -58,7 +39,7 @@ public class MoreButtonMenuCommands
                 App.UiRoot.TogglePage("minecraftInstances" , App.UiRoot.ViewModel.MinecraftInstancesPage);
                 break;
             case "setting":
-                App.UiRoot.TogglePage("setting", App.UiRoot.ViewModel.SettingTabPage);
+                App.UiRoot.TogglePage("setting", new SettingTabPage());
                 break;
         }
     }

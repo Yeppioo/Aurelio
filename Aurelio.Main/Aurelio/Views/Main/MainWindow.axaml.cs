@@ -8,6 +8,7 @@ using Aurelio.Public.Module.Service;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
+using Aurelio.Views.Main.Pages.Instance;
 using Aurelio.Views.Overlay;
 using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Primitives;
@@ -98,24 +99,22 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
         var menu = (MenuFlyout)c.MainControl!.Flyout;
         MoreButton.Flyout = menu;
         MoreButton.DataContext = new MoreButtonMenuCommands();
-        SettingButton.Click += async (_, _) => { await OpenSettingPage(); };
+        SettingButton.Click += (_, _) => { OpenSettingPage(); };
     }
 
-    private async Task OpenSettingPage()
+    private void OpenSettingPage(int pageIndex = -1)
     {
-        var (otherWindow, otherSettingsTab) = TabDragDropService.FindSettingsTabInOtherWindows();
-        var hasSettingsInOtherWindow = otherWindow != null && otherSettingsTab != null;
-        if (hasSettingsInOtherWindow)
-        {
-            await TabDragDropService.RemoveSettingsTabFromOtherWindowsAsync();
-            await Task.Delay(50);
-        }
-
         var existingTab = Tabs.FirstOrDefault(x => x.Tag == "setting");
 
         if (existingTab == null)
         {
-            var newTab = new TabEntry(ViewModel.SettingTabPage)
+            var settingTabPage = new SettingTabPage();
+            if (pageIndex != -1)
+            {
+                settingTabPage.SelectedItem = settingTabPage.Nav.Items[pageIndex] as SelectionListItem;
+                settingTabPage.DefaultNav = pageIndex;
+            }
+            var newTab = new TabEntry(settingTabPage)
             {
                 Tag = "setting"
             };
@@ -124,10 +123,16 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
         }
         else
         {
-            // Use existing tab in main window
+            if (pageIndex != -1)
+            {
+                (existingTab.Content as SettingTabPage).SelectedItem =
+                    (existingTab.Content as SettingTabPage).Nav.Items[pageIndex] as SelectionListItem;
+                (existingTab.Content as SettingTabPage).DefaultNav = pageIndex;
+            }
+
             if (SelectedTab == existingTab)
             {
-                _ = ViewModel.SettingTabPage.Animate();
+                existingTab.Content.InAnimator.Animate();
                 return;
             }
 
@@ -207,9 +212,7 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
 
             if (Tasking.Tasks.Count == 0)
             {
-                ViewModel.SettingTabPage.SelectedItem = ViewModel.SettingTabPage.Nav.Items[1] as SelectionListItem;
-                ViewModel.SettingTabPage.DefaultNav = 1;
-                await OpenSettingPage();
+                OpenSettingPage(1);
             }
             else
             {
