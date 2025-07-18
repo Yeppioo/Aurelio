@@ -4,4 +4,5 @@ public enum AggregateSearchEntryType
 {
     MinecraftAccount = 1,
     MinecraftInstance = 2,
+    AurelioTabPage = 3
 }

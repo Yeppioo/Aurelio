@@ -16,13 +16,13 @@ public class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
-        IAurelioTabPage page = Data.SettingEntry.LaunchPage switch
+        (IAurelioTabPage page, string? tag) obj = Data.SettingEntry.LaunchPage switch
         {
-            Setting.LaunchPage.MinecraftInstance => MinecraftInstancesPage,
-            Setting.LaunchPage.Setting => SettingTabPage,
-            _ => NewTabPage 
+            Setting.LaunchPage.MinecraftInstance => (MinecraftInstancesPage, "minecraftInstances"),
+            Setting.LaunchPage.Setting => (SettingTabPage, "setting"),
+            _ => (NewTabPage, null)
         };
-        Tabs.Add(new TabEntry(page));
+        Tabs.Add(new TabEntry(obj.page) { Tag = obj.tag });
         SelectedTab = Tabs[0];
         PropertyChanged += (s, e) =>
         {

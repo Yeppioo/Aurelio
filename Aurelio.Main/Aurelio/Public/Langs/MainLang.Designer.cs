@@ -3372,6 +3372,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 打开或跳转页面.
+        /// </summary>
+        public static string OpenOrTogglePage {
+            get {
+                return ResourceManager.GetString("OpenOrTogglePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 打开最近的内容.
         /// </summary>
         public static string OpenRecentContent {

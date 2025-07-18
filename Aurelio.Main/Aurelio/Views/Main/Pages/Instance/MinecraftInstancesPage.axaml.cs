@@ -30,7 +30,7 @@ public partial class MinecraftInstancesPage : PageMixModelBase, IAurelioTabPage
         PageInfo = new PageInfoEntry
         {
             Title = MainLang.Launch,
-            Icon = Icons.Home
+            Icon = Icons.Thumbtack
         };
     }
 

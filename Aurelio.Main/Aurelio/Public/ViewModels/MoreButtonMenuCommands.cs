@@ -49,4 +49,17 @@ public class MoreButtonMenuCommands
             App.UiRoot.ViewModel.SelectedTab = existingTab;
         }
     }
+
+    public void OpenInstancePage(string page)
+    {
+        switch (page)
+        {
+            case "minecraftInstances":
+                App.UiRoot.TogglePage("minecraftInstances" , App.UiRoot.ViewModel.MinecraftInstancesPage);
+                break;
+            case "setting":
+                App.UiRoot.TogglePage("setting", App.UiRoot.ViewModel.SettingTabPage);
+                break;
+        }
+    }
 }

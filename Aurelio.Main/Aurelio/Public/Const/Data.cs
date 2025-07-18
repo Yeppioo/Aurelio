@@ -32,6 +32,7 @@ public class Data : ReactiveObject
     public static void UpdateAggregateSearchEntries()
     {
         AggregateSearchEntries.Clear();
+        AggregateSearchEntries.Add(new AggregateSearchEntry(App.UiRoot.ViewModel.MinecraftInstancesPage));
         AggregateSearchEntries.AddRange(AllMinecraftInstances.Select(x => new AggregateSearchEntry(x)));
         if (SettingEntry != null)
             AggregateSearchEntries.AddRange(SettingEntry.MinecraftAccounts.Select(x => new AggregateSearchEntry(x)));

@@ -87,6 +87,31 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
 
         Setter.SetBackGround(Data.SettingEntry.BackGround, this);
     }
+    
+    public void TogglePage(string tag, IAurelioTabPage page)
+    {
+        var existingTab = Tabs.FirstOrDefault(x => x.Tag == tag);
+
+        if (existingTab == null)
+        {
+            var newTab = new TabEntry(page)
+            {
+                Tag = tag
+            };
+            Tabs.Add(newTab);
+            ViewModel.SelectedTab = newTab;
+        }
+        else
+        {
+            if (SelectedTab == existingTab)
+            {
+                existingTab.Content.InAnimator.Animate();
+                return;
+            }
+
+            ViewModel.SelectedTab = existingTab;
+        }
+    }
 
     private void OnClosing(object? sender, WindowClosingEventArgs e)
     {
