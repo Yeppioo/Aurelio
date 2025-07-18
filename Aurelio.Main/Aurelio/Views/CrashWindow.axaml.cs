@@ -13,7 +13,7 @@ using WindowNotificationManager = Ursa.Controls.WindowNotificationManager;
 
 namespace Aurelio.Views;
 
-public partial class CrashWindow : UrsaWindow , IAurelioWindow
+public partial class CrashWindow : UrsaWindow, IAurelioWindow
 {
     public Data Data => Data.Instance;
     public CrashWindow(string exception)
@@ -29,18 +29,18 @@ public partial class CrashWindow : UrsaWindow , IAurelioWindow
         };
         Continue.Click += (_, _) => { Close(); };
         Restart.Click += (_, _) => { AppMethod.RestartApp(); };
-        Exit.Click += (_, _) => { Environment.Exit(0); };
+        Exit.Click += (_, _) => { Environment.Exit(0); }; 
         Application.Current.ActualThemeVariantChanged +=
             (_, _) => Setter.SetBackGround(Data.SettingEntry.BackGround, this);
         Topmost = true;
         Loaded += (_, _) =>
         {
-            Setter.UpdateWindowStyle(this); 
+            Setter.UpdateWindowStyle(this);
             Setter.SetBackGround(Data.SettingEntry.BackGround, this);
         };
         Data.SettingEntry.PropertyChanged += (_, e) =>
         {
-            if (e.PropertyName != nameof(SettingEntry.BackGround) && 
+            if (e.PropertyName != nameof(SettingEntry.BackGround) &&
                 e.PropertyName != nameof(SettingEntry.BackGroundImgData) &&
                 e.PropertyName != nameof(SettingEntry.BackGroundColor)) return;
             Setter.SetBackGround(Data.SettingEntry.BackGround, this);
@@ -94,7 +94,7 @@ public partial class CrashWindow : UrsaWindow , IAurelioWindow
             ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
             ExtendClientAreaToDecorationsHint = true;
         }
-        
+
         if (Data.DesktopType == DesktopType.MacOs)
         {
             PropertyChanged += (_, _) =>

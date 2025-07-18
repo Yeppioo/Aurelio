@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
@@ -83,6 +84,8 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
             ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
             ExtendClientAreaToDecorationsHint = true;
         }
+
+        Setter.SetBackGround(Data.SettingEntry.BackGround, this);
     }
 
     private void OnClosing(object? sender, WindowClosingEventArgs e)
@@ -107,23 +110,17 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
                 }
             });
         }
-
+        
         // Unregister from drag service
+        Application.Current.ActualThemeVariantChanged -= CurrentOnActualThemeVariantChanged;
+        Data.SettingEntry.PropertyChanged -= SettingEntryOnPropertyChanged;
         TabDragDropService.UnregisterWindow(this);
-        Setter.SetBackGround(Data.SettingEntry.BackGround, this);
     }
 
     private void BindEvents()
     {
-        Application.Current.ActualThemeVariantChanged +=
-            (_, _) => Setter.SetBackGround(Data.SettingEntry.BackGround, this);
-        Data.SettingEntry.PropertyChanged += (_, e) =>
-        {
-            if (e.PropertyName != nameof(SettingEntry.BackGround) && 
-                e.PropertyName != nameof(SettingEntry.BackGroundImgData) &&
-                e.PropertyName != nameof(SettingEntry.BackGroundColor)) return;
-            Setter.SetBackGround(Data.SettingEntry.BackGround, this);
-        };
+        Application.Current.ActualThemeVariantChanged += CurrentOnActualThemeVariantChanged;
+        Data.SettingEntry.PropertyChanged += SettingEntryOnPropertyChanged;
         NewTabButton.Click += NewTabButton_Click;
         Closing += OnClosing;
         ViewModel.TabsEmptied += OnTabsEmptied;
@@ -149,7 +146,6 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
                 }
             };
         }
-
         KeyDown += (_, e) =>
         {
             if (e.Key is not (Key.LeftShift or Key.RightShift)) return;
@@ -169,6 +165,19 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
 
             _lastShiftPressTime = DateTime.Now;
         };
+    }
+
+    private void SettingEntryOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName != nameof(SettingEntry.BackGround) &&
+            e.PropertyName != nameof(SettingEntry.BackGroundImgData) &&
+            e.PropertyName != nameof(SettingEntry.BackGroundColor)) return;
+        Setter.SetBackGround(Data.SettingEntry.BackGround, this);
+    }
+
+    private void CurrentOnActualThemeVariantChanged(object? sender, EventArgs e)
+    {
+        Setter.SetBackGround(Data.SettingEntry.BackGround, this);
     }
 
     private void TabItem_OnPointerPressed(object? sender, PointerPressedEventArgs e)
@@ -203,6 +212,7 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
     public void CreateTab(TabEntry tab)
     {
         ViewModel.CreateTab(tab);
+
     }
 
     public void AddTab(TabEntry tab)

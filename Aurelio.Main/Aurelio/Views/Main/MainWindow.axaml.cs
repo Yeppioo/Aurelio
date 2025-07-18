@@ -164,10 +164,9 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
                 }
             };
         }
-
         Data.SettingEntry.PropertyChanged += (_, e) =>
         {
-            if (e.PropertyName != nameof(SettingEntry.BackGround) && 
+            if (e.PropertyName != nameof(SettingEntry.BackGround) &&
                 e.PropertyName != nameof(SettingEntry.BackGroundImgData) &&
                 e.PropertyName != nameof(SettingEntry.BackGroundColor)) return;
             Setter.SetBackGround(Data.SettingEntry.BackGround, this);

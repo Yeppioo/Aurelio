@@ -40,8 +40,6 @@ public class UiProperty : ReactiveObject
     public static ObservableCollection<string> BuiltInTags { get; } = [];
     public static WindowNotificationManager Notification => ActiveWindow.Notification;
     public static WindowToastManager Toast => ActiveWindow.Toast;
-    public static Bitmap WindowBackGroundImg => Converter.Base64ToBitmap(Data.SettingEntry.BackGroundImgData);
-
     public static IAurelioWindow ActiveWindow => (Application.Current!.ApplicationLifetime as
         IClassicDesktopStyleApplicationLifetime).Windows.FirstOrDefault
         (x => x.IsActive) as IAurelioWindow ?? App.UiRoot;

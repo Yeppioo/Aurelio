@@ -28,11 +28,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:entries="clr-namespace:Aurelio.Public.Classes.Entries"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:viewModels="clr-namespace:Aurelio.Public.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <u:UrsaWindow.Resources>
         <converter:NavScrollOpacityMaskConverter x:Key="NavScrollOpacityMaskConverter" />
+        <system:Double x:Key="BackGroundOpacity">1</system:Double>
     </u:UrsaWindow.Resources>
     <Border
         Background="{DynamicResource WindowBackgroundColor}"

@@ -47,54 +47,56 @@ public class Setter
 
     public static void SetBackGround(Setting.BackGround bg, IAurelioWindow w)
     {
-        try
-        {
+        // try
+        // {
             var window = w.Window;
             if (bg == Setting.BackGround.Default)
             {
                 window.TransparencyLevelHint = [];
-                Application.Current.Resources["BackGroundOpacity"] = 1.0;
-                (w.RootElement as Border).Background =
-                    (IBrush)new DynamicResourceExtension("WindowBackgroundColor").ProvideValue(null);
+                window.Resources["BackGroundOpacity"] = 1.0;
+                Application.Current.TryGetResource("WindowBackgroundColor", 
+                    Application.Current.ActualThemeVariant, out var c);
+                (w.RootElement as Border).Background = new SolidColorBrush((Color)c!);
             }
             else if (bg == Setting.BackGround.Transparent)
             {
-                Application.Current.Resources["BackGroundOpacity"] = 0.4;
+                window.Resources["BackGroundOpacity"] = 0.4;
                 window.TransparencyLevelHint = [WindowTransparencyLevel.Transparent];
                 (w.RootElement as Border).Background = Brushes.Transparent;
             }
             else if (bg == Setting.BackGround.AcrylicBlur)
             {
-                Application.Current.Resources["BackGroundOpacity"] = 0.5;
+                window.Resources["BackGroundOpacity"] = 0.5;
                 window.TransparencyLevelHint = [WindowTransparencyLevel.AcrylicBlur];
                 (w.RootElement as Border).Background = Brushes.Transparent;
             }
             else if (bg == Setting.BackGround.Mica)
             {
-                Application.Current.Resources["BackGroundOpacity"] = 0.5;
+                window.Resources["BackGroundOpacity"] = 0.5;
                 window.TransparencyLevelHint = [WindowTransparencyLevel.Mica];
                 (w.RootElement as Border).Background = Brushes.Transparent;
             }
             else if (bg == Setting.BackGround.Image)
             {
-                Application.Current.Resources["BackGroundOpacity"] = 0.5;
+                window.Resources["BackGroundOpacity"] = 0.5;
                 window.TransparencyLevelHint = [WindowTransparencyLevel.Mica];
-                (w.RootElement as Border).Background = new ImageBrush(UiProperty.WindowBackGroundImg)
-                {
-                    Stretch = Stretch.UniformToFill
-                };
+                (w.RootElement as Border).Background =
+                    new ImageBrush(Value.Converter.Base64ToBitmap(Data.SettingEntry.BackGroundImgData))
+                    {
+                        Stretch = Stretch.UniformToFill
+                    };
             }
             else if (bg == Setting.BackGround.ColorBlock)
             {
-                Application.Current.Resources["BackGroundOpacity"] = 0.5;
+                window.Resources["BackGroundOpacity"] = 0.5;
                 window.TransparencyLevelHint = [WindowTransparencyLevel.Transparent];
                 (w.RootElement as Border).Background = new SolidColorBrush(Data.SettingEntry.BackGroundColor);
             }
-        }
-        catch (Exception e)
-        {
-            Logger.Error(e);
-        }
+        // }
+        // catch (Exception e)
+        // {
+        //     Logger.Error(e);
+        // }
     }
 
     public static void UpdateWindowStyle(UrsaWindow? window, Action? action = null)

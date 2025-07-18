@@ -26,9 +26,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:views="clr-namespace:Aurelio.Views"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <u:UrsaWindow.Resources>
+        <system:Double x:Key="BackGroundOpacity">1</system:Double>
+    </u:UrsaWindow.Resources>
     <Border
         Background="{DynamicResource WindowBackgroundColor}"
         BorderBrush="{DynamicResource BorderBrush}"
