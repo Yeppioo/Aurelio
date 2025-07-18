@@ -110,9 +110,9 @@
                 <Border
                     ClipToBounds="True"
                     CornerRadius="{DynamicResource CardCornerRadius}"
-                    Margin="15"
+                    Margin="15,15,5,15"
                     Name="MinecraftCardsContainerRoot">
-                    <ScrollViewer>
+                    <ScrollViewer Padding="0,0,10,0">
                         <ItemsControl ItemsSource="{Binding Data.SortedMinecraftCategories}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>

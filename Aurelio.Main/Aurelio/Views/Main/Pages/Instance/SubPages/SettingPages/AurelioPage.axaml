@@ -28,10 +28,7 @@
                                 Margin="17.5,0,10,0">
                                 <StackPanel VerticalAlignment="Center">
                                     <TextBlock Name="VersionTextBlock" Text="{Binding Data.Version}" />
-                                    <TextBlock
-                                        FontSize="12"
-                                        Foreground="{DynamicResource GrayColor}"
-                                        Text="© 2025 Yeppioo. All rights reserved." />
+                                    <TextBlock FontSize="12" Text="© 2025 Yeppioo. All rights reserved." />
                                 </StackPanel>
                                 <u:IconButton
                                     Classes="accent fixed"

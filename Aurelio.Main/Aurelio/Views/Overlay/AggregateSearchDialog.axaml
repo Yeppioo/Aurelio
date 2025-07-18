@@ -47,10 +47,7 @@
                             <PathIcon Data="{Binding Icon}" />
                             <StackPanel>
                                 <TextBlock Text="{Binding Title}" />
-                                <TextBlock
-                                    FontSize="12"
-                                    Foreground="{DynamicResource GrayColor}"
-                                    Text="{Binding Summary}" />
+                                <TextBlock FontSize="12" Text="{Binding Summary}" />
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>

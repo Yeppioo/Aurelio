@@ -133,7 +133,7 @@
                                 <Run Text=")" />
                             </TextBlock>
                         </StackPanel>
-                        <TextBlock FontSize="13" Foreground="{DynamicResource GrayColor}">
+                        <TextBlock FontSize="13">
                             <Run Text="{Binding Entry.InstancePath}" />
                         </TextBlock>
                     </StackPanel>

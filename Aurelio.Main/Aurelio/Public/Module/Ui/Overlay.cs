@@ -145,7 +145,7 @@ public abstract class Overlay
             Title = MainLang.TaskingState,
             CanResize = true
         };
-        await Drawer.ShowModal<TaskCenterDrawer, Tasking>(Tasking.Instance, host, options);
+         Drawer.Show<TaskCenterDrawer, Tasking>(Tasking.Instance, host, options);
     }
 
     public static string GetHostId(Control sender)

@@ -88,24 +88,15 @@
                                                         FontSize="14"
                                                         Text="{Binding Name}"
                                                         VerticalAlignment="Bottom" />
-                                                    <TextBlock
-                                                        FontSize="11"
-                                                        Foreground="{DynamicResource GrayColor}"
-                                                        VerticalAlignment="Bottom">
+                                                    <TextBlock FontSize="11" VerticalAlignment="Bottom">
                                                         <Run Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.LastUsedTime}" />
                                                         <Run Text=": " />
                                                         <Run Text="{Binding FormatLastUsedTime}" />
                                                     </TextBlock>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal" Spacing="5">
-                                                    <TextBlock
-                                                        FontSize="11"
-                                                        Foreground="{DynamicResource GrayColor}"
-                                                        Text="{Binding AccountType}" />
-                                                    <TextBlock
-                                                        FontSize="11"
-                                                        Foreground="{DynamicResource GrayColor}"
-                                                        Text="{Binding UUID}" />
+                                                    <TextBlock FontSize="11" Text="{Binding AccountType}" />
+                                                    <TextBlock FontSize="11" Text="{Binding UUID}" />
                                                 </StackPanel>
                                             </StackPanel>
                                         </DockPanel>
