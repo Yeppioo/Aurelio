@@ -24,15 +24,15 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:behavior="clr-namespace:Aurelio.Public.Module.Behavior"
     xmlns:controls="clr-namespace:Aurelio.Public.Controls"
+    xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:entries="clr-namespace:Aurelio.Public.Classes.Entries"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:viewModels="clr-namespace:Aurelio.Public.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <u:UrsaWindow.Resources>
-        <system:Double x:Key="BackGroundOpacity">1</system:Double>
+        <converter:NavScrollOpacityMaskConverter x:Key="NavScrollOpacityMaskConverter" />
     </u:UrsaWindow.Resources>
     <Border
         Background="{DynamicResource WindowBackgroundColor}"
@@ -70,6 +70,7 @@
                                     HorizontalScrollBarVisibility="Auto"
                                     Name="NavScrollViewer"
                                     Offset="{Binding TabScrollOffset}"
+                                    OpacityMask="{Binding IsTabMaskVisible, Converter={StaticResource NavScrollOpacityMaskConverter}}"
                                     PointerEntered="NavScrollViewer_PointerEntered"
                                     PointerExited="NavScrollViewer_PointerExited"
                                     PointerWheelChanged="NavScrollViewer_PointerWheelChanged"
@@ -189,29 +190,6 @@
                                             Name="NewTabButton" />
                                     </StackPanel>
                                 </ScrollViewer>
-                                <Border
-                                    HorizontalAlignment="Left"
-                                    IsHitTestVisible="False"
-                                    IsVisible="{Binding IsTabMaskVisible}"
-                                    Width="32">
-                                    <Border.Background>
-                                        <LinearGradientBrush EndPoint="100%,50%" StartPoint="0%,50%">
-                                            <GradientStop Color="{DynamicResource WindowBackgroundColor}" Offset="0.0" />
-                                            <GradientStop Color="{DynamicResource LinearGradientTransparentColor}" Offset="1.0" />
-                                        </LinearGradientBrush>
-                                    </Border.Background>
-                                </Border>
-                                <Border
-                                    HorizontalAlignment="Right"
-                                    IsHitTestVisible="False"
-                                    Width="32">
-                                    <Border.Background>
-                                        <LinearGradientBrush EndPoint="100%,50%" StartPoint="0%,50%">
-                                            <GradientStop Color="{DynamicResource LinearGradientTransparentColor}" Offset="0.0" />
-                                            <GradientStop Color="{DynamicResource WindowBackgroundColor}" Offset="1.0" />
-                                        </LinearGradientBrush>
-                                    </Border.Background>
-                                </Border>
                             </Grid>
                         </Border>
                         <DockPanel

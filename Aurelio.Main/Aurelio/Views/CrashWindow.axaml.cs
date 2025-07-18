@@ -16,6 +16,7 @@ namespace Aurelio.Views;
 public partial class CrashWindow : UrsaWindow, IAurelioWindow
 {
     public Data Data => Data.Instance;
+
     public CrashWindow(string exception)
     {
         InitializeComponent();
@@ -29,7 +30,7 @@ public partial class CrashWindow : UrsaWindow, IAurelioWindow
         };
         Continue.Click += (_, _) => { Close(); };
         Restart.Click += (_, _) => { AppMethod.RestartApp(); };
-        Exit.Click += (_, _) => { Environment.Exit(0); }; 
+        Exit.Click += (_, _) => { Environment.Exit(0); };
         Application.Current.ActualThemeVariantChanged +=
             (_, _) => Setter.SetBackGround(Data.SettingEntry.BackGround, this);
         Topmost = true;

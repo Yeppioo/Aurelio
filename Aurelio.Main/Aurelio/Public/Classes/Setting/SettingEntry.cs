@@ -88,6 +88,10 @@ public class SettingEntry : ReactiveObject
             LangHelper.Current.ChangedCulture(Language.Code == "zh-CN" ? "" : Language.Code);
             Notice(MainLang.NeedRestartApp, NotificationType.Warning);
         }
+        else if (e.PropertyName == nameof(BackGround))
+        {
+            Application.Current.Resources["BackGroundOpacity"] = BackGround == Enum.Setting.BackGround.Default ? 1.0 : 0.5;
+        }
 
 
         AppMethod.SaveSetting();

@@ -110,7 +110,7 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
                 }
             });
         }
-        
+
         // Unregister from drag service
         Application.Current.ActualThemeVariantChanged -= CurrentOnActualThemeVariantChanged;
         Data.SettingEntry.PropertyChanged -= SettingEntryOnPropertyChanged;
