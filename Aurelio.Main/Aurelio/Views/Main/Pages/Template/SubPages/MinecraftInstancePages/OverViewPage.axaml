@@ -115,7 +115,7 @@
                                     ItemsSource="{Binding Data.UiProperty.AllMinecraftTags}"
                                     Margin="40,0,0,0"
                                     Name="TagsMultiComboBox"
-                                    SelectedItems="{Binding Entry.SettingEntry.Tags}" />
+                                    SelectedItems="{Binding DisplayTags}" />
                             </DockPanel>
                         </DockPanel>
                     </StackPanel>

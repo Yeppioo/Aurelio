@@ -9,11 +9,11 @@ namespace Aurelio.Public.Classes.Minecraft;
 
 public class MinecraftInstanceSettingEntry : ReactiveObject
 {
-    [Reactive] [JsonProperty] public DateTime LastPlayed { get; set; } = DateTime.MinValue;
-    [Reactive] [JsonProperty] public MinecraftInstanceIconType IconType { get; set; } = MinecraftInstanceIconType.Auto;
-    [Reactive] [JsonProperty] public double MemoryLimit { get; set; } = -1;
-    [Reactive] [JsonProperty] public int EnableIndependentMinecraft { get; set; }
-    [Reactive] [JsonProperty] public string AutoJoinServerAddress { get; set; }
+    [Reactive][JsonProperty] public DateTime LastPlayed { get; set; } = DateTime.MinValue;
+    [Reactive][JsonProperty] public MinecraftInstanceIconType IconType { get; set; } = MinecraftInstanceIconType.Auto;
+    [Reactive][JsonProperty] public double MemoryLimit { get; set; } = -1;
+    [Reactive][JsonProperty] public int EnableIndependentMinecraft { get; set; }
+    [Reactive][JsonProperty] public string AutoJoinServerAddress { get; set; }
 
     [Reactive]
     [JsonProperty]
@@ -22,7 +22,7 @@ public class MinecraftInstanceSettingEntry : ReactiveObject
         JavaVersion = "global"
     };
 
-    [Reactive] [JsonProperty] public string IconData { get; set; }
+    [Reactive][JsonProperty] public string IconData { get; set; }
     [JsonProperty] public ObservableCollection<string> Tags { get; } = [];
 
     // 添加标签方法，防止重复添加
@@ -39,6 +39,22 @@ public class MinecraftInstanceSettingEntry : ReactiveObject
         {
             Tags.Clear();
             foreach (var tag in uniqueTags) Tags.Add(tag);
+        }
+    }
+
+    // 收藏夹相关的便捷方法
+    public bool IsFavourite => Tags.Contains(UiProperty.FavouriteTag);
+
+    public void SetFavourite(bool isFavourite)
+    {
+        if (isFavourite)
+        {
+            if (!Tags.Contains(UiProperty.FavouriteTag))
+                Tags.Add(UiProperty.FavouriteTag);
+        }
+        else
+        {
+            Tags.Remove(UiProperty.FavouriteTag);
         }
     }
 }

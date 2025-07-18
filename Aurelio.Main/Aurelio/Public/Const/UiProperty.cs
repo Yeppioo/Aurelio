@@ -16,8 +16,12 @@ namespace Aurelio.Public.Const;
 public class UiProperty : ReactiveObject
 {
     private static UiProperty? _instance;
-    
-    public static readonly string FavouriteTag = MainLang.Favourite;
+
+    // 使用固定标识符，不依赖语言
+    public static readonly string FavouriteTag = "__FAVOURITE__";
+
+    // 用于显示的本地化收藏夹名称
+    public static string FavouriteDisplayName => MainLang.Favourite;
 
     static UiProperty()
     {

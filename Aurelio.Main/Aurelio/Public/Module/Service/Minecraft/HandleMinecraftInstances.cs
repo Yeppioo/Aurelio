@@ -34,14 +34,17 @@ public partial class HandleMinecraftInstances
                     .Select(x => new RecordMinecraftEntry(x)));
             }
 
+            // 迁移旧的收藏夹标签到新的固定标识符
+            MigrateFavouriteTags();
+
             // 清除所有实例中的重复标签
             foreach (var instance in Data.AllMinecraftInstances) instance.SettingEntry.RemoveDuplicateTags();
 
             // 更新标签列表，确保内置标签总是存在
             UiProperty.AllMinecraftTags.Clear();
 
-            // 先添加所有内置标签
-            UiProperty.AllMinecraftTags.AddRange(UiProperty.BuiltInTags);
+            // 先添加所有内置标签（但显示时使用本地化名称）
+            UiProperty.AllMinecraftTags.Add(UiProperty.FavouriteDisplayName);
 
             // 再添加用户标签（避免重复添加内置标签）
             var userTags = Data.AllMinecraftInstances
@@ -182,7 +185,7 @@ public partial class HandleMinecraftInstances
             categories.Add(new MinecraftCategoryEntry
             {
                 Tag = favouriteTag,
-                Name = favouriteTag,
+                Name = UiProperty.FavouriteDisplayName, // 使用本地化显示名称
                 Minecrafts = new ObservableCollection<RecordMinecraftEntry>(favouriteInstances),
                 Expanded = true
             });
@@ -219,7 +222,7 @@ public partial class HandleMinecraftInstances
 
             case MinecraftInstanceCategoryMethod.Tag:
                 var sortedTags = UiProperty.AllMinecraftTags
-                    .Where(tag => !UiProperty.BuiltInTags.Contains(tag) && tag != favouriteTag)
+                    .Where(tag => tag != UiProperty.FavouriteDisplayName && !UiProperty.BuiltInTags.Contains(tag))
                     .OrderBy(tag => tag);
 
                 foreach (var tag in sortedTags)
@@ -419,6 +422,50 @@ public partial class HandleMinecraftInstances
                 Aurelio.App.UiRoot.ViewModel.HomeTabPage.MinecraftCardsContainerRoot
                     .Animate<double>(Visual.OpacityProperty, 0, 1);
             });
+    }
+
+    /// <summary>
+    /// 迁移旧的本地化收藏夹标签到新的固定标识符
+    /// </summary>
+    private static void MigrateFavouriteTags()
+    {
+        // 定义所有可能的旧收藏夹标签（不同语言版本）
+        var oldFavouriteTags = new HashSet<string>
+        {
+            "收藏",      // 中文简体/繁体
+            "Favourite", // 英文
+            "Favorites", // 英文复数形式
+            "收藏夹",    // 可能的中文变体
+            "즐겨찾기",   // 韩文（如果支持）
+            "お気に入り", // 日文（如果支持）
+        };
+
+        foreach (var instance in Data.AllMinecraftInstances)
+        {
+            var tagsToRemove = new List<string>();
+            var shouldAddFavourite = false;
+
+            // 检查是否有旧的收藏夹标签
+            foreach (var tag in instance.SettingEntry.Tags)
+            {
+                if (oldFavouriteTags.Contains(tag))
+                {
+                    tagsToRemove.Add(tag);
+                    shouldAddFavourite = true;
+                }
+            }
+
+            // 移除旧标签并添加新的固定标识符
+            foreach (var tagToRemove in tagsToRemove)
+            {
+                instance.SettingEntry.Tags.Remove(tagToRemove);
+            }
+
+            if (shouldAddFavourite && !instance.SettingEntry.Tags.Contains(UiProperty.FavouriteTag))
+            {
+                instance.SettingEntry.Tags.Add(UiProperty.FavouriteTag);
+            }
+        }
     }
 
     [GeneratedRegex(@"^(\d+)\.(\d+)(?:\.(\d+))?")]

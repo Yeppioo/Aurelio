@@ -60,8 +60,8 @@ public class RecordMinecraftEntry : ReactiveObject
             // 不要重新加载所有实例，只更新标签列表
             UiProperty.AllMinecraftTags.Clear();
 
-            // 先添加内置标签
-            UiProperty.AllMinecraftTags.AddRange(UiProperty.BuiltInTags);
+            // 先添加收藏夹标签（显示为本地化名称）
+            UiProperty.AllMinecraftTags.Add(UiProperty.FavouriteDisplayName);
 
             // 再添加用户标签（避免重复添加内置标签）
             var userTags = Data.AllMinecraftInstances
