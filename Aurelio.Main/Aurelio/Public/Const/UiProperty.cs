@@ -17,15 +17,11 @@ public class UiProperty : ReactiveObject
 {
     private static UiProperty? _instance;
 
-    // 使用固定标识符，不依赖语言
-    public static readonly string FavouriteTag = "__FAVOURITE__";
-
-    // 用于显示的本地化收藏夹名称
-    public static string FavouriteDisplayName => MainLang.Favourite;
-
+    // 收藏夹功能现在使用独立的布尔属性，不再需要特殊标签
+    // 保留 BuiltInTags 集合以备将来可能的系统标签使用
     static UiProperty()
     {
-        BuiltInTags.Add(FavouriteTag);
+        // 目前没有内置标签，但保留集合结构
     }
 
     public static UiProperty Instance

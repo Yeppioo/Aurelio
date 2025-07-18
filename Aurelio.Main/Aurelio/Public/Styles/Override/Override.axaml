@@ -245,4 +245,8 @@
     <Style Selector="u|DialogWindow.aggregate-search /template/ Panel#PART_TitleArea">
         <Setter Property="Margin" Value="0,0,180,0" />
     </Style>
+    <Style Selector="ToggleButton">
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+    </Style>
+
 </Styles>

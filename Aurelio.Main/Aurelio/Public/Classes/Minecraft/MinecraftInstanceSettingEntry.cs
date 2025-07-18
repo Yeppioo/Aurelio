@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Aurelio.Public.Classes.Enum.Minecraft;
@@ -25,6 +26,9 @@ public class MinecraftInstanceSettingEntry : ReactiveObject
     [Reactive][JsonProperty] public string IconData { get; set; }
     [JsonProperty] public ObservableCollection<string> Tags { get; } = [];
 
+    // 收藏夹状态 - 独立的布尔属性，不再使用特殊标签
+    [Reactive][JsonProperty] public bool IsFavourite { get; set; }
+
     // 添加标签方法，防止重复添加
     public void AddTag(string tag)
     {
@@ -42,19 +46,9 @@ public class MinecraftInstanceSettingEntry : ReactiveObject
         }
     }
 
-    // 收藏夹相关的便捷方法
-    public bool IsFavourite => Tags.Contains(UiProperty.FavouriteTag);
-
-    public void SetFavourite(bool isFavourite)
+    // 验证标签名称是否有效
+    public bool IsValidTagName(string tagName)
     {
-        if (isFavourite)
-        {
-            if (!Tags.Contains(UiProperty.FavouriteTag))
-                Tags.Add(UiProperty.FavouriteTag);
-        }
-        else
-        {
-            Tags.Remove(UiProperty.FavouriteTag);
-        }
+        return !string.IsNullOrWhiteSpace(tagName);
     }
 }

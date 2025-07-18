@@ -60,19 +60,25 @@ public class RecordMinecraftEntry : ReactiveObject
             // 不要重新加载所有实例，只更新标签列表
             UiProperty.AllMinecraftTags.Clear();
 
-            // 先添加收藏夹标签（显示为本地化名称）
-            UiProperty.AllMinecraftTags.Add(UiProperty.FavouriteDisplayName);
-
-            // 再添加用户标签（避免重复添加内置标签）
+            // 添加所有用户定义的标签
             var userTags = Data.AllMinecraftInstances
                 .SelectMany(minecraft => minecraft.SettingEntry.Tags)
-                .Where(tag => !UiProperty.BuiltInTags.Contains(tag))
                 .Distinct()
                 .OrderBy(tag => tag);
 
             UiProperty.AllMinecraftTags.AddRange(userTags);
             // 只需重新分类，不需要重新加载
             HandleMinecraftInstances.Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
+        };
+
+        // 监听收藏状态变化，触发重新分类
+        SettingEntry.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName == nameof(SettingEntry.IsFavourite))
+            {
+                _debouncer.Trigger();
+                HandleMinecraftInstances.Categorize(Data.SettingEntry.MinecraftInstanceCategoryMethod);
+            }
         };
     }
 

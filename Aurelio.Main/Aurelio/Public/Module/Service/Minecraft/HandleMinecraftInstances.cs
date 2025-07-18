@@ -34,22 +34,17 @@ public partial class HandleMinecraftInstances
                     .Select(x => new RecordMinecraftEntry(x)));
             }
 
-            // 迁移旧的收藏夹标签到新的固定标识符
-            MigrateFavouriteTags();
+
 
             // 清除所有实例中的重复标签
             foreach (var instance in Data.AllMinecraftInstances) instance.SettingEntry.RemoveDuplicateTags();
 
-            // 更新标签列表，确保内置标签总是存在
+            // 更新标签列表，只包含用户定义的标签
             UiProperty.AllMinecraftTags.Clear();
 
-            // 先添加所有内置标签（但显示时使用本地化名称）
-            UiProperty.AllMinecraftTags.Add(UiProperty.FavouriteDisplayName);
-
-            // 再添加用户标签（避免重复添加内置标签）
+            // 添加所有用户定义的标签
             var userTags = Data.AllMinecraftInstances
                 .SelectMany(minecraft => minecraft.SettingEntry.Tags)
-                .Where(tag => !UiProperty.BuiltInTags.Contains(tag))
                 .Distinct()
                 .OrderBy(tag => tag);
 
@@ -175,17 +170,17 @@ public partial class HandleMinecraftInstances
 
         var categories = new List<MinecraftCategoryEntry>();
 
-        var favouriteTag = UiProperty.FavouriteTag;
+        // 获取收藏的实例（使用新的布尔属性）
         var favouriteInstances = Data.AllMinecraftInstances
-            .Where(minecraft => minecraft.SettingEntry.Tags.Contains(favouriteTag))
+            .Where(minecraft => minecraft.SettingEntry.IsFavourite)
             .OrderBy(x => x.Id)
             .ToList();
 
         if (favouriteInstances.Any())
             categories.Add(new MinecraftCategoryEntry
             {
-                Tag = favouriteTag,
-                Name = UiProperty.FavouriteDisplayName, // 使用本地化显示名称
+                Tag = "favourites",
+                Name = MainLang.Favourites, // 使用本地化显示名称
                 Minecrafts = new ObservableCollection<RecordMinecraftEntry>(favouriteInstances),
                 Expanded = true
             });
@@ -222,7 +217,6 @@ public partial class HandleMinecraftInstances
 
             case MinecraftInstanceCategoryMethod.Tag:
                 var sortedTags = UiProperty.AllMinecraftTags
-                    .Where(tag => tag != UiProperty.FavouriteDisplayName && !UiProperty.BuiltInTags.Contains(tag))
                     .OrderBy(tag => tag);
 
                 foreach (var tag in sortedTags)
@@ -405,14 +399,12 @@ public partial class HandleMinecraftInstances
                 break;
         }
 
-        // 将收集的所有分类添加到SortedMinecraftCategories中
         foreach (var category in categories)
         {
-            if (category.Tag == favouriteTag) continue;
+            if (category.Tag == "favourites") continue;
             Data.SortedMinecraftCategories.Add(category);
         }
 
-        // 如果用户设置了其他排序方法，则应用该排序方法
         if (Data.SettingEntry == null) return;
         if (Data.SettingEntry.MinecraftInstanceSortMethod != MinecraftInstanceSortMethod.Name)
             Sort(Data.SettingEntry.MinecraftInstanceSortMethod);
@@ -424,49 +416,7 @@ public partial class HandleMinecraftInstances
             });
     }
 
-    /// <summary>
-    /// 迁移旧的本地化收藏夹标签到新的固定标识符
-    /// </summary>
-    private static void MigrateFavouriteTags()
-    {
-        // 定义所有可能的旧收藏夹标签（不同语言版本）
-        var oldFavouriteTags = new HashSet<string>
-        {
-            "收藏",      // 中文简体/繁体
-            "Favourite", // 英文
-            "Favorites", // 英文复数形式
-            "收藏夹",    // 可能的中文变体
-            "즐겨찾기",   // 韩文（如果支持）
-            "お気に入り", // 日文（如果支持）
-        };
 
-        foreach (var instance in Data.AllMinecraftInstances)
-        {
-            var tagsToRemove = new List<string>();
-            var shouldAddFavourite = false;
-
-            // 检查是否有旧的收藏夹标签
-            foreach (var tag in instance.SettingEntry.Tags)
-            {
-                if (oldFavouriteTags.Contains(tag))
-                {
-                    tagsToRemove.Add(tag);
-                    shouldAddFavourite = true;
-                }
-            }
-
-            // 移除旧标签并添加新的固定标识符
-            foreach (var tagToRemove in tagsToRemove)
-            {
-                instance.SettingEntry.Tags.Remove(tagToRemove);
-            }
-
-            if (shouldAddFavourite && !instance.SettingEntry.Tags.Contains(UiProperty.FavouriteTag))
-            {
-                instance.SettingEntry.Tags.Add(UiProperty.FavouriteTag);
-            }
-        }
-    }
 
     [GeneratedRegex(@"^(\d+)\.(\d+)(?:\.(\d+))?")]
     private static partial Regex MyRegex();
