@@ -1768,4 +1768,13 @@
   <data name="OpenOrTogglePage" xml:space="preserve">
     <value>打开或跳转页面</value>
   </data>
+  <data name="SystemDrive" xml:space="preserve">
+    <value>系统驱动器</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="BackToUpLevel" xml:space="preserve">
+    <value>返回上一层</value>
+  </data>
 </root>

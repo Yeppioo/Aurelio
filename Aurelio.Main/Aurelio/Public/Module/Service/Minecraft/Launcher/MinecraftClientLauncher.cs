@@ -265,9 +265,9 @@ public partial class MinecraftClientLauncher
                             }
                         }));
                         task.OperateButtons.Add(new OperateButtonEntry("显示Minecraft日志",
-                            sender => { ShowLogViewer(tab, sender); }));
+                            s => { ShowLogViewer(tab, s); }));
                     });
-                    _ = Task.Run(async () =>
+                    _ = Task.Run(() =>
                     {
                         task.ButtonText = MainLang.KillProcess;
                         task.ButtonAction = () =>
@@ -310,6 +310,7 @@ public partial class MinecraftClientLauncher
                                     break;
                             }
                         });
+                        return Task.CompletedTask;
                     }, token);
                 }
                 catch (Exception ex)

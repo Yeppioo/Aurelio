@@ -537,6 +537,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 返回上一层.
+        /// </summary>
+        public static string BackToUpLevel {
+            get {
+                return ResourceManager.GetString("BackToUpLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 批处理 I18n.
         /// </summary>
         public static string BatchI18n {
@@ -1714,6 +1723,15 @@ namespace Aurelio.Public.Langs {
         public static string Favourted {
             get {
                 return ResourceManager.GetString("Favourted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 文件.
+        /// </summary>
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
             }
         }
         
@@ -4242,6 +4260,15 @@ namespace Aurelio.Public.Langs {
         public static string SwitchedTo {
             get {
                 return ResourceManager.GetString("SwitchedTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 系统驱动器.
+        /// </summary>
+        public static string SystemDrive {
+            get {
+                return ResourceManager.GetString("SystemDrive", resourceCulture);
             }
         }
         

@@ -1,22 +1,32 @@
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module;
 using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.Service;
+using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
+using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Platform.Storage;
 using Avalonia.Rendering;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using DynamicData;
+using ReactiveUI.Fody.Helpers;
 
 namespace Aurelio.Views.Main.Pages;
 
@@ -64,6 +74,15 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage
     }
 
     private bool _fl = true;
+    private bool _suppressNextFilter = false;
+
+    // File system search properties
+    [Reactive]
+    public StreamGeometry SearchIconData { get; set; } = StreamGeometry.Parse(
+        "M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z");
+
+    [Reactive] public bool IsFileSystemMode { get; set; }
+    [Reactive] public string CurrentFileSystemPath { get; set; } = string.Empty;
 
     public NewTabPage()
     {
@@ -87,15 +106,38 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage
             Filter();
             Poem = await Public.Module.IO.Http.Poem.GetPoem();
         };
-        SearchBox.GotFocus += (_, _) => { Filter(); };
+        SearchBox.GotFocus += (_, _) =>
+        {
+            if (_suppressNextFilter)
+            {
+                _suppressNextFilter = false;
+                return;
+            }
+
+            Filter();
+        };
         AggregateSearchListBox.SelectionChanged += (s, _) =>
         {
             if (AggregateSearchListBox.SelectedItem is not AggregateSearchEntry entry) return;
+
+            // Handle file system entries directly without closing the tab
+            if (entry.Type == AggregateSearchEntryType.SystemFile ||
+                entry.Type == AggregateSearchEntryType.SystemFileGoUp)
+            {
+                HandleFileSystemEntrySelection(entry);
+                return;
+            }
+
             IRenderRoot root = null;
             AggregateSearch.Execute(entry, Root, ref root);
             if (entry.Type == AggregateSearchEntryType.MinecraftAccount) return;
             HostTab.Close(root);
         };
+
+        // Add file system search event handlers
+        SearchBox.KeyDown += SearchBox_KeyDown;
+        SearchIcon.PointerPressed += SearchIcon_PointerPressed;
+        AggregateSearchListBox.PointerPressed += AggregateSearchListBox_PointerPressed;
     }
 
     private string _aggregateSearchFilter = "";
@@ -116,10 +158,34 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage
         try
         {
             FilteredAggregateSearchEntries.Clear();
-            FilteredAggregateSearchEntries.AddRange(Data.AggregateSearchEntries.Where(item =>
-                    item.Title.Contains(AggregateSearchFilter, StringComparison.OrdinalIgnoreCase) ||
-                    item.Summary.Contains(AggregateSearchFilter, StringComparison.OrdinalIgnoreCase))
-                .OrderByDescending(x => x.Order).ThenBy(x => x.Title));
+
+            // Check if we're in file system search mode
+            if (AggregateSearchFilter.StartsWith("!!"))
+            {
+                IsFileSystemMode = true;
+                var pathPart = AggregateSearchFilter.Substring(2);
+                CurrentFileSystemPath = pathPart;
+
+                // Update search icon based on whether we have a valid path
+                UpdateSearchIcon();
+
+                // Get file system entries
+                var fileSystemEntries = GetFileSystemEntries(pathPart);
+                FilteredAggregateSearchEntries.AddRange(fileSystemEntries);
+            }
+            else
+            {
+                IsFileSystemMode = false;
+                CurrentFileSystemPath = string.Empty;
+                SearchIconData = StreamGeometry.Parse(
+                    "M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z");
+
+                // Normal search mode
+                FilteredAggregateSearchEntries.AddRange(Data.AggregateSearchEntries.Where(item =>
+                        item.Title.Contains(AggregateSearchFilter, StringComparison.OrdinalIgnoreCase) ||
+                        item.Summary.Contains(AggregateSearchFilter, StringComparison.OrdinalIgnoreCase))
+                    .OrderByDescending(x => x.Order).ThenBy(x => x.Title));
+            }
         }
         catch
         {
@@ -184,6 +250,443 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage
     public void OnClose()
     {
     }
+
+    #region File System Search Methods
+
+    private void UpdateSearchIcon()
+    {
+        if (IsFileSystemMode && !string.IsNullOrEmpty(CurrentFileSystemPath) &&
+            (Directory.Exists(CurrentFileSystemPath) || File.Exists(CurrentFileSystemPath)))
+        {
+            // Show right arrow icon when we have a valid path
+            SearchIconData = Icons.ChevronRight;
+        }
+        else
+        {
+            // Show search icon
+            SearchIconData = StreamGeometry.Parse(
+                "M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z");
+        }
+    }
+
+    private ObservableCollection<AggregateSearchEntry> GetFileSystemEntries(string pathPart)
+    {
+        var entries = new ObservableCollection<AggregateSearchEntry>();
+
+        try
+        {
+            if (string.IsNullOrEmpty(pathPart))
+            {
+                // Show system roots
+                entries.AddRange(GetSystemRoots());
+            }
+            else
+            {
+                // Handle partial path matching
+                var normalizedPath = pathPart.Replace('/', Path.DirectorySeparatorChar)
+                    .Replace('\\', Path.DirectorySeparatorChar);
+
+                // If the path exists as a complete directory, show its contents
+                if (Directory.Exists(normalizedPath))
+                {
+                    // Add "go up" entry if not at root level
+                    var goUpEntry = GetGoUpEntry(normalizedPath);
+                    if (goUpEntry != null)
+                    {
+                        entries.Add(goUpEntry);
+                    }
+
+                    entries.AddRange(GetDirectoryContents(normalizedPath));
+                }
+                else
+                {
+                    // Handle partial path matching
+                    var parentPath = Path.GetDirectoryName(normalizedPath);
+                    var partialName = Path.GetFileName(normalizedPath);
+
+                    if (!string.IsNullOrEmpty(parentPath) && Directory.Exists(parentPath))
+                    {
+                        // Show matching items from parent directory
+                        entries.AddRange(GetPartialMatchingContents(parentPath, partialName));
+                    }
+                    else if (string.IsNullOrEmpty(parentPath))
+                    {
+                        // Handle root-level partial matching (e.g., "/h" should match "/home")
+                        entries.AddRange(GetPartialMatchingRoots(partialName));
+                    }
+                }
+            }
+        }
+        catch
+        {
+            // Handle permission errors gracefully
+        }
+
+        return entries;
+    }
+
+    private IEnumerable<AggregateSearchEntry> GetSystemRoots()
+    {
+        var roots = new List<AggregateSearchEntry>();
+
+        try
+        {
+            if (Data.DesktopType == DesktopType.Windows)
+            {
+                // Windows: Show drive letters
+                var drives = DriveInfo.GetDrives();
+                foreach (var drive in drives)
+                {
+                    if (drive.IsReady)
+                    {
+                        roots.Add(new AggregateSearchEntry(drive.RootDirectory, true));
+                    }
+                }
+            }
+            else if (Data.DesktopType == DesktopType.Linux)
+            {
+                // Linux: Show root and common mount points
+                var commonPaths = new[] { "/", "/home", "/usr", "/var", "/opt", "/tmp" };
+                foreach (var path in commonPaths)
+                {
+                    if (Directory.Exists(path))
+                    {
+                        roots.Add(new AggregateSearchEntry(new DirectoryInfo(path), true));
+                    }
+                }
+            }
+            else if (Data.DesktopType == DesktopType.MacOs)
+            {
+                // macOS: Show root and common directories
+                var commonPaths = new[] { "/", "/Users", "/Applications", "/System", "/Library" };
+                foreach (var path in commonPaths)
+                {
+                    if (Directory.Exists(path))
+                    {
+                        roots.Add(new AggregateSearchEntry(new DirectoryInfo(path), true));
+                    }
+                }
+            }
+        }
+        catch
+        {
+            // Handle errors gracefully
+        }
+
+        return roots;
+    }
+
+    private IEnumerable<AggregateSearchEntry> GetDirectoryContents(string directoryPath)
+    {
+        var contents = new List<AggregateSearchEntry>();
+
+        try
+        {
+            var directory = new DirectoryInfo(directoryPath);
+
+            // Add subdirectories first
+            var subdirectories = directory.GetDirectories().Take(50); // Limit to 50 items for performance
+            foreach (var subdir in subdirectories)
+            {
+                try
+                {
+                    contents.Add(new AggregateSearchEntry(subdir));
+                }
+                catch
+                {
+                    // Skip directories we can't access
+                }
+            }
+
+            // Add files
+            var files = directory.GetFiles().Take(50); // Limit to 50 items for performance
+            foreach (var file in files)
+            {
+                try
+                {
+                    contents.Add(new AggregateSearchEntry(file));
+                }
+                catch
+                {
+                    // Skip files we can't access
+                }
+            }
+        }
+        catch
+        {
+            // Handle permission errors gracefully
+        }
+
+        return contents;
+    }
+
+    private IEnumerable<AggregateSearchEntry> GetPartialMatchingContents(string parentPath, string partialName)
+    {
+        var contents = new List<AggregateSearchEntry>();
+
+        try
+        {
+            var directory = new DirectoryInfo(parentPath);
+
+            // Add matching subdirectories
+            var subdirectories = directory.GetDirectories()
+                .Where(d => d.Name.StartsWith(partialName, StringComparison.OrdinalIgnoreCase))
+                .Take(50);
+
+            foreach (var subdir in subdirectories)
+            {
+                try
+                {
+                    contents.Add(new AggregateSearchEntry(subdir));
+                }
+                catch
+                {
+                    // Skip directories we can't access
+                }
+            }
+
+            // Add matching files
+            var files = directory.GetFiles()
+                .Where(f => f.Name.StartsWith(partialName, StringComparison.OrdinalIgnoreCase))
+                .Take(50);
+
+            foreach (var file in files)
+            {
+                try
+                {
+                    contents.Add(new AggregateSearchEntry(file));
+                }
+                catch
+                {
+                    // Skip files we can't access
+                }
+            }
+        }
+        catch
+        {
+            // Handle permission errors gracefully
+        }
+
+        return contents;
+    }
+
+    private IEnumerable<AggregateSearchEntry> GetPartialMatchingRoots(string partialName)
+    {
+        var roots = new List<AggregateSearchEntry>();
+
+        try
+        {
+            if (Data.DesktopType == DesktopType.Windows)
+            {
+                // Windows: Show matching drive letters
+                var drives = DriveInfo.GetDrives()
+                    .Where(d => d.IsReady && d.Name.StartsWith(partialName, StringComparison.OrdinalIgnoreCase));
+
+                foreach (var drive in drives)
+                {
+                    roots.Add(new AggregateSearchEntry(drive.RootDirectory, true));
+                }
+            }
+            else
+            {
+                // Linux/macOS: Show matching root directories
+                var commonPaths = Data.DesktopType == DesktopType.Linux
+                    ? new[] { "/", "/home", "/usr", "/var", "/opt", "/tmp" }
+                    : new[] { "/", "/Users", "/Applications", "/System", "/Library" };
+
+                foreach (var path in commonPaths)
+                {
+                    if (Directory.Exists(path))
+                    {
+                        var dirName = path == "/" ? "/" : Path.GetFileName(path);
+                        if (dirName.StartsWith(partialName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            roots.Add(new AggregateSearchEntry(new DirectoryInfo(path), true));
+                        }
+                    }
+                }
+            }
+        }
+        catch
+        {
+            // Handle errors gracefully
+        }
+
+        return roots;
+    }
+
+    private AggregateSearchEntry? GetGoUpEntry(string currentPath)
+    {
+        try
+        {
+            // Normalize the current path
+            var normalizedPath = currentPath.TrimEnd(Path.DirectorySeparatorChar, '/');
+
+            // Check if we're at drive root level (e.g., C:\ on Windows or / on Unix)
+            if (Data.DesktopType == DesktopType.Windows)
+            {
+                var driveRoot = Path.GetPathRoot(normalizedPath);
+                if (string.Equals(normalizedPath, driveRoot?.TrimEnd(Path.DirectorySeparatorChar), StringComparison.OrdinalIgnoreCase))
+                {
+                    // At drive root (e.g., C:\) - go up to drive selection (empty path)
+                    return new AggregateSearchEntry("");
+                }
+            }
+            else if (Data.DesktopType == DesktopType.Linux || Data.DesktopType == DesktopType.MacOs)
+            {
+                if (normalizedPath == "/" || string.IsNullOrEmpty(normalizedPath))
+                {
+                    // At system root (/) - go up to drive selection (empty path)
+                    return new AggregateSearchEntry("");
+                }
+            }
+
+            // For subdirectories, get the actual parent directory
+            var parentPath = Path.GetDirectoryName(normalizedPath);
+
+            // If parentPath is null or empty, we're at a root level
+            if (string.IsNullOrEmpty(parentPath))
+            {
+                return new AggregateSearchEntry("");
+            }
+
+            return new AggregateSearchEntry(parentPath);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    #endregion
+
+    #region Event Handlers
+
+    private void HandleFileSystemEntrySelection(AggregateSearchEntry entry)
+    {
+        // Handle "go up" entry
+        if (entry.Type == AggregateSearchEntryType.SystemFileGoUp && entry.OriginObject is string parentPath)
+        {
+            string newPath;
+
+            if (string.IsNullOrEmpty(parentPath))
+            {
+                // Go back to drive selection
+                newPath = "!!";
+            }
+            else
+            {
+                // Navigate to parent directory
+                newPath = "!!" + parentPath;
+                if (!newPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
+                {
+                    newPath += Path.DirectorySeparatorChar;
+                }
+            }
+
+            // Update the search filter which will trigger the Filter() method
+            AggregateSearchFilter = newPath;
+
+            // Give focus to the search box and move cursor to end
+            SearchBox.Focus();
+            SearchBox.CaretIndex = SearchBox.Text?.Length ?? 0;
+            return;
+        }
+
+        // Handle regular file system entries
+        if (entry.OriginObject is not FileSystemInfo fsInfo) return;
+
+        if (fsInfo is DirectoryInfo)
+        {
+            // Directory: Navigate to this path
+            var newPath = "!!" + fsInfo.FullName;
+            if (!newPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
+            {
+                newPath += Path.DirectorySeparatorChar;
+            }
+
+            // Update the search filter which will trigger the Filter() method
+            AggregateSearchFilter = newPath;
+
+            // Give focus to the search box and move cursor to end
+            SearchBox.Focus();
+            SearchBox.CaretIndex = SearchBox.Text?.Length ?? 0;
+        }
+        else if (fsInfo is FileInfo)
+        {
+            // File: Open directly with system default application
+            OpenFileSystemPath(fsInfo.FullName);
+
+            // Give focus back to the search box without triggering filter
+            // Use a flag to prevent the GotFocus event from calling Filter()
+            _suppressNextFilter = true;
+            SearchBox.Focus();
+            SearchBox.CaretIndex = SearchBox.Text?.Length ?? 0;
+        }
+    }
+
+    private void SearchBox_KeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter && IsFileSystemMode && !string.IsNullOrEmpty(CurrentFileSystemPath))
+        {
+            OpenFileSystemPath(CurrentFileSystemPath);
+        }
+    }
+
+    private void SearchIcon_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (IsFileSystemMode && !string.IsNullOrEmpty(CurrentFileSystemPath))
+        {
+            OpenFileSystemPath(CurrentFileSystemPath);
+        }
+    }
+
+    private void AggregateSearchListBox_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (e.GetCurrentPoint(this).Properties.IsRightButtonPressed &&
+            AggregateSearchListBox.SelectedItem is AggregateSearchEntry entry &&
+            entry.Type == AggregateSearchEntryType.SystemFile)
+        {
+            // Right-click: Open with system default
+            if (entry.OriginObject is FileSystemInfo fsInfo)
+            {
+                OpenFileSystemPath(fsInfo.FullName);
+            }
+        }
+    }
+
+    private async void OpenFileSystemPath(string path)
+    {
+        try
+        {
+            if (File.Exists(path))
+            {
+                var isNav = FileNav.NavPage(path);
+                if (isNav)
+                {
+                    HostTab.Close();
+                    return;
+                }
+                // Open file with default application
+                var launcher = TopLevel.GetTopLevel(this)?.Launcher;
+                if (launcher != null)
+                {
+                    _ = launcher.LaunchFileInfoAsync(new FileInfo(path));
+                }
+            }
+            else if (Directory.Exists(path))
+            {
+                // Open folder with default file manager
+                await OpenFolder(path);
+            }
+        }
+        catch
+        {
+            // Handle errors gracefully
+        }
+    }
+
+    #endregion
 
     private async void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {

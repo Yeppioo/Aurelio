@@ -16,8 +16,6 @@ namespace Aurelio.Public.Module.Service.Minecraft;
 
 public partial class MinecraftInstancesHandler
 {
-    private static CancellationTokenSource? _cts;
-
     public static MinecraftInstancesHandler? _instance { get; set; }
     public MinecraftInstancesHandler Instance
     {
@@ -128,8 +126,6 @@ public partial class MinecraftInstancesHandler
         }
 
         if (Aurelio.App.UiRoot == null) return;
-        if (_cts is { IsCancellationRequested: false })
-            _cts.Cancel();
         OpacityShouldAnimate?.Invoke(_instance);
     }
 

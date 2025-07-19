@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
@@ -19,7 +20,7 @@ public class AggregateSearch
         IRenderRoot? renderRoot = null;
         Execute(entry, sender, ref renderRoot);
     }
-    
+
     public static void Execute(AggregateSearchEntry entry, Control sender, ref IRenderRoot? renderRoot)
     {
         var visualRoot = sender.GetVisualRoot();
@@ -66,6 +67,12 @@ public class AggregateSearch
                 return;
             }
             Aurelio.App.UiRoot.TogglePage(entry.Tag, page);
+        }
+        else if (entry.Type == AggregateSearchEntryType.SystemFile)
+        {
+            // SystemFile entries are handled directly by NewTabPage
+            // No action needed here as the navigation is handled in the SelectionChanged event
+            return;
         }
     }
 }

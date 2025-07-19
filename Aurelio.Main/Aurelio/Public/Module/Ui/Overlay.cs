@@ -133,7 +133,7 @@ public abstract class Overlay
         Tasking.Instance.Close();
     }
 
-    public static async Task OpenTaskDrawer(string host)
+    public static Task OpenTaskDrawer(string host)
     {
         var options = new DrawerOptions
         {
@@ -146,6 +146,7 @@ public abstract class Overlay
             CanResize = true
         };
          Drawer.Show<TaskCenterDrawer, Tasking>(Tasking.Instance, host, options);
+         return Task.CompletedTask;
     }
 
     public static string GetHostId(Control sender)

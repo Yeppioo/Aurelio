@@ -189,7 +189,7 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
             NavRoot.Margin = new Thickness((Data.DesktopType == DesktopType.MacOs ? 125 : 80), 0,
                 TitleBarContainer.Bounds.Width + (Data.DesktopType == DesktopType.MacOs ? 20 : 85), 0);
         };
-        FocusInfoBorder.PointerPressed += async (s, e) =>
+        FocusInfoBorder.PointerPressed += (s, e) =>
         {
             if (e.GetCurrentPoint(this).Properties.IsRightButtonPressed)
             {
