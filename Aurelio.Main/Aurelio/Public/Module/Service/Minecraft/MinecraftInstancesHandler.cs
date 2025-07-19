@@ -130,7 +130,7 @@ public partial class MinecraftInstancesHandler
         if (Aurelio.App.UiRoot == null) return;
         if (_cts is { IsCancellationRequested: false })
             _cts.Cancel();
-        OpacityShouldAnimate.Invoke(_instance);
+        OpacityShouldAnimate?.Invoke(_instance);
     }
 
     public static void Search(string key, bool ui = true)
@@ -158,7 +158,7 @@ public partial class MinecraftInstancesHandler
 
     public static void Categorize(MinecraftInstanceCategoryMethod method)
     {
-        OpacityShouldSetZero.Invoke(_instance);
+        OpacityShouldSetZero?.Invoke(_instance);
         var filtered = Data.SortedMinecraftCategories
             .FirstOrDefault(x => x.Tag == "filtered")?.Minecrafts;
         Data.SortedMinecraftCategories.Clear();
@@ -404,7 +404,7 @@ public partial class MinecraftInstancesHandler
         if (Data.SettingEntry.MinecraftInstanceSortMethod != MinecraftInstanceSortMethod.Name)
             Sort(Data.SettingEntry.MinecraftInstanceSortMethod);
         else if (Aurelio.App.UiRoot != null)
-            OpacityShouldAnimate.Invoke(_instance);
+            OpacityShouldAnimate?.Invoke(_instance);
     }
 
     [GeneratedRegex(@"^(\d+)\.(\d+)(?:\.(\d+))?")]

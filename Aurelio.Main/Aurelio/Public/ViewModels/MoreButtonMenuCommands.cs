@@ -36,7 +36,7 @@ public class MoreButtonMenuCommands
         switch (page)
         {
             case "minecraftInstances":
-                App.UiRoot.TogglePage("minecraftInstances" , new MinecraftInstancesPage());
+                App.UiRoot.TogglePage("minecraftInstances" , new MinecraftInstancesTabPage());
                 break;
             case "setting":
                 App.UiRoot.TogglePage("setting", new SettingTabPage());

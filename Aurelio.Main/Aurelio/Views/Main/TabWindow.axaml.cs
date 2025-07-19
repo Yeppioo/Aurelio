@@ -92,8 +92,7 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
     public void TogglePage(string tag, IAurelioTabPage page)
     {
         var existingTab = Tabs.FirstOrDefault(x => x.Tag == tag);
-
-        if (existingTab == null)
+        if (existingTab == null || tag == null)
         {
             var newTab = new TabEntry(page)
             {

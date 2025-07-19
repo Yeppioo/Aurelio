@@ -20,7 +20,6 @@ public class SettingEntry : ReactiveObject
     public SettingEntry()
     {
         PropertyChanged += OnPropertyChanged;
-        MinecraftAccounts.CollectionChanged += (_, _) => Data.UpdateAggregateSearchEntries();
     }
 
     [Reactive] [JsonProperty] public Enum.Setting.NoticeWay NoticeWay { get; set; } = Enum.Setting.NoticeWay.Bubble;

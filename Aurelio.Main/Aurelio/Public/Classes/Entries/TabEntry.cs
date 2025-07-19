@@ -4,6 +4,7 @@ using Aurelio.Public.ViewModels;
 using Aurelio.Views.Main;
 using Avalonia.Data;
 using Avalonia.Media;
+using Avalonia.VisualTree;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Aurelio.Public.Classes.Entries;
@@ -95,11 +96,20 @@ public partial class TabEntry : ViewModelBase
     {
         if (!CanClose) return;
 
-        var wasSelected = App.UiRoot.ViewModel.SelectedTab == this;
-        App.UiRoot.ViewModel.Tabs.Remove(this);
-
-        // If the removed tab was selected, select the last remaining tab (or null if no tabs left)
-        if (wasSelected) App.UiRoot.ViewModel.SelectedTab = App.UiRoot.ViewModel.Tabs.LastOrDefault();
+        if ((Content as UserControl).GetVisualRoot() is TabWindow tabWindow)
+        {
+            var wasSelected = tabWindow.ViewModel.SelectedTab == this;
+            tabWindow.ViewModel.Tabs.Remove(this);
+            if (wasSelected) tabWindow.ViewModel.SelectedTab = tabWindow.ViewModel.Tabs.LastOrDefault();
+        }
+        else
+        {
+            var wasSelected = App.UiRoot.ViewModel.SelectedTab == this;
+            App.UiRoot.ViewModel.Tabs.Remove(this);
+            if (wasSelected) App.UiRoot.ViewModel.SelectedTab = App.UiRoot.ViewModel.Tabs.LastOrDefault();
+        }
+        
+        
 
         DisposeContent();
         Removing();

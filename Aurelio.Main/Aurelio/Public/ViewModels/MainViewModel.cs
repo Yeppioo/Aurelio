@@ -17,7 +17,7 @@ public class MainViewModel : ViewModelBase
     {
         (IAurelioTabPage page, string? tag) obj = Data.SettingEntry.LaunchPage switch
         {
-            Setting.LaunchPage.MinecraftInstance => (new MinecraftInstancesPage(), "minecraftInstances"),
+            Setting.LaunchPage.MinecraftInstance => (new MinecraftInstancesTabPage(), "minecraftInstances"),
             Setting.LaunchPage.Setting => (new SettingTabPage(), "setting"),
             _ => (new NewTabPage(), null)
         };

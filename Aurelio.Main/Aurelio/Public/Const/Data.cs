@@ -5,6 +5,8 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Minecraft;
 using Aurelio.Public.Classes.Setting;
+using Aurelio.Views.Main.Pages;
+using Avalonia.Threading;
 using DynamicData;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -32,6 +34,12 @@ public class Data : ReactiveObject
     public static void UpdateAggregateSearchEntries()
     {
         AggregateSearchEntries.Clear();
+        Dispatcher.UIThread.InvokeAsync(() =>
+        {
+            AggregateSearchEntries.Add(new AggregateSearchEntry(new NewTabPage(), null));
+            AggregateSearchEntries.Add(new AggregateSearchEntry(new SettingTabPage() , "setting"));
+            AggregateSearchEntries.Add(new AggregateSearchEntry(new MinecraftInstancesTabPage(), "minecraftInstances"));
+        });
         AggregateSearchEntries.AddRange(AllMinecraftInstances.Select(x => new AggregateSearchEntry(x)));
         if (SettingEntry != null)
             AggregateSearchEntries.AddRange(SettingEntry.MinecraftAccounts.Select(x => new AggregateSearchEntry(x)));

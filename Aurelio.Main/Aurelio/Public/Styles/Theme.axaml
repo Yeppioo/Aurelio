@@ -47,9 +47,11 @@
                 Color="#272727"
                 Opacity="{DynamicResource BackGroundOpacity}"
                 x:Key="TabBackgroundColor" />
+            <SolidColorBrush Color="#1CFFFFFF" x:Key="TextBoxBackground" />
             <CornerRadius x:Key="CardCornerRadius">10</CornerRadius>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
+            <SolidColorBrush Color="#09000000" x:Key="TextBoxBackground" />
             <SolidColorBrush Color="#2C3E50" x:Key="TextColor" />
             <SolidColorBrush Color="#21606E7E" x:Key="ExpanderSeparatorColor" />
             <Color x:Key="WindowBackgroundColor">

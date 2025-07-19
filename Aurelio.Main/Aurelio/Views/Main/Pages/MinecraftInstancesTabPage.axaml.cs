@@ -12,14 +12,14 @@ using Avalonia.VisualTree;
 
 namespace Aurelio.Views.Main.Pages;
 
-public partial class MinecraftInstancesPage : PageMixModelBase, IAurelioTabPage
+public partial class MinecraftInstancesTabPage : PageMixModelBase, IAurelioTabPage
 {
     private double _containerWidth;
 
 
     private string _searchText = string.Empty;
 
-    public MinecraftInstancesPage()
+    public MinecraftInstancesTabPage()
     {
         InitializeComponent();
         DataContext = this;

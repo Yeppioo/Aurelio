@@ -17,6 +17,7 @@ public abstract class AfterUiLoaded
         File.WriteAllText(ConfigPath.AppPathDataPath,
             Process.GetCurrentProcess().MainModule.FileName);
         BindKeys.Main(Aurelio.App.UiRoot!);
+        Data.SettingEntry.MinecraftAccounts.CollectionChanged += (_, _) => Data.UpdateAggregateSearchEntries();
         _ = MinecraftInstancesHandler.Load(Data.SettingEntry.MinecraftFolderEntries.Select(x => x.Path).ToArray());
         Setter.SetAccentColor(Data.SettingEntry.ThemeColor);
         Application.Current.Resources["BackGroundOpacity"] = Data.SettingEntry.BackGround == Setting.BackGround.Default ? 1.0 : 0.5;

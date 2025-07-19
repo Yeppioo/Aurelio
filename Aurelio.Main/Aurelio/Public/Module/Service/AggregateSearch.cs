@@ -43,5 +43,20 @@ public class AggregateSearch
             else
                 Aurelio.App.UiRoot.CreateTab(tab);
         }
+        else if (entry.Type == AggregateSearchEntryType.AurelioTabPage)
+        {
+            if (entry.OriginObject is not IAurelioTabPage page)
+            {
+                Notice(MainLang.OperateFailed, NotificationType.Error, host: sender.GetVisualRoot() as IAurelioWindow);
+                return;
+            }
+
+            if (sender.GetVisualRoot() is TabWindow window)
+            {
+                window.TogglePage(entry.Tag, page);
+                return;
+            }
+            Aurelio.App.UiRoot.TogglePage(entry.Tag, page);
+        }
     }
 }
