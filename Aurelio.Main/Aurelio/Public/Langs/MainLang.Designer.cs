@@ -989,6 +989,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 当前项目.
+        /// </summary>
+        public static string CurrentItem {
+            get {
+                return ResourceManager.GetString("CurrentItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 当前列表为空.
         /// </summary>
         public static string CurrentListIsEmpty {
@@ -2075,6 +2084,15 @@ namespace Aurelio.Public.Langs {
         public static string ImportFinish {
             get {
                 return ResourceManager.GetString("ImportFinish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 将 {file} 作为 Mod 导入 {mc}.
+        /// </summary>
+        public static string ImportJarAsMod {
+            get {
+                return ResourceManager.GetString("ImportJarAsMod", resourceCulture);
             }
         }
         
@@ -4020,6 +4038,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 选择资源类型.
+        /// </summary>
+        public static string SelectResourceType {
+            get {
+                return ResourceManager.GetString("SelectResourceType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 选择皮肤文件.
         /// </summary>
         public static string SelectSkinFile {
@@ -4449,6 +4476,24 @@ namespace Aurelio.Public.Langs {
         public static string TodayLuckyValueTip {
             get {
                 return ResourceManager.GetString("TodayLuckyValueTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 待处理文件.
+        /// </summary>
+        public static string TodoHandleFile {
+            get {
+                return ResourceManager.GetString("TodoHandleFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 待办列表.
+        /// </summary>
+        public static string TodoList {
+            get {
+                return ResourceManager.GetString("TodoList", resourceCulture);
             }
         }
         

@@ -1350,6 +1350,10 @@
     <value>What do you want to do with this file</value>
     <comment>#TODO#_</comment>
   </data>
+  <data name="SelectResourceType" xml:space="preserve">
+    <value>Select Resource Type</value>
+    <comment>#TODO#_</comment>
+  </data>
   <data name="AsResourcePackImport" xml:space="preserve">
     <value>Import as Asset Package</value>
     <comment>#TODO#_</comment>

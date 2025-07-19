@@ -1346,6 +1346,10 @@
     <value>希望如何處理此文件</value>
     <comment>#TODO#_</comment>
   </data>
+  <data name="SelectResourceType" xml:space="preserve">
+    <value>選擇資源類型</value>
+    <comment>#TODO#_</comment>
+  </data>
   <data name="AsResourcePackImport" xml:space="preserve">
     <value>作為資源包導入</value>
     <comment>#TODO#_</comment>

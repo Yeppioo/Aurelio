@@ -1350,6 +1350,10 @@
     <value>希望如何处理此文件</value>
     <comment>#TODO#_</comment>
   </data>
+  <data name="SelectResourceType" xml:space="preserve">
+    <value>选择资源类型</value>
+    <comment>#TODO#_</comment>
+  </data>
   <data name="AsResourcePackImport" xml:space="preserve">
     <value>作为资源包导入</value>
     <comment>#TODO#_</comment>
@@ -1776,5 +1780,17 @@
   </data>
   <data name="BackToUpLevel" xml:space="preserve">
     <value>返回上一层</value>
+  </data>
+  <data name="ImportJarAsMod" xml:space="preserve">
+    <value>将 {file} 作为 Mod 导入 {mc}</value>
+  </data>
+  <data name="TodoList" xml:space="preserve">
+    <value>待办列表</value>
+  </data>
+  <data name="TodoHandleFile" xml:space="preserve">
+    <value>待处理文件</value>
+  </data>
+  <data name="CurrentItem" xml:space="preserve">
+    <value>当前项目</value>
   </data>
 </root>
