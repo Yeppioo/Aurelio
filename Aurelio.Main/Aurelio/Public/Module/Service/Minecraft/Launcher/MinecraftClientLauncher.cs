@@ -82,13 +82,14 @@ public partial class MinecraftClientLauncher
         _ = OpenTaskDrawer(host!);
 
         Account? account;
-        switch (Data.SettingEntry.UsingMinecraftAccount.AccountType)
+        var usingAccount = Data.SettingEntry.UsingMinecraftAccount;
+        switch (usingAccount.AccountType)
         {
             case Setting.AccountType.Offline:
-                if (!string.IsNullOrWhiteSpace(Data.SettingEntry.UsingMinecraftAccount.Name))
+                if (!string.IsNullOrWhiteSpace(usingAccount.Name))
                 {
                     account = JsonConvert.DeserializeObject<OfflineAccount>(
-                        Data.SettingEntry.UsingMinecraftAccount.Data!);
+                        usingAccount.Data!);
                 }
                 else
                 {
@@ -100,7 +101,7 @@ public partial class MinecraftClientLauncher
                 break;
             case Setting.AccountType.Microsoft:
                 var profile =
-                    JsonConvert.DeserializeObject<MicrosoftAccount>(Data.SettingEntry.UsingMinecraftAccount.Data!);
+                    JsonConvert.DeserializeObject<MicrosoftAccount>(usingAccount.Data!);
                 MicrosoftAuthenticator authenticator2 = new(Config.AzureClientId);
                 try
                 {
@@ -121,7 +122,7 @@ public partial class MinecraftClientLauncher
 
                 break;
             case Setting.AccountType.ThirdParty:
-                account = JsonConvert.DeserializeObject<YggdrasilAccount>(Data.SettingEntry.UsingMinecraftAccount
+                account = JsonConvert.DeserializeObject<YggdrasilAccount>(usingAccount
                     .Data!);
                 break;
             default:
@@ -140,6 +141,8 @@ public partial class MinecraftClientLauncher
             Notice(MainLang.AccountError, NotificationType.Error);
             task.FinishWithError();
         }
+        
+        usingAccount.LastUsedTime = DateTime.Now;
 
         task.NextSubTask();
 
