@@ -1,10 +1,12 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Setting;
+using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App.Services;
 using Aurelio.Public.Module.Service;
 using Aurelio.Public.Module.Ui;
@@ -216,6 +218,31 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
 
             _lastShiftPressTime = DateTime.Now;
         };
+        AddHandler(DragDrop.DropEvent, DropHandler);
+    }
+
+    private void DropHandler(object? sender, DragEventArgs e)
+    {
+        if (e is null) return;
+        if (e.Data.Contains(DataFormats.Files))
+        {
+            var files = e.Data.GetFiles();
+            if (files == null) return;
+            // var storageItems = files as IStorageItem[] ?? files.ToArray();
+            // var jar = storageItems.Where(a => Path.GetExtension(a.Path.LocalPath) == ".jar").ToArray();
+            // var zip = storageItems.Where(a => Path.GetExtension(a.Path.LocalPath) == ".zip").ToArray();
+            foreach (var file in files)
+            {
+                var path = file.Path.LocalPath;
+                var isNav = FileNav.NavPage(path , this);
+                if (isNav) continue;
+                Notice($"{MainLang.UnsupportedFileType} {Path.GetExtension(path)}", NotificationType.Error);
+            }
+        }
+        else if (e.Data.Contains(DataFormats.Text))
+        {
+            var text = e.Data.GetText();
+        }
     }
 
     private void SettingEntryOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -248,16 +275,6 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
             );
             e.Handled = true;
         }
-    }
-
-    private void NavScrollViewer_PointerEntered(object? sender, PointerEventArgs e)
-    {
-        NavScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
-    }
-
-    private void NavScrollViewer_PointerExited(object? sender, PointerEventArgs e)
-    {
-        NavScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
     }
 
     public void CreateTab(TabEntry tab)

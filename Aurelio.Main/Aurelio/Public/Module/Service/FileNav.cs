@@ -9,7 +9,7 @@ namespace Aurelio.Public.Module.Service;
 
 public class FileNav
 {
-    public static bool NavPage(string path)
+    public static bool NavPage(string path, IAurelioWindow? window = null)
     {
         var extension = Path.GetExtension(path).ToLower();
         var name = Path.GetFileName(path);
@@ -21,25 +21,27 @@ public class FileNav
             case ".webp":
             {
                 using var fileStream = File.OpenRead(path);
-                OpenPage(new ImageViewer(name, Bitmap.DecodeToWidth(fileStream, 1080), path));
+                OpenPage(new ImageViewer(name, Bitmap.DecodeToWidth(fileStream, 1080), path), window);
                 return true;
             }
-            case ".txt":
             case ".log":
             {
-                OpenPage(new LogViewer(path, name));
+                OpenPage(new LogViewer(path, name), window);
                 return true;
             }
         }
+
         return false;
     }
-    public static void OpenPage(IAurelioTabPage page)
+
+    public static void OpenPage(IAurelioTabPage page, IAurelioWindow? window = null)
     {
-        if (UiProperty.ActiveWindow is TabWindow tabWindow)
+        if ((window ?? UiProperty.ActiveWindow)is TabWindow tabWindow)
         {
             tabWindow.CreateTab(new TabEntry(page));
             return;
         }
+
         Aurelio.App.UiRoot.CreateTab(new TabEntry(page));
     }
 }

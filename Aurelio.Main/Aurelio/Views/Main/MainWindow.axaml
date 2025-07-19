@@ -116,8 +116,6 @@
                                     Name="NavScrollViewer"
                                     Offset="{Binding TabScrollOffset}"
                                     OpacityMask="{Binding IsTabMaskVisible, Converter={StaticResource NavScrollOpacityMaskConverter}}"
-                                    PointerEntered="NavScrollViewer_PointerEntered"
-                                    PointerExited="NavScrollViewer_PointerExited"
                                     PointerWheelChanged="NavScrollViewer_PointerWheelChanged"
                                     VerticalScrollBarVisibility="Disabled">
                                     <StackPanel Margin="0,0,20,0" Orientation="Horizontal">
