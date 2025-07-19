@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns="" id="root">
-    <xsd:element name="root" msdata:IsDataSet="true" />
+    <xsd:element name="root" msdata:IsDataSet="true"/>
   </xsd:schema>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
@@ -20,28 +20,28 @@
     </value>
   </resheader>
   <data name="MainPage" xml:space="preserve">
-    <value>主页面</value>
+    <value>主頁面</value>
   </data>
   <data name="WorkSpace" xml:space="preserve">
-    <value>工作区</value>
+    <value>工作區</value>
   </data>
   <data name="Close" xml:space="preserve">
-    <value>关闭</value>
+    <value>關閉</value>
   </data>
   <data name="Open" xml:space="preserve">
-    <value>打开</value>
+    <value>打開</value>
   </data>
   <data name="ExampleProject" xml:space="preserve">
-    <value>示例项目</value>
+    <value>示例項目</value>
   </data>
   <data name="Project" xml:space="preserve">
-    <value>项目</value>
+    <value>項目</value>
   </data>
   <data name="NoLogin" xml:space="preserve">
-    <value>未登录</value>
+    <value>未登錄</value>
   </data>
   <data name="SearchInAurelio" xml:space="preserve">
-    <value>在 Aurelio 中搜索</value>
+    <value>在 Aurelio 中檢索</value>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>確定</value>
@@ -50,22 +50,22 @@
     <value>取消</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>登录</value>
+    <value>錄入</value>
   </data>
   <data name="Account" xml:space="preserve">
     <value>帳戶</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>密码</value>
+    <value>秘鑰</value>
   </data>
   <data name="RegisterNewAccount" xml:space="preserve">
-    <value>注册新账号</value>
+    <value>登記新賬戶</value>
   </data>
   <data name="LoginFail" xml:space="preserve">
     <value>登入失敗</value>
   </data>
   <data name="Logining" xml:space="preserve">
-    <value>登录中</value>
+    <value>登入中</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>搜尋</value>
@@ -74,37 +74,37 @@
     <value>字符映射表</value>
   </data>
   <data name="FontList" xml:space="preserve">
-    <value>字体列表</value>
+    <value>字體列表</value>
   </data>
   <data name="NewTab" xml:space="preserve">
-    <value>新标签页</value>
+    <value>新標簽頁</value>
   </data>
   <data name="CloseCurrentTab" xml:space="preserve">
-    <value>关闭当前标签页</value>
+    <value>關閉當前標簽頁</value>
   </data>
   <data name="Tab" xml:space="preserve">
-    <value>标签页</value>
+    <value>標簽頁</value>
   </data>
   <data name="SystemFont" xml:space="preserve">
-    <value>系统字体</value>
+    <value>系統字體</value>
   </data>
   <data name="CharacterCount" xml:space="preserve">
-    <value>{num} 个字符</value>
+    <value>{num} 個字符</value>
   </data>
   <data name="OpenRecentContent" xml:space="preserve">
-    <value>打开最近的内容</value>
+    <value>打開最近的內容</value>
   </data>
   <data name="BatchI18n" xml:space="preserve">
-    <value>批处理 I18n</value>
+    <value>批處理 I18n</value>
   </data>
   <data name="OpenLangSourceFile" xml:space="preserve">
-    <value>打开语言源文件</value>
+    <value>打開語言源文件</value>
   </data>
   <data name="PerfectlyMatchedCharacters" xml:space="preserve">
     <value>完全匹配的字符</value>
   </data>
   <data name="NameMatchedCharacters" xml:space="preserve">
-    <value>名称匹配的字符</value>
+    <value>名稱匹配的字符</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
     <value>全選</value>
@@ -117,19 +117,19 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="ExportFinish" xml:space="preserve">
-    <value>导出完成</value>
+    <value>導出完成</value>
   </data>
   <data name="ExportFail" xml:space="preserve">
-    <value>导出失败</value>
+    <value>導出失敗</value>
   </data>
   <data name="OpenInNewWindow" xml:space="preserve">
-    <value>在新窗口中打开</value>
+    <value>在新窗口中打開</value>
   </data>
   <data name="Setting" xml:space="preserve">
     <value>設置</value>
   </data>
   <data name="ToggleTheme" xml:space="preserve">
-    <value>切换主题</value>
+    <value>切換主題</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>語言</value>
@@ -511,7 +511,7 @@
     <value>開源項目使用表</value>
   </data>
   <data name="GPL3Text" xml:space="preserve">
-    <value>Aurelio 以GPL-3.0 協議開放原始碼，可以修改且分發，但不得刪除原作品的標記，修改後的作品必須也採用GPL 協定進行開源。</value>
+    <value>Aurelio 以GPL - 3.0 協議開放原始碼，可以修改且分發，但不得刪除原作品的標記，修改後的作品必須也採用GPL 協定進行開源。</value>
   </data>
   <data name="ShowGameOutput" xml:space="preserve">
     <value>顯示遊戲輸出</value>
@@ -550,7 +550,7 @@
     <value>百寶箱</value>
   </data>
   <data name="ActivateWinOffice" xml:space="preserve">
-    <value>激活Windows/Office</value>
+    <value>激活</value>
   </data>
   <data name="Run" xml:space="preserve">
     <value>運行</value>
@@ -565,7 +565,7 @@
     <value>運行激活</value>
   </data>
   <data name="CancelActivateWin" xml:space="preserve">
-    <value>取消激活Windows</value>
+    <value>取消激活</value>
   </data>
   <data name="CancelActivateWinTip" xml:space="preserve">
     <value>此操作會移除Windows啟動狀態，導致Windows個人化等功能無法使用，是否繼續？</value>
@@ -613,7 +613,7 @@
     <value>選擇皮膚檔案</value>
   </data>
   <data name="RefreshMicrosoftSkin" xml:space="preserve">
-    <value>刷新皮膚(微軟)</value>
+    <value>刷新皮膚</value>
   </data>
   <data name="ModifySuccess" xml:space="preserve">
     <value>修改成功</value>
@@ -640,7 +640,7 @@
     <value>執行操作需要提升至管理員權限，點選確定以管理員權限重新啟動程式</value>
   </data>
   <data name="ChooseLanguage" xml:space="preserve">
-    <value>选择语言/Choose Language</value>
+    <value>選擇語言 / Choose Language</value>
   </data>
   <data name="ReleaseTheMouseAndLetAurelioProcessThisFile" xml:space="preserve">
     <value>釋放滑鼠讓Aurelio處理此檔案</value>
@@ -891,7 +891,7 @@
     <value>現不支援</value>
   </data>
   <data name="EnterSearchTip" xml:space="preserve">
-    <value>按下 Enter 开始搜索...</value>
+    <value>按下 Enter 開始檢索...</value>
   </data>
   <data name="CannotRecognitionTheVersion" xml:space="preserve">
     <value>無法辨識選取版本</value>
@@ -936,7 +936,9 @@
     <value>以下是發電的贊助者，感謝對Aurelio 的支持！</value>
   </data>
   <data name="MacOsUpdateTip" xml:space="preserve">
-    <value>發現新版本: {version}&amp;#10; MacOs 不支援自動更新前往以下連結下載新版本: “{url}”&amp;#10;前往設定-下載-自動更新可關閉自動檢查更新</value>
+    <value>發現新版本: {version}
+MacOs 不支援自動更新前往以下連結下載新版本: “{url}”
+前往設定-下載-自動更新可關閉自動檢查更新</value>
   </data>
   <data name="CurrectSystemNoSupportAutoUpdateTip" xml:space="preserve">
     <value>目前系統不支援自動更新
@@ -1547,130 +1549,130 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="SavesName" xml:space="preserve">
-    <value>存档名称</value>
+    <value>存檔名稱</value>
   </data>
   <data name="AutoJoinWorld" xml:space="preserve">
-    <value>自动进入存档</value>
+    <value>自動進入存檔</value>
   </data>
   <data name="AddFastLaunch" xml:space="preserve">
-    <value>添加快捷启动</value>
+    <value>新增快速啟動</value>
   </data>
   <data name="SetAutoJoinServerTip" xml:space="preserve">
-    <value>此操作将会同时关闭自动进入存档</value>
+    <value>此操作將會同時關閉自動進入存檔</value>
   </data>
   <data name="SetAutoJoinWorldTip" xml:space="preserve">
-    <value>此操作将会同时关闭自动进入服务器</value>
+    <value>此操作將會同時關閉自動進入伺服器</value>
   </data>
   <data name="SetWorld" xml:space="preserve">
-    <value>设置存档</value>
+    <value>設定存檔</value>
   </data>
   <data name="CurrentVersionUnsupportOperation" xml:space="preserve">
-    <value>当前版本不支持此操作</value>
+    <value>當前版本不支援此操作</value>
   </data>
   <data name="EnableIndependencyWindowNotification" xml:space="preserve">
-    <value>启用独立窗口通知</value>
+    <value>啟用獨立視窗通知</value>
   </data>
   <data name="LoginSucess" xml:space="preserve">
-    <value>登录成功</value>
+    <value>登入成功</value>
   </data>
   <data name="AllInstance" xml:space="preserve">
-    <value>所有实例</value>
+    <value>所有實例</value>
   </data>
   <data name="SearchResult" xml:space="preserve">
-    <value>搜索结果</value>
+    <value>搜尋結果</value>
   </data>
   <data name="IsolateMinecraftInstances" xml:space="preserve">
-    <value>隔离Minecraft实例</value>
+    <value>隔離Minecraft實例</value>
   </data>
   <data name="Appearance" xml:space="preserve">
-    <value>外观</value>
+    <value>外觀</value>
   </data>
   <data name="Open3DView" xml:space="preserve">
-    <value>打开3D视图</value>
+    <value>開啟3D視圖</value>
   </data>
   <data name="Unclassified" xml:space="preserve">
-    <value>无分类</value>
+    <value>無分類</value>
   </data>
   <data name="Tag" xml:space="preserve">
-    <value>标签</value>
+    <value>標籤</value>
   </data>
   <data name="Loader" xml:space="preserve">
-    <value>加载器</value>
+    <value>載入器</value>
   </data>
   <data name="CategoryMethod" xml:space="preserve">
-    <value>分类方式</value>
+    <value>分類方式</value>
   </data>
   <data name="SortMethod" xml:space="preserve">
     <value>排序方式</value>
   </data>
   <data name="LastPlayed" xml:space="preserve">
-    <value>最后游玩时间</value>
+    <value>最後遊玩時間</value>
   </data>
   <data name="InstanceName" xml:space="preserve">
-    <value>实例名称</value>
+    <value>實例名稱</value>
   </data>
   <data name="LastUsedTime" xml:space="preserve">
-    <value>最后使用时间</value>
+    <value>最後使用時間</value>
   </data>
   <data name="NerverUsed" xml:space="preserve">
-    <value>从未使用</value>
+    <value>從未使用</value>
   </data>
   <data name="DaysAgo" xml:space="preserve">
     <value>{day} 天前</value>
   </data>
   <data name="Folder" xml:space="preserve">
-    <value>文件夹</value>
+    <value>資料夾</value>
   </data>
   <data name="View3D" xml:space="preserve">
-    <value>3D视图</value>
+    <value>3D視圖</value>
   </data>
   <data name="Auto" xml:space="preserve">
-    <value>自动</value>
+    <value>自動</value>
   </data>
   <data name="CraftingTable" xml:space="preserve">
     <value>工作台</value>
   </data>
   <data name="Furnace" xml:space="preserve">
-    <value>熔炉</value>
+    <value>熔爐</value>
   </data>
   <data name="DirtPath" xml:space="preserve">
-    <value>草径</value>
+    <value>草徑</value>
   </data>
   <data name="GrassBlock" xml:space="preserve">
     <value>玻璃</value>
   </data>
   <data name="GlassBlock" xml:space="preserve">
-    <value>草方块</value>
+    <value>草方塊</value>
   </data>
   <data name="DisabledSystemFilePicker" xml:space="preserve">
-    <value>禁用系统文件选择器</value>
+    <value>停用系統檔案選擇器</value>
   </data>
   <data name="MemoryLimit" xml:space="preserve">
-    <value>内存限制</value>
+    <value>記憶體限制</value>
   </data>
   <data name="Preferred" xml:space="preserve">
-    <value>首选项</value>
+    <value>首選項</value>
   </data>
   <data name="AutoChooseRightJavaRuntime" xml:space="preserve">
-    <value>自动选择适合的Java运行时</value>
+    <value>自動選擇適合的Java執行時間</value>
   </data>
   <data name="EnabledFilePicker" xml:space="preserve">
-    <value>启用文件选择器</value>
+    <value>啟用文件選擇器</value>
   </data>
   <data name="TaskingState" xml:space="preserve">
-    <value>任务状态</value>
+    <value>任務狀態</value>
   </data>
   <data name="TaskingTip" xml:space="preserve">
-    <value>{num} 项任务运行中</value>
+    <value>{num} 項任務執行中</value>
   </data>
   <data name="CannotFindJavaTip" xml:space="preserve">
-    <value>此 Minecraft 实例 (Minecraft {mcVer}) 需求 Java {javaVer}, 但 Aurelio 无法匹配此 Java 版本, 检查此设备是否安装 Java {javaVer} 且添加到 Aurelio</value>
+    <value>此 Minecraft 實例 (Minecraft {mcVer}) 需求 Java {javaVer}, 但 Aurelio 無法匹配此 Java 版本, 檢查此裝置是否安裝 Java {javaVer} 且新增至 Aurelio</value>
   </data>
   <data name="New" xml:space="preserve">
     <value>新建</value>
   </data>
   <data name="View2D" xml:space="preserve">
-    <value>2D视图</value>
+    <value>2D視圖</value>
   </data>
   <data name="SimplifiedChinese" xml:space="preserve">
     <value>簡體中文</value>
@@ -1740,5 +1742,53 @@
   </data>
   <data name="DisableAvaloniaDataValidationTip" xml:space="preserve">
     <value>禁用Avalonia資料註解驗證</value>
+  </data>
+  <data name="CheckingUpdate" xml:space="preserve">
+    <value>正在檢查更新</value>
+  </data>
+  <data name="GithubSpeedUpApi" xml:space="preserve">
+    <value>Github加速介面</value>
+  </data>
+  <data name="CloseAutoUpdate" xml:space="preserve">
+    <value>關閉自動更新</value>
+  </data>
+  <data name="MinecraftInstance" xml:space="preserve">
+    <value>Minecraft實例</value>
+  </data>
+  <data name="Toggled" xml:space="preserve">
+    <value>已切換</value>
+  </data>
+  <data name="ColorBlock" xml:space="preserve">
+    <value>色塊</value>
+  </data>
+  <data name="WindowVisibility" xml:space="preserve">
+    <value>視窗可見性</value>
+  </data>
+  <data name="LaunchPage" xml:space="preserve">
+    <value>啟動頁面</value>
+  </data>
+  <data name="OpenOrTogglePage" xml:space="preserve">
+    <value>開啟或跳轉頁面</value>
+  </data>
+  <data name="SystemDrive" xml:space="preserve">
+    <value>系統驅動器</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="BackToUpLevel" xml:space="preserve">
+    <value>返回上一層</value>
+  </data>
+  <data name="ImportJarAsMod" xml:space="preserve">
+    <value>將 {file} 作為 Mod 導入 {mc}</value>
+  </data>
+  <data name="TodoList" xml:space="preserve">
+    <value>待辦列表</value>
+  </data>
+  <data name="TodoHandleFile" xml:space="preserve">
+    <value>待處理文件</value>
+  </data>
+  <data name="CurrentItem" xml:space="preserve">
+    <value>目前專案</value>
   </data>
 </root>

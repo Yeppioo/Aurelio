@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns="" id="root">
-    <xsd:element name="root" msdata:IsDataSet="true" />
+    <xsd:element name="root" msdata:IsDataSet="true"/>
   </xsd:schema>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
@@ -32,13 +32,13 @@
     <value>Open</value>
   </data>
   <data name="ExampleProject" xml:space="preserve">
-    <value>Example Item</value>
+    <value>Example Project</value>
   </data>
   <data name="Project" xml:space="preserve">
     <value>Project</value>
   </data>
   <data name="NoLogin" xml:space="preserve">
-    <value>Not logged in</value>
+    <value>Not loggedLog </value>
   </data>
   <data name="SearchInAurelio" xml:space="preserve">
     <value>Search in Aurelio</value>
@@ -89,22 +89,22 @@
     <value>System Font</value>
   </data>
   <data name="CharacterCount" xml:space="preserve">
-    <value>{num} 个字符</value>
+    <value>{num} Characters</value>
   </data>
   <data name="OpenRecentContent" xml:space="preserve">
     <value>Open Recents</value>
   </data>
   <data name="BatchI18n" xml:space="preserve">
-    <value>Batch process I18n</value>
+    <value>Batch process I 18 n</value>
   </data>
   <data name="OpenLangSourceFile" xml:space="preserve">
-    <value>Open Language Source</value>
+    <value>Open language source file</value>
   </data>
   <data name="PerfectlyMatchedCharacters" xml:space="preserve">
-    <value>Fully matching characters</value>
+    <value>Exactly matching characters</value>
   </data>
   <data name="NameMatchedCharacters" xml:space="preserve">
-    <value>Characters matching names</value>
+    <value>Name matching characters</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
     <value>Select All</value>
@@ -171,25 +171,25 @@
     <value>Scanning Java succeeded</value>
   </data>
   <data name="RepeatItem" xml:space="preserve">
-    <value>Repeating event</value>
+    <value>Repeated items</value>
   </data>
   <data name="OpenFileWay" xml:space="preserve">
-    <value>How to open a file</value>
+    <value>Open file method</value>
   </data>
   <data name="FileSelectWindow" xml:space="preserve">
-    <value>File Selection Window</value>
+    <value>File selection window</value>
   </data>
   <data name="ManualInput" xml:space="preserve">
     <value>Manual input</value>
   </data>
   <data name="InputFolderPath" xml:space="preserve">
-    <value>Type the folder path</value>
+    <value>Input folder path</value>
   </data>
   <data name="FolderNotExist" xml:space="preserve">
     <value>Folder does not exist</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>input file path</value>
+    <value>Input file path</value>
   </data>
   <data name="FileNotExist" xml:space="preserve">
     <value>File does not exist</value>
@@ -204,16 +204,16 @@
     <value>Java is incorrect</value>
   </data>
   <data name="AddNewAccount" xml:space="preserve">
-    <value>Add New Account</value>
+    <value>Add new account</value>
   </data>
   <data name="OfflineLogin" xml:space="preserve">
-    <value>Log in offline</value>
+    <value>Offline login</value>
   </data>
   <data name="MicrosoftLogin" xml:space="preserve">
-    <value>Microsoft Login</value>
+    <value>Microsoft login</value>
   </data>
   <data name="ThirdPartyLogin" xml:space="preserve">
-    <value>The third party signin</value>
+    <value>The third party login</value>
   </data>
   <data name="SelectAccountType" xml:space="preserve">
     <value>Choose account type</value>
@@ -222,13 +222,13 @@
     <value>Account name cannot be empty</value>
   </data>
   <data name="InputAccountName" xml:space="preserve">
-    <value>Enter Account Name</value>
+    <value>Enter account name</value>
   </data>
   <data name="VerificationCode" xml:space="preserve">
     <value>Verification code</value>
   </data>
   <data name="Loading" xml:space="preserve">
-    <value>Loading...</value>
+    <value>Loading ...</value>
   </data>
   <data name="CopyCodeAndOPenBrowser" xml:space="preserve">
     <value>Copy the code and open your browser</value>
@@ -241,13 +241,13 @@
     <value>Verifying account</value>
   </data>
   <data name="VerificationServer" xml:space="preserve">
-    <value>Validation Server</value>
+    <value>Authentication server</value>
   </data>
   <data name="EmailAddress" xml:space="preserve">
     <value>Email address</value>
   </data>
   <data name="AccountPassword" xml:space="preserve">
-    <value>Account Password</value>
+    <value>Account password</value>
   </data>
   <data name="YggdrasilServerUrlIsEmpty" xml:space="preserve">
     <value>Verification server cannot be empty</value>
@@ -277,121 +277,121 @@
     <value>Unable to open browser</value>
   </data>
   <data name="ManualOpen" xml:space="preserve">
-    <value>Hand Open</value>
+    <value>Open manually</value>
   </data>
   <data name="CopyUrlAndManualOpen" xml:space="preserve">
-    <value>Ctrl + C Copy and paste the following link into your browser</value>
+    <value>Ctrl + C Copy the following link and paste it into your browser</value>
   </data>
   <data name="VersionList" xml:space="preserve">
-    <value>version list</value>
+    <value>Version list</value>
   </data>
   <data name="VersionSetting" xml:space="preserve">
-    <value>Version Settings</value>
+    <value>Version settings</value>
   </data>
   <data name="LaunchGame" xml:space="preserve">
-    <value>Start System</value>
+    <value>Launch game</value>
   </data>
   <data name="NoChooseGame" xml:space="preserve">
     <value>No game selected</value>
   </data>
   <data name="ReturnWithIcon" xml:space="preserve">
-    <value>← Go back</value>
+    <value>← Return</value>
   </data>
   <data name="CreateGameEntryFail" xml:space="preserve">
     <value>Failed to create game instance</value>
   </data>
   <data name="NoChooseGameOrCannotFindGame" xml:space="preserve">
-    <value>No game selected or could not be found</value>
+    <value>No game selected or game cannot be found</value>
   </data>
   <data name="AccountError" xml:space="preserve">
-    <value>Account Error</value>
+    <value>Account error</value>
   </data>
   <data name="LaunchProgress" xml:space="preserve">
-    <value>Startup</value>
+    <value>Launch progress</value>
   </data>
   <data name="BuildLaunchConfigFail" xml:space="preserve">
-    <value>Failed to build startup configuration</value>
+    <value>Failed to build launch configuration</value>
   </data>
   <data name="GameExited" xml:space="preserve">
-    <value>Game exited</value>
+    <value>Game has exited</value>
   </data>
   <data name="WaitForGameWindowAppear" xml:space="preserve">
     <value>Wait for the game window to appear</value>
   </data>
   <data name="LaunchFinish" xml:space="preserve">
-    <value>Startup complete</value>
+    <value>Launch complete</value>
   </data>
   <data name="LaunchFail" xml:space="preserve">
-    <value>Start failure</value>
+    <value>Launch failed</value>
   </data>
   <data name="UserDataFolder" xml:space="preserve">
-    <value>User Data Folder</value>
+    <value>User data folder</value>
   </data>
   <data name="OpenFolder" xml:space="preserve">
-    <value>Open Folder</value>
+    <value>Open folder</value>
   </data>
   <data name="AutoInstall" xml:space="preserve">
-    <value>Automated Installation</value>
+    <value>Automatic installation</value>
   </data>
   <data name="LatestVersion" xml:space="preserve">
-    <value>Latest Version</value>
+    <value>Latest version</value>
   </data>
   <data name="PreviewVersion" xml:space="preserve">
-    <value>Pre release version</value>
+    <value>Preview version</value>
   </data>
   <data name="ReleaseVersion" xml:space="preserve">
     <value>Release version</value>
   </data>
   <data name="GetInstallableVersionFail" xml:space="preserve">
-    <value>Failed to get installable list</value>
+    <value>Failed to obtain the installable list</value>
   </data>
   <data name="OldVersion" xml:space="preserve">
-    <value>Ancient Version</value>
+    <value>Ancient version</value>
   </data>
   <data name="AllVersion" xml:space="preserve">
-    <value>All Builds</value>
+    <value>All versions</value>
   </data>
   <data name="SearchKeyword" xml:space="preserve">
-    <value>Keywords Search...</value>
+    <value>Search keywords...</value>
   </data>
   <data name="InstallPreview" xml:space="preserve">
-    <value>Install Preview</value>
+    <value>Installation preview</value>
   </data>
   <data name="NoAdditionalInstall" xml:space="preserve">
     <value>No additional installation</value>
   </data>
   <data name="BeginInstall" xml:space="preserve">
-    <value>Start Install</value>
+    <value>Start installation</value>
   </data>
   <data name="ViewUpdatedContent" xml:space="preserve">
-    <value>What's New</value>
+    <value>View updates</value>
   </data>
   <data name="Reload" xml:space="preserve">
-    <value>Reloading</value>
+    <value>Reload</value>
   </data>
   <data name="GetFail" xml:space="preserve">
-    <value>Access failed</value>
+    <value>Failed to obtain</value>
   </data>
   <data name="NoAvailableItem" xml:space="preserve">
-    <value>no available items</value>
+    <value>No items available</value>
   </data>
   <data name="MineratCrashed" xml:space="preserve">
-    <value>Minecrat crashed</value>
+    <value>Minecraft crashed</value>
   </data>
   <data name="TheVersionNameWillBeRenamedTo" xml:space="preserve">
-    <value>Version name will be renamed to: </value>
+    <value>The versions will be renamed to: </value>
   </data>
   <data name="IncludeSpecialWord" xml:space="preserve">
-    <value>Contains Special Characters</value>
+    <value>Contains special characters</value>
   </data>
   <data name="FolderAlreadyExists" xml:space="preserve">
     <value>Folder already exists</value>
   </data>
   <data name="InstallFail" xml:space="preserve">
-    <value>Installation failled</value>
+    <value>Installation failed</value>
   </data>
   <data name="Install" xml:space="preserve">
-    <value>Installation</value>
+    <value>Install</value>
   </data>
   <data name="InstallFinish" xml:space="preserve">
     <value>Installation finished</value>
@@ -403,31 +403,31 @@
     <value>Refresh</value>
   </data>
   <data name="Mod" xml:space="preserve">
-    <value>Module</value>
+    <value>Mod</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Overview</value>
   </data>
   <data name="SavesFolder" xml:space="preserve">
-    <value>Archive Folder</value>
+    <value>Saves folder</value>
   </data>
   <data name="ModsFolder" xml:space="preserve">
-    <value>Module Folder</value>
+    <value>Mod folder</value>
   </data>
   <data name="ResourcePacksFolder" xml:space="preserve">
-    <value>Resource Pack Folder</value>
+    <value>Resource Pack folder</value>
   </data>
   <data name="ShaderPacksFolder" xml:space="preserve">
-    <value>Light Pack Folder</value>
+    <value>Shader Pack folder</value>
   </data>
   <data name="VersionFolder" xml:space="preserve">
-    <value>Version Folder</value>
+    <value>Version folder</value>
   </data>
   <data name="EnableIndependencyCore" xml:space="preserve">
-    <value>Enable standalone cores</value>
+    <value>Enable independent core</value>
   </data>
   <data name="UseGlobalSetting" xml:space="preserve">
-    <value>Use Global settings</value>
+    <value>Use global settings</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>Off</value>
@@ -439,13 +439,13 @@
     <value>Automatically join the server</value>
   </data>
   <data name="EnableSelect" xml:space="preserve">
-    <value>Enable Checked</value>
+    <value>Enable selected items</value>
   </data>
   <data name="DisableSelect" xml:space="preserve">
-    <value>Disable Selected</value>
+    <value>Disable selected items</value>
   </data>
   <data name="DeleteSelect" xml:space="preserve">
-    <value>Delete Selected</value>
+    <value>Delete selected items</value>
   </data>
   <data name="SelectedItem" xml:space="preserve">
     <value>Selected items: </value>
@@ -457,7 +457,7 @@
     <value>Window title bar style</value>
   </data>
   <data name="GetException" xml:space="preserve">
-    <value>An exception occurs</value>
+    <value>Exception occurred</value>
   </data>
   <data name="UnhandledException" xml:space="preserve">
     <value>Unhandled exception</value>
@@ -487,16 +487,16 @@
     <value>Detect a newer version</value>
   </data>
   <data name="GetUpdateUrl" xml:space="preserve">
-    <value>Get Updated Uniform Resource Locator</value>
+    <value>Get Update URL</value>
   </data>
   <data name="BeginDownload" xml:space="preserve">
-    <value>Start Download</value>
+    <value>Start downloading</value>
   </data>
   <data name="UpdateFail" xml:space="preserve">
-    <value>Update Failed</value>
+    <value>Update failed</value>
   </data>
   <data name="ThisArchitectureCannotAutoUpdate" xml:space="preserve">
-    <value>This platform does not support automatic updates, open the following path to manually replace it</value>
+    <value>This platform does not support automatic updates. Open the following path to manually replace</value>
   </data>
   <data name="Update" xml:space="preserve">
     <value>Updated</value>
@@ -505,31 +505,31 @@
     <value>Download completed</value>
   </data>
   <data name="CurrentlyTheLatestVersion" xml:space="preserve">
-    <value>The current version is up to date</value>
+    <value>Currently, the latest version</value>
   </data>
   <data name="OpenSourceProjectUsageTable" xml:space="preserve">
-    <value>Open Source Project Usage Sheet</value>
+    <value>Open Source Project Usage Table</value>
   </data>
   <data name="GPL3Text" xml:space="preserve">
-    <value>The Aurelio is open source under the GPL 3.0 License and may be modified and distributed, but the software must contain the copyright and license notices for the original code, as well as a notification file containing the license information.</value>
+    <value>Aurelio is open source under the GPL 3.0 License and can be modified and distributed, but the software must contain the copyright notice and license notice of the original code, as well as a notice file containing licensing information.</value>
   </data>
   <data name="ShowGameOutput" xml:space="preserve">
-    <value>Show Game Output</value>
+    <value>Show game output</value>
   </data>
   <data name="LoadMore" xml:space="preserve">
-    <value>Load More</value>
+    <value>Load more</value>
   </data>
   <data name="ErrorCallingApi" xml:space="preserve">
-    <value>Error calling Api</value>
+    <value>Error when calling API</value>
   </data>
   <data name="SearchNoResult" xml:space="preserve">
     <value>No result found</value>
   </data>
   <data name="AddLocalSong" xml:space="preserve">
-    <value>Add Audio File</value>
+    <value>Add audio File</value>
   </data>
   <data name="SelectMusicFile" xml:space="preserve">
-    <value>Choose an Audio File</value>
+    <value>Choose an audio file</value>
   </data>
   <data name="ThemeColor" xml:space="preserve">
     <value>Theme color</value>
@@ -577,7 +577,7 @@
     <value>Playlist</value>
   </data>
   <data name="ModName" xml:space="preserve">
-    <value>Module name</value>
+    <value>Mod name</value>
   </data>
   <data name="GameVersion" xml:space="preserve">
     <value>Game version</value>
@@ -613,7 +613,7 @@
     <value>Select skin file</value>
   </data>
   <data name="RefreshMicrosoftSkin" xml:space="preserve">
-    <value>Refresh Skin (Microsoft)</value>
+    <value>Refresh Skin</value>
   </data>
   <data name="ModifySuccess" xml:space="preserve">
     <value>modified</value>
@@ -625,55 +625,55 @@
     <value>If the bedrock version is not installed, it will not start</value>
   </data>
   <data name="BedRockVersion" xml:space="preserve">
-    <value>Bedrock Edition</value>
+    <value>Bedrock edition</value>
   </data>
   <data name="CannotOpenBedRockSetting" xml:space="preserve">
-    <value>Could not open bedrock settings</value>
+    <value>Can't open Bedrock Edition settings</value>
   </data>
   <data name="UpgradeToAdministratorPrivileges" xml:space="preserve">
-    <value>Upgrade to Admin Permissions</value>
+    <value>Elevate to Administrator privileges</value>
   </data>
   <data name="UpgradeToAdministratorPrivilegesFail" xml:space="preserve">
-    <value>Failed to upgrade to admin permissions</value>
+    <value>Failed to upgrade to administrator privileges</value>
   </data>
   <data name="UpgradeToAdministratorPrivilegesTip" xml:space="preserve">
-    <value>To perform the operation, you need to upgrade to administrator privileges. Click OK to restart the program with administrator privileges</value>
+    <value>The operation requires administrator privileges. Click OK to restart the program with administrator privileges.</value>
   </data>
   <data name="ChooseLanguage" xml:space="preserve">
-    <value>Choose language/language</value>
+    <value>选择语言/Choose Language</value>
   </data>
   <data name="ReleaseTheMouseAndLetAurelioProcessThisFile" xml:space="preserve">
-    <value>Release the mouse to let Aurelio process this file</value>
+    <value>Release the mouse button to let Aurelio process the file.</value>
   </data>
   <data name="UnableToAddModsForBedrockEdition" xml:space="preserve">
-    <value>Modules cannot be added to the Bedrock Edition</value>
+    <value>Cannot add mods to Bedrock Edition</value>
   </data>
   <data name="AddTheFollowingFilesAsModsToTheCurrentVersion" xml:space="preserve">
-    <value>Add the following files as a module to the current version</value>
+    <value>Add the following files as modules to the current version</value>
   </data>
   <data name="UnsupportedFileType" xml:space="preserve">
-    <value>File type not supported</value>
+    <value>Unsupported file types</value>
   </data>
   <data name="InstallTheFollowingFilesAsAnIntegrationPackageCurseforgeFormat" xml:space="preserve">
-    <value>Install the following files as an integration package (CurseForge format)</value>
+    <value>Install the following files as a package (CurseForge format)</value>
   </data>
   <data name="Unzip" xml:space="preserve">
     <value>Unzip</value>
   </data>
   <data name="UnzipingModPack" xml:space="preserve">
-    <value>Unpacking the Integration Pack</value>
+    <value>Unpacking the integration package</value>
   </data>
   <data name="FinsihUnzipModPack" xml:space="preserve">
-    <value>Unpacking Integration Pack complete</value>
+    <value>Unzip the integration package</value>
   </data>
   <data name="GetModPackInfo" xml:space="preserve">
-    <value>Get the Integration Pack Info</value>
+    <value>Get integration package information</value>
   </data>
   <data name="ModPackInfo" xml:space="preserve">
-    <value>Integrate package information</value>
+    <value>Integration package information</value>
   </data>
   <data name="ImportFailed" xml:space="preserve">
-    <value>Import Fail</value>
+    <value>Import fail</value>
   </data>
   <data name="ImportSuccess" xml:space="preserve">
     <value>The tapes for indexing are imported successfully</value>
@@ -682,16 +682,16 @@
     <value>No crash information</value>
   </data>
   <data name="DownloadModPackMod" xml:space="preserve">
-    <value>Download the Integration Pack Module</value>
+    <value>Download the Integration package mod</value>
   </data>
   <data name="TotalNumberOfMod" xml:space="preserve">
-    <value>Total number of modules</value>
+    <value>Total number of mod</value>
   </data>
   <data name="DownloadSuccess" xml:space="preserve">
     <value>Downloaded successfully</value>
   </data>
   <data name="OverrideModPack" xml:space="preserve">
-    <value>Override the Integration Pack</value>
+    <value>Override the integration package</value>
   </data>
   <data name="DownloadFailedFileAgain" xml:space="preserve">
     <value>Failed to re-download file</value>
@@ -700,10 +700,10 @@
     <value>Plugins</value>
   </data>
   <data name="EnableAll" xml:space="preserve">
-    <value>Enable All</value>
+    <value>Enable all</value>
   </data>
   <data name="DisableAll" xml:space="preserve">
-    <value>Disable All</value>
+    <value>Disable all</value>
   </data>
   <data name="Author" xml:space="preserve">
     <value>Author</value>
@@ -721,10 +721,10 @@
     <value>Only supports Windows 10 and above</value>
   </data>
   <data name="TaskCenter" xml:space="preserve">
-    <value>task center</value>
+    <value>Task center</value>
   </data>
   <data name="AllType" xml:space="preserve">
-    <value>All Types</value>
+    <value>All types</value>
   </data>
   <data name="MaterialPack" xml:space="preserve">
     <value>Texture pack</value>
@@ -733,10 +733,10 @@
     <value>Maps</value>
   </data>
   <data name="CustomBackGroundImg" xml:space="preserve">
-    <value>Custom Background Image</value>
+    <value>Custom background image</value>
   </data>
   <data name="SelectImgFile" xml:space="preserve">
-    <value>Select an item for editing</value>
+    <value>Select image file</value>
   </data>
   <data name="MusicNotAvailable" xml:space="preserve">
     <value>Music not available</value>
@@ -745,37 +745,37 @@
     <value>Failed to get music</value>
   </data>
   <data name="DownloadSource" xml:space="preserve">
-    <value>Download Source</value>
+    <value>Download source</value>
   </data>
   <data name="MaximumDownloadThread" xml:space="preserve">
-    <value>Max Download Threads</value>
+    <value>Maximum download threads</value>
   </data>
   <data name="DownloadThreadTooBigTip" xml:space="preserve">
-    <value>The download thread is too large and may cause the device to crash</value>
+    <value>Downloading threads that are too large may cause device lag</value>
   </data>
   <data name="Unknown" xml:space="preserve">
     <value>Unknown</value>
   </data>
   <data name="ShaderPack" xml:space="preserve">
-    <value>Light Pack</value>
+    <value>Shader pack</value>
   </data>
   <data name="DataPack" xml:space="preserve">
-    <value>Packs</value>
+    <value>Data pack</value>
   </data>
   <data name="Api" xml:space="preserve">
-    <value>APIs</value>
+    <value>API</value>
   </data>
   <data name="ModPack" xml:space="preserve">
-    <value>Integration Package</value>
+    <value>Integration package</value>
   </data>
   <data name="SaveAudioFile" xml:space="preserve">
     <value>Save the audio file</value>
   </data>
   <data name="CustomUpdateUrl" xml:space="preserve">
-    <value>Custom Update Url</value>
+    <value>Custom update Url</value>
   </data>
   <data name="LyricTip" xml:space="preserve">
-    <value>I am the lyrics (≧▽ ≦ *) o</value>
+    <value>I am the lyrics ヾ(≧▽≦*)o</value>
   </data>
   <data name="MusicPlayerOnlySupportWindows" xml:space="preserve">
     <value>Music player only supports Windows</value>
@@ -784,29 +784,29 @@
     <value>Failed to load audio file</value>
   </data>
   <data name="LaunchCore" xml:space="preserve">
-    <value>Launch Core</value>
+    <value>Launch core</value>
   </data>
   <data name="AfterLaunchKeepLauncherVisible" xml:space="preserve">
-    <value>Leave unchanged after startup is complete</value>
+    <value>Leave unchanged after launch is complete</value>
   </data>
   <data name="AfterLaunchMakeLauncherMinimize" xml:space="preserve">
-    <value>Minimize after startup is complete</value>
+    <value>Minimize after launch is complete</value>
   </data>
   <data name="AfterLaunchExitLauncher" xml:space="preserve">
-    <value>Close when startup is complete</value>
+    <value>Close when launch is complete</value>
   </data>
   <data name="AfterLaunchHideAndShowWhenGameExit" xml:space="preserve">
-    <value>Hide after startup is complete, show after game exits</value>
+    <value>Hide after launch is complete, show after game exits</value>
   </data>
   <data name="LauncherVisibility" xml:space="preserve">
-    <value>Launcher Visibility</value>
+    <value>Launcher visibility</value>
   </data>
   <data name="AfterLaunchMinimizeAndShowWhenGameExit" xml:space="preserve">
-    <value>Minimize after startup, show after game exits</value>
+    <value>Minimize after launch, show after game exits</value>
   </data>
   <data name="UnofficialTip" xml:space="preserve">
     <value>The current version is unofficial and may be vulnerable to viruses.
-      Redirect to https://ymcl.daiyu.fun/ to download the official version.</value>
+      Redirect to https://aurelio.yeppioo.fun/ to download the official version.</value>
   </data>
   <data name="LanguageTip" xml:space="preserve">
     <value>You need to select a language before you can start setting up Aurelio.</value>
@@ -815,7 +815,7 @@
     <value>Set the style of the launcher window title bar, in certain cases the launcher style is not supported.</value>
   </data>
   <data name="SystemStyle" xml:space="preserve">
-    <value>System Style</value>
+    <value>System style</value>
   </data>
   <data name="LauncherStyle" xml:space="preserve">
     <value>Launcher style</value>
@@ -830,80 +830,80 @@
     <value>Java Runtime</value>
   </data>
   <data name="JavaRuntimeTip" xml:space="preserve">
-    <value>At least one Java runtime is required to start the gam.</value>
+    <value>At least one Java runtime is required to launch the game.</value>
   </data>
   <data name="AccountTip" xml:space="preserve">
     <value>At least one account is required to launch the game. If you use an offline account, you will not be able to log in to a server with genuine authentication.</value>
   </data>
   <data name="MusicApi" xml:space="preserve">
-    <value>Music Apis</value>
+    <value>Music Api</value>
   </data>
   <data name="ProjectInfo" xml:space="preserve">
-    <value>Project Info</value>
+    <value>Project info</value>
   </data>
   <data name="SaveAs" xml:space="preserve">
     <value>Save as</value>
   </data>
   <data name="DeskLyricColor" xml:space="preserve">
-    <value>Desktop Lyrics Color</value>
+    <value>Desktop lyrics color</value>
   </data>
   <data name="DeskLyricAlignment" xml:space="preserve">
-    <value>Desktop Lyrics Align</value>
+    <value>Desktop lyrics align</value>
   </data>
   <data name="AlignLeft" xml:space="preserve">
-    <value>Align Left</value>
+    <value>Align left</value>
   </data>
   <data name="AlignCenter" xml:space="preserve">
     <value>Align center</value>
   </data>
   <data name="AlignRight" xml:space="preserve">
-    <value>Align Right</value>
+    <value>Align right</value>
   </data>
   <data name="DeskLyricSize" xml:space="preserve">
-    <value>Desktop Lyrics Size</value>
+    <value>Desktop lyrics size</value>
   </data>
   <data name="AutoUpdate" xml:space="preserve">
-    <value>Auto Update</value>
+    <value>Auto update</value>
   </data>
   <data name="SkipThisVersion" xml:space="preserve">
-    <value>Skip This Version</value>
+    <value>Skip this version</value>
   </data>
   <data name="SkipVersionTip" xml:space="preserve">
     <value>Skip version:{version}.
       Go to Settings-Launcher-Check Updates download this version</value>
   </data>
   <data name="WinSevenAutoUpdateTip" xml:space="preserve">
-    <value>New version:{version}
-      Above Windows 10 can't auto updates.
-      Go to "{url}" download new version.
-      Go to Settings-Download-Auto Update can disable auto check update</value>
+    <value>New version found: {version}
+      Windows 10 and below (excluding 10) do not support automatic updates
+      Go to the following link to download the new version: "{url}"
+      Go to Settings-Download-Auto Update to turn off automatic update checking auto check update</value>
   </data>
   <data name="OpenBrowser" xml:space="preserve">
-    <value>Open Browser</value>
+    <value>Open browser</value>
   </data>
   <data name="CustomHomePageWay_Presetting_JavaNews" xml:space="preserve">
     <value>Preset - Minecraft: Java Edition News</value>
   </data>
   <data name="NetworkSource" xml:space="preserve">
-    <value>Network Source</value>
+    <value>Network source</value>
   </data>
   <data name="NoSupportNow" xml:space="preserve">
     <value>Not supported</value>
   </data>
   <data name="EnterSearchTip" xml:space="preserve">
-    <value>Press Enter to start search...</value>
+    <value>Press Enter to start search ...</value>
   </data>
   <data name="CannotRecognitionTheVersion" xml:space="preserve">
-    <value>Can't Recognition The Version</value>
+    <value>Can't recognition the version</value>
   </data>
   <data name="LocalResource" xml:space="preserve">
-    <value>Local Resources</value>
+    <value>Local resources</value>
   </data>
   <data name="InstallVersion" xml:space="preserve">
-    <value>Install Version</value>
+    <value>Install version</value>
   </data>
   <data name="JumpSearch" xml:space="preserve">
-    <value>Jump Search</value>
+    <value>Jump to search</value>
   </data>
   <data name="AggregateSearchWatermark" xml:space="preserve">
     <value>Enter keyword to search in Aurelio</value>
@@ -951,7 +951,7 @@
     <value>Copied to clipboard</value>
   </data>
   <data name="UsedMem" xml:space="preserve">
-    <value>Used Memory</value>
+    <value>Used memory</value>
   </data>
   <data name="CannotLoad" xml:space="preserve">
     <value>Can't load</value>
@@ -960,13 +960,13 @@
     <value>Loading failed</value>
   </data>
   <data name="ToggleNav" xml:space="preserve">
-    <value>Toggle Navigation</value>
+    <value>Toggle navigation</value>
   </data>
   <data name="NoWorkingTask" xml:space="preserve">
     <value>No running tasks</value>
   </data>
   <data name="CrashLa" xml:space="preserve">
-    <value>Crash! Springtime `)o</value>
+    <value>Crash! ヾ(•ω•`)o</value>
   </data>
   <data name="AurelioHappenError" xml:space="preserve">
     <value>Unhandled exception by Aurelio</value>
@@ -1011,7 +1011,7 @@
     <value>Could not find Minecraft folder</value>
   </data>
   <data name="OneSentence" xml:space="preserve">
-    <value>Hitokoto</value>
+    <value>One Sentence</value>
   </data>
   <data name="TodayLuckyValue" xml:space="preserve">
     <value>Character of the day</value>
@@ -1041,7 +1041,7 @@
     <value>The main game file is missing</value>
   </data>
   <data name="GameUpdateLog" xml:space="preserve">
-    <value>ChangeLog</value>
+    <value>Change Log</value>
   </data>
   <data name="SureToInstallTheJava" xml:space="preserve">
     <value>Are you sure you want to install Java: {Java}?</value>
@@ -1142,7 +1142,7 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="DownloadResource" xml:space="preserve">
-    <value>downloadResources</value>
+    <value>Download resources</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="Return" xml:space="preserve">
@@ -1162,7 +1162,7 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="ResourcePacks" xml:space="preserve">
-    <value>AssetBundle</value>
+    <value>Resource Packs</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="NoMatchResult" xml:space="preserve">
@@ -1214,7 +1214,7 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="LaunchArguments" xml:space="preserve">
-    <value>Bootargs</value>
+    <value>Launch Arguments</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="DisplayLaunchArguments" xml:space="preserve">
@@ -1271,7 +1271,7 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="MusicApiWithIP" xml:space="preserve">
-    <value>Music Api comes with IP address</value>
+    <value>Music API comes with IP address</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="NoIdentifiedPlugins" xml:space="preserve">
@@ -1295,7 +1295,7 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="VersionIdCannotBeEmpty" xml:space="preserve">
-    <value>Version Id cannot be empty</value>
+    <value>Version ID cannot be empty</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="InstallModPack" xml:space="preserve">
@@ -1419,11 +1419,11 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="Favourite" xml:space="preserve">
-    <value>Favourite</value>
+    <value>Favorites</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="Favourted" xml:space="preserve">
-    <value>Favourited</value>
+    <value>Favorited</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="Favourites" xml:space="preserve">
@@ -1507,7 +1507,7 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="AddNewAccountUuid" xml:space="preserve">
-    <value>Uuid, leave blank to auto-generate</value>
+    <value>UUID, leave blank to auto-generate</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="AutoAllocate" xml:space="preserve">
@@ -1590,7 +1590,7 @@
     <value>Appearance</value>
   </data>
   <data name="Open3DView" xml:space="preserve">
-    <value>Open 3D view</value>
+    <value>Open 3 D view</value>
   </data>
   <data name="Unclassified" xml:space="preserve">
     <value>No Categories</value>
@@ -1620,13 +1620,13 @@
     <value>Never used</value>
   </data>
   <data name="DaysAgo" xml:space="preserve">
-    <value>{day} 天前</value>
+    <value>{day} Days ago</value>
   </data>
   <data name="Folder" xml:space="preserve">
     <value>Folders</value>
   </data>
   <data name="View3D" xml:space="preserve">
-    <value>3D View</value>
+    <value>3 D View</value>
   </data>
   <data name="Auto" xml:space="preserve">
     <value>Auto</value>
@@ -1644,7 +1644,7 @@
     <value>Glass</value>
   </data>
   <data name="GlassBlock" xml:space="preserve">
-    <value>Grassblock</value>
+    <value>Grass block</value>
   </data>
   <data name="DisabledSystemFilePicker" xml:space="preserve">
     <value>Disable System File Selector</value>
@@ -1665,16 +1665,16 @@
     <value>Task Status</value>
   </data>
   <data name="TaskingTip" xml:space="preserve">
-    <value>{num} 项任务运行中</value>
+    <value>{num} Tasks are running</value>
   </data>
   <data name="CannotFindJavaTip" xml:space="preserve">
-    <value>此 Minecraft 实例 (Minecraft {mcVer}) 需求 Java {javaVer}, 但 Aurelio 无法匹配此 Java 版本, 检查此设备是否安装 Java {javaVer} 且添加到 Aurelio</value>
+    <value>This instance of Minecraft (Minecraft {mcVer}) requires Java {javaVer}, but Aurelio cannot match this Java version. Check if this device has Java {javaVer} installed and added to Aurelio</value>
   </data>
   <data name="New" xml:space="preserve">
     <value>Create New</value>
   </data>
   <data name="View2D" xml:space="preserve">
-    <value>2D View</value>
+    <value>2 D View</value>
   </data>
   <data name="SimplifiedChinese" xml:space="preserve">
     <value>Simplified Chinese</value>
@@ -1698,7 +1698,7 @@
     <value>Deleted old log files</value>
   </data>
   <data name="CleanupOldLogFilesFailTip" xml:space="preserve">
-    <value>Failed to cleanup old log files</value>
+    <value>Failed to clean up old log files</value>
   </data>
   <data name="WriteLogFailTip" xml:space="preserve">
     <value>Failed to write log</value>
@@ -1744,5 +1744,53 @@
   </data>
   <data name="DisableAvaloniaDataValidationTip" xml:space="preserve">
     <value>Disable Avalonia data annotation validation</value>
+  </data>
+  <data name="CheckingUpdate" xml:space="preserve">
+    <value>Checking for updates</value>
+  </data>
+  <data name="GithubSpeedUpApi" xml:space="preserve">
+    <value>GitHub's acceleration Api</value>
+  </data>
+  <data name="CloseAutoUpdate" xml:space="preserve">
+    <value>Turn off automatic updates</value>
+  </data>
+  <data name="MinecraftInstance" xml:space="preserve">
+    <value>Minecraft instance</value>
+  </data>
+  <data name="Toggled" xml:space="preserve">
+    <value>Switched</value>
+  </data>
+  <data name="ColorBlock" xml:space="preserve">
+    <value>Color block</value>
+  </data>
+  <data name="WindowVisibility" xml:space="preserve">
+    <value>Window visibility</value>
+  </data>
+  <data name="LaunchPage" xml:space="preserve">
+    <value>Start page</value>
+  </data>
+  <data name="OpenOrTogglePage" xml:space="preserve">
+    <value>Open or jump to a page</value>
+  </data>
+  <data name="SystemDrive" xml:space="preserve">
+    <value>System drive</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="BackToUpLevel" xml:space="preserve">
+    <value>Return to previous level</value>
+  </data>
+  <data name="ImportJarAsMod" xml:space="preserve">
+    <value>Import {file} as Mod into {mc}</value>
+  </data>
+  <data name="TodoList" xml:space="preserve">
+    <value>To-do list</value>
+  </data>
+  <data name="TodoHandleFile" xml:space="preserve">
+    <value>Pending files</value>
+  </data>
+  <data name="CurrentItem" xml:space="preserve">
+    <value>Current item</value>
   </data>
 </root>
