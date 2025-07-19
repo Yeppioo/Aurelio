@@ -2,6 +2,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Web;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Interfaces;
@@ -242,6 +244,13 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
         else if (e.Data.Contains(DataFormats.Text))
         {
             var text = e.Data.GetText();
+            if (text.Trim().StartsWith("authlib-injector:"))
+            {
+                var match = MyRegex().Match(HttpUtility.UrlDecode(text.Trim()));
+                if (!match.Success) return;
+                var url = match.Value;
+                _ = Public.Module.Operate.Account.YggdrasilLogin(this, server1: url);
+            }
         }
     }
 
@@ -308,4 +317,7 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
     public WindowToastManager Toast { get; set; }
     public Control RootElement { get; set; }
     public UrsaWindow Window { get; set; }
+    
+    [GeneratedRegex(@"https?://[^\s:]+")]
+    private static partial Regex MyRegex();
 }

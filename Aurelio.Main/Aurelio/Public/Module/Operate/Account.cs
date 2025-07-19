@@ -223,24 +223,25 @@ public class Account
     public static async Task YggdrasilLogin(Control sender, string server1 = "", string email1 = "",
         string password1 = "")
     {
-        var stackPanel = new StackPanel { Spacing = 10, Width = 580 };
+        var stackPanel = new StackPanel
+        {
+            Spacing = 15, MaxWidth = 580, HorizontalAlignment = HorizontalAlignment.Stretch,
+            Margin = new Thickness(10, 0)
+        };
         var verificationSeverUrlTextBox = new TextBox
         {
-            TextWrapping = TextWrapping.Wrap,
+            TextWrapping = TextWrapping.Wrap, MaxWidth = 500,
             Watermark = MainLang.VerificationServer, Text = server1, HorizontalAlignment = HorizontalAlignment.Stretch,
-            Width = 500
         };
         var emailTextBox = new TextBox
-        {
-            TextWrapping = TextWrapping.Wrap,
+        { 
+            TextWrapping = TextWrapping.Wrap, MaxWidth = 500,
             Watermark = MainLang.EmailAddress, Text = email1, HorizontalAlignment = HorizontalAlignment.Stretch,
-            Width = 500
         };
         var passwordTextBox = new TextBox
         {
-            TextWrapping = TextWrapping.Wrap,
+            TextWrapping = TextWrapping.Wrap, MaxWidth = 500,
             Watermark = MainLang.AccountPassword, Text = password1, HorizontalAlignment = HorizontalAlignment.Stretch,
-            Width = 500
         };
         stackPanel.Children.Add(verificationSeverUrlTextBox);
         stackPanel.Children.Add(emailTextBox);
