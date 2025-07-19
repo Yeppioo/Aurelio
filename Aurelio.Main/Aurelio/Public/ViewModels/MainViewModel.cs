@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Interfaces;

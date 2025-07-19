@@ -14,6 +14,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border Name="Root">
         <DockPanel>
+            <Border
+                Background="{DynamicResource TextBoxBackground}"
+                CornerRadius="10"
+                Cursor="Hand"
+                DockPanel.Dock="Bottom"
+                HorizontalAlignment="Center"
+                Margin="0,0,0,10"
+                Name="PoemRoot"
+                Padding="7,5"
+                PointerPressed="InputElement_OnPointerPressed">
+                <TextBlock Text="{Binding Poem}" />
+            </Border>
             <DockPanel Margin="0,100,0,0">
                 <TextBlock
                     DockPanel.Dock="Top"
@@ -65,8 +77,10 @@
                     CornerRadius="15"
                     DockPanel.Dock="Top"
                     IsVisible="{Binding ElementName=SearchBox, Path=IsFocused}"
-                    Margin="0,10,0,30"
-                    MaxWidth="600">
+                    Margin="0,10,0,10"
+                    MaxHeight="335"
+                    MaxWidth="600"
+                    VerticalAlignment="Top">
                     <ListBox
                         ItemsSource="{Binding FilteredAggregateSearchEntries}"
                         Margin="0,2,0,0"

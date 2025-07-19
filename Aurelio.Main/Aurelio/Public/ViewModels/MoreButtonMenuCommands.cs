@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
+using Aurelio.Views.Main;
 using Aurelio.Views.Main.Pages;
 using Avalonia.Styling;
 using Setter = Aurelio.Public.Module.Ui.Setter;
@@ -11,11 +12,21 @@ public class MoreButtonMenuCommands
 {
     public void NewTab()
     {
-        // App.UiRoot.NewTabButton.Flyout.ShowAt(App.UiRoot.FlyoutPoint);
+        if (UiProperty.ActiveWindow is TabWindow tabWindow)
+        {
+            tabWindow.CreateTab(new TabEntry(new NewTabPage()));
+            return;
+        }
+        App.UiRoot.CreateTab(new TabEntry(new NewTabPage()));
     }
 
     public void CloseCurrentTab()
     {
+        if (UiProperty.ActiveWindow is TabWindow tabWindow)
+        {
+            tabWindow.ViewModel.SelectedTab?.Close();
+            return;
+        }
         App.UiRoot.ViewModel.SelectedTab?.Close();
     }
 

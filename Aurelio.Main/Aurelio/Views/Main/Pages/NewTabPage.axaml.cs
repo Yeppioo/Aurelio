@@ -10,7 +10,10 @@ using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.Service;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
+using Avalonia.Controls.Notifications;
+using Avalonia.Input;
 using Avalonia.Media;
+using Avalonia.Rendering;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using DynamicData;
@@ -23,6 +26,7 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage
     public string _currentLunarMonthDay = string.Empty;
     public string _currentLunarYear = string.Empty;
     public string _currentWeekDay = string.Empty;
+    public string _poem = string.Empty;
 
     public DateTime CurrentTime
     {
@@ -41,6 +45,12 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage
         set => SetField(ref _currentLunarMonthDay, value);
     }
 
+    public string Poem
+    {
+        get => _poem;
+        set => SetField(ref _poem, value);
+    }
+
     public string CurrentLunarYear
     {
         get => _currentLunarYear;
@@ -52,7 +62,9 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage
         get => _currentWeekDay;
         set => SetField(ref _currentWeekDay, value);
     }
-    
+
+    private bool _fl = true;
+
     public NewTabPage()
     {
         InitializeComponent();
@@ -68,28 +80,21 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage
         var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(0.5) };
         timer.Tick += (_, _) => CurrentTime = DateTime.Now;
         timer.Start();
-        Loaded += (_, _) =>
+        Loaded += async (_, _) =>
         {
+            if (!_fl) return;
+            _fl = false;
             Filter();
+            Poem = await Public.Module.IO.Http.Poem.GetPoem();
         };
-        SearchBox.GotFocus += (_, _) =>
-        {
-            Filter();
-        };
+        SearchBox.GotFocus += (_, _) => { Filter(); };
         AggregateSearchListBox.SelectionChanged += (s, _) =>
         {
             if (AggregateSearchListBox.SelectedItem is not AggregateSearchEntry entry) return;
-            AggregateSearch.Execute(entry, Root);
+            IRenderRoot root = null;
+            AggregateSearch.Execute(entry, Root, ref root);
             if (entry.Type == AggregateSearchEntryType.MinecraftAccount) return;
-            var r = TopLevel.GetTopLevel(Root);
-            if (r is TabWindow window)
-            {
-                window.RemoveTab(HostTab);
-            }
-            else
-            {
-                App.UiRoot.ViewModel.Tabs.Remove(HostTab);
-            }
+            HostTab.Close(root);
         };
     }
 
@@ -178,5 +183,21 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage
 
     public void OnClose()
     {
+    }
+
+    private async void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (e.GetCurrentPoint(this).Properties.IsRightButtonPressed)
+        {
+            Poem = "loading";
+            PoemRoot.IsEnabled = false;
+            Poem = await Public.Module.IO.Http.Poem.GetPoem();
+            PoemRoot.IsEnabled = true;
+        }
+        else if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+        {
+            await App.TopLevel.Clipboard.SetTextAsync(Poem);
+            Notice(MainLang.AlreadyCopyToClipBoard, NotificationType.Success);
+        }
     }
 }

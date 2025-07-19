@@ -41,7 +41,6 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
         RootElement = Root;
         Toast.MaxItems = 2;
         DataContext = ViewModel;
-        NewTabButton.DataContext = ViewModel;
         Window = this;
         TabDragDropService.RegisterWindow(this);
 #if RELEASE
@@ -100,6 +99,7 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
         MoreButton.Flyout = menu;
         MoreButton.DataContext = new MoreButtonMenuCommands();
         SettingButton.Click += (_, _) => { OpenSettingPage(); };
+        NewTabButton.Click += (_, _) => { CreateTab(new TabEntry(new NewTabPage())); };
     }
 
     private void OpenSettingPage(int pageIndex = -1)

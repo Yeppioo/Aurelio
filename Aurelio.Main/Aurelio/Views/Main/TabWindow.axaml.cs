@@ -284,13 +284,7 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
 
     private void NewTabButton_Click(object? sender, RoutedEventArgs e)
     {
-        // Create a new settings tab for this window
-        // Each TabWindow can now have its own settings tab
-        var newSettingsTab = new TabEntry(new SettingTabPage())
-        {
-            Tag = "setting"
-        };
-        ViewModel.CreateTab(newSettingsTab);
+        CreateTab(new TabEntry(new NewTabPage()));
     }
 
     public WindowNotificationManager Notification { get; set; }

@@ -2,8 +2,10 @@
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.ViewModels;
 using Aurelio.Views.Main;
+using Aurelio.Views.Main.Pages;
 using Avalonia.Data;
 using Avalonia.Media;
+using Avalonia.Rendering;
 using Avalonia.VisualTree;
 using CommunityToolkit.Mvvm.Input;
 
@@ -92,11 +94,11 @@ public partial class TabEntry : ViewModelBase
         }
     }
 
-    public void Close()
+    public void Close(IRenderRoot? root = null)
     {
         if (!CanClose) return;
-
-        if ((Content as UserControl).GetVisualRoot() is TabWindow tabWindow)
+        var renderRoot = root ?? (Content as UserControl)!.GetVisualRoot();
+        if (renderRoot is TabWindow tabWindow)
         {
             var wasSelected = tabWindow.ViewModel.SelectedTab == this;
             tabWindow.ViewModel.Tabs.Remove(this);
@@ -109,10 +111,19 @@ public partial class TabEntry : ViewModelBase
             if (wasSelected) App.UiRoot.ViewModel.SelectedTab = App.UiRoot.ViewModel.Tabs.LastOrDefault();
         }
         
-        
-
         DisposeContent();
         Removing();
+        
+        if (renderRoot is TabWindow tabWindow1)
+        {
+            if (tabWindow1.ViewModel.Tabs.Count > 0) return;
+            tabWindow1.CreateTab(new TabEntry(new NewTabPage()));
+        }
+        else
+        {
+            if (App.UiRoot.ViewModel.Tabs.Count > 0) return;
+            App.UiRoot.CreateTab(new TabEntry(new NewTabPage()));
+        }
     }
 
     public void ReplacePage(IAurelioTabPage tabPage)
