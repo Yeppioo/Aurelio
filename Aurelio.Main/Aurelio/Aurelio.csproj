@@ -114,6 +114,14 @@
           <DependentUpon>Drawer.axaml</DependentUpon>
           <SubType>Code</SubType>
         </Compile>
+        <Compile Update="Views\Main\Pages\FileViewers\LogViewer.axaml.cs">
+          <DependentUpon>LogViewer.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Views\Main\Pages\FileViewers\ImageViewer.axaml.cs">
+          <DependentUpon>ImageViewer.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>

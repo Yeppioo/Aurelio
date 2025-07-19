@@ -26,6 +26,15 @@ public class LogItemEntry
         Original = $"[{Time}] [{Source}/{Type}] {Message}";
     }
 
+    public LogItemEntry(string time, string source, LogType type, string message)
+    {
+        Time = time;
+        Source = source;
+        Type = type;
+        Message = message;
+        Original = $"[{Time}] [{Source}/{Type}] {Message}";
+    }
+
     public string Time { get; set; } = DateTime.Now.ToString("HH:mm:ss");
     public string Source { get; set; } = string.Empty;
     public LogType Type { get; set; } = LogType.Info;

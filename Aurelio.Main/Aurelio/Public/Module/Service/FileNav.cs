@@ -24,6 +24,12 @@ public class FileNav
                 OpenPage(new ImageViewer(name, Bitmap.DecodeToWidth(fileStream, 1080), path));
                 return true;
             }
+            case ".txt":
+            case ".log":
+            {
+                OpenPage(new LogViewer(path, name));
+                return true;
+            }
         }
         return false;
     }
