@@ -19,6 +19,9 @@ using System.IO;
 using AvaloniaEdit.Document;
 using AvaloniaEdit.Highlighting;
 using System.Linq;
+using Avalonia.Threading;
+using Avalonia.Controls.Notifications;
+using static Aurelio.Public.Module.Ui.Overlay;
 using AvaloniaEdit.TextMate;
 using TextMateSharp.Grammars;
 
@@ -106,6 +109,14 @@ public class JsonNodeViewModel : INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+
+    /// <summary>
+    /// 公共方法用于外部触发属性更新通知
+    /// </summary>
+    public void NotifyPropertyChanged(string propertyName)
+    {
+        OnPropertyChanged(propertyName);
+    }
 }
 
 public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
@@ -114,7 +125,7 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
     private string _rootClassName = "RootClass";
     private string _namespaceName = "Generated";
     private string _generatedCSharpCode = string.Empty;
-    private string _errorMessage = string.Empty;
+
     private JsonNodeViewModel? _selectedNode;
     private string _nodeDetails = string.Empty;
     private bool _isWordWrapEnabled = true;
@@ -157,12 +168,12 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
             }
             else
             {
-                ErrorMessage = $"文件不存在: {filePath}";
+                Notice($"文件不存在: {filePath}", NotificationType.Error);
             }
         }
         catch (Exception ex)
         {
-            ErrorMessage = $"读取文件失败: {ex.Message}";
+            Notice($"读取文件失败: {ex.Message}", NotificationType.Error);
         }
     }
 
@@ -259,11 +270,7 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
         }
     }
 
-    public string ErrorMessage
-    {
-        get => _errorMessage;
-        set => SetField(ref _errorMessage, value);
-    }
+
 
     public JsonNodeViewModel? SelectedNode
     {
@@ -355,12 +362,11 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
     {
         try
         {
-            ErrorMessage = string.Empty;
             JsonTreeNodes.Clear();
 
             if (string.IsNullOrWhiteSpace(RawJsonText))
             {
-                ErrorMessage = "请输入JSON文本";
+                Notice("请输入JSON文本", NotificationType.Warning);
                 return;
             }
 
@@ -370,11 +376,11 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
         }
         catch (JsonException ex)
         {
-            ErrorMessage = $"JSON解析错误: {ex.Message}";
+            Notice($"JSON解析错误: {ex.Message}", NotificationType.Error);
         }
         catch (Exception ex)
         {
-            ErrorMessage = $"解析失败: {ex.Message}";
+            Notice($"解析失败: {ex.Message}", NotificationType.Error);
         }
     }
 
@@ -383,19 +389,22 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
         try
         {
             if (string.IsNullOrWhiteSpace(RawJsonText))
+            {
+                Notice("请输入JSON文本", NotificationType.Warning);
                 return;
+            }
 
             var jsonObject = JToken.Parse(RawJsonText);
             RawJsonText = jsonObject.ToString(Newtonsoft.Json.Formatting.Indented);
-            ErrorMessage = string.Empty;
+            Notice("JSON格式化成功", NotificationType.Success);
         }
         catch (JsonException ex)
         {
-            ErrorMessage = $"JSON格式化错误: {ex.Message}";
+            Notice($"JSON格式化错误: {ex.Message}", NotificationType.Error);
         }
         catch (Exception ex)
         {
-            ErrorMessage = $"格式化失败: {ex.Message}";
+            Notice($"格式化失败: {ex.Message}", NotificationType.Error);
         }
     }
 
@@ -404,50 +413,115 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
         RawJsonText = string.Empty;
         JsonTreeNodes.Clear();
         GeneratedCSharpCode = string.Empty;
-        ErrorMessage = string.Empty;
         SelectedNode = null;
         NodeDetails = string.Empty;
+        Notice("已清空所有内容", NotificationType.Information);
     }
 
     public void ExpandAll(object? sender, RoutedEventArgs e)
     {
-        foreach (var node in JsonTreeNodes)
+        var treeView = this.FindControl<TreeView>("JsonTreeView");
+        if (treeView != null)
         {
-            ExpandNodeRecursively(node);
+            ExpandAllTreeViewItems(treeView);
         }
-        // 强制刷新TreeView
-        RefreshTreeView();
     }
 
     public void CollapseAll(object? sender, RoutedEventArgs e)
     {
-        foreach (var node in JsonTreeNodes)
+        var treeView = this.FindControl<TreeView>("JsonTreeView");
+        if (treeView != null)
         {
-            CollapseNodeRecursively(node);
+            CollapseAllTreeViewItems(treeView);
         }
-        // 强制刷新TreeView
-        RefreshTreeView();
     }
 
     /// <summary>
-    /// 刷新TreeView以反映IsExpanded状态的变化
+    /// 直接展开TreeView中的所有TreeViewItem
     /// </summary>
-    private void RefreshTreeView()
+    private void ExpandAllTreeViewItems(TreeView treeView)
     {
         try
         {
-            // 通过重新设置ItemsSource来强制刷新TreeView
-            var items = JsonTreeNodes.ToList();
-            JsonTreeNodes.Clear();
-            foreach (var item in items)
+            // 遍历所有根级项目
+            for (int i = 0; i < treeView.ItemCount; i++)
             {
-                JsonTreeNodes.Add(item);
+                var container = treeView.ContainerFromIndex(i) as TreeViewItem;
+                if (container != null)
+                {
+                    ExpandTreeViewItemRecursively(container);
+                }
             }
         }
         catch
         {
-            // 忽略刷新错误
+            // 忽略展开错误
         }
+    }
+
+    /// <summary>
+    /// 直接折叠TreeView中的所有TreeViewItem
+    /// </summary>
+    private void CollapseAllTreeViewItems(TreeView treeView)
+    {
+        try
+        {
+            // 遍历所有根级项目
+            for (int i = 0; i < treeView.ItemCount; i++)
+            {
+                var container = treeView.ContainerFromIndex(i) as TreeViewItem;
+                if (container != null)
+                {
+                    CollapseTreeViewItemRecursively(container);
+                }
+            }
+        }
+        catch
+        {
+            // 忽略折叠错误
+        }
+    }
+
+    /// <summary>
+    /// 递归展开TreeViewItem及其所有子项
+    /// </summary>
+    private void ExpandTreeViewItemRecursively(TreeViewItem item)
+    {
+        // 展开当前项
+        item.IsExpanded = true;
+
+        // 等待UI更新后处理子项
+        Dispatcher.UIThread.Post(() =>
+        {
+            // 遍历所有子项
+            for (int i = 0; i < item.ItemCount; i++)
+            {
+                var childContainer = item.ContainerFromIndex(i) as TreeViewItem;
+                if (childContainer != null)
+                {
+                    ExpandTreeViewItemRecursively(childContainer);
+                }
+            }
+        });
+    }
+
+    /// <summary>
+    /// 递归折叠TreeViewItem及其所有子项
+    /// </summary>
+    private void CollapseTreeViewItemRecursively(TreeViewItem item)
+    {
+        // 先处理子项
+        for (int i = 0; i < item.ItemCount; i++)
+        {
+            var childContainer = item.ContainerFromIndex(i) as TreeViewItem;
+            if (childContainer != null)
+            {
+                CollapseTreeViewItemRecursively(childContainer);
+            }
+        }
+
+        // 折叠当前项
+        item.IsExpanded = false;
     }
 
     public void GenerateCSharpClass(object? sender, RoutedEventArgs e)
@@ -456,17 +530,17 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
         {
             if (JsonTreeNodes.Count == 0)
             {
-                ErrorMessage = "请先解析JSON";
+                Notice("请先解析JSON", NotificationType.Warning);
                 return;
             }
 
             var csharpCode = GenerateCSharpFromJson();
             GeneratedCSharpCode = csharpCode;
-            ErrorMessage = string.Empty;
+            Notice("C#代码生成成功", NotificationType.Success);
         }
         catch (Exception ex)
         {
-            ErrorMessage = $"C#代码生成失败: {ex.Message}";
+            Notice($"C#代码生成失败: {ex.Message}", NotificationType.Error);
         }
     }
 

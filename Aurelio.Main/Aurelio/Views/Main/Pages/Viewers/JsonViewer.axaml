@@ -12,9 +12,6 @@
       <!--  顶部工具栏  -->
       <Border Background="{DynamicResource CardBackgroundColor}" CornerRadius="{DynamicResource CardCornerRadius}" DockPanel.Dock="Top" Height="45" Margin="0,0,0,10" VerticalAlignment="Top">
         <DockPanel Margin="10,0">
-          <!--  错误消息显示  -->
-          <TextBlock DockPanel.Dock="Right" Foreground="Red" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Text="{Binding ErrorMessage}" VerticalAlignment="Center" />
-
           <!--  工具栏按钮组  -->
           <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
             <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
@@ -69,7 +66,7 @@
           <DockPanel Margin="10">
             <TextBlock DockPanel.Dock="Top" FontWeight="Bold" Margin="0,0,0,10" Text="JSON结构" />
             <ScrollViewer>
-              <TreeView ItemsSource="{Binding JsonTreeNodes}" SelectedItem="{Binding SelectedNode}">
+              <TreeView Name="JsonTreeView" ItemsSource="{Binding JsonTreeNodes}" SelectedItem="{Binding SelectedNode}">
                 <TreeView.ItemTemplate>
                   <TreeDataTemplate DataType="viewers:JsonNodeViewModel" ItemsSource="{Binding Children}">
                     <TextBlock Text="{Binding DisplayText}" />
