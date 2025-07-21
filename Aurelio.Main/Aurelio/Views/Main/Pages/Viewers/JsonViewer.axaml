@@ -1,199 +1,107 @@
-<UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
-    x:Class="Aurelio.Views.Main.Pages.Viewers.JsonViewer"
-    x:DataType="viewers:JsonViewer"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:AvaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:u="https://irihi.tech/ursa"
-    xmlns:viewers="clr-namespace:Aurelio.Views.Main.Pages.Viewers"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<UserControl d:DesignHeight="450" d:DesignWidth="800" mc:Ignorable="d" x:Class="Aurelio.Views.Main.Pages.Viewers.JsonViewer" x:DataType="viewers:JsonViewer" xmlns="https://github.com/avaloniaui" xmlns:AvaloniaEdit="https://github.com/avaloniaui/avaloniaedit" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:u="https://irihi.tech/ursa" xmlns:viewers="clr-namespace:Aurelio.Views.Main.Pages.Viewers" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <UserControl.Styles>
-        <!--  编辑器链接颜色样式  -->
-        <Style Selector="AvaloniaEdit|TextEditor">
-            <Style.Resources>
-                <SolidColorBrush x:Key="HyperlinkForeground">#54A9FF</SolidColorBrush>
-                <SolidColorBrush x:Key="HyperlinkForegroundPointerOver">#54A9FF</SolidColorBrush>
-                <SolidColorBrush x:Key="HyperlinkForegroundPressed">#54A9FF</SolidColorBrush>
-                <SolidColorBrush x:Key="HyperlinkForegroundDisabled">#54A9FF</SolidColorBrush>
-            </Style.Resources>
-        </Style>
-    </UserControl.Styles>
+  <UserControl.Styles>
+    <!--  编辑器链接颜色样式  -->
+    <Style Selector="AvaloniaEdit|TextEditor">
+      <Style.Resources><SolidColorBrush x:Key="HyperlinkForeground">#54A9FF</SolidColorBrush><SolidColorBrush x:Key="HyperlinkForegroundPointerOver">#54A9FF</SolidColorBrush><SolidColorBrush x:Key="HyperlinkForegroundPressed">#54A9FF</SolidColorBrush><SolidColorBrush x:Key="HyperlinkForegroundDisabled">#54A9FF</SolidColorBrush></Style.Resources>
+    </Style>
+  </UserControl.Styles>
 
-    <Border Name="Root">
-        <DockPanel Margin="15,5,15,15">
-            <!--  顶部工具栏  -->
-            <Border
-                Background="{DynamicResource CardBackgroundColor}"
-                CornerRadius="{DynamicResource CardCornerRadius}"
-                DockPanel.Dock="Top"
-                Height="45"
-                Margin="0,0,0,10"
-                VerticalAlignment="Top">
-                <DockPanel Margin="10,0">
-                    <!--  错误消息显示  -->
-                    <TextBlock
-                        DockPanel.Dock="Right"
-                        Foreground="Red"
-                        IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
-                        Text="{Binding ErrorMessage}"
-                        VerticalAlignment="Center" />
+  <Border Name="Root">
+    <DockPanel Margin="15,5,15,15">
+      <!--  顶部工具栏  -->
+      <Border Background="{DynamicResource CardBackgroundColor}" CornerRadius="{DynamicResource CardCornerRadius}" DockPanel.Dock="Top" Height="45" Margin="0,0,0,10" VerticalAlignment="Top">
+        <DockPanel Margin="10,0">
+          <!--  错误消息显示  -->
+          <TextBlock DockPanel.Dock="Right" Foreground="Red" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Text="{Binding ErrorMessage}" VerticalAlignment="Center" />
 
-                    <!--  工具栏按钮组  -->
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                        <StackPanel
-                            Orientation="Horizontal"
-                            Spacing="10"
-                            VerticalAlignment="Center">
-                            <!--  第一组：JSON操作  -->
-                            <Button
-                                Classes="Primary"
-                                Click="ParseJson"
-                                Content="解析JSON" />
-                            <Button Click="FormatJson" Content="格式化JSON" />
-                            <Button Click="ClearAll" Content="清空" />
+          <!--  工具栏按钮组  -->
+          <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+              <!--  第一组：JSON操作  -->
+              <Button Classes="Primary" Click="ParseJson" Content="解析JSON" />
+              <Button Click="FormatJson" Content="格式化JSON" />
+              <Button Click="ClearAll" Content="清空" />
 
-                            <!--  分隔符  -->
-                            <Separator
-                                Background="{DynamicResource SemiColorBorder}"
-                                Height="20"
-                                Margin="5,0"
-                                Width="1" />
+              <!--  分隔符  -->
+              <Separator Background="{DynamicResource SemiColorBorder}" Height="20" Margin="5,0" Width="1" />
 
-                            <!--  第二组：树操作和编辑器设置  -->
-                            <Button Click="ExpandAll" Content="展开全部" />
-                            <Button Click="CollapseAll" Content="折叠全部" />
-                            <ToggleButton Content="自动换行" IsChecked="{Binding IsWordWrapEnabled}" />
+              <!--  第二组：树操作和编辑器设置  -->
+              <Button Click="ExpandAll" Content="展开全部" />
+              <Button Click="CollapseAll" Content="折叠全部" />
+              <ToggleButton Content="自动换行" IsChecked="{Binding IsWordWrapEnabled}" />
 
-                            <!--  分隔符  -->
-                            <Separator
-                                Background="{DynamicResource SemiColorBorder}"
-                                Height="20"
-                                Margin="5,0"
-                                Width="1" />
+              <!--  分隔符  -->
+              <Separator Background="{DynamicResource SemiColorBorder}" Height="20" Margin="5,0" Width="1" />
 
-                            <!--  第三组：C#代码生成  -->
-                            <TextBox
-                                Text="{Binding RootClassName}"
-                                Watermark="根类名"
-                                Width="120" />
-                            <TextBox
-                                Text="{Binding NamespaceName}"
-                                Watermark="命名空间"
-                                Width="120" />
-                            <Button Click="GenerateCSharpClass" Content="生成C#实体类" />
-                        </StackPanel>
-                    </ScrollViewer>
-                </DockPanel>
-            </Border>
-
-            <!--  三列主内容区域  -->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="5" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="5" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <!--  左列：原始JSON输入  -->
-                <Border
-                    Background="{DynamicResource CardBackgroundColor}"
-                    CornerRadius="{DynamicResource CardCornerRadius}"
-                    Grid.Column="0"
-                    Margin="0,0,5,0">
-                    <DockPanel Margin="10">
-                        <TextBlock
-                            DockPanel.Dock="Top"
-                            FontWeight="Bold"
-                            Margin="0,0,0,10"
-                            Text="原始JSON" />
-                        <AvaloniaEdit:TextEditor
-                            Document="{Binding JsonDocument}"
-                            HorizontalScrollBarVisibility="Auto"
-                            Name="JsonEditor"
-                            ShowLineNumbers="True"
-                            VerticalScrollBarVisibility="Auto"
-                            WordWrap="{Binding IsWordWrapEnabled}" />
-                    </DockPanel>
-                </Border>
-
-                <!--  分隔符  -->
-                <GridSplitter Grid.Column="1" ShowsPreview="True" />
-
-                <!--  中列：JSON树视图  -->
-                <Border
-                    Background="{DynamicResource CardBackgroundColor}"
-                    CornerRadius="{DynamicResource CardCornerRadius}"
-                    Grid.Column="2"
-                    Margin="5,0,5,0">
-                    <DockPanel Margin="10">
-                        <TextBlock
-                            DockPanel.Dock="Top"
-                            FontWeight="Bold"
-                            Margin="0,0,0,10"
-                            Text="JSON结构" />
-                        <ScrollViewer>
-                            <TreeView ItemsSource="{Binding JsonTreeNodes}" SelectedItem="{Binding SelectedNode}">
-                                <TreeView.ItemTemplate>
-                                    <TreeDataTemplate DataType="viewers:JsonNodeViewModel" ItemsSource="{Binding Children}">
-                                        <TextBlock Text="{Binding DisplayText}" />
-                                    </TreeDataTemplate>
-                                </TreeView.ItemTemplate>
-                            </TreeView>
-                        </ScrollViewer>
-                    </DockPanel>
-                </Border>
-
-                <!--  分隔符  -->
-                <GridSplitter Grid.Column="3" ShowsPreview="True" />
-
-                <!--  右列：详细信息和生成的C#代码  -->
-                <Border
-                    Background="{DynamicResource CardBackgroundColor}"
-                    CornerRadius="{DynamicResource CardCornerRadius}"
-                    Grid.Column="4"
-                    Margin="5,0,0,0">
-                    <DockPanel Margin="10">
-                        <TextBlock
-                            DockPanel.Dock="Top"
-                            FontWeight="Bold"
-                            Margin="0,0,0,10"
-                            Text="详细信息" />
-
-                        <!--  节点详细信息  -->
-                        <Expander
-                            DockPanel.Dock="Top"
-                            Header="选中节点信息"
-                            IsExpanded="True"
-                            Margin="0,0,0,10">
-                            <ScrollViewer MaxHeight="150">
-                                <TextBlock
-                                    Margin="10"
-                                    Text="{Binding NodeDetails}"
-                                    TextWrapping="Wrap" />
-                            </ScrollViewer>
-                        </Expander>
-
-                        <!--  生成的C#代码  -->
-                        <Expander Header="生成的C#代码" IsExpanded="True">
-                            <AvaloniaEdit:TextEditor
-                                Document="{Binding CSharpDocument}"
-                                HorizontalScrollBarVisibility="Auto"
-                                IsReadOnly="True"
-                                Name="CSharpEditor"
-                                ShowLineNumbers="True"
-                                VerticalScrollBarVisibility="Auto"
-                                WordWrap="{Binding IsWordWrapEnabled}" />
-                        </Expander>
-                    </DockPanel>
-                </Border>
-            </Grid>
+              <!--  第三组：C#代码生成  -->
+              <TextBox Text="{Binding RootClassName}" Watermark="根类名" Width="120" />
+              <TextBox Text="{Binding NamespaceName}" Watermark="命名空间" Width="120" />
+              <Button Click="GenerateCSharpClass" Content="生成C#实体类" />
+            </StackPanel>
+          </ScrollViewer>
         </DockPanel>
-    </Border>
+      </Border>
+
+      <!--  三列主内容区域  -->
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="5" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="5" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!--  左列：原始JSON输入  -->
+        <Border Background="{DynamicResource CardBackgroundColor}" CornerRadius="{DynamicResource CardCornerRadius}" Grid.Column="0" Margin="0,0,5,0">
+          <DockPanel Margin="10">
+            <TextBlock DockPanel.Dock="Top" FontWeight="Bold" Margin="0,0,0,10" Text="原始JSON" />
+            <AvaloniaEdit:TextEditor Document="{Binding JsonDocument}" HorizontalScrollBarVisibility="Auto" Name="JsonEditor" ShowLineNumbers="True" VerticalScrollBarVisibility="Auto" WordWrap="{Binding IsWordWrapEnabled}" />
+          </DockPanel>
+        </Border>
+
+        <!--  分隔符  -->
+        <GridSplitter Grid.Column="1" ShowsPreview="True" />
+
+        <!--  中列：JSON树视图  -->
+        <Border Background="{DynamicResource CardBackgroundColor}" CornerRadius="{DynamicResource CardCornerRadius}" Grid.Column="2" Margin="5,0,5,0">
+          <DockPanel Margin="10">
+            <TextBlock DockPanel.Dock="Top" FontWeight="Bold" Margin="0,0,0,10" Text="JSON结构" />
+            <ScrollViewer>
+              <TreeView ItemsSource="{Binding JsonTreeNodes}" SelectedItem="{Binding SelectedNode}">
+                <TreeView.ItemTemplate>
+                  <TreeDataTemplate DataType="viewers:JsonNodeViewModel" ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding DisplayText}" />
+                  </TreeDataTemplate>
+                </TreeView.ItemTemplate>
+              </TreeView>
+            </ScrollViewer>
+          </DockPanel>
+        </Border>
+
+        <!--  分隔符  -->
+        <GridSplitter Grid.Column="3" ShowsPreview="True" />
+
+        <!--  右列：详细信息和生成的C#代码  -->
+        <Border Background="{DynamicResource CardBackgroundColor}" CornerRadius="{DynamicResource CardCornerRadius}" Grid.Column="4" Margin="5,0,0,0">
+          <DockPanel Margin="10">
+            <TextBlock DockPanel.Dock="Top" FontWeight="Bold" Margin="0,0,0,10" Text="详细信息" />
+
+            <!--  节点详细信息  -->
+            <Expander DockPanel.Dock="Top" Header="选中节点信息" IsExpanded="True" Margin="0,0,0,10">
+              <ScrollViewer MaxHeight="150">
+                <TextBlock Margin="10" Text="{Binding NodeDetails}" TextWrapping="Wrap" />
+              </ScrollViewer>
+            </Expander>
+
+            <!--  生成的C#代码  -->
+            <Expander Header="生成的C#代码" IsExpanded="True">
+              <AvaloniaEdit:TextEditor Document="{Binding CSharpDocument}" HorizontalScrollBarVisibility="Auto" IsReadOnly="True" Name="CSharpEditor" ShowLineNumbers="True" VerticalScrollBarVisibility="Auto" WordWrap="{Binding IsWordWrapEnabled}" />
+            </Expander>
+          </DockPanel>
+        </Border>
+      </Grid>
+    </DockPanel>
+  </Border>
 </UserControl>

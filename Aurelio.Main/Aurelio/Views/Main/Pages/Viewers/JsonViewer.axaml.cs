@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.IO;
 using AvaloniaEdit.Document;
 using AvaloniaEdit.Highlighting;
+using System.Linq;
 using AvaloniaEdit.TextMate;
 using TextMateSharp.Grammars;
 
@@ -414,6 +415,8 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
         {
             ExpandNodeRecursively(node);
         }
+        // 强制刷新TreeView
+        RefreshTreeView();
     }
 
     public void CollapseAll(object? sender, RoutedEventArgs e)
@@ -421,6 +424,29 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
         foreach (var node in JsonTreeNodes)
         {
             CollapseNodeRecursively(node);
+        }
+        // 强制刷新TreeView
+        RefreshTreeView();
+    }
+
+    /// <summary>
+    /// 刷新TreeView以反映IsExpanded状态的变化
+    /// </summary>
+    private void RefreshTreeView()
+    {
+        try
+        {
+            // 通过重新设置ItemsSource来强制刷新TreeView
+            var items = JsonTreeNodes.ToList();
+            JsonTreeNodes.Clear();
+            foreach (var item in items)
+            {
+                JsonTreeNodes.Add(item);
+            }
+        }
+        catch
+        {
+            // 忽略刷新错误
         }
     }
 
@@ -595,9 +621,6 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
         var classes = new Dictionary<string, StringBuilder>();
         var classNames = new HashSet<string>();
 
-        // 生成主类
-        GenerateClassFromNode(rootNode, RootClassName, classes, classNames);
-
         // 构建完整的C#代码
         var result = new StringBuilder();
         result.AppendLine("using System;");
@@ -606,6 +629,23 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
         result.AppendLine();
         result.AppendLine($"namespace {NamespaceName}");
         result.AppendLine("{");
+
+        // 处理根节点
+        if (rootNode.Type == "Array")
+        {
+            // 根节点是数组，生成包含List属性的根类
+            GenerateRootArrayClass(rootNode, RootClassName, classes, classNames);
+        }
+        else if (rootNode.Type == "Object")
+        {
+            // 根节点是对象，正常生成类
+            GenerateClassFromNode(rootNode, RootClassName, classes, classNames);
+        }
+        else
+        {
+            // 根节点是基本类型，生成简单的包装类
+            GenerateSimpleRootClass(rootNode, RootClassName, classes);
+        }
 
         foreach (var kvp in classes)
         {
@@ -616,6 +656,86 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
         result.AppendLine("}");
 
         return result.ToString();
+    }
+
+    /// <summary>
+    /// 为根节点是数组的情况生成C#类
+    /// </summary>
+    private void GenerateRootArrayClass(JsonNodeViewModel arrayNode, string className,
+        Dictionary<string, StringBuilder> classes, HashSet<string> classNames)
+    {
+        var uniqueClassName = GetUniqueClassName(className, classNames);
+        classNames.Add(uniqueClassName);
+
+        var classBuilder = new StringBuilder();
+        classBuilder.AppendLine($"    public class {uniqueClassName}");
+        classBuilder.AppendLine("    {");
+
+        if (arrayNode.Children.Count > 0)
+        {
+            var firstElement = arrayNode.Children[0];
+            string elementType;
+            string propertyName = "Items";
+
+            if (firstElement.Type == "Object")
+            {
+                // 数组元素是对象，生成元素类
+                var elementClassName = uniqueClassName + "Item";
+                GenerateClassFromNode(firstElement, elementClassName, classes, classNames);
+                elementType = elementClassName;
+            }
+            else
+            {
+                // 数组元素是基本类型
+                elementType = GetCSharpType(firstElement);
+            }
+
+            classBuilder.AppendLine($"        /// <summary>");
+            classBuilder.AppendLine($"        /// 数组项列表");
+            classBuilder.AppendLine($"        /// </summary>");
+            classBuilder.AppendLine($"        [JsonProperty(\"items\")]");
+            classBuilder.AppendLine($"        public List<{elementType}> {propertyName} {{ get; set; }} = new List<{elementType}>();");
+        }
+        else
+        {
+            // 空数组
+            classBuilder.AppendLine($"        [JsonProperty(\"items\")]");
+            classBuilder.AppendLine($"        public List<object> Items {{ get; set; }} = new List<object>();");
+        }
+
+        classBuilder.AppendLine("    }");
+        classes[uniqueClassName] = classBuilder;
+    }
+
+    /// <summary>
+    /// 为根节点是基本类型的情况生成C#类
+    /// </summary>
+    private void GenerateSimpleRootClass(JsonNodeViewModel node, string className,
+        Dictionary<string, StringBuilder> classes)
+    {
+        var classBuilder = new StringBuilder();
+        classBuilder.AppendLine($"    public class {className}");
+        classBuilder.AppendLine("    {");
+
+        var csharpType = GetCSharpType(node);
+        var defaultValue = GetDefaultValue(node);
+
+        classBuilder.AppendLine($"        /// <summary>");
+        classBuilder.AppendLine($"        /// 示例值: {node.Value}");
+        classBuilder.AppendLine($"        /// </summary>");
+        classBuilder.AppendLine($"        [JsonProperty(\"value\")]");
+
+        if (!string.IsNullOrEmpty(defaultValue))
+        {
+            classBuilder.AppendLine($"        public {csharpType} Value {{ get; set; }} = {defaultValue};");
+        }
+        else
+        {
+            classBuilder.AppendLine($"        public {csharpType} Value {{ get; set; }}");
+        }
+
+        classBuilder.AppendLine("    }");
+        classes[className] = classBuilder;
     }
 
     private void GenerateClassFromNode(JsonNodeViewModel node, string className,
