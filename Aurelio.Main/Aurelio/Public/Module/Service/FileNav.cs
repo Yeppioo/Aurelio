@@ -4,6 +4,8 @@ using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Views.Main;
 using Aurelio.Views.Main.Pages;
 using Avalonia.Media.Imaging;
+using ImageViewer = Aurelio.Views.Main.Pages.Viewers.ImageViewer;
+using LogViewer = Aurelio.Views.Main.Pages.Viewers.LogViewer;
 
 namespace Aurelio.Public.Module.Service;
 

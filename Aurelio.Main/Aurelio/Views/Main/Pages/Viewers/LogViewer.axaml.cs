@@ -12,7 +12,7 @@ using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 
-namespace Aurelio.Views.Main.Pages;
+namespace Aurelio.Views.Main.Pages.Viewers;
 
 public partial class LogViewer : PageMixModelBase, IAurelioTabPage
 {

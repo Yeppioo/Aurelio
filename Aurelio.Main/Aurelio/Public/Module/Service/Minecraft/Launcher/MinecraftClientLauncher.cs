@@ -19,7 +19,7 @@ using MinecraftLaunch.Components.Parser;
 using MinecraftLaunch.Extensions;
 using MinecraftLaunch.Launch;
 using Newtonsoft.Json;
-using LogViewer = Aurelio.Views.Main.Pages.LogViewer;
+using LogViewer = Aurelio.Views.Main.Pages.Viewers.LogViewer;
 
 namespace Aurelio.Public.Module.Service.Minecraft.Launcher;
 

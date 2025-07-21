@@ -15,7 +15,7 @@ using Avalonia.Platform.Storage;
 using FluentAvalonia.UI.Controls;
 using Microsoft.VisualBasic.FileIO;
 
-namespace Aurelio.Views.Main.Pages;
+namespace Aurelio.Views.Main.Pages.Viewers;
 
 public partial class ImageViewer : PageMixModelBase, IAurelioTabPage
 {
