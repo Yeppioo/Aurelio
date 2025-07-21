@@ -3,6 +3,7 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Views.Main;
 using Aurelio.Views.Main.Pages;
+using Aurelio.Views.Main.Pages.Viewers;
 using Avalonia.Media.Imaging;
 using ImageViewer = Aurelio.Views.Main.Pages.Viewers.ImageViewer;
 using LogViewer = Aurelio.Views.Main.Pages.Viewers.LogViewer;
@@ -27,10 +28,11 @@ public class FileNav
                 return true;
             }
             case ".log":
-            {
                 OpenPage(new LogViewer(path, name), window);
                 return true;
-            }
+            case ".json":
+                OpenPage(new JsonViewer(path, name), window);
+                return true;
         }
 
         return false;
