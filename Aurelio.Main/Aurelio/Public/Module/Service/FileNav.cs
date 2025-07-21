@@ -33,6 +33,13 @@ public class FileNav
             case ".json":
                 OpenPage(new JsonViewer(path, name), window);
                 return true;
+            case ".zip":
+            case ".7z":
+            case ".rar":
+            case ".tar":
+            case ".gz":
+                OpenPage(new ZipViewer(name, path), window);
+                return true;
         }
 
         return false;

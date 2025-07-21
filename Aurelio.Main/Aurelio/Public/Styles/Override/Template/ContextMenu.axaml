@@ -1,0 +1,47 @@
+<ResourceDictionary
+    x:CompileBindings="True"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:semi="https://irihi.tech/semi"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="ContextMenu" x:Key="{x:Type ContextMenu}">
+        <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MenuFlyoutBorderBrush}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource MenuFlyoutBorderThickness}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource MenuFlyoutCornerRadius}" />
+        <Setter Property="MaxWidth" Value="{DynamicResource MenuFlyoutMaxWidth}" />
+        <Setter Property="MinHeight" Value="{DynamicResource MenuFlyoutMinHeight}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="FontSize" Value="{DynamicResource MenuFlyoutFontSize}" />
+        <Setter Property="FontWeight" Value="{DynamicResource MenuFlyoutFontWeight}" />
+        <Setter Property="WindowManagerAddShadowHint" Value="False" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="ContextMenu">
+                <Border
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    BoxShadow="{DynamicResource MenuFlyoutBorderBoxShadow}"
+                    ClipToBounds="True"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                    Margin="4"
+                    MaxWidth="{TemplateBinding MaxWidth}"
+                    MinHeight="{TemplateBinding MinHeight}"
+                    Padding="{TemplateBinding Padding}">
+                    <ScrollViewer CornerRadius="{TemplateBinding CornerRadius}" Theme="{DynamicResource MenuScrollViewer}">
+                        <ItemsPresenter
+                            Grid.IsSharedSizeScope="True"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            KeyboardNavigation.TabNavigation="Continue"
+                            Name="PART_ItemsPresenter" />
+                    </ScrollViewer>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Styles>
+            <semi:SemiPopupAnimations />
+        </Styles>
+    </ControlTheme>
+</ResourceDictionary>

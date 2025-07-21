@@ -14,7 +14,20 @@ public static class Picker
     {
         var StorageProvider = TopLevel.GetTopLevel(sender).StorageProvider;
         if (Data.SettingEntry.UseFilePicker)
-            return (await StorageProvider.OpenFolderPickerAsync(options)).Select(x => x.Path.LocalPath).ToList();
+        {
+            var res = await StorageProvider.OpenFolderPickerAsync(options);
+            return res.Select(x  =>
+            {
+                try
+                {
+                    return x.Path.LocalPath;
+                }
+                catch
+                {
+                    return x.Name;
+                }
+            }).ToList();
+        }
         var text = new TextBox { Watermark = MainLang.InputFolderPath, Text = string.Empty };
         return await ShowDialogAsync(options.Title ?? "Aurelio", null, text, MainLang.Ok, MainLang.Cancel,
                 sender: sender) ==

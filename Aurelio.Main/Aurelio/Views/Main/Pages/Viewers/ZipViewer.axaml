@@ -1,0 +1,225 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Views.Main.Pages.Viewers.ZipViewer"
+    x:DataType="viewers:ZipViewer"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:semi="https://irihi.tech/semi"
+    xmlns:viewers="clr-namespace:Aurelio.Views.Main.Pages.Viewers"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Border Name="Root">
+        <DockPanel Margin="15,5,15,15">
+            <!--  Top Action Toolbar  -->
+            <Border
+                Background="{DynamicResource CardBackgroundColor}"
+                CornerRadius="{DynamicResource CardCornerRadius}"
+                DockPanel.Dock="Top"
+                Height="45"
+                Margin="0,0,0,10"
+                VerticalAlignment="Top">
+                <DockPanel Margin="10,0">
+                    <!--  Action Buttons  -->
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Spacing="10"
+                            VerticalAlignment="Center">
+                            <!--  Extract Operations  -->
+                            <Button
+                                Classes="Primary"
+                                Click="ExtractToFolder"
+                                Content="解压到文件夹" />
+                            <Button Click="ExtractToCurrent" Content="解压到当前位置" />
+
+                            <!--  Separator  -->
+                            <Separator
+                                Background="{DynamicResource SemiColorBorder}"
+                                Height="20"
+                                Margin="5,0"
+                                Width="1" />
+
+                            <!--  Archive Modification  -->
+                            <Button Click="AddFiles" Content="添加文件" />
+                            <Button Click="DeleteSelected" Content="删除" />
+
+                            <!--  Separator  -->
+                            <Separator
+                                Background="{DynamicResource SemiColorBorder}"
+                                Height="20"
+                                Margin="5,0"
+                                Width="1" />
+
+                            <!--  Save and Navigation  -->
+                            <Button Click="SaveArchive" Content="保存" />
+                            <Button Click="NavigateUp" Content="上级" />
+                            <Button Click="RefreshArchive" Content="刷新" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+
+            <!--  Main Content Area - Split View  -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="200" Width="250" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Left Panel: Archive Tree Structure  -->
+                <Border
+                    Background="{DynamicResource CardBackgroundColor}"
+                    CornerRadius="{DynamicResource CardCornerRadius}"
+                    Grid.Column="0"
+                    Margin="0,0,5,0">
+                    <DockPanel Margin="10">
+                        <TextBlock
+                            DockPanel.Dock="Top"
+                            FontWeight="Bold"
+                            Margin="0,0,0,10"
+                            Text="压缩包结构" />
+                        <ScrollViewer>
+                            <TreeView
+                                ItemsSource="{Binding TreeNodes}"
+                                Name="ArchiveTreeView"
+                                SelectedItem="{Binding SelectedTreeNode}">
+                                <TreeView.ItemTemplate>
+                                    <TreeDataTemplate DataType="viewers:ArchiveTreeNode" ItemsSource="{Binding Children}">
+                                        <StackPanel Orientation="Horizontal" Spacing="5">
+                                            <PathIcon
+                                                Data="M64 480H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H288c-10.1 0-19.6-4.7-25.6-12.8L243.2 57.6C231.1 41.5 212.1 32 192 32H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64z"
+                                                IsVisible="{Binding IsDirectory}"
+                                                Width="15" />
+                                            <TextBlock Text="{Binding Name}" />
+                                        </StackPanel>
+                                    </TreeDataTemplate>
+                                </TreeView.ItemTemplate>
+                            </TreeView>
+                        </ScrollViewer>
+                    </DockPanel>
+                </Border>
+
+                <!--  Splitter  -->
+                <GridSplitter Grid.Column="1" ShowsPreview="True" />
+
+                <!--  Right Panel: File Manager View  -->
+                <Border
+                    Background="{DynamicResource CardBackgroundColor}"
+                    CornerRadius="{DynamicResource CardCornerRadius}"
+                    Grid.Column="2"
+                    Margin="5,0,0,0">
+                    <DockPanel Margin="10">
+                        <!--  Current Path Display  -->
+                        <DockPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+                            <TextBlock Foreground="{DynamicResource SystemAccentColor}" Text="{Binding CurrentPath}" />
+                        </DockPanel>
+
+                        <!--  File List with Drag & Drop Support  -->
+                        <Border DragDrop.AllowDrop="True" Name="DropBorder">
+                            <DataGrid
+                                CanUserReorderColumns="True"
+                                CanUserResizeColumns="True"
+                                CanUserSortColumns="True"
+                                DoubleTapped="FileListGrid_DoubleTapped"
+                                GridLinesVisibility="Horizontal"
+                                HeadersVisibility="Column"
+                                IsReadOnly="True"
+                                ItemsSource="{Binding CurrentDirectoryFiles}"
+                                Name="FileListGrid"
+                                SelectedItem="{Binding SelectedFile}"
+                                SelectionMode="Extended">
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <ContextMenu.Styles>
+                                            <semi:SemiPopupAnimations />
+                                        </ContextMenu.Styles>
+                                        <MenuItem
+                                            Click="ExtractSelected"
+                                            Header="解压"
+                                            IsEnabled="{Binding HasSelectedItems}">
+                                            <MenuItem.Icon>
+                                                <PathIcon Data="M384 32c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 96C0 60.7 28.7 32 64 32l320 0zM160 144c-13.3 0-24 10.7-24 24s10.7 24 24 24l94.1 0L119 327c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l135-135L288 328c0 13.3 10.7 24 24 24s24-10.7 24-24l0-160c0-13.3-10.7-24-24-24l-152 0z" Width="16" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem
+                                            Click="RenameSelected"
+                                            Header="重命名"
+                                            IsEnabled="{Binding HasSingleSelection}">
+                                            <MenuItem.Icon>
+                                                <PathIcon
+                                                    Data="F1 M 20.373764 7.092247 L 19.895096 7.570953 L 15.015411 12.493286 C 14.665833 12.845078 14.180984 13.046875 13.68515 13.046875 L 1.875 13.046875 C 1.529846 13.046875 1.25 12.767029 1.25 12.421875 C 1.25 12.076645 1.529846 11.796875 1.875 11.796875 L 10 11.796875 L 10 9.361725 C 10 8.866119 10.201721 8.38131 10.554657 8.030396 L 11.799011 6.796875 L 0.625 6.796875 C -0.406265 6.796875 -1.25 7.64061 -1.25 8.671875 L -1.25 19.921875 C -1.25 20.95314 -0.406265 21.796875 0.625 21.796875 L 19.375 21.796875 C 20.406265 21.796875 21.25 20.95314 21.25 19.921875 L 21.25 8.671875 C 21.25 8.008041 20.897903 7.42569 20.373764 7.092247 Z M 18.125 16.796875 L 1.875 16.796875 C 1.529846 16.796875 1.25 16.517029 1.25 16.171875 C 1.25 15.826645 1.529846 15.546875 1.875 15.546875 L 18.125 15.546875 C 18.47023 15.546875 18.75 15.826645 18.75 16.171875 C 18.75 16.517029 18.47023 16.796875 18.125 16.796875 Z M 20.957031 4.741211 C 21.347656 4.350586 21.347656 3.720703 20.957031 3.334961 L 19.711914 2.089844 C 19.519081 1.894531 19.265175 1.796875 19.01062 1.796875 C 18.756104 1.796875 18.500977 1.894531 18.305664 2.089844 L 17.241211 3.154297 L 19.892578 5.805664 Z M 11.25 9.361725 L 11.25 11.796875 L 13.68515 11.796875 C 13.8517 11.796875 14.011307 11.730347 14.128647 11.612244 L 19.008789 6.689453 L 16.357422 4.038086 L 11.434631 8.918152 C 11.316452 9.035606 11.25 9.195251 11.25 9.361725 Z "
+                                                    Margin="2,0,0,0"
+                                                    Width="18" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <Separator />
+                                        <MenuItem
+                                            Click="DeleteSelected"
+                                            Header="从压缩包中删除"
+                                            IsEnabled="{Binding HasSelectedItems}">
+                                            <MenuItem.Icon>
+                                                <PathIcon Data="M163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3C140.6 6.8 151.7 0 163.8 0zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm192 64c-6.4 0-12.5 2.5-17 7l-80 80c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39L200 408c0 13.3 10.7 24 24 24s24-10.7 24-24l0-134.1 39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-4.5-4.5-10.6-7-17-7z" Width="16" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <Separator />
+                                        <MenuItem
+                                            Click="ShowProperties"
+                                            Header="属性"
+                                            IsEnabled="{Binding HasSingleSelection}">
+                                            <MenuItem.Icon>
+                                                <PathIcon
+                                                    Data="M14 2.2C22.5-1.7 32.5-.3 39.6 5.8L80 40.4 120.4 5.8c9-7.7 22.3-7.7 31.2 0L192 40.4 232.4 5.8c9-7.7 22.3-7.7 31.2 0L304 40.4 344.4 5.8c7.1-6.1 17.1-7.5 25.6-3.6s14 12.4 14 21.8l0 464c0 9.4-5.5 17.9-14 21.8s-18.5 2.5-25.6-3.6L304 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L192 471.6l-40.4 34.6c-9 7.7-22.3 7.7-31.2 0L80 471.6 39.6 506.2c-7.1 6.1-17.1 7.5-25.6 3.6S0 497.4 0 488L0 24C0 14.6 5.5 6.1 14 2.2zM96 144c-8.8 0-16 7.2-16 16s7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 144zM80 352c0 8.8 7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 336c-8.8 0-16 7.2-16 16zM96 240c-8.8 0-16 7.2-16 16s7.2 16 16 16l192 0c8.8 0 16-7.2 16-16s-7.2-16-16-16L96 240z"
+                                                    Margin="1,-1,0,0"
+                                                    Width="14" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+
+                                <!--  Column Definitions  -->
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn
+                                        Header="名称"
+                                        MinWidth="150"
+                                        Width="*">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <Path
+                                                        Data="{Binding IconPath}"
+                                                        Fill="{DynamicResource TextColor}"
+                                                        Height="15"
+                                                        Margin="10,0,0,-1"
+                                                        Stretch="Uniform"
+                                                        VerticalAlignment="Center"
+                                                        Width="15" />
+                                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn
+                                        Binding="{Binding CompressedSizeFormatted}"
+                                        Header="压缩大小"
+                                        Width="120" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding SizeFormatted}"
+                                        Header="原始大小"
+                                        Width="120" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding Type}"
+                                        Header="类型"
+                                        Width="100" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
+                    </DockPanel>
+                </Border>
+            </Grid>
+        </DockPanel>
+    </Border>
+</UserControl>

@@ -72,6 +72,7 @@
         <PackageReference Include="ReactiveUI" Version="20.4.1"/>
         <PackageReference Include="ReactiveUI.Fody" Version="19.5.41"/>
         <PackageReference Include="Semi.Avalonia" Version="11.2.1.9"/>
+        <PackageReference Include="SharpCompress" Version="0.37.2"/>
         <PackageReference Include="SkiaSharp" Version="2.88.9"/>
         <!--        <PackageReference Include="Avalonia.Markup.Xaml.Loader" Version="11.3.2"/>-->
         <!--        <PackageReference Include="HotAvalonia" Version="3.0.0"/>-->

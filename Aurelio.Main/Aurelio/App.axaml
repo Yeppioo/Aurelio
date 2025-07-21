@@ -32,6 +32,7 @@
                 <ResourceInclude Source="/Public/Styles/Override/Template/Toast.axaml" />
                 <ResourceInclude Source="/Public/Styles/Override/Template/MultiComboBox.axaml" />
                 <ResourceInclude Source="/Public/Styles/Override/Template/TagInput.axaml" />
+                <ResourceInclude Source="/Public/Styles/Override/Template/ContextMenu.axaml" />
             </ResourceDictionary.MergedDictionaries>
             <Color x:Key="SystemAccentColor">#1BD76A</Color>
             <Color x:Key="SystemAccentColorLight1">#1BD76A</Color>
