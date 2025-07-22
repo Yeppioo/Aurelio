@@ -78,6 +78,18 @@ public class Setter
         // {
         //     Logger.Error(e);
         // }
+
+        if (bg == Setting.BackGround.Default)
+        {
+            Application.Current.TryGetResource("TextColor",
+                Application.Current.ActualThemeVariant, out var c);
+            Application.Current.Resources["TabTextColor"] = c;
+        }
+        else
+        {
+            Application.Current.Resources["TabTextColor"] = Color.Parse("#ffffff");
+        }
+        
         try
         {
             var window = w.Window;

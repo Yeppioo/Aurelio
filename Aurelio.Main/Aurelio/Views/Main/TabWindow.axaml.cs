@@ -32,6 +32,8 @@ namespace Aurelio.Views.Main;
 public partial class TabWindow : UrsaWindow, IAurelioWindow
 {
     private DateTime _lastShiftPressTime;
+    private DateTime _shiftKeyDownTime;
+    private bool _isShiftKeyDown;
 
     public TabWindow()
     {
@@ -204,21 +206,45 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
         KeyDown += (_, e) =>
         {
             if (e.Key is not (Key.LeftShift or Key.RightShift)) return;
-            if ((DateTime.Now - _lastShiftPressTime).TotalMilliseconds < 300)
-            {
-                var options = new DialogOptions()
-                {
-                    ShowInTaskBar = false,
-                    IsCloseButtonVisible = false,
-                    StartupLocation = WindowStartupLocation.Manual,
-                    CanDragMove = true,
-                    StyleClass = "aggregate-search"
-                };
-                Dialog.ShowCustom<AggregateSearchDialog, AggregateSearchDialog>(new AggregateSearchDialog(),
-                    this.GetVisualRoot() as Window, options: options);
-            }
 
-            _lastShiftPressTime = DateTime.Now;
+            // Record when shift key is pressed down
+            if (!_isShiftKeyDown)
+            {
+                _shiftKeyDownTime = DateTime.Now;
+                _isShiftKeyDown = true;
+            }
+        };
+
+        KeyUp += (_, e) =>
+        {
+            if (e.Key is not (Key.LeftShift or Key.RightShift)) return;
+            if (!_isShiftKeyDown) return;
+
+            _isShiftKeyDown = false;
+            var keyHoldDuration = (DateTime.Now - _shiftKeyDownTime).TotalMilliseconds;
+
+            // Only consider it a valid tap if the key was held for less than 200ms (quick tap)
+            if (keyHoldDuration < 200)
+            {
+                var timeSinceLastTap = (DateTime.Now - _lastShiftPressTime).TotalMilliseconds;
+
+                // Check if this is a double tap within 300ms
+                if (timeSinceLastTap < 300)
+                {
+                    var options = new DialogOptions()
+                    {
+                        ShowInTaskBar = false,
+                        IsCloseButtonVisible = false,
+                        StartupLocation = WindowStartupLocation.Manual,
+                        CanDragMove = true,
+                        StyleClass = "aggregate-search"
+                    };
+                    Dialog.ShowCustom<AggregateSearchDialog, AggregateSearchDialog>(new AggregateSearchDialog(),
+                        this.GetVisualRoot() as Window, options: options);
+                }
+
+                _lastShiftPressTime = DateTime.Now;
+            }
         };
         AddHandler(DragDrop.DropEvent, DropHandler);
     }

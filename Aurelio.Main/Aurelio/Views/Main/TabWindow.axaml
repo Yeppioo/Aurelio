@@ -148,6 +148,7 @@
                                                         <DockPanel Margin="8,-1,10,0" VerticalAlignment="Center">
                                                             <PathIcon
                                                                 Data="{Binding Icon}"
+                                                                Foreground="{DynamicResource TabTextColor}"
                                                                 Height="15"
                                                                 IsVisible="{Binding IconIsVisible}"
                                                                 Margin="0,0,4,0"
@@ -158,7 +159,7 @@
                                                                 IsVisible="{Binding CanClose}"
                                                                 Margin="0,0,-4,0">
                                                                 <Button
-                                                                    Classes="icon-button"
+                                                                    Classes="icon-button tab"
                                                                     Command="{Binding CloseInWindow}"
                                                                     CommandParameter="{Binding $parent[Window]}"
                                                                     Content="{DynamicResource Close}"
@@ -182,7 +183,7 @@
                                             </u:SelectionList.ItemTemplate>
                                         </u:SelectionList>
                                         <Button
-                                            Classes="custom-hover-button"
+                                            Classes="custom-hover-button tab"
                                             Content="{DynamicResource Plus}"
                                             Margin="4,0,0,0"
                                             Name="NewTabButton" />
@@ -219,7 +220,7 @@
                             <TextBlock
                                 FontFamily="{DynamicResource MiSans}"
                                 FontSize="13"
-                                Text="relio"
+                                Foreground="{DynamicResource TabTextColor}"
                                 VerticalAlignment="Center"
                                 x:Name="TitleText" />
                         </DockPanel>

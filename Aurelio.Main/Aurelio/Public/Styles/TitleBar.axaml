@@ -23,7 +23,7 @@
                     Width="24">
                     <Path
                         Data="{TemplateBinding Content}"
-                        Fill="{DynamicResource TextColor}"
+                        Fill="{DynamicResource TabTextColor}"
                         Height="10"
                         HorizontalAlignment="Center"
                         Margin="{TemplateBinding Padding}"
@@ -131,7 +131,7 @@
                     Width="24">
                     <Path
                         Data="{TemplateBinding Content}"
-                        Fill="{DynamicResource TextColor}"
+                        Fill="{DynamicResource TabTextColor}"
                         Height="14"
                         HorizontalAlignment="Center"
                         Margin="{TemplateBinding Padding}"
@@ -196,5 +196,8 @@
                 </Border>
             </ControlTemplate>
         </Setter>
+    </Style>
+    <Style Selector="Button.tab /template/ Path">
+        <Setter Property="Fill" Value="{DynamicResource TabTextColor}" />
     </Style>
 </Styles>

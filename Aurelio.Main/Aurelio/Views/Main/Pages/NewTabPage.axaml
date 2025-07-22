@@ -24,12 +24,13 @@
                 Name="PoemRoot"
                 Padding="7,5"
                 PointerPressed="InputElement_OnPointerPressed">
-                <TextBlock Text="{Binding Poem}" />
+                <TextBlock Foreground="{DynamicResource TabTextColor}" Text="{Binding Poem}" />
             </Border>
             <DockPanel Margin="0,100,0,0">
                 <TextBlock
                     DockPanel.Dock="Top"
                     FontSize="86"
+                    Foreground="{DynamicResource TabTextColor}"
                     HorizontalAlignment="Center"
                     Text="{Binding CurrentTime, StringFormat='HH:mm:ss'}" />
                 <StackPanel
@@ -40,24 +41,29 @@
                     Spacing="10">
                     <TextBlock
                         FontSize="16"
+                        Foreground="{DynamicResource TabTextColor}"
                         HorizontalAlignment="Center"
                         Text="{Binding CurrentTime, StringFormat='yyyy-MM-dd'}" />
                     <TextBlock
                         FontSize="16"
+                        Foreground="{DynamicResource TabTextColor}"
                         HorizontalAlignment="Center"
                         Text="{Binding CurrentWeekDay}" />
                     <TextBlock
                         FontSize="16"
+                        Foreground="{DynamicResource TabTextColor}"
                         HorizontalAlignment="Center"
                         Text="{Binding CurrentLunarYear}" />
                     <TextBlock
                         FontSize="16"
+                        Foreground="{DynamicResource TabTextColor}"
                         HorizontalAlignment="Center"
                         Text="{Binding CurrentLunarMonthDay}" />
                 </StackPanel>
                 <TextBox
                     CornerRadius="15"
                     DockPanel.Dock="Top"
+                    Foreground="{DynamicResource TabTextColor}"
                     Margin="0,25,0,0"
                     MaxWidth="600"
                     Name="SearchBox"
@@ -67,12 +73,17 @@
                         <PathIcon
                             Cursor="Hand"
                             Data="{Binding SearchIconData}"
-                            Foreground="{DynamicResource TextColor}"
+                            Foreground="{DynamicResource TabTextColor}"
                             Height="14"
                             Margin="0,0,3,0"
                             Name="SearchIcon"
                             Width="14" />
                     </TextBox.InnerRightContent>
+                    <TextBox.Styles>
+                        <Style Selector="TextBox#SearchBox:empty /template/ TextBlock#PART_Watermark">
+                            <Setter Property="Foreground" Value="{DynamicResource TabTextColor}" />
+                        </Style>
+                    </TextBox.Styles>
                 </TextBox>
                 <Border
                     Background="{DynamicResource TextBoxBackground}"
@@ -94,10 +105,13 @@
                                     Margin="0,5"
                                     Orientation="Horizontal"
                                     Spacing="10">
-                                    <PathIcon Data="{Binding Icon}" />
+                                    <PathIcon Data="{Binding Icon}" Foreground="{DynamicResource TabTextColor}" />
                                     <StackPanel>
-                                        <TextBlock Text="{Binding Title}" />
-                                        <TextBlock FontSize="12" Text="{Binding Summary}" />
+                                        <TextBlock Foreground="{DynamicResource TabTextColor}" Text="{Binding Title}" />
+                                        <TextBlock
+                                            FontSize="12"
+                                            Foreground="{DynamicResource TabTextColor}"
+                                            Text="{Binding Summary}" />
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>

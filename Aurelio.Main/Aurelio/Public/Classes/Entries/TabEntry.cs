@@ -80,6 +80,7 @@ public partial class TabEntry : ViewModelBase
         {
             DataContext = this
         };
+        textBlock.Classes.Add("tab");
         textBlock.Bind(TextBlock.TextProperty, new Binding(nameof(Title)));
         return textBlock;
     }

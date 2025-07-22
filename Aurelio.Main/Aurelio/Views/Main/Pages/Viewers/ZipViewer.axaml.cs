@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO.Http;
 using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Ui.Helper;
@@ -21,6 +22,7 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
 using SharpCompress.Archives;
 using SharpCompress.Common;
@@ -59,17 +61,20 @@ public class ArchiveEntryViewModel : INotifyPropertyChanged
         // 返回上级目录
         if (isParentDirectory)
         {
-            return "F1 M 16.25 18.046875 L 3.75 18.046875 C 3.059654 18.046875 2.5 18.606529 2.5 19.296875 L 2.5 19.296875 C 2.5 19.987221 3.059654 20.546875 3.75 20.546875 L 16.25 20.546875 C 16.940346 20.546875 17.5 19.987221 17.5 19.296875 L 17.5 19.296875 C 17.5 18.606529 16.940346 18.046875 16.25 18.046875 Z M 4.6875 10.539742 L 7.5 10.539742 L 7.5 15.543289 C 7.5 16.234169 8.059692 16.794167 8.75 16.794167 L 11.25 16.794167 C 11.940384 16.794167 12.5 16.234169 12.5 15.543289 L 12.5 10.539742 L 15.3125 10.539742 C 15.686646 10.539742 16.025391 10.316811 16.173706 9.972878 C 16.321411 9.629021 16.251221 9.229584 15.994263 8.957138 L 10.681763 3.328133 C 10.327759 2.95311 9.672241 2.95311 9.318237 3.328133 L 4.005737 8.957138 C 3.748779 9.229584 3.678589 9.629021 3.826294 9.972878 C 3.974609 10.316811 4.313354 10.539742 4.6875 10.539742 Z"; // 占位符：返回上级目录图标
+            return
+                "F1 M 16.25 18.046875 L 3.75 18.046875 C 3.059654 18.046875 2.5 18.606529 2.5 19.296875 L 2.5 19.296875 C 2.5 19.987221 3.059654 20.546875 3.75 20.546875 L 16.25 20.546875 C 16.940346 20.546875 17.5 19.987221 17.5 19.296875 L 17.5 19.296875 C 17.5 18.606529 16.940346 18.046875 16.25 18.046875 Z M 4.6875 10.539742 L 7.5 10.539742 L 7.5 15.543289 C 7.5 16.234169 8.059692 16.794167 8.75 16.794167 L 11.25 16.794167 C 11.940384 16.794167 12.5 16.234169 12.5 15.543289 L 12.5 10.539742 L 15.3125 10.539742 C 15.686646 10.539742 16.025391 10.316811 16.173706 9.972878 C 16.321411 9.629021 16.251221 9.229584 15.994263 8.957138 L 10.681763 3.328133 C 10.327759 2.95311 9.672241 2.95311 9.318237 3.328133 L 4.005737 8.957138 C 3.748779 9.229584 3.678589 9.629021 3.826294 9.972878 C 3.974609 10.316811 4.313354 10.539742 4.6875 10.539742 Z"; // 占位符：返回上级目录图标
         }
 
         // 文件夹
         if (isDirectory)
         {
-            return "M64 480H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H288c-10.1 0-19.6-4.7-25.6-12.8L243.2 57.6C231.1 41.5 212.1 32 192 32H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64z"; // 占位符：文件夹图标
+            return
+                "M64 480H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H288c-10.1 0-19.6-4.7-25.6-12.8L243.2 57.6C231.1 41.5 212.1 32 192 32H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64z"; // 占位符：文件夹图标
         }
 
         // 文件
-        return "M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-128 0c-17.7 0-32-14.3-32-32L224 0 64 0zM256 0l0 128 128 0L256 0zM112 256l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16z"; // 占位符：文件图标
+        return
+            "M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-128 0c-17.7 0-32-14.3-32-32L224 0 64 0zM256 0l0 128 128 0L256 0zM112 256l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16z"; // 占位符：文件图标
     }
 }
 
@@ -187,8 +192,11 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
         FileListGrid.SelectionChanged += OnFileListSelectionChanged;
 
         // Setup drag & drop handlers
-        DropBorder.AddHandler(DragDrop.DragOverEvent, OnDragOver);
-        DropBorder.AddHandler(DragDrop.DropEvent, OnDrop);
+        AddHandler(DragDrop.DropEvent, OnDrop);
+    }
+
+    public ZipViewer()
+    {
     }
 
     public Control RootElement { get; set; }
@@ -304,7 +312,8 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
 
         // Add implicit directories for files in subdirectories
         var directories = new HashSet<string>();
-        var filesToProcess = _allEntries.Where(e => !e.IsDirectory).ToList(); // Create a copy to avoid modification during enumeration
+        var filesToProcess =
+            _allEntries.Where(e => !e.IsDirectory).ToList(); // Create a copy to avoid modification during enumeration
 
         foreach (var entry in filesToProcess)
         {
@@ -327,6 +336,7 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
                         IconPath = ArchiveEntryViewModel.GetIconPath(dirName, true)
                     });
                 }
+
                 dir = Path.GetDirectoryName(dir)?.Replace('\\', '/');
             }
         }
@@ -366,7 +376,8 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
         // Add implicit directories for files in subdirectories (if not already present)
         var existingDirs = new HashSet<string>(_allEntries.Where(e => e.IsDirectory).Select(e => e.FullPath));
         var directories = new HashSet<string>();
-        var filesToProcess = _allEntries.Where(e => !e.IsDirectory).ToList(); // Create a copy to avoid modification during enumeration
+        var filesToProcess =
+            _allEntries.Where(e => !e.IsDirectory).ToList(); // Create a copy to avoid modification during enumeration
 
         foreach (var entry in filesToProcess)
         {
@@ -389,6 +400,7 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
                         IconPath = ArchiveEntryViewModel.GetIconPath(dirName, true)
                     });
                 }
+
                 dir = Path.GetDirectoryName(dir)?.Replace('\\', '/');
             }
         }
@@ -667,7 +679,7 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
             var result = await ShowDialogAsync(
                 "删除项目",
                 $"确定要从压缩包中删除以下项目吗？\n\n{itemNames}",
-                b_primary:"删除", b_cancel:"取消");
+                b_primary: "删除", b_cancel: "取消");
 
             if (result == ContentDialogResult.Primary)
             {
@@ -806,7 +818,7 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
                          $"压缩后: {selectedItem.CompressedSizeFormatted}\n" +
                          $"修改时间: {selectedItem.LastModifiedFormatted}";
 
-        await ShowDialogAsync("属性", properties, b_primary:"确定");
+        await ShowDialogAsync("属性", properties, b_primary: "确定");
     }
 
     // Drag & Drop Handlers
@@ -818,6 +830,7 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
 
     public async void OnDrop(object? sender, DragEventArgs e)
     {
+        e.Handled = true;
         try
         {
             if (e.Data.Contains(DataFormats.Files))
@@ -897,6 +910,7 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
             if (childResult != null)
                 return childResult;
         }
+
         return null;
     }
 
@@ -997,7 +1011,8 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
                             try
                             {
                                 var relativePath = entry.FullName.Substring(dirPath.Length + 1);
-                                var destinationPath = Path.GetFullPath(Path.Combine(extractPath, item.Name, relativePath));
+                                var destinationPath =
+                                    Path.GetFullPath(Path.Combine(extractPath, item.Name, relativePath));
 
                                 // Handle directory creation safely for root drives
                                 var directoryPath = Path.GetDirectoryName(destinationPath);
@@ -1068,7 +1083,8 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
                             try
                             {
                                 var relativePath = entry.Key.Substring(dirPath.Length + 1);
-                                var destinationPath = Path.GetFullPath(Path.Combine(extractPath, item.Name, relativePath));
+                                var destinationPath =
+                                    Path.GetFullPath(Path.Combine(extractPath, item.Name, relativePath));
 
                                 // Handle directory creation safely for root drives
                                 var directoryPath = Path.GetDirectoryName(destinationPath);
@@ -1124,73 +1140,83 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
     {
         await Task.Run(() =>
         {
-            var archiveType = DetectArchiveType(_archivePath);
-
-            if (archiveType == ArchiveType.Zip)
+            try
             {
-                using var archive = ZipFile.Open(_archivePath, ZipArchiveMode.Update);
-                foreach (var filePath in filePaths)
+                var archiveType = DetectArchiveType(_archivePath);
+
+                if (archiveType == ArchiveType.Zip)
                 {
-                    if (File.Exists(filePath))
+                    using var archive = ZipFile.Open(_archivePath, ZipArchiveMode.Update);
+                    foreach (var filePath in filePaths)
                     {
-                        var entryName = Path.Combine(_currentDirectory.TrimStart('/'), Path.GetFileName(filePath))
-                            .Replace('\\', '/');
+                        if (File.Exists(filePath))
+                        {
+                            var entryName = Path.Combine(_currentDirectory.TrimStart('/'), Path.GetFileName(filePath))
+                                .Replace('\\', '/');
 
-                        // Remove existing entry if it exists
-                        var existingEntry = archive.GetEntry(entryName);
-                        existingEntry?.Delete();
+                            // Remove existing entry if it exists
+                            var existingEntry = archive.GetEntry(entryName);
+                            existingEntry?.Delete();
 
-                        archive.CreateEntryFromFile(filePath, entryName);
+                            archive.CreateEntryFromFile(filePath, entryName);
+                        }
                     }
                 }
-            }
-            else
-            {
-                // For non-ZIP formats, we need to recreate the archive
-                // This is a limitation of SharpCompress for some formats
-                Notice("Adding files to this archive format requires recreation. This may take a moment.",
-                    NotificationType.Information);
-
-                var tempPath = Path.GetTempFileName();
-                try
+                else
                 {
-                    using (var newArchive = ArchiveFactory.Create(SharpCompress.Common.ArchiveType.Zip))
-                    {
-                        // Add existing entries
-                        using var oldArchive = ArchiveFactory.Open(_archivePath);
-                        foreach (var entry in oldArchive.Entries.Where(e => !e.IsDirectory))
-                        {
-                            using var stream = entry.OpenEntryStream();
-                            newArchive.AddEntry(entry.Key ?? "", stream, true);
-                        }
+                    // For non-ZIP formats, we need to recreate the archive
+                    // This is a limitation of SharpCompress for some formats
+                    Notice("Adding files to this archive format requires recreation. This may take a moment.",
+                        NotificationType.Information);
 
-                        // Add new files
-                        foreach (var filePath in filePaths)
+                    var tempPath = Path.GetTempFileName();
+                    try
+                    {
+                        using (var newArchive = ArchiveFactory.Create(SharpCompress.Common.ArchiveType.Zip))
                         {
-                            if (File.Exists(filePath))
+                            // Add existing entries
+                            using var oldArchive = ArchiveFactory.Open(_archivePath);
+                            foreach (var entry in oldArchive.Entries.Where(e => !e.IsDirectory))
                             {
-                                var entryName = Path.Combine(_currentDirectory.TrimStart('/'),
-                                        Path.GetFileName(filePath))
-                                    .Replace('\\', '/');
-                                newArchive.AddEntry(entryName, filePath);
+                                using var stream = entry.OpenEntryStream();
+                                newArchive.AddEntry(entry.Key ?? "", stream, true);
                             }
+
+                            // Add new files
+                            foreach (var filePath in filePaths)
+                            {
+                                if (File.Exists(filePath))
+                                {
+                                    var entryName = Path.Combine(_currentDirectory.TrimStart('/'),
+                                            Path.GetFileName(filePath))
+                                        .Replace('\\', '/');
+                                    newArchive.AddEntry(entryName, filePath);
+                                }
+                            }
+
+                            newArchive.SaveTo(tempPath, CompressionType.Deflate);
                         }
 
-                        newArchive.SaveTo(tempPath, CompressionType.Deflate);
+                        File.Copy(tempPath, _archivePath, true);
                     }
+                    finally
+                    {
+                        if (File.Exists(tempPath))
+                            File.Delete(tempPath);
+                    }
+                }
 
-                    File.Copy(tempPath, _archivePath, true);
-                }
-                finally
+                Dispatcher.UIThread.InvokeAsync(async () =>
                 {
-                    if (File.Exists(tempPath))
-                        File.Delete(tempPath);
-                }
+                    await LoadArchiveAsync();
+                    Notice($"已向压缩包添加 {filePaths.Count()} 个文件", NotificationType.Success);
+                });
+            }
+            catch (Exception ex)
+            {
+                Dispatcher.UIThread.InvokeAsync(() => { Notice($"添加文件失败: {ex.Message}", NotificationType.Error); });
             }
         });
-
-        await LoadArchiveAsync();
-        Notice($"已向压缩包添加 {filePaths.Count()} 个文件", NotificationType.Success);
     }
 
     private async Task DeleteItemsFromArchive(List<ArchiveEntryViewModel> items)
@@ -1232,41 +1258,41 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
                         throw new InvalidOperationException("文件被其他程序占用，无法直接修改。请关闭占用该文件的程序，或使用'保存'按钮手动保存更改。", ex);
                     }
                 }
-            else
-            {
-                // For non-ZIP formats, recreate the archive without the deleted items
-                var tempPath = Path.GetTempFileName();
-                var itemsToDelete = new HashSet<string>(items.Select(i => i.FullPath));
-
-                try
+                else
                 {
-                    using (var newArchive = ArchiveFactory.Create(SharpCompress.Common.ArchiveType.Zip))
-                    {
-                        using var oldArchive = ArchiveFactory.Open(_archivePath);
-                        foreach (var entry in oldArchive.Entries.Where(e => !e.IsDirectory))
-                        {
-                            var shouldDelete = itemsToDelete.Contains(entry.Key ?? "") ||
-                                               itemsToDelete.Any(path => entry.Key?.StartsWith(path + "/") == true);
+                    // For non-ZIP formats, recreate the archive without the deleted items
+                    var tempPath = Path.GetTempFileName();
+                    var itemsToDelete = new HashSet<string>(items.Select(i => i.FullPath));
 
-                            if (!shouldDelete)
+                    try
+                    {
+                        using (var newArchive = ArchiveFactory.Create(SharpCompress.Common.ArchiveType.Zip))
+                        {
+                            using var oldArchive = ArchiveFactory.Open(_archivePath);
+                            foreach (var entry in oldArchive.Entries.Where(e => !e.IsDirectory))
                             {
-                                using var stream = entry.OpenEntryStream();
-                                newArchive.AddEntry(entry.Key ?? "", stream, true);
+                                var shouldDelete = itemsToDelete.Contains(entry.Key ?? "") ||
+                                                   itemsToDelete.Any(path => entry.Key?.StartsWith(path + "/") == true);
+
+                                if (!shouldDelete)
+                                {
+                                    using var stream = entry.OpenEntryStream();
+                                    newArchive.AddEntry(entry.Key ?? "", stream, true);
+                                }
                             }
+
+                            newArchive.SaveTo(tempPath, CompressionType.Deflate);
                         }
 
-                        newArchive.SaveTo(tempPath, CompressionType.Deflate);
+                        File.Copy(tempPath, _archivePath, true);
                     }
-
-                    File.Copy(tempPath, _archivePath, true);
+                    finally
+                    {
+                        if (File.Exists(tempPath))
+                            File.Delete(tempPath);
+                    }
                 }
-                finally
-                {
-                    if (File.Exists(tempPath))
-                        File.Delete(tempPath);
-                }
-            }
-        });
+            });
 
             await LoadArchiveAsync();
             Notice($"已从压缩包中删除 {items.Count} 个项目", NotificationType.Success);
@@ -1419,6 +1445,4 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
         var result = await ShowDialogAsync(title, message, textBox, "确定", "取消");
         return result == ContentDialogResult.Primary ? textBox.Text : null;
     }
-
-
 }

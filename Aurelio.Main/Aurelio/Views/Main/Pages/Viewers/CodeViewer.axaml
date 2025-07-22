@@ -1,0 +1,117 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Views.Main.Pages.Viewers.CodeViewer"
+    x:DataType="viewers:CodeViewer"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:properties="clr-namespace:Aurelio.Public.Langs"
+    xmlns:viewers="clr-namespace:Aurelio.Views.Main.Pages.Viewers"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Name="Root">
+        <avaloniaEdit:TextEditor
+            HorizontalScrollBarVisibility="Auto"
+            Name="Editor"
+            ShowLineNumbers="True"
+            VerticalScrollBarVisibility="Auto"
+            WordWrap="{Binding IsWordWrapEnabled}">
+            <avaloniaEdit:TextEditor.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Command="{Binding SelectAll}"
+                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SelectAll}"
+                        InputGesture="Ctrl + A">
+                        <MenuItem.Icon>
+                            <PathIcon
+                                Data="M112 0C99.1 0 87.4 7.8 82.5 19.7l-66.7 160-13.3 32c-6.8 16.3 .9 35 17.2 41.8s35-.9 41.8-17.2L66.7 224l90.7 0 5.1 12.3c6.8 16.3 25.5 24 41.8 17.2s24-25.5 17.2-41.8l-13.3-32-66.7-160C136.6 7.8 124.9 0 112 0zm18.7 160l-37.3 0L112 115.2 130.7 160zM256 32l0 96 0 96c0 17.7 14.3 32 32 32l80 0c44.2 0 80-35.8 80-80c0-23.1-9.8-43.8-25.4-58.4c6-11.2 9.4-24 9.4-37.6c0-44.2-35.8-80-80-80L288 0c-17.7 0-32 14.3-32 32zm96 64l-32 0 0-32 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16zm-32 64l32 0 16 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-48 0 0-32zM566.6 310.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L352 434.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l192-192z"
+                                Margin="2,0,0,0"
+                                Width="18" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Command="{Binding Copy}"
+                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Copy}"
+                        InputGesture="Ctrl + C">
+                        <MenuItem.Icon>
+                            <PathIcon
+                                Data="M192 0c-41.8 0-77.4 26.7-90.5 64L64 64C28.7 64 0 92.7 0 128L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64l-37.5 0C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM112 192l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16z"
+                                Height="17"
+                                Margin="1,0,0,0" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Command="{Binding Paste}"
+                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Paste}"
+                        InputGesture="Ctrl + V">
+                        <MenuItem.Icon>
+                            <PathIcon
+                                Data="M160 0c-23.7 0-44.4 12.9-55.4 32L48 32C21.5 32 0 53.5 0 80L0 400c0 26.5 21.5 48 48 48l144 0 0-272c0-44.2 35.8-80 80-80l48 0 0-16c0-26.5-21.5-48-48-48l-56.6 0C204.4 12.9 183.7 0 160 0zM272 128c-26.5 0-48 21.5-48 48l0 272 0 16c0 26.5 21.5 48 48 48l192 0c26.5 0 48-21.5 48-48l0-220.1c0-12.7-5.1-24.9-14.1-33.9l-67.9-67.9c-9-9-21.2-14.1-33.9-14.1L320 128l-48 0zM160 40a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"
+                                Margin="2,0,0,0"
+                                Width="15" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Command="{Binding Cut}"
+                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Cut}"
+                        InputGesture="Ctrl + V">
+                        <MenuItem.Icon>
+                            <PathIcon
+                                Data="M256 192l-39.5-39.5c4.9-12.6 7.5-26.2 7.5-40.5C224 50.1 173.9 0 112 0S0 50.1 0 112s50.1 112 112 112c14.3 0 27.9-2.7 40.5-7.5L192 256l-39.5 39.5c-12.6-4.9-26.2-7.5-40.5-7.5C50.1 288 0 338.1 0 400s50.1 112 112 112s112-50.1 112-112c0-14.3-2.7-27.9-7.5-40.5L499.2 76.8c7.1-7.1 7.1-18.5 0-25.6c-28.3-28.3-74.1-28.3-102.4 0L256 192zm22.6 150.6L396.8 460.8c28.3 28.3 74.1 28.3 102.4 0c7.1-7.1 7.1-18.5 0-25.6L342.6 278.6l-64 64zM64 112a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm48 240a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"
+                                Margin="2,0,0,0"
+                                Width="15" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem
+                        Command="{Binding Undo}"
+                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Undo}"
+                        InputGesture="Ctrl + Z">
+                        <MenuItem.Icon>
+                            <PathIcon
+                                Data="M125.7 160l50.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L48 224c-17.7 0-32-14.3-32-32L16 64c0-17.7 14.3-32 32-32s32 14.3 32 32l0 51.2L97.6 97.6c87.5-87.5 229.3-87.5 316.8 0s87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3s-163.8-62.5-226.3 0L125.7 160z"
+                                Margin="2,0,0,0"
+                                Width="15" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Command="{Binding Redo}"
+                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Redo}"
+                        InputGesture="Ctrl + Y">
+                        <MenuItem.Icon>
+                            <PathIcon
+                                Data="M386.3 160L336 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l128 0c17.7 0 32-14.3 32-32l0-128c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 51.2L414.4 97.6c-87.5-87.5-229.3-87.5-316.8 0s-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3s163.8-62.5 226.3 0L386.3 160z"
+                                Margin="2,0,0,0"
+                                Width="15" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem
+                        Command="{Binding Save}"
+                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Save}"
+                        InputGesture="Ctrl + S">
+                        <MenuItem.Icon>
+                            <PathIcon
+                                Data="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-242.7c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32L64 32zm0 96c0-17.7 14.3-32 32-32l192 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32L96 224c-17.7 0-32-14.3-32-32l0-64zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
+                                Margin="1,0,0,0"
+                                Width="14" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Command="{Binding SaveAs}"
+                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SaveAs}"
+                        InputGesture="Ctrl + Shift + S">
+                        <MenuItem.Icon>
+                            <PathIcon
+                                Data="F1 M 7.5 18.046875 C 6.119385 18.046875 5 16.92749 5 15.546875 C 5 14.16626 6.119385 13.046875 7.5 13.046875 C 8.16124 13.046875 8.758316 13.308487 9.205399 13.727722 C 10.191727 11.139221 12.690201 9.296875 15.625 9.296875 C 15.836029 9.296875 16.043854 9.309769 16.25 9.328384 L 16.25 8.1987 C 16.25 7.771454 16.002808 7.174683 15.700722 6.872597 L 12.424278 3.596153 C 12.122192 3.294067 11.525421 3.046875 11.098175 3.046875 L 1.25 3.046875 C -0.130692 3.046875 -1.25 4.166107 -1.25 5.546875 L -1.25 18.046875 C -1.25 19.427567 -0.130692 20.546875 1.25 20.546875 L 10.321655 20.546875 C 9.632339 19.712219 9.138794 18.711319 8.904343 17.614365 C 8.503952 17.886887 8.020859 18.046875 7.5 18.046875 Z M 1.25 9.921875 L 1.25 6.171875 C 1.25 5.826645 1.529846 5.546875 1.875 5.546875 L 10.625 5.546875 C 10.970154 5.546875 11.25 5.826645 11.25 6.171875 L 11.25 9.921875 C 11.25 10.267029 10.970154 10.546875 10.625 10.546875 L 1.875 10.546875 C 1.529846 10.546875 1.25 10.267029 1.25 9.921875 Z M 15.625 10.546875 C 12.518005 10.546875 9.999924 13.064957 9.999924 16.171875 C 9.999924 19.278793 12.518005 21.796875 15.625 21.796875 C 18.731842 21.796875 21.249924 19.278793 21.249924 16.171875 C 21.249924 13.064957 18.731842 10.546875 15.625 10.546875 Z M 18.566818 16.613731 L 16.379318 18.801231 C 16.257248 18.923378 16.097336 18.984375 15.937424 18.984375 C 15.777512 18.984375 15.617599 18.923378 15.495529 18.801231 C 15.251389 18.557091 15.251389 18.161583 15.495529 17.917519 L 16.616135 16.796875 L 13.124924 16.796875 C 12.77977 16.796875 12.499924 16.517029 12.499924 16.171875 C 12.499924 15.826721 12.77977 15.546875 13.124924 15.546875 L 16.616135 15.546875 L 15.495529 14.426231 C 15.251389 14.182091 15.251389 13.786583 15.495529 13.542519 C 15.73967 13.298416 16.135178 13.298378 16.379318 13.542519 L 18.566818 15.730019 C 18.810959 15.974159 18.810959 16.369591 18.566818 16.613731 Z "
+                                Margin="0,0,-2,0"
+                                Width="17" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </avaloniaEdit:TextEditor.ContextMenu>
+        </avaloniaEdit:TextEditor>
+    </Border>
+</UserControl>

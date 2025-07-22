@@ -8,6 +8,7 @@ using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.Service;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
@@ -57,6 +58,8 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
     public MainViewModel ViewModel { get; set; } = new();
     public ObservableCollection<TabEntry> Tabs => ViewModel.Tabs;
     private DateTime _lastShiftPressTime;
+    private DateTime _shiftKeyDownTime;
+    private bool _isShiftKeyDown;
     public TabEntry? SelectedTab => ViewModel.SelectedTab;
 
     protected override void OnLoaded(RoutedEventArgs e)
@@ -232,21 +235,45 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
         KeyDown += (_, e) =>
         {
             if (e.Key is not (Key.LeftShift or Key.RightShift)) return;
-            if ((DateTime.Now - _lastShiftPressTime).TotalMilliseconds < 300)
-            {
-                var options = new DialogOptions()
-                {
-                    ShowInTaskBar = false,
-                    IsCloseButtonVisible = false,
-                    StartupLocation = WindowStartupLocation.Manual,
-                    CanDragMove = true,
-                    StyleClass = "aggregate-search"
-                };
-                Dialog.ShowCustom<AggregateSearchDialog, AggregateSearchDialog>(new AggregateSearchDialog(),
-                    this.GetVisualRoot() as Window, options: options);
-            }
 
-            _lastShiftPressTime = DateTime.Now;
+            // Record when shift key is pressed down
+            if (!_isShiftKeyDown)
+            {
+                _shiftKeyDownTime = DateTime.Now;
+                _isShiftKeyDown = true;
+            }
+        };
+
+        KeyUp += (_, e) =>
+        {
+            if (e.Key is not (Key.LeftShift or Key.RightShift)) return;
+            if (!_isShiftKeyDown) return;
+
+            _isShiftKeyDown = false;
+            var keyHoldDuration = (DateTime.Now - _shiftKeyDownTime).TotalMilliseconds;
+
+            // Only consider it a valid tap if the key was held for less than 200ms (quick tap)
+            if (keyHoldDuration < 200)
+            {
+                var timeSinceLastTap = (DateTime.Now - _lastShiftPressTime).TotalMilliseconds;
+
+                // Check if this is a double tap within 300ms
+                if (timeSinceLastTap < 300)
+                {
+                    var options = new DialogOptions()
+                    {
+                        ShowInTaskBar = false,
+                        IsCloseButtonVisible = false,
+                        StartupLocation = WindowStartupLocation.Manual,
+                        CanDragMove = true,
+                        StyleClass = "aggregate-search"
+                    };
+                    Dialog.ShowCustom<AggregateSearchDialog, AggregateSearchDialog>(new AggregateSearchDialog(),
+                        this.GetVisualRoot() as Window, options: options);
+                }
+
+                _lastShiftPressTime = DateTime.Now;
+            }
         };
         AddHandler(DragDrop.DropEvent, DropHandler);
     }
@@ -257,27 +284,34 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
         if (e.Data.Contains(DataFormats.Files))
         {
             var files = e.Data.GetFiles();
-            if (files == null) return;
-            // var storageItems = files as IStorageItem[] ?? files.ToArray();
-            // var jar = storageItems.Where(a => Path.GetExtension(a.Path.LocalPath) == ".jar").ToArray();
-            // var zip = storageItems.Where(a => Path.GetExtension(a.Path.LocalPath) == ".zip").ToArray();
-            foreach (var file in files)
+            if (files != null)
             {
-                var path = file.Path.LocalPath;
-                var isNav = FileNav.NavPage(path, this);
-                if (isNav) continue;
-                Notice($"{MainLang.UnsupportedFileType} {Path.GetExtension(path)}", NotificationType.Error);
+                foreach (var file in files)
+                {
+                    var path = file.Path.LocalPath;
+                    var isNav = FileNav.NavPage(path, this);
+                    if (isNav) continue;
+                    Notice($"{MainLang.UnsupportedFileType} {Path.GetExtension(path)}", NotificationType.Error);
+                }
             }
         }
-        else if (e.Data.Contains(DataFormats.Text))
+
+        if (e.Data.Contains(DataFormats.Text))
         {
-            var text = e.Data.GetText();
-            if (text.Trim().StartsWith("authlib-injector:"))
+            var text = e.Data.GetText().Trim();
+            if (text.StartsWith("authlib-injector:"))
             {
                 var match = MyRegex().Match(HttpUtility.UrlDecode(text.Trim()));
                 if (!match.Success) return;
                 var url = match.Value;
                 _ = Public.Module.Operate.Account.YggdrasilLogin(this, server1: url);
+            }
+
+            if (File.Exists(text))
+            {
+                var isNav = FileNav.NavPage(text, this);
+                if (!isNav)
+                    Notice($"{MainLang.UnsupportedFileType} {Path.GetExtension(text)}", NotificationType.Error);
             }
         }
     }

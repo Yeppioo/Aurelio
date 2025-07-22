@@ -41,6 +41,7 @@
             <Color x:Key="SystemAccentColorDark1">#1BD76A</Color>
             <Color x:Key="SystemAccentColorDark2">#1BD76A</Color>
             <Color x:Key="SystemAccentColorDark3">#1BD76A</Color>
+            <Color x:Key="TabTextColor">#ffffff</Color>
             <system:Double x:Key="BackGroundOpacity">0.5</system:Double>
             <FontFamily x:Key="MiSans">avares://Aurelio/Public/Assets#MiSans</FontFamily>
             <FontWeight x:Key="FontWeight">650</FontWeight>

@@ -71,6 +71,7 @@
                                                 Width="7"
                                                 x:DataType="controls:TitleBar" />
                                             <TextBlock
+                                                Foreground="{DynamicResource TabTextColor}"
                                                 HorizontalAlignment="Right"
                                                 Margin="7,0,5,0"
                                                 Name="UsingMinecraftAccountTextBlock"
@@ -90,8 +91,8 @@
                                         Name="MoreButton"
                                         VerticalAlignment="Center" />
                                     <Separator
-                                        Background="{DynamicResource TextColor}"
-                                        Foreground="{DynamicResource TextColor}"
+                                        Background="{DynamicResource TabTextColor}"
+                                        Foreground="{DynamicResource TabTextColor}"
                                         Height="16"
                                         Margin="5,0,5,0"
                                         Name="Separator"
@@ -193,19 +194,21 @@
                                                         <DockPanel Margin="8,-1,10,0" VerticalAlignment="Center">
                                                             <PathIcon
                                                                 Data="{Binding Icon}"
+                                                                Foreground="{DynamicResource TabTextColor}"
                                                                 Height="15"
                                                                 IsVisible="{Binding IconIsVisible}"
                                                                 Margin="0,0,4,0"
                                                                 Width="15" />
-                                                            <ContentControl Content="{Binding HeaderContent}" />
+                                                            <ContentControl Content="{Binding HeaderContent}" Foreground="{DynamicResource TabTextColor}" />
                                                             <Grid
                                                                 HorizontalAlignment="Right"
                                                                 IsVisible="{Binding CanClose}"
                                                                 Margin="0,0,-4,0">
                                                                 <Button
-                                                                    Classes="icon-button"
+                                                                    Classes="icon-button tab"
                                                                     Command="{Binding Close}"
                                                                     Content="{DynamicResource Close}"
+                                                                    Foreground="{DynamicResource TabTextColor}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="3,1,0,0"
                                                                     MaxHeight="14"
@@ -226,7 +229,7 @@
                                             </u:SelectionList.ItemTemplate>
                                         </u:SelectionList>
                                         <Button
-                                            Classes="custom-hover-button"
+                                            Classes="custom-hover-button tab"
                                             Content="{DynamicResource Plus}"
                                             Margin="4,0,0,0"
                                             Name="NewTabButton" />
@@ -263,6 +266,7 @@
                             <TextBlock
                                 FontFamily="{DynamicResource MiSans}"
                                 FontSize="13"
+                                Foreground="{DynamicResource TabTextColor}"
                                 Text="relio"
                                 VerticalAlignment="Center"
                                 x:Name="TitleText" />

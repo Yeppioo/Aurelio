@@ -317,6 +317,10 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
         }
     }
 
+    public JsonViewer()
+    {
+    }
+
     /// <summary>
     /// 设置编辑器的语法高亮和链接颜色
     /// </summary>
@@ -338,6 +342,8 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
             //And that's all 😀, you are ready to use AvaloniaEdit with syntax highlighting!
             _textMateInstallation.SetGrammar(
                 _registryOptions.GetScopeByLanguageId(_registryOptions.GetLanguageByExtension(language).Id));
+
+            editor.TextArea.SelectionBrush = new SolidColorBrush(Color.Parse("#3E3574F0"));
 
             // 设置链接颜色为#54A9FF
             editor.TextArea.TextView.LinkTextForegroundBrush = new SolidColorBrush(Color.FromRgb(84, 169, 255));

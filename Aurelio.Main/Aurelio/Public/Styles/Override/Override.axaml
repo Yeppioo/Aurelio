@@ -248,5 +248,7 @@
     <Style Selector="ToggleButton">
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
     </Style>
-
+    <Style Selector="TextBlock.tab">
+        <Setter Property="Foreground" Value="{DynamicResource TabTextColor}" />
+    </Style>
 </Styles>
