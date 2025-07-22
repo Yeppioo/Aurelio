@@ -33,6 +33,8 @@
                 <ResourceInclude Source="/Public/Styles/Override/Template/MultiComboBox.axaml" />
                 <ResourceInclude Source="/Public/Styles/Override/Template/TagInput.axaml" />
                 <ResourceInclude Source="/Public/Styles/Override/Template/ContextMenu.axaml" />
+                <ResourceInclude Source="/Public/Styles/Override/Template/MenuFlyoutPresenter.axaml" />
+                <ResourceInclude Source="/Public/Styles/Override/Resources.axaml" />
             </ResourceDictionary.MergedDictionaries>
             <Color x:Key="SystemAccentColor">#1BD76A</Color>
             <Color x:Key="SystemAccentColorLight1">#1BD76A</Color>

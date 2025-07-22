@@ -53,14 +53,14 @@
                             <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="50%, 0%">
                                 <Grid Margin="-12,0,0,0">
                                     <Border
-                                        BoxShadow="{DynamicResource SukiPopupShadow}"
+                                        BoxShadow="none"
                                         CornerRadius="6"
                                         Margin="16,8,8,8" />
                                     <Border
-                                        Background="{DynamicResource SukiCardBackground}"
+                                        Background="{DynamicResource CardBackgroundColor}"
                                         BorderBrush="{DynamicResource SukiMenuBorderBrush}"
                                         BorderThickness="1"
-                                        BoxShadow="{DynamicResource SukiPopupShadow}"
+                                        BoxShadow="none"
                                         ClipToBounds="True"
                                         CornerRadius="6"
                                         Margin="16,8,8,8"

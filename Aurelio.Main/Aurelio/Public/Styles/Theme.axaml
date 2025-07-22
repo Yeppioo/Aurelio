@@ -13,6 +13,7 @@
                 Color="#272727"
                 Opacity="{DynamicResource BackGroundOpacity}"
                 x:Key="TitleBarHoverColor" />
+            <SolidColorBrush Color="#96454545" x:Key="MenuItemHoverColor" />
             <SolidColorBrush
                 Color="#2F2F2F"
                 Opacity="{DynamicResource BackGroundOpacity}"
@@ -86,6 +87,7 @@
                 Opacity="{DynamicResource BackGroundOpacity}"
                 x:Key="BorderBrush" />
             <Color x:Key="LinearGradientTransparentColor">#00FFFFFF</Color>
+            <SolidColorBrush Color="#96F1F1F1" x:Key="MenuItemHoverColor" />
             <SolidColorBrush
                 Color="#FFFFFF"
                 Opacity="{DynamicResource BackGroundOpacity}"

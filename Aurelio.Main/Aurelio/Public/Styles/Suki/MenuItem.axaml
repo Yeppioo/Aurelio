@@ -62,8 +62,8 @@
     </Design.PreviewWith>
 
     <ControlTheme TargetType="MenuItem" x:Key="SukiMenuItemStyle">
-
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Margin" Value="0" />
@@ -72,7 +72,6 @@
             <ControlTemplate>
                 <Border
                     Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
                     ClipToBounds="True"
                     Name="root">
                     <Panel>
@@ -95,9 +94,9 @@
                             </Panel>
                             <Rectangle
                                 DockPanel.Dock="Left"
-                                Fill="{DynamicResource SukiLightBorderBrush}"
+                                Fill="{DynamicResource CardBackgroundColor}"
                                 Margin="5,-2"
-                                Width="1" />
+                                Width="0" />
 
                             <Border DockPanel.Dock="Right" Width="24">
                                 <PathIcon
@@ -151,15 +150,14 @@
                             <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="0%, 0%">
                                 <Panel Margin="0,-8,0,0">
                                     <Border
-                                        BoxShadow="{DynamicResource SukiPopupShadow}"
+                                        BoxShadow="none"
                                         CornerRadius="6"
                                         Margin="16,8,8,8" />
 
                                     <Border
-                                        Background="{DynamicResource SukiCardBackground}"
-                                        BorderBrush="{DynamicResource SukiMenuBorderBrush}"
+                                        Background="{DynamicResource CardBackgroundColor}"
                                         BorderThickness="1"
-                                        BoxShadow="{DynamicResource SukiPopupShadow}"
+                                        BoxShadow="none"
                                         ClipToBounds="True"
                                         CornerRadius="5"
                                         Margin="16,8,8,8"
@@ -179,7 +177,7 @@
         </Setter>
 
         <Style Selector="^:pointerover">
-            <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+            <Setter Property="Background" Value="{DynamicResource MenuItemHoverColor}" />
         </Style>
 
         <Style Selector="^:open /template/ LayoutTransformControl#PART_LayoutTransform">
@@ -211,8 +209,7 @@
         </Style>
 
         <Style Selector="^:selected /template/ Border#root">
-            <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
+            <Setter Property="Background" Value="{DynamicResource MenuItemHoverColor}" />
         </Style>
 
         <Style Selector="^:disabled">

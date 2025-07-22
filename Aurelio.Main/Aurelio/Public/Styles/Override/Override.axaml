@@ -54,6 +54,7 @@
                     Property="Foreground" />
             </Transitions>
         </Setter>
+        <Setter Property="ContextFlyout" Value="{DynamicResource DefaultTextBoxContextFlyout}" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
@@ -250,5 +251,8 @@
     </Style>
     <Style Selector="TextBlock.tab">
         <Setter Property="Foreground" Value="{DynamicResource TabTextColor}" />
+    </Style>
+    <Style Selector="MenuItem:pointerover">
+        <Setter Property="Background" Value="{DynamicResource MenuItemHoverColor}" />
     </Style>
 </Styles>

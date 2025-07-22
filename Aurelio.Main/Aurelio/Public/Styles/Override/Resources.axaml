@@ -1,0 +1,81 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:properties="clr-namespace:Aurelio.Public.Langs"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <MenuFlyout Placement="Bottom" x:Key="DefaultTextBoxContextFlyout">
+        <MenuItem
+            Command="{Binding $parent[TextBox].SelectAll}"
+            Cursor="Hand"
+            Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SelectAll}"
+            InputGesture="Ctrl+A">
+            <MenuItem.Icon>
+                <PathIcon
+                    Data="M112 0C99.1 0 87.4 7.8 82.5 19.7l-66.7 160-13.3 32c-6.8 16.3 .9 35 17.2 41.8s35-.9 41.8-17.2L66.7 224l90.7 0 5.1 12.3c6.8 16.3 25.5 24 41.8 17.2s24-25.5 17.2-41.8l-13.3-32-66.7-160C136.6 7.8 124.9 0 112 0zm18.7 160l-37.3 0L112 115.2 130.7 160zM256 32l0 96 0 96c0 17.7 14.3 32 32 32l80 0c44.2 0 80-35.8 80-80c0-23.1-9.8-43.8-25.4-58.4c6-11.2 9.4-24 9.4-37.6c0-44.2-35.8-80-80-80L288 0c-17.7 0-32 14.3-32 32zm96 64l-32 0 0-32 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16zm-32 64l32 0 16 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-48 0 0-32zM566.6 310.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L352 434.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l192-192z"
+                    Margin="2,0,0,0"
+                    Width="18" />
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem
+            Command="{Binding $parent[TextBox].Cut}"
+            Cursor="Hand"
+            Header="{DynamicResource STRING_MENU_CUT}"
+            InputGesture="{x:Static TextBox.CutGesture}"
+            IsEnabled="{Binding $parent[TextBox].CanCut}">
+            <MenuItem.Icon>
+                <PathIcon
+                    Data="M256 192l-39.5-39.5c4.9-12.6 7.5-26.2 7.5-40.5C224 50.1 173.9 0 112 0S0 50.1 0 112s50.1 112 112 112c14.3 0 27.9-2.7 40.5-7.5L192 256l-39.5 39.5c-12.6-4.9-26.2-7.5-40.5-7.5C50.1 288 0 338.1 0 400s50.1 112 112 112s112-50.1 112-112c0-14.3-2.7-27.9-7.5-40.5L499.2 76.8c7.1-7.1 7.1-18.5 0-25.6c-28.3-28.3-74.1-28.3-102.4 0L256 192zm22.6 150.6L396.8 460.8c28.3 28.3 74.1 28.3 102.4 0c7.1-7.1 7.1-18.5 0-25.6L342.6 278.6l-64 64zM64 112a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm48 240a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"
+                    Margin="2,0,0,0"
+                    Width="15" />
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem
+            Command="{Binding $parent[TextBox].Copy}"
+            Cursor="Hand"
+            Header="{DynamicResource STRING_MENU_COPY}"
+            InputGesture="{x:Static TextBox.CopyGesture}"
+            IsEnabled="{Binding $parent[TextBox].CanCopy}">
+            <MenuItem.Icon>
+                <PathIcon
+                    Data="M192 0c-41.8 0-77.4 26.7-90.5 64L64 64C28.7 64 0 92.7 0 128L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64l-37.5 0C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM112 192l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16z"
+                    Height="17"
+                    Margin="1,0,0,0" />
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem
+            Command="{Binding $parent[TextBox].Paste}"
+            Cursor="Hand"
+            Header="{DynamicResource STRING_MENU_PASTE}"
+            InputGesture="{x:Static TextBox.PasteGesture}"
+            IsEnabled="{Binding $parent[TextBox].CanPaste}">
+            <MenuItem.Icon>
+                <PathIcon
+                    Data="M160 0c-23.7 0-44.4 12.9-55.4 32L48 32C21.5 32 0 53.5 0 80L0 400c0 26.5 21.5 48 48 48l144 0 0-272c0-44.2 35.8-80 80-80l48 0 0-16c0-26.5-21.5-48-48-48l-56.6 0C204.4 12.9 183.7 0 160 0zM272 128c-26.5 0-48 21.5-48 48l0 272 0 16c0 26.5 21.5 48 48 48l192 0c26.5 0 48-21.5 48-48l0-220.1c0-12.7-5.1-24.9-14.1-33.9l-67.9-67.9c-9-9-21.2-14.1-33.9-14.1L320 128l-48 0zM160 40a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"
+                    Margin="2,0,0,0"
+                    Width="15" />
+            </MenuItem.Icon>
+        </MenuItem>
+        <Separator />
+        <MenuItem
+            Command="{Binding $parent[TextBox].Undo}"
+            Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Undo}"
+            InputGesture="Ctrl + Z">
+            <MenuItem.Icon>
+                <PathIcon
+                    Data="M125.7 160l50.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L48 224c-17.7 0-32-14.3-32-32L16 64c0-17.7 14.3-32 32-32s32 14.3 32 32l0 51.2L97.6 97.6c87.5-87.5 229.3-87.5 316.8 0s87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3s-163.8-62.5-226.3 0L125.7 160z"
+                    Margin="2,0,0,0"
+                    Width="15" />
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem
+            Command="{Binding $parent[TextBox].Redo}"
+            Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Redo}"
+            InputGesture="Ctrl + Y">
+            <MenuItem.Icon>
+                <PathIcon
+                    Data="M386.3 160L336 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l128 0c17.7 0 32-14.3 32-32l0-128c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 51.2L414.4 97.6c-87.5-87.5-229.3-87.5-316.8 0s-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3s163.8-62.5 226.3 0L386.3 160z"
+                    Margin="2,0,0,0"
+                    Width="15" />
+            </MenuItem.Icon>
+        </MenuItem>
+    </MenuFlyout>
+</ResourceDictionary>

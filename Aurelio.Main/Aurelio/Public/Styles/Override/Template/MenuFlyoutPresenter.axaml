@@ -1,0 +1,59 @@
+<ResourceDictionary
+    x:CompileBindings="True"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <ThemeVariantScope RequestedThemeVariant="Dark">
+            <MenuFlyoutPresenter>
+                <MenuFlyoutPresenter.Items>
+                    <MenuItem Header="Menu Item 1" />
+                    <MenuItem Header="Menu Item 2" />
+                    <MenuItem Header="Menu Item 3" />
+                    <MenuItem Header="Menu Item 4" />
+                    <MenuItem Header="Menu Item 5" />
+                    <MenuItem Header="Menu Item 6" />
+                </MenuFlyoutPresenter.Items>
+            </MenuFlyoutPresenter>
+        </ThemeVariantScope>
+    </Design.PreviewWith>
+
+    <ControlTheme TargetType="MenuFlyoutPresenter" x:Key="{x:Type MenuFlyoutPresenter}">
+        <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MenuFlyoutBorderBrush}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource MenuFlyoutBorderThickness}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontSize" Value="{DynamicResource TextBlockFontSize}" />
+        <Setter Property="FontWeight" Value="{DynamicResource TextBlockFontWeight}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBlockDefaultForeground}" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="CornerRadius" Value="{DynamicResource MenuFlyoutCornerRadius}" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="MenuFlyoutPresenter">
+                <Border
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    BoxShadow="{DynamicResource MenuFlyoutBorderBoxShadow}"
+                    ClipToBounds="True"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Margin="4"
+                    Name="LayoutRoot"
+                    UseLayoutRounding="False">
+                    <ScrollViewer
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                        Theme="{StaticResource MenuScrollViewer}"
+                        VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                        <ItemsPresenter
+                            Grid.IsSharedSizeScope="True"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            KeyboardNavigation.TabNavigation="Continue"
+                            Margin="{TemplateBinding Padding}"
+                            Name="PART_ItemsPresenter" />
+                    </ScrollViewer>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>
