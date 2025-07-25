@@ -234,6 +234,7 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
         };
         KeyDown += (_, e) =>
         {
+            // Logger.Info("KeyDown: " + e.Key);
             if (e.Key is not (Key.LeftShift or Key.RightShift)) return;
 
             // Record when shift key is pressed down
@@ -284,34 +285,27 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
         if (e.Data.Contains(DataFormats.Files))
         {
             var files = e.Data.GetFiles();
-            if (files != null)
+            if (files == null) return;
+            // var storageItems = files as IStorageItem[] ?? files.ToArray();
+            // var jar = storageItems.Where(a => Path.GetExtension(a.Path.LocalPath) == ".jar").ToArray();
+            // var zip = storageItems.Where(a => Path.GetExtension(a.Path.LocalPath) == ".zip").ToArray();
+            foreach (var file in files)
             {
-                foreach (var file in files)
-                {
-                    var path = file.Path.LocalPath;
-                    var isNav = FileNav.NavPage(path, this);
-                    if (isNav) continue;
-                    Notice($"{MainLang.UnsupportedFileType} {Path.GetExtension(path)}", NotificationType.Error);
-                }
+                var path = file.Path.LocalPath;
+                var isNav = FileNav.NavPage(path, this);
+                if (isNav) continue;
+                Notice($"{MainLang.UnsupportedFileType} {Path.GetExtension(path)}", NotificationType.Error);
             }
         }
-
-        if (e.Data.Contains(DataFormats.Text))
+        else if (e.Data.Contains(DataFormats.Text))
         {
-            var text = e.Data.GetText().Trim();
-            if (text.StartsWith("authlib-injector:"))
+            var text = e.Data.GetText();
+            if (text.Trim().StartsWith("authlib-injector:"))
             {
                 var match = MyRegex().Match(HttpUtility.UrlDecode(text.Trim()));
                 if (!match.Success) return;
                 var url = match.Value;
                 _ = Public.Module.Operate.Account.YggdrasilLogin(this, server1: url);
-            }
-
-            if (File.Exists(text))
-            {
-                var isNav = FileNav.NavPage(text, this);
-                if (!isNav)
-                    Notice($"{MainLang.UnsupportedFileType} {Path.GetExtension(text)}", NotificationType.Error);
             }
         }
     }
