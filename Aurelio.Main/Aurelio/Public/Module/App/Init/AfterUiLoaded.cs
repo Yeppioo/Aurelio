@@ -26,5 +26,6 @@ public abstract class AfterUiLoaded
         LoopGC.BeginLoop();
         if (Data.SettingEntry.AutoCheckUpdate && Data.Instance.Version != "vDebug")
             _ = AurelioPage.ShowUpdateDialogIfNeed();
+        LoadPlugin.ExecuteAfterUiLoaded();
     }
 }

@@ -39,6 +39,7 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
     public LaunchPage LaunchPage { get; } = new();
     public AccountPage AccountPage { get; } = new();
     public DownloadPage DownloadPage { get; } = new();
+    public PluginPage PluginPage { get; } = new();
     public AurelioPage AurelioPage { get; } = new();
     public PersonalizationPage PersonalizationPage { get; } = new();
     public PageLoadingAnimator InAnimator { get; set; }

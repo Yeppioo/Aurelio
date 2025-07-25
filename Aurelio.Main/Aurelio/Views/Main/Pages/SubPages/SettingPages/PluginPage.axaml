@@ -1,0 +1,65 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Views.Main.Pages.SubPages.SettingPages.PluginPage"
+    x:DataType="settingPages:PluginPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:base="clr-namespace:Aurelio.Plugin.Base;assembly=Aurelio.Plugin.Base"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:settingPages="clr-namespace:Aurelio.Views.Main.Pages.SubPages.SettingPages"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Name="Root">
+        <ScrollViewer Margin="15,0,5,15" Padding="0,0,10,0">
+            <Border ClipToBounds="True" CornerRadius="{DynamicResource CardCornerRadius}">
+                <ItemsControl ItemsSource="{Binding Data.LoadedPlugins}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="base:IPlugin">
+                            <Border
+                                Background="{DynamicResource CardBackgroundColor}"
+                                CornerRadius="{DynamicResource CardCornerRadius}"
+                                Cursor="Hand"
+                                Margin="0,0,0,10"
+                                Padding="12,7"
+                                PointerPressed="InputElement_OnPointerPressed"
+                                Tag="{Binding}">
+                                <DockPanel IsHitTestVisible="False" LastChildFill="False">
+                                    <StackPanel
+                                        DockPanel.Dock="Left"
+                                        HorizontalAlignment="Left"
+                                        Spacing="1">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock>
+                                                <Run FontSize="14" Text="{Binding Name}" />
+                                            </TextBlock>
+                                            <TextBlock FontSize="12" Text="  v" />
+                                            <TextBlock FontSize="12" Text="{Binding Version}" />
+                                        </StackPanel>
+                                        <TextBlock FontSize="12">
+                                            <Run Text="{Binding Author}" />
+                                            <Run FontSize="10" Text="•" />
+                                            <Run Text="{Binding Id}" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <PathIcon
+                                        Data="M439.1 297.4C451.6 309.9 451.6 330.2 439.1 342.7L279.1 502.7C266.6 515.2 246.3 515.2 233.8 502.7C221.3 490.2 221.3 469.9 233.8 457.4L371.2 320L233.9 182.6C221.4 170.1 221.4 149.8 233.9 137.3C246.4 124.8 266.7 124.8 279.2 137.3L439.2 297.3z"
+                                        DockPanel.Dock="Right"
+                                        Height="14"
+                                        HorizontalAlignment="Right"
+                                        IsHitTestVisible="False"
+                                        Margin="0,0,-1,0" />
+                                </DockPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+        </ScrollViewer>
+    </Border>
+</UserControl>

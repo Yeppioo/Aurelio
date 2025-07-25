@@ -147,7 +147,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Aurelio.Plugin\Aurelio.Plugin.Base\Aurelio.Plugin.Base.csproj" />
       <ProjectReference Include="..\..\Aurelio.Reference\LiteSkinViewer3D\LiteSkinViewer.2D\LiteSkinViewer.2D.csproj" />
       <ProjectReference Include="..\..\Aurelio.Reference\LiteSkinViewer3D\LiteSkinViewer.3D\LiteSkinViewer.3D.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Public\Module\Plugin\Helper\" />
     </ItemGroup>
 </Project>
