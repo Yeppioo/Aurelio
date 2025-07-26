@@ -19,10 +19,12 @@ namespace Aurelio.Plugin.Minecraft.Views.SettingPages;
 
 public partial class AccountPage : PageMixModelBase, IAurelioPage
 {
+    public new MinecraftPluginData Data => MinecraftPluginData.Instance;
+    private bool _fl = true;
     public AccountPage()
     {
         InitializeComponent();
-        DataContext = MinecraftPluginData.Instance;
+        DataContext = this;
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
         BindingEvent();
@@ -64,10 +66,26 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
             catch (Exception exception)
             {
                 Logger.Error(exception);
-                Notice("渲染3D失败", NotificationType.Error);
             }
         };
-        Data.UiProperty.PropertyChanged += (_, e) =>
+        Loaded += (_, _) =>
+        {
+            if (!_fl) return;
+            _fl = false;
+            if (!MinecraftPluginData.Instance.IsRender3D) return;
+            try
+            {
+                skinViewer.Skin =
+                    Public.Module.Value.Converter.Base64ToBitmap(MinecraftPluginData.MinecraftPluginSettingEntry
+                        .UsingMinecraftAccount.Skin);
+                skinViewer.RenderMode = SkinRenderMode.None;
+            }
+            catch (Exception exception)
+            {
+                Logger.Error(exception);
+            }
+        };
+        Data.PropertyChanged += (_, e) =>
         {
             if (e.PropertyName != nameof(MinecraftPluginData.IsRender3D)) return;
             if (!MinecraftPluginData.Instance.IsRender3D) return;
@@ -79,7 +97,6 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
             catch (Exception exception)
             {
                 Logger.Error(exception);
-                Notice("渲染3D失败", NotificationType.Error);
             }
         };
     }

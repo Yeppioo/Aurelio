@@ -1,10 +1,9 @@
 ﻿<UserControl
-    DataContext="{Binding Source={x:Static minecraft1:MinecraftPluginData.Instance}}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d"
     x:Class="Aurelio.Plugin.Minecraft.Views.SettingPages.AccountPage"
-    x:DataType="minecraft1:MinecraftPluginData"
+    x:DataType="settingPages:AccountPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
     xmlns:converter1="clr-namespace:Aurelio.Public.Module.Converter;assembly=Aurelio"
@@ -15,6 +14,7 @@
     xmlns:minecraft="clr-namespace:Aurelio.Plugin.Minecraft.Classes.Minecraft"
     xmlns:minecraft1="clr-namespace:Aurelio.Plugin.Minecraft"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs;assembly=Aurelio"
+    xmlns:settingPages="clr-namespace:Aurelio.Plugin.Minecraft.Views.SettingPages"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:ui="clr-namespace:Aurelio.Public.Module.Ui;assembly=Aurelio"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -69,9 +69,9 @@
                         </DockPanel>
                         <ListBox
                             DockPanel.Dock="Bottom"
-                            ItemsSource="{Binding MinecraftPluginSettingEntry.MinecraftAccounts}"
+                            ItemsSource="{Binding Data.MinecraftPluginSettingEntry.MinecraftAccounts}"
                             Margin="5"
-                            SelectedItem="{Binding MinecraftPluginSettingEntry.UsingMinecraftAccount}"
+                            SelectedItem="{Binding Data.MinecraftPluginSettingEntry.UsingMinecraftAccount}"
                             x:Name="AccountsListView">
                             <ListBox.ItemTemplate>
                                 <DataTemplate DataType="minecraft:RecordMinecraftAccount">
@@ -121,16 +121,16 @@
                         <Grid>
                             <lsv:SkinViewer3D
                                 IsEnableAnimation="True"
-                                IsVisible="{Binding IsRender3D}"
+                                IsVisible="{Binding Data.IsRender3D}"
                                 Margin="0,0,0,40"
                                 Name="skinViewer" />
                             <Image
-                                IsVisible="{Binding IsRender3D, Converter={StaticResource BoolReversalConverter}}"
+                                IsVisible="{Binding Data.IsRender3D, Converter={StaticResource BoolReversalConverter}}"
                                 Margin="55,55,55,90"
-                                Source="{Binding MinecraftPluginSettingEntry.UsingMinecraftAccount.Body}" />
+                                Source="{Binding Data.MinecraftPluginSettingEntry.UsingMinecraftAccount.Body}" />
                             <ToggleSwitch
                                 HorizontalAlignment="Center"
-                                IsChecked="{Binding IsRender3D}"
+                                IsChecked="{Binding Data.IsRender3D}"
                                 Margin="0,0,0,10"
                                 OffContent="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.View2D}"
                                 OnContent="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.View3D}"

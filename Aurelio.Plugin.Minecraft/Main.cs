@@ -59,6 +59,8 @@ public partial class Main : IPlugin
             File.WriteAllText(path, new MinecraftPluginSettingEntry().AsJson());
         MinecraftPluginData.MinecraftPluginSettingEntry =
             JsonConvert.DeserializeObject<MinecraftPluginSettingEntry>(File.ReadAllText(path));
+        Service.UpdateSetting.Main();
+        Service.AggregateSearch.Main();
     }
 
     private void AppEventsOnBeforeUiLoaded(object? sender, EventArgs e)

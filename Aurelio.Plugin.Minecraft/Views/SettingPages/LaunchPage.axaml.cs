@@ -13,15 +13,17 @@ namespace Aurelio.Plugin.Minecraft.Views.SettingPages;
 
 public partial class LaunchPage : PageMixModelBase, IAurelioPage
 {
+    public new MinecraftPluginData Data => MinecraftPluginData.Instance;
+
     public LaunchPage()
     {
         InitializeComponent();
-        DataContext = MinecraftPluginData.Instance;
+        DataContext = this;
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
         BindingEvent();
     }
-
+    
     public PageLoadingAnimator InAnimator { get; set; }
 
     public Control RootElement { get; set; }
@@ -36,8 +38,8 @@ public partial class LaunchPage : PageMixModelBase, IAurelioPage
             {
                 MinecraftPluginData.MinecraftPluginSettingEntry.MinecraftFolderEntries.Remove(folder);
                 MinecraftFolderListBox.SelectedItem = Enumerable.FirstOrDefault<object?>(MinecraftFolderListBox.Items);
-                _ = MinecraftInstancesHandler.Load(MinecraftPluginData.MinecraftPluginSettingEntry.MinecraftFolderEntries.
-                    Select(x => x.Path).ToArray());
+                _ = MinecraftInstancesHandler.Load(MinecraftPluginData.MinecraftPluginSettingEntry
+                    .MinecraftFolderEntries.Select(x => x.Path).ToArray());
             }
 
             AppMethod.SaveSetting();
