@@ -1,4 +1,5 @@
 ﻿<UserControl
+    DataContext="{Binding Source={x:Static minecraft1:MinecraftPluginData.Instance}}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d"
@@ -68,9 +69,9 @@
                         </DockPanel>
                         <ListBox
                             DockPanel.Dock="Bottom"
-                            ItemsSource="{Binding SettingEntry.MinecraftAccounts}"
+                            ItemsSource="{Binding MinecraftPluginSettingEntry.MinecraftAccounts}"
                             Margin="5"
-                            SelectedItem="{Binding SettingEntry.UsingMinecraftAccount}"
+                            SelectedItem="{Binding MinecraftPluginSettingEntry.UsingMinecraftAccount}"
                             x:Name="AccountsListView">
                             <ListBox.ItemTemplate>
                                 <DataTemplate DataType="minecraft:RecordMinecraftAccount">
@@ -120,16 +121,16 @@
                         <Grid>
                             <lsv:SkinViewer3D
                                 IsEnableAnimation="True"
-                                IsVisible="{Binding UiProperty.IsRender3D}"
+                                IsVisible="{Binding IsRender3D}"
                                 Margin="0,0,0,40"
                                 Name="skinViewer" />
                             <Image
-                                IsVisible="{Binding UiProperty.IsRender3D, Converter={StaticResource BoolReversalConverter}}"
+                                IsVisible="{Binding IsRender3D, Converter={StaticResource BoolReversalConverter}}"
                                 Margin="55,55,55,90"
-                                Source="{Binding SettingEntry.UsingMinecraftAccount.Body}" />
+                                Source="{Binding MinecraftPluginSettingEntry.UsingMinecraftAccount.Body}" />
                             <ToggleSwitch
                                 HorizontalAlignment="Center"
-                                IsChecked="{Binding UiProperty.IsRender3D}"
+                                IsChecked="{Binding IsRender3D}"
                                 Margin="0,0,0,10"
                                 OffContent="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.View2D}"
                                 OnContent="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.View3D}"

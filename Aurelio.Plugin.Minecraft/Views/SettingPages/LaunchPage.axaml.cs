@@ -13,11 +13,10 @@ namespace Aurelio.Plugin.Minecraft.Views.SettingPages;
 
 public partial class LaunchPage : PageMixModelBase, IAurelioPage
 {
-    public new MinecraftPluginData Data => MinecraftPluginData.Instance;
     public LaunchPage()
     {
         InitializeComponent();
-        DataContext = this;
+        DataContext = MinecraftPluginData.Instance;
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
         BindingEvent();

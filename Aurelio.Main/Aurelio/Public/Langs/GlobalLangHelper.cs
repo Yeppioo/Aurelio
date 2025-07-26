@@ -9,7 +9,7 @@ public sealed class GlobalLangHelper : INotifyPropertyChanged
 {
     public static GlobalLangHelper Current { get; } = new();
 
-    private CultureInfo _currentCulture;
+    private CultureInfo _currentCulture = CultureInfo.CurrentCulture;
 
     public CultureInfo CurrentCulture
     {
@@ -17,7 +17,7 @@ public sealed class GlobalLangHelper : INotifyPropertyChanged
         set
         {
             SetField(ref _currentCulture, value);
-            CultureChanged.Invoke(this, value);
+            CultureChanged?.Invoke(this, value);
         }
     }
 

@@ -26,7 +26,7 @@ public partial class MinecraftInstancesTabPage : PageMixModelBase, IAurelioTabPa
     public MinecraftInstancesTabPage()
     {
         InitializeComponent();
-        DataContext = this;
+        DataContext = MinecraftPluginData.Instance;
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
         BindingEvent();

@@ -12,6 +12,7 @@
     xmlns:minecraft="clr-namespace:Aurelio.Plugin.Minecraft.Classes.Minecraft"
     xmlns:minecraftInstancePages="clr-namespace:Aurelio.Plugin.Minecraft.Views.MinecraftInstancePages"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs;assembly=Aurelio"
+    xmlns:properties1="clr-namespace:Aurelio.Plugin.Minecraft"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:ui="clr-namespace:Aurelio.Public.Module.Ui"
     xmlns:ui1="clr-namespace:Aurelio.Public.Module.Ui;assembly=Aurelio"

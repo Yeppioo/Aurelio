@@ -4,6 +4,8 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <PublishSingleFile>false</PublishSingleFile>
     </PropertyGroup>
 
     <ItemGroup>

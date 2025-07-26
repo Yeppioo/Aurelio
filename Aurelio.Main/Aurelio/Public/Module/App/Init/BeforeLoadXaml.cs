@@ -14,6 +14,7 @@ public abstract class BeforeLoadXaml
         Sundry.DetectPlatform();
         Create.Main();
         LoadPlugin.ScanPlugin();
+        LoadPlugin.ExecutePlugin();
         AppEvents.OnBeforeReadSettings();
         Reader.Main();
         InitLanguage(Data.SettingEntry.Language.Code);

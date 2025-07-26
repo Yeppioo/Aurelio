@@ -168,4 +168,12 @@ public class LoadPlugin
             _ => "unknown requirement"
         };
     }
+
+    public static void ExecutePlugin()
+    {
+        foreach (var loadedPlugin in Data.LoadedPlugins)
+        {
+            loadedPlugin.Execute();
+        }
+    }
 }

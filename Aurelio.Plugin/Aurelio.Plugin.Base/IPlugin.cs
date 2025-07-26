@@ -2,12 +2,12 @@
 
 public interface IPlugin
 {
-    string Id { get; }
-    string Name { get; }
-    string Author { get; }
-    string Description { get; }
-    object SettingPage { get; }
-    Version Version { get; }
-    RequirePluginEntry[] Require { get; }
+    string Id { get; set; }
+    string Name { get; set; }
+    string Author { get; set; }
+    string Description { get; set; }
+    object SettingPage { get; set; }
+    Version Version { get; set; }
+    RequirePluginEntry[] Require { get; set; }
     int Execute();
 }

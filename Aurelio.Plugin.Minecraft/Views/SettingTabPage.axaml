@@ -14,7 +14,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border Name="Root">
         <DockPanel>
-            <StackPanel DockPanel.Dock="Top" Margin="15,5,15,10">
+            <StackPanel DockPanel.Dock="Top" Margin="15,0,15,10">
                 <Border
                     Background="{DynamicResource CardBackgroundColor}"
                     CornerRadius="{DynamicResource CardCornerRadius}"
