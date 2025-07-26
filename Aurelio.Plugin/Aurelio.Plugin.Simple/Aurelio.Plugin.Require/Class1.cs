@@ -21,21 +21,8 @@ public class Class1 : IPlugin
         }
     ];
 
-    public int ExecuteAfterUiLoaded()
+    public int Execute()
     {
-        Console.WriteLine("Require, ExecuteAfterUiLoaded");
-        return 0;
-    }
-
-    public int ExecuteBeforeReadSettings()
-    {
-        Console.WriteLine("Require, ExecuteBeforeReadSettings");
-        return 0;
-    }
-
-    public int ExecuteBeforeUiLoaded()
-    {
-        Console.WriteLine("Require, ExecuteBeforeUiLoaded");
         return 0;
     }
 }

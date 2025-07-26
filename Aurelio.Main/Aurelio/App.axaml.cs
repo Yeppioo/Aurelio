@@ -5,12 +5,9 @@ using Aurelio.Public.Module.IO;
 using Aurelio.Views;
 using Aurelio.Views.Main;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Controls.Notifications;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Threading;
 using FluentAvalonia.Core;
-using Ursa.Controls;
-using WindowNotificationManager = Ursa.Controls.WindowNotificationManager;
 
 namespace Aurelio;
 

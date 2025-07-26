@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using Aurelio.Public.Module.Plugin.Events;
 using Newtonsoft.Json;
 
 namespace Aurelio.Public.Module.App;
@@ -9,6 +10,7 @@ public class AppMethod
     private static readonly Debouncer _debouncer = new(() =>
     {
         if (Data.SettingEntry is null) return;
+        AppEvents.OnSaveSettings();
         File.WriteAllText(ConfigPath.SettingDataPath,
             JsonConvert.SerializeObject(Data.SettingEntry, Formatting.Indented));
     }, 300);

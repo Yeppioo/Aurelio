@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Aurelio.Public.Langs;
-using Avalonia.Controls.Notifications;
 using Avalonia.Layout;
 using Avalonia.Media;
 using FluentAvalonia.UI.Controls;

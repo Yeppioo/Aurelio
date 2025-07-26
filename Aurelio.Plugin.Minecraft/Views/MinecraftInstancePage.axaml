@@ -1,0 +1,258 @@
+﻿<UserControl
+    Background="Transparent"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Plugin.Minecraft.Views.MinecraftInstancePage"
+    x:DataType="views:MinecraftInstancePage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:properties="clr-namespace:Aurelio.Public.Langs;assembly=Aurelio"
+    xmlns:template1="clr-namespace:Aurelio.Views.Main.Pages"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:ui="clr-namespace:Aurelio.Public.Module.Ui;assembly=Aurelio"
+    xmlns:views="clr-namespace:Aurelio.Plugin.Minecraft.Views"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Name="Root">
+        <DockPanel>
+            <Border
+                Background="{DynamicResource CardBackgroundColor}"
+                CornerRadius="{DynamicResource CardCornerRadius}"
+                DockPanel.Dock="Top"
+                Margin="15,5,15,10"
+                VerticalAlignment="Top">
+                <DockPanel>
+                    <Border
+                        Background="{DynamicResource CardBackgroundColor}"
+                        ClipToBounds="True"
+                        CornerRadius="6"
+                        DockPanel.Dock="Left"
+                        Height="48"
+                        HorizontalAlignment="Left"
+                        Margin="10"
+                        Width="48">
+                        <Image Source="{Binding Entry.Icon}" />
+                    </Border>
+                    <StackPanel
+                        DockPanel.Dock="Right"
+                        Margin="0,0,15,0"
+                        Orientation="Horizontal"
+                        Spacing="15">
+                        <SplitButton
+                            Classes="Tertiary"
+                            Command="{Binding OpenFolder}"
+                            CommandParameter="0"
+                            Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.OpenFolder}"
+                            CornerRadius="{DynamicResource CardCornerRadius}"
+                            Foreground="{DynamicResource TextColor}"
+                            Tag="{x:Static ui:Icons.MinusFolder}">
+                            <SplitButton.Flyout>
+                                <MenuFlyout>
+                                    <MenuItem
+                                        Command="{Binding OpenFolder}"
+                                        CommandParameter="0"
+                                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.VersionFolder}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="M32 32C32 14.3 46.3 0 64 0L320 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-29.5 0 11.4 148.2c36.7 19.9 65.7 53.2 79.5 94.7l1 3c3.3 9.8 1.6 20.5-4.4 28.8s-15.7 13.3-26 13.3L32 352c-10.3 0-19.9-4.9-26-13.3s-7.7-19.1-4.4-28.8l1-3c13.8-41.5 42.8-74.8 79.5-94.7L93.5 64 64 64C46.3 64 32 49.7 32 32zM160 384l64 0 0 96c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-96z" Height="16" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{Binding OpenFolder}"
+                                        CommandParameter="1"
+                                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.ModsFolder}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="M368 32c41.7 0 75.9 31.8 79.7 72.5l85.6 26.3c25.4 7.8 42.8 31.3 42.8 57.9c0 21.8-11.7 41.9-30.7 52.7L400.8 323.5 493.3 416l50.7 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-8.5 0-16.6-3.4-22.6-9.4L346.9 360.2c11.7-36 3.2-77.1-25.4-105.7c-40.6-40.6-106.3-40.6-146.9-.1L101 324.4c-6.4 6.1-6.7 16.2-.6 22.6s16.2 6.6 22.6 .6l73.8-70.2 .1-.1 .1-.1c3.5-3.5 7.3-6.6 11.3-9.2c27.9-18.5 65.9-15.4 90.5 9.2c24.7 24.7 27.7 62.9 9 90.9c-2.6 3.8-5.6 7.5-9 10.9L261.8 416l90.2 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L64 480c-35.3 0-64-28.7-64-64C0 249.6 127 112.9 289.3 97.5C296.2 60.2 328.8 32 368 32zm0 104a24 24 0 1 0 0-48 24 24 0 1 0 0 48z" Width="16" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{Binding OpenFolder}"
+                                        CommandParameter="2"
+                                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.SavesFolder}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="M320 0L141.3 0C124.3 0 108 6.7 96 18.7L18.7 96C6.7 108 0 124.3 0 141.3L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64zM160 88l0 48c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-48c0-13.3 10.7-24 24-24s24 10.7 24 24zm80 0l0 48c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-48c0-13.3 10.7-24 24-24s24 10.7 24 24zm80 0l0 48c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-48c0-13.3 10.7-24 24-24s24 10.7 24 24z" Height="16" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{Binding OpenFolder}"
+                                        CommandParameter="3"
+                                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.ResourcePacksFolder}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="M64 32C64 14.3 49.7 0 32 0S0 14.3 0 32L0 64 0 368 0 480c0 17.7 14.3 32 32 32s32-14.3 32-32l0-128 64.3-16.1c41.1-10.3 84.6-5.5 122.5 13.4c44.2 22.1 95.5 24.8 141.7 7.4l34.7-13c12.5-4.7 20.8-16.6 20.8-30l0-247.7c0-23-24.2-38-44.8-27.7l-9.6 4.8c-46.3 23.2-100.8 23.2-147.1 0c-35.1-17.6-75.4-22-113.5-12.5L64 48l0-16z" Height="15" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{Binding OpenFolder}"
+                                        CommandParameter="4"
+                                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.ShaderPacksFolder}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="F1 M 6.875 19.545898 C 6.879883 19.790039 6.953087 20.029297 7.084961 20.234375 L 7.753906 21.240234 C 7.958984 21.547852 8.427734 21.796875 8.793945 21.796875 L 11.206055 21.796875 C 11.577148 21.796875 12.041016 21.547852 12.246094 21.240234 L 12.915039 20.234375 C 13.041992 20.024414 13.115234 19.790039 13.125 19.545898 L 13.125 18.046875 L 6.875 18.046875 Z M 9.980469 1.796875 C 5.996094 1.806641 3.125 5.039062 3.125 8.671875 C 3.125 10.336914 3.725586 11.943359 4.824219 13.193359 C 5.473633 13.930664 6.479492 15.46875 6.865234 16.767578 C 6.865234 16.777344 6.870117 16.787109 6.870117 16.796875 L 13.129883 16.796875 C 13.129883 16.787109 13.134766 16.777344 13.134766 16.767578 C 13.520508 15.46875 14.526367 13.930664 15.175781 13.193359 C 16.274414 11.943359 16.875 10.336914 16.875 8.671875 C 16.875 4.868164 13.78418 1.787109 9.980469 1.796875 Z M 10 5.546875 C 8.276367 5.546875 6.875 6.948242 6.875 8.671875 C 6.875 9.018555 6.59668 9.296875 6.25 9.296875 C 5.90332 9.296875 5.625 9.018555 5.625 8.671875 C 5.629883 6.254883 7.583008 4.301758 10 4.296875 C 10.34668 4.296875 10.625 4.575195 10.625 4.921875 C 10.625 5.268555 10.34668 5.546875 10 5.546875 Z M 1.875 9.296875 C 1.875 8.779297 1.455078 8.359375 0.9375 8.359375 L -1.5625 8.359375 C -2.080078 8.359375 -2.5 8.779297 -2.5 9.296875 C -2.5 9.814453 -2.080078 10.234375 -1.5625 10.234375 L 0.9375 10.234375 C 1.455078 10.234375 1.875 9.814453 1.875 9.296875 Z M 21.5625 8.359375 L 19.0625 8.359375 C 18.544922 8.359375 18.125 8.779297 18.125 9.296875 C 18.125 9.814453 18.544922 10.234375 19.0625 10.234375 L 21.5625 10.234375 C 22.080078 10.234375 22.5 9.814453 22.5 9.296875 C 22.5 8.779297 22.080078 8.359375 21.5625 8.359375 Z M 2.62207 3.955078 L 0.454102 2.705078 C 0.166016 2.529297 -0.195312 2.524414 -0.493164 2.69043 C -0.786133 2.861328 -0.966797 3.173828 -0.966797 3.510742 C -0.961914 3.852539 -0.776367 4.165039 -0.483398 4.326172 L 1.68457 5.576172 C 1.972656 5.751953 2.333984 5.756836 2.631836 5.59082 C 2.924805 5.419922 3.105469 5.107422 3.105469 4.770508 C 3.100586 4.428711 2.915039 4.116211 2.62207 3.955078 Z M 20.483398 14.267578 L 18.31543 13.017578 C 18.027344 12.841797 17.666016 12.836914 17.368164 13.00293 C 17.075195 13.173828 16.894531 13.486328 16.894531 13.823242 C 16.899414 14.165039 17.084961 14.477539 17.37793 14.638672 L 19.545898 15.888672 C 19.990234 16.137695 20.556641 15.981445 20.810547 15.537109 C 21.064453 15.097656 20.917969 14.53125 20.483398 14.267578 Z M 1.68457 13.017578 L -0.483398 14.267578 C -0.776367 14.428711 -0.961914 14.741211 -0.966797 15.083008 C -0.966797 15.419922 -0.786133 15.732422 -0.493164 15.90332 C -0.195312 16.069336 0.166016 16.064453 0.454102 15.888672 L 2.62207 14.638672 C 3.056641 14.375 3.203087 13.808594 2.949219 13.369141 C 2.695312 12.924805 2.128906 12.768555 1.68457 13.017578 Z M 17.851562 5.703125 C 18.012695 5.703125 18.173828 5.65918 18.320312 5.576172 L 20.483398 4.326172 C 20.922852 4.0625 21.064453 3.496094 20.810547 3.056641 C 20.556641 2.612305 19.990234 2.456055 19.545898 2.705078 L 17.382812 3.955078 C 17.011719 4.165039 16.835938 4.599609 16.943359 5.009766 C 17.055664 5.419922 17.426758 5.703125 17.851562 5.703125 Z " Height="16" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{Binding OpenFolder}"
+                                        CommandParameter="5"
+                                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.ScreenshotsFolder}">
+                                        <MenuItem.Icon>
+                                            <PathIcon Data="M149.1 64.8L138.7 96 64 96C28.7 96 0 124.7 0 160L0 416c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64l-74.7 0L362.9 64.8C356.4 45.2 338.1 32 317.4 32L194.6 32c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" Height="16" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </MenuFlyout>
+                            </SplitButton.Flyout>
+                        </SplitButton>
+                        <u:IconButton
+                            Classes="accent"
+                            Command="{Binding Entry.Launch}"
+                            CommandParameter="{Binding $self}"
+                            Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Launch}"
+                            VerticalAlignment="Center">
+                            <u:IconButton.Icon>
+                                <PathIcon
+                                    Data="F1 M 19.730377 2.548828 C 19.686432 2.338867 19.45694 2.109375 19.246979 2.06543 C 17.992172 1.796875 17.010765 1.796875 16.029396 1.796875 C 12.001305 1.796875 9.579582 3.955078 7.777901 6.796875 L 3.705864 6.796875 C 3.071136 6.796875 2.314339 7.260742 2.031136 7.832031 L 0.102539 11.689453 C 0.039062 11.821289 0.009766 11.962891 0 12.109375 C 0.004883 12.626953 0.419884 13.046875 0.942345 13.046875 L 4.999733 13.046875 C 7.069931 13.046875 8.749542 14.726562 8.749542 16.796875 L 8.749542 20.859375 C 8.749542 21.376953 9.169426 21.796875 9.687004 21.796875 C 9.83345 21.791992 9.975052 21.757812 10.106888 21.699219 L 13.964119 19.770508 C 14.530487 19.482422 14.999161 18.730469 14.999161 18.095703 L 14.999161 14.013672 C 17.831039 12.207031 19.998894 9.780273 19.998894 5.771484 C 20.003777 4.785156 20.003777 3.803711 19.730377 2.548828 Z M 14.999161 8.359375 C 14.139862 8.359375 13.436775 7.661133 13.436775 6.796875 C 13.441658 5.932617 14.139862 5.234375 15.004044 5.234375 C 15.86338 5.234375 16.561584 5.932617 16.561584 6.796875 C 16.561584 7.661133 15.86338 8.359375 14.999161 8.359375 Z M 1.391525 15.551758 C 0.385704 16.557617 -0.117188 19.086914 0.024414 21.772461 C 2.724457 21.914062 5.243874 21.40625 6.249657 20.400391 C 7.821846 18.828125 7.924385 16.733398 6.493797 15.302734 C 5.06321 13.876953 2.968597 13.974609 1.391525 15.551758 Z M 4.584732 18.833008 C 4.247818 19.165039 3.408012 19.335938 2.509651 19.287109 C 2.460823 18.393555 2.626801 17.548828 2.963715 17.216797 C 3.49102 16.689453 4.189224 16.655273 4.662857 17.133789 C 5.141335 17.607422 5.107155 18.305664 4.584732 18.833008 Z "
+                                    Height="13"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,-1,1,0"
+                                    VerticalAlignment="Center"
+                                    Width="14" />
+                            </u:IconButton.Icon>
+                        </u:IconButton>
+                    </StackPanel>
+                    <StackPanel
+                        DockPanel.Dock="Right"
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="16">
+                                <Run Text="{Binding Entry.ParentMinecraftFolder.Name}" />
+                                <Run Text="/" />
+                                <Run Text="{Binding Entry.Id}" />
+                            </TextBlock>
+                            <TextBlock Margin="10,0,0,0" VerticalAlignment="Bottom">
+                                <Run Text="(" />
+                                <Run Text="{Binding Entry.Loader}" />
+                                <Run Text="," />
+                                <Run Text="{Binding Entry.MlEntry.Version.VersionId}" />
+                                <Run Text=")" />
+                            </TextBlock>
+                        </StackPanel>
+                        <TextBlock FontSize="13">
+                            <Run Text="{Binding Entry.InstancePath}" />
+                        </TextBlock>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+            <Border
+                Background="{DynamicResource CardBackgroundColor}"
+                CornerRadius="{DynamicResource CardCornerRadius}"
+                DockPanel.Dock="Top"
+                Height="40"
+                Margin="15,0,15,10"
+                VerticalAlignment="Top">
+                <u:SelectionList
+                    Margin="0,-3,0,0"
+                    SelectedItem="{Binding SelectedItem}"
+                    x:Name="Nav">
+                    <u:SelectionList.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel
+                                Margin="15,0"
+                                Orientation="Horizontal"
+                                Spacing="25" />
+                        </ItemsPanelTemplate>
+                    </u:SelectionList.ItemsPanel>
+                    <u:SelectionList.Items>
+                        <u:SelectionListItem IsSelected="True" Tag="{Binding OverViewPage}">
+                            <DockPanel>
+                                <PathIcon
+                                    Data="{x:Static ui:Icons.Thumbtack}"
+                                    Height="14"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,0,1,0"
+                                    VerticalAlignment="Center" />
+                                <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Overview}" />
+                            </DockPanel>
+                        </u:SelectionListItem>
+                        <!-- <u:SelectionListItem Tag="setting"> -->
+                        <!--     <DockPanel> -->
+                        <!--  <PathIcon  -->
+                        <!--  Data="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"  -->
+                        <!--  Height="14"  -->
+                        <!--  HorizontalAlignment="Center"  -->
+                        <!--  Margin="0,0,1,0"  -->
+                        <!--  VerticalAlignment="Center" />  -->
+                        <!--         <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Setting}" /> -->
+                        <!--     </DockPanel> -->
+                        <!-- </u:SelectionListItem> -->
+                        <u:SelectionListItem Tag="{Binding ModPage}">
+                            <DockPanel>
+                                <PathIcon
+                                    Data="M368 32c41.7 0 75.9 31.8 79.7 72.5l85.6 26.3c25.4 7.8 42.8 31.3 42.8 57.9c0 21.8-11.7 41.9-30.7 52.7L400.8 323.5 493.3 416l50.7 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-8.5 0-16.6-3.4-22.6-9.4L346.9 360.2c11.7-36 3.2-77.1-25.4-105.7c-40.6-40.6-106.3-40.6-146.9-.1L101 324.4c-6.4 6.1-6.7 16.2-.6 22.6s16.2 6.6 22.6 .6l73.8-70.2 .1-.1 .1-.1c3.5-3.5 7.3-6.6 11.3-9.2c27.9-18.5 65.9-15.4 90.5 9.2c24.7 24.7 27.7 62.9 9 90.9c-2.6 3.8-5.6 7.5-9 10.9L261.8 416l90.2 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L64 480c-35.3 0-64-28.7-64-64C0 249.6 127 112.9 289.3 97.5C296.2 60.2 328.8 32 368 32zm0 104a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"
+                                    Height="14"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,0,1,0"
+                                    VerticalAlignment="Center" />
+                                <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Mod}" />
+                            </DockPanel>
+                        </u:SelectionListItem>
+                        <u:SelectionListItem Tag="{Binding ResourcePackPage}">
+                            <DockPanel>
+                                <PathIcon
+                                    Data="M64 32C64 14.3 49.7 0 32 0S0 14.3 0 32L0 64 0 368 0 480c0 17.7 14.3 32 32 32s32-14.3 32-32l0-128 64.3-16.1c41.1-10.3 84.6-5.5 122.5 13.4c44.2 22.1 95.5 24.8 141.7 7.4l34.7-13c12.5-4.7 20.8-16.6 20.8-30l0-247.7c0-23-24.2-38-44.8-27.7l-9.6 4.8c-46.3 23.2-100.8 23.2-147.1 0c-35.1-17.6-75.4-22-113.5-12.5L64 48l0-16z"
+                                    Height="14"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,0,1,0"
+                                    VerticalAlignment="Center" />
+                                <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.ResourcePacks}" />
+                            </DockPanel>
+                        </u:SelectionListItem>
+                        <u:SelectionListItem Tag="{Binding ShaderPackPage}">
+                            <DockPanel>
+                                <PathIcon
+                                    Data="F1 M 6.875 19.545898 C 6.879883 19.790039 6.953087 20.029297 7.084961 20.234375 L 7.753906 21.240234 C 7.958984 21.547852 8.427734 21.796875 8.793945 21.796875 L 11.206055 21.796875 C 11.577148 21.796875 12.041016 21.547852 12.246094 21.240234 L 12.915039 20.234375 C 13.041992 20.024414 13.115234 19.790039 13.125 19.545898 L 13.125 18.046875 L 6.875 18.046875 Z M 9.980469 1.796875 C 5.996094 1.806641 3.125 5.039062 3.125 8.671875 C 3.125 10.336914 3.725586 11.943359 4.824219 13.193359 C 5.473633 13.930664 6.479492 15.46875 6.865234 16.767578 C 6.865234 16.777344 6.870117 16.787109 6.870117 16.796875 L 13.129883 16.796875 C 13.129883 16.787109 13.134766 16.777344 13.134766 16.767578 C 13.520508 15.46875 14.526367 13.930664 15.175781 13.193359 C 16.274414 11.943359 16.875 10.336914 16.875 8.671875 C 16.875 4.868164 13.78418 1.787109 9.980469 1.796875 Z M 10 5.546875 C 8.276367 5.546875 6.875 6.948242 6.875 8.671875 C 6.875 9.018555 6.59668 9.296875 6.25 9.296875 C 5.90332 9.296875 5.625 9.018555 5.625 8.671875 C 5.629883 6.254883 7.583008 4.301758 10 4.296875 C 10.34668 4.296875 10.625 4.575195 10.625 4.921875 C 10.625 5.268555 10.34668 5.546875 10 5.546875 Z M 1.875 9.296875 C 1.875 8.779297 1.455078 8.359375 0.9375 8.359375 L -1.5625 8.359375 C -2.080078 8.359375 -2.5 8.779297 -2.5 9.296875 C -2.5 9.814453 -2.080078 10.234375 -1.5625 10.234375 L 0.9375 10.234375 C 1.455078 10.234375 1.875 9.814453 1.875 9.296875 Z M 21.5625 8.359375 L 19.0625 8.359375 C 18.544922 8.359375 18.125 8.779297 18.125 9.296875 C 18.125 9.814453 18.544922 10.234375 19.0625 10.234375 L 21.5625 10.234375 C 22.080078 10.234375 22.5 9.814453 22.5 9.296875 C 22.5 8.779297 22.080078 8.359375 21.5625 8.359375 Z M 2.62207 3.955078 L 0.454102 2.705078 C 0.166016 2.529297 -0.195312 2.524414 -0.493164 2.69043 C -0.786133 2.861328 -0.966797 3.173828 -0.966797 3.510742 C -0.961914 3.852539 -0.776367 4.165039 -0.483398 4.326172 L 1.68457 5.576172 C 1.972656 5.751953 2.333984 5.756836 2.631836 5.59082 C 2.924805 5.419922 3.105469 5.107422 3.105469 4.770508 C 3.100586 4.428711 2.915039 4.116211 2.62207 3.955078 Z M 20.483398 14.267578 L 18.31543 13.017578 C 18.027344 12.841797 17.666016 12.836914 17.368164 13.00293 C 17.075195 13.173828 16.894531 13.486328 16.894531 13.823242 C 16.899414 14.165039 17.084961 14.477539 17.37793 14.638672 L 19.545898 15.888672 C 19.990234 16.137695 20.556641 15.981445 20.810547 15.537109 C 21.064453 15.097656 20.917969 14.53125 20.483398 14.267578 Z M 1.68457 13.017578 L -0.483398 14.267578 C -0.776367 14.428711 -0.961914 14.741211 -0.966797 15.083008 C -0.966797 15.419922 -0.786133 15.732422 -0.493164 15.90332 C -0.195312 16.069336 0.166016 16.064453 0.454102 15.888672 L 2.62207 14.638672 C 3.056641 14.375 3.203087 13.808594 2.949219 13.369141 C 2.695312 12.924805 2.128906 12.768555 1.68457 13.017578 Z M 17.851562 5.703125 C 18.012695 5.703125 18.173828 5.65918 18.320312 5.576172 L 20.483398 4.326172 C 20.922852 4.0625 21.064453 3.496094 20.810547 3.056641 C 20.556641 2.612305 19.990234 2.456055 19.545898 2.705078 L 17.382812 3.955078 C 17.011719 4.165039 16.835938 4.599609 16.943359 5.009766 C 17.055664 5.419922 17.426758 5.703125 17.851562 5.703125 Z "
+                                    Height="14"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,0,1,0"
+                                    VerticalAlignment="Center" />
+                                <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.ShaderPack}" />
+                            </DockPanel>
+                        </u:SelectionListItem>
+                        <u:SelectionListItem Tag="{Binding SavePage}">
+                            <DockPanel>
+                                <PathIcon
+                                    Data="M320 0L141.3 0C124.3 0 108 6.7 96 18.7L18.7 96C6.7 108 0 124.3 0 141.3L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64zM160 88l0 48c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-48c0-13.3 10.7-24 24-24s24 10.7 24 24zm80 0l0 48c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-48c0-13.3 10.7-24 24-24s24 10.7 24 24zm80 0l0 48c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-48c0-13.3 10.7-24 24-24s24 10.7 24 24z"
+                                    Height="14"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,0,1,0"
+                                    VerticalAlignment="Center" />
+                                <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Saves}" />
+                            </DockPanel>
+                        </u:SelectionListItem>
+                        <u:SelectionListItem Tag="{Binding ScreenshotPage}">
+                            <DockPanel>
+                                <PathIcon
+                                    Data="M149.1 64.8L138.7 96 64 96C28.7 96 0 124.7 0 160L0 416c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64l-74.7 0L362.9 64.8C356.4 45.2 338.1 32 317.4 32L194.6 32c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"
+                                    Height="14"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,0,1,0"
+                                    VerticalAlignment="Center" />
+                                <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Screenshots}" />
+                            </DockPanel>
+                        </u:SelectionListItem>
+                    </u:SelectionList.Items>
+                    <u:SelectionList.Indicator>
+                        <Border>
+                            <Border
+                                Background="{DynamicResource SystemAccentColor}"
+                                CornerRadius="10"
+                                Height="3"
+                                Margin="5,0,5,5"
+                                VerticalAlignment="Bottom"
+                                Width="40" />
+                        </Border>
+                    </u:SelectionList.Indicator>
+                </u:SelectionList>
+            </Border>
+            <ContentControl Content="{Binding SelectedItem.Tag}" />
+        </DockPanel>
+    </Border>
+</UserControl>

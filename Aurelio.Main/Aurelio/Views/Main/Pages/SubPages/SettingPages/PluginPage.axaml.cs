@@ -2,10 +2,7 @@ using Aurelio.Plugin.Base;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
-using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Markup.Xaml;
 using Avalonia.VisualTree;
 
 namespace Aurelio.Views.Main.Pages.SubPages.SettingPages;

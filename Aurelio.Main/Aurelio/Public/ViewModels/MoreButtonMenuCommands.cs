@@ -1,10 +1,8 @@
-﻿using System.Linq;
-using Aurelio.Public.Classes.Entries;
+﻿using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Views.Main;
 using Aurelio.Views.Main.Pages;
 using Avalonia.Styling;
-using Setter = Aurelio.Public.Module.Ui.Setter;
 
 namespace Aurelio.Public.ViewModels;
 
@@ -46,9 +44,7 @@ public class MoreButtonMenuCommands
     {
         switch (page)
         {
-            case "minecraftInstances":
-                App.UiRoot.TogglePage("minecraftInstances" , new MinecraftInstancesTabPage());
-                break;
+            // TODO 页面解耦
             case "setting":
                 App.UiRoot.TogglePage("setting", new SettingTabPage());
                 break;

@@ -4,7 +4,6 @@ using Aurelio.Plugin.Base;
 using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Plugin;
-using SharpCompress;
 
 namespace Aurelio.Public.Module.App.Services;
 
@@ -168,20 +167,5 @@ public class LoadPlugin
             RequireMethod.LessThanOrEqual => $"requires <= v{requirement.VersionRange[0]}",
             _ => "unknown requirement"
         };
-    }
-
-    public static void ExecuteBeforeReadSettings()
-    {
-        Data.LoadedPlugins.ForEach(p => p.ExecuteBeforeReadSettings());
-    }
-    
-    public static void ExecuteBeforeUiLoaded()
-    {
-        Data.LoadedPlugins.ForEach(p => p.ExecuteBeforeUiLoaded());
-    }
-    
-    public static void ExecuteAfterUiLoaded()
-    {
-        Data.LoadedPlugins.ForEach(p => p.ExecuteAfterUiLoaded());
     }
 }

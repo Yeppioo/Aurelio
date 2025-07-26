@@ -1,8 +1,6 @@
 ﻿using System;
 using Aurelio.Public.Module.IO;
 using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Dialogs;
 using HotAvalonia;
 
 namespace Aurelio.Desktop;

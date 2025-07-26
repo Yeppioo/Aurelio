@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Interfaces;
@@ -14,11 +13,10 @@ public class MainViewModel : ViewModelBase
     private TabEntry? _selectedTab;
     private Vector _tabScrollOffset;
 
-    public MainViewModel()
+    public MainViewModel() //TODO 创建默认页面
     {
         (IAurelioTabPage page, string? tag) obj = Data.SettingEntry.LaunchPage switch
         {
-            Setting.LaunchPage.MinecraftInstance => (new MinecraftInstancesTabPage(), "minecraftInstances"),
             Setting.LaunchPage.Setting => (new SettingTabPage(), "setting"),
             _ => (new NewTabPage(), null)
         };

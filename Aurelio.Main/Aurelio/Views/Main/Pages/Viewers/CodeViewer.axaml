@@ -22,7 +22,7 @@
                 <ContextMenu>
                     <MenuItem
                         Command="{Binding SelectAll}"
-                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SelectAll}"
+                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.SelectAll}"
                         InputGesture="Ctrl + A">
                         <MenuItem.Icon>
                             <PathIcon
@@ -33,7 +33,7 @@
                     </MenuItem>
                     <MenuItem
                         Command="{Binding Copy}"
-                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Copy}"
+                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Copy}"
                         InputGesture="Ctrl + C">
                         <MenuItem.Icon>
                             <PathIcon
@@ -44,7 +44,7 @@
                     </MenuItem>
                     <MenuItem
                         Command="{Binding Paste}"
-                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Paste}"
+                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Paste}"
                         InputGesture="Ctrl + V">
                         <MenuItem.Icon>
                             <PathIcon
@@ -55,7 +55,7 @@
                     </MenuItem>
                     <MenuItem
                         Command="{Binding Cut}"
-                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Cut}"
+                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Cut}"
                         InputGesture="Ctrl + V">
                         <MenuItem.Icon>
                             <PathIcon
@@ -67,7 +67,7 @@
                     <Separator />
                     <MenuItem
                         Command="{Binding Undo}"
-                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Undo}"
+                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Undo}"
                         InputGesture="Ctrl + Z">
                         <MenuItem.Icon>
                             <PathIcon
@@ -78,7 +78,7 @@
                     </MenuItem>
                     <MenuItem
                         Command="{Binding Redo}"
-                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Redo}"
+                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Redo}"
                         InputGesture="Ctrl + Y">
                         <MenuItem.Icon>
                             <PathIcon
@@ -90,7 +90,7 @@
                     <Separator />
                     <MenuItem
                         Command="{Binding Save}"
-                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Save}"
+                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Save}"
                         InputGesture="Ctrl + S">
                         <MenuItem.Icon>
                             <PathIcon
@@ -101,7 +101,7 @@
                     </MenuItem>
                     <MenuItem
                         Command="{Binding SaveAs}"
-                        Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SaveAs}"
+                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.SaveAs}"
                         InputGesture="Ctrl + Shift + S">
                         <MenuItem.Icon>
                             <PathIcon

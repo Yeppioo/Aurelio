@@ -3,11 +3,7 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
-using LiteSkinViewer3D.Shared.Enums;
 
 namespace Aurelio.Views.Main.Pages;
 

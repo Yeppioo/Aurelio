@@ -9,8 +9,5 @@ public interface IPlugin
     object SettingPage { get; }
     Version Version { get; }
     RequirePluginEntry[] Require { get; }
-
-    int ExecuteBeforeReadSettings();
-    int ExecuteBeforeUiLoaded();
-    int ExecuteAfterUiLoaded();
+    int Execute();
 }

@@ -23,7 +23,7 @@
                             Width="15" />
                         <TextBlock
                             Margin="0,-1,0,0"
-                            Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ThemeColor}"
+                            Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.ThemeColor}"
                             VerticalAlignment="Center" />
                         <Border
                             BorderBrush="{DynamicResource BorderBrush}"

@@ -33,7 +33,7 @@
                                     Width="15" />
                                 <TextBlock
                                     Margin="0,-1,0,0"
-                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ColorMode}"
+                                    Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.ColorMode}"
                                     VerticalAlignment="Center" />
                                 <Border
                                     BorderBrush="{DynamicResource BorderBrush}"
@@ -59,7 +59,7 @@
                                                         HorizontalAlignment="Center"
                                                         Margin="0,0,2,0"
                                                         VerticalAlignment="Center" />
-                                                    <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.FollowSystem}" />
+                                                    <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.FollowSystem}" />
                                                 </DockPanel>
                                             </u:SelectionListItem>
                                             <u:SelectionListItem>
@@ -70,7 +70,7 @@
                                                         HorizontalAlignment="Center"
                                                         Margin="0,0,1,0"
                                                         VerticalAlignment="Center" />
-                                                    <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Light}" />
+                                                    <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Light}" />
                                                 </DockPanel>
                                             </u:SelectionListItem>
                                             <u:SelectionListItem>
@@ -81,7 +81,7 @@
                                                         HorizontalAlignment="Center"
                                                         Margin="0,0,1,0"
                                                         VerticalAlignment="Center" />
-                                                    <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Dark}" />
+                                                    <TextBlock Margin="5,0,0,0" Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Dark}" />
                                                 </DockPanel>
                                             </u:SelectionListItem>
                                         </u:SelectionList.Items>
@@ -111,7 +111,7 @@
                                     Width="15" />
                                 <TextBlock
                                     Margin="0,-1,0,0"
-                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ThemeColor}"
+                                    Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.ThemeColor}"
                                     VerticalAlignment="Center" />
                                 <Border
                                     BorderBrush="{DynamicResource BorderBrush}"
@@ -132,7 +132,7 @@
                                     Width="15" />
                                 <TextBlock
                                     Margin="0,-1,0,0"
-                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.CustomBackground}"
+                                    Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.CustomBackground}"
                                     VerticalAlignment="Center" />
                                 <StackPanel
                                     HorizontalAlignment="Right"
@@ -141,7 +141,7 @@
                                     Spacing="10">
                                     <u:IconButton
                                         Command="{Binding SetBackGroundImg}"
-                                        Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.OpenFile}"
+                                        Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.OpenFile}"
                                         DockPanel.Dock="Right"
                                         IsVisible="{Binding Data.SettingEntry.BackGround, Converter={StaticResource EnumIndexToBoolConverter}, ConverterParameter=1}"
                                         Name="EditMinecraftId"
@@ -159,12 +159,12 @@
                                         IsVisible="{Binding Data.SettingEntry.BackGround, Converter={StaticResource EnumIndexToBoolConverter}, ConverterParameter=4}"
                                         Width="120" />
                                     <ComboBox MinWidth="140" SelectedIndex="{Binding Data.SettingEntry.BackGround}">
-                                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Default}" />
-                                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.BackGroundImg}" />
-                                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AcrylicBlur}" />
-                                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Transparent}" />
-                                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.ColorBlock}" />
-                                        <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Mica}" />
+                                        <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Default}" />
+                                        <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.BackGroundImg}" />
+                                        <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.AcrylicBlur}" />
+                                        <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Transparent}" />
+                                        <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.ColorBlock}" />
+                                        <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Mica}" />
                                     </ComboBox>
                                 </StackPanel>
                             </DockPanel>
@@ -186,14 +186,14 @@
                                     Width="15" />
                                 <TextBlock
                                     Margin="0,0,0,0"
-                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.NoticeWay}"
+                                    Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.NoticeWay}"
                                     VerticalAlignment="Center" />
                                 <ComboBox
                                     HorizontalAlignment="Right"
                                     MinWidth="140"
                                     SelectedIndex="{Binding Data.SettingEntry.NoticeWay}">
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.NotificationBubble}" />
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.NotificationCard}" />
+                                    <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.NotificationBubble}" />
+                                    <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.NotificationCard}" />
                                 </ComboBox>
                             </DockPanel>
                         </DockPanel>
@@ -206,7 +206,7 @@
                                     Width="15" />
                                 <TextBlock
                                     Margin="0,0,0,0"
-                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Language}"
+                                    Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Language}"
                                     VerticalAlignment="Center" />
                                 <ComboBox
                                     HorizontalAlignment="Right"
@@ -235,38 +235,15 @@
                                     Width="15" />
                                 <TextBlock
                                     Margin="0,0,0,0"
-                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.LaunchPage}"
+                                    Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.LaunchPage}"
                                     VerticalAlignment="Center" />
                                 <ComboBox
                                     HorizontalAlignment="Right"
                                     MinWidth="140"
                                     SelectedIndex="{Binding Data.SettingEntry.LaunchPage}">
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.NewTab}" />
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.MinecraftInstance}" />
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Setting}" />
-                                </ComboBox>
-                            </DockPanel>
-                        </DockPanel>
-                        <Separator Margin="10,0" />
-                        <DockPanel>
-                            <DockPanel DockPanel.Dock="Top" Margin="17.5,0,10,0">
-                                <PathIcon
-                                    Data="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c8.4-19.3 10.6-41.4 4.8-63.3c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zM373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5L373 389.9z"
-                                    Margin="0,1,15,0"
-                                    Width="15" />
-                                <TextBlock
-                                    Margin="0,0,0,0"
-                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.WindowVisibility}"
-                                    VerticalAlignment="Center" />
-                                <ComboBox
-                                    HorizontalAlignment="Right"
-                                    MinWidth="140"
-                                    SelectedIndex="{Binding Data.SettingEntry.WindowVisibility}">
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AfterLaunchKeepLauncherVisible}" />
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AfterLaunchMakeLauncherMinimize}" />
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AfterLaunchMinimizeAndShowWhenGameExit}" />
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AfterLaunchHideAndShowWhenGameExit}" />
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AfterLaunchExitLauncher}" />
+                                    <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.NewTab}" />
+                                    <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.MinecraftInstance}" />
+                                    <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Setting}" />
                                 </ComboBox>
                             </DockPanel>
                         </DockPanel>
@@ -289,7 +266,7 @@
                                     Width="12" />
                                 <TextBlock
                                     Margin="0,-1,0,0"
-                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.EnabledFilePicker}"
+                                    Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.EnabledFilePicker}"
                                     VerticalAlignment="Center" />
                                 <ToggleSwitch
                                     DockPanel.Dock="Right"

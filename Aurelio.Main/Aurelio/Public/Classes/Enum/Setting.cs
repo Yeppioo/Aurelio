@@ -2,27 +2,11 @@
 
 public class Setting
 {
-    public enum AccountType
-    {
-        Offline,
-        Microsoft,
-        ThirdParty
-    }
-    
     public enum LaunchPage
     {
         NewTab,
         MinecraftInstance,
         Setting
-    }
-    
-    public enum WindowVisibility
-    {
-        AfterLaunchKeepVisible,
-        AfterLaunchMakeMinimize,
-        AfterLaunchMinimizeAndShowWhenGameExit,
-        AfterLaunchHideAndShowWhenGameExit,
-        AfterLaunchExit
     }
 
     public enum BackGround

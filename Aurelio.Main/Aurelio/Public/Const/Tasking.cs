@@ -18,11 +18,6 @@ public class Tasking : ReactiveObject , IDialogContext
 
     public Tasking()
     {
-        Data.SettingEntry.PropertyChanged += (_, e) =>
-        {
-            if (e.PropertyName == nameof(Data.SettingEntry.UsingMinecraftAccount))
-                UpdateDisplay();
-        };
         Tasks.CollectionChanged += (_, _) => TasksChanged();
         UpdateDisplay();
     }
@@ -55,14 +50,8 @@ public class Tasking : ReactiveObject , IDialogContext
         {
             if (Tasks.Count == 0)
             {
-                FocusInfoText = Data.SettingEntry.UsingMinecraftAccount.Name;
-                FocusInfoColor = Data.SettingEntry.UsingMinecraftAccount.AccountType switch
-                {
-                    Setting.AccountType.Microsoft => SolidColorBrush.Parse("#00FF40"),
-                    Setting.AccountType.Offline => SolidColorBrush.Parse("#FFA500"),
-                    Setting.AccountType.ThirdParty => SolidColorBrush.Parse("#35FFF6"),
-                    _ => SolidColorBrush.Parse("#00FF40")
-                };
+                FocusInfoText = MainLang.NoWorkingTask;
+                FocusInfoColor = SolidColorBrush.Parse("#FFA500");
             }
             else if (Tasks.Count == 1)
             {

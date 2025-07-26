@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,24 +8,19 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
-using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO.Http;
 using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
-using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
 using SharpCompress.Archives;
 using SharpCompress.Common;
-using static Aurelio.Public.Module.Ui.Overlay;
 
 namespace Aurelio.Views.Main.Pages.Viewers;
 

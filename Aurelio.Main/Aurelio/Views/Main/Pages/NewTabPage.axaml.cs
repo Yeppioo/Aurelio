@@ -1,30 +1,22 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Interfaces;
-using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
-using Aurelio.Public.Module;
-using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.Service;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
-using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Input;
-using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Rendering;
 using Avalonia.Threading;
-using Avalonia.VisualTree;
 using DynamicData;
 using ReactiveUI.Fody.Helpers;
 
@@ -120,18 +112,19 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage
         {
             if (AggregateSearchListBox.SelectedItem is not AggregateSearchEntry entry) return;
 
-            // Handle file system entries directly without closing the tab
-            if (entry.Type == AggregateSearchEntryType.SystemFile ||
-                entry.Type == AggregateSearchEntryType.SystemFileGoUp)
+            if(entry.Type is not AggregateSearchEntryType t) return;
+            if (t is AggregateSearchEntryType.SystemFile or AggregateSearchEntryType.SystemFileGoUp)
             {
                 HandleFileSystemEntrySelection(entry);
                 return;
             }
 
-            IRenderRoot root = null;
-            AggregateSearch.Execute(entry, Root, ref root);
-            if (entry.Type == AggregateSearchEntryType.MinecraftAccount) return;
-            HostTab.Close(root);
+            if (t == AggregateSearchEntryType.AurelioTabPage)
+            {
+                IRenderRoot root = null;
+                AggregateSearch.Execute(entry, Root, ref root);
+                HostTab.Close(root);
+            }
         };
 
         // Add file system search event handlers
@@ -565,7 +558,7 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage
     private void HandleFileSystemEntrySelection(AggregateSearchEntry entry)
     {
         // Handle "go up" entry
-        if (entry.Type == AggregateSearchEntryType.SystemFileGoUp && entry.OriginObject is string parentPath)
+        if (entry is { Type: AggregateSearchEntryType.SystemFileGoUp, OriginObject: string parentPath })
         {
             string newPath;
 
@@ -643,15 +636,13 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage
 
     private void AggregateSearchListBox_PointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        if (e.GetCurrentPoint(this).Properties.IsRightButtonPressed &&
-            AggregateSearchListBox.SelectedItem is AggregateSearchEntry entry &&
-            entry.Type == AggregateSearchEntryType.SystemFile)
+        if (!e.GetCurrentPoint(this).Properties.IsRightButtonPressed ||
+            AggregateSearchListBox.SelectedItem is not AggregateSearchEntry entry ||
+            entry.Type is not AggregateSearchEntryType.SystemFile) return;
+        // Right-click: Open with system default
+        if (entry.OriginObject is FileSystemInfo fsInfo)
         {
-            // Right-click: Open with system default
-            if (entry.OriginObject is FileSystemInfo fsInfo)
-            {
-                OpenFileSystemPath(fsInfo.FullName);
-            }
+            OpenFileSystemPath(fsInfo.FullName);
         }
     }
 

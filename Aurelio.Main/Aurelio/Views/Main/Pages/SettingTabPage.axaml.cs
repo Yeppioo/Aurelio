@@ -35,9 +35,6 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
         get => _selectedItem;
         set => SetField(ref _selectedItem, value);
     }
-
-    public LaunchPage LaunchPage { get; } = new();
-    public AccountPage AccountPage { get; } = new();
     public DownloadPage DownloadPage { get; } = new();
     public PluginPage PluginPage { get; } = new();
     public AurelioPage AurelioPage { get; } = new();

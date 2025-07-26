@@ -10,6 +10,7 @@ using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App.Services;
+using Aurelio.Public.Module.Plugin.Events;
 using Aurelio.Public.Module.Service;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
@@ -17,14 +18,12 @@ using Aurelio.Public.ViewModels;
 using Aurelio.Views.Main.Pages;
 using Aurelio.Views.Overlay;
 using Avalonia.Controls.Notifications;
-using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Ursa.Controls;
-using Notification = System.Reactive.Notification;
 using WindowNotificationManager = Ursa.Controls.WindowNotificationManager;
 
 namespace Aurelio.Views.Main;
@@ -34,6 +33,7 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
     private DateTime _lastShiftPressTime;
     private DateTime _shiftKeyDownTime;
     private bool _isShiftKeyDown;
+    public string HostId => DialogHost.HostId;
 
     public TabWindow()
     {
@@ -252,13 +252,11 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
     private void DropHandler(object? sender, DragEventArgs e)
     {
         if (e is null) return;
+        AppEvents.OnAppDragDrop(sender, e);
         if (e.Data.Contains(DataFormats.Files))
         {
             var files = e.Data.GetFiles();
             if (files == null) return;
-            // var storageItems = files as IStorageItem[] ?? files.ToArray();
-            // var jar = storageItems.Where(a => Path.GetExtension(a.Path.LocalPath) == ".jar").ToArray();
-            // var zip = storageItems.Where(a => Path.GetExtension(a.Path.LocalPath) == ".zip").ToArray();
             foreach (var file in files)
             {
                 var path = file.Path.LocalPath;
@@ -270,13 +268,6 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
         else if (e.Data.Contains(DataFormats.Text))
         {
             var text = e.Data.GetText();
-            if (text.Trim().StartsWith("authlib-injector:"))
-            {
-                var match = MyRegex().Match(HttpUtility.UrlDecode(text.Trim()));
-                if (!match.Success) return;
-                var url = match.Value;
-                _ = Public.Module.Operate.Account.YggdrasilLogin(this, server1: url);
-            }
         }
     }
 
@@ -343,7 +334,4 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
     public WindowToastManager Toast { get; set; }
     public Control RootElement { get; set; }
     public UrsaWindow Window { get; set; }
-    
-    [GeneratedRegex(@"https?://[^\s:]+")]
-    private static partial Regex MyRegex();
 }

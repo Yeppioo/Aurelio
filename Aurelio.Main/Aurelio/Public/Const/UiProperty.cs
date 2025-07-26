@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
-using Aurelio.Public.Langs;
-using Aurelio.Public.Module.Value;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Media.Imaging;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Ursa.Controls;
@@ -28,12 +24,8 @@ public class UiProperty : ReactiveObject
     {
         get { return _instance ??= new UiProperty(); }
     }
-
-    [Reactive] public bool IsRender3D { get; set; }
-    [Reactive] public bool IsLoadingMinecraftLoading { get; set; }
-
+    
     public static ObservableCollection<NotificationEntry> Notifications { get; } = [];
-    public static ObservableCollection<string> AllMinecraftTags { get; } = [];
     public static ObservableCollection<string> BuiltInTags { get; } = [];
     public static WindowNotificationManager Notification => ActiveWindow.Notification;
     public static WindowToastManager Toast => ActiveWindow.Toast;

@@ -2,10 +2,7 @@
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.Value;
-using Avalonia.Data;
-using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Styling;
 using Ursa.Controls;

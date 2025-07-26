@@ -1,7 +1,5 @@
 using System.Diagnostics;
 using System.IO;
-using System.Net;
-using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,7 +12,6 @@ using Avalonia.Controls.Notifications;
 using Avalonia.Threading;
 using Downloader;
 using Flurl.Http;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Aurelio.Public.Module.App.Services;

@@ -11,17 +11,7 @@ public class Class1 : IPlugin
     public object SettingPage => new SimplePage();
     public Version Version { get; } = Version.Parse("1.0.0");
     public RequirePluginEntry[] Require { get; } = [];
-    public int ExecuteBeforeReadSettings()
-    {
-        return 0;
-    }
-
-    public int ExecuteBeforeUiLoaded()
-    {
-        return 0;
-    }
-
-    public int ExecuteAfterUiLoaded()
+    public int Execute()
     {
         return 0;
     }

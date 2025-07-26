@@ -156,8 +156,8 @@
         </Setter>
     </Style>
     <Style Selector="ToggleSwitch">
-        <Setter Property="OffContent" Value="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Off}" />
-        <Setter Property="OnContent" Value="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.On}" />
+        <Setter Property="OffContent" Value="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Off}" />
+        <Setter Property="OnContent" Value="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.On}" />
     </Style>
     <Style Selector="u|SelectionListItem">
         <Setter Property="Padding" Value="0" />

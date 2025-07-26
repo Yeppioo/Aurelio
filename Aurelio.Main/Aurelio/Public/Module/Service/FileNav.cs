@@ -2,7 +2,6 @@ using System.IO;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Views.Main;
-using Aurelio.Views.Main.Pages;
 using Aurelio.Views.Main.Pages.Viewers;
 using Avalonia.Media.Imaging;
 using ImageViewer = Aurelio.Views.Main.Pages.Viewers.ImageViewer;

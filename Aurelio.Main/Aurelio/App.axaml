@@ -60,7 +60,6 @@
         <StyleInclude Source="/Public/Styles/Style.axaml" />
         <StyleInclude Source="/Public/Styles/Override/Card.axaml" />
         <StyleInclude Source="/Public/Styles/Override/Override.axaml" />
-        <StyleInclude Source="avares://AsyncImageLoader.Avalonia/AdvancedImage.axaml" />
         <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
     </Application.Styles>
 </Application>

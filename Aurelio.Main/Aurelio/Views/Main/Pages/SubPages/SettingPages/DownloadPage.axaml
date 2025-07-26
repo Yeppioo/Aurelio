@@ -32,7 +32,7 @@
                                 <TextBlock
                                     DockPanel.Dock="Left"
                                     Margin="0,-1,0,0"
-                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.GithubSpeedUpApi}"
+                                    Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.GithubSpeedUpApi}"
                                     VerticalAlignment="Center" />
                                 <ComboBox
                                     DockPanel.Dock="Left"
@@ -41,8 +41,8 @@
                                     SelectedIndex="{Binding Data.SettingEntry.EnableSpeedUpGithubApi, Converter={StaticResource BoolToIntConverter}}"
                                     VerticalAlignment="Center"
                                     Width="140">
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Off}" />
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.On}" />
+                                    <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Off}" />
+                                    <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.On}" />
                                 </ComboBox>
                                 <TextBox
                                     DockPanel.Dock="Right"
@@ -50,7 +50,7 @@
                                     Margin="0,10,0,10"
                                     Text="{Binding Data.SettingEntry.GithubSpeedUpApiUrl}"
                                     VerticalAlignment="Center"
-                                    Watermark="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.GithubSpeedUpApi}" />
+                                    Watermark="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.GithubSpeedUpApi}" />
                             </DockPanel>
                         </DockPanel>
                     </StackPanel>
@@ -72,7 +72,7 @@
                                     Width="17" />
                                 <TextBlock
                                     Margin="0,-1,0,0"
-                                    Text="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.AutoUpdate}"
+                                    Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.AutoUpdate}"
                                     VerticalAlignment="Center" />
                                 <ToggleSwitch
                                     DockPanel.Dock="Right"

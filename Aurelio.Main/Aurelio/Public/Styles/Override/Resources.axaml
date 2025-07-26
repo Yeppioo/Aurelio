@@ -6,7 +6,7 @@
         <MenuItem
             Command="{Binding $parent[TextBox].SelectAll}"
             Cursor="Hand"
-            Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.SelectAll}"
+            Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.SelectAll}"
             InputGesture="Ctrl+A">
             <MenuItem.Icon>
                 <PathIcon
@@ -57,7 +57,7 @@
         <Separator />
         <MenuItem
             Command="{Binding $parent[TextBox].Undo}"
-            Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Undo}"
+            Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Undo}"
             InputGesture="Ctrl + Z">
             <MenuItem.Icon>
                 <PathIcon
@@ -68,7 +68,7 @@
         </MenuItem>
         <MenuItem
             Command="{Binding $parent[TextBox].Redo}"
-            Header="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.Redo}"
+            Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Redo}"
             InputGesture="Ctrl + Y">
             <MenuItem.Icon>
                 <PathIcon

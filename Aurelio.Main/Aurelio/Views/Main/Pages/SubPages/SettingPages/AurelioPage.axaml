@@ -33,7 +33,7 @@
                                 <u:IconButton
                                     Classes="accent fixed"
                                     Click="Update_OnClick"
-                                    Content="{Binding Source={x:Static properties:LangHelper.Current}, Path=Resources.CheckUpdate}"
+                                    Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.CheckUpdate}"
                                     DockPanel.Dock="Right"
                                     HorizontalAlignment="Right"
                                     Margin="0,0,0,0"

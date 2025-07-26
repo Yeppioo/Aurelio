@@ -28,21 +28,11 @@ public partial class AggregateSearchDialog : PageMixModelBase
     private void Filter()
     {
         FilteredAggregateSearchEntries.Clear();
-        if (ComboBox.SelectedIndex == 0)
-        {
-            FilteredAggregateSearchEntries.AddRange(Data.AggregateSearchEntries.Where(item =>
-                    item.Title.Contains(AggregateSearchFilter, StringComparison.OrdinalIgnoreCase) ||
-                    item.Summary.Contains(AggregateSearchFilter, StringComparison.OrdinalIgnoreCase))
-                .OrderByDescending(x => x.Order).ThenBy(x => x.Title));
-        }
-        else
-        {
-            FilteredAggregateSearchEntries.AddRange(Data.AggregateSearchEntries.Where(item =>
-                    item.Type == (AggregateSearchEntryType)ComboBox.SelectedIndex &&
-                    (item.Title.Contains(AggregateSearchFilter, StringComparison.OrdinalIgnoreCase) ||
-                     item.Summary.Contains(AggregateSearchFilter, StringComparison.OrdinalIgnoreCase)))
-                .OrderByDescending(x => x.Order).ThenBy(x => x.Title));
-        }
+
+        FilteredAggregateSearchEntries.AddRange(Data.AggregateSearchEntries.Where(item =>
+                item.Title.Contains(AggregateSearchFilter, StringComparison.OrdinalIgnoreCase) ||
+                item.Summary.Contains(AggregateSearchFilter, StringComparison.OrdinalIgnoreCase))
+            .OrderByDescending(x => x.Order).ThenBy(x => x.Title));
     }
 
     public AggregateSearchDialog()
