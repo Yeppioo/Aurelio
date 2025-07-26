@@ -1,0 +1,130 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Aurelio.Main\Aurelio\Aurelio.csproj">
+            <Private>false</Private>
+            <ExcludeAssets>runtime</ExcludeAssets>
+        </ProjectReference>
+        <ProjectReference Include="..\Aurelio.Plugin\Aurelio.Plugin.Base\Aurelio.Plugin.Base.csproj">
+            <Private>false</Private>
+            <ExcludeAssets>runtime</ExcludeAssets>
+        </ProjectReference>
+        <ProjectReference Include="..\Aurelio.Plugin\Aurelio.Plugins\Minecraft\SkinRender\LiteSkinViewer.2D\LiteSkinViewer.2D.csproj"/>
+        <ProjectReference Include="..\Aurelio.Plugin\Aurelio.Plugins\Minecraft\SkinRender\LiteSkinViewer.3D\LiteSkinViewer.3D.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="MinecraftLangs\MinecraftLangs.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>MinecraftLangs.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Include="Assets\McIcons\crafting_table_front.png" />
+      <EmbeddedResource Include="Assets\McIcons\dirt_path_side.png" />
+      <EmbeddedResource Include="Assets\McIcons\FabricIcon.png" />
+      <EmbeddedResource Include="Assets\McIcons\ForgeIcon.png" />
+      <EmbeddedResource Include="Assets\McIcons\furnace_front.png" />
+      <EmbeddedResource Include="Assets\McIcons\grass_block_side.png" />
+      <EmbeddedResource Include="Assets\McIcons\NeoForgeIcon.png" />
+      <EmbeddedResource Include="Assets\McIcons\OptiFineIcon.png" />
+      <EmbeddedResource Include="Assets\McIcons\QuiltIcon.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="MinecraftLangs\MinecraftLangs.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>MinecraftLangs.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Controls\ScreenshotEntry.axaml.cs">
+        <DependentUpon>ScreenshotEntry.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Controls\ContentExpandControl.axaml.cs">
+        <DependentUpon>ContentExpandControl.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Controls\GlassCard.axaml.cs">
+        <DependentUpon>GlassCard.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Controls\ScreenshotEntry.axaml.cs">
+        <DependentUpon>ScreenshotEntry.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Controls\TitleBar.axaml.cs">
+        <DependentUpon>TitleBar.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Render3DSkin.axaml.cs">
+        <DependentUpon>Render3DSkin.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\MinecraftInstancesTabPage.axaml.cs">
+        <DependentUpon>MinecraftInstancesTabPage.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\MinecraftInstancePage.axaml.cs">
+        <DependentUpon>MinecraftInstancePage.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\SettingPages\AccountPage.axaml.cs">
+        <DependentUpon>AccountPage.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\SettingPages\LaunchPage.axaml.cs">
+        <DependentUpon>LaunchPage.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\SettingPages\AccountPage.axaml.cs">
+        <DependentUpon>AccountPage.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\SettingPages\AurelioPage.axaml.cs">
+        <DependentUpon>AurelioPage.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\SettingPages\DownloadPage.axaml.cs">
+        <DependentUpon>DownloadPage.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\SettingPages\LaunchPage.axaml.cs">
+        <DependentUpon>LaunchPage.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\SettingPages\PersonalizationPage.axaml.cs">
+        <DependentUpon>PersonalizationPage.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\SettingPages\PluginPage.axaml.cs">
+        <DependentUpon>PluginPage.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\SettingTabPage.axaml.cs">
+        <DependentUpon>SettingTabPage.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Controls\ScreenshotEntry.axaml" />
+      <AdditionalFiles Include="Views\MinecraftInstancePages\ModPage.axaml" />
+      <AdditionalFiles Include="Views\MinecraftInstancePages\OverViewPage.axaml" />
+      <AdditionalFiles Include="Views\MinecraftInstancePages\ResourcePackPage.axaml" />
+      <AdditionalFiles Include="Views\MinecraftInstancePages\SavePage.axaml" />
+      <AdditionalFiles Include="Views\MinecraftInstancePages\ScreenshotPage.axaml" />
+      <AdditionalFiles Include="Views\MinecraftInstancePages\ShaderPackPage.axaml" />
+      <AdditionalFiles Include="Views\SettingPages\AccountPage.axaml" />
+      <AdditionalFiles Include="Views\SettingPages\LaunchPage.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MinecraftLaunch" Version="4.0.2-preview11" />
+      <PackageReference Include="Tomlyn" Version="0.19.0" />
+    </ItemGroup>
+</Project>
