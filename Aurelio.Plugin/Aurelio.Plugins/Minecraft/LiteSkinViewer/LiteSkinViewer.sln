@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36017.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteSkinViewer.3D", "LiteSkinViewer.3D\LiteSkinViewer.3D.csproj", "{127F7C5E-CC78-5192-6224-E52937215AF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteSkinViewer.3D.Simple", "LiteSkinViewer.3D.Simple\LiteSkinViewer.3D.Simple.csproj", "{DFDE430F-CC5F-5ADD-5AE7-40CB318A6635}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteSkinViewer.2D", "LiteSkinViewer.2D\LiteSkinViewer.2D.csproj", "{2EA1686D-E3DE-4914-BD3F-1D42AA87E35A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteSkinViewer.2D.Simple", "LiteSkinViewer.2D.Simple\LiteSkinViewer.2D.Simple.csproj", "{84B2D9B8-DC7A-4F43-AB49-2C31E16E9F33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteSkinViewer.Shared", "LiteSkinViewer.Shared\LiteSkinViewer.Shared.csproj", "{0A9F4CE8-6AC6-2DD4-F39E-DF172B43A833}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{127F7C5E-CC78-5192-6224-E52937215AF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{127F7C5E-CC78-5192-6224-E52937215AF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{127F7C5E-CC78-5192-6224-E52937215AF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{127F7C5E-CC78-5192-6224-E52937215AF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFDE430F-CC5F-5ADD-5AE7-40CB318A6635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFDE430F-CC5F-5ADD-5AE7-40CB318A6635}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFDE430F-CC5F-5ADD-5AE7-40CB318A6635}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFDE430F-CC5F-5ADD-5AE7-40CB318A6635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EA1686D-E3DE-4914-BD3F-1D42AA87E35A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EA1686D-E3DE-4914-BD3F-1D42AA87E35A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EA1686D-E3DE-4914-BD3F-1D42AA87E35A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EA1686D-E3DE-4914-BD3F-1D42AA87E35A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84B2D9B8-DC7A-4F43-AB49-2C31E16E9F33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84B2D9B8-DC7A-4F43-AB49-2C31E16E9F33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84B2D9B8-DC7A-4F43-AB49-2C31E16E9F33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84B2D9B8-DC7A-4F43-AB49-2C31E16E9F33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A9F4CE8-6AC6-2DD4-F39E-DF172B43A833}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A9F4CE8-6AC6-2DD4-F39E-DF172B43A833}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A9F4CE8-6AC6-2DD4-F39E-DF172B43A833}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A9F4CE8-6AC6-2DD4-F39E-DF172B43A833}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4353A3C7-A273-422B-A9D0-1697517EC9E9}
+	EndGlobalSection
+EndGlobal

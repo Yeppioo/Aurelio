@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>LiteSkinViewer2D</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\LiteSkinViewer.Shared\LiteSkinViewer.Shared.csproj" />
+	</ItemGroup>
+</Project>

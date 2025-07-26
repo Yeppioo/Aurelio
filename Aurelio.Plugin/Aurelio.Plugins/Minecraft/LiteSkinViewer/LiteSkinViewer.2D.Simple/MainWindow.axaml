@@ -1,0 +1,55 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="LiteSkinViewer2D.Simple.MainWindow"
+        Title="LiteSkinViewer2D.Simple">
+	<Grid Margin="16"
+		  RowDefinitions="* auto"
+		  ColumnDefinitions="* auto">
+		<Image Stretch="Uniform"
+			   Name="PART_SkinImage"
+			   Grid.ColumnSpan="2"/>
+
+		<StackPanel VerticalAlignment="Center"
+					Grid.Row="0"
+					Grid.Column="1">
+			<Image Width="100"
+				   Height="100"
+				   Name="PART_SkinHeadImage"/>
+
+			<Border Width="100"
+					Height="100"
+					Margin="0 16 0 0"
+					CornerRadius="8"
+					Grid.Row="1"
+					Grid.Column="1"
+					Grid.RowSpan="2">
+				<Border.Background>
+					<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+						<GradientStop Color="#FF9A9E" Offset="0.0"/>
+						<GradientStop Color="#FAD0C4" Offset="0.5"/>
+						<GradientStop Color="#FFD1FF" Offset="1.0"/>
+					</LinearGradientBrush>
+				</Border.Background>
+
+				<Image Stretch="Fill"
+					   Name="PART_SkinHeadPFPImage"/>
+			</Border>
+		</StackPanel>
+
+		<StackPanel VerticalAlignment="Center"
+					Grid.Row="1"
+					Grid.Column="0"
+					Grid.ColumnSpan="2">
+
+			<TextBlock Margin="0 8"
+					   FontSize="14"
+					   Text="皮肤设置"
+					   FontWeight="SemiBold"/>
+
+			<TextBox Name="PART_SkinTextBox"/>
+		</StackPanel>
+	</Grid>
+</Window>

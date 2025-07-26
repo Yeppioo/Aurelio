@@ -1,0 +1,247 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Plugin.Minecraft.Views.SettingPages.LaunchPage"
+    x:DataType="settingPages:LaunchPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:minecraft="clr-namespace:Aurelio.Plugin.Minecraft.Classes.Minecraft"
+    xmlns:properties="clr-namespace:Aurelio.Public.Langs;assembly=Aurelio"
+    xmlns:settingPages="clr-namespace:Aurelio.Plugin.Minecraft.Views.SettingPages"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:ui="clr-namespace:Aurelio.Public.Module.Ui;assembly=Aurelio"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Name="Root">
+        <ScrollViewer>
+            <Border
+                Background="{DynamicResource CardBackgroundColor}"
+                CornerRadius="{DynamicResource CardCornerRadius}"
+                DockPanel.Dock="Top"
+                Margin="15,0,15,15"
+                VerticalAlignment="Top">
+                <StackPanel Margin="0,0,0,5" Spacing="0">
+                    <StackPanel>
+                        <DockPanel>
+                            <DockPanel
+                                DockPanel.Dock="Top"
+                                Height="50"
+                                Margin="17.5,0,10,0">
+                                <PathIcon
+                                    Data="M64 32C64 14.3 49.7 0 32 0S0 14.3 0 32l0 96L0 384c0 35.3 28.7 64 64 64l192 0 0-64L64 384l0-224 192 0 0-64L64 96l0-64zM288 192c0 17.7 14.3 32 32 32l224 0c17.7 0 32-14.3 32-32l0-128c0-17.7-14.3-32-32-32l-98.7 0c-8.5 0-16.6-3.4-22.6-9.4L409.4 9.4c-6-6-14.1-9.4-22.6-9.4L320 0c-17.7 0-32 14.3-32 32l0 160zm0 288c0 17.7 14.3 32 32 32l224 0c17.7 0 32-14.3 32-32l0-128c0-17.7-14.3-32-32-32l-98.7 0c-8.5 0-16.6-3.4-22.6-9.4l-13.3-13.3c-6-6-14.1-9.4-22.6-9.4L320 288c-17.7 0-32 14.3-32 32l0 160z"
+                                    Margin="0,-1,15,0"
+                                    Width="16" />
+                                <TextBlock
+                                    Margin="0,-1,0,0"
+                                    Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.MinecraftFolder}"
+                                    VerticalAlignment="Center" />
+                                <StackPanel
+                                    DockPanel.Dock="Right"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,0,0,0"
+                                    Orientation="Horizontal"
+                                    Spacing="10"
+                                    VerticalAlignment="Center">
+                                    <u:IconButton Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.AddFolder}" Name="AddMinecraftFolder">
+                                        <u:IconButton.Icon>
+                                            <PathIcon
+                                                Data="{x:Static ui:Icons.AddFolder}"
+                                                Height="14"
+                                                Width="14" />
+                                        </u:IconButton.Icon>
+                                    </u:IconButton>
+                                    <u:IconButton Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.DelSelectedItem}" Name="RemoveSelectedMinecraftFolder">
+                                        <u:IconButton.Icon>
+                                            <PathIcon
+                                                Data="{x:Static ui:Icons.MinusFolder}"
+                                                Height="14"
+                                                Width="14" />
+                                        </u:IconButton.Icon>
+                                    </u:IconButton>
+                                </StackPanel>
+                            </DockPanel>
+                            <Border
+                                Background="{DynamicResource 2xCardBackgroundColor}"
+                                CornerRadius="{DynamicResource CardCornerRadius}"
+                                Margin="10,0,10,10">
+                                <Expander
+                                    Background="{DynamicResource 2xCardBackgroundColor}"
+                                    Classes="card"
+                                    Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.ExistingNow}">
+                                    <ListBox
+                                        ItemsSource="{Binding Data.MinecraftPluginSettingEntry.MinecraftFolderEntries}"
+                                        Margin="5"
+                                        Name="MinecraftFolderListBox">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate DataType="minecraft:RecordMinecraftFolderEntry">
+                                                <TextBlock Height="18">
+                                                    <Run Text="[" />
+                                                    <Run Text="{Binding Name}" />
+                                                    <Run Text="] " />
+                                                    <Run Text="{Binding Path}" />
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </Expander>
+                            </Border>
+                        </DockPanel>
+                    </StackPanel>
+                    <Separator Margin="10,0" />
+                    <StackPanel>
+                        <DockPanel>
+                            <DockPanel
+                                DockPanel.Dock="Top"
+                                Height="50"
+                                Margin="17.5,0,10,0">
+                                <PathIcon
+                                    Data="M88 0C74.7 0 64 10.7 64 24c0 38.9 23.4 59.4 39.1 73.1l1.1 1C120.5 112.3 128 119.9 128 136c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C119.5 47.7 112 40.1 112 24c0-13.3-10.7-24-24-24zM32 192c-17.7 0-32 14.3-32 32L0 416c0 53 43 96 96 96l192 0c53 0 96-43 96-96l16 0c61.9 0 112-50.1 112-112s-50.1-112-112-112l-48 0L32 192zm352 64l16 0c26.5 0 48 21.5 48 48s-21.5 48-48 48l-16 0 0-96zM224 24c0-13.3-10.7-24-24-24s-24 10.7-24 24c0 38.9 23.4 59.4 39.1 73.1l1.1 1C232.5 112.3 240 119.9 240 136c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C231.5 47.7 224 40.1 224 24z"
+                                    Margin="0,-4,15,0"
+                                    Width="17" />
+                                <TextBlock
+                                    DockPanel.Dock="Left"
+                                    Margin="0,-1,0,0"
+                                    Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.JavaRuntime}"
+                                    VerticalAlignment="Center" />
+                                <StackPanel
+                                    DockPanel.Dock="Right"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,0,0,0"
+                                    Orientation="Horizontal"
+                                    Spacing="10"
+                                    VerticalAlignment="Center">
+                                    <u:IconButton Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.AutoScan}" Name="AutoScanJavaRuntime">
+                                        <u:IconButton.Icon>
+                                            <PathIcon
+                                                Data="{x:Static ui:Icons.Search}"
+                                                Height="13"
+                                                Width="13" />
+                                        </u:IconButton.Icon>
+                                    </u:IconButton>
+                                    <u:IconButton Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.ManualAdd}" Name="AddJavaRuntime">
+                                        <u:IconButton.Icon>
+                                            <PathIcon
+                                                Data="{x:Static ui:Icons.Java}"
+                                                Height="14"
+                                                Width="14" />
+                                        </u:IconButton.Icon>
+                                    </u:IconButton>
+                                    <u:IconButton Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.DelSelectedItem}" Name="RemoveSelectedJavaRuntime">
+                                        <u:IconButton.Icon>
+                                            <PathIcon
+                                                Data="{x:Static ui:Icons.Eraser}"
+                                                Height="14"
+                                                Width="14" />
+                                        </u:IconButton.Icon>
+                                    </u:IconButton>
+                                </StackPanel>
+                                <ComboBox
+                                    HorizontalAlignment="Stretch"
+                                    ItemsSource="{Binding Data.MinecraftPluginSettingEntry.JavaRuntimes}"
+                                    Margin="15,0,10,0"
+                                    Name="JavaRuntimeComboBox"
+                                    SelectedItem="{Binding Data.MinecraftPluginSettingEntry.PreferredJavaRuntime}"
+                                    VerticalAlignment="Center">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate DataType="minecraft:RecordJavaRuntime">
+                                            <TextBlock Height="18">
+                                                <Run Text="[" />
+                                                <Run Text="{Binding JavaType}" />
+                                                <Run Text="{Binding JavaVersion}" />
+                                                <Run Text="]" />
+                                                <Run Text="{Binding JavaPath}" />
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </DockPanel>
+                        </DockPanel>
+                    </StackPanel>
+                    <Separator Margin="10,0" />
+                    <StackPanel Margin="0,3">
+                        <DockPanel>
+                            <DockPanel
+                                DockPanel.Dock="Top"
+                                Height="40"
+                                Margin="17.5,0,10,0">
+                                <PathIcon
+                                    Data="M64 64C28.7 64 0 92.7 0 128l0 7.4c0 6.8 4.4 12.6 10.1 16.3C23.3 160.3 32 175.1 32 192s-8.7 31.7-21.9 40.3C4.4 236 0 241.8 0 248.6L0 320l576 0 0-71.4c0-6.8-4.4-12.6-10.1-16.3C552.7 223.7 544 208.9 544 192s8.7-31.7 21.9-40.3c5.7-3.7 10.1-9.5 10.1-16.3l0-7.4c0-35.3-28.7-64-64-64L64 64zM576 352L0 352l0 64c0 17.7 14.3 32 32 32l48 0 0-32c0-8.8 7.2-16 16-16s16 7.2 16 16l0 32 96 0 0-32c0-8.8 7.2-16 16-16s16 7.2 16 16l0 32 96 0 0-32c0-8.8 7.2-16 16-16s16 7.2 16 16l0 32 96 0 0-32c0-8.8 7.2-16 16-16s16 7.2 16 16l0 32 48 0c17.7 0 32-14.3 32-32l0-64zM192 160l0 64c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32s32 14.3 32 32zm128 0l0 64c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32s32 14.3 32 32zm128 0l0 64c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32s32 14.3 32 32z"
+                                    Margin="-1,-1,15,0"
+                                    Width="17" />
+                                <TextBlock
+                                    Margin="0,-1,0,0"
+                                    Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.MemoryLimit}"
+                                    VerticalAlignment="Center" />
+                                <TextBlock
+                                    DockPanel.Dock="Right"
+                                    TextAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Width="110">
+                                    <Run Text="{Binding Data.MinecraftPluginSettingEntry.MemoryLimit}" />
+                                    <Run Text="Mib" />
+                                </TextBlock>
+                                <Slider
+                                    IsSnapToTickEnabled="True"
+                                    Margin="15,0,10,0"
+                                    Maximum="32768"
+                                    Minimum="128"
+                                    Name="MaxMemSlider"
+                                    TickFrequency="1"
+                                    Value="{Binding Data.MinecraftPluginSettingEntry.MemoryLimit}"
+                                    VerticalAlignment="Center" />
+                            </DockPanel>
+                        </DockPanel>
+                    </StackPanel>
+                    <Separator Margin="10,0" />
+                    <StackPanel>
+                        <DockPanel>
+                            <DockPanel
+                                DockPanel.Dock="Top"
+                                Height="40"
+                                Margin="17.5,0,10,0">
+                                <PathIcon
+                                    Data="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L489.3 358.2l90.5-90.5c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114l-96 96-31.9-25C430.9 239.6 420.1 175.1 377 132c-52.2-52.3-134.5-56.2-191.3-11.7L38.8 5.1zM239 162c30.1-14.9 67.7-9.9 92.8 15.3c20 20 27.5 48.3 21.7 74.5L239 162zM406.6 416.4L220.9 270c-2.1 39.8 12.2 80.1 42.2 110c38.9 38.9 94.4 51 143.6 36.3zm-290-228.5L60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5l61.8-61.8-50.6-39.9z"
+                                    Margin="-1,-1,15,0"
+                                    Width="17" />
+                                <TextBlock
+                                    Margin="0,-1,0,0"
+                                    Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.IsolateMinecraftInstances}"
+                                    VerticalAlignment="Center" />
+                                <ToggleSwitch
+                                    DockPanel.Dock="Right"
+                                    HorizontalAlignment="Right"
+                                    IsChecked="{Binding Data.MinecraftPluginSettingEntry.EnableIndependentMinecraft}"
+                                    Margin="0,-7,15,0"
+                                    VerticalAlignment="Center" />
+                            </DockPanel>
+                        </DockPanel>
+                    </StackPanel>
+                    <Separator Margin="10,0" />
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Top" Margin="17.5,7.5,10,5">
+                            <PathIcon
+                                Data="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c8.4-19.3 10.6-41.4 4.8-63.3c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zM373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5L373 389.9z"
+                                Margin="0,1,15,0"
+                                Width="15" />
+                            <TextBlock
+                                Margin="0,0,0,0"
+                                Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.WindowVisibility}"
+                                VerticalAlignment="Center" />
+                            <ComboBox
+                                HorizontalAlignment="Right"
+                                MinWidth="140"
+                                SelectedIndex="{Binding Data.MinecraftPluginSettingEntry.WindowVisibility}">
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.AfterLaunchKeepLauncherVisible}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.AfterLaunchMakeLauncherMinimize}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.AfterLaunchMinimizeAndShowWhenGameExit}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.AfterLaunchHideAndShowWhenGameExit}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.AfterLaunchExitLauncher}" />
+                            </ComboBox>
+                        </DockPanel>
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+    </Border>
+</UserControl>

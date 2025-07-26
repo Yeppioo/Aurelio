@@ -1,0 +1,14 @@
+NOTICE
+
+LiteSkinViewer
+
+版权所有 © 2025 YangSpring429
+
+本项目包含由 Coloryr 开发的软件，项目地址如下：
+https://github.com/Coloryr/MinecraftSkinRender
+
+本项目的部分代码源自 MinecraftSkinRender 项目，该项目依据 Apache License 2.0 授权。
+
+LiteSkinViewer 对原始渲染逻辑进行了改造与扩展，以用于本应用的图形渲染功能。
+
+MinecraftSkinRender 的原始版权及许可条款在本项目中仍然适用于相关代码部分。

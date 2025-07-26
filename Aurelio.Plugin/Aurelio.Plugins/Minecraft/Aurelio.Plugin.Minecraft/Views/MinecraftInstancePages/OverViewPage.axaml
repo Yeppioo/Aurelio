@@ -1,0 +1,247 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Plugin.Minecraft.Views.MinecraftInstancePages.OverViewPage"
+    x:DataType="minecraftInstancePages:OverViewPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
+    xmlns:converter1="clr-namespace:Aurelio.Plugin.Minecraft.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:minecraft="clr-namespace:Aurelio.Plugin.Minecraft.Classes.Minecraft"
+    xmlns:minecraftInstancePages="clr-namespace:Aurelio.Plugin.Minecraft.Views.MinecraftInstancePages"
+    xmlns:properties="clr-namespace:Aurelio.Public.Langs;assembly=Aurelio"
+    xmlns:properties1="clr-namespace:Aurelio.Plugin.Minecraft"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:ui="clr-namespace:Aurelio.Public.Module.Ui"
+    xmlns:ui1="clr-namespace:Aurelio.Public.Module.Ui;assembly=Aurelio"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <converter1:MinecraftInstanceSettingMemoryLimitConverter x:Key="MinecraftInstanceSettingMemoryLimitConverter" />
+    </UserControl.Resources>
+    <Border Name="Root">
+        <ScrollViewer>
+            <StackPanel Margin="15,0,15,15" Spacing="10">
+                <Border
+                    Background="{DynamicResource CardBackgroundColor}"
+                    CornerRadius="{DynamicResource CardCornerRadius}"
+                    DockPanel.Dock="Top"
+                    Padding="10"
+                    VerticalAlignment="Top">
+                    <StackPanel Spacing="7">
+                        <DockPanel>
+                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                <PathIcon
+                                    Data="F1 M 20.373764 7.092247 L 19.895096 7.570953 L 15.015411 12.493286 C 14.665833 12.845078 14.180984 13.046875 13.68515 13.046875 L 1.875 13.046875 C 1.529846 13.046875 1.25 12.767029 1.25 12.421875 C 1.25 12.076645 1.529846 11.796875 1.875 11.796875 L 10 11.796875 L 10 9.361725 C 10 8.866119 10.201721 8.38131 10.554657 8.030396 L 11.799011 6.796875 L 0.625 6.796875 C -0.406265 6.796875 -1.25 7.64061 -1.25 8.671875 L -1.25 19.921875 C -1.25 20.95314 -0.406265 21.796875 0.625 21.796875 L 19.375 21.796875 C 20.406265 21.796875 21.25 20.95314 21.25 19.921875 L 21.25 8.671875 C 21.25 8.008041 20.897903 7.42569 20.373764 7.092247 Z M 18.125 16.796875 L 1.875 16.796875 C 1.529846 16.796875 1.25 16.517029 1.25 16.171875 C 1.25 15.826645 1.529846 15.546875 1.875 15.546875 L 18.125 15.546875 C 18.47023 15.546875 18.75 15.826645 18.75 16.171875 C 18.75 16.517029 18.47023 16.796875 18.125 16.796875 Z M 20.957031 4.741211 C 21.347656 4.350586 21.347656 3.720703 20.957031 3.334961 L 19.711914 2.089844 C 19.519081 1.894531 19.265175 1.796875 19.01062 1.796875 C 18.756104 1.796875 18.500977 1.894531 18.305664 2.089844 L 17.241211 3.154297 L 19.892578 5.805664 Z M 11.25 9.361725 L 11.25 11.796875 L 13.68515 11.796875 C 13.8517 11.796875 14.011307 11.730347 14.128647 11.612244 L 19.008789 6.689453 L 16.357422 4.038086 L 11.434631 8.918152 C 11.316452 9.035606 11.25 9.195251 11.25 9.361725 Z "
+                                    Margin="0,-2,15,0"
+                                    Width="17" />
+                                <TextBlock Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Name}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <DockPanel>
+                                <!--  收藏夹切换按钮  -->
+                                <ToggleButton
+                                    DockPanel.Dock="Right"
+                                    IsChecked="{Binding Entry.SettingEntry.IsFavourite}"
+                                    Margin="10,0,0,0"
+                                    Name="FavouriteToggle"
+                                    ToolTip.Tip="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Favourite}"
+                                    VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal">
+                                        <PathIcon
+                                            Data="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
+                                            Height="16"
+                                            Width="16" />
+                                        <TextBlock
+                                            Margin="5,0,0,0"
+                                            Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Favourite}"
+                                            VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </ToggleButton>
+                                <u:IconButton
+                                    Command="{Binding EditMinecraftIdCommand}"
+                                    CommandParameter="{Binding $self}"
+                                    Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Edit}"
+                                    DockPanel.Dock="Right"
+                                    Margin="10,0,0,0"
+                                    Name="EditMinecraftId"
+                                    VerticalAlignment="Center">
+                                    <u:IconButton.Icon>
+                                        <PathIcon
+                                            Data="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z"
+                                            Height="14"
+                                            Width="14" />
+                                    </u:IconButton.Icon>
+                                </u:IconButton>
+                                <TextBox
+                                    IsReadOnly="True"
+                                    Margin="40,0,0,0"
+                                    Text="{Binding Entry.Id}"
+                                    VerticalAlignment="Center" />
+                            </DockPanel>
+                        </DockPanel>
+                        <Separator />
+                        <DockPanel>
+                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                <PathIcon
+                                    Data="M256 398.8c-11.8 5.1-23.4 9.7-34.9 13.5c16.7 33.8 31 35.7 34.9 35.7s18.1-1.9 34.9-35.7c-11.4-3.9-23.1-8.4-34.9-13.5zM446 256c33 45.2 44.3 90.9 23.6 128c-20.2 36.3-62.5 49.3-115.2 43.2c-22 52.1-55.6 84.8-98.4 84.8s-76.4-32.7-98.4-84.8c-52.7 6.1-95-6.8-115.2-43.2C21.7 346.9 33 301.2 66 256c-33-45.2-44.3-90.9-23.6-128c20.2-36.3 62.5-49.3 115.2-43.2C179.6 32.7 213.2 0 256 0s76.4 32.7 98.4 84.8c52.7-6.1 95 6.8 115.2 43.2c20.7 37.1 9.4 82.8-23.6 128zm-65.8 67.4c-1.7 14.2-3.9 28-6.7 41.2c31.8 1.4 38.6-8.7 40.2-11.7c2.3-4.2 7-17.9-11.9-48.1c-6.8 6.3-14 12.5-21.6 18.6zm-6.7-175.9c2.8 13.1 5 26.9 6.7 41.2c7.6 6.1 14.8 12.3 21.6 18.6c18.9-30.2 14.2-44 11.9-48.1c-1.6-2.9-8.4-13-40.2-11.7zM290.9 99.7C274.1 65.9 259.9 64 256 64s-18.1 1.9-34.9 35.7c11.4 3.9 23.1 8.4 34.9 13.5c11.8-5.1 23.4-9.7 34.9-13.5zm-159 88.9c1.7-14.3 3.9-28 6.7-41.2c-31.8-1.4-38.6 8.7-40.2 11.7c-2.3 4.2-7 17.9 11.9 48.1c6.8-6.3 14-12.5 21.6-18.6zM110.2 304.8C91.4 335 96 348.7 98.3 352.9c1.6 2.9 8.4 13 40.2 11.7c-2.8-13.1-5-26.9-6.7-41.2c-7.6-6.1-14.8-12.3-21.6-18.6zM336 256a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zm-80-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"
+                                    Margin="0,-1,16,0"
+                                    Width="16" />
+                                <TextBlock Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Icon}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <ComboBox
+                                HorizontalAlignment="Stretch"
+                                Margin="40,0,0,0"
+                                Name="IconComboBox"
+                                SelectedIndex="{Binding Entry.SettingEntry.IconType}">
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Auto}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Custom}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.CraftingTable}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.GlassBlock}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Furnace}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.DirtPath}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.GrassBlock}" />
+                                <ComboBoxItem Content="Fabric" />
+                                <ComboBoxItem Content="Forge" />
+                                <ComboBoxItem Content="NoeForge" />
+                                <ComboBoxItem Content="Quilt" />
+                            </ComboBox>
+                        </DockPanel>
+                        <Separator />
+                        <DockPanel>
+                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                <PathIcon
+                                    Data="M0 80L0 229.5c0 17 6.7 33.3 18.7 45.3l176 176c25 25 65.5 25 90.5 0L418.7 317.3c25-25 25-65.5 0-90.5l-176-176c-12-12-28.3-18.7-45.3-18.7L48 32C21.5 32 0 53.5 0 80zm112 32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"
+                                    Margin="0,-1,16,0"
+                                    Width="16" />
+                                <TextBlock Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Tag}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <DockPanel>
+                                <u:IconButton
+                                    Command="{Binding CreateNewTagCommand}"
+                                    CommandParameter="{Binding $self}"
+                                    Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.New}"
+                                    DockPanel.Dock="Right"
+                                    Margin="10,0,0,0"
+                                    Name="CreateNewTag"
+                                    VerticalAlignment="Center">
+                                    <u:IconButton.Icon>
+                                        <PathIcon
+                                            Data="{x:Static ui1:Icons.Plus}"
+                                            Height="14"
+                                            Width="14" />
+                                    </u:IconButton.Icon>
+                                </u:IconButton>
+                                <u:MultiComboBox
+                                    HorizontalAlignment="Stretch"
+                                    ItemsSource="{Binding Data.UiProperty.AllMinecraftTags}"
+                                    Margin="40,0,0,0"
+                                    Name="TagsMultiComboBox"
+                                    SelectedItems="{Binding Entry.SettingEntry.Tags}" />
+                            </DockPanel>
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+                <Border
+                    Background="{DynamicResource CardBackgroundColor}"
+                    CornerRadius="{DynamicResource CardCornerRadius}"
+                    DockPanel.Dock="Top"
+                    Padding="10"
+                    VerticalAlignment="Top">
+                    <StackPanel Spacing="7">
+                        <DockPanel DockPanel.Dock="Top" Margin="10,0,0,0">
+                            <StackPanel Margin="0,0,20,0" Orientation="Horizontal">
+                                <PathIcon
+                                    Data="M88 0C74.7 0 64 10.7 64 24c0 38.9 23.4 59.4 39.1 73.1l1.1 1C120.5 112.3 128 119.9 128 136c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C119.5 47.7 112 40.1 112 24c0-13.3-10.7-24-24-24zM32 192c-17.7 0-32 14.3-32 32L0 416c0 53 43 96 96 96l192 0c53 0 96-43 96-96l16 0c61.9 0 112-50.1 112-112s-50.1-112-112-112l-48 0L32 192zm352 64l16 0c26.5 0 48 21.5 48 48s-21.5 48-48 48l-16 0 0-96zM224 24c0-13.3-10.7-24-24-24s-24 10.7-24 24c0 38.9 23.4 59.4 39.1 73.1l1.1 1C232.5 112.3 240 119.9 240 136c0 13.3 10.7 24 24 24s24-10.7 24-24c0-38.9-23.4-59.4-39.1-73.1l-1.1-1C231.5 47.7 224 40.1 224 24z"
+                                    Margin="0,-5,15,0"
+                                    Width="17" />
+                                <TextBlock Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.JavaRuntime}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <ComboBox
+                                HorizontalAlignment="Stretch"
+                                ItemsSource="{Binding JavaRuntimes}"
+                                Margin="15,0,0,0"
+                                Name="JavaRuntimeComboBox"
+                                SelectedItem="{Binding Entry.SettingEntry.JavaRuntime}"
+                                VerticalAlignment="Center">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate DataType="minecraft:RecordJavaRuntime">
+                                        <TextBlock Height="18">
+                                            <Run Text="[" />
+                                            <Run Text="{Binding JavaType}" />
+                                            <Run Text="{Binding JavaVersion}" />
+                                            <Run Text="]" />
+                                            <Run Text="{Binding JavaPath}" />
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </DockPanel>
+                        <Separator />
+                        <DockPanel Margin="10,0,0,0">
+                            <StackPanel Margin="0,0,20,0" Orientation="Horizontal">
+                                <PathIcon
+                                    Data="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L489.3 358.2l90.5-90.5c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114l-96 96-31.9-25C430.9 239.6 420.1 175.1 377 132c-52.2-52.3-134.5-56.2-191.3-11.7L38.8 5.1zM239 162c30.1-14.9 67.7-9.9 92.8 15.3c20 20 27.5 48.3 21.7 74.5L239 162zM406.6 416.4L220.9 270c-2.1 39.8 12.2 80.1 42.2 110c38.9 38.9 94.4 51 143.6 36.3zm-290-228.5L60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5l61.8-61.8-50.6-39.9z"
+                                    Margin="0,0,15,0"
+                                    Width="17" />
+                                <TextBlock Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.IsolateMinecraftInstances}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <ComboBox
+                                HorizontalAlignment="Stretch"
+                                Margin="15,0,0,0"
+                                SelectedIndex="{Binding Entry.SettingEntry.EnableIndependentMinecraft}"
+                                VerticalAlignment="Center">
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.UseGlobalSetting}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.On}" />
+                                <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Off}" />
+                            </ComboBox>
+                        </DockPanel>
+                        <Separator />
+                        <DockPanel Margin="10,0,0,0">
+                            <StackPanel Margin="0,0,20,0" Orientation="Horizontal">
+                                <PathIcon
+                                    Data="M64 32C28.7 32 0 60.7 0 96l0 64c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-64c0-35.3-28.7-64-64-64L64 32zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm48 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zM64 288c-35.3 0-64 28.7-64 64l0 64c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-64c0-35.3-28.7-64-64-64L64 288zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm56 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"
+                                    Margin="0,-1,15,0"
+                                    Width="16" />
+                                <TextBlock Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.AutoJoinServer}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <TextBox
+                                HorizontalAlignment="Stretch"
+                                Margin="15,0,0,0"
+                                Text="{Binding Entry.SettingEntry.AutoJoinServerAddress}"
+                                VerticalAlignment="Center"
+                                Watermark="example.com:25565" />
+                        </DockPanel>
+                        <Separator />
+                        <DockPanel Margin="10,3,0,5">
+                            <StackPanel Margin="0,0,20,0" Orientation="Horizontal">
+                                <PathIcon
+                                    Data="M64 64C28.7 64 0 92.7 0 128l0 7.4c0 6.8 4.4 12.6 10.1 16.3C23.3 160.3 32 175.1 32 192s-8.7 31.7-21.9 40.3C4.4 236 0 241.8 0 248.6L0 320l576 0 0-71.4c0-6.8-4.4-12.6-10.1-16.3C552.7 223.7 544 208.9 544 192s8.7-31.7 21.9-40.3c5.7-3.7 10.1-9.5 10.1-16.3l0-7.4c0-35.3-28.7-64-64-64L64 64zM576 352L0 352l0 64c0 17.7 14.3 32 32 32l48 0 0-32c0-8.8 7.2-16 16-16s16 7.2 16 16l0 32 96 0 0-32c0-8.8 7.2-16 16-16s16 7.2 16 16l0 32 96 0 0-32c0-8.8 7.2-16 16-16s16 7.2 16 16l0 32 96 0 0-32c0-8.8 7.2-16 16-16s16 7.2 16 16l0 32 48 0c17.7 0 32-14.3 32-32l0-64zM192 160l0 64c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32s32 14.3 32 32zm128 0l0 64c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32s32 14.3 32 32zm128 0l0 64c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32s32 14.3 32 32z"
+                                    Margin="-1,1,15,0"
+                                    Width="17" />
+                                <TextBlock Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.MemoryLimit}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <TextBlock
+                                DockPanel.Dock="Right"
+                                Text="{Binding Entry.SettingEntry.MemoryLimit, Converter={StaticResource MinecraftInstanceSettingMemoryLimitConverter}}"
+                                TextAlignment="Center"
+                                VerticalAlignment="Center"
+                                Width="110">
+                                />
+                            </TextBlock>
+                            <Slider
+                                IsSnapToTickEnabled="True"
+                                Margin="15,0,10,0"
+                                Maximum="32768"
+                                Minimum="-1"
+                                Name="MaxMemSlider"
+                                TickFrequency="1"
+                                Value="{Binding Entry.SettingEntry.MemoryLimit}"
+                                VerticalAlignment="Center" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

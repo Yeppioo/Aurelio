@@ -1,0 +1,65 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="LiteSkinViewer3D.Simple.MainWindow"
+		xmlns:lsv="using:LiteSkinViewer3D.Avalonia.Controls"
+        Title="LiteSkinViewer3D.Simple">
+	<Grid Margin="16"
+		  ColumnDefinitions="* *">
+		<lsv:SkinViewer3D Name="skinViewer"/>
+
+		<StackPanel Spacing="8"
+					VerticalAlignment="Center"
+					Grid.Column="1">
+			<TextBlock Text="皮肤设置"
+					   FontSize="14"
+					   FontWeight="SemiBold"/>
+			
+			<TextBox Watermark="皮肤路径"
+					 Name="PART_SkinTextBox"/>
+
+			<TextBox Margin="0 0 0 8"
+					 Watermark="披风路径"
+					 Name="PART_CapeTextBox"/>
+
+			<TextBlock Text="抗锯齿设置"
+					   FontSize="14"
+					   FontWeight="SemiBold"/>
+
+			<ComboBox Margin="0 0 0 8"
+					  SelectedIndex="1"
+					  Name="PART_AAComboBox"
+					  HorizontalAlignment="Stretch">
+				<ComboBoxItem Content="None"/>
+				<ComboBoxItem Content="FXAA"/>
+				<ComboBoxItem Content="MXAA"/>
+			</ComboBox>
+
+			<TextBlock Text="渲染设置"
+					   FontSize="14"
+					   FontWeight="SemiBold"/>
+
+			<Grid ColumnDefinitions="* * *">
+				<CheckBox Content="启用模型动画"
+						  IsChecked="True"
+						  Name="PART_AniamtionCheckBox"
+						  HorizontalAlignment="Center"
+						  Grid.Column="0"/>
+				
+				<CheckBox Content="启用披风渲染"
+						  IsChecked="True"
+						  Name="PART_CapeRenderCheckBox"
+						  HorizontalAlignment="Center"
+						  Grid.Column="1"/>
+				
+				<CheckBox Content="启用双层渲染" 
+						  IsChecked="True"
+						  Name="PART_DoubleRenderCheckBox"
+						  HorizontalAlignment="Center"
+						  Grid.Column="2"/>
+			</Grid>
+		</StackPanel>
+	</Grid>
+</Window>
