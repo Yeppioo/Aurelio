@@ -36,7 +36,7 @@ public class Data : ReactiveObject
             AggregateSearchEntries.Add(new AggregateSearchEntry(new NewTabPage(), null));
             AggregateSearchEntries.Add(new AggregateSearchEntry(new SettingTabPage() , "setting"));
         });
-        AppEvents.OnUpdateAggregateSearchEntries();
+        AggregateSearchEvents.OnUpdateAggregateSearchEntries();
     }
 
     public Data()

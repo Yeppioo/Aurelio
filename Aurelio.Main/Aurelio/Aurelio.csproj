@@ -138,8 +138,4 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Aurelio.Plugin\Aurelio.Plugin.Base\Aurelio.Plugin.Base.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Public\Module\Plugin\Helper\" />
-    </ItemGroup>
 </Project>

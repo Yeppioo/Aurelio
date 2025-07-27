@@ -3,9 +3,15 @@ using Aurelio.Plugin.Minecraft.Views;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Const;
+using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Plugin.Events;
+using Aurelio.Views.Main;
+using Aurelio.Views.Main.Pages;
+using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
 using Avalonia.Media;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using DynamicData;
 
 namespace Aurelio.Plugin.Minecraft.Service;
@@ -14,15 +20,45 @@ public class AggregateSearch
 {
     public static void Main()
     {
-        AppEvents.UpdateAggregateSearchEntries += (_, _) =>
+        AggregateSearchEvents.UpdateAggregateSearchEntries += (_, _) =>
         {
             Dispatcher.UIThread.Invoke(() =>
             {
-                Data.AggregateSearchEntries.Add(new AggregateSearchEntry(new MinecraftInstancesTabPage(), "minecraftInstances"));
+                Data.AggregateSearchEntries.Add(new AggregateSearchEntry(new MinecraftInstancesTabPage(),
+                    "minecraftInstances"));
                 Data.AggregateSearchEntries.AddRange(MinecraftPluginData.AllMinecraftInstances.Select(Create));
                 if (Data.SettingEntry != null)
-                    Data.AggregateSearchEntries.AddRange(MinecraftPluginData.MinecraftPluginSettingEntry.MinecraftAccounts.Select(Create));
+                    Data.AggregateSearchEntries.AddRange(
+                        MinecraftPluginData.MinecraftPluginSettingEntry.MinecraftAccounts.Select(Create));
             });
+        };
+        AggregateSearchEvents.ExecuteAggregateSearch += (sender, entry) =>
+        {
+            if (entry.Type is "Plugin.Minecraft.MinecraftInstance")
+            {
+                var tab = new TabEntry(new MinecraftInstancePage((entry.OriginObject as RecordMinecraftEntry)!));
+                if ((sender as Control)!.GetVisualRoot() is TabWindow window)
+                {
+                    window.CreateTab(tab);
+                    return;
+                }
+
+                App.UiRoot.CreateTab(tab);
+                if (sender is NewTabPage page)
+                {
+                    page.HostTab.Close(page.GetVisualRoot());
+                }
+
+                return;
+            }
+
+            if (entry.Type is "Plugin.Minecraft.MinecraftAccount")
+            {
+                MinecraftPluginData.MinecraftPluginSettingEntry.UsingMinecraftAccount =
+                    entry.OriginObject as RecordMinecraftAccount;
+                Notice($"{MainLang.SwitchedTo}: {(entry.OriginObject as RecordMinecraftAccount).Name}",
+                    NotificationType.Success);
+            }
         };
     }
 

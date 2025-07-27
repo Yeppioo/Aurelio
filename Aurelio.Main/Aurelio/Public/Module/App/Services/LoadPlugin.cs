@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Aurelio.Plugin.Base;
 using Aurelio.Public.Module.IO;
@@ -46,11 +47,19 @@ public class LoadPlugin
                 var plugins = Loader.CreateCommands(pluginAssembly);
 
                 var pluginList = plugins.ToList(); // Materialize to avoid multiple enumeration
-                foreach (var plugin in pluginList)
+                if (pluginList.Count == 0)
                 {
-                    Data.LoadedPlugins.Add(plugin);
-                    loadedCount++;
-                    Logger.Info($"Loaded plugin: {plugin.Id} v{plugin.Version} by {plugin.Author}");
+                    // No plugins found - this DLL is treated as a dependency library
+                    Logger.Info($"No plugins found in {Path.GetFileNameWithoutExtension(dll)} - treating as dependency library");
+                }
+                else
+                {
+                    foreach (var plugin in pluginList)
+                    {
+                        Data.LoadedPlugins.Add(plugin);
+                        loadedCount++;
+                        Logger.Info($"Loaded plugin: {plugin.Id} v{plugin.Version} by {plugin.Author}");
+                    }
                 }
             }
             catch (Exception e)

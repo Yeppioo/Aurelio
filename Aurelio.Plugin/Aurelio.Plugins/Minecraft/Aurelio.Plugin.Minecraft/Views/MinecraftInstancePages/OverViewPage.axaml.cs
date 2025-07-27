@@ -10,6 +10,7 @@ using Aurelio.Public.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
+using Avalonia.Interactivity;
 using FluentAvalonia.UI.Controls;
 
 namespace Aurelio.Plugin.Minecraft.Views.MinecraftInstancePages;
@@ -68,6 +69,10 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
         {
             Entry.SettingEntry.RemoveDuplicateTags();
         };
+
+        // Add event handlers for buttons
+        EditMinecraftId.Click += OnEditMinecraftIdClick;
+        CreateNewTag.Click += OnCreateNewTagClick;
     }
 
     public async void EditMinecraftIdCommand(Control sender)
@@ -114,5 +119,21 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
     public void ToggleFavouriteCommand(Control sender)
     {
         Entry.SettingEntry.IsFavourite = !Entry.SettingEntry.IsFavourite;
+    }
+
+    private void OnEditMinecraftIdClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Control control)
+        {
+            EditMinecraftIdCommand(control);
+        }
+    }
+
+    private void OnCreateNewTagClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Control control)
+        {
+            CreateNewTagCommand(control);
+        }
     }
 }

@@ -221,6 +221,7 @@
                                 FontFamily="{DynamicResource MiSans}"
                                 FontSize="13"
                                 Foreground="{DynamicResource TabTextColor}"
+                                Text="relio"
                                 VerticalAlignment="Center"
                                 x:Name="TitleText" />
                         </DockPanel>

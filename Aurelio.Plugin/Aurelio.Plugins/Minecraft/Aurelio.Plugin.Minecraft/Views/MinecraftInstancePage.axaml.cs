@@ -1,6 +1,7 @@
 ﻿using System.IO.Compression;
 using Aurelio.Plugin.Minecraft.Classes.Enum.Minecraft;
 using Aurelio.Plugin.Minecraft.Classes.Minecraft;
+using MinecraftSpecialFolder = Aurelio.Plugin.Minecraft.Classes.Enum.Minecraft.MinecraftSpecialFolder;
 using Aurelio.Plugin.Minecraft.Service.Minecraft;
 using Aurelio.Plugin.Minecraft.Views.MinecraftInstancePages;
 using Aurelio.Public.Classes.Entries;
@@ -13,6 +14,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
@@ -58,6 +60,9 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
             page.InAnimator.Animate();
         };
         AddHandler(DragDrop.DropEvent, DropHandler);
+
+        // Add event handlers for buttons
+        AttachEventHandlers();
     }
 
     private async Task DropHandler(object? sender, DragEventArgs e)
@@ -398,5 +403,69 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
     {
         App.TopLevel.Launcher.LaunchDirectoryInfoAsync(new DirectoryInfo(
             Calculator.GetMinecraftSpecialFolder(Entry.MlEntry, folder)));
+    }
+
+    private void AttachEventHandlers()
+    {
+        // Attach event handlers for buttons and menu items
+        if (OpenFolderSplitBtn != null)
+        {
+            OpenFolderSplitBtn.Click += OnOpenFolderSplitBtnClick;
+        }
+
+        if (LaunchBtn != null)
+        {
+            LaunchBtn.Click += OnLaunchBtnClick;
+        }
+
+        // Attach event handlers for menu items
+        if (VersionFolderMenuItem != null)
+        {
+            VersionFolderMenuItem.Click += (s, e) => OnOpenFolderMenuItemClick(MinecraftSpecialFolder.InstanceFolder);
+        }
+
+        if (ModsFolderMenuItem != null)
+        {
+            ModsFolderMenuItem.Click += (s, e) => OnOpenFolderMenuItemClick(MinecraftSpecialFolder.ModsFolder);
+        }
+
+        if (SavesFolderMenuItem != null)
+        {
+            SavesFolderMenuItem.Click += (s, e) => OnOpenFolderMenuItemClick(MinecraftSpecialFolder.SavesFolder);
+        }
+
+        if (ResourcePacksFolderMenuItem != null)
+        {
+            ResourcePacksFolderMenuItem.Click += (s, e) => OnOpenFolderMenuItemClick(MinecraftSpecialFolder.ResourcePacksFolder);
+        }
+
+        if (ShaderPacksFolderMenuItem != null)
+        {
+            ShaderPacksFolderMenuItem.Click += (s, e) => OnOpenFolderMenuItemClick(MinecraftSpecialFolder.ShaderPacksFolder);
+        }
+
+        if (ScreenshotsFolderMenuItem != null)
+        {
+            ScreenshotsFolderMenuItem.Click += (s, e) => OnOpenFolderMenuItemClick(MinecraftSpecialFolder.ScreenshotsFolder);
+        }
+    }
+
+    private void OnOpenFolderSplitBtnClick(object? sender, RoutedEventArgs e)
+    {
+        // Default action for SplitButton click - open instance folder (parameter 0)
+        OpenFolder(MinecraftSpecialFolder.InstanceFolder);
+    }
+
+    private void OnLaunchBtnClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Control control)
+        {
+            Entry.Launch(control);
+        }
+    }
+
+    private void OnOpenFolderMenuItemClick(MinecraftSpecialFolder folder)
+    {
+        OpenFolder(folder);
     }
 }

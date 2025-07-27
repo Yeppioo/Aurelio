@@ -26,12 +26,14 @@ using HotAvalonia;
 using Ursa.Controls;
 using MoreButtonMenu = Aurelio.Views.Main.Pages.MoreButtonMenu;
 using TaskCenter = Aurelio.Views.Main.Pages.TaskCenter;
+using TitleBar = Aurelio.Public.Controls.TitleBar;
 using WindowNotificationManager = Ursa.Controls.WindowNotificationManager;
 
 namespace Aurelio.Views.Main;
 
 public partial class MainWindow : UrsaWindow, IAurelioWindow
 {
+    public TitleBar WindowTitleBar => TitleBar;
     public MainWindow()
     {
 #if DEBUG

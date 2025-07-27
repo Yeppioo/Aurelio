@@ -59,8 +59,6 @@
                                     </StackPanel>
                                 </ToggleButton>
                                 <u:IconButton
-                                    Command="{Binding EditMinecraftIdCommand}"
-                                    CommandParameter="{Binding $self}"
                                     Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Edit}"
                                     DockPanel.Dock="Right"
                                     Margin="10,0,0,0"
@@ -118,8 +116,6 @@
                             </StackPanel>
                             <DockPanel>
                                 <u:IconButton
-                                    Command="{Binding CreateNewTagCommand}"
-                                    CommandParameter="{Binding $self}"
                                     Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.New}"
                                     DockPanel.Dock="Right"
                                     Margin="10,0,0,0"

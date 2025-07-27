@@ -1,6 +1,7 @@
 ﻿using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.Plugin.Events;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
@@ -15,11 +16,13 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
     private bool _isAnimating;
     private SelectionListItem _selectedItem;
     public int DefaultNav = 0;
+    public SelectionList NavContainer => Nav;
 
     public SettingTabPage()
     {
         InitializeComponent();
         DataContext = this;
+        PageEvents.OnPageNavInit(Nav);
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
         BindingEvent();

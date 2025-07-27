@@ -11,6 +11,9 @@ using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.Threading;
+using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using FluentAvalonia.UI.Controls;
 using Microsoft.VisualBasic.FileIO;
@@ -78,6 +81,13 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
             SelectedModCount.Text = $"{MainLang.SelectedItem} {ModManageList.SelectedItems.Count}";
         };
         SelectedModCount.Text = $"{MainLang.SelectedItem} 0";
+
+        // Add event handlers for the new buttons
+        ModManageList.Loaded += (_, _) =>
+        {
+            // Find all buttons and attach event handlers
+            AttachButtonEventHandlers();
+        };
     }
 
     public SavePage()
@@ -215,5 +225,59 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
             }
 
         return folderInfos;
+    }
+
+    private void AttachButtonEventHandlers()
+    {
+        // Find all buttons in the ListBox and attach event handlers
+        var listBoxItems = ModManageList.GetLogicalDescendants().OfType<ListBoxItem>();
+        foreach (var listBoxItem in listBoxItems)
+        {
+            var openFolderBtn = listBoxItem.FindNameScope()?.Find("OpenFolderBtn") as Button;
+            var showInfoBtn = listBoxItem.FindNameScope()?.Find("ShowInfoBtn") as Button;
+            var deleteBtn = listBoxItem.FindNameScope()?.Find("DeleteSaveBtn") as Button;
+
+            if (openFolderBtn != null)
+            {
+                openFolderBtn.Click -= OnOpenFolderClick; // Remove existing handler
+                openFolderBtn.Click += OnOpenFolderClick;
+            }
+
+            if (showInfoBtn != null)
+            {
+                showInfoBtn.Click -= OnShowInfoClick; // Remove existing handler
+                showInfoBtn.Click += OnShowInfoClick;
+            }
+
+            if (deleteBtn != null)
+            {
+                deleteBtn.Click -= OnDeleteSaveClick; // Remove existing handler
+                deleteBtn.Click += OnDeleteSaveClick;
+            }
+        }
+    }
+
+    private void OnOpenFolderClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.DataContext is MinecraftLocalSaveEntry save)
+        {
+            save.OpenFolder();
+        }
+    }
+
+    private async void OnShowInfoClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.DataContext is MinecraftLocalSaveEntry save)
+        {
+            await save.ShowInfo(button);
+        }
+    }
+
+    private async void OnDeleteSaveClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.DataContext is MinecraftLocalSaveEntry save)
+        {
+            await save.Delete(button);
+        }
     }
 }

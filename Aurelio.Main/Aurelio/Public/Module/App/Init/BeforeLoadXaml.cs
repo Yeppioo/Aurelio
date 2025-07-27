@@ -15,11 +15,11 @@ public abstract class BeforeLoadXaml
         Create.Main();
         LoadPlugin.ScanPlugin();
         LoadPlugin.ExecutePlugin();
-        AppEvents.OnBeforeReadSettings();
+        InitEvents.OnBeforeReadSettings();
         Reader.Main();
         InitLanguage(Data.SettingEntry.Language.Code);
         Update.Main();
-        AppEvents.OnBeforeUiLoaded();
+        InitEvents.OnBeforeUiLoaded();
     }
 
     public static void InitLanguage(string code)

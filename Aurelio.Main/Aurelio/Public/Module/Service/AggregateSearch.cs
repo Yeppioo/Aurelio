@@ -24,7 +24,7 @@ public class AggregateSearch
         renderRoot = visualRoot;
         if (entry.Type is not AggregateSearchEntryType t)
         {
-            AppEvents.OnExecuteAggregateSearch(entry, sender);
+            AggregateSearchEvents.OnExecuteAggregateSearch(entry, sender);
             return;
         }
         if (t == AggregateSearchEntryType.AurelioTabPage)

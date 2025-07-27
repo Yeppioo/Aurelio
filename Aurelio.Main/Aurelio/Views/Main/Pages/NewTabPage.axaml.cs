@@ -112,7 +112,11 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage
         {
             if (AggregateSearchListBox.SelectedItem is not AggregateSearchEntry entry) return;
 
-            if(entry.Type is not AggregateSearchEntryType t) return;
+            if (entry.Type is not AggregateSearchEntryType t)
+            {
+                AggregateSearch.Execute(entry, this);
+                return;
+            }
             if (t is AggregateSearchEntryType.SystemFile or AggregateSearchEntryType.SystemFileGoUp)
             {
                 HandleFileSystemEntrySelection(entry);
@@ -122,7 +126,7 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage
             if (t == AggregateSearchEntryType.AurelioTabPage)
             {
                 IRenderRoot root = null;
-                AggregateSearch.Execute(entry, Root, ref root);
+                AggregateSearch.Execute(entry, this, ref root);
                 HostTab.Close(root);
             }
         };

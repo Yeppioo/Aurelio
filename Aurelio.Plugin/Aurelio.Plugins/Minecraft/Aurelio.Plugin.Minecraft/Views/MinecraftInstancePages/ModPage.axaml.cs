@@ -12,6 +12,9 @@ using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.Threading;
+using Avalonia.LogicalTree;
 using FluentAvalonia.UI.Controls;
 using Microsoft.VisualBasic.FileIO;
 using MinecraftLaunch.Base.Models.Game;
@@ -102,6 +105,13 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
             SelectedModCount.Text = $"{MainLang.SelectedItem} {ModManageList.SelectedItems.Count}";
         };
         SelectedModCount.Text = $"{MainLang.SelectedItem} 0";
+
+        // Add event handlers for the new buttons
+        ModManageList.Loaded += (_, _) =>
+        {
+            // Find all EnableOrDisableModBtn and DeleteModBtn buttons and attach event handlers
+            AttachButtonEventHandlers();
+        };
     }
 
     // private void Translate(MinecraftLocalModEntry entry)
@@ -388,5 +398,47 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
             });
         NoMatchResultTip.IsVisible = FilteredMods.Count == 0 && !IsLoading;
         SelectedModCount.Text = $"{MainLang.SelectedItem} {ModManageList.SelectedItems.Count}";
+
+        // Reattach event handlers after filtering
+        Dispatcher.UIThread.Post(AttachButtonEventHandlers, DispatcherPriority.Background);
+    }
+
+    private void AttachButtonEventHandlers()
+    {
+        // Find all buttons in the ListBox and attach event handlers
+        var listBoxItems = ModManageList.GetLogicalDescendants().OfType<ListBoxItem>();
+        foreach (var listBoxItem in listBoxItems)
+        {
+            var enableDisableBtn = listBoxItem.FindNameScope()?.Find("EnableOrDisableModBtn") as Button;
+            var deleteBtn = listBoxItem.FindNameScope()?.Find("DeleteModBtn") as Button;
+
+            if (enableDisableBtn != null)
+            {
+                enableDisableBtn.Click -= OnEnableOrDisableModClick; // Remove existing handler
+                enableDisableBtn.Click += OnEnableOrDisableModClick;
+            }
+
+            if (deleteBtn != null)
+            {
+                deleteBtn.Click -= OnDeleteModClick; // Remove existing handler
+                deleteBtn.Click += OnDeleteModClick;
+            }
+        }
+    }
+
+    private void OnEnableOrDisableModClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.DataContext is MinecraftLocalModEntry mod)
+        {
+            mod.EnableOrDisable();
+        }
+    }
+
+    private async void OnDeleteModClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.DataContext is MinecraftLocalModEntry mod)
+        {
+            await mod.Delete(button);
+        }
     }
 }

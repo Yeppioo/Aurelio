@@ -27,10 +27,10 @@ public class Loader
             yield return result;
         }
 
-        if (count != 0) yield break;
-        var availableTypes = string.Join(",", assembly.GetTypes().Select(t => t.FullName));
-        throw new ApplicationException(
-            $"Can't find any type which implements ICommand in {assembly} from {assembly.Location}.\n" +
-            $"Available types: {availableTypes}");
+        if (count == 0)
+        {
+            // No IPlugin implementations found - treat this assembly as a dependency library
+            Console.WriteLine($"No IPlugin implementations found in {assembly.GetName().Name} - treating as dependency library");
+        }
     }
 }
