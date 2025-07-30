@@ -23,7 +23,13 @@ public partial class PersonalizationPage : PageMixModelBase, IAurelioPage
         DataContext = this;
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
+        Loaded += (_, _) =>
+        {
+            DataContext = null;
+            DataContext = this;
+        };
     }
+    
     public PageLoadingAnimator InAnimator { get; set; }
     public Control RootElement { get; set; }
 

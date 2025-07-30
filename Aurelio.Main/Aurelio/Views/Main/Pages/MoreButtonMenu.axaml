@@ -38,18 +38,6 @@
                     <Separator />
                     <MenuItem
                         Command="{Binding OpenInstancePage}"
-                        CommandParameter="minecraftInstances"
-                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.MinecraftInstance}">
-                        <MenuItem.Icon>
-                            <PathIcon
-                                Data="{x:Static ui:Icons.Thumbtack}"
-                                Height="16"
-                                Margin="0,0,-1,0"
-                                Width="17" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem
-                        Command="{Binding OpenInstancePage}"
                         CommandParameter="setting"
                         Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Setting}">
                         <MenuItem.Icon>

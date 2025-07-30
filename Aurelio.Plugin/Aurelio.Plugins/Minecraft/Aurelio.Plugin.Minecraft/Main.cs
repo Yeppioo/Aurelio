@@ -7,19 +7,24 @@ using Aurelio.Plugin.Minecraft.Service.Minecraft;
 using Aurelio.Plugin.Minecraft.Views;
 using Aurelio.Plugin.Minecraft.Views.SettingPages;
 using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module;
 using Aurelio.Public.Module.Plugin.Events;
+using Aurelio.Public.Module.Ui;
+using Aurelio.Views.Main.Pages;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
+using CommunityToolkit.Mvvm.Input;
 using MinecraftLaunch;
 using MinecraftLaunch.Utilities;
 using Newtonsoft.Json;
 using Ursa.Controls;
+using SettingTabPage = Aurelio.Plugin.Minecraft.Views.SettingTabPage;
 
 namespace Aurelio.Plugin.Minecraft;
 
@@ -44,9 +49,28 @@ public partial class Main : IPlugin
         InitEvents.AfterUiLoaded += AppEventsOnAfterUiLoaded;
         InitEvents.BeforeUiLoaded += AppEventsOnBeforeUiLoaded;
         InitEvents.BeforeReadSettings += AppEventsOnBeforeReadSettings;
+        InitEvents.MoreMenuLoaded += InitEventsOnMoreMenuLoaded;
         AppEvents.SaveSettings += AppEventsOnSaveSettings;
         return 0;
     }
+
+    private void InitEventsOnMoreMenuLoaded(object? sender)
+    {
+        var menu = sender as MoreButtonMenu;
+        var i = menu.MenuFlyout.Items.FirstOrDefault(x =>
+            (string)((MenuItem)x).Header == MainLang.Tab) as MenuItem;
+        i?.Items.Add(new MenuItem
+        {
+            Header = MainLang.MinecraftInstance,
+            Command = new RelayCommand(() => { App.UiRoot.TogglePage(null, new MinecraftInstancesTabPage()); }),
+            Icon = new PathIcon
+            {
+                Height = 16, Width = 17, Margin = new Thickness(0, 0, -1, 0),
+                Data = Icons.Thumbtack
+            }
+        });
+    }
+
 
     private void AppEventsOnSaveSettings(object? sender, EventArgs e)
     {
@@ -82,6 +106,12 @@ public partial class Main : IPlugin
     {
         MinecraftPluginData.MinecraftPluginSettingEntry.MinecraftAccounts.CollectionChanged +=
             (_, _) => PublicEvents.OnUpdateAggregateSearchEntries();
+        UiProperty.LaunchPages.Add(new LaunchPageEntry()
+        {
+            Id = "MinecraftInstances",
+            Header = MainLang.MinecraftInstance,
+            Page = new MinecraftInstancesTabPage()
+        });
         _ = MinecraftInstancesHandler.Load(MinecraftPluginData.MinecraftPluginSettingEntry.MinecraftFolderEntries
             .Select(x => x.Path).ToArray());
         InitNav();
@@ -89,8 +119,9 @@ public partial class Main : IPlugin
 
     private static void InitNav()
     {
-        PageEvents.PageNavInit += nav =>
+        PageEvents.PageNavInit += sender =>
         {
+            var nav = sender as SelectionList;
             nav.Items.Insert(0, new SelectionListItem
             {
                 Tag = new AccountPage(),

@@ -10,6 +10,7 @@
     xmlns:entries="clr-namespace:Aurelio.Public.Classes.Entries"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
+    xmlns:setting="clr-namespace:Aurelio.Public.Classes.Setting"
     xmlns:settingPages1="clr-namespace:Aurelio.Views.Main.Pages.SubPages.SettingPages"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -239,11 +240,15 @@
                                     VerticalAlignment="Center" />
                                 <ComboBox
                                     HorizontalAlignment="Right"
+                                    ItemsSource="{Binding Data.UiProperty.LaunchPages}"
                                     MinWidth="140"
-                                    SelectedIndex="{Binding Data.SettingEntry.LaunchPage}">
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.NewTab}" />
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.MinecraftInstance}" />
-                                    <ComboBoxItem Content="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Setting}" />
+                                    Name="LaunchPageComboBox"
+                                    SelectedItem="{Binding Data.SettingEntry.LaunchPage}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate DataType="setting:LaunchPageEntry">
+                                            <TextBlock Text="{Binding Header}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </DockPanel>
                         </DockPanel>

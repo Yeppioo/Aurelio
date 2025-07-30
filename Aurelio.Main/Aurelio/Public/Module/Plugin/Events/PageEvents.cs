@@ -4,7 +4,7 @@ namespace Aurelio.Public.Module.Plugin.Events;
 
 public class PageEvents
 {
-    public static event EventsHandler.NavInitHandler? PageNavInit;
+    public static event EventsHandler.OnlySenderHandler? PageNavInit;
 
     internal static void OnPageNavInit(SelectionList nav)
     {

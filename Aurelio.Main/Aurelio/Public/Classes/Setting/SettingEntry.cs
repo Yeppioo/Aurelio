@@ -3,6 +3,7 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.Ui;
+using Aurelio.Views.Main.Pages;
 using Avalonia.Controls.Notifications;
 using Avalonia.Media;
 using Newtonsoft.Json;
@@ -24,7 +25,12 @@ public class SettingEntry : ReactiveObject
 
     [Reactive]
     [JsonProperty]
-    public Enum.Setting.LaunchPage LaunchPage { get; set; } = Enum.Setting.LaunchPage.MinecraftInstance;
+    public LaunchPageEntry LaunchPage { get; set; } = new()
+    {
+        Id = "NewTab",
+        Header = MainLang.NewTab,
+        Page = new NewTabPage()
+    };
 
     [Reactive] [JsonProperty] public Color ThemeColor { get; set; } = Color.Parse("#1BD76A");
     [Reactive] [JsonProperty] public Color BackGroundColor { get; set; } = Color.Parse("#00B7FF52");

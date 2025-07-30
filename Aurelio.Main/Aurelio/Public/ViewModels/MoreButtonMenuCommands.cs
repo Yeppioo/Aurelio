@@ -44,7 +44,6 @@ public class MoreButtonMenuCommands
     {
         switch (page)
         {
-            // TODO 页面解耦
             case "setting":
                 App.UiRoot.TogglePage("setting", new SettingTabPage());
                 break;

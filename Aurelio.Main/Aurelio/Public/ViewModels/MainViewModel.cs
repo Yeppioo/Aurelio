@@ -1,7 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Classes.Setting;
+using Aurelio.Public.Langs;
+using Aurelio.Public.Module.Plugin.Events;
 using Aurelio.Views.Main.Pages;
 
 namespace Aurelio.Public.ViewModels;
@@ -13,15 +17,28 @@ public class MainViewModel : ViewModelBase
     private TabEntry? _selectedTab;
     private Vector _tabScrollOffset;
 
-    public MainViewModel() //TODO 创建默认页面
+    public MainViewModel()
     {
-        (IAurelioTabPage page, string? tag) obj = Data.SettingEntry.LaunchPage switch
+        InitEvents.AfterUiLoaded += (_, _) =>
         {
-            Setting.LaunchPage.Setting => (new SettingTabPage(), "setting"),
-            _ => (new NewTabPage(), null)
+            UiProperty.LaunchPages.Add(new LaunchPageEntry
+            {
+                Id = "NewTab",
+                Header = MainLang.NewTab,
+                Page = new NewTabPage()
+            });
+            UiProperty.LaunchPages.Add(new LaunchPageEntry
+            {
+                Id = "Setting",
+                Header = MainLang.Setting,
+                Tag = "setting",
+                Page = new SettingTabPage()
+            });
+            var page = UiProperty.LaunchPages.FirstOrDefault(x =>
+                x.Id == Data.SettingEntry.LaunchPage.Id) ?? UiProperty.LaunchPages[0];
+            Tabs.Add(new TabEntry(page.Page) { Tag = page.Tag });
+            SelectedTab = Tabs[0];
         };
-        Tabs.Add(new TabEntry(obj.page) { Tag = obj.tag });
-        SelectedTab = Tabs[0];
         PropertyChanged += (s, e) =>
         {
             if (e.PropertyName != nameof(SelectedTab) || SelectedTab == null) return;

@@ -1,3 +1,5 @@
+using Aurelio.Views.Main.Pages;
+
 namespace Aurelio.Public.Module.Plugin.Events;
 
 public class InitEvents
@@ -21,5 +23,12 @@ public class InitEvents
     internal static void OnAfterUiLoaded()
     {
         AfterUiLoaded?.Invoke(null, EventArgs.Empty);
+    }
+
+    public static event EventsHandler.OnlySenderHandler? MoreMenuLoaded;
+
+    internal static void OnMoreMenuLoaded(MoreButtonMenu menu)
+    {
+        MoreMenuLoaded?.Invoke(menu);
     }
 }
