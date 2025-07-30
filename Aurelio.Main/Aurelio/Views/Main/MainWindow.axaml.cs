@@ -200,6 +200,13 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
         };
         FocusInfoBorder.PointerPressed += (s, e) =>
         {
+            var vis1 = ((Control)s)!.GetVisualRoot();
+            var host1 = vis1 is TabWindow w1
+                ? w1.DialogHost.HostId
+                : "MainWindow";
+            _ = OpenTaskDrawer(host1!);
+            return;
+            
             if (e.GetCurrentPoint(this).Properties.IsRightButtonPressed)
             {
                 var vis = ((Control)s)!.GetVisualRoot();

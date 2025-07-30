@@ -60,7 +60,9 @@
                                     <Border
                                         Background="Transparent"
                                         Cursor="Hand"
-                                        Name="FocusInfoBorder">
+                                        IsVisible="{Binding Tasking.HasTask}"
+                                        Name="FocusInfoBorder"
+                                        x:DataType="controls:TitleBar">
                                         <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
                                             <Border
                                                 Background="{Binding Tasking.FocusInfoColor}"
