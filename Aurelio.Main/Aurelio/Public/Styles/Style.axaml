@@ -32,4 +32,7 @@
             </ControlTemplate>
         </Setter>
     </Style>
+    <Style Selector="TextBox.transparent:pointerover /template/ Border#PART_ContentPresenterBorder">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
 </Styles>

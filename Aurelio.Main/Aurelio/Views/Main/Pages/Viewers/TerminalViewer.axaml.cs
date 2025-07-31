@@ -59,7 +59,8 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
         PageInfo = new PageInfoEntry
         {
             Title = $"Terminal - {Path.GetFileNameWithoutExtension(path)}",
-            Icon = StreamGeometry.Parse("M73.4 182.6C60.9 170.1 60.9 149.8 73.4 137.3C85.9 124.8 106.2 124.8 118.7 137.3L278.7 297.3C291.2 309.8 291.2 330.1 278.7 342.6L118.7 502.6C106.2 515.1 85.9 515.1 73.4 502.6C60.9 490.1 60.9 469.8 73.4 457.3L210.7 320L73.4 182.6zM288 448L544 448C561.7 448 576 462.3 576 480C576 497.7 561.7 512 544 512L288 512C270.3 512 256 497.7 256 480C256 462.3 270.3 448 288 448z")
+            Icon = StreamGeometry.Parse(
+                "M73.4 182.6C60.9 170.1 60.9 149.8 73.4 137.3C85.9 124.8 106.2 124.8 118.7 137.3L278.7 297.3C291.2 309.8 291.2 330.1 278.7 342.6L118.7 502.6C106.2 515.1 85.9 515.1 73.4 502.6C60.9 490.1 60.9 469.8 73.4 457.3L210.7 320L73.4 182.6zM288 448L544 448C561.7 448 576 462.3 576 480C576 497.7 561.7 512 544 512L288 512C270.3 512 256 497.7 256 480C256 462.3 270.3 448 288 448z")
         };
 
         TerminalTitle = $"Terminal - {Path.GetFileNameWithoutExtension(path)}";
@@ -84,12 +85,106 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
             OutputEditor.Document = new TextDocument();
             OutputEditor.FontFamily = new FontFamily("Consolas, 'Courier New', monospace");
 
+            // 设置全局快捷键
+            SetupGlobalKeyBindings();
+
             // 启动终端进程
             StartTerminalProcess();
         }
         catch (Exception ex)
         {
             AppendOutput($"初始化终端失败: {ex.Message}\n", true);
+        }
+    }
+
+    private void SetupGlobalKeyBindings()
+    {
+        try
+        {
+            // 为整个控件设置键盘事件处理
+            this.KeyDown += OnGlobalKeyDown;
+
+            // 确保控件可以接收焦点和键盘事件
+            this.Focusable = true;
+            this.IsTabStop = true;
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"设置快捷键失败: {ex.Message}");
+        }
+    }
+
+    private async void OnGlobalKeyDown(object? sender, KeyEventArgs e)
+    {
+        try
+        {
+            // Ctrl+L - 清空终端输出
+            if (e.Key == Key.L && e.KeyModifiers.HasFlag(KeyModifiers.Control))
+            {
+                ClearTerminalOutput();
+                e.Handled = true;
+                return;
+            }
+
+            // Ctrl+K - 清空终端输出（备用快捷键）
+            if (e.Key == Key.K && e.KeyModifiers.HasFlag(KeyModifiers.Control))
+            {
+                ClearTerminalOutput();
+                e.Handled = true;
+                return;
+            }
+
+            // Ctrl+D - 关闭终端进程
+            if (e.Key == Key.D && e.KeyModifiers.HasFlag(KeyModifiers.Control))
+            {
+                await CloseTerminalProcess();
+                e.Handled = true;
+                return;
+            }
+
+            // Ctrl+R - 重启终端进程
+            if (e.Key == Key.R && e.KeyModifiers.HasFlag(KeyModifiers.Control))
+            {
+                await RestartTerminalProcess();
+                e.Handled = true;
+                return;
+            }
+
+            // F5 - 重启终端进程（备用快捷键）
+            if (e.Key == Key.F5)
+            {
+                await RestartTerminalProcess();
+                e.Handled = true;
+                return;
+            }
+
+            // Ctrl+Shift+C - 复制选中的文本
+            if (e.Key == Key.C && e.KeyModifiers.HasFlag(KeyModifiers.Control | KeyModifiers.Shift))
+            {
+                CopySelectedText();
+                e.Handled = true;
+                return;
+            }
+
+            // Ctrl+Shift+V - 粘贴文本到输入框
+            if (e.Key == Key.V && e.KeyModifiers.HasFlag(KeyModifiers.Control | KeyModifiers.Shift))
+            {
+                await PasteTextToInput();
+                e.Handled = true;
+                return;
+            }
+
+            // Escape - 取消当前输入
+            if (e.Key == Key.Escape)
+            {
+                CancelCurrentInput();
+                e.Handled = true;
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"处理快捷键时出错: {ex.Message}");
         }
     }
 
@@ -380,6 +475,159 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
         }
     }
 
+    #region 快捷键功能实现
+
+    private void ClearTerminalOutput()
+    {
+        try
+        {
+            _outputBuffer.Clear();
+            OutputEditor.Document.Text = "";
+            AppendOutput("终端输出已清空\n");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"清空终端输出失败: {ex.Message}");
+        }
+    }
+
+    private async Task CloseTerminalProcess()
+    {
+        try
+        {
+            if (_process != null && !_process.HasExited)
+            {
+                AppendOutput("\n正在关闭终端进程...\n");
+
+                // 尝试优雅关闭
+                try
+                {
+                    await _processInput?.WriteLineAsync("exit");
+                    await _processInput?.FlushAsync();
+
+                    // 等待进程退出
+                    if (!_process.WaitForExit(3000))
+                    {
+                        _process.Kill(true);
+                        AppendOutput("进程已强制终止\n");
+                    }
+                    else
+                    {
+                        AppendOutput("进程已正常退出\n");
+                    }
+                }
+                catch
+                {
+                    _process.Kill(true);
+                    AppendOutput("进程已强制终止\n");
+                }
+
+                ProcessStatus = "已断开";
+            }
+            else
+            {
+                AppendOutput("没有运行中的进程\n");
+            }
+        }
+        catch (Exception ex)
+        {
+            AppendOutput($"关闭进程失败: {ex.Message}\n", true);
+        }
+    }
+
+    private async Task RestartTerminalProcess()
+    {
+        try
+        {
+            AppendOutput("\n正在重启终端...\n");
+
+            // 关闭当前进程
+            if (_process != null && !_process.HasExited)
+            {
+                try
+                {
+                    _process.Kill(true);
+                }
+                catch
+                {
+                }
+            }
+
+            // 清理资源
+            CleanupProcess();
+
+            // 等待一小段时间
+            await Task.Delay(500);
+
+            // 重新启动
+            StartTerminalProcess();
+        }
+        catch (Exception ex)
+        {
+            AppendOutput($"重启终端失败: {ex.Message}\n", true);
+        }
+    }
+
+    private void CopySelectedText()
+    {
+        try
+        {
+            var selectedText = OutputEditor.SelectedText;
+            if (!string.IsNullOrEmpty(selectedText))
+            {
+                // 复制到剪贴板
+                TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(selectedText);
+                AppendOutput($"已复制 {selectedText.Length} 个字符到剪贴板\n");
+            }
+            else
+            {
+                AppendOutput("没有选中的文本\n");
+            }
+        }
+        catch (Exception ex)
+        {
+            AppendOutput($"复制文本失败: {ex.Message}\n", true);
+        }
+    }
+
+    private async Task PasteTextToInput()
+    {
+        try
+        {
+            var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
+            if (clipboard != null)
+            {
+                var text = await clipboard.GetTextAsync();
+                if (!string.IsNullOrEmpty(text))
+                {
+                    // 将文本添加到当前输入
+                    CurrentInput += text;
+                    InputTextBox.Focus();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            AppendOutput($"粘贴文本失败: {ex.Message}\n", true);
+        }
+    }
+
+    private void CancelCurrentInput()
+    {
+        try
+        {
+            CurrentInput = "";
+            InputTextBox.Focus();
+            AppendOutput("已取消当前输入\n");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"取消输入失败: {ex.Message}");
+        }
+    }
+
+    #endregion
+
     private void OnProcessExited(object? sender, EventArgs e)
     {
         Dispatcher.UIThread.InvokeAsync(() =>
@@ -391,7 +639,7 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
 
     public void OnClose()
     {
-        CleanupProcess();
+        _ = Task.Run(CleanupProcess);
     }
 
     private void CleanupProcess()
