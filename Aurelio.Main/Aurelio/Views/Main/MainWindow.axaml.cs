@@ -205,8 +205,8 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
                 ? w1.DialogHost.HostId
                 : "MainWindow";
             _ = OpenTaskDrawer(host1!);
-            return;
             
+/*
             if (e.GetCurrentPoint(this).Properties.IsRightButtonPressed)
             {
                 var vis = ((Control)s)!.GetVisualRoot();
@@ -238,6 +238,7 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
                     : "MainWindow";
                 _ = OpenTaskDrawer(host!);
             }
+*/
         };
         KeyDown += (_, e) =>
         {

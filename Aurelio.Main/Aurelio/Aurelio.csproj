@@ -64,6 +64,7 @@
         <PackageReference Include="Semi.Avalonia" Version="11.2.1.9"/>
         <PackageReference Include="SharpCompress" Version="0.40.0" />
         <PackageReference Include="SkiaSharp" Version="2.88.9"/>
+        <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
         <!--        <PackageReference Include="Avalonia.Markup.Xaml.Loader" Version="11.3.2"/>-->
         <!--        <PackageReference Include="HotAvalonia" Version="3.0.0"/>-->
         <PackageReference Remove="Avalonia.Markup.Xaml.Loader"/>

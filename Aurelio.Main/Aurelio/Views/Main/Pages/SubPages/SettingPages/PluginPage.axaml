@@ -23,6 +23,7 @@
                         DockPanel.Dock="Top"
                         Margin="0,0,0,10"
                         Padding="12,7"
+                        PointerPressed="InputElement_OnPointerPressed1"
                         Tag="{Binding}">
                         <DockPanel IsHitTestVisible="False" LastChildFill="False">
                             <StackPanel

@@ -28,7 +28,7 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage
     public string _currentLunarMonthDay = string.Empty;
     public string _currentLunarYear = string.Empty;
     public string _currentWeekDay = string.Empty;
-    public string _poem = string.Empty;
+    public string _poem = "loading";
 
     public DateTime CurrentTime
     {

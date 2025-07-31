@@ -8,7 +8,7 @@ using Avalonia.VisualTree;
 
 namespace Aurelio.Views.Main.Pages.SubPages.SettingPages;
 
-public partial class PluginPage : PageMixModelBase , IAurelioPage
+public partial class PluginPage : PageMixModelBase, IAurelioPage
 {
     public PluginPage()
     {
@@ -24,13 +24,27 @@ public partial class PluginPage : PageMixModelBase , IAurelioPage
     private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         var root = this.GetVisualRoot();
-        if(((Border)sender).Tag is not LoadedPluginEntry loadedPluginEntry) return;
+        if (((Border)sender).Tag is not LoadedPluginEntry loadedPluginEntry) return;
 
         if (root is TabWindow window)
         {
             window.TogglePage(null, new PluginInfo(loadedPluginEntry));
             return;
         }
+
         App.UiRoot.TogglePage(null, new PluginInfo(loadedPluginEntry));
+    }
+
+    private void InputElement_OnPointerPressed1(object? sender, PointerPressedEventArgs e)
+    {
+        var root = this.GetVisualRoot();
+
+        if (root is TabWindow window)
+        {
+            window.TogglePage(null, new PluginNugetFetcher());
+            return;
+        }
+
+        App.UiRoot.TogglePage(null, new PluginNugetFetcher());
     }
 }

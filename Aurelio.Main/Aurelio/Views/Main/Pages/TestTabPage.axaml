@@ -13,6 +13,7 @@
             <Button Click="NextTask_OnClick" Content="Next Task" />
             <Button Click="BobbleNotice_OnClick" Content="Bobble Notice" />
             <Button Click="Crash_OnClick" Content="Crash" />
+            <Button Click="Console_OnClick" Content="Console" />
         </WrapPanel>
     </Border>
 </UserControl>

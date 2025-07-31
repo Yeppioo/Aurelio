@@ -1,4 +1,5 @@
 using System.IO;
+using System.Text.RegularExpressions;
 using Aurelio.Plugin.Base;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Const;
@@ -100,7 +101,7 @@ public class LoadedPluginEntry : ReactiveObject
             // 构建下载URL和文件路径
             var downloadUrl =
                 $"{NUGET_DOWNLOAD_BASE}/{package.Id.ToLowerInvariant()}/{versionToDownload}/{package.Id.ToLowerInvariant()}.{versionToDownload}.nupkg";
-            var tempFileName = $"{package.Id}.{versionToDownload}.nupkg";
+            var tempFileName = $"{package.Id}_temp_{versionToDownload}.nupkg"; // 临时文件保留版本号以避免冲突
             var tempFilePath = Path.Combine(ConfigPath.TempFolderPath, tempFileName);
             var originalFilePath = FindOriginalNupkgFile(package.Id);
 
@@ -136,7 +137,6 @@ public class LoadedPluginEntry : ReactiveObject
             };
 
             // 设置下载完成回调
-            var downloadCompleted = false;
             downloader.DownloadFileCompleted += async (_, args) =>
             {
                 await Dispatcher.UIThread.InvokeAsync(async () =>
@@ -155,14 +155,13 @@ public class LoadedPluginEntry : ReactiveObject
                         return;
                     }
 
-                    downloadCompleted = true;
                     downloadSubTask.FinishWithSuccess();
                     task.NextSubTask(); // 开始解压任务
 
                     try
                     {
                         await ProcessPackageUpdate(tempFilePath, originalFilePath, extractSubTask, replaceSubTask,
-                            cleanupSubTask, task);
+                            cleanupSubTask, task, package);
                     }
                     catch (Exception ex)
                     {
@@ -187,7 +186,7 @@ public class LoadedPluginEntry : ReactiveObject
     /// 处理包更新的后续步骤：解压、替换、清理
     /// </summary>
     private async System.Threading.Tasks.Task ProcessPackageUpdate(string tempFilePath, string originalFilePath,
-        TaskEntry extractSubTask, TaskEntry replaceSubTask, TaskEntry cleanupSubTask, TaskEntry mainTask)
+        TaskEntry extractSubTask, TaskEntry replaceSubTask, TaskEntry cleanupSubTask, TaskEntry mainTask, NugetPackage package)
     {
         try
         {
@@ -222,10 +221,13 @@ public class LoadedPluginEntry : ReactiveObject
 
                 File.Move(originalFilePath, backupPath);
 
-                // 复制新文件
-                File.Copy(tempFilePath, originalFilePath, true);
+                // 确保最终文件名不包含版本号
+                var finalFilePath = Path.Combine(ConfigPath.PluginFolderPath, $"{package.Id}.nupkg");
 
-                Logger.Info($"成功替换 {Path.GetFileName(originalFilePath)}");
+                // 复制新文件到最终位置（去除版本号）
+                File.Copy(tempFilePath, finalFilePath, true);
+
+                Logger.Info($"成功替换 {Path.GetFileName(finalFilePath)}");
             });
 
             replaceSubTask.FinishWithSuccess();
@@ -333,10 +335,23 @@ public class LoadedPluginEntry : ReactiveObject
             foreach (var file in nupkgFiles)
             {
                 var fileName = Path.GetFileNameWithoutExtension(file);
-                // 检查文件名是否以包ID开头（考虑版本号）
+
+                // 首先尝试精确匹配（无版本号的文件名）
                 if (fileName.Equals(packageId, StringComparison.OrdinalIgnoreCase))
                 {
                     return file;
+                }
+
+                // 然后尝试匹配带版本号的文件名（向后兼容）
+                // 检查文件名是否以包ID开头，后面跟着版本号
+                if (fileName.StartsWith(packageId + ".", StringComparison.OrdinalIgnoreCase))
+                {
+                    // 验证后面的部分是否为版本号格式
+                    var versionPart = fileName.Substring(packageId.Length + 1);
+                    if (IsValidVersionFormat(versionPart))
+                    {
+                        return file;
+                    }
                 }
             }
 
@@ -348,6 +363,19 @@ public class LoadedPluginEntry : ReactiveObject
             Logger.Error($"查找 {packageId} 原始文件时发生错误: {ex.Message}");
             return string.Empty;
         }
+    }
+
+    /// <summary>
+    /// 验证字符串是否为有效的版本号格式
+    /// </summary>
+    private bool IsValidVersionFormat(string versionString)
+    {
+        if (string.IsNullOrEmpty(versionString))
+            return false;
+
+        // 尝试解析为版本号
+        return Version.TryParse(versionString, out _) ||
+               Regex.IsMatch(versionString, @"^\d+(\.\d+)*(-[a-zA-Z0-9\-\.]+)?$");
     }
 
     /// <summary>
@@ -391,6 +419,111 @@ public class LoadedPluginEntry : ReactiveObject
             Logger.Error($"显示重启提示时发生错误: {ex.Message}");
             // 如果对话框失败，至少显示通知
             Overlay.Notice($"{Plugin.Name} 更新完成，请重启 Aurelio 以应用更新", NotificationType.Success);
+        }
+    }
+
+    /// <summary>
+    /// 删除插件
+    /// </summary>
+    /// <param name="sender">发送者控件，用于获取宿主ID</param>
+    public async System.Threading.Tasks.Task DeletePlugin(Control? sender = null)
+    {
+        try
+        {
+            // 显示确认对话框
+            var title = Data.DesktopType == DesktopType.Windows
+                ? MainLang.MoveToRecycleBin
+                : MainLang.DeleteSelect;
+
+            var result = await Overlay.ShowDialogAsync(
+                title: title,
+                msg: $"确定要删除插件 {Plugin.Name} 吗？\n\n• {Plugin.Name} v{Plugin.Version}\n• {Plugin.Id}",
+                b_primary: MainLang.Ok,
+                b_cancel: MainLang.Cancel,
+                sender: sender
+            );
+
+            if (result != ContentDialogResult.Primary)
+            {
+                return;
+            }
+
+            // 查找插件文件
+            var pluginFilePath = FindOriginalNupkgFile(Plugin.Id);
+            if (string.IsNullOrEmpty(pluginFilePath) || !File.Exists(pluginFilePath))
+            {
+                Overlay.Notice($"未找到插件文件: {Plugin.Id}", NotificationType.Error);
+                Logger.Error($"未找到插件文件: {Plugin.Id}");
+                return;
+            }
+
+            // 删除文件
+            if (Data.DesktopType == DesktopType.Windows)
+            {
+                // Windows系统移动到回收站
+                Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(pluginFilePath,
+                    Microsoft.VisualBasic.FileIO.UIOption.AllDialogs,
+                    Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
+            }
+            else
+            {
+                // 其他系统直接删除
+                File.Delete(pluginFilePath);
+            }
+
+            Logger.Info($"成功删除插件: {Plugin.Name} ({Plugin.Id})");
+
+            // 显示删除完成的重启提示
+            ShowDeleteRestartPrompt();
+        }
+        catch (Exception ex)
+        {
+            Logger.Error($"删除插件 {Plugin.Name} 时发生错误: {ex.Message}");
+            Overlay.Notice($"删除插件失败: {ex.Message}", NotificationType.Error);
+        }
+    }
+
+    /// <summary>
+    /// 显示删除完成后的重启提示对话框
+    /// </summary>
+    private async void ShowDeleteRestartPrompt()
+    {
+        try
+        {
+            var result = await Overlay.ShowDialogAsync(
+                title: MainLang.NeedRestartApp,
+                msg: $"{Plugin.Name} 删除完成！为了使更改生效，需要重启 Aurelio。是否现在重启？",
+                b_primary: MainLang.RestartNow,
+                b_secondary: MainLang.RestartLater,
+                b_cancel: MainLang.Cancel
+            );
+
+            switch (result)
+            {
+                case ContentDialogResult.Primary:
+                    // 立即重启
+                    Logger.Info($"用户选择立即重启应用以应用 {Plugin.Name} 的删除");
+                    AppMethod.RestartApp();
+                    break;
+
+                case ContentDialogResult.Secondary:
+                    // 稍后重启，显示通知
+                    Overlay.Notice($"{Plugin.Name} 删除完成，请稍后重启 Aurelio 以应用更改", NotificationType.Success,
+                        TimeSpan.FromSeconds(5));
+                    Logger.Info($"用户选择稍后重启应用以应用 {Plugin.Name} 的删除");
+                    break;
+
+                default:
+                    // 取消，只显示成功通知
+                    Overlay.Notice($"{Plugin.Name} 删除完成", NotificationType.Success);
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Error($"显示重启提示时发生错误: {ex.Message}");
+            // 如果对话框失败，至少显示通知
+            Overlay.Notice($"{Plugin.Name} 删除完成，请重启 Aurelio 以应用更改", NotificationType.Success);
         }
     }
 }

@@ -1,0 +1,195 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Views.Main.Pages.PluginNugetFetcher"
+    x:DataType="pages:PluginNugetFetcher"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:controls="https://irihi.tech/ursa"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:entries="clr-namespace:Aurelio.Public.Classes.Entries"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:Aurelio.Views.Main.Pages"
+    xmlns:properties="clr-namespace:Aurelio.Public.Langs"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Name="Root">
+        <DockPanel Margin="10,0,10,10">
+            <!--  搜索区域  -->
+            <DockPanel DockPanel.Dock="Top" Margin="0,5,0,10">
+                <Button
+                    Classes="accent"
+                    Content="搜索"
+                    DockPanel.Dock="Right"
+                    IsEnabled="{Binding !IsSearching}"
+                    Margin="10,0,0,0"
+                    Name="SearchButton" />
+                <TextBox
+                    CornerRadius="{DynamicResource CardCornerRadius}"
+                    Foreground="{DynamicResource TabTextColor}"
+                    IsEnabled="{Binding !IsSearching}"
+                    Name="SearchBox"
+                    Text="{Binding SearchText}"
+                    Watermark="搜索NuGet插件包...">
+                    <TextBox.InnerRightContent>
+                        <StackPanel Orientation="Horizontal" Spacing="5">
+                            <PathIcon
+                                Cursor="Hand"
+                                Data="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+                                Height="14"
+                                IsVisible="{Binding !IsSearching}"
+                                Margin="0,0,3,0"
+                                Name="SearchIcon"
+                                Width="14" />
+                        </StackPanel>
+                    </TextBox.InnerRightContent>
+                </TextBox>
+            </DockPanel>
+
+            <!--  搜索状态提示  -->
+            <StackPanel
+                DockPanel.Dock="Top"
+                IsVisible="{Binding IsSearching}"
+                Margin="0,0,0,10">
+                <ProgressBar Height="4" IsIndeterminate="True" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Margin="0,5,0,0"
+                    Text="正在搜索..." />
+            </StackPanel>
+
+            <!--  搜索结果为空提示  -->
+            <Border
+                Background="{DynamicResource CardBackgroundColor}"
+                CornerRadius="{DynamicResource CardCornerRadius}"
+                DockPanel.Dock="Top"
+                IsVisible="{Binding ShowNoResultsMessage}"
+                Margin="0,0,0,10"
+                Padding="20">
+                <StackPanel HorizontalAlignment="Center">
+                    <PathIcon
+                        Data="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+                        Height="48"
+                        Margin="0,0,0,10"
+                        Opacity="0.5"
+                        Width="48" />
+                    <TextBlock
+                        FontSize="16"
+                        FontWeight="Bold"
+                        HorizontalAlignment="Center"
+                        Text="未找到相关插件包" />
+                    <TextBlock
+                        FontSize="12"
+                        HorizontalAlignment="Center"
+                        Margin="0,5,0,0"
+                        Opacity="0.7"
+                        Text="请尝试使用其他关键词搜索" />
+                </StackPanel>
+            </Border>
+
+            <!--  搜索结果列表  -->
+            <ScrollViewer>
+                <ItemsControl ItemsSource="{Binding SearchResults}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="entries:NugetSearchResult">
+                            <Border
+                                Background="{DynamicResource CardBackgroundColor}"
+                                CornerRadius="{DynamicResource CardCornerRadius}"
+                                Margin="0,0,0,10"
+                                Padding="15">
+                                <StackPanel>
+                                    <!--  包基本信息  -->
+                                    <DockPanel>
+                                        <StackPanel
+                                            DockPanel.Dock="Right"
+                                            Orientation="Horizontal"
+                                            Spacing="10"
+                                            VerticalAlignment="Top">
+                                            <TextBlock
+                                                FontSize="12"
+                                                Opacity="0.7"
+                                                Text="{Binding TotalDownloadsString}"
+                                                VerticalAlignment="Center" />
+                                            <TextBlock
+                                                FontSize="12"
+                                                Opacity="0.7"
+                                                Text="下载"
+                                                VerticalAlignment="Center" />
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <TextBlock
+                                                FontSize="16"
+                                                FontWeight="Bold"
+                                                Margin="0,0,0,5"
+                                                Text="{Binding Title}" />
+                                            <TextBlock
+                                                Margin="0,0,0,5"
+                                                Opacity="0.8"
+                                                Text="{Binding Description}"
+                                                TextWrapping="Wrap" />
+                                            <StackPanel Orientation="Horizontal" Spacing="15">
+                                                <TextBlock
+                                                    FontSize="12"
+                                                    Opacity="0.7"
+                                                    Text="{Binding AuthorsString, StringFormat='作者: {0}'}" />
+                                                <TextBlock
+                                                    FontSize="12"
+                                                    Opacity="0.7"
+                                                    Text="{Binding LatestVersion, StringFormat='最新版本: {0}'}" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DockPanel>
+
+                                    <!--  操作区域  -->
+                                    <DockPanel Margin="0,15,0,0">
+                                        <StackPanel
+                                            DockPanel.Dock="Right"
+                                            Orientation="Horizontal"
+                                            Spacing="10">
+                                            <Button
+                                                Classes="accent"
+                                                Click="OnInstallButtonClick"
+                                                Content="安装"
+                                                IsEnabled="{Binding !IsInstalling}"
+                                                Name="InstallButton" />
+                                            <Button
+                                                Click="OnSaveAsButtonClick"
+                                                Content="另存为"
+                                                IsEnabled="{Binding !IsDownloading}"
+                                                Name="SaveAsButton" />
+                                        </StackPanel>
+                                        <ComboBox
+                                            DropDownOpened="OnVersionComboBoxOpened"
+                                            ItemsSource="{Binding AllVersions}"
+                                            Name="VersionComboBox"
+                                            PlaceholderText="选择版本..."
+                                            SelectedItem="{Binding SelectedVersion}"
+                                            Width="150" />
+                                    </DockPanel>
+
+                                    <!--  安装/下载状态  -->
+                                    <StackPanel IsVisible="{Binding IsInstalling}" Margin="0,10,0,0">
+                                        <ProgressBar Height="4" IsIndeterminate="True" />
+                                        <TextBlock
+                                            FontSize="12"
+                                            Margin="0,5,0,0"
+                                            Opacity="0.7"
+                                            Text="正在安装..." />
+                                    </StackPanel>
+                                    <StackPanel IsVisible="{Binding IsDownloading}" Margin="0,10,0,0">
+                                        <ProgressBar Height="4" IsIndeterminate="True" />
+                                        <TextBlock
+                                            FontSize="12"
+                                            Margin="0,5,0,0"
+                                            Opacity="0.7"
+                                            Text="正在下载..." />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </DockPanel>
+    </Border>
+</UserControl>

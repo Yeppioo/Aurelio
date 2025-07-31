@@ -1,0 +1,52 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Views.Main.Pages.Viewers.TerminalViewer"
+    x:DataType="viewers:TerminalViewer"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewers="clr-namespace:Aurelio.Views.Main.Pages.Viewers"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Name="Root">
+        <DockPanel Margin="10">
+            <Border
+                Background="{DynamicResource CardBackgroundColor}"
+                CornerRadius="{DynamicResource CardCornerRadius}"
+                DockPanel.Dock="Bottom"
+                Height="45"
+                Margin="0,10,0,0">
+                <DockPanel Margin="10,0">
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        Foreground="{DynamicResource TabTextColor}"
+                        Margin="0,0,10,0"
+                        Text="&gt;"
+                        VerticalAlignment="Center" />
+                    <TextBox
+                        AcceptsReturn="False"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Name="InputTextBox"
+                        Padding="0"
+                        Text="{Binding CurrentInput}"
+                        VerticalAlignment="Center"
+                        Watermark="输入命令..." />
+                </DockPanel>
+            </Border>
+            <Border Background="{DynamicResource CardBackgroundColor}" CornerRadius="{DynamicResource CardCornerRadius}">
+                <avaloniaEdit:TextEditor
+                    Background="Transparent"
+                    FontSize="14"
+                    HorizontalScrollBarVisibility="Auto"
+                    IsReadOnly="True"
+                    Name="OutputEditor"
+                    ShowLineNumbers="False"
+                    VerticalScrollBarVisibility="Auto"
+                    WordWrap="True" />
+            </Border>
+        </DockPanel>
+    </Border>
+</UserControl>

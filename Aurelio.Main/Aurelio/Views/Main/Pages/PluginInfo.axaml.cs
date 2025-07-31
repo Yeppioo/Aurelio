@@ -1,8 +1,12 @@
 using Aurelio.Plugin.Base;
 using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Module.IO;
+using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
+using Avalonia.Controls.Notifications;
 using Avalonia.Media;
 
 namespace Aurelio.Views.Main.Pages;
@@ -25,7 +29,7 @@ public partial class PluginInfo : PageMixModelBase, IAurelioTabPage
         PageInfo = new PageInfoEntry
         {
             Title = plugin.Plugin.Name,
-            Icon = StreamGeometry.Parse("M192 32C209.7 32 224 46.3 224 64L224 160L352 160L352 64C352 46.3 366.3 32 384 32C401.7 32 416 46.3 416 64L416 160L480 160C497.7 160 512 174.3 512 192C512 209.7 497.7 224 480 224L480 272.7C381.4 280.8 304 363.4 304 464C304 491.3 309.7 517.3 320 540.9L320 544C320 561.7 305.7 576 288 576C270.3 576 256 561.7 256 544L256 477.3C165.2 462.1 96 383.1 96 288L96 224C78.3 224 64 209.7 64 192C64 174.3 78.3 160 96 160L160 160L160 64C160 46.3 174.3 32 192 32zM352 464C352 384.5 416.5 320 496 320C575.5 320 640 384.5 640 464C640 543.5 575.5 608 496 608C416.5 608 352 543.5 352 464zM529.4 387C523.6 382.8 515.6 383 510 387.5L430 451.5C424.7 455.7 422.6 462.9 424.9 469.3C427.2 475.7 433.2 480 440 480L472.9 480L457 522.4C454.5 529.1 456.8 536.7 462.6 541C468.4 545.3 476.4 545 482 540.5L562 476.5C567.3 472.3 569.4 465.1 567.1 458.7C564.8 452.3 558.8 448 552 448L519.1 448L535 405.6C537.5 398.9 535.2 391.3 529.4 387z")
+            Icon = StreamGeometry.Parse("M64 128C64 110.3 78.3 96 96 96L544 96C561.7 96 576 110.3 576 128L576 160C576 177.7 561.7 192 544 192L96 192C78.3 192 64 177.7 64 160L64 128zM96 240L544 240L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 240zM248 304C234.7 304 224 314.7 224 328C224 341.3 234.7 352 248 352L392 352C405.3 352 416 341.3 416 328C416 314.7 405.3 304 392 304L248 304z")
         };
         DataContext = this;
     }
@@ -37,5 +41,23 @@ public partial class PluginInfo : PageMixModelBase, IAurelioTabPage
 
     public void OnClose()
     {
+    }
+
+    /// <summary>
+    /// 删除按钮点击事件
+    /// </summary>
+    private async void OnDeleteButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (sender is not Control control) return;
+
+        try
+        {
+            await Plugin.DeletePlugin(control);
+        }
+        catch (Exception ex)
+        {
+            Logger.Error($"删除插件时发生错误: {ex.Message}");
+            Notice($"删除插件失败: {ex.Message}", NotificationType.Error);
+        }
     }
 }

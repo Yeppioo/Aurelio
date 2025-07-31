@@ -3,6 +3,7 @@ using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
+using Aurelio.Views.Main.Pages.Viewers;
 using Avalonia.Controls.Notifications;
 using Avalonia.Interactivity;
 using Avalonia.Media;
@@ -43,6 +44,7 @@ public partial class DebugTabPage : PageMixModelBase, IAurelioTabPage
     {
         NotificationBubble("Test Message", (NotificationType)r.Next(0, 4), TimeSpan.FromHours(1));
     }
+
     private void Crash_OnClick(object? sender, RoutedEventArgs e)
     {
         var a = 0;
@@ -89,5 +91,12 @@ public partial class DebugTabPage : PageMixModelBase, IAurelioTabPage
         task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
         task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
         task.SubTasks.Add(new TaskEntry { Name = "SubTask", TaskState = TaskState.Waiting });
+    }
+
+    private void Console_OnClick(object? sender, RoutedEventArgs e)
+    {
+        // Create a PowerShell terminal
+        var terminal = new TerminalViewer(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe");
+        App.UiRoot.TogglePage(null, terminal);
     }
 }
