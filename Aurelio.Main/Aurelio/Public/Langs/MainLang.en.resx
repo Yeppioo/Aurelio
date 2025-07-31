@@ -1793,4 +1793,19 @@
   <data name="CurrentItem" xml:space="preserve">
     <value>Current item</value>
   </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>Update available</value>
+  </data>
+  <data name="PackageInfoUnavailable" xml:space="preserve">
+    <value>Package info unavailable</value>
+  </data>
+  <data name="RestartNow" xml:space="preserve">
+    <value>Restart Now</value>
+  </data>
+  <data name="RestartLater" xml:space="preserve">
+    <value>Restart Later</value>
+  </data>
+  <data name="UpdateCompleteRestartPrompt" xml:space="preserve">
+    <value>Update completed! Aurelio needs to be restarted for the changes to take effect. Restart now?</value>
+  </data>
 </root>

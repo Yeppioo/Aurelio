@@ -30,7 +30,19 @@ public abstract class Setter
             Directory.Delete(dir);
         }
     }
-    
+
+    public static void TryClearFolder(string folderPath, string[]? ignore = null)
+    {
+        try
+        {
+            ClearFolder(folderPath, ignore);
+        }
+        catch (Exception e)
+        {
+            Logger.Error(e);
+        }
+    }
+
     public static async Task<bool> CopyFileWithDialog(string source, string target)
     {
         var path = target;
@@ -67,7 +79,7 @@ public abstract class Setter
             if (source == path) return false;
             File.Copy(source, path, true);
         }
-        
+
         return true;
     }
 }

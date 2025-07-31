@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using Aurelio.Plugin.Base;
+using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Plugin;
@@ -15,6 +17,12 @@ public class LoadPlugin
         // Clear existing plugins to avoid duplicates
         Data.LoadedPlugins.Clear();
 
+        // Clean up temporary plugin folder from previous runs
+        CleanupTempFolder();
+
+        // Ensure temporary plugin folder exists
+        Setter.TryCreateFolder(ConfigPath.PluginTempFolderPath);
+
         // Load all plugins first
         LoadAllPlugins();
 
@@ -26,46 +34,30 @@ public class LoadPlugin
 
     private static void LoadAllPlugins()
     {
-        var dlls = Getter.GetAllFilesByExtension(ConfigPath.PluginFolderPath, "*.dll");
+        var nupkgFiles = Getter.GetAllFilesByExtension(ConfigPath.PluginFolderPath, "*.nupkg");
 
-        if (dlls.Count == 0)
+        if (nupkgFiles.Count == 0)
         {
-            Logger.Info("No plugin DLLs found in plugin folder");
+            Logger.Info("No plugin packages (.nupkg) found in plugin folder");
             return;
         }
 
-        Logger.Info($"Found {dlls.Count} plugin DLLs to load");
+        Logger.Info($"Found {nupkgFiles.Count} plugin packages to load");
 
         var loadedCount = 0;
         var failedCount = 0;
 
-        foreach (var dll in dlls)
+        foreach (var nupkgFile in nupkgFiles)
         {
             try
             {
-                var pluginAssembly = Loader.LoadPlugin(dll);
-                var plugins = Loader.CreateCommands(pluginAssembly);
-
-                var pluginList = plugins.ToList(); // Materialize to avoid multiple enumeration
-                if (pluginList.Count == 0)
-                {
-                    // No plugins found - this DLL is treated as a dependency library
-                    Logger.Info($"No plugins found in {Path.GetFileNameWithoutExtension(dll)} - treating as dependency library");
-                }
-                else
-                {
-                    foreach (var plugin in pluginList)
-                    {
-                        Data.LoadedPlugins.Add(plugin);
-                        loadedCount++;
-                        Logger.Info($"Loaded plugin: {plugin.Id} v{plugin.Version} by {plugin.Author}");
-                    }
-                }
+                var packageLoadedCount = ExtractAndLoadPluginPackage(nupkgFile);
+                loadedCount += packageLoadedCount;
             }
             catch (Exception e)
             {
                 failedCount++;
-                Logger.Error($"Failed to load plugin from {dll}: {e.Message}");
+                Logger.Error($"Failed to load plugin package {Path.GetFileNameWithoutExtension(nupkgFile)}: {e.Message}");
                 Logger.Error(e);
             }
         }
@@ -82,11 +74,13 @@ public class LoadPlugin
         }
 
         // Create a dictionary for O(1) plugin lookups with version info
-        var availablePlugins = Data.LoadedPlugins.ToDictionary(p => p.Id, p => p);
-        var pluginsToRemove = new List<IPlugin>();
+        var availablePlugins = Data.LoadedPlugins.ToDictionary(p => p.Plugin.Id, p => p.Plugin);
+        var pluginsToRemove = new List<LoadedPluginEntry>();
 
-        foreach (var plugin in Data.LoadedPlugins.OrderBy(p => p.Id))
+        foreach (var loadedPluginEntry in Data.LoadedPlugins.OrderBy(p => p.Plugin.Id))
         {
+            var plugin = loadedPluginEntry.Plugin;
+
             // Check if plugin has Required property using reflection (since it's not in interface)
             var requireProperty = plugin.GetType().GetProperty("Require");
             if (requireProperty?.GetValue(plugin) is not IEnumerable<RequirePluginEntry> requirements)
@@ -120,15 +114,15 @@ public class LoadPlugin
             if (failedDependencies.Count > 0)
             {
                 Logger.Error($"Plugin '{plugin.Id}' has unmet dependencies: {string.Join(", ", failedDependencies)}");
-                pluginsToRemove.Add(plugin);
+                pluginsToRemove.Add(loadedPluginEntry);
             }
         }
 
         // Remove plugins with missing dependencies
-        foreach (var plugin in pluginsToRemove)
+        foreach (var pluginEntry in pluginsToRemove)
         {
-            Data.LoadedPlugins.Remove(plugin);
-            Logger.Warning($"Removed plugin '{plugin.Id}' due to unmet dependencies");
+            Data.LoadedPlugins.Remove(pluginEntry);
+            Logger.Warning($"Removed plugin '{pluginEntry.Plugin.Id}' due to unmet dependencies");
         }
 
         Logger.Info(pluginsToRemove.Count > 0
@@ -178,11 +172,117 @@ public class LoadPlugin
         };
     }
 
+    private static void CleanupTempFolder()
+    {
+        try
+        {
+            if (Directory.Exists(ConfigPath.PluginTempFolderPath))
+            {
+                Setter.ClearFolder(ConfigPath.PluginTempFolderPath);
+                Logger.Info("Cleaned up temporary plugin folder");
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.Warning($"Failed to cleanup temporary plugin folder: {e.Message}");
+        }
+    }
+
+    private static int ExtractAndLoadPluginPackage(string nupkgPath)
+    {
+        var packageName = Path.GetFileNameWithoutExtension(nupkgPath);
+        var extractPath = Path.Combine(ConfigPath.PluginTempFolderPath, packageName);
+
+        Logger.Info($"Processing plugin package: {packageName}");
+
+        // Create directory for this plugin package
+        Setter.TryCreateFolder(extractPath);
+
+        // Extract the plugin package
+        ExtractPluginPackage(nupkgPath, extractPath);
+
+        // Load plugins from the extracted directory
+        return LoadPluginsFromDirectory(extractPath);
+    }
+
+    private static void ExtractPluginPackage(string nupkgPath, string extractPath)
+    {
+        using var archive = ZipFile.OpenRead(nupkgPath);
+
+        foreach (var entry in archive.Entries)
+        {
+            // Only extract files from the bin/ directory
+            if (!entry.FullName.StartsWith("bin/", StringComparison.OrdinalIgnoreCase) ||
+                entry.FullName.EndsWith("/"))
+                continue;
+
+            // Remove "bin/" prefix from the path
+            var relativePath = entry.FullName.Substring(4);
+            var destinationPath = Path.Combine(extractPath, relativePath);
+
+            // Ensure the directory exists
+            var destinationDir = Path.GetDirectoryName(destinationPath);
+            if (!string.IsNullOrEmpty(destinationDir))
+            {
+                Setter.TryCreateFolder(destinationDir);
+            }
+
+            // Extract the file
+            entry.ExtractToFile(destinationPath, overwrite: true);
+        }
+
+        Logger.Info($"Extracted plugin package to: {extractPath}");
+    }
+
+    private static int LoadPluginsFromDirectory(string directory)
+    {
+        var dlls = Getter.GetAllFilesByExtension(directory, "*.dll");
+        var loadedCount = 0;
+
+        foreach (var dll in dlls)
+        {
+            try
+            {
+                var pluginAssembly = Loader.LoadPlugin(dll);
+                var plugins = Loader.CreateCommands(pluginAssembly);
+
+                var pluginList = plugins.ToList(); // Materialize to avoid multiple enumeration
+                if (pluginList.Count == 0)
+                {
+                    // No plugins found - this DLL is treated as a dependency library
+                    Logger.Info($"No plugins found in {Path.GetFileNameWithoutExtension(dll)} - treating as dependency library");
+                }
+                else
+                {
+                    foreach (var plugin in pluginList)
+                    {
+                        var loadedPluginEntry = new LoadedPluginEntry
+                        {
+                            Plugin = plugin
+                        };
+
+                        Data.LoadedPlugins.Add(loadedPluginEntry);
+                        loadedCount++;
+                        Logger.Info($"Loaded plugin: {plugin.Id} v{plugin.Version} by {plugin.Author}");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Error($"Failed to load plugin from {dll}: {e.Message}");
+                Logger.Error(e);
+                // Don't increment failed count here as it's handled at package level
+            }
+        }
+
+        return loadedCount;
+    }
+
     public static void ExecutePlugin()
     {
-        foreach (var loadedPlugin in Data.LoadedPlugins)
+        foreach (var loadedPluginEntry in Data.LoadedPlugins)
         {
-            loadedPlugin.Execute();
+            loadedPluginEntry.Plugin.Execute();
         }
     }
 }

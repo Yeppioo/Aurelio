@@ -1808,4 +1808,19 @@
   <data name="Cut" xml:space="preserve">
     <value>剪切</value>
   </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>有可用更新</value>
+  </data>
+  <data name="PackageInfoUnavailable" xml:space="preserve">
+    <value>包信息不可用</value>
+  </data>
+  <data name="RestartNow" xml:space="preserve">
+    <value>立即重启</value>
+  </data>
+  <data name="RestartLater" xml:space="preserve">
+    <value>稍后重启</value>
+  </data>
+  <data name="UpdateCompleteRestartPrompt" xml:space="preserve">
+    <value>更新完成！为了使更新生效，需要重启 Aurelio。是否现在重启？</value>
+  </data>
 </root>

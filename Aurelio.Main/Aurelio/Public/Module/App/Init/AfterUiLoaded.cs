@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Module.App.Services;
 using Aurelio.Public.Module.Plugin.Events;
@@ -15,6 +16,7 @@ public abstract class AfterUiLoaded
         File.WriteAllText(ConfigPath.AppPathDataPath,
             Process.GetCurrentProcess().MainModule.FileName);
         BindKeys.Main(Aurelio.App.UiRoot!);
+        CheckPluginUpdate.Main(Data.LoadedPlugins.ToArray());
         Setter.SetAccentColor(Data.SettingEntry.ThemeColor);
         Application.Current.Resources["BackGroundOpacity"] = Data.SettingEntry.BackGround == Setting.BackGround.Default ? 1.0 : 0.5;
         _ = TranslateToken.RefreshToken();

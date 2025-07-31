@@ -3480,6 +3480,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 包信息不可用.
+        /// </summary>
+        public static string PackageInfoUnavailable {
+            get {
+                return ResourceManager.GetString("PackageInfoUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 密码.
         /// </summary>
         public static string Password {
@@ -3764,6 +3773,24 @@ namespace Aurelio.Public.Langs {
         public static string RestartApp {
             get {
                 return ResourceManager.GetString("RestartApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 稍后重启.
+        /// </summary>
+        public static string RestartLater {
+            get {
+                return ResourceManager.GetString("RestartLater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 立即重启.
+        /// </summary>
+        public static string RestartNow {
+            get {
+                return ResourceManager.GetString("RestartNow", resourceCulture);
             }
         }
         
@@ -4738,6 +4765,24 @@ namespace Aurelio.Public.Langs {
         public static string Update {
             get {
                 return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 有可用更新.
+        /// </summary>
+        public static string UpdateAvailable {
+            get {
+                return ResourceManager.GetString("UpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 更新完成！为了使更新生效，需要重启 Aurelio。是否现在重启？.
+        /// </summary>
+        public static string UpdateCompleteRestartPrompt {
+            get {
+                return ResourceManager.GetString("UpdateCompleteRestartPrompt", resourceCulture);
             }
         }
         

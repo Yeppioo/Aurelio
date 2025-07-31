@@ -13,6 +13,7 @@ public abstract class BeforeLoadXaml
     {
         Sundry.DetectPlatform();
         Create.Main();
+        IO.Local.Setter.TryClearFolder(ConfigPath.PluginUnzipFolderPath);
         LoadPlugin.ScanPlugin();
         LoadPlugin.ExecutePlugin();
         InitEvents.OnBeforeReadSettings();

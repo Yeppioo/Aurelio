@@ -25,7 +25,7 @@ public class Data : ReactiveObject
     public static UiProperty UiProperty { get; set; } = UiProperty.Instance;
     public static string TranslateToken { get; set; }
     [Reactive] public string Version { get; set; }
-    public static ObservableCollection<IPlugin> LoadedPlugins { get; } = [];
+    public static ObservableCollection<LoadedPluginEntry> LoadedPlugins { get; } = [];
     public static ObservableCollection<AggregateSearchEntry> AggregateSearchEntries { get; } = [];
 
     public static void UpdateAggregateSearchEntries()

@@ -1,4 +1,5 @@
 using Aurelio.Plugin.Base;
+using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
@@ -23,13 +24,13 @@ public partial class PluginPage : PageMixModelBase , IAurelioPage
     private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         var root = this.GetVisualRoot();
-        if(((Border)sender).Tag is not IPlugin tag) return;
-        
+        if(((Border)sender).Tag is not LoadedPluginEntry loadedPluginEntry) return;
+
         if (root is TabWindow window)
         {
-            window.TogglePage(null, new PluginInfo(tag));
+            window.TogglePage(null, new PluginInfo(loadedPluginEntry));
             return;
         }
-        App.UiRoot.TogglePage(null, new PluginInfo(tag));
+        App.UiRoot.TogglePage(null, new PluginInfo(loadedPluginEntry));
     }
 }

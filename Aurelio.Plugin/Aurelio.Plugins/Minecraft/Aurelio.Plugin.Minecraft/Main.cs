@@ -30,19 +30,20 @@ namespace Aurelio.Plugin.Minecraft;
 
 public partial class Main : IPlugin
 {
-    public string Id { get; set; } = "Aurelio.Plugin.Minecraft";
+    public string Id { get; set; } = "Yeppioo.Aurelio.Plugin.Minecraft";
     public string Name { get; set; } = "Minecraft Plugin";
     public string Author { get; set; } = "Yeppioo (yeppioo.vip)";
     public string Description { get; set; } = "Provides Minecraft support for Aurelio.";
-
     public object SettingPage
     {
         get => new SettingTabPage();
-        set => Console.WriteLine("Setting page is not supported");
+        set => Console.Write("");
     }
 
-    public Version Version { get; set; } = Version.Parse("1.0.0");
+    public Version Version { get; set; } = Version.Parse("1.0.1");
     public RequirePluginEntry[] Require { get; set; } = [];
+
+    public object? PackageInfo { get; set; } = new NugetPackage("Yeppioo.Aurelio.Plugin.Minecraft");
 
     public int Execute()
     {

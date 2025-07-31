@@ -1791,4 +1791,19 @@ MacOs 不支援自動更新前往以下連結下載新版本: “{url}”
   <data name="CurrentItem" xml:space="preserve">
     <value>目前專案</value>
   </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>有可用更新</value>
+  </data>
+  <data name="PackageInfoUnavailable" xml:space="preserve">
+    <value>套件資訊不可用</value>
+  </data>
+  <data name="RestartNow" xml:space="preserve">
+    <value>立即重啟</value>
+  </data>
+  <data name="RestartLater" xml:space="preserve">
+    <value>稍後重啟</value>
+  </data>
+  <data name="UpdateCompleteRestartPrompt" xml:space="preserve">
+    <value>更新完成！為了使更新生效，需要重啟 Aurelio。是否現在重啟？</value>
+  </data>
 </root>

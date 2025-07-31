@@ -9,6 +9,7 @@ public interface IPlugin
     object SettingPage { get; set; }
     Version Version { get; set; }
     RequirePluginEntry[] Require { get; set; }
-    bool HasDependencies => Require.Length > 0;
+    object? PackageInfo { get; set; }
+
     int Execute();
 }
