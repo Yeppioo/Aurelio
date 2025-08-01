@@ -15,6 +15,7 @@ public abstract class AfterUiLoaded
     {
         File.WriteAllText(ConfigPath.AppPathDataPath,
             Process.GetCurrentProcess().MainModule.FileName);
+        Data.UpdateAggregateSearchEntries();
         BindKeys.Main(Aurelio.App.UiRoot!);
         CheckPluginUpdate.Main(Data.LoadedPlugins.ToArray());
         Setter.SetAccentColor(Data.SettingEntry.ThemeColor);

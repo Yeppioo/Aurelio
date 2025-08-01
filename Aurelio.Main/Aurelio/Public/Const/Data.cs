@@ -5,6 +5,7 @@ using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Module.Plugin.Events;
 using Aurelio.Views.Main.Pages;
+using Aurelio.Views.Main.Pages.Viewers;
 using Avalonia.Threading;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -31,10 +32,12 @@ public class Data : ReactiveObject
     public static void UpdateAggregateSearchEntries()
     {
         AggregateSearchEntries.Clear();
-        Dispatcher.UIThread.InvokeAsync(() =>
+        Dispatcher.UIThread.Invoke(() =>
         {
             AggregateSearchEntries.Add(new AggregateSearchEntry(new NewTabPage(), null));
             AggregateSearchEntries.Add(new AggregateSearchEntry(new SettingTabPage() , "setting"));
+            if(DesktopType == DesktopType.Windows)
+                AggregateSearchEntries.Add(new AggregateSearchEntry(new TerminalViewer(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe") , null));
         });
         AggregateSearchEvents.OnUpdateAggregateSearchEntries();
     }

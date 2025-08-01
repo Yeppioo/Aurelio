@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.Ui.Helper;
@@ -21,27 +22,13 @@ namespace Aurelio.Views.Main.Pages.Viewers;
 
 public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
 {
-    private Process? _process;
-    private StreamWriter? _processInput;
+    private readonly TerminalSessionManager _sessionManager = new();
     private readonly StringBuilder _outputBuffer = new();
     private readonly List<string> _commandHistory = new();
     private int _historyIndex = -1;
-    private string _terminalPath;
-    private string _terminalTitle = "Terminal";
-    private string _processStatus = "未连接";
+    private string _initialTerminalPath;
     private string _currentInput = "";
-
-    public string TerminalTitle
-    {
-        get => _terminalTitle;
-        set => SetField(ref _terminalTitle, value);
-    }
-
-    public string ProcessStatus
-    {
-        get => _processStatus;
-        set => SetField(ref _processStatus, value);
-    }
+    private readonly Dictionary<string, string> _builtInCommands;
 
     public string CurrentInput
     {
@@ -51,7 +38,9 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
 
     public TerminalViewer(string path)
     {
-        _terminalPath = path;
+        _initialTerminalPath = path;
+        _builtInCommands = InitializeBuiltInCommands();
+
         InitializeComponent();
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
@@ -63,7 +52,6 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
                 "M73.4 182.6C60.9 170.1 60.9 149.8 73.4 137.3C85.9 124.8 106.2 124.8 118.7 137.3L278.7 297.3C291.2 309.8 291.2 330.1 278.7 342.6L118.7 502.6C106.2 515.1 85.9 515.1 73.4 502.6C60.9 490.1 60.9 469.8 73.4 457.3L210.7 320L73.4 182.6zM288 448L544 448C561.7 448 576 462.3 576 480C576 497.7 561.7 512 544 512L288 512C270.3 512 256 497.7 256 480C256 462.3 270.3 448 288 448z")
         };
 
-        TerminalTitle = $"Terminal - {Path.GetFileNameWithoutExtension(path)}";
         DataContext = this;
 
         InitializeTerminal();
@@ -73,6 +61,20 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
     public PageLoadingAnimator InAnimator { get; set; }
     public TabEntry HostTab { get; set; }
     public PageInfoEntry PageInfo { get; }
+
+    private Dictionary<string, string> InitializeBuiltInCommands()
+    {
+        return new Dictionary<string, string>
+        {
+            ["sessions"] = "列出所有会话",
+            ["session"] = "切换到指定会话 (用法: session <id>)",
+            ["new"] = "创建新会话 (用法: new <type> [name])",
+            ["stop"] = "停止指定会话 (用法: stop <id>)",
+            ["help"] = "显示帮助信息",
+            ["clear"] = "清空输出",
+            ["exit"] = "退出终端"
+        };
+    }
 
     private void InitializeTerminal()
     {
@@ -88,12 +90,122 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
             // 设置全局快捷键
             SetupGlobalKeyBindings();
 
-            // 启动终端进程
-            StartTerminalProcess();
+            // 设置会话管理事件
+            SetupSessionManager();
+
+            // 创建初始会话
+            CreateInitialSession();
         }
         catch (Exception ex)
         {
             AppendOutput($"初始化终端失败: {ex.Message}\n", true);
+        }
+    }
+
+    private void SetupSessionManager()
+    {
+        try
+        {
+            _sessionManager.SessionCreated += OnSessionCreated;
+            _sessionManager.SessionStopped += OnSessionStopped;
+            _sessionManager.SessionActivated += OnSessionActivated;
+        }
+        catch (Exception ex)
+        {
+            AppendOutput($"设置会话管理器失败: {ex.Message}\n", true);
+        }
+    }
+
+    private async void CreateInitialSession()
+    {
+        try
+        {
+            var sessionName = Path.GetFileNameWithoutExtension(_initialTerminalPath);
+            var session = await _sessionManager.CreateSessionAsync(sessionName, _initialTerminalPath);
+
+            if (session != null)
+            {
+                // 设置会话事件处理
+                session.OutputReceived += OnSessionOutput;
+                session.ErrorReceived += OnSessionError;
+                session.ProcessExited += OnSessionExited;
+
+                AppendOutput($"会话已创建: {session.Name} (ID: {session.Id})\n");
+                AppendOutput($"使用编码: GBK\n");
+                AppendOutput("输入 'help' 查看内置命令\n\n");
+            }
+            else
+            {
+                AppendOutput($"创建初始会话失败: {_initialTerminalPath}\n", true);
+            }
+        }
+        catch (Exception ex)
+        {
+            AppendOutput($"初始化会话失败: {ex.Message}\n", true);
+        }
+    }
+
+    private void OnSessionCreated(object? sender, SessionEventArgs e)
+    {
+        Dispatcher.UIThread.InvokeAsync(() =>
+        {
+            AppendOutput($"新会话已创建: {e.Session.Name} (ID: {e.Session.Id})\n");
+            UpdateTerminalTitle();
+        });
+    }
+
+    private void OnSessionStopped(object? sender, SessionEventArgs e)
+    {
+        Dispatcher.UIThread.InvokeAsync(() =>
+        {
+            AppendOutput($"会话已停止: {e.Session.Name} (ID: {e.Session.Id})\n");
+            UpdateTerminalTitle();
+        });
+    }
+
+    private void OnSessionActivated(object? sender, SessionEventArgs e)
+    {
+        Dispatcher.UIThread.InvokeAsync(() =>
+        {
+            AppendOutput($"切换到会话: {e.Session.Name} (ID: {e.Session.Id})\n");
+            UpdateTerminalTitle();
+        });
+    }
+
+    private void OnSessionOutput(object? sender, string output)
+    {
+        Dispatcher.UIThread.InvokeAsync(() => AppendOutput(output));
+    }
+
+    private void OnSessionError(object? sender, string error)
+    {
+        Dispatcher.UIThread.InvokeAsync(() => AppendOutput(error, true));
+    }
+
+    private void OnSessionExited(object? sender, EventArgs e)
+    {
+        Dispatcher.UIThread.InvokeAsync(() =>
+        {
+            if (sender is TerminalSession session)
+            {
+                AppendOutput($"\n会话 {session.Name} (ID: {session.Id}) 已退出\n");
+                UpdateTerminalTitle();
+            }
+        });
+    }
+
+    private void UpdateTerminalTitle()
+    {
+        var activeSession = _sessionManager.ActiveSession;
+        if (activeSession != null)
+        {
+            // 更新PageInfo的Title
+            PageInfo.Title = $"Terminal - {activeSession.Name}";
+        }
+        else
+        {
+            // 更新PageInfo的Title
+            PageInfo.Title = "Terminal - 无活动会话";
         }
     }
 
@@ -134,26 +246,26 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
                 return;
             }
 
-            // Ctrl+D - 关闭终端进程
+            // Ctrl+D - 关闭当前会话
             if (e.Key == Key.D && e.KeyModifiers.HasFlag(KeyModifiers.Control))
             {
-                await CloseTerminalProcess();
+                await HandleBuiltInCommand("stop " + (_sessionManager.ActiveSession?.Id ?? ""));
                 e.Handled = true;
                 return;
             }
 
-            // Ctrl+R - 重启终端进程
+            // Ctrl+R - 重启当前会话
             if (e.Key == Key.R && e.KeyModifiers.HasFlag(KeyModifiers.Control))
             {
-                await RestartTerminalProcess();
+                await RestartCurrentSession();
                 e.Handled = true;
                 return;
             }
 
-            // F5 - 重启终端进程（备用快捷键）
+            // F5 - 重启当前会话（备用快捷键）
             if (e.Key == Key.F5)
             {
-                await RestartTerminalProcess();
+                await RestartCurrentSession();
                 e.Handled = true;
                 return;
             }
@@ -188,86 +300,7 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
         }
     }
 
-    private void StartTerminalProcess()
-    {
-        try
-        {
-            if (!File.Exists(_terminalPath))
-            {
-                AppendOutput($"错误: 找不到终端程序 '{_terminalPath}'\n", true);
-                ProcessStatus = "错误";
-                return;
-            }
 
-            // 注册编码提供程序以支持GBK等编码
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
-            // 尝试获取GBK编码，如果失败则使用系统默认编码
-            Encoding encoding;
-            try
-            {
-                encoding = Encoding.GetEncoding("GBK");
-            }
-            catch
-            {
-                try
-                {
-                    // 尝试使用936代码页（简体中文GBK）
-                    encoding = Encoding.GetEncoding(936);
-                }
-                catch
-                {
-                    // 如果都失败，使用系统默认编码
-                    encoding = Encoding.Default;
-                }
-            }
-
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = _terminalPath,
-                UseShellExecute = false,
-                RedirectStandardInput = true,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true,
-                StandardOutputEncoding = encoding,
-                StandardErrorEncoding = encoding,
-                StandardInputEncoding = encoding
-            };
-
-            // 设置环境变量以支持中文GBK编码
-            startInfo.EnvironmentVariables["LANG"] = "zh_CN.GBK";
-            startInfo.EnvironmentVariables["LC_ALL"] = "zh_CN.GBK";
-
-            _process = Process.Start(startInfo);
-
-            if (_process == null)
-            {
-                AppendOutput("错误: 无法启动终端进程\n", true);
-                ProcessStatus = "错误";
-                return;
-            }
-
-            _processInput = _process.StandardInput;
-            ProcessStatus = "已连接";
-
-            // 启动输出监听
-            Task.Run(MonitorOutput);
-            Task.Run(MonitorError);
-
-            // 监听进程退出
-            _process.EnableRaisingEvents = true;
-            _process.Exited += OnProcessExited;
-
-            AppendOutput($"终端已启动: {Path.GetFileName(_terminalPath)}\n");
-            AppendOutput($"使用编码: {encoding.EncodingName} (代码页: {encoding.CodePage})\n");
-        }
-        catch (Exception ex)
-        {
-            AppendOutput($"启动终端失败: {ex.Message}\n", true);
-            ProcessStatus = "错误";
-        }
-    }
 
     private async void OnInputKeyDown(object? sender, KeyEventArgs e)
     {
@@ -296,12 +329,6 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
 
     private async Task SendCommand(string command)
     {
-        if (_process == null || _processInput == null || _process.HasExited)
-        {
-            AppendOutput("错误: 终端进程未运行\n", true);
-            return;
-        }
-
         try
         {
             // 添加到命令历史
@@ -314,9 +341,23 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
             // 显示用户输入
             AppendOutput($"> {command}\n");
 
-            // 发送命令到进程
-            await _processInput.WriteLineAsync(command);
-            await _processInput.FlushAsync();
+            // 检查是否为内置命令
+            if (await HandleBuiltInCommand(command))
+            {
+                CurrentInput = "";
+                return;
+            }
+
+            // 发送到活动会话
+            var activeSession = _sessionManager.ActiveSession;
+            if (activeSession != null)
+            {
+                await activeSession.SendCommandAsync(command);
+            }
+            else
+            {
+                AppendOutput("错误: 没有活动会话\n", true);
+            }
 
             // 清空输入框
             CurrentInput = "";
@@ -327,17 +368,236 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
         }
     }
 
-    private async Task SendInterrupt()
+    private async Task<bool> HandleBuiltInCommand(string command)
     {
-        if (_process == null || _process.HasExited)
-            return;
+        var parts = command.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length == 0) return false;
 
+        var cmd = parts[0].ToLower();
+
+        switch (cmd)
+        {
+            case "help":
+                ShowHelp();
+                return true;
+
+            case "sessions":
+                ShowSessions();
+                return true;
+
+            case "session":
+                if (parts.Length > 1)
+                {
+                    SwitchSession(parts[1]);
+                }
+                else
+                {
+                    AppendOutput("用法: session <id>\n", true);
+                }
+                return true;
+
+            case "new":
+                if (parts.Length > 1)
+                {
+                    var sessionType = parts[1];
+                    var sessionName = parts.Length > 2 ? parts[2] : sessionType;
+                    await CreateNewSession(sessionType, sessionName);
+                }
+                else
+                {
+                    AppendOutput("用法: new <type> [name]\n", true);
+                    ShowAvailableSessionTypes();
+                }
+                return true;
+
+            case "stop":
+                if (parts.Length > 1)
+                {
+                    StopSession(parts[1]);
+                }
+                else
+                {
+                    AppendOutput("用法: stop <id>\n", true);
+                }
+                return true;
+
+            case "clear":
+                ClearTerminalOutput();
+                return true;
+
+            case "exit":
+                OnClose();
+                return true;
+
+            case "quit":
+                OnClose();
+                return true;
+
+            default:
+                return false; // 不是内置命令
+        }
+    }
+
+    private void ShowHelp()
+    {
+        AppendOutput("=== 内置命令帮助 ===\n");
+        foreach (var cmd in _builtInCommands)
+        {
+            AppendOutput($"  {cmd.Key,-12} - {cmd.Value}\n");
+        }
+        AppendOutput("\n=== 可用会话类型 ===\n");
+        ShowAvailableSessionTypes();
+        AppendOutput("\n");
+    }
+
+    private void ShowSessions()
+    {
+        AppendOutput("=== 当前会话列表 ===\n");
+        var sessions = _sessionManager.AllSessions.ToList();
+
+        if (!sessions.Any())
+        {
+            AppendOutput("  没有活动会话\n");
+        }
+        else
+        {
+            foreach (var session in sessions)
+            {
+                var status = session.IsActive ? "[活动]" : "";
+                var uptime = DateTime.Now - session.CreatedTime;
+                AppendOutput($"  {session.Id} - {session.Name} ({session.Status}) {status} 运行时间: {uptime:hh\\:mm\\:ss}\n");
+            }
+        }
+        AppendOutput("\n");
+    }
+
+    private void SwitchSession(string sessionId)
+    {
+        if (_sessionManager.SwitchToSession(sessionId))
+        {
+            AppendOutput($"已切换到会话: {sessionId}\n");
+        }
+        else
+        {
+            AppendOutput($"会话不存在: {sessionId}\n", true);
+        }
+    }
+
+    private async Task CreateNewSession(string sessionType, string sessionName)
+    {
+        var predefinedSessions = TerminalSessionManager.GetPredefinedSessions();
+
+        if (predefinedSessions.TryGetValue(sessionType.ToLower(), out var executablePath))
+        {
+            var session = await _sessionManager.CreateSessionAsync(sessionName, executablePath);
+            if (session != null)
+            {
+                // 设置会话事件处理
+                session.OutputReceived += OnSessionOutput;
+                session.ErrorReceived += OnSessionError;
+                session.ProcessExited += OnSessionExited;
+
+                AppendOutput($"新会话已创建: {sessionName} (ID: {session.Id})\n");
+
+                // 自动切换到新会话
+                _sessionManager.SwitchToSession(session.Id);
+            }
+            else
+            {
+                AppendOutput($"创建会话失败: {sessionType}\n", true);
+            }
+        }
+        else
+        {
+            AppendOutput($"未知的会话类型: {sessionType}\n", true);
+            ShowAvailableSessionTypes();
+        }
+    }
+
+    private void StopSession(string sessionId)
+    {
+        if (_sessionManager.StopSession(sessionId))
+        {
+            AppendOutput($"会话已停止: {sessionId}\n");
+        }
+        else
+        {
+            AppendOutput($"会话不存在: {sessionId}\n", true);
+        }
+    }
+
+    private void ShowAvailableSessionTypes()
+    {
+        var predefinedSessions = TerminalSessionManager.GetPredefinedSessions();
+        foreach (var session in predefinedSessions)
+        {
+            AppendOutput($"  {session.Key,-12} - {session.Value}\n");
+        }
+    }
+
+    private async Task RestartCurrentSession()
+    {
         try
         {
-            // 发送 Ctrl+C 信号
-            await _processInput?.WriteAsync("\x03");
-            await _processInput?.FlushAsync();
-            AppendOutput("^C\n");
+            var activeSession = _sessionManager.ActiveSession;
+            if (activeSession != null)
+            {
+                AppendOutput($"\n正在重启会话: {activeSession.Name} ({activeSession.Id})\n");
+
+                var sessionName = activeSession.Name;
+                var executablePath = activeSession.ExecutablePath;
+                var sessionId = activeSession.Id;
+
+                // 停止当前会话
+                _sessionManager.StopSession(sessionId);
+
+                // 等待一小段时间
+                await Task.Delay(500);
+
+                // 创建新会话
+                var newSession = await _sessionManager.CreateSessionAsync(sessionName, executablePath);
+                if (newSession != null)
+                {
+                    // 设置会话事件处理
+                    newSession.OutputReceived += OnSessionOutput;
+                    newSession.ErrorReceived += OnSessionError;
+                    newSession.ProcessExited += OnSessionExited;
+
+                    AppendOutput($"会话已重启: {newSession.Name} (新ID: {newSession.Id})\n");
+
+                    // 自动切换到新会话
+                    _sessionManager.SwitchToSession(newSession.Id);
+                }
+                else
+                {
+                    AppendOutput("重启会话失败\n", true);
+                }
+            }
+            else
+            {
+                AppendOutput("没有活动会话可重启\n", true);
+            }
+        }
+        catch (Exception ex)
+        {
+            AppendOutput($"重启会话失败: {ex.Message}\n", true);
+        }
+    }
+
+    private async Task SendInterrupt()
+    {
+        try
+        {
+            var activeSession = _sessionManager.ActiveSession;
+            if (activeSession != null)
+            {
+                await activeSession.SendInterruptAsync();
+                AppendOutput("^C\n");
+            }
+            else
+            {
+                AppendOutput("没有活动会话可中断\n", true);
+            }
         }
         catch (Exception ex)
         {
@@ -363,53 +623,7 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
         CurrentInput = _commandHistory[_historyIndex];
     }
 
-    private async Task MonitorOutput()
-    {
-        if (_process?.StandardOutput == null) return;
 
-        try
-        {
-            var buffer = new char[1024];
-            while (!_process.HasExited)
-            {
-                var bytesRead = await _process.StandardOutput.ReadAsync(buffer, 0, buffer.Length);
-                if (bytesRead > 0)
-                {
-                    var output = new string(buffer, 0, bytesRead);
-                    await Dispatcher.UIThread.InvokeAsync(() => AppendOutput(output));
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            await Dispatcher.UIThread.InvokeAsync(() =>
-                AppendOutput($"输出监听错误: {ex.Message}\n", true));
-        }
-    }
-
-    private async Task MonitorError()
-    {
-        if (_process?.StandardError == null) return;
-
-        try
-        {
-            var buffer = new char[1024];
-            while (!_process.HasExited)
-            {
-                var bytesRead = await _process.StandardError.ReadAsync(buffer, 0, buffer.Length);
-                if (bytesRead > 0)
-                {
-                    var error = new string(buffer, 0, bytesRead);
-                    await Dispatcher.UIThread.InvokeAsync(() => AppendOutput(error, true));
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            await Dispatcher.UIThread.InvokeAsync(() =>
-                AppendOutput($"错误监听失败: {ex.Message}\n", true));
-        }
-    }
 
     private void AppendOutput(string text, bool isError = false)
     {
@@ -491,82 +705,7 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
         }
     }
 
-    private async Task CloseTerminalProcess()
-    {
-        try
-        {
-            if (_process != null && !_process.HasExited)
-            {
-                AppendOutput("\n正在关闭终端进程...\n");
 
-                // 尝试优雅关闭
-                try
-                {
-                    await _processInput?.WriteLineAsync("exit");
-                    await _processInput?.FlushAsync();
-
-                    // 等待进程退出
-                    if (!_process.WaitForExit(3000))
-                    {
-                        _process.Kill(true);
-                        AppendOutput("进程已强制终止\n");
-                    }
-                    else
-                    {
-                        AppendOutput("进程已正常退出\n");
-                    }
-                }
-                catch
-                {
-                    _process.Kill(true);
-                    AppendOutput("进程已强制终止\n");
-                }
-
-                ProcessStatus = "已断开";
-            }
-            else
-            {
-                AppendOutput("没有运行中的进程\n");
-            }
-        }
-        catch (Exception ex)
-        {
-            AppendOutput($"关闭进程失败: {ex.Message}\n", true);
-        }
-    }
-
-    private async Task RestartTerminalProcess()
-    {
-        try
-        {
-            AppendOutput("\n正在重启终端...\n");
-
-            // 关闭当前进程
-            if (_process != null && !_process.HasExited)
-            {
-                try
-                {
-                    _process.Kill(true);
-                }
-                catch
-                {
-                }
-            }
-
-            // 清理资源
-            CleanupProcess();
-
-            // 等待一小段时间
-            await Task.Delay(500);
-
-            // 重新启动
-            StartTerminalProcess();
-        }
-        catch (Exception ex)
-        {
-            AppendOutput($"重启终端失败: {ex.Message}\n", true);
-        }
-    }
 
     private void CopySelectedText()
     {
@@ -628,48 +767,25 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
 
     #endregion
 
-    private void OnProcessExited(object? sender, EventArgs e)
-    {
-        Dispatcher.UIThread.InvokeAsync(() =>
-        {
-            ProcessStatus = "已断开";
-            AppendOutput("\n进程已退出\n", true);
-        });
-    }
+
 
     public void OnClose()
     {
-        _ = Task.Run(CleanupProcess);
+        CleanupAllSessions();
     }
 
-    private void CleanupProcess()
+    private void CleanupAllSessions()
     {
         try
         {
-            if (_process != null && !_process.HasExited)
-            {
-                // 尝试优雅地关闭进程
-                _processInput?.WriteLine("exit");
-                _processInput?.Flush();
-
-                // 等待一段时间让进程自然退出
-                if (!_process.WaitForExit(3000))
-                {
-                    // 如果进程没有退出，强制终止
-                    _process.Kill(true);
-                }
-            }
+            _sessionManager.CleanupAllSessions();
+            AppendOutput("所有会话已清理\n");
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"清理进程时出错: {ex.Message}");
-        }
-        finally
-        {
-            _processInput?.Dispose();
-            _process?.Dispose();
-            _processInput = null;
-            _process = null;
+            System.Diagnostics.Debug.WriteLine($"清理会话时出错: {ex.Message}");
         }
     }
+
+
 }
