@@ -65,7 +65,7 @@
                         HorizontalAlignment="Stretch"
                         Margin="10,0,20,0"
                         MaxLines="1"
-                        Name="Title"
+                        Name="TitleBlock"
                         TextTrimming="LeadingCharacterEllipsis"
                         TextWrapping="NoWrap"
                         VerticalAlignment="Center" />

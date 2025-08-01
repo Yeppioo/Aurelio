@@ -34,7 +34,7 @@ public class TerminalSession : IDisposable
         Status = SessionStatus.Created;
     }
 
-    public async Task<bool> StartAsync()
+    public bool Start()
     {
         try
         {

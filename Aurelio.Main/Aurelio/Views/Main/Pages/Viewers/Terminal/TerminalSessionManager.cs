@@ -20,7 +20,7 @@ public class TerminalSessionManager
     /// <summary>
     /// 获取当前活动会话
     /// </summary>
-    public TerminalSession? ActiveSession => 
+    public TerminalSession? ActiveSession =>
         _activeSessionId != null && _sessions.TryGetValue(_activeSessionId, out var session) ? session : null;
 
     /// <summary>
@@ -31,16 +31,16 @@ public class TerminalSessionManager
     /// <summary>
     /// 创建新会话
     /// </summary>
-    public async Task<TerminalSession?> CreateSessionAsync(string name, string executablePath)
+    public TerminalSession? CreateSession(string name, string executablePath)
     {
         try
         {
             var session = new TerminalSession(name, executablePath);
-            
-            if (await session.StartAsync())
+
+            if (session.Start())
             {
                 _sessions[session.Id] = session;
-                
+
                 // 如果是第一个会话，自动激活
                 if (_activeSessionId == null)
                 {
@@ -126,7 +126,7 @@ public class TerminalSessionManager
     /// </summary>
     public TerminalSession? FindSessionByName(string name)
     {
-        return _sessions.Values.FirstOrDefault(s => 
+        return _sessions.Values.FirstOrDefault(s =>
             s.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
     }
 
@@ -139,6 +139,7 @@ public class TerminalSessionManager
         {
             session.Dispose();
         }
+
         _sessions.Clear();
         _activeSessionId = null;
     }

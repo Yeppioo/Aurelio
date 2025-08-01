@@ -112,7 +112,7 @@ public enum ArchiveType
     GZip
 }
 
-public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
+public partial class ZipViewer : PageMixModelBase, IAurelioTabPage, IAurelioViewer
 {
     private readonly string _archivePath;
     private string _currentDirectory = "/";
@@ -215,11 +215,7 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
             }
 
             var archiveType = DetectArchiveType(_archivePath);
-            if (archiveType == ArchiveType.Unknown)
-            {
-                Notice($"不支持的压缩包格式: {Path.GetExtension(_archivePath)}", NotificationType.Error);
-                return;
-            }
+            bool loadedSuccessfully = false;
 
             await Task.Run(() =>
             {
@@ -228,30 +224,58 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
                 if (archiveType == ArchiveType.Zip)
                 {
                     LoadZipArchive();
+                    loadedSuccessfully = true;
+                }
+                else if (archiveType != ArchiveType.Unknown)
+                {
+                    LoadSharpCompressArchive();
+                    loadedSuccessfully = true;
                 }
                 else
                 {
-                    LoadSharpCompressArchive();
+                    // 对于不支持的格式，尝试使用ZIP格式打开
+                    try
+                    {
+                        LoadZipArchive();
+                        loadedSuccessfully = true;
+                    }
+                    catch (Exception)
+                    {
+                        // ZIP格式打开失败，将在外层catch中处理
+                        loadedSuccessfully = false;
+                        throw;
+                    }
                 }
             });
 
-            BuildTreeStructure();
-
-            // Navigate to the directory we were in before reload, or root if it's the first load
-            var targetDirectory = _directoryBeforeReload;
-
-            // Check if the target directory still exists after reload
-            if (targetDirectory != "/" && !_allEntries.Any(e => e.IsDirectory && e.FullPath == targetDirectory))
+            if (loadedSuccessfully)
             {
-                targetDirectory = "/"; // Fall back to root if the directory no longer exists
-            }
+                BuildTreeStructure();
 
-            NavigateToDirectory(targetDirectory);
-            // Notice($"压缩包加载成功: {Path.GetFileName(_archivePath)}", NotificationType.Success);
+                // Navigate to the directory we were in before reload, or root if it's the first load
+                var targetDirectory = _directoryBeforeReload;
+
+                // Check if the target directory still exists after reload
+                if (targetDirectory != "/" && !_allEntries.Any(e => e.IsDirectory && e.FullPath == targetDirectory))
+                {
+                    targetDirectory = "/"; // Fall back to root if the directory no longer exists
+                }
+
+                NavigateToDirectory(targetDirectory);
+                // Notice($"压缩包加载成功: {Path.GetFileName(_archivePath)}", NotificationType.Success);
+            }
         }
         catch (Exception ex)
         {
-            Notice($"加载压缩包失败: {ex.Message}", NotificationType.Error);
+            var archiveType = DetectArchiveType(_archivePath);
+            if (archiveType == ArchiveType.Unknown)
+            {
+                Notice($"不支持的压缩包格式: {Path.GetExtension(_archivePath)}", NotificationType.Error);
+            }
+            else
+            {
+                Notice($"加载压缩包失败: {ex.Message}", NotificationType.Error);
+            }
         }
     }
 
@@ -1439,4 +1463,16 @@ public partial class ZipViewer : PageMixModelBase, IAurelioTabPage
         var result = await ShowDialogAsync(title, message, textBox, "确定", "取消");
         return result == ContentDialogResult.Primary ? textBox.Text : null;
     }
+
+    public static IAurelioViewer Create(string path)
+    {
+        return new ZipViewer(Path.GetFileName(path), path);
+    }
+    
+    public static AurelioViewerInfo ViewerInfo { get; } = new()
+    {
+        Icon = StreamGeometry.Parse(
+            "M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-128 0c-17.7 0-32-14.3-32-32L224 0 64 0zM256 0l0 128 128 0L256 0zM96 48c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16zm-6.3 71.8c3.7-14 16.4-23.8 30.9-23.8l14.8 0c14.5 0 27.2 9.7 30.9 23.8l23.5 88.2c1.4 5.4 2.1 10.9 2.1 16.4c0 35.2-28.8 63.7-64 63.7s-64-28.5-64-63.7c0-5.5 .7-11.1 2.1-16.4l23.5-88.2zM112 336c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0z"),
+        Title = "压缩包查看器"
+    };
 }

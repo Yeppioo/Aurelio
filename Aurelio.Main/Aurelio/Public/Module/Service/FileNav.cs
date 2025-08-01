@@ -23,7 +23,7 @@ public class FileNav
             case ".webp":
             {
                 using var fileStream = File.OpenRead(path);
-                return OpenPage(new ImageViewer(name, Bitmap.DecodeToWidth(fileStream, 1080), path), window);
+                return OpenPage(new ImageViewer(name, new Bitmap(fileStream), path), window);
             }
             case ".log":
                 return OpenPage(new LogViewer(path, name), window);

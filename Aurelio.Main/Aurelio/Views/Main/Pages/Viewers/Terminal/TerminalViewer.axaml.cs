@@ -14,7 +14,7 @@ using AvaloniaEdit.Document;
 
 namespace Aurelio.Views.Main.Pages.Viewers.Terminal;
 
-public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
+public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage, IAurelioViewer
 {
     private readonly TerminalSessionManager _sessionManager = new();
     private readonly StringBuilder _outputBuffer = new();
@@ -28,6 +28,10 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
     {
         get => _currentInput;
         set => SetField(ref _currentInput, value);
+    }
+
+    public TerminalViewer()
+    {
     }
 
     public TerminalViewer(string path)
@@ -112,12 +116,12 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
         }
     }
 
-    private async void CreateInitialSession()
+    private void CreateInitialSession()
     {
         try
         {
             var sessionName = Path.GetFileNameWithoutExtension(_initialTerminalPath);
-            var session = await _sessionManager.CreateSessionAsync(sessionName, _initialTerminalPath);
+            var session = _sessionManager.CreateSession(sessionName, _initialTerminalPath);
 
             if (session != null)
             {
@@ -255,8 +259,8 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
 
             // Ctrl+D - 关闭当前会话
             if (e.Key == Key.D && e.KeyModifiers.HasFlag(KeyModifiers.Control))
-            {
-                await HandleBuiltInCommand("stop " + (_sessionManager.ActiveSession?.Id ?? ""));
+            { 
+                HandleBuiltInCommand("stop " + (_sessionManager.ActiveSession?.Id ?? ""));
                 e.Handled = true;
                 return;
             }
@@ -308,7 +312,6 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
     }
 
 
-
     private async void OnInputKeyDown(object? sender, KeyEventArgs e)
     {
         if (e.Key == Key.Enter)
@@ -346,7 +349,7 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
             }
 
             // 检查是否为内置命令（只有非空命令）
-            if (!string.IsNullOrWhiteSpace(command) && await HandleBuiltInCommand(command))
+            if (!string.IsNullOrWhiteSpace(command) && HandleBuiltInCommand(command))
             {
                 // 内置命令显示用户输入
                 AppendOutput($"> {command}\n");
@@ -376,7 +379,7 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
         }
     }
 
-    private async Task<bool> HandleBuiltInCommand(string command)
+    private bool HandleBuiltInCommand(string command)
     {
         var parts = command.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (parts.Length == 0) return false;
@@ -402,6 +405,7 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
                 {
                     AppendOutput("用法: session <id>\n", true);
                 }
+
                 return true;
 
             case "new":
@@ -409,13 +413,14 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
                 {
                     var sessionType = parts[1];
                     var sessionName = parts.Length > 2 ? parts[2] : sessionType;
-                    await CreateNewSession(sessionType, sessionName);
+                    CreateNewSession(sessionType, sessionName);
                 }
                 else
                 {
                     AppendOutput("用法: new <type> [name]\n", true);
                     ShowAvailableSessionTypes();
                 }
+
                 return true;
 
             case "stop":
@@ -427,6 +432,7 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
                 {
                     AppendOutput("用法: stop <id>\n", true);
                 }
+
                 return true;
 
             case "clear":
@@ -457,6 +463,7 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
         {
             AppendOutput($"  {cmd.Key,-12} - {cmd.Value}\n");
         }
+
         AppendOutput("\n");
         ShowAvailableSessionTypes();
         AppendOutput("\n");
@@ -477,9 +484,11 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
             {
                 var status = session.IsActive ? "[活动]" : "";
                 var uptime = DateTime.Now - session.CreatedTime;
-                AppendOutput($"  {session.Id} - {session.Name} ({session.Status}) {status} 运行时间: {uptime:hh\\:mm\\:ss}\n");
+                AppendOutput(
+                    $"  {session.Id} - {session.Name} ({session.Status}) {status} 运行时间: {uptime:hh\\:mm\\:ss}\n");
             }
         }
+
         AppendOutput("\n");
     }
 
@@ -495,14 +504,14 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
         }
     }
 
-    private async Task CreateNewSession(string sessionType, string sessionName)
+    private void CreateNewSession(string sessionType, string sessionName)
     {
         // 尝试解析会话路径
         var executablePath = TerminalSessionManager.ResolveSessionPath(sessionType);
 
         if (executablePath != null)
         {
-            var session = await _sessionManager.CreateSessionAsync(sessionName, executablePath);
+            var session = _sessionManager.CreateSession(sessionName, executablePath);
             if (session != null)
             {
                 // 设置会话事件处理
@@ -590,7 +599,7 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
                 await Task.Delay(500);
 
                 // 创建新会话
-                var newSession = await _sessionManager.CreateSessionAsync(sessionName, executablePath);
+                var newSession = _sessionManager.CreateSession(sessionName, executablePath);
                 if (newSession != null)
                 {
                     // 设置会话事件处理
@@ -657,7 +666,6 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
 
         CurrentInput = _commandHistory[_historyIndex];
     }
-
 
 
     private void AppendOutput(string text, bool isError = false)
@@ -741,7 +749,6 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
     }
 
 
-
     private void CopySelectedText()
     {
         try
@@ -807,7 +814,6 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
     }
 
 
-
     private void ShowDebugInfo()
     {
         AppendOutput("=== 调试信息 ===\n");
@@ -866,5 +872,15 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
         }
     }
 
+    public static IAurelioViewer Create(string path)
+    {
+        return new TerminalViewer(path);
+    }
 
+    public static AurelioViewerInfo ViewerInfo { get; } = new()
+    {
+        Icon = StreamGeometry.Parse(
+            "M73.4 182.6C60.9 170.1 60.9 149.8 73.4 137.3C85.9 124.8 106.2 124.8 118.7 137.3L278.7 297.3C291.2 309.8 291.2 330.1 278.7 342.6L118.7 502.6C106.2 515.1 85.9 515.1 73.4 502.6C60.9 490.1 60.9 469.8 73.4 457.3L210.7 320L73.4 182.6zM288 448L544 448C561.7 448 576 462.3 576 480C576 497.7 561.7 512 544 512L288 512C270.3 512 256 497.7 256 480C256 462.3 270.3 448 288 448z"),
+        Title = "终端"
+    };
 }

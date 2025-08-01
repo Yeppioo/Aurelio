@@ -99,7 +99,8 @@ public class JsonNodeViewModel : INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged(
-        [System.Runtime.CompilerServices.CallerMemberName] string? propertyName = null)
+        [System.Runtime.CompilerServices.CallerMemberName]
+        string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
@@ -113,7 +114,7 @@ public class JsonNodeViewModel : INotifyPropertyChanged
     }
 }
 
-public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
+public partial class JsonViewer : PageMixModelBase, IAurelioTabPage, IAurelioViewer
 {
     private string _rawJsonText = string.Empty;
     private string _rootClassName = "RootClass";
@@ -263,7 +264,6 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
             CSharpDocument.Text = value;
         }
     }
-
 
 
     public JsonNodeViewModel? SelectedNode
@@ -768,7 +768,8 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
             classBuilder.AppendLine($"        /// 数组项列表");
             classBuilder.AppendLine($"        /// </summary>");
             classBuilder.AppendLine($"        [JsonProperty(\"items\")]");
-            classBuilder.AppendLine($"        public List<{elementType}> {propertyName} {{ get; set; }} = new List<{elementType}>();");
+            classBuilder.AppendLine(
+                $"        public List<{elementType}> {propertyName} {{ get; set; }} = new List<{elementType}>();");
         }
         else
         {
@@ -973,4 +974,16 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage
 
         return uniqueName;
     }
+
+    public static IAurelioViewer Create(string path)
+    {
+        return new JsonViewer(path, Path.GetFileName(path));
+    }
+
+    public static AurelioViewerInfo ViewerInfo { get; } = new()
+    {
+        Icon = StreamGeometry.Parse(
+            "F1 M 6.249886 3.046875 L 4.999886 3.046875 C 2.928772 3.046875 1.249886 4.725838 1.249886 6.796875 L 1.249886 8.261719 C 1.249886 8.59314 1.118202 8.910942 0.883865 9.145279 L -0.883904 10.913086 C -1.372032 11.401176 -1.372032 12.192574 -0.883904 12.680664 L 0.883865 14.448471 C 1.118202 14.682808 1.249886 15.00061 1.249886 15.332031 L 1.249886 16.796875 C 1.249886 18.867912 2.928772 20.546875 4.999886 20.546875 L 6.249886 20.546875 C 6.940231 20.546875 7.499886 19.987221 7.499886 19.296875 L 7.499886 19.296875 C 7.499886 18.606529 6.940231 18.046875 6.249886 18.046875 L 4.999886 18.046875 C 4.312401 18.046875 3.749886 17.48436 3.749886 16.796875 L 3.749886 15.332031 C 3.749886 14.337807 3.354912 13.384323 2.651901 12.681313 L 1.767464 11.796875 L 2.651253 10.913086 C 3.354683 10.209656 3.749886 9.2556 3.749886 8.260727 L 3.749886 6.796875 C 3.749886 6.10939 4.312401 5.546875 4.999886 5.546875 L 6.249886 5.546875 C 6.940231 5.546875 7.499886 4.987221 7.499886 4.296875 L 7.499886 4.296875 C 7.499886 3.606529 6.940231 3.046875 6.249886 3.046875 Z M 20.883675 10.913086 L 19.116096 9.145508 C 18.881607 8.911018 18.749886 8.593025 18.749886 8.261414 L 18.749886 6.796875 C 18.749886 4.725838 17.070923 3.046875 14.999886 3.046875 L 13.749886 3.046875 C 13.059502 3.046875 12.499886 3.606529 12.499886 4.296875 L 12.499886 4.296875 C 12.499886 4.987221 13.059502 5.546875 13.749886 5.546875 L 14.999886 5.546875 C 15.68737 5.546875 16.249886 6.10939 16.249886 6.796875 L 16.249886 8.261719 C 16.249886 9.255943 16.644821 10.209427 17.347794 10.912437 L 18.232307 11.796875 L 17.347794 12.681313 C 16.644821 13.384323 16.249886 14.337807 16.249886 15.332031 L 16.249886 16.796875 C 16.249886 17.48436 15.68737 18.046875 14.999886 18.046875 L 13.749886 18.046875 C 13.059502 18.046875 12.499886 18.606529 12.499886 19.296875 L 12.499886 19.296875 C 12.499886 19.987221 13.059502 20.546875 13.749886 20.546875 L 14.999886 20.546875 C 17.070923 20.546875 18.749886 18.867912 18.749886 16.796875 L 18.749886 15.332031 C 18.749886 15.00061 18.881531 14.682808 19.115868 14.448471 L 20.883675 12.680664 C 21.371765 12.192574 21.371765 11.401176 20.883675 10.913086 Z"),
+        Title = "Json 解析器"
+    };
 }

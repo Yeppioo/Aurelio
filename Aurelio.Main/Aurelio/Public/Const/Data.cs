@@ -37,6 +37,7 @@ public class Data : ReactiveObject
         {
             AggregateSearchEntries.Add(new AggregateSearchEntry(new NewTabPage(), null));
             AggregateSearchEntries.Add(new AggregateSearchEntry(new SettingTabPage() , "setting"));
+            AggregateSearchEntries.Add(new AggregateSearchEntry(new ViewerSelector() , null));
             if(DesktopType == DesktopType.Windows)
                 AggregateSearchEntries.Add(new AggregateSearchEntry(new TerminalViewer(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe") , null));
         });

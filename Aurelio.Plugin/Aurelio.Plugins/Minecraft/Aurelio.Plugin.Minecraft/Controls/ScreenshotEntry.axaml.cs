@@ -210,7 +210,7 @@ public partial class ScreenshotEntry : UserControl, IDisposable
             var fullSizeBitmap = await Task.Run(() =>
             {
                 using var fileStream = File.OpenRead(_imagePath);
-                return Bitmap.DecodeToWidth(fileStream, 1080);
+                return new Bitmap(fileStream);
             });
 
             if (_disposed)
