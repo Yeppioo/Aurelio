@@ -6,7 +6,7 @@
 
 # Aurelio
 
-**现代化的跨平台桌面应用程序**
+**现代化的跨平台桌面工作台**
 
 [![License](https://img.shields.io/badge/License-GPL%203.0-blue.svg?style=for-the-badge)](LICENSE)
 [![.NET](https://img.shields.io/badge/.NET-8.0-purple.svg?style=for-the-badge)](https://dotnet.microsoft.com/)
@@ -20,7 +20,7 @@
 
 ## 📖 项目简介
 
-Aurelio 是一个基于 .NET 8 和 Avalonia UI 框架开发的现代化跨平台桌面应用程序。它提供了强大的插件系统和丰富的功能模块，支持高度可扩展的应用程序架构。
+Aurelio 是一个基于 .NET 8 和 Avalonia UI 框架开发的现代化跨平台桌面工作台。它提供了强大的插件系统和丰富的功能模块，支持高度可扩展的应用程序架构。
 
 ### 🎯 主要特性
 

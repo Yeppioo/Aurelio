@@ -1,1 +1,554 @@
-开发中...
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aurelio - 现代化的跨平台桌面工作台，支持多标签页、插件系统、文件管理和终端集成">
+    <meta name="keywords" content="Aurelio, 桌面应用, 跨平台, .NET, Avalonia, 多标签页, 插件系统">
+    <meta name="author" content="Yeppioo">
+
+    <title>Aurelio</title>
+
+    <link rel="icon" type="image/x-icon" href="images/Icon.ico">
+    <link rel="icon" type="image/png" href="images/Icon.png">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="css/google.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <span class="nav-title">Aurelio</span>
+                </div>
+                <div class="nav-menu">
+                    <a href="#features" class="nav-link">功能特性</a>
+                    <a href="#downloads" class="nav-link">下载</a>
+                    <a href="#tech" class="nav-link">技术栈</a>
+                    <a href="https://github.com/Yeppioo/Aurelio" class="nav-link" target="_blank">GitHub</a>
+                </div>
+                <div class="nav-toggle">
+                    <svg class="nav-toggle-icon nav-toggle-open" viewBox="0 0 640 640" fill="currentColor">
+                        <path
+                            d="M96 160C96 142.3 110.3 128 128 128L512 128C529.7 128 544 142.3 544 160C544 177.7 529.7 192 512 192L128 192C110.3 192 96 177.7 96 160zM96 320C96 302.3 110.3 288 128 288L512 288C529.7 288 544 302.3 544 320C544 337.7 529.7 352 512 352L128 352C110.3 352 96 337.7 96 320zM544 480C544 497.7 529.7 512 512 512L128 512C110.3 512 96 497.7 96 480C96 462.3 110.3 448 128 448L512 448C529.7 448 544 462.3 544 480z" />
+                    </svg>
+                    <svg class="nav-toggle-icon nav-toggle-close" viewBox="0 0 640 640" fill="currentColor">
+                        <path
+                            d="M183.1 137.4C170.6 124.9 150.3 124.9 137.8 137.4C125.3 149.9 125.3 170.2 137.8 182.7L275.2 320L137.9 457.4C125.4 469.9 125.4 490.2 137.9 502.7C150.4 515.2 170.7 515.2 183.2 502.7L320.5 365.3L457.9 502.6C470.4 515.1 490.7 515.1 503.2 502.6C515.7 490.1 515.7 469.8 503.2 457.3L365.8 320L503.1 182.6C515.6 170.1 515.6 149.8 503.1 137.3C490.6 124.8 470.3 124.8 457.8 137.3L320.5 274.7L183.1 137.4z" />
+                    </svg>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="hero-title">
+                            现代化的<span class="highlight">多标签页</span><br>桌面工作台
+                        </h1>
+                        <p class="hero-subtitle">
+                            基于 .NET 8 和 Avalonia UI 构建的跨平台桌面应用，支持强大的插件系统、文件管理、终端集成和创新的多标签页工作流
+                        </p>
+                        <div class="hero-actions">
+                            <a href="#downloads" class="btn btn-primary">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7,10 12,15 17,10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                                立即下载
+                            </a>
+                            <a href="https://github.com/Yeppioo/Aurelio" class="btn btn-secondary" target="_blank">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path
+                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                                </svg>
+                                查看源码
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="tab-showcase">
+                            <div class="tab-window">
+                                <div class="tab-header">
+                                    <div class="tab-controls">
+                                        <div class="tab-control close"></div>
+                                        <div class="tab-control minimize"></div>
+                                        <div class="tab-control maximize"></div>
+                                    </div>
+                                    <div class="tab-bar">
+                                        <div class="tab active">
+                                            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path
+                                                    d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z" />
+                                                <polyline points="3,7 12,13 21,7" />
+                                            </svg>
+                                            <span>文件管理器</span>
+                                            <div class="tab-close">×</div>
+                                        </div>
+                                        <div class="tab">
+                                            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                                                <line x1="8" y1="21" x2="16" y2="21" />
+                                                <line x1="12" y1="17" x2="12" y2="21" />
+                                            </svg>
+                                            <span>终端</span>
+                                            <div class="tab-close">×</div>
+                                        </div>
+                                        <div class="tab">
+                                            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <circle cx="12" cy="12" r="3" />
+                                                <path
+                                                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                                            </svg>
+                                            <span>设置</span>
+                                            <div class="tab-close">×</div>
+                                        </div>
+                                        <div class="tab-new">+</div>
+                                    </div>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="content-area">
+                                        <div class="file-explorer">
+                                            <div class="file-tree">
+                                                <div class="file-item folder">📁 Documents</div>
+                                                <div class="file-item folder">📁 Projects</div>
+                                                <div class="file-item file">📄 README.md</div>
+                                                <div class="file-item file">📄 config.json</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">强大的功能特性</h2>
+                    <p class="section-subtitle">为现代工作流设计的全面功能集</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card featured">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                <line x1="9" y1="9" x2="15" y2="9" />
+                                <line x1="9" y1="12" x2="15" y2="12" />
+                                <line x1="9" y1="15" x2="13" y2="15" />
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">多标签页工作流</h3>
+                        <p class="feature-description">
+                            创新的多标签页界面，支持标签页拖拽、分离到独立窗口、跨窗口移动，让您的工作流更加高效灵活
+                        </p>
+                        <ul class="feature-list">
+                            <li>标签页拖拽重排序</li>
+                            <li>分离标签页到新窗口</li>
+                            <li>跨窗口标签页移动</li>
+                            <li>智能标签页管理</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="3" />
+                                <path
+                                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">强大的插件系统</h3>
+                        <p class="feature-description">
+                            模块化的插件架构，支持动态加载和卸载，轻松扩展应用功能
+                        </p>
+                        <ul class="feature-list">
+                            <li>动态插件加载</li>
+                            <li>标准化插件接口</li>
+                            <li>依赖关系管理</li>
+                            <li>独立配置系统</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z" />
+                                <polyline points="3,7 12,13 21,7" />
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">文件管理</h3>
+                        <p class="feature-description">
+                            内置强大的文件浏览器，支持多种文件格式预览和批量操作
+                        </p>
+                        <ul class="feature-list">
+                            <li>多格式文件预览</li>
+                            <li>批量文件操作</li>
+                            <li>强大搜索功能</li>
+                            <li>收藏夹管理</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                                <line x1="8" y1="21" x2="16" y2="21" />
+                                <line x1="12" y1="17" x2="12" y2="21" />
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">终端集成</h3>
+                        <p class="feature-description">
+                            内置终端模拟器，无需切换应用即可执行命令行操作
+                        </p>
+                        <ul class="feature-list">
+                            <li>内置终端模拟器</li>
+                            <li>多终端会话</li>
+                            <li>命令历史记录</li>
+                            <li>自定义主题</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">跨平台支持</h3>
+                        <p class="feature-description">
+                            基于 .NET 8 和 Avalonia UI，完美支持 Windows、macOS 和 Linux
+                        </p>
+                        <ul class="feature-list">
+                            <li>Windows 7+</li>
+                            <li>macOS 10.15+</li>
+                            <li>Linux 发行版</li>
+                            <li>统一用户体验</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">现代化界面</h3>
+                        <p class="feature-description">
+                            基于 Fluent Design 的美观界面，支持深色/浅色主题切换
+                        </p>
+                        <ul class="feature-list">
+                            <li>Fluent Design 风格</li>
+                            <li>深色/浅色主题</li>
+                            <li>自适应布局</li>
+                            <li>流畅动画效果</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Downloads Section -->
+        <section id="downloads" class="downloads">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">立即下载</h2>
+                    <p class="section-subtitle">选择适合您平台的版本</p>
+                </div>
+                <div class="download-grid">
+                    <div class="download-card">
+                        <div class="download-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                <rect x="7" y="8" width="10" height="6" rx="1" ry="1" />
+                            </svg>
+                        </div>
+                        <h3 class="download-title">Windows</h3>
+                        <p class="download-description">支持 Windows 7 及以上版本</p>
+                        <div class="download-options">
+                            <select class="download-select" data-platform="windows">
+                                <option value="win-x64-installer">Windows 64位 安装包</option>
+                                <option value="win-x64-portable">Windows 64位 便携版</option>
+                                <option value="win-x86-installer">Windows 32位 安装包</option>
+                                <option value="win-x86-portable">Windows 32位 便携版</option>
+                                <option value="win-arm64-installer">Windows ARM64 安装包</option>
+                                <option value="win-arm64-portable">Windows ARM64 便携版</option>
+                            </select>
+                            <button class="btn btn-download" data-platform="windows">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7,10 12,15 17,10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                                下载
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="download-card">
+                        <div class="download-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="download-title">macOS</h3>
+                        <p class="download-description">支持 macOS 10.15 及以上版本</p>
+                        <div class="download-options">
+                            <select class="download-select" data-platform="macos">
+                                <option value="osx-x64-dmg">macOS Intel DMG</option>
+                                <option value="osx-x64-app">macOS Intel APP</option>
+                                <option value="osx-arm64-dmg">macOS Apple Silicon DMG</option>
+                                <option value="osx-arm64-app">macOS Apple Silicon APP</option>
+                            </select>
+                            <button class="btn btn-download" data-platform="macos">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7,10 12,15 17,10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                                下载
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="download-card">
+                        <div class="download-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 6v6l4 2" />
+                            </svg>
+                        </div>
+                        <h3 class="download-title">Linux</h3>
+                        <p class="download-description">支持主流 Linux 发行版</p>
+                        <div class="download-options">
+                            <select class="download-select" data-platform="linux">
+                                <option value="linux-x64-appimage">Linux 64位 AppImage</option>
+                                <option value="linux-arm64-appimage">Linux ARM64 AppImage</option>
+                                <option value="linux-arm-appimage">Linux ARM AppImage</option>
+                            </select>
+                            <button class="btn btn-download" data-platform="linux">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7,10 12,15 17,10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                                下载
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="system-requirements">
+                    <h3>系统要求</h3>
+                    <div class="requirements-grid">
+                        <div class="requirement-item">
+                            <strong>操作系统：</strong>
+                            <span>Windows 7+、macOS 10.15+、Linux</span>
+                        </div>
+                        <div class="requirement-item">
+                            <strong>.NET Runtime：</strong>
+                            <span>.NET 8.0</span>
+                        </div>
+                        <div class="requirement-item">
+                            <strong>内存：</strong>
+                            <span>至少 512MB RAM</span>
+                        </div>
+                        <div class="requirement-item">
+                            <strong>存储空间：</strong>
+                            <span>至少 120MB 可用空间</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack Section -->
+        <section id="tech" class="tech-stack">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">技术栈</h2>
+                    <p class="section-subtitle">基于现代化技术构建</p>
+                </div>
+                <div class="tech-grid">
+                    <div class="tech-category">
+                        <h3 class="tech-category-title">核心框架</h3>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <span class="tech-name">.NET 8.0</span>
+                                <span class="tech-description">现代化的 .NET 运行时</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">Avalonia UI 11.3.2</span>
+                                <span class="tech-description">跨平台 UI 框架</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">FluentAvalonia UI</span>
+                                <span class="tech-description">Fluent Design 风格组件库</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">ReactiveUI</span>
+                                <span class="tech-description">响应式 MVVM 框架</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tech-category">
+                        <h3 class="tech-category-title">主要依赖</h3>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <span class="tech-name">CommunityToolkit.Mvvm</span>
+                                <span class="tech-description">MVVM 工具包</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">Newtonsoft.Json</span>
+                                <span class="tech-description">JSON 序列化</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">SkiaSharp</span>
+                                <span class="tech-description">2D 图形渲染</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">SharpCompress</span>
+                                <span class="tech-description">压缩文件处理</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tech-category">
+                        <h3 class="tech-category-title">开发工具</h3>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <span class="tech-name">AvaloniaEdit</span>
+                                <span class="tech-description">代码编辑器组件</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">Ursa Controls</span>
+                                <span class="tech-description">额外的 UI 控件库</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">Semi.Avalonia</span>
+                                <span class="tech-description">Semi Design 主题</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">Flurl.Http</span>
+                                <span class="tech-description">HTTP 客户端</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="open-source-info">
+                    <div class="open-source-card">
+                        <h3>开源项目</h3>
+                        <p>Aurelio 是一个开源项目，采用 GPL-3.0 许可证。我们欢迎社区贡献和反馈。</p>
+                        <div class="open-source-links">
+                            <a href="https://github.com/Yeppioo/Aurelio" class="special-link" target="_blank">
+                                GitHub 仓库
+                            </a>
+                            <a href="https://github.com/Yeppioo/Aurelio/issues" class="special-link" target="_blank">
+                                问题反馈
+                            </a>
+                            <a href="https://github.com/Yeppioo/Aurelio/pulls" class="special-link" target="_blank">
+                                贡献代码
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <img src="images/Icon.png" alt="Aurelio Logo" class="footer-logo">
+                        <span class="footer-title">Aurelio</span>
+                    </div>
+                    <p class="footer-description">
+                        现代化的跨平台桌面工作台，为您的工作流提供强大的多标签页体验。
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-section-title">快速链接</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features" class="footer-link">功能特性</a></li>
+                        <li><a href="#downloads" class="footer-link">下载</a></li>
+                        <li><a href="#tech" class="footer-link">技术栈</a></li>
+                        <li><a href="https://github.com/Yeppioo/Aurelio" class="footer-link" target="_blank">GitHub</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-section-title">支持</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/Yeppioo/Aurelio/issues" class="footer-link"
+                                target="_blank">问题反馈</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-section-title">作者</h4>
+                    <p class="footer-author">
+                        由 <a href="https://yeppioo.vip/" class="author-link" target="_blank">Yeppioo</a> 开发
+                    </p>
+                    <p class="footer-license">
+                        采用 <a href="https://github.com/Yeppioo/Aurelio/blob/main/LICENSE" class="special-link"
+                            target="_blank">GPL-3.0</a> 许可证
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2024 Aurelio. Made with ❤️ by Yeppioo
+                </p>
+                <div class="footer-social">
+                    <a href="https://github.com/Yeppioo/Aurelio" class="social-link" target="_blank"
+                        aria-label="GitHub">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="js/main.js"></script>
+    <script src="js/downloads.js"></script>
+</body>
+
+</html>
