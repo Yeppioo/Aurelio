@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
+using Aurelio.Public.Module;
 using AvaloniaEdit.Document;
 using Avalonia.Threading;
 using Avalonia.Controls.Notifications;
@@ -114,7 +115,7 @@ public class JsonNodeViewModel : INotifyPropertyChanged
     }
 }
 
-public partial class JsonViewer : PageMixModelBase, IAurelioTabPage, IAurelioViewer
+public partial class JsonNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
 {
     private string _rawJsonText = string.Empty;
     private string _rootClassName = "RootClass";
@@ -125,7 +126,7 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage, IAurelioVie
     private string _nodeDetails = string.Empty;
     private bool _isWordWrapEnabled = true;
 
-    public JsonViewer(string title)
+    public JsonNavPage(string title)
     {
         InitializeComponent();
         PageInfo = new PageInfoEntry
@@ -149,7 +150,7 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage, IAurelioVie
     /// </summary>
     /// <param name="filePath">JSON文件路径</param>
     /// <param name="title">标签页标题</param>
-    public JsonViewer(string filePath, string title) : this(title)
+    public JsonNavPage(string filePath, string title) : this(title)
     {
         try
         {
@@ -178,7 +179,7 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage, IAurelioVie
     /// <param name="jsonContent">JSON字符串内容</param>
     /// <param name="title">标签页标题</param>
     /// <param name="autoParseJson">是否自动解析JSON</param>
-    public JsonViewer(string jsonContent, string title, bool autoParseJson) : this(title)
+    public JsonNavPage(string jsonContent, string title, bool autoParseJson) : this(title)
     {
         if (!string.IsNullOrEmpty(jsonContent))
         {
@@ -198,10 +199,10 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage, IAurelioVie
     /// <param name="filePath">JSON文件路径</param>
     /// <param name="title">标签页标题，如果为空则使用文件名</param>
     /// <returns>JsonViewer实例</returns>
-    public static JsonViewer FromFile(string filePath, string? title = null)
+    public static JsonNavPage FromFile(string filePath, string? title = null)
     {
         var displayTitle = title ?? Path.GetFileName(filePath);
-        return new JsonViewer(filePath, displayTitle);
+        return new JsonNavPage(filePath, displayTitle);
     }
 
     /// <summary>
@@ -211,9 +212,9 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage, IAurelioVie
     /// <param name="title">标签页标题</param>
     /// <param name="autoParseJson">是否自动解析JSON，默认为true</param>
     /// <returns>JsonViewer实例</returns>
-    public static JsonViewer FromJsonString(string jsonContent, string title, bool autoParseJson = true)
+    public static JsonNavPage FromJsonString(string jsonContent, string title, bool autoParseJson = true)
     {
-        return new JsonViewer(jsonContent, title, autoParseJson);
+        return new JsonNavPage(jsonContent, title, autoParseJson);
     }
 
     public Control RootElement { get; set; }
@@ -311,7 +312,7 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage, IAurelioVie
         }
     }
 
-    public JsonViewer()
+    public JsonNavPage()
     {
     }
 
@@ -975,15 +976,20 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage, IAurelioVie
         return uniqueName;
     }
 
-    public static IAurelioViewer Create(string path)
+    public static IAurelioNavPage Create((object sender, object? param)t)
     {
-        return new JsonViewer(path, Path.GetFileName(path));
+        return ((string)t.param!).IsNullOrWhiteSpace() 
+            ? new JsonNavPage("Json 解析") 
+            : new JsonNavPage((string)t. param!, Path.GetFileName((string)t. param!));
     }
 
-    public static AurelioViewerInfo ViewerInfo { get; } = new()
+    public static AurelioStaticPageInfo StaticPageInfo { get; } = new()
     {
         Icon = StreamGeometry.Parse(
             "F1 M 6.249886 3.046875 L 4.999886 3.046875 C 2.928772 3.046875 1.249886 4.725838 1.249886 6.796875 L 1.249886 8.261719 C 1.249886 8.59314 1.118202 8.910942 0.883865 9.145279 L -0.883904 10.913086 C -1.372032 11.401176 -1.372032 12.192574 -0.883904 12.680664 L 0.883865 14.448471 C 1.118202 14.682808 1.249886 15.00061 1.249886 15.332031 L 1.249886 16.796875 C 1.249886 18.867912 2.928772 20.546875 4.999886 20.546875 L 6.249886 20.546875 C 6.940231 20.546875 7.499886 19.987221 7.499886 19.296875 L 7.499886 19.296875 C 7.499886 18.606529 6.940231 18.046875 6.249886 18.046875 L 4.999886 18.046875 C 4.312401 18.046875 3.749886 17.48436 3.749886 16.796875 L 3.749886 15.332031 C 3.749886 14.337807 3.354912 13.384323 2.651901 12.681313 L 1.767464 11.796875 L 2.651253 10.913086 C 3.354683 10.209656 3.749886 9.2556 3.749886 8.260727 L 3.749886 6.796875 C 3.749886 6.10939 4.312401 5.546875 4.999886 5.546875 L 6.249886 5.546875 C 6.940231 5.546875 7.499886 4.987221 7.499886 4.296875 L 7.499886 4.296875 C 7.499886 3.606529 6.940231 3.046875 6.249886 3.046875 Z M 20.883675 10.913086 L 19.116096 9.145508 C 18.881607 8.911018 18.749886 8.593025 18.749886 8.261414 L 18.749886 6.796875 C 18.749886 4.725838 17.070923 3.046875 14.999886 3.046875 L 13.749886 3.046875 C 13.059502 3.046875 12.499886 3.606529 12.499886 4.296875 L 12.499886 4.296875 C 12.499886 4.987221 13.059502 5.546875 13.749886 5.546875 L 14.999886 5.546875 C 15.68737 5.546875 16.249886 6.10939 16.249886 6.796875 L 16.249886 8.261719 C 16.249886 9.255943 16.644821 10.209427 17.347794 10.912437 L 18.232307 11.796875 L 17.347794 12.681313 C 16.644821 13.384323 16.249886 14.337807 16.249886 15.332031 L 16.249886 16.796875 C 16.249886 17.48436 15.68737 18.046875 14.999886 18.046875 L 13.749886 18.046875 C 13.059502 18.046875 12.499886 18.606529 12.499886 19.296875 L 12.499886 19.296875 C 12.499886 19.987221 13.059502 20.546875 13.749886 20.546875 L 14.999886 20.546875 C 17.070923 20.546875 18.749886 18.867912 18.749886 16.796875 L 18.749886 15.332031 C 18.749886 15.00061 18.881531 14.682808 19.115868 14.448471 L 20.883675 12.680664 C 21.371765 12.192574 21.371765 11.401176 20.883675 10.913086 Z"),
-        Title = "Json 解析器"
+        Title = "Json 解析器",
+        NeedPath = true,
+        AutoCreate = false,
+        MustPath = false
     };
 }

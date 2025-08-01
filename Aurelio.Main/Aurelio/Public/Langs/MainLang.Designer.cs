@@ -3417,6 +3417,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 打开新页面.
+        /// </summary>
+        public static string OpenNewPage {
+            get {
+                return ResourceManager.GetString("OpenNewPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 打开或跳转页面.
         /// </summary>
         public static string OpenOrTogglePage {
@@ -3485,6 +3494,15 @@ namespace Aurelio.Public.Langs {
         public static string PackageInfoUnavailable {
             get {
                 return ResourceManager.GetString("PackageInfoUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 页面导航.
+        /// </summary>
+        public static string PageNav {
+            get {
+                return ResourceManager.GetString("PageNav", resourceCulture);
             }
         }
         

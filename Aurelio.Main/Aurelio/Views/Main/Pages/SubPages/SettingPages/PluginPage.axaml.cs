@@ -3,6 +3,7 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
+using Aurelio.Views.Main.Pages.Viewers;
 using Avalonia.Input;
 using Avalonia.VisualTree;
 

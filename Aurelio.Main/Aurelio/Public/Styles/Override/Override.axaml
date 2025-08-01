@@ -244,7 +244,10 @@
         <Setter Property="Background" Value="{DynamicResource WindowBackgroundColor}" />
     </Style>
     <Style Selector="u|DialogWindow.aggregate-search /template/ Panel#PART_TitleArea">
-        <Setter Property="Margin" Value="0,0,180,0" />
+        <Setter Property="Margin" Value="0,0,35,0" />
+    </Style>
+    <Style Selector="u|DialogWindow.aggregate-search /template/ Button#PART_CloseButton">
+        <Setter Property="Margin" Value="0,10,14,0" />
     </Style>
     <Style Selector="ToggleButton">
         <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />

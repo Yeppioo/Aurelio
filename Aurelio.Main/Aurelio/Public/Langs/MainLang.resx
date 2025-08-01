@@ -1823,4 +1823,10 @@
   <data name="UpdateCompleteRestartPrompt" xml:space="preserve">
     <value>更新完成！为了使更新生效，需要重启 Aurelio。是否现在重启？</value>
   </data>
+  <data name="OpenNewPage" xml:space="preserve">
+    <value>打开新页面</value>
+  </data>
+  <data name="PageNav" xml:space="preserve">
+    <value>页面导航</value>
+  </data>
 </root>

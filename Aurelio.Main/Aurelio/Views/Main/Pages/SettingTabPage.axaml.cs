@@ -6,11 +6,13 @@ using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
 using Aurelio.Views.Main.Pages.SubPages.SettingPages;
+using Avalonia.Media;
+using Avalonia.VisualTree;
 using Ursa.Controls;
 
 namespace Aurelio.Views.Main.Pages;
 
-public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
+public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
 {
     private bool _fl = true;
     private bool _isAnimating;
@@ -79,5 +81,25 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage
         InAnimator.Animate();
         await Task.Delay(500);
         _isAnimating = false;
+    }
+    
+    public static AurelioStaticPageInfo StaticPageInfo { get; } = new()
+    {
+        Icon = Icons.Setting,
+        Title = MainLang.Setting,
+        NeedPath = false,
+        AutoCreate = true
+    };
+
+    public static IAurelioNavPage Create((object sender, object? param)t)
+    {
+        var root = ((Control)t.sender).GetVisualRoot();
+        if (root is TabWindow tabWindow)
+        {
+            tabWindow.TogglePage("setting", new SettingTabPage());
+            return null;
+        }
+        App.UiRoot.TogglePage("setting", new SettingTabPage());
+        return null;
     }
 }

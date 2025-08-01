@@ -9,6 +9,7 @@ using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Views.Main;
+using Aurelio.Views.Main.Pages.Viewers;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Threading;
@@ -23,7 +24,6 @@ using MinecraftLaunch.Extensions;
 using MinecraftLaunch.Launch;
 using Newtonsoft.Json;
 using Account = MinecraftLaunch.Base.Models.Authentication.Account;
-using LogViewer = Aurelio.Views.Main.Pages.Viewers.LogViewer;
 
 namespace Aurelio.Plugin.Minecraft.Service.Minecraft.Launcher;
 
@@ -173,7 +173,7 @@ public partial class MinecraftClientLauncher
 
         task.NextSubTask();
         MinecraftRunner runner = new(config, new MinecraftParser(entry.ParentMinecraftFolder.Path));
-        var logViewer = new LogViewer($"{entry.Id}");
+        var logViewer = new LogNavPage($"{entry.Id}");
         var tab = new TabEntry(logViewer);
         try
         {

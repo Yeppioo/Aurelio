@@ -161,7 +161,7 @@ public class TerminalSession : IDisposable
                     Input?.WriteLine("exit");
                     Input?.Flush();
                     
-                    if (!Process.WaitForExit(3000))
+                    if (!Process.WaitForExit(10))
                     {
                         Process.Kill(true);
                     }

@@ -62,7 +62,7 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
-        BindKeys.Main(this);
+        BindingKeys.Main(this);
 
         if (Data.DesktopType == DesktopType.Linux ||
             Data.DesktopType == DesktopType.FreeBSD ||
@@ -234,7 +234,7 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
                     var options = new DialogOptions()
                     {
                         ShowInTaskBar = false,
-                        IsCloseButtonVisible = false,
+                        IsCloseButtonVisible = true,
                         StartupLocation = WindowStartupLocation.Manual,
                         CanDragMove = true,
                         StyleClass = "aggregate-search"

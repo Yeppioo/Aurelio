@@ -35,4 +35,11 @@
     <Style Selector="TextBox.transparent:pointerover /template/ Border#PART_ContentPresenterBorder">
         <Setter Property="Background" Value="Transparent" />
     </Style>
+    <Style Selector="ToggleButton:checked">
+        <Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="ToggleButton:checked:pointerover  /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
+    </Style>
 </Styles>

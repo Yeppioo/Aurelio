@@ -2,6 +2,7 @@
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Module.Service;
 using Aurelio.Views.Main;
+using Aurelio.Views.Main.Pages.Viewers;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -9,7 +10,6 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
-using ImageViewer = Aurelio.Views.Main.Pages.Viewers.ImageViewer;
 
 namespace Aurelio.Plugin.Minecraft.Controls;
 
@@ -219,7 +219,7 @@ public partial class ScreenshotEntry : UserControl, IDisposable
                 return;
             }
 
-            var tab = new TabEntry(new ImageViewer(_imageName, fullSizeBitmap, _imagePath));
+            var tab = new TabEntry(new ImageNavPage(_imageName, fullSizeBitmap, _imagePath));
 
             if (this.GetVisualRoot() is TabWindow window)
             {

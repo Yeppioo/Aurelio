@@ -4,6 +4,7 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.App.Services;
 using Aurelio.Public.Module.IO;
+using Aurelio.Public.Module.Service;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
@@ -12,10 +13,11 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 
 namespace Aurelio.Views.Main.Pages;
 
-public partial class PluginNugetFetcher : PageMixModelBase, IAurelioTabPage
+public partial class PluginNugetFetcher : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
 {
     private string _searchText = string.Empty;
     private CancellationTokenSource? _searchCancellationTokenSource;
@@ -295,5 +297,26 @@ public partial class PluginNugetFetcher : PageMixModelBase, IAurelioTabPage
         {
             Logger.Error(e);
         }
+    }
+
+    public static AurelioStaticPageInfo StaticPageInfo { get; } = new()
+    {
+        Icon = StreamGeometry.Parse(
+            "M64 128C64 110.3 78.3 96 96 96L544 96C561.7 96 576 110.3 576 128L576 160C576 177.7 561.7 192 544 192L96 192C78.3 192 64 177.7 64 160L64 128zM96 240L544 240L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 240zM248 304C234.7 304 224 314.7 224 328C224 341.3 234.7 352 248 352L392 352C405.3 352 416 341.3 416 328C416 314.7 405.3 304 392 304L248 304z"),
+        Title = "NuGet插件搜索",
+        NeedPath = false,
+        AutoCreate = true
+    };
+
+    public static IAurelioNavPage Create((object sender, object? param)t)
+    {
+        var root = ((Control)t.sender).GetVisualRoot();
+        if (root is TabWindow tabWindow)
+        {
+            tabWindow.CreateTab(new TabEntry(new PluginNugetFetcher()));
+            return null;
+        }
+        App.UiRoot.CreateTab(new TabEntry(new PluginNugetFetcher()));
+        return null;
     }
 }

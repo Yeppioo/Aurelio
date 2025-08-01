@@ -4,8 +4,6 @@ using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Views.Main;
 using Aurelio.Views.Main.Pages.Viewers;
 using Avalonia.Media.Imaging;
-using ImageViewer = Aurelio.Views.Main.Pages.Viewers.ImageViewer;
-using LogViewer = Aurelio.Views.Main.Pages.Viewers.LogViewer;
 
 namespace Aurelio.Public.Module.Service;
 
@@ -23,18 +21,18 @@ public class FileNav
             case ".webp":
             {
                 using var fileStream = File.OpenRead(path);
-                return OpenPage(new ImageViewer(name, new Bitmap(fileStream), path), window);
+                return OpenPage(new ImageNavPage(name, new Bitmap(fileStream), path), window);
             }
             case ".log":
-                return OpenPage(new LogViewer(path, name), window);
+                return OpenPage(new LogNavPage(path, name), window);
             case ".json":
-                return OpenPage(new JsonViewer(path, name), window);
+                return OpenPage(new JsonNavPage(path, name), window);
             case ".zip":
             case ".7z":
             case ".rar":
             case ".tar":
             case ".gz":
-                return OpenPage(new ZipViewer(name, path), window);
+                return OpenPage(new ZipNavPage(name, path), window);
             case ".cs":
             case ".cpp":
             case ".cc":
@@ -107,7 +105,7 @@ public class FileNav
             case ".make":
             case ".axaml":
             case ".mk":
-                return OpenPage(new CodeViewer(name, path), window);
+                return OpenPage(new CodeNavPage(name, path), window);
         }
 
         return false;

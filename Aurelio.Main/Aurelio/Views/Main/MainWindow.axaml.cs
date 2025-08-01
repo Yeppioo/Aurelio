@@ -272,7 +272,7 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
                     var options = new DialogOptions()
                     {
                         ShowInTaskBar = false,
-                        IsCloseButtonVisible = false,
+                        IsCloseButtonVisible = true,
                         StartupLocation = WindowStartupLocation.Manual,
                         CanDragMove = true,
                         StyleClass = "aggregate-search"

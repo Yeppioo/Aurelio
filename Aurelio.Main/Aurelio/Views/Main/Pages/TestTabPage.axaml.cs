@@ -98,7 +98,7 @@ public partial class DebugTabPage : PageMixModelBase, IAurelioTabPage
     {
         // Create a PowerShell terminal
         // var terminal = new TerminalViewer(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe");
-        var terminal = new TerminalViewer(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe");
+        var terminal = new TerminalNavPage(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe");
         // var terminal = new TerminalViewer(@"C:\Program Files\nodejs\node.exe");
         App.UiRoot.TogglePage(null, terminal);
     }

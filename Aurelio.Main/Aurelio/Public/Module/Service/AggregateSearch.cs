@@ -4,8 +4,11 @@ using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Plugin.Events;
 using Aurelio.Views.Main;
+using Aurelio.Views.Main.Pages;
+using Aurelio.Views.Main.Pages.Viewers.Terminal;
 using Avalonia.Controls.Notifications;
 using Avalonia.Rendering;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 
 namespace Aurelio.Public.Module.Service;
@@ -48,5 +51,19 @@ public class AggregateSearch
             // No action needed here as the navigation is handled in the SelectionChanged event
             return;
         }
+    }
+    
+    public static void UpdateAggregateSearchEntries()
+    {
+        Data.AggregateSearchEntries.Clear();
+        Dispatcher.UIThread.Invoke(() =>
+        {
+            Data.AggregateSearchEntries.Add(new AggregateSearchEntry(new NewTabPage(), null));
+            Data.AggregateSearchEntries.Add(new AggregateSearchEntry(new SettingTabPage() , "setting"));
+            Data.AggregateSearchEntries.Add(new AggregateSearchEntry(new PageSelector() , null));
+            if(Data.DesktopType == DesktopType.Windows)
+                Data.AggregateSearchEntries.Add(new AggregateSearchEntry(new TerminalNavPage(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe") , null));
+        });
+        AggregateSearchEvents.OnUpdateAggregateSearchEntries();
     }
 }

@@ -120,6 +120,10 @@
           <DependentUpon>TerminalViewer.axaml</DependentUpon>
           <SubType>Code</SubType>
         </Compile>
+        <Compile Update="Views\Main\Pages\Viewers\PluginInfo.axaml.cs">
+          <DependentUpon>PluginInfo.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>

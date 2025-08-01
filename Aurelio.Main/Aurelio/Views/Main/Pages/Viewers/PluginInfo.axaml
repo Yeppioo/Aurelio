@@ -2,8 +2,8 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d"
-    x:Class="Aurelio.Views.Main.Pages.PluginInfo"
-    x:DataType="viewModels:PluginInfo"
+    x:Class="Aurelio.Views.Main.Pages.Viewers.PluginInfo"
+    x:DataType="viewers:PluginInfo"
     xmlns="https://github.com/avaloniaui"
     xmlns:base="clr-namespace:Aurelio.Plugin.Base;assembly=Aurelio.Plugin.Base"
     xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter"
@@ -12,6 +12,7 @@
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:u="https://irihi.tech/ursa"
     xmlns:viewModels="clr-namespace:Aurelio.Views.Main.Pages"
+    xmlns:viewers="clr-namespace:Aurelio.Views.Main.Pages.Viewers"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Resources>
         <converter:RequirePluginVersionToStringConverter x:Key="RequirePluginVersionToStringConverter" />

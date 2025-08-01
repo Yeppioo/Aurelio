@@ -67,7 +67,7 @@ public partial class CrashWindow : UrsaWindow, IAurelioWindow
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
-        BindKeys.Main(this);
+        BindingKeys.Main(this);
 
         if (Data.DesktopType == DesktopType.Linux ||
             Data.DesktopType == DesktopType.FreeBSD ||

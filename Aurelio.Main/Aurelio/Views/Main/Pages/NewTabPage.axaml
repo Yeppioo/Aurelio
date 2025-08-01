@@ -13,112 +13,150 @@
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border Name="Root">
-        <DockPanel>
-            <Border
-                Background="{DynamicResource TextBoxBackground}"
-                CornerRadius="10"
-                Cursor="Hand"
-                DockPanel.Dock="Bottom"
-                HorizontalAlignment="Center"
-                Margin="0,0,0,10"
-                Name="PoemRoot"
-                Padding="7,5"
-                PointerPressed="InputElement_OnPointerPressed">
-                <TextBlock Foreground="{DynamicResource TabTextColor}" Text="{Binding Poem}" />
-            </Border>
-            <DockPanel Margin="0,100,0,0">
-                <TextBlock
-                    DockPanel.Dock="Top"
-                    FontSize="86"
-                    Foreground="{DynamicResource TabTextColor}"
-                    HorizontalAlignment="Center"
-                    Text="{Binding CurrentTime, StringFormat='HH:mm:ss'}" />
-                <StackPanel
-                    DockPanel.Dock="Top"
-                    HorizontalAlignment="Center"
-                    Margin="0,-5,0,0"
-                    Orientation="Horizontal"
-                    Spacing="10">
-                    <TextBlock
-                        FontSize="16"
-                        Foreground="{DynamicResource TabTextColor}"
-                        HorizontalAlignment="Center"
-                        Text="{Binding CurrentTime, StringFormat='yyyy-MM-dd'}" />
-                    <TextBlock
-                        FontSize="16"
-                        Foreground="{DynamicResource TabTextColor}"
-                        HorizontalAlignment="Center"
-                        Text="{Binding CurrentWeekDay}" />
-                    <TextBlock
-                        FontSize="16"
-                        Foreground="{DynamicResource TabTextColor}"
-                        HorizontalAlignment="Center"
-                        Text="{Binding CurrentLunarYear}" />
-                    <TextBlock
-                        FontSize="16"
-                        Foreground="{DynamicResource TabTextColor}"
-                        HorizontalAlignment="Center"
-                        Text="{Binding CurrentLunarMonthDay}" />
-                </StackPanel>
-                <TextBox
-                    CornerRadius="15"
-                    DockPanel.Dock="Top"
-                    Foreground="{DynamicResource TabTextColor}"
-                    Margin="0,25,0,0"
-                    MaxWidth="600"
-                    Name="SearchBox"
-                    Text="{Binding AggregateSearchFilter}"
-                    Watermark="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.SearchKeyword}">
-                    <TextBox.InnerRightContent>
-                        <PathIcon
-                            Cursor="Hand"
-                            Data="{Binding SearchIconData}"
-                            Foreground="{DynamicResource TabTextColor}"
-                            Height="14"
-                            Margin="0,0,3,0"
-                            Name="SearchIcon"
-                            Width="14" />
-                    </TextBox.InnerRightContent>
-                    <TextBox.Styles>
-                        <Style Selector="TextBox#SearchBox:empty /template/ TextBlock#PART_Watermark">
-                            <Setter Property="Foreground" Value="{DynamicResource TabTextColor}" />
-                        </Style>
-                    </TextBox.Styles>
-                </TextBox>
-                <Border
-                    Background="{DynamicResource TextBoxBackground}"
-                    CornerRadius="15"
-                    DockPanel.Dock="Top"
-                    IsVisible="{Binding ElementName=SearchBox, Path=IsFocused}"
-                    Margin="0,10,0,10"
-                    MaxHeight="390"
-                    MaxWidth="600"
-                    MinHeight="25"
-                    VerticalAlignment="Top">
-                    <ListBox
-                        ItemsSource="{Binding FilteredAggregateSearchEntries}"
-                        Margin="0,2,0,0"
-                        Name="AggregateSearchListBox">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate DataType="entries:AggregateSearchEntry">
-                                <StackPanel
-                                    Margin="0,5"
-                                    Orientation="Horizontal"
-                                    Spacing="10">
-                                    <PathIcon Data="{Binding Icon}" Foreground="{DynamicResource TabTextColor}" />
-                                    <StackPanel>
-                                        <TextBlock Foreground="{DynamicResource TabTextColor}" Text="{Binding Title}" />
-                                        <TextBlock
-                                            FontSize="12"
-                                            Foreground="{DynamicResource TabTextColor}"
-                                            Text="{Binding Summary}" />
-                                    </StackPanel>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Border>
-            </DockPanel>
+        <!-- <DockPanel> -->
+        <!--  <Border  -->
+        <!--  Background="{DynamicResource TextBoxBackground}"  -->
+        <!--  CornerRadius="10"  -->
+        <!--  Cursor="Hand"  -->
+        <!--  DockPanel.Dock="Bottom"  -->
+        <!--  HorizontalAlignment="Center"  -->
+        <!--  Margin="0,0,0,10"  -->
+        <!--  Name="PoemRoot"  -->
+        <!--  Padding="7,5"  -->
+        <!--  PointerPressed="InputElement_OnPointerPressed">  -->
+        <!--         <TextBlock Foreground="{DynamicResource TabTextColor}" Text="{Binding Poem}" /> -->
+        <!--     </Border> -->
+        <!--     <DockPanel Margin="0,100,0,0"> -->
+        <!--  <TextBlock  -->
+        <!--  DockPanel.Dock="Top"  -->
+        <!--  FontSize="86"  -->
+        <!--  Foreground="{DynamicResource TabTextColor}"  -->
+        <!--  HorizontalAlignment="Center"  -->
+        <!--  Text="{Binding CurrentTime, StringFormat='HH:mm:ss'}" />  -->
+        <!--  <StackPanel  -->
+        <!--  DockPanel.Dock="Top"  -->
+        <!--  HorizontalAlignment="Center"  -->
+        <!--  Margin="0,-5,0,0"  -->
+        <!--  Orientation="Horizontal"  -->
+        <!--  Spacing="10">  -->
+        <!--  <TextBlock  -->
+        <!--  FontSize="16"  -->
+        <!--  Foreground="{DynamicResource TabTextColor}"  -->
+        <!--  HorizontalAlignment="Center"  -->
+        <!--  Text="{Binding CurrentTime, StringFormat='yyyy-MM-dd'}" />  -->
+        <!--  <TextBlock  -->
+        <!--  FontSize="16"  -->
+        <!--  Foreground="{DynamicResource TabTextColor}"  -->
+        <!--  HorizontalAlignment="Center"  -->
+        <!--  Text="{Binding CurrentWeekDay}" />  -->
+        <!--  <TextBlock  -->
+        <!--  FontSize="16"  -->
+        <!--  Foreground="{DynamicResource TabTextColor}"  -->
+        <!--  HorizontalAlignment="Center"  -->
+        <!--  Text="{Binding CurrentLunarYear}" />  -->
+        <!--  <TextBlock  -->
+        <!--  FontSize="16"  -->
+        <!--  Foreground="{DynamicResource TabTextColor}"  -->
+        <!--  HorizontalAlignment="Center"  -->
+        <!--  Text="{Binding CurrentLunarMonthDay}" />  -->
+        <!--         </StackPanel> -->
+        <!--  <TextBox  -->
+        <!--  CornerRadius="15"  -->
+        <!--  DockPanel.Dock="Top"  -->
+        <!--  Foreground="{DynamicResource TabTextColor}"  -->
+        <!--  Margin="0,25,0,0"  -->
+        <!--  MaxWidth="600"  -->
+        <!--  Name="SearchBox"  -->
+        <!--  Text="{Binding AggregateSearchFilter}"  -->
+        <!--  Watermark="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.SearchKeyword}">  -->
+        <!--             <TextBox.InnerRightContent> -->
+        <!--  <PathIcon  -->
+        <!--  Cursor="Hand"  -->
+        <!--  Data="{Binding SearchIconData}"  -->
+        <!--  Foreground="{DynamicResource TabTextColor}"  -->
+        <!--  Height="14"  -->
+        <!--  Margin="0,0,3,0"  -->
+        <!--  Name="SearchIcon"  -->
+        <!--  Width="14" />  -->
+        <!--             </TextBox.InnerRightContent> -->
+        <!--             <TextBox.Styles> -->
+        <!--                 <Style Selector="TextBox#SearchBox:empty /template/ TextBlock#PART_Watermark"> -->
+        <!--                     <Setter Property="Foreground" Value="{DynamicResource TabTextColor}" /> -->
+        <!--                 </Style> -->
+        <!--             </TextBox.Styles> -->
+        <!--         </TextBox> -->
+        <!--  <Border  -->
+        <!--  Background="{DynamicResource TextBoxBackground}"  -->
+        <!--  CornerRadius="15"  -->
+        <!--  DockPanel.Dock="Top"  -->
+        <!--  IsVisible="{Binding ElementName=SearchBox, Path=IsFocused}"  -->
+        <!--  Margin="0,10,0,10"  -->
+        <!--  MaxHeight="390"  -->
+        <!--  MaxWidth="600"  -->
+        <!--  MinHeight="25"  -->
+        <!--  VerticalAlignment="Top">  -->
+        <!--  <ListBox  -->
+        <!--  ItemsSource="{Binding FilteredAggregateSearchEntries}"  -->
+        <!--  Margin="0,2,0,0"  -->
+        <!--  Name="AggregateSearchListBox">  -->
+        <!--                 <ListBox.ItemTemplate> -->
+        <!--                     <DataTemplate DataType="entries:AggregateSearchEntry"> -->
+        <!--  <StackPanel  -->
+        <!--  Margin="0,5"  -->
+        <!--  Orientation="Horizontal"  -->
+        <!--  Spacing="10">  -->
+        <!--                             <PathIcon Data="{Binding Icon}" Foreground="{DynamicResource TabTextColor}" /> -->
+        <!--                             <StackPanel> -->
+        <!--                                 <TextBlock Foreground="{DynamicResource TabTextColor}" Text="{Binding Title}" /> -->
+        <!--  <TextBlock  -->
+        <!--  FontSize="12"  -->
+        <!--  Foreground="{DynamicResource TabTextColor}"  -->
+        <!--  Text="{Binding Summary}" />  -->
+        <!--                             </StackPanel> -->
+        <!--                         </StackPanel> -->
+        <!--                     </DataTemplate> -->
+        <!--                 </ListBox.ItemTemplate> -->
+        <!--             </ListBox> -->
+        <!--         </Border> -->
+        <!--     </DockPanel> -->
+        <!-- </DockPanel> -->
+        <DockPanel
+            HorizontalAlignment="Center"
+            Margin="0,-15,0,0"
+            VerticalAlignment="Center">
+            <!--  Text="{Binding CurrentTime, StringFormat='HH:mm:ss'}"  -->
+            <TextBlock
+                DockPanel.Dock="Top"
+                FontSize="22"
+                Margin="0,0,0,30"
+                Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.NewTab}"
+                TextAlignment="Center" />
+            <StackPanel Spacing="10">
+                <HyperlinkButton Command="{Binding OpenNewPageCommand}" HorizontalAlignment="Center">
+                    <TextBlock TextDecorations="{x:Null}">
+                        <Run Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.OpenNewPage}" />
+                        <Run Text="( Ctrl + Shift + O )" />
+                    </TextBlock>
+                </HyperlinkButton>
+                <HyperlinkButton Command="{Binding OpenFileCommand}" HorizontalAlignment="Center">
+                    <TextBlock TextDecorations="{x:Null}">
+                        <Run Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.OpenFile}" />
+                        <Run Text="( Ctrl + O )" />
+                    </TextBlock>
+                </HyperlinkButton>
+                <HyperlinkButton Command="{Binding OpenInNewWindowCommand}" HorizontalAlignment="Center">
+                    <TextBlock TextDecorations="{x:Null}">
+                        <Run Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.OpenInNewWindow}" />
+                        <Run Text="( Alt + W )" />
+                    </TextBlock>
+                </HyperlinkButton>
+                <HyperlinkButton Command="{Binding CloseCommand}" HorizontalAlignment="Center">
+                    <TextBlock TextDecorations="{x:Null}">
+                        <Run Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Close}" />
+                        <Run Text="( Ctrl + W )" />
+                    </TextBlock>
+                </HyperlinkButton>
+            </StackPanel>
         </DockPanel>
     </Border>
 </UserControl>

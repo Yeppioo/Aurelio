@@ -4,10 +4,11 @@ using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
+using Avalonia.VisualTree;
 
 namespace Aurelio.Views.Main.Pages;
 
-public partial class TaskCenter : PageMixModelBase, IAurelioTabPage
+public partial class TaskCenter : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
 {
     public TaskCenter()
     {
@@ -37,5 +38,25 @@ public partial class TaskCenter : PageMixModelBase, IAurelioTabPage
 
     private void AvaloniaObject_OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {
+    }
+    
+    public static AurelioStaticPageInfo StaticPageInfo { get; } = new()
+    {
+        Title = MainLang.TaskCenter ,
+        Icon = Icons.Model3D,
+        NeedPath = false,
+        AutoCreate = true
+    };
+
+    public static IAurelioNavPage Create((object sender, object? param)t)
+    {
+        var root = ((Control)t.sender).GetVisualRoot();
+        if (root is TabWindow tabWindow)
+        {
+            tabWindow.CreateTab(new TabEntry(new TaskCenter()));
+            return null;
+        }
+        App.UiRoot.CreateTab(new TabEntry(new TaskCenter()));
+        return null;
     }
 }

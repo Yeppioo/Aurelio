@@ -1,18 +1,15 @@
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Threading;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
-using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.IO.Http;
 using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Ui;
-using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
@@ -21,7 +18,7 @@ using FluentAvalonia.UI.Controls;
 using Flurl.Http;
 using Newtonsoft.Json.Linq;
 
-namespace Aurelio.Public.Module.App.Services;
+namespace Aurelio.Public.Module.Service;
 
 public static class NugetSearchService
 {

@@ -1,0 +1,127 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Aurelio.Views.Main.Pages.PageSelector"
+    x:DataType="pages:PageSelector"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:converter="clr-namespace:Aurelio.Public.Module.Converter;assembly=Aurelio"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:entries="clr-namespace:Aurelio.Public.Classes.Entries"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:Aurelio.Views.Main.Pages"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <converter:ContainerToColumnsConverter x:Key="ContainerToColumnsConverter" />
+    </UserControl.Resources>
+    <Grid Name="Root">
+        <Border
+            ClipToBounds="True"
+            CornerRadius="{DynamicResource CardCornerRadius}"
+            Margin="10,0,10,10">
+            <ScrollViewer Padding="0,0,10,0">
+                <StackPanel>
+                    <ItemsControl ItemsSource="{Binding Data.NavPages}" VerticalAlignment="Top">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="{Binding Path=ContainerWidth, RelativeSource={RelativeSource AncestorType=pages:PageSelector}, Converter={StaticResource ContainerToColumnsConverter}}" VerticalAlignment="Top" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="entries:NavPageEntry">
+                                <Border
+                                    Classes="card"
+                                    Cursor="Hand"
+                                    Height="56"
+                                    Margin="5"
+                                    Name="ViewerCardBorder"
+                                    PointerPressed="ViewerCardBorder_OnPointerPressed"
+                                    Tag="{Binding}">
+                                    <DockPanel>
+                                        <Border
+                                            ClipToBounds="True"
+                                            CornerRadius="{DynamicResource CardCornerRadius}"
+                                            Height="48"
+                                            Margin="10,0"
+                                            Name="IconBorder"
+                                            Tag="{Binding}"
+                                            Width="48">
+                                            <PathIcon
+                                                Data="{Binding StaticPageInfo.Icon}"
+                                                Foreground="{DynamicResource TextColor}"
+                                                HorizontalAlignment="Center"
+                                                Margin="0,0,-5,0"
+                                                VerticalAlignment="Center" />
+                                        </Border>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+                                            <TextBlock
+                                                Text="{Binding StaticPageInfo.Title}"
+                                                TextTrimming="CharacterEllipsis"
+                                                VerticalAlignment="Center" />
+                                            <TextBlock
+                                                FontSize="16"
+                                                IsVisible="{Binding StaticPageInfo.MustPath}"
+                                                Margin="3,0,0,0"
+                                                Text="*"
+                                                VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Separator Margin="5,6" />
+                    <ItemsControl ItemsSource="{Binding Viewers}" VerticalAlignment="Top">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="{Binding Path=ContainerWidth, RelativeSource={RelativeSource AncestorType=pages:PageSelector}, Converter={StaticResource ContainerToColumnsConverter}}" VerticalAlignment="Top" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="entries:NavPageEntry">
+                                <Border
+                                    Classes="card"
+                                    Cursor="Hand"
+                                    Height="56"
+                                    Margin="5"
+                                    Name="ViewerCardBorder"
+                                    PointerPressed="ViewerCardBorder_OnPointerPressed"
+                                    Tag="{Binding}">
+                                    <DockPanel>
+                                        <Border
+                                            ClipToBounds="True"
+                                            CornerRadius="{DynamicResource CardCornerRadius}"
+                                            Height="48"
+                                            Margin="10,0"
+                                            Name="IconBorder"
+                                            Tag="{Binding}"
+                                            Width="48">
+                                            <PathIcon
+                                                Data="{Binding StaticPageInfo.Icon}"
+                                                Foreground="{DynamicResource TextColor}"
+                                                HorizontalAlignment="Center"
+                                                Margin="0,0,-5,0"
+                                                VerticalAlignment="Center" />
+                                        </Border>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+                                            <TextBlock
+                                                Text="{Binding StaticPageInfo.Title}"
+                                                TextTrimming="CharacterEllipsis"
+                                                VerticalAlignment="Center" />
+                                            <TextBlock
+                                                FontSize="16"
+                                                IsVisible="{Binding StaticPageInfo.MustPath}"
+                                                Margin="3,0,0,0"
+                                                Text="*"
+                                                VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

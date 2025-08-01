@@ -1,15 +1,12 @@
-using Aurelio.Plugin.Base;
 using Aurelio.Public.Classes.Entries;
-using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.IO;
-using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
 using Avalonia.Controls.Notifications;
 using Avalonia.Media;
 
-namespace Aurelio.Views.Main.Pages;
+namespace Aurelio.Views.Main.Pages.Viewers;
 
 public partial class PluginInfo : PageMixModelBase, IAurelioTabPage
 {

@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Aurelio.Public.Module.App.Services;
 
-public class BindKeys
+public class BindingKeys
 {
     public static void Main(Window window)
     {
@@ -28,6 +28,11 @@ public class BindKeys
         {
             Gesture = KeyGesture.Parse("Shift+F12"),
             Command = new RelayCommand(c.DebugTab)
+        });
+        window.KeyBindings.Add(new KeyBinding
+        {
+            Gesture = KeyGesture.Parse("Alt+W"),
+            Command = new RelayCommand(c.MoveToNewWindow)
         });
     }
 }

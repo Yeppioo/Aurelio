@@ -1,5 +1,6 @@
 ﻿using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Module.Service;
 using Aurelio.Views.Main;
 using Aurelio.Views.Main.Pages;
 using Avalonia.Styling;
@@ -38,6 +39,16 @@ public class MoreButtonMenuCommands
     public void DebugTab()
     {
         App.UiRoot.TogglePage("debug", App.UiRoot.ViewModel.DebugTabPage);
+    }
+    
+    public void MoveToNewWindow()
+    {
+        if (UiProperty.ActiveWindow is TabWindow tabWindow)
+        {
+            tabWindow.ViewModel.SelectedTab?.MoveTabToNewWindow();
+            return;
+        }
+        App.UiRoot.ViewModel.SelectedTab?.MoveTabToNewWindow();
     }
 
     public void OpenInstancePage(string page)

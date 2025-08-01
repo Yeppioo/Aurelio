@@ -4,6 +4,7 @@ using System.Linq;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Module.App.Services;
 using Aurelio.Public.Module.Plugin.Events;
+using Aurelio.Public.Module.Service;
 using Aurelio.Public.Module.Ui;
 using AurelioPage = Aurelio.Views.Main.Pages.SubPages.SettingPages.AurelioPage;
 
@@ -15,8 +16,9 @@ public abstract class AfterUiLoaded
     {
         File.WriteAllText(ConfigPath.AppPathDataPath,
             Process.GetCurrentProcess().MainModule.FileName);
-        Data.UpdateAggregateSearchEntries();
-        BindKeys.Main(Aurelio.App.UiRoot!);
+        BindingAppEvents.Main();
+        AggregateSearch.UpdateAggregateSearchEntries();
+        BindingKeys.Main(Aurelio.App.UiRoot!);
         CheckPluginUpdate.Main(Data.LoadedPlugins.ToArray());
         Setter.SetAccentColor(Data.SettingEntry.ThemeColor);
         Application.Current.Resources["BackGroundOpacity"] = Data.SettingEntry.BackGround == Setting.BackGround.Default ? 1.0 : 0.5;
@@ -25,6 +27,7 @@ public abstract class AfterUiLoaded
         LoopGC.BeginLoop();
         if (Data.SettingEntry.AutoCheckUpdate && Data.Instance.Version != "vDebug")
             _ = AurelioPage.ShowUpdateDialogIfNeed();
+        PageNav.Main();
         InitEvents.OnAfterUiLoaded();
     }
 }

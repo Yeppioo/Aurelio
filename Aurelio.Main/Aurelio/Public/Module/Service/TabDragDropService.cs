@@ -348,4 +348,119 @@ public static class TabDragDropService
 
     // Settings tab enforcement methods removed to allow multiple settings tabs
     // across different windows simultaneously
+
+    /// <summary>
+    /// Moves a tab to a new TabWindow. This is a general-purpose method that can be called programmatically.
+    /// </summary>
+    /// <param name="tabEntry">The tab to move to a new window</param>
+    /// <param name="screenPosition">Optional screen position for the new window. If null, uses default positioning.</param>
+    /// <returns>The newly created TabWindow, or null if the operation failed</returns>
+    public static TabWindow? MoveTabToNewWindow(this TabEntry tabEntry, Point? screenPosition = null)
+    {
+        if (tabEntry == null) return null;
+
+        // Find the source window containing this tab
+        var sourceWindow = FindWindowContainingTab(tabEntry);
+        if (sourceWindow == null) return null;
+
+        TabWindow? newWindow = null;
+
+        // Use async operation to avoid layout manager conflicts
+        Dispatcher.UIThread.Post(async () =>
+        {
+            try
+            {
+                // Remove from source window
+                RemoveTabFromWindow(tabEntry, sourceWindow);
+
+                // Reduced delay for better responsiveness
+                await Task.Delay(25);
+
+                // Refresh content to avoid layout conflicts
+                tabEntry.RefreshContent();
+
+                // Create new TabWindow
+                newWindow = new TabWindow();
+
+                // Position the new window
+                if (screenPosition.HasValue)
+                {
+                    // Use provided screen position, but ensure it's on screen
+                    var targetX = Math.Max(0, (int)screenPosition.Value.X - 400); // Center the window around the position
+                    var targetY = Math.Max(0, (int)screenPosition.Value.Y - 50);
+
+                    // Get screen bounds to ensure window stays on screen
+                    var screens = newWindow.Screens.All;
+                    if (screens.Any())
+                    {
+                        var primaryScreen = screens.First();
+                        var maxX = primaryScreen.WorkingArea.Width - 800; // Assume minimum window width
+                        var maxY = primaryScreen.WorkingArea.Height - 450; // Assume minimum window height
+
+                        targetX = Math.Min(targetX, maxX);
+                        targetY = Math.Min(targetY, maxY);
+                    }
+
+                    newWindow.Position = new PixelPoint(targetX, targetY);
+                }
+                else
+                {
+                    // Use default positioning (offset from source window)
+                    if (sourceWindow != null)
+                    {
+                        var sourcePos = sourceWindow.Position;
+                        newWindow.Position = new PixelPoint(sourcePos.X + 50, sourcePos.Y + 50);
+                    }
+                }
+
+                RegisterWindow(newWindow);
+                newWindow.Show();
+
+                // Reduced delay for better responsiveness
+                await Task.Delay(50);
+                newWindow.AddTab(tabEntry);
+
+                // Bring new window to front
+                newWindow.Activate();
+                newWindow.BringIntoView();
+
+                // Close source window if it's a TabWindow with no tabs
+                if (sourceWindow is TabWindow sourceTabWindow && !sourceTabWindow.ViewModel.HasTabs)
+                {
+                    await Task.Delay(100);
+                    sourceTabWindow.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log error but don't crash the application
+                Debug.WriteLine($"Error moving tab to new window: {ex.Message}");
+                newWindow = null;
+            }
+        });
+
+        return newWindow;
+    }
+
+    /// <summary>
+    /// Finds the window that contains the specified tab entry.
+    /// </summary>
+    /// <param name="tabEntry">The tab entry to search for</param>
+    /// <returns>The window containing the tab, or null if not found</returns>
+    private static Window? FindWindowContainingTab(TabEntry tabEntry)
+    {
+        if (tabEntry == null) return null;
+
+        // Check all registered windows
+        foreach (var window in _registeredWindows.Where(w => w.IsVisible))
+        {
+            var tabs = GetTabsCollection(window);
+            if (tabs != null && tabs.Contains(tabEntry))
+            {
+                return window;
+            }
+        }
+
+        return null;
+    }
 }

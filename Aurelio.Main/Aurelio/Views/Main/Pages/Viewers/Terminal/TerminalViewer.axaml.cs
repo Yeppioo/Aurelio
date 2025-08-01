@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
+using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Module;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
 using Avalonia.Input;
@@ -14,7 +16,7 @@ using AvaloniaEdit.Document;
 
 namespace Aurelio.Views.Main.Pages.Viewers.Terminal;
 
-public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage, IAurelioViewer
+public partial class TerminalNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
 {
     private readonly TerminalSessionManager _sessionManager = new();
     private readonly StringBuilder _outputBuffer = new();
@@ -30,11 +32,11 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage, IAureli
         set => SetField(ref _currentInput, value);
     }
 
-    public TerminalViewer()
+    public TerminalNavPage()
     {
     }
 
-    public TerminalViewer(string path)
+    public TerminalNavPage(string path)
     {
         _initialTerminalPath = path;
         _builtInCommands = InitializeBuiltInCommands();
@@ -120,23 +122,35 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage, IAureli
     {
         try
         {
-            var sessionName = Path.GetFileNameWithoutExtension(_initialTerminalPath);
-            var session = _sessionManager.CreateSession(sessionName, _initialTerminalPath);
+            // 先解析路径，与命令创建会话保持一致的逻辑
+            var executablePath = TerminalSessionManager.ResolveSessionPath(_initialTerminalPath);
 
-            if (session != null)
+            if (executablePath != null)
             {
-                // 设置会话事件处理
-                session.OutputReceived += OnSessionOutput;
-                session.ErrorReceived += OnSessionError;
-                session.ProcessExited += OnSessionExited;
+                var sessionName = Path.GetFileNameWithoutExtension(_initialTerminalPath);
+                var session = _sessionManager.CreateSession(sessionName, executablePath);
 
-                AppendOutput($"会话已创建: {session.Name} (ID: {session.Id})\n");
-                AppendOutput($"使用编码: GBK\n");
-                AppendOutput("输入 'help' 查看内置命令\n\n");
+                if (session != null)
+                {
+                    // 设置会话事件处理
+                    session.OutputReceived += OnSessionOutput;
+                    session.ErrorReceived += OnSessionError;
+                    session.ProcessExited += OnSessionExited;
+
+                    AppendOutput($"会话已创建: {session.Name} (ID: {session.Id})\n");
+                    AppendOutput($"可执行文件: {executablePath}\n");
+                    AppendOutput($"使用编码: GBK\n");
+                    AppendOutput("输入 'help' 查看内置命令\n\n");
+                }
+                else
+                {
+                    AppendOutput($"创建初始会话失败: {executablePath}\n", true);
+                }
             }
             else
             {
-                AppendOutput($"创建初始会话失败: {_initialTerminalPath}\n", true);
+                AppendOutput($"找不到可执行文件: {_initialTerminalPath}\n", true);
+                AppendOutput("请检查路径是否正确或程序是否已安装\n", true);
             }
         }
         catch (Exception ex)
@@ -259,7 +273,7 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage, IAureli
 
             // Ctrl+D - 关闭当前会话
             if (e.Key == Key.D && e.KeyModifiers.HasFlag(KeyModifiers.Control))
-            { 
+            {
                 HandleBuiltInCommand("stop " + (_sessionManager.ActiveSession?.Id ?? ""));
                 e.Handled = true;
                 return;
@@ -872,15 +886,52 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage, IAureli
         }
     }
 
-    public static IAurelioViewer Create(string path)
+    public static IAurelioNavPage Create((object sender, object? param) t)
     {
-        return new TerminalViewer(path);
+        if (!((string)t.param!).IsNullOrWhiteSpace())
+            return new TerminalNavPage((string)t.param!);
+
+        // 根据操作系统选择默认终端
+        string defaultTerminal;
+
+        if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+        {
+            // Windows系统：Win10+使用PowerShell，Win7使用cmd
+            if (Environment.OSVersion.Version.Major >= 10)
+            {
+                defaultTerminal = "powershell";
+            }
+            else
+            {
+                defaultTerminal = "cmd";
+            }
+        }
+        else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
+        {
+            // Linux系统使用bash
+            defaultTerminal = "/bin/bash";
+        }
+        else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+        {
+            // macOS系统使用zsh（macOS Catalina 10.15+的默认shell）
+            defaultTerminal = "/bin/zsh";
+        }
+        else
+        {
+            // 其他系统回退到bash
+            defaultTerminal = "/bin/bash";
+        }
+
+        return new TerminalNavPage(defaultTerminal);
     }
 
-    public static AurelioViewerInfo ViewerInfo { get; } = new()
+    public static AurelioStaticPageInfo StaticPageInfo { get; } = new()
     {
         Icon = StreamGeometry.Parse(
             "M73.4 182.6C60.9 170.1 60.9 149.8 73.4 137.3C85.9 124.8 106.2 124.8 118.7 137.3L278.7 297.3C291.2 309.8 291.2 330.1 278.7 342.6L118.7 502.6C106.2 515.1 85.9 515.1 73.4 502.6C60.9 490.1 60.9 469.8 73.4 457.3L210.7 320L73.4 182.6zM288 448L544 448C561.7 448 576 462.3 576 480C576 497.7 561.7 512 544 512L288 512C270.3 512 256 497.7 256 480C256 462.3 270.3 448 288 448z"),
-        Title = "终端"
+        Title = "终端",
+        NeedPath = true,
+        AutoCreate = false,
+        MustPath = false,
     };
 }

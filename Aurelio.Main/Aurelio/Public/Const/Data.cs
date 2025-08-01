@@ -4,6 +4,7 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Module.Plugin.Events;
+using Aurelio.Public.Module.Service;
 using Aurelio.Views.Main.Pages;
 using Aurelio.Views.Main.Pages.Viewers;
 using Aurelio.Views.Main.Pages.Viewers.Terminal;
@@ -29,23 +30,5 @@ public class Data : ReactiveObject
     [Reactive] public string Version { get; set; }
     public static ObservableCollection<LoadedPluginEntry> LoadedPlugins { get; } = [];
     public static ObservableCollection<AggregateSearchEntry> AggregateSearchEntries { get; } = [];
-
-    public static void UpdateAggregateSearchEntries()
-    {
-        AggregateSearchEntries.Clear();
-        Dispatcher.UIThread.Invoke(() =>
-        {
-            AggregateSearchEntries.Add(new AggregateSearchEntry(new NewTabPage(), null));
-            AggregateSearchEntries.Add(new AggregateSearchEntry(new SettingTabPage() , "setting"));
-            AggregateSearchEntries.Add(new AggregateSearchEntry(new ViewerSelector() , null));
-            if(DesktopType == DesktopType.Windows)
-                AggregateSearchEntries.Add(new AggregateSearchEntry(new TerminalViewer(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe") , null));
-        });
-        AggregateSearchEvents.OnUpdateAggregateSearchEntries();
-    }
-
-    public Data()
-    {
-        PublicEvents.UpdateAggregateSearchEntries += (_,_) => UpdateAggregateSearchEntries();
-    }
+    public static ObservableCollection<NavPageEntry> NavPages { get; } = [];
 }
