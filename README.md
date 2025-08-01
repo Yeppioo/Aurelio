@@ -105,7 +105,7 @@ Aurelio 是一个基于 .NET 8 和 Avalonia UI 框架开发的现代化跨平台
 
 ### 系统要求
 
-- **操作系统**：Windows 10/11、macOS 10.15+、Linux
+- **操作系统**：Windows 7+、macOS 10.15+、Linux
 - **.NET Runtime**：.NET 8.0
 - **内存**：至少 512MB RAM
 - **存储空间**：至少 120MB 可用空间
@@ -202,7 +202,7 @@ public interface IPlugin
 
 ### 插件示例
 
-#### Minecraft 插件（第三方插件）
+#### Minecraft 插件
 
 - **实例管理**：管理多个 Minecraft 游戏实例
 - **账户系统**：支持正版和离线账户
