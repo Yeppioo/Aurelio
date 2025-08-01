@@ -1,24 +1,18 @@
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
-using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Threading;
 using AvaloniaEdit.Document;
 
-namespace Aurelio.Views.Main.Pages.Viewers;
+namespace Aurelio.Views.Main.Pages.Viewers.Terminal;
 
 public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
 {
@@ -68,11 +62,12 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
         {
             ["sessions"] = "列出所有会话",
             ["session"] = "切换到指定会话 (用法: session <id>)",
-            ["new"] = "创建新会话 (用法: new <type> [name])",
+            ["new"] = "创建新会话 (用法: new <程序名|路径> [名称])",
             ["stop"] = "停止指定会话 (用法: stop <id>)",
             ["help"] = "显示帮助信息",
             ["clear"] = "清空输出",
-            ["exit"] = "退出终端"
+            ["exit"] = "退出终端",
+            ["quit"] = "退出终端"
         };
     }
 
@@ -445,7 +440,7 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
         {
             AppendOutput($"  {cmd.Key,-12} - {cmd.Value}\n");
         }
-        AppendOutput("\n=== 可用会话类型 ===\n");
+        AppendOutput("\n");
         ShowAvailableSessionTypes();
         AppendOutput("\n");
     }
@@ -485,9 +480,10 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
 
     private async Task CreateNewSession(string sessionType, string sessionName)
     {
-        var predefinedSessions = TerminalSessionManager.GetPredefinedSessions();
+        // 尝试解析会话路径
+        var executablePath = TerminalSessionManager.ResolveSessionPath(sessionType);
 
-        if (predefinedSessions.TryGetValue(sessionType.ToLower(), out var executablePath))
+        if (executablePath != null)
         {
             var session = await _sessionManager.CreateSessionAsync(sessionName, executablePath);
             if (session != null)
@@ -498,19 +494,30 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
                 session.ProcessExited += OnSessionExited;
 
                 AppendOutput($"新会话已创建: {sessionName} (ID: {session.Id})\n");
+                AppendOutput($"可执行文件: {executablePath}\n");
 
                 // 自动切换到新会话
                 _sessionManager.SwitchToSession(session.Id);
             }
             else
             {
-                AppendOutput($"创建会话失败: {sessionType}\n", true);
+                AppendOutput($"创建会话失败: {executablePath}\n", true);
             }
         }
         else
         {
-            AppendOutput($"未知的会话类型: {sessionType}\n", true);
-            ShowAvailableSessionTypes();
+            AppendOutput($"找不到可执行文件: {sessionType}\n", true);
+            AppendOutput("请使用以下格式之一:\n");
+            AppendOutput("  new <程序名> [会话名]     - 在PATH中查找程序\n");
+            AppendOutput("  new <完整路径> [会话名]   - 使用完整路径\n");
+            AppendOutput("  new %PROGRAMFILES%\\... [会话名] - 使用环境变量\n");
+            AppendOutput("\n示例:\n");
+            AppendOutput("  new powershell\n");
+            AppendOutput("  new node\n");
+            AppendOutput("  new python\n");
+            AppendOutput("  new cmd\n");
+            AppendOutput("  new C:\\Windows\\System32\\cmd.exe\n");
+            AppendOutput("  new %PROGRAMFILES%\\Git\\bin\\bash.exe\n");
         }
     }
 
@@ -528,11 +535,22 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
 
     private void ShowAvailableSessionTypes()
     {
-        var predefinedSessions = TerminalSessionManager.GetPredefinedSessions();
-        foreach (var session in predefinedSessions)
-        {
-            AppendOutput($"  {session.Key,-12} - {session.Value}\n");
-        }
+        AppendOutput("=== 会话创建方式 ===\n");
+        AppendOutput("1. 程序名 (在PATH中查找):\n");
+        AppendOutput("   new powershell\n");
+        AppendOutput("   new cmd\n");
+        AppendOutput("   new node\n");
+        AppendOutput("   new python\n");
+        AppendOutput("   new git-bash\n");
+        AppendOutput("\n2. 完整路径:\n");
+        AppendOutput("   new C:\\Windows\\System32\\cmd.exe\n");
+        AppendOutput("   new C:\\Program Files\\Git\\bin\\bash.exe\n");
+        AppendOutput("\n3. 环境变量路径:\n");
+        AppendOutput("   new %PROGRAMFILES%\\Git\\bin\\bash.exe\n");
+        AppendOutput("   new %USERPROFILE%\\AppData\\Local\\Programs\\Python\\Python312\\python.exe\n");
+        AppendOutput("\n4. 带自定义名称:\n");
+        AppendOutput("   new powershell my-ps\n");
+        AppendOutput("   new node nodejs-dev\n");
     }
 
     private async Task RestartCurrentSession()

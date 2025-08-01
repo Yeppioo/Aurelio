@@ -4,6 +4,7 @@ using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
 using Aurelio.Views.Main.Pages.Viewers;
+using Aurelio.Views.Main.Pages.Viewers.Terminal;
 using Avalonia.Controls.Notifications;
 using Avalonia.Interactivity;
 using Avalonia.Media;

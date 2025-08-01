@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aurelio.Views.Main.Pages.Viewers;
+namespace Aurelio.Views.Main.Pages.Viewers.Terminal;
 
 /// <summary>
 /// 终端会话管理器
@@ -145,75 +144,59 @@ public class TerminalSessionManager
     }
 
     /// <summary>
-    /// 获取预定义的会话类型
+    /// 从环境变量PATH中查找可执行文件
     /// </summary>
-    public static Dictionary<string, string> GetPredefinedSessions()
+    public static string? FindExecutableInPath(string executableName)
     {
-        var sessions = new Dictionary<string, string>();
+        var pathVariable = Environment.GetEnvironmentVariable("PATH");
+        if (string.IsNullOrEmpty(pathVariable))
+            return null;
 
-        // Windows 系统
-        if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+        var paths = pathVariable.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
+
+        // 在Windows上，可执行文件可能有多种扩展名
+        var extensions = Environment.OSVersion.Platform == PlatformID.Win32NT
+            ? new[] { ".exe", ".cmd", ".bat", ".com" }
+            : new[] { "" };
+
+        foreach (var path in paths)
         {
-            // PowerShell
-            var powershellPaths = new[]
+            try
             {
-                @"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe",
-                @"C:\Program Files\PowerShell\7\pwsh.exe"
-            };
-            
-            foreach (var path in powershellPaths)
-            {
-                if (File.Exists(path))
+                foreach (var extension in extensions)
                 {
-                    sessions["powershell"] = path;
-                    break;
+                    var fullPath = Path.Combine(path, executableName + extension);
+                    if (File.Exists(fullPath))
+                    {
+                        return fullPath;
+                    }
                 }
             }
-
-            // CMD
-            var cmdPath = @"C:\Windows\System32\cmd.exe";
-            if (File.Exists(cmdPath))
+            catch
             {
-                sessions["cmd"] = cmdPath;
-            }
-
-            // Node.js
-            var nodePaths = new[]
-            {
-                @"C:\Program Files\nodejs\node.exe",
-                @"C:\Program Files (x86)\nodejs\node.exe"
-            };
-            
-            foreach (var path in nodePaths)
-            {
-                if (File.Exists(path))
-                {
-                    sessions["node"] = path;
-                    break;
-                }
-            }
-
-            // Python
-            var pythonPaths = new[]
-            {
-                @"C:\Python\python.exe",
-                @"C:\Program Files\Python\python.exe",
-                @"C:\Users\" + Environment.UserName + @"\AppData\Local\Programs\Python\Python312\python.exe",
-                @"C:\Users\" + Environment.UserName + @"\AppData\Local\Programs\Python\Python311\python.exe",
-                @"C:\Users\" + Environment.UserName + @"\AppData\Local\Programs\Python\Python310\python.exe"
-            };
-            
-            foreach (var path in pythonPaths)
-            {
-                if (File.Exists(path))
-                {
-                    sessions["python"] = path;
-                    break;
-                }
+                // 忽略无效路径
+                continue;
             }
         }
 
-        return sessions;
+        return null;
+    }
+
+    /// <summary>
+    /// 解析会话路径，支持环境变量查找和直接路径
+    /// </summary>
+    public static string? ResolveSessionPath(string input)
+    {
+        // 如果输入包含路径分隔符，认为是直接路径
+        if (input.Contains(Path.DirectorySeparatorChar) || input.Contains(Path.AltDirectorySeparatorChar))
+        {
+            // 展开环境变量
+            var expandedPath = Environment.ExpandEnvironmentVariables(input);
+            return File.Exists(expandedPath) ? expandedPath : null;
+        }
+
+        // 否则在PATH中查找
+        return FindExecutableInPath(input);
     }
 }
 

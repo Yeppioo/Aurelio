@@ -2,12 +2,13 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d"
-    x:Class="Aurelio.Views.Main.Pages.Viewers.TerminalViewer"
-    x:DataType="viewers:TerminalViewer"
+    x:Class="Aurelio.Views.Main.Pages.Viewers.Terminal.TerminalViewer"
+    x:DataType="terminal:TerminalViewer"
     xmlns="https://github.com/avaloniaui"
     xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:terminal="clr-namespace:Aurelio.Views.Main.Pages.Viewers.Terminal"
     xmlns:viewers="clr-namespace:Aurelio.Views.Main.Pages.Viewers"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border Name="Root">
@@ -24,7 +25,7 @@
                     <TextBlock
                         DockPanel.Dock="Left"
                         Foreground="{DynamicResource TabTextColor}"
-                        Margin="0,0,10,0"
+                        Margin="7,0,10,0"
                         Text="&gt;"
                         VerticalAlignment="Center" />
                     <TextBox

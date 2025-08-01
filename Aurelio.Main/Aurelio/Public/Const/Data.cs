@@ -6,6 +6,7 @@ using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Module.Plugin.Events;
 using Aurelio.Views.Main.Pages;
 using Aurelio.Views.Main.Pages.Viewers;
+using Aurelio.Views.Main.Pages.Viewers.Terminal;
 using Avalonia.Threading;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;

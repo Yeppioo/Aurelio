@@ -1,10 +1,9 @@
-using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aurelio.Views.Main.Pages.Viewers;
+namespace Aurelio.Views.Main.Pages.Viewers.Terminal;
 
 /// <summary>
 /// 终端会话类，管理单个终端进程
