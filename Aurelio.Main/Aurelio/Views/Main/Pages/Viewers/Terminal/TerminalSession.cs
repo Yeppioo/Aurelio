@@ -78,9 +78,30 @@ public class TerminalSession : IDisposable
                 StandardInputEncoding = encoding
             };
 
+            // 检查是否为交互式程序，添加特殊参数
+            var fileName = Path.GetFileNameWithoutExtension(ExecutablePath).ToLower();
+            if (fileName == "node")
+            {
+                // Node.js 交互式模式参数
+                startInfo.Arguments = "--interactive";
+                // 强制Node.js输出到stdout
+                startInfo.EnvironmentVariables["NODE_NO_READLINE"] = "1";
+                startInfo.EnvironmentVariables["FORCE_COLOR"] = "0"; // 禁用颜色代码
+            }
+            else if (fileName == "python")
+            {
+                // Python 交互式模式参数
+                startInfo.Arguments = "-i -u"; // -i: 交互模式, -u: 无缓冲输出
+                startInfo.EnvironmentVariables["PYTHONUNBUFFERED"] = "1";
+            }
+
             // 设置环境变量
             startInfo.EnvironmentVariables["LANG"] = "zh_CN.GBK";
             startInfo.EnvironmentVariables["LC_ALL"] = "zh_CN.GBK";
+
+            // 禁用输出缓冲
+            startInfo.EnvironmentVariables["TERM"] = "dumb"; // 简单终端类型
+            startInfo.EnvironmentVariables["NO_COLOR"] = "1"; // 禁用颜色输出
 
             Process = Process.Start(startInfo);
             if (Process == null)
@@ -164,14 +185,25 @@ public class TerminalSession : IDisposable
 
         try
         {
-            var buffer = new char[1024];
+            var buffer = new char[512];
             while (!Process.HasExited)
             {
-                var bytesRead = await Process.StandardOutput.ReadAsync(buffer, 0, buffer.Length);
-                if (bytesRead > 0)
+                try
                 {
-                    var output = new string(buffer, 0, bytesRead);
-                    OutputReceived?.Invoke(this, output);
+                    var bytesRead = await Process.StandardOutput.ReadAsync(buffer, 0, buffer.Length);
+                    if (bytesRead > 0)
+                    {
+                        var output = new string(buffer, 0, bytesRead);
+                        OutputReceived?.Invoke(this, output);
+                    }
+                    else
+                    {
+                        await Task.Delay(50);
+                    }
+                }
+                catch (Exception ex) when (ex is not ObjectDisposedException)
+                {
+                    await Task.Delay(100);
                 }
             }
         }
@@ -187,14 +219,25 @@ public class TerminalSession : IDisposable
 
         try
         {
-            var buffer = new char[1024];
+            var buffer = new char[512];
             while (!Process.HasExited)
             {
-                var bytesRead = await Process.StandardError.ReadAsync(buffer, 0, buffer.Length);
-                if (bytesRead > 0)
+                try
                 {
-                    var error = new string(buffer, 0, bytesRead);
-                    ErrorReceived?.Invoke(this, error);
+                    var bytesRead = await Process.StandardError.ReadAsync(buffer, 0, buffer.Length);
+                    if (bytesRead > 0)
+                    {
+                        var error = new string(buffer, 0, bytesRead);
+                        ErrorReceived?.Invoke(this, error);
+                    }
+                    else
+                    {
+                        await Task.Delay(50);
+                    }
+                }
+                catch (Exception ex) when (ex is not ObjectDisposedException)
+                {
+                    await Task.Delay(100);
                 }
             }
         }

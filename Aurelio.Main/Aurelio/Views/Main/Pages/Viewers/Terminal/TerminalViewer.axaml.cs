@@ -66,6 +66,7 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
             ["stop"] = "停止指定会话 (用法: stop <id>)",
             ["help"] = "显示帮助信息",
             ["clear"] = "清空输出",
+            ["debug"] = "显示调试信息",
             ["exit"] = "退出终端",
             ["quit"] = "退出终端"
         };
@@ -169,7 +170,18 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
 
     private void OnSessionOutput(object? sender, string output)
     {
-        Dispatcher.UIThread.InvokeAsync(() => AppendOutput(output));
+        Dispatcher.UIThread.InvokeAsync(() =>
+        {
+            if (sender is TerminalSession session)
+            {
+                var processedOutput = ProcessSessionOutput(session, output);
+                AppendOutput(processedOutput);
+            }
+            else
+            {
+                AppendOutput(output);
+            }
+        });
     }
 
     private void OnSessionError(object? sender, string error)
@@ -326,27 +338,28 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
     {
         try
         {
-            // 添加到命令历史
+            // 添加到命令历史（只有非空命令）
             if (!string.IsNullOrWhiteSpace(command))
             {
                 _commandHistory.Add(command);
                 _historyIndex = _commandHistory.Count;
             }
 
-            // 显示用户输入
-            AppendOutput($"> {command}\n");
-
-            // 检查是否为内置命令
-            if (await HandleBuiltInCommand(command))
+            // 检查是否为内置命令（只有非空命令）
+            if (!string.IsNullOrWhiteSpace(command) && await HandleBuiltInCommand(command))
             {
+                // 内置命令显示用户输入
+                AppendOutput($"> {command}\n");
                 CurrentInput = "";
                 return;
             }
 
-            // 发送到活动会话
+            // 发送到活动会话（包括空命令，对交互式程序很重要）
             var activeSession = _sessionManager.ActiveSession;
             if (activeSession != null)
             {
+                // 直接发送命令，不显示额外的提示符
+                // 程序本身会处理提示符的显示
                 await activeSession.SendCommandAsync(command);
             }
             else
@@ -426,6 +439,10 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
 
             case "quit":
                 OnClose();
+                return true;
+
+            case "debug":
+                ShowDebugInfo();
                 return true;
 
             default:
@@ -783,9 +800,53 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage
         }
     }
 
+    private string ProcessSessionOutput(TerminalSession session, string output)
+    {
+        // 暂时简化处理，只做基本的清理
+        return output;
+    }
+
+
+
+    private void ShowDebugInfo()
+    {
+        AppendOutput("=== 调试信息 ===\n");
+        var activeSession = _sessionManager.ActiveSession;
+        if (activeSession != null)
+        {
+            AppendOutput($"活动会话: {activeSession.Name} (ID: {activeSession.Id})\n");
+            AppendOutput($"可执行文件: {activeSession.ExecutablePath}\n");
+            AppendOutput($"进程状态: {activeSession.Status}\n");
+            AppendOutput($"进程ID: {activeSession.Process?.Id ?? -1}\n");
+            AppendOutput($"进程已退出: {activeSession.Process?.HasExited ?? true}\n");
+            AppendOutput($"创建时间: {activeSession.CreatedTime:yyyy-MM-dd HH:mm:ss}\n");
+            AppendOutput($"最后活动: {activeSession.LastActiveTime:yyyy-MM-dd HH:mm:ss}\n");
+
+            // 检查进程流状态
+            if (activeSession.Process != null)
+            {
+                try
+                {
+                    AppendOutput($"标准输入可用: {activeSession.Process.StandardInput != null}\n");
+                    AppendOutput($"标准输出可用: {activeSession.Process.StandardOutput != null}\n");
+                    AppendOutput($"标准错误可用: {activeSession.Process.StandardError != null}\n");
+                }
+                catch (Exception ex)
+                {
+                    AppendOutput($"检查流状态时出错: {ex.Message}\n");
+                }
+            }
+        }
+        else
+        {
+            AppendOutput("没有活动会话\n");
+        }
+
+        AppendOutput($"总会话数: {_sessionManager.AllSessions.Count()}\n");
+        AppendOutput("===============\n");
+    }
+
     #endregion
-
-
 
     public void OnClose()
     {
