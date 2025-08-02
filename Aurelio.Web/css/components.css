@@ -562,12 +562,12 @@
 /* Author Link with Glowing Effect */
 .author-link {
     position: relative;
-    color: var(--primary-color);
+    color: #00aaff;
     text-decoration: none;
     padding: 4px 8px;
     transition: all var(--transition-normal);
     background: linear-gradient(135deg, transparent 0%, transparent 100%);
-    border-bottom: 2px solid var(--primary-color);
+    border-bottom: 2px solid #00aaff;
 }
 
 .author-link:hover {
