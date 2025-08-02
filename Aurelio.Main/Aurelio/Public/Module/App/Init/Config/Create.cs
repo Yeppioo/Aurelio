@@ -25,5 +25,6 @@ public abstract class Create
         Setter.TryCreateFolder(ConfigPath.TempFolderPath);
         Setter.TryCreateFolder(ConfigPath.PluginUnzipFolderPath);
         Setter.TryCreateFolder(ConfigPath.PluginTempFolderPath);
+        Setter.TryCreateFolder(ConfigPath.PluginDebugFolderPath);
     }
 }

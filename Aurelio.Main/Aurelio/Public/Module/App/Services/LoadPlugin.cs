@@ -34,18 +34,31 @@ public class LoadPlugin
 
     private static void LoadAllPlugins()
     {
+        var loadedCount = 0;
+        var failedCount = 0;
+
+        // Load regular plugins (.nupkg files)
+        loadedCount += LoadNupkgPlugins(ref failedCount);
+
+        // Load debug plugins (.dll files)
+        loadedCount += LoadDebugPlugins(ref failedCount);
+
+        Logger.Info($"Plugin loading completed: {loadedCount} loaded, {failedCount} failed");
+    }
+
+    private static int LoadNupkgPlugins(ref int failedCount)
+    {
         var nupkgFiles = Getter.GetAllFilesByExtension(ConfigPath.PluginFolderPath, "*.nupkg");
 
         if (nupkgFiles.Count == 0)
         {
             Logger.Info("No plugin packages (.nupkg) found in plugin folder");
-            return;
+            return 0;
         }
 
         Logger.Info($"Found {nupkgFiles.Count} plugin packages to load");
 
         var loadedCount = 0;
-        var failedCount = 0;
 
         foreach (var nupkgFile in nupkgFiles)
         {
@@ -62,7 +75,38 @@ public class LoadPlugin
             }
         }
 
-        Logger.Info($"Plugin loading completed: {loadedCount} loaded, {failedCount} failed");
+        return loadedCount;
+    }
+
+    private static int LoadDebugPlugins(ref int failedCount)
+    {
+        if (!Directory.Exists(ConfigPath.PluginDebugFolderPath))
+        {
+            Logger.Info("Debug plugin folder does not exist, skipping debug plugin loading");
+            return 0;
+        }
+
+        var dllFiles = Getter.GetAllFilesByExtension(ConfigPath.PluginDebugFolderPath, "*.dll");
+
+        if (dllFiles.Count == 0)
+        {
+            Logger.Info("No debug plugin files (.dll) found in debug plugin folder");
+            return 0;
+        }
+
+        Logger.Info($"Found {dllFiles.Count} debug plugin files to load");
+
+        try
+        {
+            return LoadPluginsFromDirectory(ConfigPath.PluginDebugFolderPath);
+        }
+        catch (Exception e)
+        {
+            failedCount++;
+            Logger.Error($"Failed to load debug plugins: {e.Message}");
+            Logger.Error(e);
+            return 0;
+        }
     }
 
     private static void ValidatePluginDependencies()

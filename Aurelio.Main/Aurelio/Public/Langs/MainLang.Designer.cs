@@ -249,6 +249,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 聚合搜索.
+        /// </summary>
+        public static string AggregateSearch {
+            get {
+                return ResourceManager.GetString("AggregateSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 输入关键词以在Aurelio中搜索.
         /// </summary>
         public static string AggregateSearchWatermark {

@@ -150,10 +150,10 @@
                         <Run Text="( Alt + W )" />
                     </TextBlock>
                 </HyperlinkButton>
-                <HyperlinkButton Command="{Binding CloseCommand}" HorizontalAlignment="Center">
+                <HyperlinkButton Command="{Binding AggSearchCommand}" HorizontalAlignment="Center">
                     <TextBlock TextDecorations="{x:Null}">
-                        <Run Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Close}" />
-                        <Run Text="( Ctrl + W )" />
+                        <Run Text="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.AggregateSearch}" />
+                        <Run Text="( Shift + Shift )" />
                     </TextBlock>
                 </HyperlinkButton>
             </StackPanel>

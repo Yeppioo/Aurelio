@@ -726,9 +726,18 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage, IAurelioNav
         HostTab.Close();
     }
 
-    public void CloseCommand()
+    public void AggSearchCommand()
     {
-        HostTab.Close();
+        var options = new DialogOptions()
+        {
+            ShowInTaskBar = false,
+            IsCloseButtonVisible = true,
+            StartupLocation = WindowStartupLocation.Manual,
+            CanDragMove = true,
+            StyleClass = "aggregate-search"
+        };
+        Dialog.ShowCustom<AggregateSearchDialog, AggregateSearchDialog>(new AggregateSearchDialog(),
+            this.GetVisualRoot() as Window, options: options);
     }
 
     public async Task OpenFileCommand()
@@ -747,12 +756,14 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage, IAurelioNav
                 hs = true;
                 continue;
             }
+
             Notice($"{MainLang.UnsupportedFileType} {Path.GetExtension(f)}", NotificationType.Error);
         }
+
         if (hs) HostTab.Close();
     }
-    
-    
+
+
     public void OpenInNewWindowCommand()
     {
         HostTab.MoveTabToNewWindow();

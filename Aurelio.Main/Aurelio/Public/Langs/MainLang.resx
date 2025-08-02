@@ -1838,4 +1838,7 @@
   <data name="Terminal" xml:space="preserve">
     <value>终端</value>
   </data>
+  <data name="AggregateSearch" xml:space="preserve">
+    <value>聚合搜索</value>
+  </data>
 </root>
