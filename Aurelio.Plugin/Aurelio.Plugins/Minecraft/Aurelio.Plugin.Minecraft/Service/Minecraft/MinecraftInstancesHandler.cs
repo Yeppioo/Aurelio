@@ -122,7 +122,7 @@ public partial class MinecraftInstancesHandler
             foreach (var item in sortedList) category.Minecrafts.Add(item);
         }
 
-        if (Aurelio.App.UiRoot == null) return;
+        if (App.UiRoot == null) return;
         OpacityShouldAnimate?.Invoke(_instance);
     }
 
@@ -396,7 +396,7 @@ public partial class MinecraftInstancesHandler
         if (MinecraftPluginData.MinecraftPluginSettingEntry == null) return;
         if (MinecraftPluginData.MinecraftPluginSettingEntry.MinecraftInstanceSortMethod != MinecraftInstanceSortMethod.Name)
             Sort(MinecraftPluginData.MinecraftPluginSettingEntry.MinecraftInstanceSortMethod);
-        else if (Aurelio.App.UiRoot != null)
+        else if (App.UiRoot != null)
             OpacityShouldAnimate?.Invoke(_instance);
     }
 

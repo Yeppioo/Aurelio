@@ -141,7 +141,7 @@ public static class NugetSearchService
     /// </summary>
     /// <param name="package">包信息</param>
     /// <param name="sender">发送者控件</param>
-    public static async System.Threading.Tasks.Task InstallPackageAsync(NugetSearchResult package, Control? sender = null)
+    public static async Task InstallPackageAsync(NugetSearchResult package, Control? sender = null)
     {
         // 如果没有选择版本，使用最新版本
         if (string.IsNullOrEmpty(package.SelectedVersion))
@@ -151,11 +151,11 @@ public static class NugetSearchService
 
         if (string.IsNullOrEmpty(package.SelectedVersion))
         {
-            Aurelio.Public.Module.Ui.Overlay.Notice("无法获取包版本信息", NotificationType.Warning);
+            Notice("无法获取包版本信息", NotificationType.Warning);
             return;
         }
 
-        var hostId = sender != null ? Overlay.GetHostId(sender) : "MainWindow";
+        var hostId = sender != null ? GetHostId(sender) : "MainWindow";
 
         try
         {
@@ -187,7 +187,7 @@ public static class NugetSearchService
             };
 
             // 打开任务抽屉
-            _ = Overlay.OpenTaskDrawer(hostId);
+            _ = OpenTaskDrawer(hostId);
 
             // 开始下载任务
             task.NextSubTask();
@@ -200,7 +200,7 @@ public static class NugetSearchService
             // 检查文件是否已存在
             if (File.Exists(targetFilePath))
             {
-                var result = await Aurelio.Public.Module.Ui.Overlay.ShowDialogAsync(
+                var result = await ShowDialogAsync(
                     title: "插件已存在",
                     msg: $"插件 {package.Id} 已经存在，安装新版本 v{package.SelectedVersion} 将覆盖现有版本。是否继续？",
                     b_primary: "覆盖安装",
@@ -250,7 +250,7 @@ public static class NugetSearchService
             await Dispatcher.UIThread.InvokeAsync(() =>
             {
                 package.IsInstalling = false;
-                Aurelio.Public.Module.Ui.Overlay.Notice($"安装失败: {ex.Message}", NotificationType.Error);
+                Notice($"安装失败: {ex.Message}", NotificationType.Error);
             });
         }
     }
@@ -270,7 +270,7 @@ public static class NugetSearchService
 
         if (string.IsNullOrEmpty(package.SelectedVersion))
         {
-            Aurelio.Public.Module.Ui.Overlay.Notice("无法获取包版本信息", NotificationType.Warning);
+            Notice("无法获取包版本信息", NotificationType.Warning);
             return;
         }
 
@@ -327,7 +327,7 @@ public static class NugetSearchService
                 await Dispatcher.UIThread.InvokeAsync(() =>
                 {
                     package.IsDownloading = false;
-                    Aurelio.Public.Module.Ui.Overlay.Notice($"包 {package.Id} v{package.SelectedVersion} 已保存到 {savePath}", NotificationType.Success);
+                    Notice($"包 {package.Id} v{package.SelectedVersion} 已保存到 {savePath}", NotificationType.Success);
                 });
             }
             else
@@ -342,7 +342,7 @@ public static class NugetSearchService
             await Dispatcher.UIThread.InvokeAsync(() =>
             {
                 package.IsDownloading = false;
-                Aurelio.Public.Module.Ui.Overlay.Notice($"下载失败: {ex.Message}", NotificationType.Error);
+                Notice($"下载失败: {ex.Message}", NotificationType.Error);
             });
         }
     }
@@ -350,7 +350,7 @@ public static class NugetSearchService
     /// <summary>
     /// 下载包文件的通用方法
     /// </summary>
-    private static async System.Threading.Tasks.Task DownloadPackageAsync(string downloadUrl, string targetPath, TaskEntry downloadTask, CancellationToken cancellationToken)
+    private static async Task DownloadPackageAsync(string downloadUrl, string targetPath, TaskEntry downloadTask, CancellationToken cancellationToken)
     {
         var downloadConfig = new DownloadConfiguration()
         {
@@ -412,7 +412,7 @@ public static class NugetSearchService
     {
         try
         {
-            var result = await Aurelio.Public.Module.Ui.Overlay.ShowDialogAsync(
+            var result = await ShowDialogAsync(
                 title: MainLang.NeedRestartApp,
                 msg: $"{pluginName} 安装完成！为了使插件生效，需要重启 Aurelio。是否现在重启？",
                 b_primary: MainLang.RestartNow,
@@ -430,14 +430,14 @@ public static class NugetSearchService
 
                 case ContentDialogResult.Secondary:
                     // 稍后重启，显示通知
-                    Aurelio.Public.Module.Ui.Overlay.Notice($"{pluginName} 安装完成，请稍后重启 Aurelio 以应用更改", NotificationType.Success,
+                    Notice($"{pluginName} 安装完成，请稍后重启 Aurelio 以应用更改", NotificationType.Success,
                         TimeSpan.FromSeconds(5));
                     Logger.Info($"用户选择稍后重启应用以应用 {pluginName} 的安装");
                     break;
 
                 default:
                     // 取消，只显示成功通知
-                    Aurelio.Public.Module.Ui.Overlay.Notice($"{pluginName} 安装完成", NotificationType.Success);
+                    Notice($"{pluginName} 安装完成", NotificationType.Success);
                     break;
             }
         }
@@ -445,7 +445,7 @@ public static class NugetSearchService
         {
             Logger.Error($"显示重启提示时发生错误: {ex.Message}");
             // 如果对话框失败，至少显示通知
-            Aurelio.Public.Module.Ui.Overlay.Notice($"{pluginName} 安装完成，请重启 Aurelio 以应用更改", NotificationType.Success);
+            Notice($"{pluginName} 安装完成，请重启 Aurelio 以应用更改", NotificationType.Success);
         }
     }
 }

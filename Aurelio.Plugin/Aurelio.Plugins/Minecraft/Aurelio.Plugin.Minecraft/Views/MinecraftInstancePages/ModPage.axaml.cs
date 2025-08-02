@@ -39,7 +39,9 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
         get => _shortInfo;
         set => SetField(ref _shortInfo, value);
     }
-    
+
+    public Control BottomElement { get; set; }
+
     public ModPage(MinecraftEntry entry)
     {
         _entry = entry;
@@ -94,7 +96,7 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
             var title = Data.DesktopType == DesktopType.Windows
                 ? MainLang.MoveToRecycleBin
                 : MainLang.DeleteSelect;
-            var dialog = await Public.Module.Ui.Overlay.ShowDialogAsync(title, text, b_cancel: MainLang.Cancel,
+            var dialog = await ShowDialogAsync(title, text, b_cancel: MainLang.Cancel,
                 b_primary: MainLang.Ok, sender: sender as Control);
             if (dialog != ContentDialogResult.Primary) return;
 

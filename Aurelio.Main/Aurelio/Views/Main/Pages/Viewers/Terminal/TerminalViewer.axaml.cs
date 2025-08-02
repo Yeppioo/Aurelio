@@ -40,7 +40,9 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage, IAureli
         get => _shortInfo;
         set => SetField(ref _shortInfo, value);
     }
-    
+
+    public Control BottomElement { get; set; }
+
 
     public TerminalViewer()
     {
@@ -253,11 +255,11 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage, IAureli
         try
         {
             // 为整个控件设置键盘事件处理
-            this.KeyDown += OnGlobalKeyDown;
+            KeyDown += OnGlobalKeyDown;
 
             // 确保控件可以接收焦点和键盘事件
-            this.Focusable = true;
-            this.IsTabStop = true;
+            Focusable = true;
+            IsTabStop = true;
         }
         catch (Exception ex)
         {

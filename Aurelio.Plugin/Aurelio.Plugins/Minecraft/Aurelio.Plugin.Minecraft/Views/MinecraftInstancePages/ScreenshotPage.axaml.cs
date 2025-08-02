@@ -38,6 +38,8 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
         set => SetField(ref _shortInfo, value);
     }
 
+    public Control BottomElement { get; set; }
+
     public ScreenshotPage(MinecraftEntry entry)
     {
         _entry = entry;

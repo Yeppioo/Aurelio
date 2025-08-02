@@ -39,7 +39,7 @@ public class JavaRuntime
                 }
             });
 
-            Overlay.Notice(
+            Notice(
                 $"{MainLang.ScanJavaSuccess}\n{MainLang.SuccessAdd}: {successAddCount}\n{MainLang.RepeatItem}: {repeatJavaCount}",
                 NotificationType.Success);
             VerifyList();
@@ -48,7 +48,7 @@ public class JavaRuntime
         catch (Exception e)
         {
             Logger.Error(e);
-            Overlay.Notice(MainLang.OperateFailed, NotificationType.Error);
+            Notice(MainLang.OperateFailed, NotificationType.Error);
         }
     }
 
@@ -78,17 +78,17 @@ public class JavaRuntime
         catch (Exception e)
         {
             Logger.Error(e);
-            Overlay.Notice(MainLang.GetJavaInfoFail, NotificationType.Error);
+            Notice(MainLang.GetJavaInfoFail, NotificationType.Error);
         }
 
         if (javaInfo == null)
         {
-            Overlay.Notice(MainLang.GetJavaInfoFail, NotificationType.Error);
+            Notice(MainLang.GetJavaInfoFail, NotificationType.Error);
         }
         else
         {
             if (MinecraftPluginData.MinecraftPluginSettingEntry.JavaRuntimes.Contains(RecordJavaRuntime.MlToAurelio(javaInfo!)))
-                Overlay.Notice(MainLang.TheItemAlreadyExist, NotificationType.Error);
+                Notice(MainLang.TheItemAlreadyExist, NotificationType.Error);
             else
                 MinecraftPluginData.MinecraftPluginSettingEntry.JavaRuntimes.Add(RecordJavaRuntime.MlToAurelio(javaInfo!));
         }

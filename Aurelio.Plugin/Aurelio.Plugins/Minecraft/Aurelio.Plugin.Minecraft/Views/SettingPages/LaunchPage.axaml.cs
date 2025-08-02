@@ -34,6 +34,8 @@ public partial class LaunchPage : PageMixModelBase, IAurelioPage
         get => _shortInfo;
         set => SetField(ref _shortInfo, value);
     }
+
+    public Control BottomElement { get; set; }
     public Control RootElement { get; set; }
 
     private void BindingEvent()

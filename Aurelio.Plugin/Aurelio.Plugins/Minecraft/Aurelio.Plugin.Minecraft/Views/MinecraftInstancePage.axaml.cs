@@ -71,6 +71,9 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
         get => _shortInfo;
         set => SetField(ref _shortInfo, value);
     }
+
+    public Control BottomElement { get; set; }
+
     private async Task DropHandler(object? sender, DragEventArgs e)
     {
         e.Handled = true;

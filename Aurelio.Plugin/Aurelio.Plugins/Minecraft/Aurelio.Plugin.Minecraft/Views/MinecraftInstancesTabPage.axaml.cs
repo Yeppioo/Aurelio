@@ -46,6 +46,9 @@ public partial class MinecraftInstancesTabPage : PageMixModelBase, IAurelioTabPa
         get => _shortInfo;
         set => SetField(ref _shortInfo, value);
     }
+
+    public Control BottomElement { get; set; }
+
     public string SearchText
     {
         get => _searchText;

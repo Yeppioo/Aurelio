@@ -90,6 +90,9 @@ public partial class ShaderPackPage : PageMixModelBase, IAurelioPage
         get => _shortInfo;
         set => SetField(ref _shortInfo, value);
     }
+
+    public Control BottomElement { get; set; }
+
     public ShaderPackPage()
     {
     }

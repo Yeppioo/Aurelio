@@ -10,6 +10,7 @@ using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
 using Avalonia.Input;
+using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using AvaloniaEdit.Document;
@@ -44,6 +45,9 @@ public partial class CodeViewer : PageMixModelBase, IAurelioTabPage, IAurelioNav
         set => SetField(ref _shortInfo, value);
     }
 
+
+    public Control BottomElement { get; set; }
+
     public bool IsEditorModfied
     {
         get => _isEditorModfied;
@@ -66,6 +70,40 @@ public partial class CodeViewer : PageMixModelBase, IAurelioTabPage, IAurelioNav
         }
     }
 
+    private void UpdateSelectionInfo(TextBlock selectionTextBlock)
+    {
+        var document = Editor.Document;
+        var totalLines = document.LineCount;
+        var totalColumns = 0;
+
+        // 计算最大列数（考虑自动换行）
+        for (int i = 1; i <= totalLines; i++)
+        {
+            var line = document.GetLineByNumber(i);
+            var lineLength = line.Length;
+            if (lineLength > totalColumns)
+                totalColumns = lineLength;
+        }
+
+        // 只显示总行数:总列数
+        string baseInfo = $"{totalLines}:{totalColumns}";
+
+        // 检查是否有选中内容
+        var selectedText = Editor.SelectedText;
+        var selectionLength = selectedText?.Length ?? 0;
+
+        if (selectionLength > 0)
+        {
+            // 计算选中的行数
+            var selectedLines = selectedText.Split('\n').Length;
+            selectionTextBlock.Text = $"{baseInfo} ({selectionLength} 字符, {selectedLines} 行)";
+        }
+        else
+        {
+            selectionTextBlock.Text = baseInfo;
+        }
+    }
+
     public CodeViewer()
     {
     }
@@ -84,6 +122,29 @@ public partial class CodeViewer : PageMixModelBase, IAurelioTabPage, IAurelioNav
             Icon = StreamGeometry.Parse(
                 "M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z")
         };
+
+        var selection = new TextBlock()
+        {
+            Classes = { "eq-width" }, FontSize = 12.5, VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Right,
+        };
+
+        BottomElement = new DockPanel()
+        {
+            Children =
+            {
+                selection
+            }
+        };
+
+        Editor.TextChanged += (_, _) => { UpdateSelectionInfo(selection); };
+
+        // 监控选中内容更改
+        Editor.TextArea.SelectionChanged += (_, e) =>
+        {
+            UpdateSelectionInfo(selection);
+        };
+        
         DataContext = this;
         Editor.Document = new TextDocument(new StringTextSource(File.ReadAllText(path)));
         var _registryOptions = new RegistryOptions(ThemeName.DarkPlus);
@@ -98,6 +159,7 @@ public partial class CodeViewer : PageMixModelBase, IAurelioTabPage, IAurelioNav
         {
             // ignored
         }
+
 
         Editor.TextArea.TextView.LinkTextForegroundBrush = new SolidColorBrush(Color.FromRgb(84, 169, 255));
         Editor.TextArea.SelectionBrush = new SolidColorBrush(Color.Parse("#3E3574F0"));

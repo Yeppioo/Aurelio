@@ -28,7 +28,7 @@ public class MinecraftLocalSaveEntry : ReactiveObject
         var title = Data.DesktopType == DesktopType.Windows
             ? MainLang.MoveToRecycleBin
             : MainLang.DeleteSelect;
-        var dialog = await Overlay.ShowDialogAsync(title, text, b_cancel: MainLang.Cancel,
+        var dialog = await ShowDialogAsync(title, text, b_cancel: MainLang.Cancel,
             b_primary: MainLang.Ok, sender: sender);
         if (dialog != ContentDialogResult.Primary) return;
 
@@ -53,7 +53,7 @@ public class MinecraftLocalSaveEntry : ReactiveObject
             $"{MainLang.LastModifiedTime}: {SaveInfo.LastWriteTime}\n" +
             $"{MainLang.PlayerCount}: {SaveInfo.DatFileCount}\n" +
             $"{MainLang.DataPackCount}: {SaveInfo.ZipFileCount}";
-        await Overlay.ShowDialogAsync(MainLang.SaveInfo, text, b_primary: MainLang.Ok, sender: sender);
+        await ShowDialogAsync(MainLang.SaveInfo, text, b_primary: MainLang.Ok, sender: sender);
         Callback?.Invoke();
     }
 

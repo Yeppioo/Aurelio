@@ -49,7 +49,7 @@ public class LoadedPluginEntry : ReactiveObject
             return;
         }
 
-        var hostId = sender != null ? Overlay.GetHostId(sender) : "MainWindow";
+        var hostId = sender != null ? GetHostId(sender) : "MainWindow";
 
         try
         {
@@ -78,7 +78,7 @@ public class LoadedPluginEntry : ReactiveObject
             };
 
             // 打开任务抽屉
-            _ = Overlay.OpenTaskDrawer(hostId);
+            _ = OpenTaskDrawer(hostId);
 
             // 开始第一个子任务
             task.NextSubTask();
@@ -151,7 +151,7 @@ public class LoadedPluginEntry : ReactiveObject
                     {
                         Logger.Error($"下载 {package.Id} 失败: {args.Error.Message}");
                         task.FinishWithError();
-                        Overlay.Notice($"{MainLang.DownloadFail}: {args.Error.Message}");
+                        Notice($"{MainLang.DownloadFail}: {args.Error.Message}");
                         return;
                     }
 
@@ -167,7 +167,7 @@ public class LoadedPluginEntry : ReactiveObject
                     {
                         Logger.Error($"处理包更新失败: {ex.Message}");
                         task.FinishWithError();
-                        Overlay.Notice($"更新失败: {ex.Message}");
+                        Notice($"更新失败: {ex.Message}");
                     }
                 });
             };
@@ -178,14 +178,14 @@ public class LoadedPluginEntry : ReactiveObject
         catch (Exception ex)
         {
             Logger.Error($"更新 {package.Id} 时发生错误: {ex.Message}");
-            Overlay.Notice($"更新失败: {ex.Message}");
+            Notice($"更新失败: {ex.Message}");
         }
     }
 
     /// <summary>
     /// 处理包更新的后续步骤：解压、替换、清理
     /// </summary>
-    private async System.Threading.Tasks.Task ProcessPackageUpdate(string tempFilePath, string originalFilePath,
+    private async Task ProcessPackageUpdate(string tempFilePath, string originalFilePath,
         TaskEntry extractSubTask, TaskEntry replaceSubTask, TaskEntry cleanupSubTask, TaskEntry mainTask, NugetPackage package)
     {
         try
@@ -197,7 +197,7 @@ public class LoadedPluginEntry : ReactiveObject
             var tempExtractPath = Path.Combine(ConfigPath.TempFolderPath, $"extract_{Guid.NewGuid()}");
             Setter.TryCreateFolder(tempExtractPath);
 
-            await System.Threading.Tasks.Task.Run(() =>
+            await Task.Run(() =>
             {
                 using var archive = ZipFile.OpenRead(tempFilePath);
                 archive.ExtractToDirectory(tempExtractPath, true);
@@ -210,7 +210,7 @@ public class LoadedPluginEntry : ReactiveObject
             replaceSubTask.TaskState = TaskState.Running;
             replaceSubTask.ProgressIsIndeterminate = true;
 
-            await System.Threading.Tasks.Task.Run(() =>
+            await Task.Run(() =>
             {
                 // 备份原文件
                 var backupPath = originalFilePath + ".backup";
@@ -237,7 +237,7 @@ public class LoadedPluginEntry : ReactiveObject
             cleanupSubTask.TaskState = TaskState.Running;
             cleanupSubTask.ProgressIsIndeterminate = true;
 
-            await System.Threading.Tasks.Task.Run(() =>
+            await Task.Run(() =>
             {
                 // 清理临时文件
                 if (File.Exists(tempFilePath))
@@ -385,7 +385,7 @@ public class LoadedPluginEntry : ReactiveObject
     {
         try
         {
-            var result = await Overlay.ShowDialogAsync(
+            var result = await ShowDialogAsync(
                 title: MainLang.NeedRestartApp,
                 msg: $"{Plugin.Name} {MainLang.UpdateCompleteRestartPrompt}",
                 b_primary: MainLang.RestartNow,
@@ -403,14 +403,14 @@ public class LoadedPluginEntry : ReactiveObject
 
                 case ContentDialogResult.Secondary:
                     // 稍后重启，显示通知
-                    Overlay.Notice($"{Plugin.Name} 更新完成，请稍后重启 Aurelio 以应用更新", NotificationType.Success,
+                    Notice($"{Plugin.Name} 更新完成，请稍后重启 Aurelio 以应用更新", NotificationType.Success,
                         TimeSpan.FromSeconds(5));
                     Logger.Info($"用户选择稍后重启应用以应用 {Plugin.Name} 的更新");
                     break;
 
                 default:
                     // 取消，只显示成功通知
-                    Overlay.Notice($"{Plugin.Name} 更新完成", NotificationType.Success);
+                    Notice($"{Plugin.Name} 更新完成", NotificationType.Success);
                     break;
             }
         }
@@ -418,7 +418,7 @@ public class LoadedPluginEntry : ReactiveObject
         {
             Logger.Error($"显示重启提示时发生错误: {ex.Message}");
             // 如果对话框失败，至少显示通知
-            Overlay.Notice($"{Plugin.Name} 更新完成，请重启 Aurelio 以应用更新", NotificationType.Success);
+            Notice($"{Plugin.Name} 更新完成，请重启 Aurelio 以应用更新", NotificationType.Success);
         }
     }
 
@@ -426,7 +426,7 @@ public class LoadedPluginEntry : ReactiveObject
     /// 删除插件
     /// </summary>
     /// <param name="sender">发送者控件，用于获取宿主ID</param>
-    public async System.Threading.Tasks.Task DeletePlugin(Control? sender = null)
+    public async Task DeletePlugin(Control? sender = null)
     {
         try
         {
@@ -435,7 +435,7 @@ public class LoadedPluginEntry : ReactiveObject
                 ? MainLang.MoveToRecycleBin
                 : MainLang.DeleteSelect;
 
-            var result = await Overlay.ShowDialogAsync(
+            var result = await ShowDialogAsync(
                 title: title,
                 msg: $"确定要删除插件 {Plugin.Name} 吗？\n\n• {Plugin.Name} v{Plugin.Version}\n• {Plugin.Id}",
                 b_primary: MainLang.Ok,
@@ -452,7 +452,7 @@ public class LoadedPluginEntry : ReactiveObject
             var pluginFilePath = FindOriginalNupkgFile(Plugin.Id);
             if (string.IsNullOrEmpty(pluginFilePath) || !File.Exists(pluginFilePath))
             {
-                Overlay.Notice($"未找到插件文件: {Plugin.Id}", NotificationType.Error);
+                Notice($"未找到插件文件: {Plugin.Id}", NotificationType.Error);
                 Logger.Error($"未找到插件文件: {Plugin.Id}");
                 return;
             }
@@ -479,7 +479,7 @@ public class LoadedPluginEntry : ReactiveObject
         catch (Exception ex)
         {
             Logger.Error($"删除插件 {Plugin.Name} 时发生错误: {ex.Message}");
-            Overlay.Notice($"删除插件失败: {ex.Message}", NotificationType.Error);
+            Notice($"删除插件失败: {ex.Message}", NotificationType.Error);
         }
     }
 
@@ -490,7 +490,7 @@ public class LoadedPluginEntry : ReactiveObject
     {
         try
         {
-            var result = await Overlay.ShowDialogAsync(
+            var result = await ShowDialogAsync(
                 title: MainLang.NeedRestartApp,
                 msg: $"{Plugin.Name} 删除完成！为了使更改生效，需要重启 Aurelio。是否现在重启？",
                 b_primary: MainLang.RestartNow,
@@ -508,14 +508,14 @@ public class LoadedPluginEntry : ReactiveObject
 
                 case ContentDialogResult.Secondary:
                     // 稍后重启，显示通知
-                    Overlay.Notice($"{Plugin.Name} 删除完成，请稍后重启 Aurelio 以应用更改", NotificationType.Success,
+                    Notice($"{Plugin.Name} 删除完成，请稍后重启 Aurelio 以应用更改", NotificationType.Success,
                         TimeSpan.FromSeconds(5));
                     Logger.Info($"用户选择稍后重启应用以应用 {Plugin.Name} 的删除");
                     break;
 
                 default:
                     // 取消，只显示成功通知
-                    Overlay.Notice($"{Plugin.Name} 删除完成", NotificationType.Success);
+                    Notice($"{Plugin.Name} 删除完成", NotificationType.Success);
                     break;
             }
         }
@@ -523,7 +523,7 @@ public class LoadedPluginEntry : ReactiveObject
         {
             Logger.Error($"显示重启提示时发生错误: {ex.Message}");
             // 如果对话框失败，至少显示通知
-            Overlay.Notice($"{Plugin.Name} 删除完成，请重启 Aurelio 以应用更改", NotificationType.Success);
+            Notice($"{Plugin.Name} 删除完成，请重启 Aurelio 以应用更改", NotificationType.Success);
         }
     }
 }

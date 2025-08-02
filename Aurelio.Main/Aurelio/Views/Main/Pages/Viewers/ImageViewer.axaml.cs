@@ -51,6 +51,9 @@ public partial class ImageViewer : PageMixModelBase, IAurelioTabPage, IAurelioNa
         get => _shortInfo;
         set => SetField(ref _shortInfo, value);
     }
+
+    public Control BottomElement { get; set; }
+
     public ImageViewer()
     {
     }

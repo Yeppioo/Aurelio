@@ -92,14 +92,14 @@ public class Account
                             catch (Exception e)
                             {
                                 Logger.Error(e);
-                                Overlay.Notice(MainLang.OperateFailed, NotificationType.Error);
+                                Notice(MainLang.OperateFailed, NotificationType.Error);
                             }
 
                             AppMethod.SaveSetting();
                         }
                         else
                         {
-                            Overlay.Notice(MainLang.AccountNameCannotBeNull, NotificationType.Error);
+                            Notice(MainLang.AccountNameCannotBeNull, NotificationType.Error);
                         }
                     }
 
@@ -125,14 +125,14 @@ public class Account
                         IsPrimaryButtonEnabled = false,
                         IsSecondaryButtonEnabled = false
                     };
-                    MicrosoftAuthenticator authenticator = new(Aurelio.Public.Const.Config.AzureClientId);
+                    MicrosoftAuthenticator authenticator = new(Public.Const.Config.AzureClientId);
                     microsoftDialog.PrimaryButtonClick += async (_, _) =>
                     {
                         var clipboard = TopLevel.GetTopLevel(sender)?.Clipboard;
                         await clipboard.SetTextAsync(textBlock.Text);
                         var launcher = TopLevel.GetTopLevel(sender).Launcher;
                         await launcher.LaunchUriAsync(new Uri(verificationUrl));
-                        Overlay.Notice(MainLang.WaitForMicrosoftVerification);
+                        Notice(MainLang.WaitForMicrosoftVerification);
                     };
                     microsoftDialog.SecondaryButtonClick += (_, _) =>
                     {
@@ -184,13 +184,13 @@ public class Account
                     }
                     catch (Exception ex)
                     {
-                        Overlay.ShowShortException(MainLang.LoginFail, ex);
+                        ShowShortException(MainLang.LoginFail, ex);
                         return;
                     }
 
                     try
                     {
-                        Overlay.Notice(MainLang.VerifyingAccount);
+                        Notice(MainLang.VerifyingAccount);
                         MicrosoftSkinFetcher skinFetcher = new(userProfile.Uuid.ToString());
                         var bytes = await skinFetcher.GetSkinAsync();
                         var now = DateTime.Now;
@@ -205,11 +205,11 @@ public class Account
                         AppMethod.SaveSetting();
                         if (TopLevel.GetTopLevel(sender) is Window window) window.Activate();
 
-                        Overlay.Notice($"{MainLang.LoginSucess}: {userProfile.Name}");
+                        Notice($"{MainLang.LoginSucess}: {userProfile.Name}");
                     }
                     catch (Exception ex)
                     {
-                        Overlay.ShowShortException(MainLang.LoginFail, ex);
+                        ShowShortException(MainLang.LoginFail, ex);
                     }
 
                     AppMethod.SaveSetting();
@@ -263,19 +263,19 @@ public class Account
             var reInput = false;
             if (string.IsNullOrWhiteSpace(server) && string.IsNullOrWhiteSpace(server))
             {
-                Overlay.Notice(MainLang.YggdrasilServerUrlIsEmpty, NotificationType.Error);
+                Notice(MainLang.YggdrasilServerUrlIsEmpty, NotificationType.Error);
                 reInput = true;
             }
 
             if (string.IsNullOrWhiteSpace(email) && string.IsNullOrWhiteSpace(email))
             {
-                Overlay.Notice(MainLang.YggdrasilEmailIsEmpty, NotificationType.Error);
+                Notice(MainLang.YggdrasilEmailIsEmpty, NotificationType.Error);
                 reInput = true;
             }
 
             if (string.IsNullOrWhiteSpace(password) && string.IsNullOrWhiteSpace(password))
             {
-                Overlay.Notice(MainLang.YggdrasilPasswordIsEmpty, NotificationType.Error);
+                Notice(MainLang.YggdrasilPasswordIsEmpty, NotificationType.Error);
                 reInput = true;
             }
 
@@ -289,12 +289,12 @@ public class Account
                 try
                 {
                     YggdrasilAuthenticator authenticator = new(server, email, password);
-                    Overlay.Notice(MainLang.VerifyingAccount);
+                    Notice(MainLang.VerifyingAccount);
                     yggdrasilAccounts = (await authenticator.AuthenticateAsync()).ToList();
                 }
                 catch (Exception ex)
                 {
-                    Overlay.ShowShortException(MainLang.LoginFail, ex);
+                    ShowShortException(MainLang.LoginFail, ex);
                     return;
                 }
 
@@ -339,7 +339,7 @@ public class Account
                 }
                 catch (Exception ex)
                 {
-                    Overlay.ShowShortException(MainLang.LoginFail, ex);
+                    ShowShortException(MainLang.LoginFail, ex);
                 }
             }
         }

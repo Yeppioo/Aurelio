@@ -49,7 +49,7 @@ public partial class MinecraftClientLauncher
             Logger.Error(e);
             if (e.Message.StartsWith("No suitable version of Java found to start this game"))
             {
-                _ = Overlay.ShowDialogAsync(MainLang.LaunchFail, MainLang.CannotFindJavaTip
+                _ = ShowDialogAsync(MainLang.LaunchFail, MainLang.CannotFindJavaTip
                         .Replace("{mcVer}", entry.MlEntry.Version.VersionId)
                         .Replace("{javaVer}", entry.MlEntry.GetAppropriateJavaVersion().ToString()),
                     b_primary: MainLang.Ok, sender: sender);
@@ -65,7 +65,7 @@ public partial class MinecraftClientLauncher
             MinecraftInstancesHandler.Sort(MinecraftInstanceSortMethod.LastPlayed);
         }
 
-        Overlay.Notice($"{MainLang.Launch}: {entry.Id}");
+        Notice($"{MainLang.Launch}: {entry.Id}");
         var task = Tasking.CreateTask($"{entry.ParentMinecraftFolder.Name}/{entry.Id}");
         task.ButtonText = MainLang.Cancel;
         task.IsButtonEnable = true;
@@ -84,7 +84,7 @@ public partial class MinecraftClientLauncher
         task.NextSubTask();
         task.NextSubTask();
 
-        _ = Overlay.OpenTaskDrawer(host!);
+        _ = OpenTaskDrawer(host!);
 
         Account? account;
         var usingAccount = MinecraftPluginData.MinecraftPluginSettingEntry.UsingMinecraftAccount;
@@ -98,7 +98,7 @@ public partial class MinecraftClientLauncher
                 }
                 else
                 {
-                    Overlay.Notice(MainLang.AccountError, NotificationType.Error);
+                    Notice(MainLang.AccountError, NotificationType.Error);
                     task.FinishWithError();
                     return;
                 }
@@ -120,7 +120,7 @@ public partial class MinecraftClientLauncher
                         return;
                     }
 
-                    Overlay.ShowShortException(MainLang.LoginFail, ex);
+                    ShowShortException(MainLang.LoginFail, ex);
                     task.FinishWithError();
                     return;
                 }
@@ -136,14 +136,14 @@ public partial class MinecraftClientLauncher
 
         if (task.IsCancelRequest)
         {
-            Overlay.Notice($"{MainLang.Canceled}: {MainLang.Launch} - {entry.Id}", NotificationType.Success);
+            Notice($"{MainLang.Canceled}: {MainLang.Launch} - {entry.Id}", NotificationType.Success);
             task.CancelFinish();
             return;
         }
 
         if (account == null)
         {
-            Overlay.Notice(MainLang.AccountError, NotificationType.Error);
+            Notice(MainLang.AccountError, NotificationType.Error);
             task.FinishWithError();
         }
         
@@ -209,7 +209,7 @@ public partial class MinecraftClientLauncher
                                 }
                             }
                             
-                            Overlay.Notice($"{MainLang.GameExited} - {entry.Id}", NotificationType.Warning);
+                            Notice($"{MainLang.GameExited} - {entry.Id}", NotificationType.Warning);
                             logViewer.AddLog("Aurelio", LogType.Info, $"{MainLang.GameExited} - {entry.Id}");
                             task.FinishWithSuccess();
                         });
@@ -245,17 +245,17 @@ public partial class MinecraftClientLauncher
                     await Dispatcher.UIThread.InvokeAsync(() =>
                     {
                         task.NextSubTask();
-                        Overlay.Notice($"{MainLang.LaunchFinish} - {entry.Id}", NotificationType.Success);
+                        Notice($"{MainLang.LaunchFinish} - {entry.Id}", NotificationType.Success);
                         task.OperateButtons.Add(new OperateButtonEntry(MainLang.DisplayLaunchArguments,
                             async void (_) =>
                             {
-                                var dialog = await Overlay.ShowDialogAsync(MainLang.LaunchArguments,
+                                var dialog = await ShowDialogAsync(MainLang.LaunchArguments,
                                     string.Join(" \n", process.ArgumentList), b_cancel: MainLang.Ok,
                                     b_primary: MainLang.Copy , sender: sender);
                                 if (dialog != ContentDialogResult.Primary) return;
-                                var clipboard = Aurelio.App.TopLevel.Clipboard;
+                                var clipboard = App.TopLevel.Clipboard;
                                 await clipboard.SetTextAsync(copyArguments);
-                                Overlay.Notice(MainLang.AlreadyCopyToClipBoard, NotificationType.Success);
+                                Notice(MainLang.AlreadyCopyToClipBoard, NotificationType.Success);
                             }));
                         task.OperateButtons.Add(new OperateButtonEntry(MainLang.KillProcess, void (_) =>
                         {
@@ -322,7 +322,7 @@ public partial class MinecraftClientLauncher
                 {
                     await Dispatcher.UIThread.InvokeAsync(() =>
                     {
-                        Overlay.ShowShortException(MainLang.LaunchFail, ex);
+                        ShowShortException(MainLang.LaunchFail, ex);
                         task.FinishWithError();
                     });
                 }
@@ -330,7 +330,7 @@ public partial class MinecraftClientLauncher
         }
         catch (OperationCanceledException)
         {
-            Overlay.Notice($"{MainLang.Canceled}: {MainLang.Launch} - {entry.Id}", NotificationType.Warning);
+            Notice($"{MainLang.Canceled}: {MainLang.Launch} - {entry.Id}", NotificationType.Warning);
             task.CancelFinish();
         }
     }
@@ -355,17 +355,17 @@ public partial class MinecraftClientLauncher
         }
         else
         {
-            if (Aurelio.App.UiRoot.ViewModel.Tabs.Contains(tab))
+            if (App.UiRoot.ViewModel.Tabs.Contains(tab))
             {
-                if (Aurelio.App.UiRoot.ViewModel.SelectedTab == tab)
+                if (App.UiRoot.ViewModel.SelectedTab == tab)
                     tab.Content.InAnimator.Animate();
                 else
-                    Aurelio.App.UiRoot.ViewModel.SelectedTab = tab;
+                    App.UiRoot.ViewModel.SelectedTab = tab;
             }
             else
             {
-                Aurelio.App.UiRoot.ViewModel.Tabs.Add(tab);
-                Aurelio.App.UiRoot.ViewModel.SelectedTab = tab;
+                App.UiRoot.ViewModel.Tabs.Add(tab);
+                App.UiRoot.ViewModel.SelectedTab = tab;
             }
         }
     }

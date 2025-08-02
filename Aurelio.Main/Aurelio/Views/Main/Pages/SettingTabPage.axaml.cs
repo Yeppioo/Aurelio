@@ -43,6 +43,8 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage, IAureli
         set => SetField(ref _shortInfo, value);
     }
 
+    public Control BottomElement { get; set; }
+
     public SelectionListItem? SelectedItem
     {
         get => _selectedItem;

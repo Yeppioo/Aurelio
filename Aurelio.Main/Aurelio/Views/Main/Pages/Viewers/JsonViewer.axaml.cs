@@ -222,6 +222,7 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage, IAurelioNav
         return new JsonViewer(jsonContent, title, autoParseJson);
     }
 
+    public Control BottomElement { get; set; }
     public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
     public TabEntry HostTab { get; set; }

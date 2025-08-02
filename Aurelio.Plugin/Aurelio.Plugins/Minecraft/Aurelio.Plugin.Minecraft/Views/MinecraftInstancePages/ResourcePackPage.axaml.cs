@@ -98,7 +98,9 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
         get => _shortInfo;
         set => SetField(ref _shortInfo, value);
     }
-    
+
+    public Control BottomElement { get; set; }
+
     public ResourcePackPage()
     {
         InitializeComponent();

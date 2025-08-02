@@ -50,6 +50,9 @@ public partial class Render3DSkin : PageMixModelBase, IAurelioTabPage
         get => _shortInfo;
         set => SetField(ref _shortInfo, value);
     }
+
+    public Control BottomElement { get; set; }
+
     public Render3DSkin()
     {
     }

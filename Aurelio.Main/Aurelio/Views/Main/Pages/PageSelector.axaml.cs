@@ -39,7 +39,7 @@ namespace Aurelio.Views.Main.Pages
             // 监听窗口大小变化
             Root.PropertyChanged += (sender, e) =>
             {
-                if (e.Property == Visual.BoundsProperty)
+                if (e.Property == BoundsProperty)
                 {
                     var newWidth = Root?.Bounds.Width ?? 800;
                     if (Math.Abs(_containerWidth - newWidth) > 1)
@@ -61,6 +61,7 @@ namespace Aurelio.Views.Main.Pages
             new(ZipViewer.StaticPageInfo, ZipViewer.Create)
         ];
 
+        public Control BottomElement { get; set; }
         public Control RootElement { get; set; }
         public PageLoadingAnimator InAnimator { get; set; }
         public TabEntry HostTab { get; set; }

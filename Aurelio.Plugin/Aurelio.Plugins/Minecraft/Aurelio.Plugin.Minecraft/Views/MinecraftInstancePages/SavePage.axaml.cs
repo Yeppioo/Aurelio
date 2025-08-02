@@ -99,6 +99,8 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
         set => SetField(ref _shortInfo, value);
     }
 
+    public Control BottomElement { get; set; }
+
     public SavePage()
     {
     }

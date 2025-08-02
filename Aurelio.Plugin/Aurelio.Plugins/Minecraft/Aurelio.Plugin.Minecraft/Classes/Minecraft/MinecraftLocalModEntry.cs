@@ -45,7 +45,7 @@ public class MinecraftLocalModEntry : ReactiveObject
         var title = Data.DesktopType == DesktopType.Windows
             ? MainLang.MoveToRecycleBin
             : MainLang.DeleteSelect;
-        var dialog = await Overlay.ShowDialogAsync(title, text, b_cancel: MainLang.Cancel,
+        var dialog = await ShowDialogAsync(title, text, b_cancel: MainLang.Cancel,
             b_primary: MainLang.Ok, sender: sender);
         if (dialog != ContentDialogResult.Primary) return;
 

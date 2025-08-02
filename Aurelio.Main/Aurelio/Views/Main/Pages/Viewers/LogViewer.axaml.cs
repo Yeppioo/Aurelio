@@ -35,6 +35,9 @@ public partial class LogViewer : PageMixModelBase, IAurelioTabPage, IAurelioNavP
         get => _shortInfo;
         set => SetField(ref _shortInfo, value);
     }
+
+    public Control BottomElement { get; set; }
+
     public LogViewer(string title)
     {
         InitializeComponent();

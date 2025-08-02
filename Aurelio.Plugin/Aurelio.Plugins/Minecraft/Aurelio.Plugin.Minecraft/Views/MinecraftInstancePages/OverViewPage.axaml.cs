@@ -43,6 +43,8 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
         get => _shortInfo;
         set => SetField(ref _shortInfo, value);
     }
+
+    public Control BottomElement { get; set; }
     public RecordMinecraftEntry Entry { get; }
     public ObservableCollection<RecordJavaRuntime> JavaRuntimes { get; } = [];
 
@@ -86,7 +88,7 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
     public async void EditMinecraftIdCommand(Control sender)
     {
         var text = new TextBox { Text = Entry.Id };
-        var d = await Overlay.ShowDialogAsync(MainLang.Rename, p_content: text, b_primary: MainLang.Ok,
+        var d = await ShowDialogAsync(MainLang.Rename, p_content: text, b_primary: MainLang.Ok,
             b_cancel: MainLang.Cancel, sender: sender);
         if (d != ContentDialogResult.Primary) return;
     }
@@ -94,7 +96,7 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
     public async void CreateNewTagCommand(Control sender)
     {
         var text = new TextBox { Watermark = MainLang.Name };
-        var d = await Overlay.ShowDialogAsync(MainLang.New, p_content: text, b_primary: MainLang.Ok,
+        var d = await ShowDialogAsync(MainLang.New, p_content: text, b_primary: MainLang.Ok,
             b_cancel: MainLang.Cancel, sender: sender);
         if (d != ContentDialogResult.Primary || text.Text.IsNullOrWhiteSpace()) return;
 
@@ -103,14 +105,14 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
         // 验证标签名称
         if (!Entry.SettingEntry.IsValidTagName(newTag))
         {
-            Overlay.Notice(MainLang.IncludeSpecialWord, NotificationType.Error);
+            Notice(MainLang.IncludeSpecialWord, NotificationType.Error);
             return;
         }
 
         // 检查是否已存在
         if (Entry.SettingEntry.Tags.Contains(newTag))
         {
-            Overlay.Notice($"{newTag} - {MainLang.TheItemAlreadyExist}", NotificationType.Warning);
+            Notice($"{newTag} - {MainLang.TheItemAlreadyExist}", NotificationType.Warning);
             return;
         }
 
