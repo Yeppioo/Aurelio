@@ -33,9 +33,6 @@ public class UiProperty : ReactiveObject
     public static IAurelioWindow ActiveWindow => (Application.Current!.ApplicationLifetime as
         IClassicDesktopStyleApplicationLifetime).Windows.FirstOrDefault
         (x => x.IsActive) as IAurelioWindow ?? App.UiRoot;
-
-    /*<ComboBoxItem Content="NewTab" Tag="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.NewTab}" />
-                                    <ComboBoxItem Content="Setting" Tag="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.Setting}" />*/
-
+    
     public static ObservableCollection<LaunchPageEntry> LaunchPages { get; } = [];
 }

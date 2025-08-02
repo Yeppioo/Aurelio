@@ -28,6 +28,7 @@ public abstract class AfterUiLoaded
         if (Data.SettingEntry.AutoCheckUpdate && Data.Instance.Version != "vDebug")
             _ = AurelioPage.ShowUpdateDialogIfNeed();
         PageNav.Main();
+        AppExit.Main();
         InitEvents.OnAfterUiLoaded();
     }
 }

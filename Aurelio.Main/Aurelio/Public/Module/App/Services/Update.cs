@@ -8,6 +8,7 @@ using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.IO.Http;
+using Aurelio.Public.Module.Plugin.Events;
 using Avalonia.Controls.Notifications;
 using Avalonia.Threading;
 using Downloader;
@@ -103,7 +104,7 @@ public class Update
 
         downloader.DownloadFileCompleted += (_, args) =>
         {
-            Dispatcher.UIThread.InvokeAsync(() =>
+            Dispatcher.UIThread.InvokeAsync(async () =>
             {
                 if (args.Cancelled)
                 {
@@ -123,6 +124,7 @@ public class Update
                         Notice($"{MainLang.DownloadFinish}: {file}", NotificationType.Success);
                         task.NextSubTask();
 
+                        if (!await AppEvents.OnAppExiting()) return;
                         var startInfo = new ProcessStartInfo
                         {
                             UseShellExecute = true,

@@ -6,6 +6,7 @@ using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Views.Main;
@@ -292,7 +293,7 @@ public partial class MinecraftClientLauncher
                             switch (MinecraftPluginData.MinecraftPluginSettingEntry.WindowVisibility)
                             {
                                 case Classes.Enum.Setting.WindowVisibility.AfterLaunchExit:
-                                    Environment.Exit(0);
+                                    AppMethod.TryExitApp();
                                     break;
                                 case Classes.Enum.Setting.WindowVisibility.AfterLaunchMakeMinimize:
                                 case Classes.Enum.Setting.WindowVisibility.AfterLaunchMinimizeAndShowWhenGameExit:

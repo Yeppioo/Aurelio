@@ -396,7 +396,7 @@ public partial class JsonViewer : PageMixModelBase, IAurelioTabPage, IAurelioNav
             }
 
             var jsonObject = JToken.Parse(RawJsonText);
-            RawJsonText = jsonObject.ToString(Newtonsoft.Json.Formatting.Indented);
+            RawJsonText = jsonObject.ToString(Formatting.Indented);
             Notice("JSON格式化成功", NotificationType.Success);
         }
         catch (JsonException ex)

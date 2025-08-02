@@ -20,8 +20,9 @@ public class AppMethod
         _debouncer.Trigger();
     }
 
-    public static void RestartApp(bool isAdmin = false)
+    public static async void RestartApp(bool isAdmin = false)
     {
+        if (!await AppEvents.OnAppExiting()) return;
         var startInfo = new ProcessStartInfo
         {
             UseShellExecute = true,
@@ -30,6 +31,12 @@ public class AppMethod
         };
         if (isAdmin) startInfo.Verb = "runas";
         Process.Start(startInfo);
+        Environment.Exit(0);
+    }
+
+    public static async void TryExitApp()
+    {
+        if (!await AppEvents.OnAppExiting()) return;
         Environment.Exit(0);
     }
 }

@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Avalonia.Input;
 
@@ -12,11 +14,22 @@ public class AppEvents
         SaveSettings?.Invoke(null, EventArgs.Empty);
     }
 
-    public static event EventHandler? AppExiting;
+    public static event EventsHandler.AppExitingHandler? AppExiting;
 
-    internal static void OnAppExiting()
+    internal static async Task<bool> OnAppExiting()
     {
-        AppExiting?.Invoke(null, EventArgs.Empty);
+        var canExit = true;
+
+        if (AppExiting == null) return canExit;
+        foreach (var @delegate in AppExiting.GetInvocationList())
+        {
+            var handler = (EventsHandler.AppExitingHandler)@delegate;
+            if (await handler.Invoke()) continue;
+            canExit = false;
+            break;
+        }
+
+        return canExit;
     }
 
     public static event EventsHandler.AppDragDropHandler? AppDragDrop;

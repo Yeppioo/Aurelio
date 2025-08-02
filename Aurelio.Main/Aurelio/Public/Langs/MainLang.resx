@@ -1829,4 +1829,7 @@
   <data name="PageNav" xml:space="preserve">
     <value>页面导航</value>
   </data>
+  <data name="Format" xml:space="preserve">
+    <value>格式化</value>
+  </data>
 </root>

@@ -34,6 +34,7 @@ namespace Aurelio.Views.Main;
 public partial class MainWindow : UrsaWindow, IAurelioWindow
 {
     public TitleBar WindowTitleBar => TitleBar;
+
     public MainWindow()
     {
 #if DEBUG
@@ -205,7 +206,7 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
                 ? w1.DialogHost.HostId
                 : "MainWindow";
             _ = OpenTaskDrawer(host1!);
-            
+
 /*
             if (e.GetCurrentPoint(this).Properties.IsRightButtonPressed)
             {
@@ -358,10 +359,11 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
         }
     }
 
-    private void OnMainWindowClosing(object? sender, WindowClosingEventArgs e)
+    private async void OnMainWindowClosing(object? sender, WindowClosingEventArgs e)
     {
         // If this is the main window closing and there are other TabWindows open,
         // we should handle the scenario appropriately
+        if (!await AppEvents.OnAppExiting()) return;
         TabDragDropService.UnregisterWindow(this);
         Environment.Exit(0);
     }

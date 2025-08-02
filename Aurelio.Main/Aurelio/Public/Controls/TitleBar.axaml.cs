@@ -1,3 +1,4 @@
+using Aurelio.Public.Module.App;
 using Aurelio.Public.ViewModels;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -128,7 +129,7 @@ public partial class TitleBar : PageMixModelBase
         if (sender is not Button button) return;
         if (IsCloseBtnExitApp)
         {
-            Environment.Exit(0);
+            AppMethod.TryExitApp();
         }
         else
         {
