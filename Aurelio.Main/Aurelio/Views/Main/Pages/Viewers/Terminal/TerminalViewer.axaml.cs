@@ -16,7 +16,7 @@ using AvaloniaEdit.Document;
 
 namespace Aurelio.Views.Main.Pages.Viewers.Terminal;
 
-public partial class TerminalNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
+public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
 {
     private readonly TerminalSessionManager _sessionManager = new();
     private readonly StringBuilder _outputBuffer = new();
@@ -32,11 +32,11 @@ public partial class TerminalNavPage : PageMixModelBase, IAurelioTabPage, IAurel
         set => SetField(ref _currentInput, value);
     }
 
-    public TerminalNavPage()
+    public TerminalViewer()
     {
     }
 
-    public TerminalNavPage(string path)
+    public TerminalViewer(string path)
     {
         _initialTerminalPath = path;
         _builtInCommands = InitializeBuiltInCommands();
@@ -889,7 +889,7 @@ public partial class TerminalNavPage : PageMixModelBase, IAurelioTabPage, IAurel
     public static IAurelioNavPage Create((object sender, object? param) t)
     {
         if (!((string)t.param!).IsNullOrWhiteSpace())
-            return new TerminalNavPage((string)t.param!);
+            return new TerminalViewer((string)t.param!);
 
         // 根据操作系统选择默认终端
         string defaultTerminal;
@@ -922,7 +922,7 @@ public partial class TerminalNavPage : PageMixModelBase, IAurelioTabPage, IAurel
             defaultTerminal = "/bin/bash";
         }
 
-        return new TerminalNavPage(defaultTerminal);
+        return new TerminalViewer(defaultTerminal);
     }
 
     public static AurelioStaticPageInfo StaticPageInfo { get; } = new()

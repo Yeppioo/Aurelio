@@ -173,7 +173,7 @@ public partial class MinecraftClientLauncher
 
         task.NextSubTask();
         MinecraftRunner runner = new(config, new MinecraftParser(entry.ParentMinecraftFolder.Path));
-        var logViewer = new LogNavPage($"{entry.Id}");
+        var logViewer = new LogViewer($"{entry.Id}");
         var tab = new TabEntry(logViewer);
         try
         {

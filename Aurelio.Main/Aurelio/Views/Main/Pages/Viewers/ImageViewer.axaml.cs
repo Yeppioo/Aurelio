@@ -17,11 +17,11 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace Aurelio.Views.Main.Pages.Viewers;
 
-public partial class ImageNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
+public partial class ImageViewer : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
 {
     private readonly string? _path;
 
-    public ImageNavPage(string title, Bitmap image, string? path = null)
+    public ImageViewer(string title, Bitmap image, string? path = null)
     {
         _path = path;
         InitializeComponent();
@@ -44,7 +44,7 @@ public partial class ImageNavPage : PageMixModelBase, IAurelioTabPage, IAurelioN
         if (Data.DesktopType != DesktopType.Windows) CopyButton.IsVisible = false;
     }
 
-    public ImageNavPage()
+    public ImageViewer()
     {
     }
 
@@ -112,7 +112,7 @@ public partial class ImageNavPage : PageMixModelBase, IAurelioTabPage, IAurelioN
     public static IAurelioNavPage Create((object sender, object? param)t)
     {
         using var fileStream = File.OpenRead((string)t. param!);
-        return new ImageNavPage(Path.GetFileName((string)t. param!), new Bitmap(fileStream), (string)t. param!);
+        return new ImageViewer(Path.GetFileName((string)t. param!), new Bitmap(fileStream), (string)t. param!);
     }
     
     public static AurelioStaticPageInfo StaticPageInfo { get; } = new()

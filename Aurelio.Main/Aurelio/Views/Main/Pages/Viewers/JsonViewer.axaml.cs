@@ -115,7 +115,7 @@ public class JsonNodeViewModel : INotifyPropertyChanged
     }
 }
 
-public partial class JsonNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
+public partial class JsonViewer : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
 {
     private string _rawJsonText = string.Empty;
     private string _rootClassName = "RootClass";
@@ -126,7 +126,7 @@ public partial class JsonNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNa
     private string _nodeDetails = string.Empty;
     private bool _isWordWrapEnabled = true;
 
-    public JsonNavPage(string title)
+    public JsonViewer(string title)
     {
         InitializeComponent();
         PageInfo = new PageInfoEntry
@@ -150,7 +150,7 @@ public partial class JsonNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNa
     /// </summary>
     /// <param name="filePath">JSON文件路径</param>
     /// <param name="title">标签页标题</param>
-    public JsonNavPage(string filePath, string title) : this(title)
+    public JsonViewer(string filePath, string title) : this(title)
     {
         try
         {
@@ -179,7 +179,7 @@ public partial class JsonNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNa
     /// <param name="jsonContent">JSON字符串内容</param>
     /// <param name="title">标签页标题</param>
     /// <param name="autoParseJson">是否自动解析JSON</param>
-    public JsonNavPage(string jsonContent, string title, bool autoParseJson) : this(title)
+    public JsonViewer(string jsonContent, string title, bool autoParseJson) : this(title)
     {
         if (!string.IsNullOrEmpty(jsonContent))
         {
@@ -199,10 +199,10 @@ public partial class JsonNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNa
     /// <param name="filePath">JSON文件路径</param>
     /// <param name="title">标签页标题，如果为空则使用文件名</param>
     /// <returns>JsonViewer实例</returns>
-    public static JsonNavPage FromFile(string filePath, string? title = null)
+    public static JsonViewer FromFile(string filePath, string? title = null)
     {
         var displayTitle = title ?? Path.GetFileName(filePath);
-        return new JsonNavPage(filePath, displayTitle);
+        return new JsonViewer(filePath, displayTitle);
     }
 
     /// <summary>
@@ -212,9 +212,9 @@ public partial class JsonNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNa
     /// <param name="title">标签页标题</param>
     /// <param name="autoParseJson">是否自动解析JSON，默认为true</param>
     /// <returns>JsonViewer实例</returns>
-    public static JsonNavPage FromJsonString(string jsonContent, string title, bool autoParseJson = true)
+    public static JsonViewer FromJsonString(string jsonContent, string title, bool autoParseJson = true)
     {
-        return new JsonNavPage(jsonContent, title, autoParseJson);
+        return new JsonViewer(jsonContent, title, autoParseJson);
     }
 
     public Control RootElement { get; set; }
@@ -312,7 +312,7 @@ public partial class JsonNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNa
         }
     }
 
-    public JsonNavPage()
+    public JsonViewer()
     {
     }
 
@@ -979,8 +979,8 @@ public partial class JsonNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNa
     public static IAurelioNavPage Create((object sender, object? param)t)
     {
         return ((string)t.param!).IsNullOrWhiteSpace() 
-            ? new JsonNavPage("Json 解析") 
-            : new JsonNavPage((string)t. param!, Path.GetFileName((string)t. param!));
+            ? new JsonViewer("Json 解析") 
+            : new JsonViewer((string)t. param!, Path.GetFileName((string)t. param!));
     }
 
     public static AurelioStaticPageInfo StaticPageInfo { get; } = new()

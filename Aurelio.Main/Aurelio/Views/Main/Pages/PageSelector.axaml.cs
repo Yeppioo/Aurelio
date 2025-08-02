@@ -53,12 +53,12 @@ namespace Aurelio.Views.Main.Pages
 
         public ObservableCollection<NavPageEntry> Viewers { get; set; } =
         [
-            new(CodeNavPage.StaticPageInfo, CodeNavPage.Create),
-            new(TerminalNavPage.StaticPageInfo, TerminalNavPage.Create),
-            new(ImageNavPage.StaticPageInfo, ImageNavPage.Create),
-            new(LogNavPage.StaticPageInfo, LogNavPage.Create),
-            new(JsonNavPage.StaticPageInfo, JsonNavPage.Create),
-            new(ZipNavPage.StaticPageInfo, ZipNavPage.Create)
+            new(CodeViewer.StaticPageInfo, CodeViewer.Create),
+            new(TerminalViewer.StaticPageInfo, TerminalViewer.Create),
+            new(ImageViewer.StaticPageInfo, ImageViewer.Create),
+            new(LogViewer.StaticPageInfo, LogViewer.Create),
+            new(JsonViewer.StaticPageInfo, JsonViewer.Create),
+            new(ZipViewer.StaticPageInfo, ZipViewer.Create)
         ];
 
         public Control RootElement { get; set; }

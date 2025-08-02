@@ -21,18 +21,18 @@ public class FileNav
             case ".webp":
             {
                 using var fileStream = File.OpenRead(path);
-                return OpenPage(new ImageNavPage(name, new Bitmap(fileStream), path), window);
+                return OpenPage(new ImageViewer(name, new Bitmap(fileStream), path), window);
             }
             case ".log":
-                return OpenPage(new LogNavPage(path, name), window);
+                return OpenPage(new LogViewer(path, name), window);
             case ".json":
-                return OpenPage(new JsonNavPage(path, name), window);
+                return OpenPage(new JsonViewer(path, name), window);
             case ".zip":
             case ".7z":
             case ".rar":
             case ".tar":
             case ".gz":
-                return OpenPage(new ZipNavPage(name, path), window);
+                return OpenPage(new ZipViewer(name, path), window);
             case ".cs":
             case ".cpp":
             case ".cc":
@@ -105,7 +105,7 @@ public class FileNav
             case ".make":
             case ".axaml":
             case ".mk":
-                return OpenPage(new CodeNavPage(name, path), window);
+                return OpenPage(new CodeViewer(name, path), window);
         }
 
         return false;

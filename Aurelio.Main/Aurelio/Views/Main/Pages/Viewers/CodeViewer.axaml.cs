@@ -15,7 +15,7 @@ using TextMateSharp.Grammars;
 
 namespace Aurelio.Views.Main.Pages.Viewers;
 
-public partial class CodeNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
+public partial class CodeViewer : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
 {
     private readonly string _path;
     private bool _isWordWrapEnabled = true;
@@ -26,11 +26,11 @@ public partial class CodeNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNa
         set => SetField(ref _isWordWrapEnabled, value);
     }
 
-    public CodeNavPage()
+    public CodeViewer()
     {
     }
 
-    public CodeNavPage(string title, string path)
+    public CodeViewer(string title, string path)
     {
         _path = path;
         InitializeComponent();
@@ -133,7 +133,7 @@ public partial class CodeNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNa
     
     public static IAurelioNavPage Create((object sender, object? param)t)
     {
-        return new CodeNavPage(Path.GetFileName((string)t.param!), (string)t.param!);
+        return new CodeViewer(Path.GetFileName((string)t.param!), (string)t.param!);
     }
     
     public static AurelioStaticPageInfo StaticPageInfo { get; } = new()

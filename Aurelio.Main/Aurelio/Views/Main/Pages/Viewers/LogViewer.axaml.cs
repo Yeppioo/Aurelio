@@ -14,7 +14,7 @@ using Avalonia.Platform.Storage;
 
 namespace Aurelio.Views.Main.Pages.Viewers;
 
-public partial class LogNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
+public partial class LogViewer : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
 {
     private bool _autoScrollToEnd = true;
 
@@ -29,7 +29,7 @@ public partial class LogNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNav
     private bool _unknown = true;
     private bool _warning = true;
 
-    public LogNavPage(string title)
+    public LogViewer(string title)
     {
         InitializeComponent();
         PageInfo = new PageInfoEntry
@@ -45,12 +45,12 @@ public partial class LogNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNav
         DataContext = this;
     }
 
-    public LogNavPage()
+    public LogViewer()
     {
         InitializeComponent();
     }
 
-    public LogNavPage(string filePath, string title)
+    public LogViewer(string filePath, string title)
     {
         InitializeComponent();
         PageInfo = new PageInfoEntry
@@ -341,7 +341,7 @@ public partial class LogNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNav
 
     public static IAurelioNavPage Create((object sender, object? param)t)
     {
-        return new LogNavPage((string)t. param!, Path.GetFileName((string)t. param!));
+        return new LogViewer((string)t. param!, Path.GetFileName((string)t. param!));
     }
 
     public static AurelioStaticPageInfo StaticPageInfo { get; } = new()

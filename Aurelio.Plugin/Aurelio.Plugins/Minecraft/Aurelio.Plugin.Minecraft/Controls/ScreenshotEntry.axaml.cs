@@ -219,7 +219,7 @@ public partial class ScreenshotEntry : UserControl, IDisposable
                 return;
             }
 
-            var tab = new TabEntry(new ImageNavPage(_imageName, fullSizeBitmap, _imagePath));
+            var tab = new TabEntry(new ImageViewer(_imageName, fullSizeBitmap, _imagePath));
 
             if (this.GetVisualRoot() is TabWindow window)
             {

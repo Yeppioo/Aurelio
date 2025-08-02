@@ -112,7 +112,7 @@ public enum ArchiveType
     GZip
 }
 
-public partial class ZipNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
+public partial class ZipViewer : PageMixModelBase, IAurelioTabPage, IAurelioNavPage
 {
     private readonly string _archivePath;
     private string _currentDirectory = "/";
@@ -164,7 +164,7 @@ public partial class ZipNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNav
     public bool HasSingleSelection => FileListGrid?.SelectedItems?.Count == 1;
     public bool CanNavigateUp => _currentDirectory != "/";
 
-    public ZipNavPage(string title, string filePath)
+    public ZipViewer(string title, string filePath)
     {
         _archivePath = filePath;
         InitializeComponent();
@@ -189,7 +189,7 @@ public partial class ZipNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNav
         AddHandler(DragDrop.DropEvent, OnDrop);
     }
 
-    public ZipNavPage()
+    public ZipViewer()
     {
     }
 
@@ -1466,7 +1466,7 @@ public partial class ZipNavPage : PageMixModelBase, IAurelioTabPage, IAurelioNav
 
     public static IAurelioNavPage Create((object sender, object? param)t)
     {
-        return new ZipNavPage(Path.GetFileName((string)t. param!), (string)t. param!);
+        return new ZipViewer(Path.GetFileName((string)t. param!), (string)t. param!);
     }
     
     public static AurelioStaticPageInfo StaticPageInfo { get; } = new()
