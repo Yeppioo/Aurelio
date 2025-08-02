@@ -9,9 +9,9 @@ public class PageNav
 {
     public static void Main()
     {
-        Data.NavPages.Add(new NavPageEntry(NewTabPage.StaticPageInfo, NewTabPage.Create));
-        Data.NavPages.Add(new NavPageEntry(SettingTabPage.StaticPageInfo, SettingTabPage.Create));
-        Data.NavPages.Add(new NavPageEntry(PluginNugetFetcher.StaticPageInfo , PluginNugetFetcher.Create));
-        Data.NavPages.Add(new NavPageEntry(TaskCenter.StaticPageInfo , TaskCenter.Create));
+        UiProperty.NavPages.Add(new NavPageEntry(NewTabPage.StaticPageInfo, NewTabPage.Create));
+        UiProperty.NavPages.Add(new NavPageEntry(SettingTabPage.StaticPageInfo, SettingTabPage.Create));
+        UiProperty.NavPages.Add(new NavPageEntry(PluginNugetFetcher.StaticPageInfo , PluginNugetFetcher.Create));
+        UiProperty.NavPages.Add(new NavPageEntry(TaskCenter.StaticPageInfo , TaskCenter.Create));
     }
 }

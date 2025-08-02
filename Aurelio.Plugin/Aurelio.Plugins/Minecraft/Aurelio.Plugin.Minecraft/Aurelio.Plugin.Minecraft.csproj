@@ -130,7 +130,16 @@
       <PackageReference Include="Tomlyn" Version="0.19.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Views\FetcherPages\CourseForge\" />
-    </ItemGroup>
+    <Target Name="CopyToDebugPlugins" AfterTargets="Build">
+        <PropertyGroup>
+            <DebugPluginPath>C:\Users\Yep\AppData\Roaming\Yeppioo.Aurelio\Aurelio.Plugins\Aurelio.DebugPlugins\MinecraftLauncher</DebugPluginPath>
+        </PropertyGroup>
+        <MakeDir Directories="$(DebugPluginPath)" />
+        <Copy SourceFiles="$(OutputPath)Aurelio.Plugin.Minecraft.dll"
+              DestinationFolder="$(DebugPluginPath)"
+              SkipUnchangedFiles="true" />
+<!--        <Copy SourceFiles="@(ReferenceCopyLocalPaths)"-->
+<!--              DestinationFolder="$(DebugPluginPath)"-->
+<!--              SkipUnchangedFiles="true" />-->
+    </Target>
 </Project>

@@ -18,17 +18,17 @@ public class AggregateSearchEntry : ReactiveObject
     [Reactive] public string Tag { get; set; }
     [Reactive] public string Summary { get; set; }
     [Reactive] public object OriginObject { get; set; }
-    
+
     public AggregateSearchEntry()
-    { 
+    {
     }
-    
-    public AggregateSearchEntry(IAurelioTabPage entry, string? tag)
+
+    public AggregateSearchEntry(IAurelioTabPage entry, string? summary = null, string? tag = null)
     {
         Dispatcher.UIThread.InvokeAsync(() =>
         {
             Title = $"{entry.PageInfo.Title}";
-            Summary = $"{MainLang.OpenOrTogglePage}";
+            Summary = summary ?? $"{MainLang.OpenOrTogglePage}";
             OriginObject = entry;
             Type = AggregateSearchEntryType.AurelioTabPage;
             Tag = tag;
@@ -57,8 +57,8 @@ public class AggregateSearchEntry : ReactiveObject
             {
                 Title = fileInfo.Name;
                 var sizeText = fileInfo.Length < 1024 ? $"{fileInfo.Length} B" :
-                              fileInfo.Length < 1024 * 1024 ? $"{fileInfo.Length / 1024} KB" :
-                              $"{fileInfo.Length / (1024 * 1024)} MB";
+                    fileInfo.Length < 1024 * 1024 ? $"{fileInfo.Length / 1024} KB" :
+                    $"{fileInfo.Length / (1024 * 1024)} MB";
                 Summary = $"{MainLang.File} • {sizeText} • {fileInfo.FullName}";
                 Icon = StreamGeometry.Parse(
                     "M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-128 0c-17.7 0-32-14.3-32-32L224 0 64 0zM256 0l0 128 128 0L256 0zM112 256l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16z");

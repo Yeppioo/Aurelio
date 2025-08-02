@@ -5,6 +5,7 @@ using System.Web;
 using Aurelio.Plugin.Base;
 using Aurelio.Plugin.Minecraft.Service.Minecraft;
 using Aurelio.Plugin.Minecraft.Views;
+using Aurelio.Plugin.Minecraft.Views.FetcherPages.Vanilla;
 using Aurelio.Plugin.Minecraft.Views.SettingPages;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Setting;
@@ -113,6 +114,7 @@ public partial class Main : IPlugin
             Header = MainLang.MinecraftInstance,
             Page = new MinecraftInstancesTabPage()
         });
+        UiProperty.NavPages.Add(new NavPageEntry(VersionSelector.StaticPageInfo, VersionSelector.Create));
         _ = MinecraftInstancesHandler.Load(MinecraftPluginData.MinecraftPluginSettingEntry.MinecraftFolderEntries
             .Select(x => x.Path).ToArray());
         InitNav();

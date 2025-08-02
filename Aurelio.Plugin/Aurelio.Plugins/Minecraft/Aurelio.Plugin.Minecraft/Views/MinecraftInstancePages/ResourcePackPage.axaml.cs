@@ -150,7 +150,7 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
         SelectedModCount.Text = $"{MainLang.SelectedItem} {ModManageList.SelectedItems.Count}";
     }
 
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    private new void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

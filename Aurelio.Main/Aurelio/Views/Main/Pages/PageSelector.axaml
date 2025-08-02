@@ -21,7 +21,7 @@
             Margin="10,0,10,10">
             <ScrollViewer Padding="0,0,10,0">
                 <StackPanel>
-                    <ItemsControl ItemsSource="{Binding Data.NavPages}" VerticalAlignment="Top">
+                    <ItemsControl ItemsSource="{Binding Data.UiProperty.NavPages}" VerticalAlignment="Top">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="{Binding Path=ContainerWidth, RelativeSource={RelativeSource AncestorType=pages:PageSelector}, Converter={StaticResource ContainerToColumnsConverter}}" VerticalAlignment="Top" />
@@ -53,7 +53,7 @@
                                                 Margin="0,0,-5,0"
                                                 VerticalAlignment="Center" />
                                         </Border>
-                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+                                        <DockPanel Margin="0,0,10,0" VerticalAlignment="Stretch">
                                             <TextBlock
                                                 Text="{Binding StaticPageInfo.Title}"
                                                 TextTrimming="CharacterEllipsis"
@@ -61,17 +61,17 @@
                                             <TextBlock
                                                 FontSize="16"
                                                 IsVisible="{Binding StaticPageInfo.MustPath}"
-                                                Margin="3,0,0,0"
+                                                Margin="3,0,-3,0"
                                                 Text="*"
                                                 VerticalAlignment="Center" />
-                                        </StackPanel>
+                                        </DockPanel>
                                     </DockPanel>
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                     <Separator Margin="5,6" />
-                    <ItemsControl ItemsSource="{Binding Viewers}" VerticalAlignment="Top">
+                    <ItemsControl ItemsSource="{Binding Data.UiProperty.Viewers}" VerticalAlignment="Top">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="{Binding Path=ContainerWidth, RelativeSource={RelativeSource AncestorType=pages:PageSelector}, Converter={StaticResource ContainerToColumnsConverter}}" VerticalAlignment="Top" />
@@ -103,7 +103,7 @@
                                                 Margin="0,0,-5,0"
                                                 VerticalAlignment="Center" />
                                         </Border>
-                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+                                        <DockPanel Margin="0,0,10,0" VerticalAlignment="Stretch">
                                             <TextBlock
                                                 Text="{Binding StaticPageInfo.Title}"
                                                 TextTrimming="CharacterEllipsis"
@@ -111,10 +111,10 @@
                                             <TextBlock
                                                 FontSize="16"
                                                 IsVisible="{Binding StaticPageInfo.MustPath}"
-                                                Margin="3,0,0,0"
+                                                Margin="3,0,-3,0"
                                                 Text="*"
                                                 VerticalAlignment="Center" />
-                                        </StackPanel>
+                                        </DockPanel>
                                     </DockPanel>
                                 </Border>
                             </DataTemplate>

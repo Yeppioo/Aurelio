@@ -58,9 +58,10 @@ public class AggregateSearch
         Data.AggregateSearchEntries.Clear();
         Dispatcher.UIThread.Invoke(() =>
         {
-            Data.AggregateSearchEntries.Add(new AggregateSearchEntry(new PageSelector() , null));
+            Data.AggregateSearchEntries.Add(new AggregateSearchEntry(new PageSelector() , MainLang.OpenNewPage));
             if(Data.DesktopType == DesktopType.Windows)
-                Data.AggregateSearchEntries.Add(new AggregateSearchEntry(new TerminalViewer(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe") , null));
+                Data.AggregateSearchEntries.Add(new AggregateSearchEntry
+                    (new TerminalViewer(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"), "powershell.exe"));
         });
         AggregateSearchEvents.OnUpdateAggregateSearchEntries();
     }

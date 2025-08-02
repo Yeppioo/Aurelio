@@ -5,10 +5,13 @@ using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Langs;
 using Aurelio.Views.Main.Pages;
+using Aurelio.Views.Main.Pages.Viewers;
+using Aurelio.Views.Main.Pages.Viewers.Terminal;
 using Avalonia.Controls.ApplicationLifetimes;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Ursa.Controls;
+using ImageViewer = Aurelio.Views.Main.Pages.Viewers.ImageViewer;
 
 namespace Aurelio.Public.Const;
 
@@ -35,4 +38,16 @@ public class UiProperty : ReactiveObject
         (x => x.IsActive) as IAurelioWindow ?? App.UiRoot;
     
     public static ObservableCollection<LaunchPageEntry> LaunchPages { get; } = [];
+    
+    public ObservableCollection<NavPageEntry> Viewers { get; set; } =
+    [
+        new(CodeViewer.StaticPageInfo, CodeViewer.Create),
+        new(TerminalViewer.StaticPageInfo, TerminalViewer.Create),
+        new(ImageViewer.StaticPageInfo, ImageViewer.Create),
+        new(LogViewer.StaticPageInfo, LogViewer.Create),
+        new(JsonViewer.StaticPageInfo, JsonViewer.Create),
+        new(ZipViewer.StaticPageInfo, ZipViewer.Create)
+    ];
+
+    public static ObservableCollection<NavPageEntry> NavPages { get; } = [];
 }

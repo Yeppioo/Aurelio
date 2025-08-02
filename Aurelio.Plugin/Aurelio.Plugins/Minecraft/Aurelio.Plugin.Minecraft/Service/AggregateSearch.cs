@@ -1,9 +1,11 @@
 using Aurelio.Plugin.Minecraft.Classes.Minecraft;
 using Aurelio.Plugin.Minecraft.Views;
+using Aurelio.Plugin.Minecraft.Views.FetcherPages.Vanilla;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Const;
 using Aurelio.Public.Langs;
+using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.Plugin.Events;
 using Aurelio.Views.Main;
 using Aurelio.Views.Main.Pages;
@@ -25,13 +27,16 @@ public class AggregateSearch
             Dispatcher.UIThread.Invoke(() =>
             {
                 Data.AggregateSearchEntries.Add(new AggregateSearchEntry(new MinecraftInstancesTabPage(),
-                    "minecraftInstances"));
+                    MainLang.MinecraftInstance));
+                Data.AggregateSearchEntries.Add(new AggregateSearchEntry(new VersionSelector(),
+                    MainLang.MinecraftInstance));
                 Data.AggregateSearchEntries.AddRange(MinecraftPluginData.AllMinecraftInstances.Select(Create));
                 if (Data.SettingEntry != null)
                     Data.AggregateSearchEntries.AddRange(
                         MinecraftPluginData.MinecraftPluginSettingEntry.MinecraftAccounts.Select(Create));
             });
         };
+        
         AggregateSearchEvents.ExecuteAggregateSearch += (sender, entry) =>
         {
             if (entry.Type is "Plugin.Minecraft.MinecraftInstance")

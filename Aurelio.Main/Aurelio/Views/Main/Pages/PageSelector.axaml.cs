@@ -51,16 +51,6 @@ namespace Aurelio.Views.Main.Pages
             };
         }
 
-        public ObservableCollection<NavPageEntry> Viewers { get; set; } =
-        [
-            new(CodeViewer.StaticPageInfo, CodeViewer.Create),
-            new(TerminalViewer.StaticPageInfo, TerminalViewer.Create),
-            new(ImageViewer.StaticPageInfo, ImageViewer.Create),
-            new(LogViewer.StaticPageInfo, LogViewer.Create),
-            new(JsonViewer.StaticPageInfo, JsonViewer.Create),
-            new(ZipViewer.StaticPageInfo, ZipViewer.Create)
-        ];
-
         public Control BottomElement { get; set; }
         public Control RootElement { get; set; }
         public PageLoadingAnimator InAnimator { get; set; }

@@ -30,5 +30,4 @@ public class Data : ReactiveObject
     [Reactive] public string Version { get; set; }
     public static ObservableCollection<LoadedPluginEntry> LoadedPlugins { get; } = [];
     public static ObservableCollection<AggregateSearchEntry> AggregateSearchEntries { get; } = [];
-    public static ObservableCollection<NavPageEntry> NavPages { get; } = [];
 }

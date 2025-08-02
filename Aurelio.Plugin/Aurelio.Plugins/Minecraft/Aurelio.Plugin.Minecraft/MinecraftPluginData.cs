@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Aurelio.Plugin.Minecraft.Classes.Minecraft;
+using Aurelio.Public.Langs;
+using MinecraftLaunch.Base.Models.Network;
 
 namespace Aurelio.Plugin.Minecraft;
 
@@ -10,7 +12,6 @@ public sealed class MinecraftPluginData : INotifyPropertyChanged
 {
     private static MinecraftPluginData? _instance;
 
-    // Private fields for reactive properties
     private bool _isRender3D;
     private bool _isLoadingMinecraftLoading;
 
@@ -18,13 +19,18 @@ public sealed class MinecraftPluginData : INotifyPropertyChanged
     {
         get { return _instance ??= new MinecraftPluginData(); }
     }
-
+    
     public static List<RecordMinecraftEntry> AllMinecraftInstances { get; } = [];
     public static ObservableCollection<MinecraftCategoryEntry> SortedMinecraftCategories { get; } = [];
     public static MinecraftPluginSettingEntry MinecraftPluginSettingEntry { get; set; }
     public static ObservableCollection<string> AllMinecraftTags { get; } = [];
+    public static ObservableCollection<VersionManifestEntry> AllInstallableMinecraftVersions { get; } = [];
+    public static ObservableCollection<VersionManifestEntry> LatestInstallableMinecraftVersions { get; } =
+    [
+        new() { ReleaseTime = DateTime.MinValue, Id = MainLang.Loading, Type = null },
+        new() { ReleaseTime = DateTime.MinValue, Id = MainLang.Loading, Type = null }
+    ];
 
-    // Properties with INotifyPropertyChanged implementation
     public bool IsRender3D
     {
         get => _isRender3D;
@@ -37,7 +43,6 @@ public sealed class MinecraftPluginData : INotifyPropertyChanged
         set => SetProperty(ref _isLoadingMinecraftLoading, value);
     }
 
-    // INotifyPropertyChanged implementation
     public event PropertyChangedEventHandler? PropertyChanged;
 
     private void OnPropertyChanged([CallerMemberName] string? propertyName = null)

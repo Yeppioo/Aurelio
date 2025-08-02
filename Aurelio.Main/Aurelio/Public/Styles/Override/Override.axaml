@@ -261,10 +261,10 @@
     </Style>
     <Style Selector="avaloniaEdit|TextEditor">
         <Setter Property="FontFamily" Value="JetBrains Mono, Cascadia Mono, Cascadia Code, SF Mono, Monaco, Menlo, Consolas, DejaVu Sans Mono, Liberation Mono, Courier New, avares://Aurelio/Public/Assets#MiSans" />
-        <Setter Property="FontWeight" Value="10" />
+        <Setter Property="FontWeight" Value="110" />
     </Style>
     <Style Selector="TextBlock.eq-width">
         <Setter Property="FontFamily" Value="JetBrains Mono, Cascadia Mono, Cascadia Code, SF Mono, Monaco, Menlo, Consolas, DejaVu Sans Mono, Liberation Mono, Courier New, avares://Aurelio/Public/Assets#MiSans" />
-        <Setter Property="FontWeight" Value="10" />
+        <Setter Property="FontWeight" Value="220" />
     </Style>
 </Styles>
