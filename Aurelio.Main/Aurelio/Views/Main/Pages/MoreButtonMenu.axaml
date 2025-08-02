@@ -35,7 +35,26 @@
                             <PathIcon Data="M7.46,11.88L8.88,10.46L11,12.59L13.12,10.46L14.54,11.88L12.41,14L14.54,16.12L13.12,17.54L11,15.41L8.88,17.54L7.46,16.12L9.59,14L7.46,11.88M3,3H21A2,2 0 0,1 23,5V19A2,2 0 0,1 21,21H3A2,2 0 0,1 1,19V5A2,2 0 0,1 3,3M3,5V19H21V9H13V5H3Z" Width="17" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem
+                        Command="{Binding MoveToNewWindow}"
+                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.OpenInNewWindow}"
+                        InputGesture="Ctrl + W">
+                        <MenuItem.Icon>
+                            <PathIcon Data="M12,10L8,14H11V20H13V14H16M19,4H5C3.89,4 3,4.9 3,6V18A2,2 0 0,0 5,20H9V18H5V8H19V18H15V20H19A2,2 0 0,0 21,18V6A2,2 0 0,0 19,4Z" Width="17" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <Separator />
+                    <MenuItem
+                        Command="{Binding OpenInstancePage}"
+                        CommandParameter="pageNav"
+                        Header="{Binding Source={x:Static properties:MainLangProvider.Current}, Path=Resources.PageNav}">
+                        <MenuItem.Icon>
+                            <PathIcon
+                                Data="F1 M 10 2.421875 C 4.822311 2.421875 0.625 6.619263 0.625 11.796875 C 0.625 16.974487 4.822311 21.171875 10 21.171875 C 15.177689 21.171875 19.375 16.974487 19.375 11.796875 C 19.375 6.619263 15.177689 2.421875 10 2.421875 Z M 13.99353 8.931885 L 13.99353 8.933144 L 10.71228 16.589394 C 10.575562 16.905518 10.265503 17.109375 9.921875 17.109375 C 9.865761 17.109375 9.807739 17.104492 9.750977 17.093506 C 9.351196 17.011719 9.0625 16.656494 9.0625 16.250038 L 9.0625 12.734375 L 5.546265 12.734375 C 5.139771 12.734375 4.786377 12.445068 4.704628 12.047119 C 4.622803 11.650391 4.834595 11.245117 5.20813 11.085205 L 12.86499 7.803955 C 13.19519 7.667236 13.566284 7.739258 13.811646 7.987061 C 14.060669 8.234825 14.13269 8.605919 13.99353 8.931885 Z"
+                                Margin="0,0,-1,0"
+                                Width="14" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem
                         Command="{Binding OpenInstancePage}"
                         CommandParameter="setting"

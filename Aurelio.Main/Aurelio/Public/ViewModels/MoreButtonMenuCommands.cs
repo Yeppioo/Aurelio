@@ -1,5 +1,6 @@
 ﻿using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
+using Aurelio.Public.Module.App.Services;
 using Aurelio.Public.Module.Service;
 using Aurelio.Views.Main;
 using Aurelio.Views.Main.Pages;
@@ -57,6 +58,9 @@ public class MoreButtonMenuCommands
         {
             case "setting":
                 App.UiRoot.TogglePage("setting", new SettingTabPage());
+                break;
+            case "pageNav":
+                App.UiRoot.TogglePage(null, new PageSelector());
                 break;
         }
     }

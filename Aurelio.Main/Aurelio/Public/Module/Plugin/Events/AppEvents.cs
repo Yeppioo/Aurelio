@@ -11,7 +11,14 @@ public class AppEvents
     {
         SaveSettings?.Invoke(null, EventArgs.Empty);
     }
-    
+
+    public static event EventHandler? AppExiting;
+
+    internal static void OnAppExiting()
+    {
+        AppExiting?.Invoke(null, EventArgs.Empty);
+    }
+
     public static event EventsHandler.AppDragDropHandler? AppDragDrop;
 
     internal static void OnAppDragDrop(object? sender, DragEventArgs e)
