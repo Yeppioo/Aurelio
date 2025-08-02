@@ -28,7 +28,13 @@ public partial class LogViewer : PageMixModelBase, IAurelioTabPage, IAurelioNavP
     private bool _stackTrace = true;
     private bool _unknown = true;
     private bool _warning = true;
+    private string _shortInfo = string.Empty;
 
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
     public LogViewer(string title)
     {
         InitializeComponent();
@@ -39,6 +45,7 @@ public partial class LogViewer : PageMixModelBase, IAurelioTabPage, IAurelioNavP
                 "M192 0c-41.8 0-77.4 26.7-90.5 64L64 64C28.7 64 0 92.7 0 128L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64l-37.5 0C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM72 272a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm104-16l128 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-128 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zM72 368a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm88 0c0-8.8 7.2-16 16-16l128 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-128 0c-8.8 0-16-7.2-16-16z")
         };
         RootElement = Root;
+        ShortInfo = title;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
 
         // 直接使用自身作为数据上下文
@@ -64,6 +71,7 @@ public partial class LogViewer : PageMixModelBase, IAurelioTabPage, IAurelioNavP
 
         // 直接使用自身作为数据上下文
         DataContext = this;
+        ShortInfo = filePath;
 
         // 解析日志文件
         ParseLogFile(filePath);

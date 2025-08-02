@@ -1,4 +1,5 @@
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
 
@@ -13,6 +14,15 @@ public partial class DownloadPage : PageMixModelBase, IAurelioPage
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
         BindingEvent();
+        ShortInfo = $"{MainLang.Setting} / {MainLang.Download}";
+    }
+    
+    private string _shortInfo = string.Empty;
+
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
     }
 
     public new static Data Data => Data.Instance;

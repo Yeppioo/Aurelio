@@ -36,6 +36,7 @@ public class SettingEntry : ReactiveObject
     [Reactive] [JsonProperty] public Color BackGroundColor { get; set; } = Color.Parse("#00B7FF52");
     [Reactive] [JsonProperty] public Language Language { get; set; } = LanguageTypes.Langs[0];
     [Reactive] [JsonProperty] public bool UseFilePicker { get; set; } = true;
+    [Reactive] [JsonProperty] public bool EnableBottomContainer { get; set; } = true;
     [Reactive] [JsonProperty] public bool AutoCheckUpdate { get; set; } = true;
     [Reactive] [JsonProperty] public bool EnableSpeedUpGithubApi { get; set; } = true;
     [Reactive] [JsonProperty] public string PoemApiToken { get; set; }

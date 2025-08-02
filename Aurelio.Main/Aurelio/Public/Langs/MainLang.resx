@@ -1832,4 +1832,10 @@
   <data name="Format" xml:space="preserve">
     <value>格式化</value>
   </data>
+  <data name="EnableBottomContainer" xml:space="preserve">
+    <value>启用底栏</value>
+  </data>
+  <data name="Terminal" xml:space="preserve">
+    <value>终端</value>
+  </data>
 </root>

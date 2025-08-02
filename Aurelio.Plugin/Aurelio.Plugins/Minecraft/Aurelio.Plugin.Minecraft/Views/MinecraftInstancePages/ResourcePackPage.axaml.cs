@@ -51,6 +51,8 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
             Setter.TryCreateFolder(path);
             _ = OpenFolder(path);
         };
+        ShortInfo = $"{_entry.Id} / {MainLang.ResourcePacks}";
+
         DeleteSelectModBtn.Click += async (sender, _) =>
         {
             var items = ModManageList.SelectedItems;
@@ -89,6 +91,14 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
         SelectedModCount.Text = $"{MainLang.SelectedItem} 0";
     }
 
+    private string _shortInfo = string.Empty;
+
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
+    
     public ResourcePackPage()
     {
         InitializeComponent();
@@ -125,6 +135,7 @@ public partial class ResourcePackPage : PageMixModelBase, IAurelioPage
                     Icon = GetIconFromZip(file), Description = GetDescriptionFromZip(file)
                 });
 
+        ShortInfo = $"{_entry.Id} / {MainLang.ResourcePacks} / 已加载 {_items.Count} 个资源包";
         FilterItems();
     }
 

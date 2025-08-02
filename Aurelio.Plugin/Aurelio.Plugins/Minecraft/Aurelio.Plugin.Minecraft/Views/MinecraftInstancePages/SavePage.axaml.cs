@@ -51,6 +51,7 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
             Setter.TryCreateFolder(path);
             _ = OpenFolder(path);
         };
+        ShortInfo = $"{_entry.Id} / {MainLang.Saves}";
         DeleteSelectModBtn.Click += async (sender, _) =>
         {
             var items = ModManageList.SelectedItems;
@@ -89,6 +90,14 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
             AttachButtonEventHandlers();
         };
     }
+    
+    private string _shortInfo = string.Empty;
+
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
 
     public SavePage()
     {
@@ -121,6 +130,8 @@ public partial class SavePage : PageMixModelBase, IAurelioPage
                     $"{MainLang.CreateTime}: {save.CreationTime}, {MainLang.LastModifiedTime}: {save.LastWriteTime}"
             });
         });
+        ShortInfo = $"{_entry.Id} / {MainLang.Saves} / 已加载 {_items.Count} 个存档";
+
         FilterItems();
     }
 

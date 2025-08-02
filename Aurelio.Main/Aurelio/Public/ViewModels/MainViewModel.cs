@@ -7,6 +7,7 @@ using Aurelio.Public.Classes.Setting;
 using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Plugin.Events;
 using Aurelio.Views.Main.Pages;
+using Avalonia.Threading;
 
 namespace Aurelio.Public.ViewModels;
 
@@ -45,6 +46,9 @@ public class MainViewModel : ViewModelBase
             SelectedTab.Content.RootElement.IsVisible = false;
             SelectedTab.Content.InAnimator.Animate();
         };
+        var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(0.5) };
+        timer.Tick += (_, _) => Time = DateTime.Now;
+        timer.Start();
     }
 
     public ObservableCollection<TabEntry> Tabs { get; set; } = [];
@@ -67,6 +71,14 @@ public class MainViewModel : ViewModelBase
     {
         get => _selectedTab;
         set => SetField(ref _selectedTab, value);
+    }
+
+    private DateTime _time = DateTime.Now;
+
+    public DateTime Time
+    {
+        get => _time; 
+        set => SetField(ref _time, value);
     }
 
     public void CreateTab(TabEntry tab)

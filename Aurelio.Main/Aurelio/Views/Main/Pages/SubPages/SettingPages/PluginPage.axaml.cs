@@ -1,6 +1,7 @@
 using Aurelio.Plugin.Base;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
 using Aurelio.Views.Main.Pages.Viewers;
@@ -17,8 +18,15 @@ public partial class PluginPage : PageMixModelBase, IAurelioPage
         DataContext = this;
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
+        ShortInfo = $"{MainLang.Setting} / {MainLang.Download} / 已加载 {Data.LoadedPlugins.Count} 个插件";
     }
+    private string _shortInfo = string.Empty;
 
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
     public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
 

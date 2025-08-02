@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO.Local;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
@@ -28,6 +29,15 @@ public partial class PersonalizationPage : PageMixModelBase, IAurelioPage
             DataContext = null;
             DataContext = this;
         };
+        ShortInfo = $"{MainLang.Setting} / {MainLang.Personalize}";
+    }
+    
+    private string _shortInfo = string.Empty;
+
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
     }
     
     public PageLoadingAnimator InAnimator { get; set; }

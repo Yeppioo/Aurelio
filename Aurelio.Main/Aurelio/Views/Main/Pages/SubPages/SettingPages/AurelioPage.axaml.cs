@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Langs;
@@ -25,6 +26,15 @@ public partial class AurelioPage : PageMixModelBase, IAurelioPage
         DataContext = this;
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
+        ShortInfo = $"Aurelio {Data.Version}";
+    }
+    
+    private string _shortInfo = string.Empty;
+
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
     }
 
     public Control RootElement { get; set; }

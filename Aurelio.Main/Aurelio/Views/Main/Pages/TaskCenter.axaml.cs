@@ -20,11 +20,21 @@ public partial class TaskCenter : PageMixModelBase, IAurelioTabPage, IAurelioNav
             Title = MainLang.TaskingTip.Replace("{num}", Tasking.Tasks.Count.ToString()),
             Icon = Icons.Model3D
         };
+        ShortInfo = $"{MainLang.TaskCenter} / {MainLang.TaskingTip.Replace("{num}", Tasking.Tasks.Count.ToString())}";
         Tasking.Tasks.CollectionChanged += (_, _) =>
         {
             PageInfo.Title = MainLang.TaskingTip.Replace("{num}", Tasking.Tasks.Count.ToString());
+            ShortInfo = $"{MainLang.TaskCenter} / {MainLang.TaskingTip.Replace("{num}", Tasking.Tasks.Count.ToString())}";
         };
         DataContext = Tasking.Instance;
+    }
+
+    private string _shortInfo = string.Empty;
+
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
     }
 
     public Control RootElement { get; set; }
@@ -39,16 +49,16 @@ public partial class TaskCenter : PageMixModelBase, IAurelioTabPage, IAurelioNav
     private void AvaloniaObject_OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {
     }
-    
+
     public static AurelioStaticPageInfo StaticPageInfo { get; } = new()
     {
-        Title = MainLang.TaskCenter ,
+        Title = MainLang.TaskCenter,
         Icon = Icons.Model3D,
         NeedPath = false,
         AutoCreate = true
     };
 
-    public static IAurelioNavPage Create((object sender, object? param)t)
+    public static IAurelioNavPage Create((object sender, object? param) t)
     {
         var root = ((Control)t.sender).GetVisualRoot();
         if (root is TabWindow tabWindow)
@@ -56,6 +66,7 @@ public partial class TaskCenter : PageMixModelBase, IAurelioTabPage, IAurelioNav
             tabWindow.CreateTab(new TabEntry(new TaskCenter()));
             return null;
         }
+
         App.UiRoot.CreateTab(new TabEntry(new TaskCenter()));
         return null;
     }

@@ -35,10 +35,17 @@ public partial class MinecraftInstancesTabPage : PageMixModelBase, IAurelioTabPa
             Title = MainLang.Launch,
             Icon = Icons.Thumbtack
         };
+        ShortInfo = $"{MainLang.MinecraftInstance}";
     }
 
     public new static Data Data => Data.Instance;
+    private string _shortInfo = string.Empty;
 
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
     public string SearchText
     {
         get => _searchText;

@@ -32,6 +32,14 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
     private string _filter = string.Empty;
     private bool _isLoading;
 
+    private string _shortInfo = string.Empty;
+
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
+    
     public ModPage(MinecraftEntry entry)
     {
         _entry = entry;
@@ -61,6 +69,7 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
 
             LoadMods();
         };
+        ShortInfo = $"{_entry.Id} / {MainLang.Mod}";
         EnableSelectModBtn.Click += (_, _) =>
         {
             var mods = ModManageList.SelectedItems;
@@ -240,6 +249,7 @@ public partial class ModPage : PageMixModelBase, IAurelioPage
             }
 
             if (_mods.All(item => item.Path != localModEntry.Path)) _mods.Add(localModEntry);
+            ShortInfo = $"{_entry.Id} / {MainLang.Mod} / 已加载 {_mods.Count} 个模组";
 
             // Translate(localModEntry);
         }

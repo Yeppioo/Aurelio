@@ -1475,6 +1475,15 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 启用底栏.
+        /// </summary>
+        public static string EnableBottomContainer {
+            get {
+                return ResourceManager.GetString("EnableBottomContainer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 启用文件选择器.
         /// </summary>
         public static string EnabledFilePicker {
@@ -4458,6 +4467,15 @@ namespace Aurelio.Public.Langs {
         public static string TaskingTip {
             get {
                 return ResourceManager.GetString("TaskingTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 终端.
+        /// </summary>
+        public static string Terminal {
+            get {
+                return ResourceManager.GetString("Terminal", resourceCulture);
             }
         }
         

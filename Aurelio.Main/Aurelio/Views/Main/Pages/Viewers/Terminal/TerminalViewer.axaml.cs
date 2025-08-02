@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Langs;
 using Aurelio.Public.Module;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
@@ -31,6 +32,15 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage, IAureli
         get => _currentInput;
         set => SetField(ref _currentInput, value);
     }
+    
+    private string _shortInfo = string.Empty;
+
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
+    
 
     public TerminalViewer()
     {
@@ -47,10 +57,12 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage, IAureli
 
         PageInfo = new PageInfoEntry
         {
-            Title = $"Terminal - {Path.GetFileNameWithoutExtension(path)}",
+            Title = $"{MainLang.Terminal} - {Path.GetFileNameWithoutExtension(path)}",
             Icon = StreamGeometry.Parse(
                 "M73.4 182.6C60.9 170.1 60.9 149.8 73.4 137.3C85.9 124.8 106.2 124.8 118.7 137.3L278.7 297.3C291.2 309.8 291.2 330.1 278.7 342.6L118.7 502.6C106.2 515.1 85.9 515.1 73.4 502.6C60.9 490.1 60.9 469.8 73.4 457.3L210.7 320L73.4 182.6zM288 448L544 448C561.7 448 576 462.3 576 480C576 497.7 561.7 512 544 512L288 512C270.3 512 256 497.7 256 480C256 462.3 270.3 448 288 448z")
         };
+        
+        ShortInfo = $"{MainLang.Terminal} / {Path.GetFileNameWithoutExtension(path)}";
 
         DataContext = this;
 
@@ -225,12 +237,14 @@ public partial class TerminalViewer : PageMixModelBase, IAurelioTabPage, IAureli
         if (activeSession != null)
         {
             // 更新PageInfo的Title
-            PageInfo.Title = $"Terminal - {activeSession.Name}";
+            PageInfo.Title = $"{MainLang.Terminal} - {activeSession.Name}";
+            ShortInfo = $"{MainLang.Terminal} - {activeSession.Name}";
         }
         else
         {
             // 更新PageInfo的Title
-            PageInfo.Title = "Terminal - 无活动会话";
+            PageInfo.Title = $"{MainLang.Terminal} - 无活动会话";
+            ShortInfo = $"{MainLang.Terminal} - 无活动会话";
         }
     }
 

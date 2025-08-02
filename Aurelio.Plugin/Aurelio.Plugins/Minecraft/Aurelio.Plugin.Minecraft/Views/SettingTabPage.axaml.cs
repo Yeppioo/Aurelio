@@ -47,7 +47,13 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioPage
     public LaunchPage LaunchPage { get; } = new();
     public AccountPage AccountPage { get; } = new();
     public PageLoadingAnimator InAnimator { get; set; }
+    private string _shortInfo = string.Empty;
 
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
     public void OnClose()
     {
     }

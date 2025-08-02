@@ -29,12 +29,20 @@ public partial class OverViewPage : PageMixModelBase, IAurelioPage
         Entry.SettingEntry.Tags.CollectionChanged += (_, _) => Entry.SettingEntry.RemoveDuplicateTags();
 
         BindingEvent();
+        ShortInfo = $"{entry.ParentMinecraftFolder.Name} / {entry.Id}";
+
     }
 
     public OverViewPage()
     {
     }
+    private string _shortInfo = string.Empty;
 
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
     public RecordMinecraftEntry Entry { get; }
     public ObservableCollection<RecordJavaRuntime> JavaRuntimes { get; } = [];
 

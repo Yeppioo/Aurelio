@@ -34,12 +34,25 @@ public partial class SettingTabPage : PageMixModelBase, IAurelioTabPage, IAureli
             Title = MainLang.Setting
         };
     }
+    
+    private string _shortInfo = string.Empty;
+
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
 
     public SelectionListItem? SelectedItem
     {
         get => _selectedItem;
-        set => SetField(ref _selectedItem, value);
+        set
+        {
+            SetField(ref _selectedItem, value);
+            ShortInfo = value == null ? MainLang.Setting : (value.Tag as IAurelioPage).ShortInfo;
+        }
     }
+
     public DownloadPage DownloadPage { get; } = new();
     public PluginPage PluginPage { get; } = new();
     public AurelioPage AurelioPage { get; } = new();

@@ -41,255 +41,281 @@
         ClipToBounds="True"
         CornerRadius="8"
         x:Name="Root">
-        <Grid>
-            <DockPanel>
-                <Border
-                    ClipToBounds="True"
-                    DockPanel.Dock="Top"
-                    VerticalAlignment="Top">
-                    <Grid>
-                        <controls:TitleBar
-                            DockPanel.Dock="Top"
-                            IsCloseBtnExitApp="True"
-                            IsCloseBtnShow="True"
-                            IsMaxBtnShow="True"
-                            IsVisible="True"
-                            Name="TitleBar">
-                            <controls:TitleBar.LeftContent>
-                                <StackPanel Name="TitleBarContainer" Orientation="Horizontal">
-                                    <Border
-                                        Background="Transparent"
-                                        Cursor="Hand"
-                                        IsVisible="{Binding Tasking.HasTask}"
-                                        Name="FocusInfoBorder"
-                                        x:DataType="controls:TitleBar">
-                                        <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
-                                            <Border
-                                                Background="{Binding Tasking.FocusInfoColor}"
-                                                CornerRadius="90"
-                                                Height="7"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Center"
-                                                Width="7"
-                                                x:DataType="controls:TitleBar" />
-                                            <TextBlock
-                                                Foreground="{DynamicResource TabTextColor}"
-                                                HorizontalAlignment="Right"
-                                                Margin="7,0,5,0"
-                                                Name="UsingMinecraftAccountTextBlock"
-                                                Text="{Binding Tasking.FocusInfoText}"
-                                                VerticalAlignment="Center"
-                                                x:DataType="controls:TitleBar" />
-                                        </StackPanel>
-                                    </Border>
-                                    <Button
-                                        Classes="title-bar-button big-title-bar-icon"
-                                        Content="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"
-                                        Name="SettingButton"
-                                        VerticalAlignment="Center" />
-                                    <Button
-                                        Classes="title-bar-button-more"
-                                        Content="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z"
-                                        Name="MoreButton"
-                                        VerticalAlignment="Center" />
-                                    <Separator
-                                        Background="{DynamicResource TabTextColor}"
-                                        Foreground="{DynamicResource TabTextColor}"
-                                        Height="16"
-                                        Margin="5,0,5,0"
-                                        Name="Separator"
-                                        VerticalAlignment="Center"
-                                        Width="1" />
-                                </StackPanel>
-                            </controls:TitleBar.LeftContent>
-                        </controls:TitleBar>
-                        <Border
-                            Background="Transparent"
-                            ClipToBounds="True"
-                            DockPanel.Dock="Top"
-                            Height="40"
-                            HorizontalAlignment="Left"
-                            Margin="80,0,150,0"
-                            Name="NavRoot"
-                            VerticalAlignment="Top">
-                            <Grid>
-                                <ScrollViewer
-                                    AllowAutoHide="True"
-                                    HorizontalScrollBarVisibility="Auto"
-                                    Name="NavScrollViewer"
-                                    Offset="{Binding TabScrollOffset}"
-                                    OpacityMask="{Binding IsTabMaskVisible, Converter={StaticResource NavScrollOpacityMaskConverter}}"
-                                    PointerWheelChanged="NavScrollViewer_PointerWheelChanged"
-                                    VerticalScrollBarVisibility="Disabled">
-                                    <StackPanel Margin="0,0,20,0" Orientation="Horizontal">
-                                        <u:SelectionList
-                                            AutoScrollToSelectedItem="True"
-                                            ItemsSource="{Binding Tabs}"
-                                            Name="NavMenu"
-                                            SelectedItem="{Binding SelectedTab, Mode=TwoWay}"
-                                            VerticalAlignment="Center">
-                                            <u:SelectionList.Styles>
-                                                <Style Selector="u|SelectionListItem:not(:selected)">
-                                                    <Style Selector="^ TextBlock">
-                                                        <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
-                                                    </Style>
-                                                    <Style Selector="^ Button">
-                                                        <Setter Property="Opacity" Value="0" />
-                                                    </Style>
-                                                    <Style Selector="^ Border#ItemRoot">
-                                                        <Setter Property="Background" Value="{DynamicResource TabBackgroundColor}" />
-                                                        <Setter Property="BorderBrush" Value="{DynamicResource LinearGradientTransparentColor}" />
-                                                    </Style>
-                                                </Style>
-                                                <Style Selector="u|SelectionListItem:pointerover">
-                                                    <Style Selector="^ Button">
-                                                        <Setter Property="Opacity" Value="1" />
-                                                    </Style>
-                                                    <Style Selector="^ Border#ItemRoot">
-                                                        <Setter Property="Background" Value="{DynamicResource HoverTabBackgroundColor}" />
-                                                        <Setter Property="BorderBrush" Value="{DynamicResource LinearGradientTransparentColor}" />
-                                                    </Style>
-                                                </Style>
-                                                <Style Selector="u|SelectionListItem:selected">
-                                                    <Style Selector="^ Button">
-                                                        <Setter Property="Opacity" Value="1" />
-                                                    </Style>
-                                                    <Style Selector="^ Border#ItemRoot">
-                                                        <Setter Property="Background" Value="{DynamicResource SelectedTabBackgroundColor}" />
-                                                        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-                                                    </Style>
-                                                </Style>
-                                            </u:SelectionList.Styles>
-                                            <u:SelectionList.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <StackPanel Orientation="Horizontal" Spacing="5" />
-                                                </ItemsPanelTemplate>
-                                            </u:SelectionList.ItemsPanel>
-                                            <u:SelectionList.Indicator>
-                                                <Border
-                                                    Background="{DynamicResource PageBackgroundColor}"
-                                                    BorderBrush="{DynamicResource BorderBrush}"
-                                                    BorderThickness="1"
-                                                    CornerRadius="5"
-                                                    HorizontalAlignment="Stretch"
-                                                    IsVisible="False"
-                                                    Margin="3"
-                                                    VerticalAlignment="Stretch" />
-                                            </u:SelectionList.Indicator>
-                                            <u:SelectionList.ItemTemplate>
-                                                <DataTemplate DataType="entries:TabEntry">
-                                                    <Border
-                                                        BorderThickness="1"
-                                                        CornerRadius="{DynamicResource CardCornerRadius}"
-                                                        Height="30"
-                                                        MinWidth="140"
-                                                        Name="ItemRoot"
-                                                        PointerPressed="TabItem_OnPointerPressed"
-                                                        Tag="{Binding}"
-                                                        behavior:TabDragBehavior.IsEnabled="True">
-                                                        <Border.Transitions>
-                                                            <Transitions>
-                                                                <BrushTransition Duration="0:0:0.2" Property="BorderBrush" />
-                                                                <!-- <BrushTransition Duration="0:0:0.2" Property="Background" /> -->
-                                                            </Transitions>
-                                                        </Border.Transitions>
-                                                        <DockPanel Margin="8,-1,10,0" VerticalAlignment="Center">
-                                                            <PathIcon
-                                                                Data="{Binding Icon}"
-                                                                Foreground="{DynamicResource TabTextColor}"
-                                                                Height="15"
-                                                                IsVisible="{Binding IconIsVisible}"
-                                                                Margin="0,0,4,0"
-                                                                Width="15" />
-                                                            <ContentControl Content="{Binding HeaderContent}" Foreground="{DynamicResource TabTextColor}" />
-                                                            <Grid
-                                                                HorizontalAlignment="Right"
-                                                                IsVisible="{Binding CanClose}"
-                                                                Margin="0,0,-4,0">
-                                                                <Button
-                                                                    Classes="icon-button tab"
-                                                                    Command="{Binding Close}"
-                                                                    Content="{DynamicResource Close}"
-                                                                    Foreground="{DynamicResource TabTextColor}"
-                                                                    HorizontalAlignment="Right"
-                                                                    Margin="3,1,0,0"
-                                                                    MaxHeight="14"
-                                                                    MaxWidth="16"
-                                                                    MinHeight="14"
-                                                                    Name="CloseButton"
-                                                                    VerticalAlignment="Center">
-                                                                    <Button.Transitions>
-                                                                        <Transitions>
-                                                                            <DoubleTransition Duration="0:0:0.07" Property="Opacity" />
-                                                                        </Transitions>
-                                                                    </Button.Transitions>
-                                                                </Button>
-                                                            </Grid>
-                                                        </DockPanel>
-                                                    </Border>
-                                                </DataTemplate>
-                                            </u:SelectionList.ItemTemplate>
-                                        </u:SelectionList>
-                                        <Button
-                                            Classes="custom-hover-button tab"
-                                            Content="{DynamicResource Plus}"
-                                            Margin="4,0,0,0"
-                                            Name="NewTabButton" />
-                                    </StackPanel>
-                                </ScrollViewer>
-                            </Grid>
-                        </Border>
-                        <DockPanel
-                            Height="40"
-                            HorizontalAlignment="Left"
-                            IsHitTestVisible="False"
-                            Margin="16,0,0,0"
-                            Name="TitleRoot"
-                            VerticalAlignment="Top">
-                            <Image
-                                Height="21"
-                                Margin="0,-1,0,0"
-                                VerticalAlignment="Center"
-                                Width="21">
-                                <Image.Source>
-                                    <DrawingImage>
-                                        <DrawingImage.Drawing>
-                                            <DrawingGroup ClipGeometry="M0,0 V590 H590 V0 H0 Z">
-                                                <DrawingGroup Opacity="1">
-                                                    <GeometryDrawing Brush="#FF3388FF" Geometry="F1 M590,590z M0,0z M215.24,190.12C203.28,217.5 189.85,244.19 176.93,271.12 174.42,277.79 166.2,277.33 160.67,279.69 148.29,284.59 135.34,288.22 123.52,294.45 112.78,299.76 102.2,305.39 91.21,310.19 91.07,309.64 90.77,308.54 90.62,307.99 99.29,292.58 106.25,276.28 114.79,260.79 126.74,235.03 140.46,210.13 152.35,184.33 154.65,179.12 158.2,174.53 160.14,169.14 162.31,163.03 166.23,157.78 168.81,151.86 172.8,142.71 176.98,133.65 181.79,124.9 187.46,112.79 193.21,98.79 206.56,93.48 216.58,90.09 228,88.67 237.95,93.11A42.95126,42.95126,0,0,1,257.92,119.13C271.18,164.79 284.08,210.56 297.94,256.07 286.38,257.58 274.68,257.58 263.13,259.14 254.53,259.94 245.95,262.32 237.29,261.72" />
-                                                    <GeometryDrawing Brush="#FF3388FF" Geometry="F1 M590,590z M0,0z M356.23,251.31Q386.935,250.53,417.68,251.33C418.25,292.51 415.83,333.7 417.29,374.88 417.59,386.8 423.43,399.02 434.32,404.65 450.82,412.79 474.44,408.87 483.8,391.87 488.83,381.05 487.56,368.56 488.08,357 487.5,321.67 488.18,286.34 488.02,251.01 508.57,251.04 529.13,250.74 549.69,251.27 550.01,292.51 550.71,333.78 549.13,375A91.37373,91.37373,0,0,1,538.56,417.61C532.06,429.56 521.91,439.19 510.57,446.51 483.24,461.47 448.85,464.38 420.02,451.97 396.91,442.73 377.76,424.47 366.68,402.26 356.86,381.35 355.52,357.75 355.95,335 356.18,307.1 355.67,279.2 356.23,251.31z" />
-                                                    <GeometryDrawing Brush="#FF3388FF" Geometry="F1 M590,590z M0,0z M220.36,283.31A555.9935,555.9935,0,0,1,303.45,276.27C307.54,293.08 313.5,309.35 317.87,326.08 325.85,351.05 332.68,376.64 345.15,399.87 359.28,426.7 380.91,451.01 409.49,462.65A111.89021,111.89021,0,0,0,478.14,469.24C489.32,467.05 499.51,461.85 509.37,456.39 514.53,453.4 519.02,449.34 524.42,446.76 510.88,464.4 491.31,476.67 470.89,484.89 429.38,501.08 379.85,501 340.73,478.29 319.04,466.39 302.04,447.65 289.1,426.84 280.98,413.43 275.81,398.61 269.91,384.17 261.79,356.62 253.46,329.07 247.31,301 235.07,303.4 223.48,308.22 212.02,313.04 187.76,323.28 164.87,337.51 146.65,356.67 135.39,368.77 126.57,384.18 126.1,401.08 124.41,413.45 133.08,425.8 145.03,428.94 152.74,431.9 161.19,430.8 168.88,428.4 192.76,422.05 211.22,403.79 225.07,384.12 230.91,376.08 234.06,366.46 239.73,358.33 232.52,395.35 216.43,431.57 189.31,458.31A126.72942,126.72942,0,0,1,142.4,489.49C124.05,495.63 103.38,499.26 84.6900000000001,492.36 62.5700000000001,486.55 45.7000000000001,466.23 42.3200000000001,443.84A93.81963,93.81963,0,0,1,48.1400000000001,392.11C56.8300000000001,369.05 73.1600000000001,349.54 92.2000000000001,334.2 129.5,306.21 174.74,290.9 220.36,283.31z" />
-                                                </DrawingGroup>
-                                            </DrawingGroup>
-                                        </DrawingImage.Drawing>
-                                    </DrawingImage>
-                                </Image.Source>
-                            </Image>
-                            <TextBlock
-                                FontFamily="{DynamicResource MiSans}"
-                                FontSize="13"
-                                Foreground="{DynamicResource TabTextColor}"
-                                Text="relio"
-                                VerticalAlignment="Center"
-                                x:Name="TitleText" />
-                        </DockPanel>
-
-                    </Grid>
-                </Border>
-                <ContentControl Content="{Binding SelectedTab.Content}" Name="Frame" />
-            </DockPanel>
+        <DockPanel>
             <Border
-                Background="{DynamicResource WindowBackgroundColor}"
+                Background="{DynamicResource CardBackgroundColor}"
                 DockPanel.Dock="Bottom"
-                Height="1"
-                HorizontalAlignment="Center"
-                IsHitTestVisible="False"
-                Margin="0,50,0,0"
-                Name="FlyoutPoint"
-                Opacity="0"
-                VerticalAlignment="Top"
-                Width="1" />
-            <u:OverlayDialogHost HostId="MainWindow" />
-        </Grid>
+                Height="25"
+                IsVisible="{Binding Data.SettingEntry.EnableBottomContainer}"
+                Padding="5,3">
+                <DockPanel>
+                    <TextBlock
+                        Classes="eq-width"
+                        DockPanel.Dock="Left"
+                        FontSize="12.5"
+                        HorizontalAlignment="Left"
+                        Text="{Binding SelectedTab.Content.ShortInfo}"
+                        VerticalAlignment="Center" />
+                    <TextBlock
+                        Classes="eq-width"
+                        DockPanel.Dock="Right"
+                        FontSize="12.5"
+                        HorizontalAlignment="Right"
+                        Margin="0,0,3,0"
+                        Text="{Binding Time}"
+                        VerticalAlignment="Center" />
+                </DockPanel>
+            </Border>
+            <Grid>
+                <DockPanel>
+                    <Border
+                        ClipToBounds="True"
+                        DockPanel.Dock="Top"
+                        VerticalAlignment="Top">
+                        <Grid>
+                            <controls:TitleBar
+                                DockPanel.Dock="Top"
+                                IsCloseBtnExitApp="True"
+                                IsCloseBtnShow="True"
+                                IsMaxBtnShow="True"
+                                IsVisible="True"
+                                Name="TitleBar">
+                                <controls:TitleBar.LeftContent>
+                                    <StackPanel Name="TitleBarContainer" Orientation="Horizontal">
+                                        <Border
+                                            Background="Transparent"
+                                            Cursor="Hand"
+                                            IsVisible="{Binding Tasking.HasTask}"
+                                            Name="FocusInfoBorder"
+                                            x:DataType="controls:TitleBar">
+                                            <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
+                                                <Border
+                                                    Background="{Binding Tasking.FocusInfoColor}"
+                                                    CornerRadius="90"
+                                                    Height="7"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center"
+                                                    Width="7"
+                                                    x:DataType="controls:TitleBar" />
+                                                <TextBlock
+                                                    Foreground="{DynamicResource TabTextColor}"
+                                                    HorizontalAlignment="Right"
+                                                    Margin="7,0,5,0"
+                                                    Name="UsingMinecraftAccountTextBlock"
+                                                    Text="{Binding Tasking.FocusInfoText}"
+                                                    VerticalAlignment="Center"
+                                                    x:DataType="controls:TitleBar" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Button
+                                            Classes="title-bar-button big-title-bar-icon"
+                                            Content="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"
+                                            Name="SettingButton"
+                                            VerticalAlignment="Center" />
+                                        <Button
+                                            Classes="title-bar-button-more"
+                                            Content="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z"
+                                            Name="MoreButton"
+                                            VerticalAlignment="Center" />
+                                        <Separator
+                                            Background="{DynamicResource TabTextColor}"
+                                            Foreground="{DynamicResource TabTextColor}"
+                                            Height="16"
+                                            Margin="5,0,5,0"
+                                            Name="Separator"
+                                            VerticalAlignment="Center"
+                                            Width="1" />
+                                    </StackPanel>
+                                </controls:TitleBar.LeftContent>
+                            </controls:TitleBar>
+                            <Border
+                                Background="Transparent"
+                                ClipToBounds="True"
+                                DockPanel.Dock="Top"
+                                Height="40"
+                                HorizontalAlignment="Left"
+                                Margin="80,0,150,0"
+                                Name="NavRoot"
+                                VerticalAlignment="Top">
+                                <Grid>
+                                    <ScrollViewer
+                                        AllowAutoHide="True"
+                                        HorizontalScrollBarVisibility="Auto"
+                                        Name="NavScrollViewer"
+                                        Offset="{Binding TabScrollOffset}"
+                                        OpacityMask="{Binding IsTabMaskVisible, Converter={StaticResource NavScrollOpacityMaskConverter}}"
+                                        PointerWheelChanged="NavScrollViewer_PointerWheelChanged"
+                                        VerticalScrollBarVisibility="Disabled">
+                                        <StackPanel Margin="0,0,20,0" Orientation="Horizontal">
+                                            <u:SelectionList
+                                                AutoScrollToSelectedItem="True"
+                                                ItemsSource="{Binding Tabs}"
+                                                Name="NavMenu"
+                                                SelectedItem="{Binding SelectedTab, Mode=TwoWay}"
+                                                VerticalAlignment="Center">
+                                                <u:SelectionList.Styles>
+                                                    <Style Selector="u|SelectionListItem:not(:selected)">
+                                                        <Style Selector="^ TextBlock">
+                                                            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+                                                        </Style>
+                                                        <Style Selector="^ Button">
+                                                            <Setter Property="Opacity" Value="0" />
+                                                        </Style>
+                                                        <Style Selector="^ Border#ItemRoot">
+                                                            <Setter Property="Background" Value="{DynamicResource TabBackgroundColor}" />
+                                                            <Setter Property="BorderBrush" Value="{DynamicResource LinearGradientTransparentColor}" />
+                                                        </Style>
+                                                    </Style>
+                                                    <Style Selector="u|SelectionListItem:pointerover">
+                                                        <Style Selector="^ Button">
+                                                            <Setter Property="Opacity" Value="1" />
+                                                        </Style>
+                                                        <Style Selector="^ Border#ItemRoot">
+                                                            <Setter Property="Background" Value="{DynamicResource HoverTabBackgroundColor}" />
+                                                            <Setter Property="BorderBrush" Value="{DynamicResource LinearGradientTransparentColor}" />
+                                                        </Style>
+                                                    </Style>
+                                                    <Style Selector="u|SelectionListItem:selected">
+                                                        <Style Selector="^ Button">
+                                                            <Setter Property="Opacity" Value="1" />
+                                                        </Style>
+                                                        <Style Selector="^ Border#ItemRoot">
+                                                            <Setter Property="Background" Value="{DynamicResource SelectedTabBackgroundColor}" />
+                                                            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+                                                        </Style>
+                                                    </Style>
+                                                </u:SelectionList.Styles>
+                                                <u:SelectionList.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Horizontal" Spacing="5" />
+                                                    </ItemsPanelTemplate>
+                                                </u:SelectionList.ItemsPanel>
+                                                <u:SelectionList.Indicator>
+                                                    <Border
+                                                        Background="{DynamicResource PageBackgroundColor}"
+                                                        BorderBrush="{DynamicResource BorderBrush}"
+                                                        BorderThickness="1"
+                                                        CornerRadius="5"
+                                                        HorizontalAlignment="Stretch"
+                                                        IsVisible="False"
+                                                        Margin="3"
+                                                        VerticalAlignment="Stretch" />
+                                                </u:SelectionList.Indicator>
+                                                <u:SelectionList.ItemTemplate>
+                                                    <DataTemplate DataType="entries:TabEntry">
+                                                        <Border
+                                                            BorderThickness="1"
+                                                            CornerRadius="{DynamicResource CardCornerRadius}"
+                                                            Height="30"
+                                                            MinWidth="140"
+                                                            Name="ItemRoot"
+                                                            PointerPressed="TabItem_OnPointerPressed"
+                                                            Tag="{Binding}"
+                                                            behavior:TabDragBehavior.IsEnabled="True">
+                                                            <Border.Transitions>
+                                                                <Transitions>
+                                                                    <BrushTransition Duration="0:0:0.2" Property="BorderBrush" />
+                                                                    <!-- <BrushTransition Duration="0:0:0.2" Property="Background" /> -->
+                                                                </Transitions>
+                                                            </Border.Transitions>
+                                                            <DockPanel Margin="8,-1,10,0" VerticalAlignment="Center">
+                                                                <PathIcon
+                                                                    Data="{Binding Icon}"
+                                                                    Foreground="{DynamicResource TabTextColor}"
+                                                                    Height="15"
+                                                                    IsVisible="{Binding IconIsVisible}"
+                                                                    Margin="0,0,4,0"
+                                                                    Width="15" />
+                                                                <ContentControl Content="{Binding HeaderContent}" Foreground="{DynamicResource TabTextColor}" />
+                                                                <Grid
+                                                                    HorizontalAlignment="Right"
+                                                                    IsVisible="{Binding CanClose}"
+                                                                    Margin="0,0,-4,0">
+                                                                    <Button
+                                                                        Classes="icon-button tab"
+                                                                        Command="{Binding Close}"
+                                                                        Content="{DynamicResource Close}"
+                                                                        Foreground="{DynamicResource TabTextColor}"
+                                                                        HorizontalAlignment="Right"
+                                                                        Margin="3,1,0,0"
+                                                                        MaxHeight="14"
+                                                                        MaxWidth="16"
+                                                                        MinHeight="14"
+                                                                        Name="CloseButton"
+                                                                        VerticalAlignment="Center">
+                                                                        <Button.Transitions>
+                                                                            <Transitions>
+                                                                                <DoubleTransition Duration="0:0:0.07" Property="Opacity" />
+                                                                            </Transitions>
+                                                                        </Button.Transitions>
+                                                                    </Button>
+                                                                </Grid>
+                                                            </DockPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </u:SelectionList.ItemTemplate>
+                                            </u:SelectionList>
+                                            <Button
+                                                Classes="custom-hover-button tab"
+                                                Content="{DynamicResource Plus}"
+                                                Margin="4,0,0,0"
+                                                Name="NewTabButton" />
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Border>
+                            <DockPanel
+                                Height="40"
+                                HorizontalAlignment="Left"
+                                IsHitTestVisible="False"
+                                Margin="16,0,0,0"
+                                Name="TitleRoot"
+                                VerticalAlignment="Top">
+                                <Image
+                                    Height="21"
+                                    Margin="0,-1,0,0"
+                                    VerticalAlignment="Center"
+                                    Width="21">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V590 H590 V0 H0 Z">
+                                                    <DrawingGroup Opacity="1">
+                                                        <GeometryDrawing Brush="#FF3388FF" Geometry="F1 M590,590z M0,0z M215.24,190.12C203.28,217.5 189.85,244.19 176.93,271.12 174.42,277.79 166.2,277.33 160.67,279.69 148.29,284.59 135.34,288.22 123.52,294.45 112.78,299.76 102.2,305.39 91.21,310.19 91.07,309.64 90.77,308.54 90.62,307.99 99.29,292.58 106.25,276.28 114.79,260.79 126.74,235.03 140.46,210.13 152.35,184.33 154.65,179.12 158.2,174.53 160.14,169.14 162.31,163.03 166.23,157.78 168.81,151.86 172.8,142.71 176.98,133.65 181.79,124.9 187.46,112.79 193.21,98.79 206.56,93.48 216.58,90.09 228,88.67 237.95,93.11A42.95126,42.95126,0,0,1,257.92,119.13C271.18,164.79 284.08,210.56 297.94,256.07 286.38,257.58 274.68,257.58 263.13,259.14 254.53,259.94 245.95,262.32 237.29,261.72" />
+                                                        <GeometryDrawing Brush="#FF3388FF" Geometry="F1 M590,590z M0,0z M356.23,251.31Q386.935,250.53,417.68,251.33C418.25,292.51 415.83,333.7 417.29,374.88 417.59,386.8 423.43,399.02 434.32,404.65 450.82,412.79 474.44,408.87 483.8,391.87 488.83,381.05 487.56,368.56 488.08,357 487.5,321.67 488.18,286.34 488.02,251.01 508.57,251.04 529.13,250.74 549.69,251.27 550.01,292.51 550.71,333.78 549.13,375A91.37373,91.37373,0,0,1,538.56,417.61C532.06,429.56 521.91,439.19 510.57,446.51 483.24,461.47 448.85,464.38 420.02,451.97 396.91,442.73 377.76,424.47 366.68,402.26 356.86,381.35 355.52,357.75 355.95,335 356.18,307.1 355.67,279.2 356.23,251.31z" />
+                                                        <GeometryDrawing Brush="#FF3388FF" Geometry="F1 M590,590z M0,0z M220.36,283.31A555.9935,555.9935,0,0,1,303.45,276.27C307.54,293.08 313.5,309.35 317.87,326.08 325.85,351.05 332.68,376.64 345.15,399.87 359.28,426.7 380.91,451.01 409.49,462.65A111.89021,111.89021,0,0,0,478.14,469.24C489.32,467.05 499.51,461.85 509.37,456.39 514.53,453.4 519.02,449.34 524.42,446.76 510.88,464.4 491.31,476.67 470.89,484.89 429.38,501.08 379.85,501 340.73,478.29 319.04,466.39 302.04,447.65 289.1,426.84 280.98,413.43 275.81,398.61 269.91,384.17 261.79,356.62 253.46,329.07 247.31,301 235.07,303.4 223.48,308.22 212.02,313.04 187.76,323.28 164.87,337.51 146.65,356.67 135.39,368.77 126.57,384.18 126.1,401.08 124.41,413.45 133.08,425.8 145.03,428.94 152.74,431.9 161.19,430.8 168.88,428.4 192.76,422.05 211.22,403.79 225.07,384.12 230.91,376.08 234.06,366.46 239.73,358.33 232.52,395.35 216.43,431.57 189.31,458.31A126.72942,126.72942,0,0,1,142.4,489.49C124.05,495.63 103.38,499.26 84.6900000000001,492.36 62.5700000000001,486.55 45.7000000000001,466.23 42.3200000000001,443.84A93.81963,93.81963,0,0,1,48.1400000000001,392.11C56.8300000000001,369.05 73.1600000000001,349.54 92.2000000000001,334.2 129.5,306.21 174.74,290.9 220.36,283.31z" />
+                                                    </DrawingGroup>
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                                <TextBlock
+                                    FontFamily="{DynamicResource MiSans}"
+                                    FontSize="13"
+                                    Foreground="{DynamicResource TabTextColor}"
+                                    Text="relio"
+                                    VerticalAlignment="Center"
+                                    x:Name="TitleText" />
+                            </DockPanel>
+
+                        </Grid>
+                    </Border>
+                    <ContentControl Content="{Binding SelectedTab.Content}" Name="Frame" />
+                </DockPanel>
+                <Border
+                    Background="{DynamicResource WindowBackgroundColor}"
+                    DockPanel.Dock="Bottom"
+                    Height="1"
+                    HorizontalAlignment="Center"
+                    IsHitTestVisible="False"
+                    Margin="0,50,0,0"
+                    Name="FlyoutPoint"
+                    Opacity="0"
+                    VerticalAlignment="Top"
+                    Width="1" />
+                <u:OverlayDialogHost HostId="MainWindow" />
+            </Grid>
+        </DockPanel>
     </Border>
 </u:UrsaWindow>

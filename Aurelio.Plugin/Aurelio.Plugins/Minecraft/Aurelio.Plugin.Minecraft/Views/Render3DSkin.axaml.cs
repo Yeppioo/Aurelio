@@ -1,8 +1,10 @@
 using System.Numerics;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
+using Aurelio.Public.Langs;
 using Aurelio.Public.Module.Ui;
 using Aurelio.Public.Module.Ui.Helper;
+using Aurelio.Public.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -11,7 +13,7 @@ using PointerType = LiteSkinViewer3D.Shared.Enums.PointerType;
 
 namespace Aurelio.Plugin.Minecraft.Views;
 
-public partial class Render3DSkin : UserControl, IAurelioTabPage
+public partial class Render3DSkin : PageMixModelBase, IAurelioTabPage
 {
     private readonly string _base64;
     private bool _fl = true;
@@ -39,8 +41,15 @@ public partial class Render3DSkin : UserControl, IAurelioTabPage
         skinViewer.PointerMoved += SkinViewer_PointerMoved;
         skinViewer.PointerPressed += SkinViewer_PointerPressed;
         skinViewer.PointerReleased += SkinViewer_PointerReleased;
+        ShortInfo = $"{MainLang.View3D} / {name}";
     }
+    private string _shortInfo = string.Empty;
 
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
     public Render3DSkin()
     {
     }

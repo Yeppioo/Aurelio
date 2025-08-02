@@ -35,6 +35,15 @@ public partial class CodeViewer : PageMixModelBase, IAurelioTabPage, IAurelioNav
         set => SetField(ref _isWordWrapEnabled, value);
     }
 
+
+    private string _shortInfo = string.Empty;
+
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
+
     public bool IsEditorModfied
     {
         get => _isEditorModfied;
@@ -65,6 +74,7 @@ public partial class CodeViewer : PageMixModelBase, IAurelioTabPage, IAurelioNav
     {
         _title = title;
         _path = path;
+        ShortInfo = path;
         InitializeComponent();
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
@@ -101,7 +111,8 @@ public partial class CodeViewer : PageMixModelBase, IAurelioTabPage, IAurelioNav
         {
             Gesture = KeyGesture.Parse("Ctrl+S"),
             Command = new RelayCommand(Save)
-        });KeyBindings.Add(new KeyBinding
+        });
+        KeyBindings.Add(new KeyBinding
         {
             Gesture = KeyGesture.Parse("Ctrl+R"),
             Command = new RelayCommand(Refresh)
@@ -149,7 +160,7 @@ public partial class CodeViewer : PageMixModelBase, IAurelioTabPage, IAurelioNav
         File.WriteAllText(_path, Editor.Text);
         IsEditorModfied = false;
     }
-    
+
     public void Refresh()
     {
         Editor.Document = new TextDocument(new StringTextSource(File.ReadAllText(_path)));
@@ -169,6 +180,7 @@ public partial class CodeViewer : PageMixModelBase, IAurelioTabPage, IAurelioNav
         });
         if (string.IsNullOrWhiteSpace(f)) return;
         _path = f;
+        ShortInfo = _path;
         _title = Path.GetFileName(_path);
         await File.WriteAllTextAsync(_path, Editor.Text);
         IsEditorModfied = false;
@@ -210,10 +222,12 @@ public partial class CodeViewer : PageMixModelBase, IAurelioTabPage, IAurelioNav
             Save();
             return true;
         }
+
         if (cr == ContentDialogResult.Secondary)
         {
             return true;
         }
+
         return false;
     }
 }

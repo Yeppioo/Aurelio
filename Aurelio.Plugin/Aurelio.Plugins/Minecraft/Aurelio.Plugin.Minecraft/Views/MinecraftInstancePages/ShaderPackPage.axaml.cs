@@ -45,6 +45,7 @@ public partial class ShaderPackPage : PageMixModelBase, IAurelioPage
             Setter.TryCreateFolder(path);
             _ = OpenFolder(path);
         };
+        ShortInfo = $"{_entry.Id} / {MainLang.ShaderPack}";
         DeleteSelectModBtn.Click += async (sender, _) =>
         {
             var items = ModManageList.SelectedItems;
@@ -82,7 +83,13 @@ public partial class ShaderPackPage : PageMixModelBase, IAurelioPage
         };
         SelectedModCount.Text = $"{MainLang.SelectedItem} 0";
     }
+    private string _shortInfo = string.Empty;
 
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
     public ShaderPackPage()
     {
     }
@@ -113,7 +120,7 @@ public partial class ShaderPackPage : PageMixModelBase, IAurelioPage
                     Name = Path.GetFileName(file)[..(Path.GetFileName(file).Length - 4)], Path = file,
                     Icon = null, Description = $"{MainLang.ImportTime}: {new FileInfo(file).CreationTime}"
                 });
-
+        ShortInfo = $"{_entry.Id} / {MainLang.ShaderPack} / 已加载 {_items.Count} 个光影包";
         FilterItems();
     }
 

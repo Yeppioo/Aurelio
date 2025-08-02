@@ -3,6 +3,7 @@ using Aurelio.Plugin.Minecraft.Operate;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Const;
+using Aurelio.Public.Langs;
 using Aurelio.Public.Module.IO;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
@@ -27,8 +28,15 @@ public partial class AccountPage : PageMixModelBase, IAurelioPage
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
         BindingEvent();
+        ShortInfo = $"{MainLang.Setting} / {MainLang.Account}";
     }
+    private string _shortInfo = string.Empty;
 
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
     public Control RootElement { get; set; }
     public PageLoadingAnimator InAnimator { get; set; }
 

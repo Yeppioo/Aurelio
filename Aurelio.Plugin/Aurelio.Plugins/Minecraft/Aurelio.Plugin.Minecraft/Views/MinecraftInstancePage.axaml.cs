@@ -64,7 +64,13 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
         // Add event handlers for buttons
         AttachEventHandlers();
     }
+    private string _shortInfo = string.Empty;
 
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
     private async Task DropHandler(object? sender, DragEventArgs e)
     {
         e.Handled = true;
@@ -375,7 +381,11 @@ public partial class MinecraftInstancePage : PageMixModelBase, IAurelioTabPage
     public SelectionListItem SelectedItem
     {
         get => _selectedItem;
-        set => SetField(ref _selectedItem, value);
+        set
+        {
+            SetField(ref _selectedItem, value);
+            ShortInfo = value == null ? $"{Entry.ParentMinecraftFolder.Name} / {Entry.Id}" : (value.Tag as IAurelioPage).ShortInfo;
+        }
     }
 
     public OverViewPage OverViewPage { get; }

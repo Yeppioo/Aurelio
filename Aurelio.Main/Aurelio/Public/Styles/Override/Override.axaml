@@ -1,5 +1,6 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
+    xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
     xmlns:drawer1="clr-namespace:Aurelio.Views.Overlay"
     xmlns:properties="clr-namespace:Aurelio.Public.Langs"
     xmlns:template1="clr-namespace:Aurelio.Views.Main.Pages"
@@ -257,5 +258,13 @@
     </Style>
     <Style Selector="MenuItem:pointerover">
         <Setter Property="Background" Value="{DynamicResource MenuItemHoverColor}" />
+    </Style>
+    <Style Selector="avaloniaEdit|TextEditor">
+        <Setter Property="FontFamily" Value="JetBrains Mono, Cascadia Mono, Cascadia Code, SF Mono, Monaco, Menlo, Consolas, DejaVu Sans Mono, Liberation Mono, Courier New, avares://Aurelio/Public/Assets#MiSans" />
+        <Setter Property="FontWeight" Value="10" />
+    </Style>
+    <Style Selector="TextBlock.eq-width">
+        <Setter Property="FontFamily" Value="JetBrains Mono, Cascadia Mono, Cascadia Code, SF Mono, Monaco, Menlo, Consolas, DejaVu Sans Mono, Liberation Mono, Courier New, avares://Aurelio/Public/Assets#MiSans" />
+        <Setter Property="FontWeight" Value="10" />
     </Style>
 </Styles>

@@ -30,7 +30,13 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
     private bool _fl = true;
     private bool _isLoadingBatch; // 防止重复加载
     private bool loading = true;
+    private string _shortInfo = string.Empty;
 
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
 
     public ScreenshotPage(MinecraftEntry entry)
     {
@@ -58,7 +64,7 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
             Setter.TryCreateFolder(path);
             _ = OpenFolder(path);
         };
-
+        ShortInfo = $"{_entry.Id} / {MainLang.Screenshots}";
         // 添加滚动事件监听，实现无限滚动
         Loaded += (_, _) =>
         {
@@ -158,6 +164,7 @@ public partial class ScreenshotPage : PageMixModelBase, IAurelioPage
                     Description = $"{MainLang.ImportTime}: {new FileInfo(file).CreationTime}"
                 });
 
+            ShortInfo = $"{_entry.Id} / {MainLang.Screenshots} / 已加载 {_allFiles.Count} 个截图";
             // 应用当前过滤器并加载第一批
             FilterItems();
             Loading = false;

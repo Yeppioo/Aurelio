@@ -3,6 +3,7 @@ using Aurelio.Plugin.Minecraft.Operate;
 using Aurelio.Plugin.Minecraft.Service.Minecraft;
 using Aurelio.Public.Classes.Interfaces;
 using Aurelio.Public.Const;
+using Aurelio.Public.Langs;
 using Aurelio.Public.Module.App;
 using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
@@ -22,10 +23,17 @@ public partial class LaunchPage : PageMixModelBase, IAurelioPage
         RootElement = Root;
         InAnimator = new PageLoadingAnimator(Root, new Thickness(0, 60, 0, 0), (0, 1));
         BindingEvent();
+        ShortInfo = $"{MainLang.Setting} / {MainLang.Launch}";
     }
     
     public PageLoadingAnimator InAnimator { get; set; }
+    private string _shortInfo = string.Empty;
 
+    public string ShortInfo
+    {
+        get => _shortInfo;
+        set => SetField(ref _shortInfo, value);
+    }
     public Control RootElement { get; set; }
 
     private void BindingEvent()
