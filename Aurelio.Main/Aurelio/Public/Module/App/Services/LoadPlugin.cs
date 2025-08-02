@@ -48,29 +48,65 @@ public class LoadPlugin
 
     private static int LoadNupkgPlugins(ref int failedCount)
     {
+        // Support both .aupkg (new format) and .nupkg (legacy format) for backward compatibility
+        var aupkgFiles = Getter.GetAllFilesByExtension(ConfigPath.PluginFolderPath, "*.aupkg");
         var nupkgFiles = Getter.GetAllFilesByExtension(ConfigPath.PluginFolderPath, "*.nupkg");
 
-        if (nupkgFiles.Count == 0)
-        {
-            Logger.Info("No plugin packages (.nupkg) found in plugin folder");
-            return 0;
-        }
-
-        Logger.Info($"Found {nupkgFiles.Count} plugin packages to load");
-
-        var loadedCount = 0;
-
+        // Auto-rename .nupkg files to .aupkg for consistency
+        var renamedFiles = new List<string>();
         foreach (var nupkgFile in nupkgFiles)
         {
             try
             {
-                var packageLoadedCount = ExtractAndLoadPluginPackage(nupkgFile);
+                var aupkgPath = Path.ChangeExtension(nupkgFile, ".aupkg");
+
+                // Check if .aupkg version already exists to avoid conflicts
+                if (!File.Exists(aupkgPath))
+                {
+                    File.Move(nupkgFile, aupkgPath);
+                    renamedFiles.Add(aupkgPath);
+                    Logger.Info($"Renamed {Path.GetFileName(nupkgFile)} to {Path.GetFileName(aupkgPath)}");
+                }
+                else
+                {
+                    // If .aupkg already exists, delete the .nupkg file to avoid duplicates
+                    File.Delete(nupkgFile);
+                    Logger.Info($"Deleted duplicate {Path.GetFileName(nupkgFile)} as {Path.GetFileName(aupkgPath)} already exists");
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Warning($"Failed to rename {Path.GetFileName(nupkgFile)} to .aupkg: {e.Message}");
+                // If rename fails, keep the original file for loading
+                renamedFiles.Add(nupkgFile);
+            }
+        }
+
+        var allPackageFiles = new List<string>();
+        allPackageFiles.AddRange(aupkgFiles);
+        allPackageFiles.AddRange(renamedFiles);
+
+        if (allPackageFiles.Count == 0)
+        {
+            Logger.Info("No plugin packages found in plugin folder");
+            return 0;
+        }
+
+        Logger.Info($"Found {allPackageFiles.Count} plugin packages to load (including {renamedFiles.Count} renamed from .nupkg)");
+
+        var loadedCount = 0;
+
+        foreach (var packageFile in allPackageFiles)
+        {
+            try
+            {
+                var packageLoadedCount = ExtractAndLoadPluginPackage(packageFile);
                 loadedCount += packageLoadedCount;
             }
             catch (Exception e)
             {
                 failedCount++;
-                Logger.Error($"Failed to load plugin package {Path.GetFileNameWithoutExtension(nupkgFile)}: {e.Message}");
+                Logger.Error($"Failed to load plugin package {Path.GetFileNameWithoutExtension(packageFile)}: {e.Message}");
                 Logger.Error(e);
             }
         }

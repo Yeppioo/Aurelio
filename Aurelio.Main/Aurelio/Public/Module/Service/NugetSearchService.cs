@@ -194,7 +194,7 @@ public static class NugetSearchService
 
             // 构建下载URL和文件路径（去除版本号）
             var downloadUrl = $"{NUGET_DOWNLOAD_BASE}/{package.Id.ToLowerInvariant()}/{package.SelectedVersion}/{package.Id.ToLowerInvariant()}.{package.SelectedVersion}.nupkg";
-            var fileName = $"{package.Id}.nupkg"; // 去除版本号
+            var fileName = $"{package.Id}.aupkg"; // 去除版本号，使用新的.aupkg扩展名
             var targetFilePath = Path.Combine(ConfigPath.PluginFolderPath, fileName);
 
             // 检查文件是否已存在
@@ -277,12 +277,12 @@ public static class NugetSearchService
         try
         {
             // 选择保存位置
-            var fileName = $"{package.Id}.{package.SelectedVersion}.nupkg";
+            var fileName = $"{package.Id}.{package.SelectedVersion}.aupkg";
             var savePath = await sender!.PickSaveFileAsync(new FilePickerSaveOptions
             {
-                Title = "保存NuGet包",
+                Title = "保存Aurelio插件包",
                 SuggestedFileName = fileName,
-                DefaultExtension = "nupkg"
+                DefaultExtension = "aupkg"
             });
 
             if (string.IsNullOrEmpty(savePath))

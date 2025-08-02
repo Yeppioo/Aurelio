@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using Aurelio.Plugin.Base;
@@ -221,8 +222,8 @@ public class LoadedPluginEntry : ReactiveObject
 
                 File.Move(originalFilePath, backupPath);
 
-                // 确保最终文件名不包含版本号
-                var finalFilePath = Path.Combine(ConfigPath.PluginFolderPath, $"{package.Id}.nupkg");
+                // 确保最终文件名不包含版本号，使用新的.aupkg扩展名
+                var finalFilePath = Path.Combine(ConfigPath.PluginFolderPath, $"{package.Id}.aupkg");
 
                 // 复制新文件到最终位置（去除版本号）
                 File.Copy(tempFilePath, finalFilePath, true);
@@ -318,7 +319,7 @@ public class LoadedPluginEntry : ReactiveObject
     }
 
     /// <summary>
-    /// 查找原始的NUPKG文件路径
+    /// 查找原始的插件包文件路径（支持.aupkg和.nupkg格式，自动重命名.nupkg为.aupkg）
     /// </summary>
     private string FindOriginalNupkgFile(string packageId)
     {
@@ -330,9 +331,46 @@ public class LoadedPluginEntry : ReactiveObject
                 return string.Empty;
             }
 
-            var nupkgFiles = Directory.GetFiles(pluginFolder, "*.nupkg", SearchOption.TopDirectoryOnly);
+            // 首先查找.aupkg文件
+            var aupkgFiles = Directory.GetFiles(pluginFolder, "*.aupkg", SearchOption.TopDirectoryOnly);
 
-            foreach (var file in nupkgFiles)
+            // 然后查找.nupkg文件并自动重命名
+            var nupkgFiles = Directory.GetFiles(pluginFolder, "*.nupkg", SearchOption.TopDirectoryOnly);
+            var renamedFiles = new List<string>();
+
+            foreach (var nupkgFile in nupkgFiles)
+            {
+                try
+                {
+                    var aupkgPath = Path.ChangeExtension(nupkgFile, ".aupkg");
+
+                    // 检查是否已存在同名的.aupkg文件
+                    if (!File.Exists(aupkgPath))
+                    {
+                        File.Move(nupkgFile, aupkgPath);
+                        renamedFiles.Add(aupkgPath);
+                        Logger.Info($"Auto-renamed {Path.GetFileName(nupkgFile)} to {Path.GetFileName(aupkgPath)}");
+                    }
+                    else
+                    {
+                        // 如果.aupkg已存在，删除.nupkg文件避免重复
+                        File.Delete(nupkgFile);
+                        Logger.Info($"Deleted duplicate {Path.GetFileName(nupkgFile)} as {Path.GetFileName(aupkgPath)} already exists");
+                    }
+                }
+                catch (Exception e)
+                {
+                    Logger.Warning($"Failed to rename {Path.GetFileName(nupkgFile)} to .aupkg: {e.Message}");
+                    // 如果重命名失败，保留原文件
+                    renamedFiles.Add(nupkgFile);
+                }
+            }
+
+            var allFiles = new List<string>();
+            allFiles.AddRange(aupkgFiles);
+            allFiles.AddRange(renamedFiles);
+
+            foreach (var file in allFiles)
             {
                 var fileName = Path.GetFileNameWithoutExtension(file);
 
@@ -355,7 +393,7 @@ public class LoadedPluginEntry : ReactiveObject
                 }
             }
 
-            Logger.Warning($"未找到 {packageId} 的原始NUPKG文件");
+            Logger.Warning($"未找到 {packageId} 的原始插件包文件(.aupkg或.nupkg)");
             return string.Empty;
         }
         catch (Exception ex)
