@@ -23,7 +23,12 @@ public class JavaRuntime
         {
             var repeatJavaCount = 0;
             var successAddCount = 0;
-            var javaList = await JavaUtil.EnumerableJavaAsync().ToListAsync();
+            
+            var i = JavaUtil.EnumerableJavaAsync();
+            List<JavaEntry> javaList = [];
+            await foreach (var item in i.ConfigureAwait(false))
+                javaList.Add(item);
+
             var convertedJavaList = javaList.Select(RecordJavaRuntime.MlToAurelio).ToList();
 
             convertedJavaList.ForEach(java =>
@@ -87,10 +92,12 @@ public class JavaRuntime
         }
         else
         {
-            if (MinecraftPluginData.MinecraftPluginSettingEntry.JavaRuntimes.Contains(RecordJavaRuntime.MlToAurelio(javaInfo!)))
+            if (MinecraftPluginData.MinecraftPluginSettingEntry.JavaRuntimes.Contains(
+                    RecordJavaRuntime.MlToAurelio(javaInfo!)))
                 Notice(MainLang.TheItemAlreadyExist, NotificationType.Error);
             else
-                MinecraftPluginData.MinecraftPluginSettingEntry.JavaRuntimes.Add(RecordJavaRuntime.MlToAurelio(javaInfo!));
+                MinecraftPluginData.MinecraftPluginSettingEntry.JavaRuntimes.Add(
+                    RecordJavaRuntime.MlToAurelio(javaInfo!));
         }
 
         VerifyList();

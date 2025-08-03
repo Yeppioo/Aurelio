@@ -13,7 +13,6 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
 using Avalonia.Input;
 using MinecraftLaunch.Base.Models.Network;
-using Aurelio.Plugin.Minecraft.Service.Minecraft.Installer.Core.VersionFetcher;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Views.Main;
 using Aurelio.Views.Main.Pages;
@@ -43,16 +42,16 @@ public partial class VersionSelector : PageMixModelBase, IAurelioTabPage, IAurel
     private string _oldVersionsSearchText = string.Empty;
 
     // Filtered collections
-    private ObservableCollection<VersionManifestEntry> _filteredAllVersions = new();
-    private ObservableCollection<VersionManifestEntry> _filteredReleaseVersions = new();
-    private ObservableCollection<VersionManifestEntry> _filteredSnapshotVersions = new();
-    private ObservableCollection<VersionManifestEntry> _filteredOldVersions = new();
+    private ObservableCollection<VersionManifestEntry> _filteredAllVersions = [];
+    private ObservableCollection<VersionManifestEntry> _filteredReleaseVersions = [];
+    private ObservableCollection<VersionManifestEntry> _filteredSnapshotVersions = [];
+    private ObservableCollection<VersionManifestEntry> _filteredOldVersions = [];
 
     // Version collections
-    private List<VersionManifestEntry> _allVersions = new();
-    private List<VersionManifestEntry> _releaseVersions = new();
-    private List<VersionManifestEntry> _snapshotVersions = new();
-    private List<VersionManifestEntry> _oldVersions = new();
+    private List<VersionManifestEntry> _allVersions = [];
+    private List<VersionManifestEntry> _releaseVersions = [];
+    private List<VersionManifestEntry> _snapshotVersions = [];
+    private List<VersionManifestEntry> _oldVersions = [];
 
     public VersionSelector()
     {
@@ -70,7 +69,7 @@ public partial class VersionSelector : PageMixModelBase, IAurelioTabPage, IAurel
         };
 
         // Start loading versions
-        _ = LoadVersionsAsync(MinecraftPluginData.AllInstallableMinecraftVersions.Count == 0);
+        _ = LoadVersionsAsync(MinecraftPluginData.AllInstallableMinecraftVersions.Count != 0);
     }
 
     private void BindingEvent()
@@ -176,16 +175,31 @@ public partial class VersionSelector : PageMixModelBase, IAurelioTabPage, IAurel
     // Core methods
     private async Task LoadVersionsAsync(bool fromCache = false)
     {
+        var cts = new CancellationTokenSource();
+
         try
         {
             IsLoading = true;
             HasError = false;
             OnPropertyChanged(nameof(IsContentVisible));
 
-            if (fromCache)
+            var got = false;
+
+            if (!fromCache)
             {
+                MinecraftPluginData.AllInstallableMinecraftVersions.CollectionChanged += (sender, args) =>
+                {
+                    if (args.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add && !got)
+                    {
+                        got = true;
+                        cts.Cancel();
+                        return;
+                    }
+                };
+
                 // Fetch versions using VanillaInstaller
-                var versions = (await VanillaInstaller.EnumerableMinecraftAsync()).ToList();
+                var versions = (await VanillaInstaller.EnumerableMinecraftAsync(cts.Token)).ToList();
+                got = true;
 
                 // Store in MinecraftPluginData
                 MinecraftPluginData.AllInstallableMinecraftVersions.Clear();
@@ -213,6 +227,19 @@ public partial class VersionSelector : PageMixModelBase, IAurelioTabPage, IAurel
         }
         catch (Exception ex)
         {
+            if (cts.IsCancellationRequested)
+            {
+                CategorizeVersions(MinecraftPluginData.AllInstallableMinecraftVersions.ToList());
+                UpdateLatestVersions();
+
+                // Initialize filtered collections
+                InitializeFilteredCollections();
+
+                IsLoading = false;
+                OnPropertyChanged(nameof(IsContentVisible));
+                return;
+            }
+
             IsLoading = false;
             HasError = true;
             ErrorMessage = ex.Message;
@@ -309,14 +336,17 @@ public partial class VersionSelector : PageMixModelBase, IAurelioTabPage, IAurel
     // Placeholder installation method
     private void InstallVersion(VersionManifestEntry version)
     {
-        // TODO: Implement actual installation logic
-        // This is a placeholder for future implementation
+        var root = this.GetVisualRoot();
+        if (root is TabWindow tabWindow)
+        {
+            tabWindow.CreateTab(new TabEntry(new InstallPreview(version)));
+            HostTab.Close();
+            return;
+        }
 
-        // For now, just show a message or log the selection
-        System.Diagnostics.Debug.WriteLine($"Selected version for installation: {version.Id} ({version.Type})");
+        App.UiRoot.CreateTab(new TabEntry(new InstallPreview(version)));
+        HostTab.Close();
 
-        // You could show a notification or dialog here
-        // Example: Show a temporary message to the user
     }
 
     public TabEntry HostTab { get; set; }
@@ -330,7 +360,7 @@ public partial class VersionSelector : PageMixModelBase, IAurelioTabPage, IAurel
     {
         Icon = StreamGeometry.Parse(
             "M320 160C320 107 363 64 416 64L454.4 64C503.9 64 544 104.1 544 153.6L544 440C544 515.1 483.1 576 408 576C332.9 576 272 515.1 272 440L272 360C272 337.9 254.1 320 232 320C209.9 320 192 337.9 192 360L192 528C192 554.5 170.5 576 144 576C117.5 576 96 554.5 96 528L96 360C96 284.9 156.9 224 232 224C307.1 224 368 284.9 368 360L368 440C368 462.1 385.9 480 408 480C430.1 480 448 462.1 448 440L448 256L416 256C363 256 320 213 320 160zM464 152C464 138.7 453.3 128 440 128C426.7 128 416 138.7 416 152C416 165.3 426.7 176 440 176C453.3 176 464 165.3 464 152z"),
-        Title = MainLang.AutoInstall + " - Minecraft",
+        Title = MainLang.AutoInstall + " Minecraft",
         NeedPath = false,
         AutoCreate = true
     };

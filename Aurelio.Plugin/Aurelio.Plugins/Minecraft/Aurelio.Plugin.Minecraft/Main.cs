@@ -98,9 +98,12 @@ public partial class Main : IPlugin
 
     private void AppEventsOnBeforeUiLoaded(object? sender, EventArgs e)
     {
-        HttpUtil.Initialize();
-        DownloadMirrorManager.MaxThread = 128;
-        ServicePointManager.DefaultConnectionLimit = int.MaxValue;
+        InitializeHelper.Initialize(settings => {
+            settings.MaxThread = 256;
+            settings.MaxFragmented = 128;
+            settings.IsEnableMirror = false;
+            settings.CurseForgeApiKey = "Your Curseforge API";
+        });
     }
 
 
@@ -114,6 +117,7 @@ public partial class Main : IPlugin
             Header = MainLang.MinecraftInstance,
             Page = new MinecraftInstancesTabPage()
         });
+        UiProperty.NavPages.Add(new NavPageEntry(MinecraftInstancesTabPage.StaticPageInfo, MinecraftInstancesTabPage.Create));
         UiProperty.NavPages.Add(new NavPageEntry(VersionSelector.StaticPageInfo, VersionSelector.Create));
         _ = MinecraftInstancesHandler.Load(MinecraftPluginData.MinecraftPluginSettingEntry.MinecraftFolderEntries
             .Select(x => x.Path).ToArray());

@@ -16,7 +16,7 @@ using Avalonia.VisualTree;
 
 namespace Aurelio.Plugin.Minecraft.Views;
 
-public partial class MinecraftInstancesTabPage : PageMixModelBase, IAurelioTabPage
+public partial class MinecraftInstancesTabPage : PageMixModelBase, IAurelioTabPage , IAurelioNavPage
 {
     private double _containerWidth;
 
@@ -115,5 +115,26 @@ public partial class MinecraftInstancesTabPage : PageMixModelBase, IAurelioTabPa
         icon.Margin = new Thickness(0, 0, -5, 0);
         icon.Data = Geometry.Parse(
             "M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z");
+    }
+
+    public static AurelioStaticPageInfo StaticPageInfo { get; } = new()
+    {
+        Title = MainLang.MinecraftInstance,
+        Icon = Icons.Thumbtack,
+        NeedPath = false,
+        AutoCreate = true
+    };
+
+    public static IAurelioNavPage Create((object sender, object? param) t)
+    {
+        var root = ((Control)t.sender).GetVisualRoot();
+        if (root is TabWindow tabWindow)
+        {
+            tabWindow.CreateTab(new TabEntry(new MinecraftInstancesTabPage()));
+            return null;
+        }
+
+        App.UiRoot.CreateTab(new TabEntry(new MinecraftInstancesTabPage()));
+        return null;
     }
 }
