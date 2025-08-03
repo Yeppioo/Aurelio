@@ -74,14 +74,19 @@
                                                             HorizontalAlignment="Right"
                                                             IsVisible="{Binding ProgressIsIndeterminate, Converter={StaticResource BoolReversalConverter}}"
                                                             Margin="0,0,1,0"
-                                                            TextAlignment="Right"><Run Text="%" />
+                                                            TextAlignment="Right">
+                                                            <Run Text="%" />
                                                             <Run Text="{Binding ProgressValue}" />
                                                         </TextBlock>
-                                                        <TextBlock
-                                                            FontSize="12"
+                                                        <StackPanel
+                                                            FlowDirection="LeftToRight"
                                                             Margin="5,0,10,0"
-                                                            Text="{Binding TopRightInfoText}"
-                                                            TextAlignment="Right" />
+                                                            Orientation="Horizontal">
+                                                            <TextBlock
+                                                                FontSize="12"
+                                                                Text="{Binding TopRightInfoText}"
+                                                                TextAlignment="Right" />
+                                                        </StackPanel>
                                                     </StackPanel>
                                                 </DockPanel>
                                                 <ProgressBar

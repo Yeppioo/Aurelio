@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Aurelio.Public.Classes.Entries;
+using Avalonia.Threading;
 
 namespace Aurelio.Public.ViewModels;
 
@@ -16,9 +17,22 @@ public class TabWindowViewModel : ViewModelBase
         PropertyChanged += (s, e) =>
         {
             if (e.PropertyName != nameof(SelectedTab) || SelectedTab == null) return;
+            if (SelectedTab.Content == null) return;
+            if (SelectedTab.Content.RootElement == null) return;
             SelectedTab.Content.RootElement.IsVisible = false;
             SelectedTab.Content.InAnimator.Animate();
         };
+        var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(0.5) };
+        timer.Tick += (_, _) => Time = DateTime.Now;
+        timer.Start();
+    }
+    
+    private DateTime _time = DateTime.Now;
+
+    public DateTime Time
+    {
+        get => _time; 
+        set => SetField(ref _time, value);
     }
 
     public ObservableCollection<TabEntry> Tabs { get; set; } = [];

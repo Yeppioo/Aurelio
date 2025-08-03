@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Web;
 using Aurelio.Public.Classes.Entries;
@@ -34,7 +36,7 @@ public partial class TabWindow : UrsaWindow, IAurelioWindow
     private DateTime _shiftKeyDownTime;
     private bool _isShiftKeyDown;
     public string HostId => DialogHost.HostId;
-
+    
     public TabWindow()
     {
 #if DEBUG

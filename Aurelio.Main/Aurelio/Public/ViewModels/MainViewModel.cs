@@ -43,6 +43,8 @@ public class MainViewModel : ViewModelBase
         PropertyChanged += (s, e) =>
         {
             if (e.PropertyName != nameof(SelectedTab) || SelectedTab == null) return;
+            if (SelectedTab.Content == null) return;
+            if (SelectedTab.Content.RootElement == null) return;
             SelectedTab.Content.RootElement.IsVisible = false;
             SelectedTab.Content.InAnimator.Animate();
         };

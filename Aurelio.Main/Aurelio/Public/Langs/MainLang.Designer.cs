@@ -4516,7 +4516,7 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 版本名称将被重命名为: .
+        ///   Looks up a localized string similar to 版本名称将被重命名为.
         /// </summary>
         public static string TheVersionNameWillBeRenamedTo {
             get {

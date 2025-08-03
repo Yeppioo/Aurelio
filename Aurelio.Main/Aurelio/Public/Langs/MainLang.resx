@@ -379,7 +379,7 @@
     <value>Minecrat发生崩溃</value>
   </data>
   <data name="TheVersionNameWillBeRenamedTo" xml:space="preserve">
-    <value>版本名称将被重命名为: </value>
+    <value>版本名称将被重命名为</value>
   </data>
   <data name="IncludeSpecialWord" xml:space="preserve">
     <value>包含特殊字符</value>

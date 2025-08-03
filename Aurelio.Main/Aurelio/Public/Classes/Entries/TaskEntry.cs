@@ -4,12 +4,14 @@ using System.Linq;
 using System.Timers;
 using Aurelio.Public.Classes.Enum;
 using Aurelio.Public.Langs;
+using Aurelio.Public.ViewModels;
+using CommunityToolkit.Mvvm.ComponentModel;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
 namespace Aurelio.Public.Classes.Entries;
 
-public class TaskEntry : ReactiveObject
+public partial class TaskEntry : ViewModelBase
 {
     private readonly Timer _timer;
 
@@ -30,22 +32,108 @@ public class TaskEntry : ReactiveObject
         PropertyChanged += OnPropertyChanged;
     }
 
-    [Reactive] public string Name { get; set; }
-    [Reactive] public TaskState TaskState { get; set; } = TaskState.Waiting;
-    [Reactive] public bool ProgressIsIndeterminate { get; set; } = true;
-    [Reactive] public bool IsCancelRequest { get; set; }
-    [Reactive] public bool IsButtonEnable { get; set; } = true;
-    [Reactive] public bool Expanded { get; set; } = true;
-    [Reactive] public double ProgressValue { get; set; }
+     private string _name;
+     private TaskState _taskState = TaskState.Waiting;
+     private bool _progressIsIndeterminate = true;
+     private bool _isCancelRequest;
+     private bool _isButtonEnable = true;
+     private bool _expanded = true;
+     private double _progressValue;
+     private Action? _buttonAction;
+     private Action? _destroyAction;
+     private string _buttonText;
+     private string _topRightInfoText;
+     private string _bottomLeftInfoText;
+     private bool _isDestroyButtonVisible;
+     private TimeSpan _time = TimeSpan.Zero;
     public ObservableCollection<TaskEntry> SubTasks { get; set; } = [];
     public ObservableCollection<OperateButtonEntry> OperateButtons { get; set; } = [];
-    [Reactive] public Action? ButtonAction { get; set; }
-    [Reactive] public Action? DestroyAction { get; set; }
-    [Reactive] public string ButtonText { get; set; }
-    [Reactive] public string TopRightInfoText { get; set; }
-    [Reactive] public string BottomLeftInfoText { get; set; }
-    [Reactive] public bool IsDestroyButtonVisible { get; set; }
-    [Reactive] public TimeSpan Time { get; set; } = TimeSpan.Zero;
+
+    public string Name
+    {
+        get => _name;
+        set => SetField(ref _name, value);
+    }
+
+    public TaskState TaskState
+    {
+        get => _taskState;
+        set => SetField(ref _taskState, value);
+    }
+
+    public bool ProgressIsIndeterminate
+    {
+        get => _progressIsIndeterminate;
+        set => SetField(ref _progressIsIndeterminate, value);
+    }
+
+    public bool IsCancelRequest
+    {
+        get => _isCancelRequest;
+        set => SetField(ref _isCancelRequest, value);
+    }
+
+    public bool IsButtonEnable
+    {
+        get => _isButtonEnable;
+        set => SetField(ref _isButtonEnable, value);
+    }
+
+    public bool Expanded
+    {
+        get => _expanded;
+        set => SetField(ref _expanded, value);
+    }
+
+    public double ProgressValue
+    {
+        get => _progressValue;
+        set => SetField(ref _progressValue, value);
+    }
+
+    public Action? ButtonAction
+    {
+        get => _buttonAction;
+        set => SetField(ref _buttonAction, value);
+    }
+
+    public Action? DestroyAction
+    {
+        get => _destroyAction;
+        set => SetField(ref _destroyAction, value);
+    }
+
+    public string ButtonText
+    {
+        get => _buttonText;
+        set => SetField(ref _buttonText, value);
+    }
+
+    public string TopRightInfoText
+    {
+        get => _topRightInfoText;
+        set => SetField(ref _topRightInfoText, value);
+    }
+
+    public string BottomLeftInfoText
+    {
+        get => _bottomLeftInfoText;
+        set => SetField(ref _bottomLeftInfoText, value);
+    }
+
+    public bool IsDestroyButtonVisible
+    {
+        get => _isDestroyButtonVisible;
+        set => SetField(ref _isDestroyButtonVisible, value);
+    }
+
+    public TimeSpan Time
+    {
+        get => _time;
+        set => SetField(ref _time, value);
+    }
+
+
 
     public TaskEntry AddIn(TaskEntry entry)
     {
@@ -193,5 +281,28 @@ public class TaskEntry : ReactiveObject
     public void DestroyActionCommand()
     {
         DestroyAction?.Invoke();
+    }
+
+    public void SetProgressValue(double progress)
+    {
+        if (progress < 0)
+        {
+            ProgressIsIndeterminate = true;
+            ProgressValue = 0;
+            return;
+        }
+
+        ProgressIsIndeterminate = false;
+        ProgressValue = progress;
+    }
+
+    public void SetBottomLeftText(string text)
+    {
+        BottomLeftInfoText = text;
+    }
+
+    public void SetTopRightText(string text)
+    {
+        TopRightInfoText = text;
     }
 }
