@@ -13,7 +13,7 @@ namespace Aurelio.Plugin.Minecraft.Service.Minecraft.Installer.Core;
 
 public class Vanilla
 {
-    public static async Task<(bool success, MinecraftEntry? entry)> Main(VersionManifestEntry version, string path,
+    public static async Task<bool> Main(VersionManifestEntry version, string path,
         string customId, TaskEntry mainTask, TaskEntry task1, TaskEntry task2, CancellationToken cancellationToken)
     {
         try
@@ -35,13 +35,13 @@ public class Vanilla
                 mainTask.ProgressValue = Math.Round(arg.Progress * 100, 2);
             };
 
-            var minecraft = await installer.InstallAsync(cancellationToken);
-            return (true, minecraft);
+            await installer.InstallAsync(cancellationToken);
+            return true;
         }
         catch (Exception e)
         {
             Logger.Error(e);
-            return (false, null);
+            return false;
         }
     }
 }

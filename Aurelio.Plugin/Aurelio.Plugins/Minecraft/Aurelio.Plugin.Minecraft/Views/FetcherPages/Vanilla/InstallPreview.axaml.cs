@@ -11,6 +11,7 @@ using Aurelio.Views.Main;
 using Aurelio.Views.Overlay;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Templates;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -720,6 +721,15 @@ public partial class InstallPreview : PageMixModelBase, IAurelioTabPage, IAureli
 
     private async void BeginInstallBtn_OnClick(object? sender, RoutedEventArgs e)
     {
+        var cid = ShowNamingWarning ? NamingPreview : CustomInstallationId;
+        if ((SelectedOptiFine != null || SelectedForge != null || SelectedNeoForge != null)
+            && (MinecraftPluginData.MinecraftPluginSettingEntry.JavaRuntimes.Count == 0 ||
+                MinecraftPluginData.MinecraftPluginSettingEntry.JavaRuntimes.All(x => x.JavaFolder == null)))
+        {
+            Notice(MainLang.JavaRuntimeTip, NotificationType.Error);
+            return;
+        }
+
         var com = new ComboBox
         {
             ItemsSource = MinecraftPluginData.MinecraftPluginSettingEntry.MinecraftFolderEntries,
@@ -735,17 +745,17 @@ public partial class InstallPreview : PageMixModelBase, IAurelioTabPage, IAureli
         if (cr == ContentDialogResult.None) return;
 
         if (HasAnySelection && Directory.Exists(Path.Combine((com.SelectedItem as RecordMinecraftFolderEntry).Path,
-                "versions", CustomInstallationId)))
+                "versions", cid)))
         {
-            var cr1 = await ShowDialogAsync($"{MainLang.FolderAlreadyExists}: {CustomInstallationId}",
+            var cr1 = await ShowDialogAsync($"{MainLang.FolderAlreadyExists}: {cid}",
                 b_cancel: MainLang.Cancel, b_primary: MainLang.Delete);
             if (cr1 == ContentDialogResult.None)
                 return;
             Directory.Delete(Path.Combine((com.SelectedItem as RecordMinecraftFolderEntry).Path, "versions",
-                CustomInstallationId), true);
+                cid), true);
         }
 
-        _ = Entrance.Main(_entry, (com.SelectedItem as RecordMinecraftFolderEntry).Path, CustomInstallationId,
+        _ = Entrance.Main(_entry, (com.SelectedItem as RecordMinecraftFolderEntry).Path, cid,
             SelectedOptiFine, SelectedFabric, SelectedForge ?? SelectedNeoForge ?? null, SelectedQuilt);
 
         _ = OpenTaskDrawer(GetHostId(this));

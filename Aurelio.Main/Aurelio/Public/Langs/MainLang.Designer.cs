@@ -2370,7 +2370,7 @@ namespace Aurelio.Public.Langs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 启动游戏至少需要一个Java运行时。.
+        ///   Looks up a localized string similar to 至少需要一个Java运行时.
         /// </summary>
         public static string JavaRuntimeTip {
             get {

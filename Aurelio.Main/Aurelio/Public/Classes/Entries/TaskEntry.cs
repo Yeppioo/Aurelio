@@ -234,6 +234,9 @@ public partial class TaskEntry : ViewModelBase
         ProgressIsIndeterminate = false;
         ProgressValue = 70;
         ButtonAction = Destroy;
+        foreach (var task in SubTasks)
+            if(task.TaskState == TaskState.Running)
+                task.FinishWithError();
     }
 
     public void Cancel()

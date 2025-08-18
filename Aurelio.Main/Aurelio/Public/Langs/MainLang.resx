@@ -830,7 +830,7 @@
     <value>Java运行时</value>
   </data>
   <data name="JavaRuntimeTip" xml:space="preserve">
-    <value>启动游戏至少需要一个Java运行时。</value>
+    <value>至少需要一个Java运行时</value>
   </data>
   <data name="AccountTip" xml:space="preserve">
     <value>启动游戏至少需要一个账户，如使用离线账户将无法登入有正版验证的服务器。</value>

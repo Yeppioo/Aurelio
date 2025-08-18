@@ -18,6 +18,8 @@ public class Entrance
     {
         var cts = new CancellationTokenSource();
         var task = Tasking.CreateTask($"{MainLang.Install}: {customId} ({version.Id})");
+        var jPath = MinecraftPluginData.MinecraftPluginSettingEntry.JavaRuntimes
+            .First(x => x.JavaFolder != null).JavaPath;
 
         task.ButtonText = MainLang.Cancel;
         task.ButtonAction = () =>
@@ -72,24 +74,25 @@ public class Entrance
         }
 
         vanillaTask.TaskState = TaskState.Running;
-        var vanillaSuccess =
+        var vanillaSuccess = 
             await Vanilla.Main(version, path, customId, task, vanillaCheckTask, vanillaDownloadTask, cts.Token);
         if (cts.IsCancellationRequested)
         {
             task.CancelFinish();
             return;
         }
-        if (!vanillaSuccess.success)
+        if (!vanillaSuccess)
         {
             Notice($"{MainLang.InstallFail}: Minecraft {version.Id}", NotificationType.Error);
             task.FinishWithError();
             return;
         }
+        vanillaTask.FinishWithSuccess();
 
         if (forgeInstallEntry != null)
         {
             forgeTask.TaskState = TaskState.Running;
-            var forgeInstallSuccess = await Forge.Main(forgeInstallEntry, path, customId, task, forgeDownloadTask,
+            var forgeInstallSuccess = await Forge.Main(forgeInstallEntry, path , jPath, customId, task, forgeDownloadTask,
                 forgeInstallTask, cts.Token);
             if (cts.IsCancellationRequested)
             {
@@ -104,6 +107,7 @@ public class Entrance
                 return;
             }
         }
+        forgeTask.FinishWithSuccess();
 
         if (fabricInstallEntry != null)
         {
@@ -123,11 +127,12 @@ public class Entrance
                 return;
             }
         }
+        fabricTask.FinishWithSuccess();
 
         if (optifineInstallEntry != null)
         {
             optifineTask.TaskState = TaskState.Running;
-            var optifineInstallSuccess = await Optifine.Main(optifineInstallEntry, path, customId, task,
+            var optifineInstallSuccess = await Optifine.Main(optifineInstallEntry, path , jPath, customId, task,
                 optifineDownloadTask,
                 optifineInstallTask, cts.Token);
             if (cts.IsCancellationRequested)
@@ -142,6 +147,7 @@ public class Entrance
                 return;
             }
         }
+        optifineTask.FinishWithSuccess();
 
         if (quiltInstallEntry != null)
         {
@@ -160,6 +166,7 @@ public class Entrance
                 return;
             }
         }
+        quiltTask.FinishWithSuccess();
 
         if (cts.IsCancellationRequested)
         {

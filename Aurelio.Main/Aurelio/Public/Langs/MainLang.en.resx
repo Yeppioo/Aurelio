@@ -830,7 +830,7 @@
     <value>Java Runtime</value>
   </data>
   <data name="JavaRuntimeTip" xml:space="preserve">
-    <value>At least one Java runtime is required to launch the game.</value>
+    <value>At least one Java runtime is required.</value>
   </data>
   <data name="AccountTip" xml:space="preserve">
     <value>At least one account is required to launch the game. If you use an offline account, you will not be able to log in to a server with genuine authentication.</value>
