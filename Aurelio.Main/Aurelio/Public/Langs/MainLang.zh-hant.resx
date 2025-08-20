@@ -379,7 +379,7 @@
     <value>Minecrat發生崩潰</value>
   </data>
   <data name="TheVersionNameWillBeRenamedTo" xml:space="preserve">
-    <value>版本名稱將被重新命名為: </value>
+    <value>版本名称将被重命名为</value>
   </data>
   <data name="IncludeSpecialWord" xml:space="preserve">
     <value>包含特殊字元</value>
@@ -1791,6 +1791,21 @@ MacOs 不支援自動更新前往以下連結下載新版本: “{url}”
   <data name="CurrentItem" xml:space="preserve">
     <value>目前專案</value>
   </data>
+  <data name="Paste" xml:space="preserve">
+    <value>粘贴</value>
+  </data>
+  <data name="Redo" xml:space="preserve">
+    <value>重做</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>撤销</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Cut" xml:space="preserve">
+    <value>剪切</value>
+  </data>
   <data name="UpdateAvailable" xml:space="preserve">
     <value>有可用更新</value>
   </data>
@@ -1805,5 +1820,23 @@ MacOs 不支援自動更新前往以下連結下載新版本: “{url}”
   </data>
   <data name="UpdateCompleteRestartPrompt" xml:space="preserve">
     <value>更新完成！為了使更新生效，需要重啟 Aurelio。是否現在重啟？</value>
+  </data>
+  <data name="OpenNewPage" xml:space="preserve">
+    <value>打开新页面</value>
+  </data>
+  <data name="PageNav" xml:space="preserve">
+    <value>页面导航</value>
+  </data>
+  <data name="Format" xml:space="preserve">
+    <value>格式化</value>
+  </data>
+  <data name="EnableBottomContainer" xml:space="preserve">
+    <value>启用底栏</value>
+  </data>
+  <data name="Terminal" xml:space="preserve">
+    <value>终端</value>
+  </data>
+  <data name="AggregateSearch" xml:space="preserve">
+    <value>聚合搜索</value>
   </data>
 </root>
