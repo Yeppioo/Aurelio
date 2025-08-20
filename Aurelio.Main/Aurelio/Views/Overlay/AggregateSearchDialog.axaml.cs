@@ -752,7 +752,7 @@ public partial class AggregateSearchDialog : PageMixModelBase
         {
             if (File.Exists(path))
             {
-                var isNav = FileNav.NavPage(path);
+                var isNav = await FileNav.NavPage(path);
                 if (isNav)
                 {
                     return;

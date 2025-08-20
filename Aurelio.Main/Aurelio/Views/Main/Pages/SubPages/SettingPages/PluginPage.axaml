@@ -6,6 +6,7 @@
     x:DataType="settingPages:PluginPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:base="clr-namespace:Aurelio.Plugin.Base;assembly=Aurelio.Plugin.Base"
+    xmlns:const="clr-namespace:Aurelio.Public.Const"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:entries="clr-namespace:Aurelio.Public.Classes.Entries"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -16,6 +17,35 @@
         <ScrollViewer Margin="15,0,5,15" Padding="0,0,10,0">
             <Border ClipToBounds="True" CornerRadius="{DynamicResource CardCornerRadius}">
                 <DockPanel>
+                    <Border
+                        Background="{DynamicResource CardBackgroundColor}"
+                        CornerRadius="{DynamicResource CardCornerRadius}"
+                        Cursor="Hand"
+                        DockPanel.Dock="Top"
+                        Margin="0,0,0,10"
+                        Padding="12,7"
+                        PointerPressed="InputElement_OnPointerPressed2"
+                        Tag="{Binding}">
+                        <DockPanel IsHitTestVisible="False" LastChildFill="False">
+                            <StackPanel
+                                DockPanel.Dock="Left"
+                                HorizontalAlignment="Left"
+                                Spacing="1">
+                                <TextBlock FontSize="14" Text="插件数据文件夹" />
+                                <SelectableTextBlock
+                                    FontSize="12"
+                                    Margin="1,0,0,0"
+                                    Text="{x:Static const:ConfigPath.PluginFolderPath}" />
+                            </StackPanel>
+                            <PathIcon
+                                Data="M439.1 297.4C451.6 309.9 451.6 330.2 439.1 342.7L279.1 502.7C266.6 515.2 246.3 515.2 233.8 502.7C221.3 490.2 221.3 469.9 233.8 457.4L371.2 320L233.9 182.6C221.4 170.1 221.4 149.8 233.9 137.3C246.4 124.8 266.7 124.8 279.2 137.3L439.2 297.3z"
+                                DockPanel.Dock="Right"
+                                Height="14"
+                                HorizontalAlignment="Right"
+                                IsHitTestVisible="False"
+                                Margin="0,0,-1,0" />
+                        </DockPanel>
+                    </Border>
                     <Border
                         Background="{DynamicResource CardBackgroundColor}"
                         CornerRadius="{DynamicResource CardCornerRadius}"

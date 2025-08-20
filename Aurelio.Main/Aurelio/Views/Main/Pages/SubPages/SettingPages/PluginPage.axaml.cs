@@ -1,3 +1,4 @@
+using System.IO;
 using Aurelio.Plugin.Base;
 using Aurelio.Public.Classes.Entries;
 using Aurelio.Public.Classes.Interfaces;
@@ -6,6 +7,7 @@ using Aurelio.Public.Module.Ui.Helper;
 using Aurelio.Public.ViewModels;
 using Aurelio.Views.Main.Pages.Viewers;
 using Avalonia.Input;
+using Avalonia.Platform.Storage;
 using Avalonia.VisualTree;
 
 namespace Aurelio.Views.Main.Pages.SubPages.SettingPages;
@@ -57,5 +59,10 @@ public partial class PluginPage : PageMixModelBase, IAurelioPage
         }
 
         App.UiRoot.TogglePage(null, new PluginNugetFetcher());
+    }
+
+    private void InputElement_OnPointerPressed2(object? sender, PointerPressedEventArgs e)
+    {
+        App.UiRoot.Launcher.LaunchDirectoryInfoAsync(new DirectoryInfo(ConfigPath.PluginFolderPath));
     }
 }

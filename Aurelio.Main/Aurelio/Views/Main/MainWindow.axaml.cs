@@ -289,7 +289,7 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
         AddHandler(DragDrop.DropEvent, DropHandler);
     }
 
-    private void DropHandler(object? sender, DragEventArgs e)
+    private async void DropHandler(object? sender, DragEventArgs e)
     {
         if (e is null) return;
         AppEvents.OnAppDragDrop(sender, e);
@@ -300,7 +300,7 @@ public partial class MainWindow : UrsaWindow, IAurelioWindow
             foreach (var file in files)
             {
                 var path = file.Path.LocalPath;
-                var isNav = FileNav.NavPage(path, this);
+                var isNav = await FileNav.NavPage(path, this);
                 if (isNav) continue;
                 Notice($"{MainLang.UnsupportedFileType} {Path.GetExtension(path)}", NotificationType.Error);
             }

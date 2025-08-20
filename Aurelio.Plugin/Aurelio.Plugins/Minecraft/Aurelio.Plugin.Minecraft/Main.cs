@@ -96,7 +96,7 @@ public partial class Main : IPlugin
         Service.AggregateSearch.Main();
     }
 
-    private void AppEventsOnBeforeUiLoaded(object? sender, EventArgs e)
+    private void AppEventsOnBeforeUiLoaded(object? sender, EventArgs e) 
     {
         InitializeHelper.Initialize(settings => {
             settings.MaxThread = 256;

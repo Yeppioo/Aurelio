@@ -750,7 +750,7 @@ public partial class NewTabPage : PageMixModelBase, IAurelioTabPage, IAurelioNav
         });
         foreach (var f in fs)
         {
-            var isNav = FileNav.NavPage(f, this.GetVisualRoot() as IAurelioWindow);
+            var isNav = await FileNav.NavPage(f, this.GetVisualRoot() as IAurelioWindow);
             if (isNav)
             {
                 hs = true;
