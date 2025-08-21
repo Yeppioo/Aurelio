@@ -38,7 +38,7 @@
     <value>Project</value>
   </data>
   <data name="NoLogin" xml:space="preserve">
-    <value>Not loggedLog </value>
+    <value>Not login</value>
   </data>
   <data name="SearchInAurelio" xml:space="preserve">
     <value>Search in Aurelio</value>
@@ -92,7 +92,7 @@
     <value>{num} Characters</value>
   </data>
   <data name="OpenRecentContent" xml:space="preserve">
-    <value>Open Recents</value>
+    <value>Open recent</value>
   </data>
   <data name="BatchI18n" xml:space="preserve">
     <value>Batch process I 18 n</value>
@@ -107,7 +107,7 @@
     <value>Name matching characters</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
-    <value>Select All</value>
+    <value>Select all</value>
   </data>
   <data name="DeselectAll" xml:space="preserve">
     <value>Deselect all</value>
@@ -129,7 +129,7 @@
     <value>Settings</value>
   </data>
   <data name="ToggleTheme" xml:space="preserve">
-    <value>Switch Theme</value>
+    <value>Switch theme</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
@@ -138,13 +138,13 @@
     <value>Launch</value>
   </data>
   <data name="MinecraftFolder" xml:space="preserve">
-    <value>Minecraft Folder</value>
+    <value>Minecraft folder</value>
   </data>
   <data name="DelSelectedItem" xml:space="preserve">
-    <value>Delete Selected</value>
+    <value>Delete selected</value>
   </data>
   <data name="AddFolder" xml:space="preserve">
-    <value>Add Folder</value>
+    <value>Add folder</value>
   </data>
   <data name="SelectMinecraftFolder" xml:space="preserve">
     <value>Select the '.minecraft' folder</value>
@@ -153,7 +153,7 @@
     <value>The '.minecraft' folder needs to be selected</value>
   </data>
   <data name="SuccessAdd" xml:space="preserve">
-    <value>Layouts Added Successfully</value>
+    <value>Layouts added successfully</value>
   </data>
   <data name="TheItemAlreadyExist" xml:space="preserve">
     <value>This item already exists</value>
@@ -234,7 +234,7 @@
     <value>Copy the code and open your browser</value>
   </data>
   <data name="WaitForMicrosoftVerification" xml:space="preserve">
-    <value>Waiting for Microsoft account verification to complete
+    <value>Waiting for Microsoft Account verification to complete
       Jump to the browser to complete verification</value>
   </data>
   <data name="VerifyingAccount" xml:space="preserve">
@@ -379,7 +379,7 @@
     <value>Minecraft crashed</value>
   </data>
   <data name="TheVersionNameWillBeRenamedTo" xml:space="preserve">
-    <value>The versions will be renamed to: </value>
+    <value>版本名称将被重命名为</value>
   </data>
   <data name="IncludeSpecialWord" xml:space="preserve">
     <value>Contains special characters</value>
@@ -466,7 +466,7 @@
     <value>Custom Home Page</value>
   </data>
   <data name="LocalSourceCode" xml:space="preserve">
-    <value>Local source code</value>
+    <value>Local Source Code</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
@@ -505,7 +505,7 @@
     <value>Download completed</value>
   </data>
   <data name="CurrentlyTheLatestVersion" xml:space="preserve">
-    <value>Currently, the latest version</value>
+    <value>Currently,the latest version</value>
   </data>
   <data name="OpenSourceProjectUsageTable" xml:space="preserve">
     <value>Open Source Project Usage Table</value>
@@ -634,16 +634,16 @@
     <value>Elevate to Administrator privileges</value>
   </data>
   <data name="UpgradeToAdministratorPrivilegesFail" xml:space="preserve">
-    <value>Failed to upgrade to administrator privileges</value>
+    <value>Failed to upgrade to Administrator privileges</value>
   </data>
   <data name="UpgradeToAdministratorPrivilegesTip" xml:space="preserve">
-    <value>The operation requires administrator privileges. Click OK to restart the program with administrator privileges.</value>
+    <value>The operation requires Administrator privileges. Click OK to restart the program with administrator privileges</value>
   </data>
   <data name="ChooseLanguage" xml:space="preserve">
     <value>选择语言/Choose Language</value>
   </data>
   <data name="ReleaseTheMouseAndLetAurelioProcessThisFile" xml:space="preserve">
-    <value>Release the mouse button to let Aurelio process the file.</value>
+    <value>Release the mouse button to let Aurelio process the file</value>
   </data>
   <data name="UnableToAddModsForBedrockEdition" xml:space="preserve">
     <value>Cannot add mods to Bedrock Edition</value>
@@ -818,7 +818,7 @@
     <value>System style</value>
   </data>
   <data name="LauncherStyle" xml:space="preserve">
-    <value>Launcher style</value>
+    <value>Launcher Style</value>
   </data>
   <data name="MinecraftFolderTip" xml:space="preserve">
     <value>Folder for Minecraft data (.minecraft)</value>
@@ -830,10 +830,10 @@
     <value>Java Runtime</value>
   </data>
   <data name="JavaRuntimeTip" xml:space="preserve">
-    <value>At least one Java runtime is required.</value>
+    <value>至少需要一个Java运行时</value>
   </data>
   <data name="AccountTip" xml:space="preserve">
-    <value>At least one account is required to launch the game. If you use an offline account, you will not be able to log in to a server with genuine authentication.</value>
+    <value>At least one account is required to launch the game. If you use an offline account, you will not be able to log in to a server with Genuine Authentication.</value>
   </data>
   <data name="MusicApi" xml:space="preserve">
     <value>Music Api</value>
@@ -927,7 +927,7 @@
     <value>Show independent task window</value>
   </data>
   <data name="Sponsor" xml:space="preserve">
-    <value>sponsored</value>
+    <value>Sponsored</value>
   </data>
   <data name="Sponsors" xml:space="preserve">
     <value>Sponsors</value>
@@ -1170,11 +1170,11 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="CreateTime" xml:space="preserve">
-    <value>Creation Time</value>
+    <value>Creation time</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="LastModifiedTime" xml:space="preserve">
-    <value>last modified on</value>
+    <value>Last modified on</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="SaveInfo" xml:space="preserve">
@@ -1194,7 +1194,7 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="ImportTime" xml:space="preserve">
-    <value>Import Time</value>
+    <value>Import time</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="CanceledUpdate" xml:space="preserve">
@@ -1210,7 +1210,7 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="KillProcess" xml:space="preserve">
-    <value>End Process</value>
+    <value>End process</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="LaunchArguments" xml:space="preserve">
@@ -1255,7 +1255,7 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="LastPlayTime" xml:space="preserve">
-    <value>Last Play Time</value>
+    <value>Last play time</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="NoDescription" xml:space="preserve">
@@ -1311,7 +1311,7 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="SaveFinish" xml:space="preserve">
-    <value>Save Completed</value>
+    <value>Save completed</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="CornerRadius" xml:space="preserve">
@@ -1351,7 +1351,7 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="SelectResourceType" xml:space="preserve">
-    <value>Select Resource Type</value>
+    <value>Select resource type</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="AsResourcePackImport" xml:space="preserve">
@@ -1363,7 +1363,7 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="Conflict" xml:space="preserve">
-    <value>CONFLICT</value>
+    <value>Conflict</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="FileConflictTip" xml:space="preserve">
@@ -1431,7 +1431,7 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="DependencyItems" xml:space="preserve">
-    <value>dependent</value>
+    <value>Dependent</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="ImportOrExportSetting" xml:space="preserve">
@@ -1455,15 +1455,15 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="ExchangeSetting_Account" xml:space="preserve">
-    <value>Account data (excluding Microsoft account)</value>
+    <value>Account data (excluding Microsoft Account)</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="ExchangeSetting_Other" xml:space="preserve">
-    <value>Other settings</value>
+    <value>Other Settings</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="ExportSuccess" xml:space="preserve">
-    <value>Exported Successfully</value>
+    <value>Exported successfully</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="ExportSettingSuccessTip" xml:space="preserve">
@@ -1483,7 +1483,7 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="OpenFile" xml:space="preserve">
-    <value>File To Load</value>
+    <value>File to load</value>
     <comment>#TODO#_</comment>
   </data>
   <data name="WriteIn" xml:space="preserve">
@@ -1551,7 +1551,7 @@
     <comment>#TODO#_</comment>
   </data>
   <data name="SavesName" xml:space="preserve">
-    <value>Archive Name</value>
+    <value>Archive name</value>
   </data>
   <data name="AutoJoinWorld" xml:space="preserve">
     <value>Automatically access archive</value>
@@ -1566,7 +1566,7 @@
     <value>This operation will also close automatic entry to server</value>
   </data>
   <data name="SetWorld" xml:space="preserve">
-    <value>Set Archive</value>
+    <value>Set archive</value>
   </data>
   <data name="CurrentVersionUnsupportOperation" xml:space="preserve">
     <value>This action is not supported in the current version</value>
@@ -1593,7 +1593,7 @@
     <value>Open 3 D view</value>
   </data>
   <data name="Unclassified" xml:space="preserve">
-    <value>No Categories</value>
+    <value>No categories</value>
   </data>
   <data name="Tag" xml:space="preserve">
     <value>Tags</value>
@@ -1611,7 +1611,7 @@
     <value>Last play time</value>
   </data>
   <data name="InstanceName" xml:space="preserve">
-    <value>Instance Name</value>
+    <value>Instance name</value>
   </data>
   <data name="LastUsedTime" xml:space="preserve">
     <value>Last used time</value>
@@ -1650,7 +1650,7 @@
     <value>Disable System File Selector</value>
   </data>
   <data name="MemoryLimit" xml:space="preserve">
-    <value>Memory Limit</value>
+    <value>Memory limit</value>
   </data>
   <data name="Preferred" xml:space="preserve">
     <value>Preferences</value>
@@ -1662,7 +1662,7 @@
     <value>Enable File Selector</value>
   </data>
   <data name="TaskingState" xml:space="preserve">
-    <value>Task Status</value>
+    <value>Task status</value>
   </data>
   <data name="TaskingTip" xml:space="preserve">
     <value>{num} Tasks are running</value>
@@ -1671,7 +1671,7 @@
     <value>This instance of Minecraft (Minecraft {mcVer}) requires Java {javaVer}, but Aurelio cannot match this Java version. Check if this device has Java {javaVer} installed and added to Aurelio</value>
   </data>
   <data name="New" xml:space="preserve">
-    <value>Create New</value>
+    <value>Create new</value>
   </data>
   <data name="View2D" xml:space="preserve">
     <value>2 D View</value>
@@ -1704,10 +1704,10 @@
     <value>Failed to write log</value>
   </data>
   <data name="FatalErrorTip" xml:space="preserve">
-    <value>Fatal error</value>
+    <value>Fatal Error</value>
   </data>
   <data name="InnerExceptionTip" xml:space="preserve">
-    <value>Inner exception</value>
+    <value>Inner Exception</value>
   </data>
   <data name="ReservedTagNameTip" xml:space="preserve">
     <value>This is a reserved tag name and cannot be created</value>
@@ -1793,6 +1793,21 @@
   <data name="CurrentItem" xml:space="preserve">
     <value>Current item</value>
   </data>
+  <data name="Paste" xml:space="preserve">
+    <value>粘贴</value>
+  </data>
+  <data name="Redo" xml:space="preserve">
+    <value>重做</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>撤销</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Cut" xml:space="preserve">
+    <value>剪切</value>
+  </data>
   <data name="UpdateAvailable" xml:space="preserve">
     <value>Update available</value>
   </data>
@@ -1807,5 +1822,23 @@
   </data>
   <data name="UpdateCompleteRestartPrompt" xml:space="preserve">
     <value>Update completed! Aurelio needs to be restarted for the changes to take effect. Restart now?</value>
+  </data>
+  <data name="OpenNewPage" xml:space="preserve">
+    <value>打开新页面</value>
+  </data>
+  <data name="PageNav" xml:space="preserve">
+    <value>页面导航</value>
+  </data>
+  <data name="Format" xml:space="preserve">
+    <value>格式化</value>
+  </data>
+  <data name="EnableBottomContainer" xml:space="preserve">
+    <value>启用底栏</value>
+  </data>
+  <data name="Terminal" xml:space="preserve">
+    <value>终端</value>
+  </data>
+  <data name="AggregateSearch" xml:space="preserve">
+    <value>聚合搜索</value>
   </data>
 </root>
