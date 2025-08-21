@@ -1,6 +1,6 @@
 namespace Aurelio.Plugin.Base;
 
-public class NugetPackage(string id) : IPackageInfo
+public interface IPackageInfo
 {
     public string Id { get; set; }
 }

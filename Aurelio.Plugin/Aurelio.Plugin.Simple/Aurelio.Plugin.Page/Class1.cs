@@ -11,7 +11,7 @@ public class Class1 : IPlugin
     public object SettingPage { get; set; } = new SimplePage();
     public Version Version { get; set; } = Version.Parse("1.0.0");
     public RequirePluginEntry[] Require { get; set; } = [];
-    public object? PackageInfo { get; set; }
+    public IPackageInfo? PackageInfo { get; set; }
 
     public int Execute()
     {

@@ -21,7 +21,7 @@ public class Class1 : IPlugin
         }
     ];
 
-    public object? PackageInfo { get; set; }
+    public IPackageInfo? PackageInfo { get; set; }
 
     public int Execute()
     {

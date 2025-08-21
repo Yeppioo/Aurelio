@@ -9,7 +9,7 @@ public interface IPlugin
     object SettingPage { get; set; }
     Version Version { get; set; }
     RequirePluginEntry[] Require { get; set; }
-    object? PackageInfo { get; set; }
+    IPackageInfo? PackageInfo { get; set; }
 
     int Execute();
 }

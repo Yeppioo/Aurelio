@@ -44,7 +44,7 @@ public partial class Main : IPlugin
     public Version Version { get; set; } = Version.Parse("1.0.2");
     public RequirePluginEntry[] Require { get; set; } = [];
 
-    public object? PackageInfo { get; set; } = new NugetPackage("Yeppioo.Aurelio.Plugin.Minecraft");
+    public IPackageInfo? PackageInfo { get; set; } = new NugetPackage("Yeppioo.Aurelio.Plugin.Minecraft");
 
     public int Execute()
     {
